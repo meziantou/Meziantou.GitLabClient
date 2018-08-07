@@ -10,6 +10,8 @@ namespace Meziantou.GitLab
             return GetAsync<User>("user", cancellationToken);
         }
 
+        // TODO add pagination parameters
+        // TODO add filter parameters
         public Task<PagedResponse<UserBasic>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
             return GetPagedAsync<UserBasic>("users", cancellationToken);
