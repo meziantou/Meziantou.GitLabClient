@@ -7,5 +7,11 @@ namespace Meziantou.GitLab
     /// </summary>
     internal class SkipUtcDateValidationAttribute : Attribute
     {
+        public SkipUtcDateValidationAttribute(string reason)
+        {
+            Reason = reason ?? throw new ArgumentNullException(nameof(reason));
+        }
+
+        public string Reason { get; }
     }
 }
