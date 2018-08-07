@@ -106,7 +106,6 @@ namespace Meziantou.GitLab
             return SnakeCase(Enum.GetName(type, value));
         }
 
-        // TODO Reuse GitLabEnumConverter method
         private static string SnakeCase(string value)
         {
             return string.Concat(value.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();

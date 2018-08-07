@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <Compile Remove="RequestModels\**" />
+    <EmbeddedResource Remove="RequestModels\**" />
+    <None Remove="RequestModels\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="RequestModels\" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
 </Project>
