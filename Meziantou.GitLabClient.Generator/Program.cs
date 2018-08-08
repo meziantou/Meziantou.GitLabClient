@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
@@ -6,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.Framework.CodeDom;
+using Meziantou.GitLab;
 using Newtonsoft.Json;
 
 namespace Meziantou.GitLabClient.Generator
@@ -169,19 +172,41 @@ namespace Meziantou.GitLabClient.Generator
                 m.ReturnType = new TypeReference(typeof(Task)) { Parameters = { method.ReturnType } };
             }
 
+            var arguments = new Dictionary<MethodParameter, MethodArgumentDeclaration>();
             foreach (var param in method.Parameters)
             {
-                m.AddArgument(new MethodArgumentDeclaration(param.Type, param.Name));
+                arguments.Add(param, m.AddArgument(new MethodArgumentDeclaration(param.Type, param.Name)));
             }
 
-            m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
+            var cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
 
             // Method body
-            var urlBuilderType = new TypeReference("Meziantou.GitLab.UrlBuilder");
+            m.Statements = new StatementCollection();
+
             var urlBuilder = new VariableDeclarationStatement(
-                urlBuilderType, "urlBuilder",
-                new MemberReferenceExpression(urlBuilderType, "Get"));
+                typeof(UrlBuilder), "urlBuilder",
+                new TypeReference(typeof(UrlBuilder)).InvokeMethod("Get", method.UrlTemplate));
             m.Statements.Add(urlBuilder);
+
+            foreach (var param in method.Parameters.Where(p => p.Location == ParameterLocation.Url))
+            {
+                m.Statements.Add(urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param]));
+            }
+
+            var url = new VariableDeclarationStatement(typeof(string), "url",
+                urlBuilder.InvokeMethod(nameof(UrlBuilder.Build)));
+            m.Statements.Add(url);
+
+            if (method.HttpMethod == HttpMethod.Get)
+            {
+                var invoke = (MethodInvokeExpression)new ThisExpression().InvokeMethod("GetAsync", url, cancellationTokenArgument);
+                invoke.Parameters.Add(method.ReturnType);
+                m.Statements.Add(new ReturnStatement(invoke));
+            }
+            else
+            {
+                throw new NotSupportedException($"Method {method.HttpMethod} is not supported");
+            }
         }
 
         private void GenerateModel(NamespaceDeclaration ns, Model model)
@@ -207,13 +232,13 @@ namespace Meziantou.GitLabClient.Generator
 
                     if (prop.Type == ModelRef.Date || prop.Type == ModelRef.NullableDate)
                     {
-                        propertyMember.CustomAttributes.Add(new CustomAttribute(new TypeReference("Meziantou.GitLab.SkipUtcDateValidationAttribute")) { Arguments = { new CustomAttributeArgument("Does not contain time nor timezone (e.g. 2018-01-01)") } });
+                        propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(SkipUtcDateValidationAttribute)) { Arguments = { new CustomAttributeArgument("Does not contain time nor timezone (e.g. 2018-01-01)") } });
                     }
 
                     // [Newtonsoft.Json.JsonProperty(PropertyName = "")]
                     propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(JsonPropertyAttribute))
                     {
-                        Arguments = { new CustomAttributeArgument("PropertyName", ToSnakeCase(prop.Name)) }
+                        Arguments = { new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), ToSnakeCase(prop.Name)) }
                     });
                 }
             }
@@ -227,9 +252,9 @@ namespace Meziantou.GitLabClient.Generator
                     type.Members.Add(new Framework.CodeDom.EnumerationMember(prop.Name)
                     {
                         CustomAttributes =
-                            {
-                                new CustomAttribute(typeof(EnumMemberAttribute)) { Arguments = { new CustomAttributeArgument("Value", ToSnakeCase(prop.Name)) } }
-                            }
+                        {
+                            new CustomAttribute(typeof(EnumMemberAttribute)) { Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), ToSnakeCase(prop.Name)) } }
+                        }
                     });
                 }
             }

@@ -12,5 +12,6 @@ namespace Meziantou.GitLabClient.Generator
 
         public string Name { get; }
         public ModelRef Type { get; }
+        public ParameterLocation Location { get; set; }
     }
 }

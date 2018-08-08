@@ -597,4 +597,16 @@ namespace Meziantou.GitLab
             }
         }
     }
+
+    partial class GitLabClient
+    {
+        public System.Threading.Tasks.Task<User> GetUser(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user");
+
+            string url = urlBuilder.Build();
+
+            return this.GetAsync<User>(url, cancellationToken);
+        }
+    }
 }
