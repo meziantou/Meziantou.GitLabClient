@@ -21,9 +21,22 @@ namespace Meziantou.GitLab.Tests
         private HttpClient _httpClient;
         private LoggingHandler _loggingHandler;
 
+        public Random Random { get; } = new Random();
         public TestGitLabClient Client { get; }
         public string ServerUri { get; }
         public TestContext TestContext { get; }
+
+        public string GetRandomEmojiName()
+        {
+            var fields = typeof(Emoji).GetFields();
+            var index = Random.Next(0, fields.Length);
+            return (string)fields[index].GetValue(null);
+        }
+
+        public string GetRandomString()
+        {
+            return "GitLabClientTests" + Guid.NewGuid().ToString("N");
+        }
 
         private TestGitLabClient CreateClient(HttpClientHandler handler)
         {
@@ -100,7 +113,7 @@ namespace Meziantou.GitLab.Tests
                 {
                     LogHeaders(request.Content.Headers, sb);
 
-                    string requestBody = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var requestBody = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
                     sb.AppendLine().AppendLine(requestBody);
                 }
 

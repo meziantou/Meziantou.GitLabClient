@@ -9,10 +9,13 @@
   <ItemGroup>
     <Compile Include="..\Meziantou.GitLabClient\Internals\SkipUtcDateValidationAttribute.cs" Link="Types\SkipUtcDateValidationAttribute.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\UrlBuilder.cs" Link="Types\UrlBuilder.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\OrderBy.cs" Link="Types\OrderBy.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\OrderByDirection.cs" Link="Types\OrderByDirection.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\PageOptions.cs" Link="Types\PageOptions.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.3.0" />
+    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.12.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 

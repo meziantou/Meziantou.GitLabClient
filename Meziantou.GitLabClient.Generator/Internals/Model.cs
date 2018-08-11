@@ -11,5 +11,6 @@ namespace Meziantou.GitLabClient.Generator
 
         public string Name { get; }
         public ModelRef BaseType { get; set; }
+        public Documentation Documentation { get; set; }
     }
 }

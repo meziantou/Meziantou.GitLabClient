@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
 {
     internal class UrlBuilder
     {
+        private static readonly ConcurrentDictionary<Type, EnumDescriptor> s_enumDescriptors = new ConcurrentDictionary<Type, EnumDescriptor>();
+
         private UrlBuilder(string template)
         {
             Template = template;
@@ -19,14 +23,60 @@ namespace Meziantou.GitLab
             return new UrlBuilder(template);
         }
 
-        public string Template { get; }
+        private IDictionary<string, string> Parameters { get; } = new Dictionary<string, string>();
 
-        public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
+        public string Template { get; }
 
         public UrlBuilder WithValue(string key, object value)
         {
-            Parameters[key] = value;
+            switch (value)
+            {
+                case null:
+                    Parameters.Remove(key);
+                    break;
+
+                case string v:
+                    Parameters[key] = v;
+                    break;
+
+                case bool v:
+                    Parameters[key] = v ? "true" : "false";
+                    break;
+
+                case int v:
+                    Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", v);
+                    break;
+
+                case long v:
+                    Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", v);
+                    break;
+
+                case Enum v:
+                    Parameters[key] = FormatEnum(v);
+                    break;
+
+                //default:
+                //    Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", value);
+                //    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(value));
+            }
+
             return this;
+
+            string FormatEnum(Enum enumValue)
+            {
+                var descriptor = s_enumDescriptors.GetOrAdd(enumValue.GetType(), type => EnumDescriptor.Build(type));
+                if (descriptor.IsFlags)
+                {
+                    return string.Join(",", descriptor.Values.Where(ev => enumValue.HasFlag(ev.Key)).Select(ev => ev.Value));
+                }
+                else
+                {
+                    return descriptor.Values[enumValue];
+                }
+            }
         }
 
         public string Build()
@@ -34,7 +84,7 @@ namespace Meziantou.GitLab
             var url = Template;
             foreach (var parameter in Parameters)
             {
-                var parameterValue = FormatValue(parameter.Value);
+                var parameterValue = parameter.Value;
                 var newUrl = Regex.Replace(
                     url,
                     "(?<=^|/)(:" + Regex.Escape(parameter.Key) + ")(?=\\?|#|/|$)",
@@ -63,52 +113,36 @@ namespace Meziantou.GitLab
             return url;
         }
 
-        private string FormatValue(object value)
+        private string EnumValueToString(Type type, Enum value)
         {
-            if (value == null)
-                return "";
+            return Enum.GetName(type, value);
+        }
 
-            if (value is string str)
-                return str;
+        private class EnumDescriptor
+        {
+            public bool IsFlags { get; }
+            public Dictionary<Enum, string> Values { get; }
 
-            var type = value.GetType();
-            if (type.IsEnum)
+            public EnumDescriptor(bool isFlags, Dictionary<Enum, string> values)
             {
-#if DEBUG
-                if (type.GetEnumUnderlyingType() != typeof(int))
-                    throw new NotSupportedException("Enumeration must be of type int");
-#endif
-
-                if (type.GetCustomAttribute<FlagsAttribute>() != null)
-                {
-                    var intValue = (int)value;
-                    if (intValue == 0)
-                        return "";
-
-                    var enumValues = Enum.GetValues(type);
-                    var values = enumValues
-                        .Cast<int>()
-                        .Where(enumValue => enumValue != 0 && (intValue & enumValue) == enumValue)
-                        .Select(_ => EnumValueToString(type, _));
-                    return string.Join(",", values);
-                }
-                else
-                {
-                    return EnumValueToString(type, value);
-                }
+                IsFlags = isFlags;
+                Values = values ?? throw new ArgumentNullException(nameof(values));
             }
 
-            return string.Format(CultureInfo.InvariantCulture, "{0}", value);
-        }
+            public static EnumDescriptor Build(Type type)
+            {
+#if DEBUG
+                if (!type.IsEnum)
+                    throw new ArgumentException("type must be an enumeration", nameof(type));
+#endif
 
-        private string EnumValueToString(Type type, object value)
-        {
-            return SnakeCase(Enum.GetName(type, value));
-        }
+                var isFlags = type.GetCustomAttribute<FlagsAttribute>() != null;
+                var names = Enum.GetNames(type).ToDictionary(
+                    name => (Enum)Enum.Parse(type, name),
+                    name => type.GetField(name).GetCustomAttribute<EnumMemberAttribute>().Value); // In our case the attribute must be present
 
-        private static string SnakeCase(string value)
-        {
-            return string.Concat(value.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
+                return new EnumDescriptor(isFlags, names);
+            }
         }
     }
 }

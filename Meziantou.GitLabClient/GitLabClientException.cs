@@ -1,74 +1,76 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace Meziantou.GitLab
 {
-    public class GitLabClientException : Exception
+    public class GitLabException : Exception
     {
-        public GitLabClientException()
+        public GitLabException()
         {
         }
 
-        public GitLabClientException(string message)
+        public GitLabException(string message)
             : base(message)
         {
         }
 
-        public GitLabClientException(GitLabError error)
-            : base(error.ErrorDescription ?? error.Error.ToString())
+        public GitLabException(HttpMethod httpMethod, Uri requestUri, HttpStatusCode httpStatusCode, GitLabError error)
+            : base(GetMessage(error))
         {
+            HttpMethod = httpMethod;
+            RequestUri = requestUri;
+            HttpStatusCode = httpStatusCode;
             ErrorObject = error;
         }
 
-        public GitLabClientException(GitLabError error, string message)
+        public GitLabException(GitLabError error, string message)
             : base(message)
         {
             ErrorObject = error;
         }
 
-        public GitLabClientException(GitLabError error, string message, Exception innerException)
+        public GitLabException(GitLabError error, string message, Exception innerException)
             : base(message, innerException)
         {
             ErrorObject = error;
         }
 
-        protected GitLabClientException(SerializationInfo info, StreamingContext context)
+        protected GitLabException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
 
+        public HttpMethod HttpMethod { get; }
+        public Uri RequestUri { get; }
+        public HttpStatusCode HttpStatusCode { get; }
         public GitLabError ErrorObject { get; }
-    }
 
-    public class NotFoundException : GitLabClientException
-    {
-        public NotFoundException()
+        private static string GetMessage(GitLabError error)
         {
-        }
+            if (error.ErrorDescription != null)
+                return error.ErrorDescription;
 
-        public NotFoundException(GitLabError error)
-            : base(error)
-        {
-        }
+            if (error.Error != ErrorCode.Unknown)
+                return error.Error.ToString();
 
-        public NotFoundException(string message)
-            : base(message)
-        {
-        }
+            if (error.Message != null)
+            {
+                var sb = new StringBuilder();
+                foreach (var message in error.Message)
+                {
+                    foreach (var value in message.Value)
+                    {
+                        sb.Append(message.Key).Append(' ').AppendLine(value);
+                    }
+                }
 
-        public NotFoundException(GitLabError error, string message)
-            : base(error, message)
-        {
-        }
+                return sb.ToString();
+            }
 
-        public NotFoundException(GitLabError error, string message, Exception innerException)
-            : base(error, message, innerException)
-        {
-        }
-
-        protected NotFoundException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
+            return null;
         }
     }
 }

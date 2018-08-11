@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Meziantou.GitLabClient.Internals;
+﻿using Meziantou.GitLabClient.Internals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
