@@ -16,6 +16,7 @@ namespace Meziantou.GitLabClient.Generator
         }
 
         public string Name { get; set; }
+        public string SerializationName { get; set; }
         public object Value { get; set; }
         public Documentation Documentation { get; set; }
     }

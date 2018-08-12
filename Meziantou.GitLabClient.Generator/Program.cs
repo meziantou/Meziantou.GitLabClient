@@ -27,11 +27,9 @@ namespace Meziantou.GitLabClient.Generator
 
         public void Generate()
         {
-            // Call CreateXXXTypes()
-            foreach (var method in GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(m => m.Name.StartsWith("Create") && m.Name.EndsWith("Types")))
-            {
-                method.Invoke(this, Array.Empty<object>());
-            }
+            CreateEnumerations();
+            CreateUserTypes();
+            CreateRefs();
 
             // Call CreateXXXMethods()
             foreach (var method in GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(m => m.Name.StartsWith("Create") && m.Name.EndsWith("Methods")))
@@ -39,6 +37,7 @@ namespace Meziantou.GitLabClient.Generator
                 method.Invoke(this, Array.Empty<object>());
             }
 
+            // Generate code
             var unit = new CompilationUnit();
             var ns = unit.AddNamespace("Meziantou.GitLab");
             foreach (var model in Project.Models.OrderBy(m => m.Name))
@@ -325,10 +324,16 @@ namespace Meziantou.GitLabClient.Generator
                     }
 
                     // [Newtonsoft.Json.JsonProperty(PropertyName = "")]
-                    propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(JsonPropertyAttribute))
+                    var jsonPropertyAttribute = new CustomAttribute(typeof(JsonPropertyAttribute))
                     {
-                        Arguments = { new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), ToSnakeCase(prop.Name)) }
-                    });
+                        Arguments =
+                        {
+                            new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), prop.SerializationName ?? ToSnakeCase(prop.Name)),
+                            new CustomAttributeArgument(nameof(JsonPropertyAttribute.Required), RequiredMode(prop)),
+                        }
+                    };
+
+                    propertyMember.CustomAttributes.Add(jsonPropertyAttribute);
                 }
             }
             else if (model is Enumeration enumeration)
@@ -339,17 +344,33 @@ namespace Meziantou.GitLabClient.Generator
                 type.BaseType = enumeration.BaseType;
                 foreach (var prop in enumeration.Members)
                 {
-                    var enumerationMember = new Framework.CodeDom.EnumerationMember(prop.Name)
+                    var enumerationMember = new Framework.CodeDom.EnumerationMember(prop.Name);
+
+                    if (enumeration.SerializeAsString)
                     {
-                        CustomAttributes =
+                        enumerationMember.CustomAttributes.Add(new CustomAttribute(typeof(EnumMemberAttribute))
                         {
-                            new CustomAttribute(typeof(EnumMemberAttribute)) { Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), ToSnakeCase(prop.Name)) } }
-                        }
-                    };
+                            Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), prop.SerializationName ?? ToSnakeCase(prop.Name)) }
+                        });
+                    }
 
                     AddDocumentationComments(enumerationMember, prop.Documentation);
                     type.Members.Add(enumerationMember);
                 }
+            }
+
+            Required RequiredMode(EntityProperty property)
+            {
+                if (property.Required.HasValue)
+                    return property.Required.Value;
+
+                if (property.Type.IsNullable)
+                    return Required.AllowNull;
+
+                if (property.Type.IsModel)
+                    return Required.AllowNull;
+
+                return Required.Always;
             }
         }
 

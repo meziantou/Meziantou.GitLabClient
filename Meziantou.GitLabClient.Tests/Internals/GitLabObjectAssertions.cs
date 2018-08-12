@@ -10,14 +10,11 @@ namespace Meziantou.GitLab.Tests
     {
         public static void DoesNotContainUnmappedProperties(object o, bool validateChildProperties = true)
         {
-            if (o == null)
-                return;
-
-            if (o is GitLabObject obj)
+            foreach (var obj in GetObjects(o))
             {
                 if (obj.AdditionalData.Count > 0)
                 {
-                    Assert.Fail($"Type '{obj.GetType().FullName}' has unmapped properties: {string.Join(", ", obj.AdditionalData.Keys)}");
+                    Assert.Fail($"Type '{obj.GetType().FullName}' has unmapped properties: {string.Join("\n", obj.AdditionalData.Select(kvp => kvp.Key + " (" + kvp.Value + ")"))}");
                 }
 
                 if (validateChildProperties)
@@ -29,51 +26,32 @@ namespace Meziantou.GitLab.Tests
                     }
                 }
             }
-
-            if (o is IEnumerable<GitLabObject> enumerable)
-            {
-                foreach (var item in enumerable)
-                {
-                    DoesNotContainUnmappedProperties(item, validateChildProperties);
-                }
-            }
         }
 
         public static void DoesContainOnlyUtcDates(object o, bool validateChildProperties = true)
         {
-            if (o == null)
-                return;
-
-            var properties = TypeDescriptor.GetProperties(o);
-            foreach (PropertyDescriptor property in properties)
+            foreach (var obj in GetObjects(o))
             {
-                if (property.Attributes.OfType<SkipUtcDateValidationAttribute>().Any())
-                    continue;
-
-                var propertyValue = property.GetValue(o);
-                if (propertyValue is DateTime dt)
+                var properties = TypeDescriptor.GetProperties(o);
+                foreach (PropertyDescriptor property in properties)
                 {
-                    Assert.AreEqual(DateTimeKind.Utc, dt.Kind, $"The value of '{o.GetType().FullName}.{property.Name}' is not a UTC DateTime.");
-                }
-            }
+                    if (property.Attributes.OfType<SkipUtcDateValidationAttribute>().Any())
+                        continue;
 
-            if (o is IEnumerable<GitLabObject> enumerable)
-            {
-                foreach (var item in enumerable)
-                {
-                    DoesContainOnlyUtcDates(item, validateChildProperties);
+                    var propertyValue = property.GetValue(o);
+                    if (propertyValue is DateTime dt)
+                    {
+                        Assert.AreEqual(DateTimeKind.Utc, dt.Kind, $"The value of '{o.GetType().FullName}.{property.Name}' is not a UTC DateTime ({dt.ToString("o")}).");
+                    }
                 }
             }
         }
 
         public static void DoesContainGitLabClient(object o, bool validateChildProperties = true)
         {
-            if (o == null)
-                return;
-
-            if (o is GitLabObject glo)
+            foreach (var obj in GetObjects(o))
             {
-                Assert.IsNotNull(glo.GitLabClient);
+                Assert.IsNotNull(obj.GitLabClient);
 
                 if (validateChildProperties)
                 {
@@ -85,14 +63,31 @@ namespace Meziantou.GitLab.Tests
                     }
                 }
             }
+        }
 
-            if (o is IEnumerable<GitLabObject> enumerable)
+        private static IEnumerable<GitLabObject> GetObjects(object o)
+        {
+            switch (o)
             {
-                foreach (var item in enumerable)
-                {
-                    DoesContainGitLabClient(item, validateChildProperties);
-                }
+                case null:
+                    return Enumerable.Empty<GitLabObject>();
+
+                case GitLabObject value:
+                    return new[] { value };
+
+                case IEnumerable<GitLabObject> value:
+                    return value;
+
+                case object value:
+                    var type = value.GetType();
+                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(PagedResponse<>))
+                    {
+                        return ((dynamic)value).Data;
+                    }
+                    break;
             }
+
+            return Enumerable.Empty<GitLabObject>();
         }
     }
 }

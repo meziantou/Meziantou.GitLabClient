@@ -7,8 +7,11 @@ namespace Meziantou.GitLabClient.Generator
     {
         public static ModelRef Object { get; } = new ModelRef(typeof(object));
         public static ModelRef String { get; } = new ModelRef(typeof(string));
-        public static ModelRef Long { get; } = new ModelRef(typeof(long));
-        public static ModelRef NullableLong { get; } = new ModelRef(typeof(long)) { IsNullable = true };
+        public static ModelRef StringCollection { get; } = new ModelRef(typeof(string)) { IsCollection = true };
+        public static ModelRef Int32 { get; } = new ModelRef(typeof(int));
+        public static ModelRef NullableInt32 { get; } = new ModelRef(typeof(int)) { IsNullable = true };
+        public static ModelRef Int64 { get; } = new ModelRef(typeof(long));
+        public static ModelRef NullableInt64 { get; } = new ModelRef(typeof(long)) { IsNullable = true };
         public static ModelRef Boolean { get; } = new ModelRef(typeof(bool));
         public static ModelRef NullableBoolean { get; } = new ModelRef(typeof(bool)) { IsNullable = true };
         public static ModelRef DateTime { get; } = new ModelRef(typeof(DateTime));
@@ -18,6 +21,7 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef GitLabObject { get; } = new ModelRef("GitLab.GitLabObject");
 
         public static ModelRef Id { get; } = new ModelRef(typeof(long));
+        public static ModelRef NullableId { get; } = new ModelRef(typeof(long)) { IsNullable = true };
 
         public Type Type { get; }
         public Model Model { get; }
@@ -28,6 +32,7 @@ namespace Meziantou.GitLabClient.Generator
         public bool IsCollection { get; set; }
 
         public bool IsParameterEntity => ParameterEntity != null;
+        public bool IsModel => Model != null;
 
         public ModelRef(string typeName)
         {

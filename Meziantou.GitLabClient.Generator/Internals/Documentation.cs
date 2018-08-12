@@ -7,9 +7,6 @@
         public string Returns { get; set; }
         public string HelpLink { get; set; }
 
-        public static implicit operator Documentation(string summary)
-        {
-            return new Documentation { Summary = summary };
-        }
+        public static implicit operator Documentation(string summary) => new Documentation { Summary = summary };
     }
 }

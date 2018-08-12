@@ -95,6 +95,34 @@ namespace Meziantou.GitLab.Tests
                 Objects.Add(result);
                 return result;
             }
+
+            protected override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, CancellationToken cancellationToken)
+            {
+                var readOnlyList = await base.GetCollectionAsync<T>(url, cancellationToken);
+                Objects.AddRange(readOnlyList);
+                return readOnlyList;
+            }
+
+            protected internal override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, CancellationToken cancellationToken)
+            {
+                var pagedResponse = await base.GetPagedAsync<T>(url, cancellationToken);
+                Objects.AddRange(pagedResponse.Data);
+                return pagedResponse;
+            }
+
+            protected override async Task<T> PostJsonAsync<T>(string url, object data, CancellationToken cancellationToken)
+            {
+                var result = await base.PostJsonAsync<T>(url, data, cancellationToken);
+                Objects.Add(result);
+                return result;
+            }
+
+            protected override async Task<T> PutJsonAsync<T>(string url, object data, CancellationToken cancellationToken)
+            {
+                var result = await base.PutJsonAsync<T>(url, data, cancellationToken);
+                Objects.Add(result);
+                return result;
+            }
         }
 
         public class LoggingHandler : DelegatingHandler

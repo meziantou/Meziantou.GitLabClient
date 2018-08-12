@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
             if (error.ErrorDescription != null)
                 return error.ErrorDescription;
 
-            if (error.Error != ErrorCode.Unknown)
+            if (error.Error != null)
                 return error.Error.ToString();
 
             if (error.Message != null)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -6,12 +7,17 @@ namespace Meziantou.GitLabClient.Generator
     {
         public EntityProperty(string name, ModelRef type)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
+            Name = name.Trim();
             Type = type;
         }
 
         public string Name { get; }
+        public string SerializationName { get; set; }
         public ModelRef Type { get; }
         public Documentation Documentation { get; set; }
+        public Required? Required { get; set; }
     }
 }

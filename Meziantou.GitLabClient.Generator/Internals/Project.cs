@@ -9,7 +9,7 @@ namespace Meziantou.GitLabClient.Generator
         public IList<ParameterEntity> ParameterEntities { get; } = new List<ParameterEntity>();
         public IList<Method> Methods { get; } = new List<Method>();
 
-        public Model AddModel(Model model)
+        public T AddModel<T>(T model) where T : Model
         {
             Models.Add(model);
             return model;
