@@ -960,6 +960,14 @@ namespace Meziantou.GitLab
                 this._pathWithNamespace = value;
             }
         }
+
+        /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectAsync(Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetProjectAsync(this, pageOptions, cancellationToken);
+        }
     }
 
     public partial class ProjectLink : GitLab.GitLabObject
@@ -1221,6 +1229,22 @@ namespace Meziantou.GitLab
             {
                 this._createdAt = value;
             }
+        }
+
+        /// <summary>Get a single key.</summary>
+        /// <param name="id">The ID of an SSH key</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<SshKey> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetSshKeyAsync(this, cancellationToken);
+        }
+
+        /// <summary>Deletes key owned by currently authenticated user.</summary>
+        /// <param name="id">SSH key ID</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task DeleteAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.DeleteSshKeyAsync(this, cancellationToken);
         }
     }
 
@@ -1730,6 +1754,21 @@ namespace Meziantou.GitLab
             {
                 this._username = value;
             }
+        }
+
+        /// <summary>Get the status of a user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetUserStatusAsync(this, cancellationToken);
+        }
+
+        /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> with_issues_enabled = default(System.Nullable<bool>), System.Nullable<bool> with_merge_requests_enabled = default(System.Nullable<bool>), System.Nullable<bool> wiki_checksum_failed = default(System.Nullable<bool>), System.Nullable<bool> repository_checksum_failed = default(System.Nullable<bool>), System.Nullable<Access> min_access_level = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetProjectsAsync(this, archived, visibility, search, simple, owned, membership, starred, statistics, with_issues_enabled, with_merge_requests_enabled, wiki_checksum_failed, repository_checksum_failed, min_access_level, pageOptions, cancellationToken);
         }
     }
 

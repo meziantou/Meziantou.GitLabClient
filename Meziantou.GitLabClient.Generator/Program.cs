@@ -27,22 +27,14 @@ namespace Meziantou.GitLabClient.Generator
 
         public void Generate()
         {
-            CreateEnumerations();
-            CreateUserTypes();
-            CreateRefs();
-
-            // Call CreateXXXMethods()
-            foreach (var method in GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(m => m.Name.StartsWith("Create") && m.Name.EndsWith("Methods")))
-            {
-                method.Invoke(this, Array.Empty<object>());
-            }
+            CreateProject();
 
             // Generate code
             var unit = new CompilationUnit();
             var ns = unit.AddNamespace("Meziantou.GitLab");
             foreach (var model in Project.Models.OrderBy(m => m.Name))
             {
-                GenerateModel(ns, model, false);
+                GenerateModel(ns, model, isRequestPayload: false);
             }
 
             foreach (var entity in Project.ParameterEntities.OrderBy(p => p.Name))
@@ -52,13 +44,22 @@ namespace Meziantou.GitLabClient.Generator
 
             foreach (var model in Project.RequestPayloads.OrderBy(m => m.Name))
             {
-                GenerateModel(ns, model, true);
+                GenerateModel(ns, model, isRequestPayload: true);
             }
 
             var clientClass = ns.AddType(new ClassDeclaration("GitLabClient") { Modifiers = Modifiers.Partial });
             foreach (var method in Project.Methods)
             {
                 GenerateMethod(clientClass, method);
+
+                foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
+                {
+                    foreach (var entity in param.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
+                    {
+                        var type = ns.Types.OfType<ClassDeclaration>().First(t => t.Name == entity.ModelRef.Model.Name);
+                        GenerateExtensionMethod(type, method, param);
+                    }
+                }
             }
 
             using (var tw = new StreamWriter("../../../../Meziantou.GitLabClient/GitLabClient.generated.cs"))
@@ -69,6 +70,19 @@ namespace Meziantou.GitLabClient.Generator
             if (MustGenerateEmoji)
             {
                 GenerateEmoji();
+            }
+        }
+
+        private void CreateProject()
+        {
+            CreateEnumerations();
+            CreateUserTypes();
+            CreateRefs();
+
+            // Call CreateXXXMethods()
+            foreach (var method in GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(m => m.Name.StartsWith("Create") && m.Name.EndsWith("Methods")))
+            {
+                method.Invoke(this, Array.Empty<object>());
             }
         }
 
@@ -137,7 +151,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private void GenerateMethod(ClassDeclaration clientClass, Method method)
+        private MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method)
         {
             var m = clientClass.AddMember(new MethodDeclaration(method.Name + "Async"));
             AddDocumentationComments(m, method.Documentation);
@@ -177,6 +191,7 @@ namespace Meziantou.GitLabClient.Generator
                 }
 
                 arguments.Add(param, argument);
+                argument.SetData("Parameter", param);
                 AddDocumentationComments(argument, param.Documentation);
             }
 
@@ -292,6 +307,32 @@ namespace Meziantou.GitLabClient.Generator
                 default:
                     throw new NotSupportedException($"Method {method.MethodType} is not supported");
             }
+
+            return m;
+        }
+
+        private void GenerateExtensionMethod(ClassDeclaration clientClass, Method method, MethodParameter methodParameter)
+        {
+            var m = GenerateMethod(clientClass, method);
+            m.Statements.Clear();
+
+            var invoke = new MethodInvokeExpression(new ThisExpression().GetMember("GitLabClient", m.Name));
+
+            foreach (var arg in m.Arguments.ToList())
+            {
+                if (arg.Data.TryGetValue("Parameter", out var parameter) && methodParameter == parameter)
+                {
+                    m.Arguments.Remove(arg);
+                    invoke.Arguments.Add(new ThisExpression());
+                }
+                else
+                {
+                    invoke.Arguments.Add(arg);
+                }
+            }
+
+            m.Statements.Add(new ReturnStatement(invoke));
+            m.Name = m.Name.Replace(clientClass.Name, "", StringComparison.OrdinalIgnoreCase);
         }
 
         private void GenerateModel(NamespaceDeclaration ns, Model model, bool isRequestPayload)
