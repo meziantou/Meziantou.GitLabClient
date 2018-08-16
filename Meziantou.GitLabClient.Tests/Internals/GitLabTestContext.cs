@@ -12,6 +12,8 @@ namespace Meziantou.GitLab.Tests
 {
     public class GitLabTestContext : IDisposable
     {
+        public static GitLabDockerContainer DockerContainer { get; set; }
+
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {
             TestContext = testOutput;
@@ -40,27 +42,13 @@ namespace Meziantou.GitLab.Tests
 
         private TestGitLabClient CreateClient(HttpClientHandler handler)
         {
-            const string EnvironmentVariablePrefix = "GitLabClient_Test";
-
-            var serverUrl = Environment.GetEnvironmentVariable(EnvironmentVariablePrefix + "ServerUrl");
-            if (string.IsNullOrEmpty(serverUrl))
-            {
-                Assert.Inconclusive("Environment variable '" + EnvironmentVariablePrefix + "ServerUrl' not set.");
-            }
-
-            var accessToken = Environment.GetEnvironmentVariable(EnvironmentVariablePrefix + "AccessToken");
-            if (string.IsNullOrEmpty(accessToken))
-            {
-                Assert.Inconclusive("Environment variable '" + EnvironmentVariablePrefix + "AccessToken' not set.");
-            }
-
             _loggingHandler = new LoggingHandler() { InnerHandler = handler ?? new HttpClientHandler() };
             _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
 
-            var client = new TestGitLabClient(_httpClient, serverUrl, accessToken);
+            var client = new TestGitLabClient(_httpClient, DockerContainer.GitLabUrl, DockerContainer.AdminToken);
             client._jsonSerializerSettings.CheckAdditionalContent = true;
             client._jsonSerializerSettings.Formatting = Formatting.Indented;
-            client._jsonSerializerSettings.Error = (sender, e) => { TestContext.WriteLine(string.Format("{0}", e)); };
+            client._jsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
             return client;
         }
 
@@ -98,28 +86,28 @@ namespace Meziantou.GitLab.Tests
 
             protected override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, CancellationToken cancellationToken)
             {
-                var readOnlyList = await base.GetCollectionAsync<T>(url, cancellationToken);
+                var readOnlyList = await base.GetCollectionAsync<T>(url, cancellationToken).ConfigureAwait(false);
                 Objects.AddRange(readOnlyList);
                 return readOnlyList;
             }
 
             protected internal override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, CancellationToken cancellationToken)
             {
-                var pagedResponse = await base.GetPagedAsync<T>(url, cancellationToken);
+                var pagedResponse = await base.GetPagedAsync<T>(url, cancellationToken).ConfigureAwait(false);
                 Objects.AddRange(pagedResponse.Data);
                 return pagedResponse;
             }
 
             protected override async Task<T> PostJsonAsync<T>(string url, object data, CancellationToken cancellationToken)
             {
-                var result = await base.PostJsonAsync<T>(url, data, cancellationToken);
+                var result = await base.PostJsonAsync<T>(url, data, cancellationToken).ConfigureAwait(false);
                 Objects.Add(result);
                 return result;
             }
 
             protected override async Task<T> PutJsonAsync<T>(string url, object data, CancellationToken cancellationToken)
             {
-                var result = await base.PutJsonAsync<T>(url, data, cancellationToken);
+                var result = await base.PutJsonAsync<T>(url, data, cancellationToken).ConfigureAwait(false);
                 Objects.Add(result);
                 return result;
             }
