@@ -8,8 +8,6 @@ namespace Meziantou.GitLab.Tests
     [TestClass]
     public class GitLabClientUserTests : GitLabTest
     {
-        private const string SshKeyTitlePrefix = "GitLabClientTests";
-
         [TestMethod]
         public async Task GetCurrentUser()
         {
@@ -149,7 +147,7 @@ namespace Meziantou.GitLab.Tests
                     Assert.IsTrue(key.Id > 0);
                     Assert.AreEqual(model.Key, key.Key);
                     Assert.AreEqual(model.Title, key.Title);
-                    Assert.AreNotEqual(default(DateTime), key.CreatedAt);
+                    Assert.AreNotEqual(default, key.CreatedAt);
 
                     keyId = key.Id;
                 }
@@ -160,7 +158,7 @@ namespace Meziantou.GitLab.Tests
                     Assert.AreEqual(keyId, key.Id);
                     Assert.IsNotNull(key.Key);
                     Assert.IsNotNull(key.Title);
-                    Assert.AreNotEqual(default(DateTime), key.CreatedAt);
+                    Assert.AreNotEqual(default, key.CreatedAt);
                 }
 
                 // List SSH keys
