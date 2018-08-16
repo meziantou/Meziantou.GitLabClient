@@ -12,8 +12,6 @@ namespace Meziantou.GitLab.Tests
             using (var context = GetContext())
             {
                 var projects = await context.Client.GetProjectsAsync();
-
-
             }
         }
     }
