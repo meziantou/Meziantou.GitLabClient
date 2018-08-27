@@ -28,7 +28,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public static void DoesContainOnlyUtcDates(object o, bool validateChildProperties = true)
+        public static void DoesContainOnlyUtcDates(object o)
         {
             foreach (var obj in GetObjects(o))
             {

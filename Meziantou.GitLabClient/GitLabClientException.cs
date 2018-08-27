@@ -54,7 +54,7 @@ namespace Meziantou.GitLab
                 return error.ErrorDescription;
 
             if (error.Error != null)
-                return error.Error.ToString();
+                return error.Error;
 
             if (error.Message != null)
             {

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
 {
-    internal class UrlBuilder
+    internal sealed class UrlBuilder
     {
         private static readonly ConcurrentDictionary<Type, EnumDescriptor> s_enumDescriptors = new ConcurrentDictionary<Type, EnumDescriptor>();
 
@@ -111,11 +111,6 @@ namespace Meziantou.GitLab
             }
 
             return url;
-        }
-
-        private string EnumValueToString(Type type, Enum value)
-        {
-            return Enum.GetName(type, value);
         }
 
         private class EnumDescriptor

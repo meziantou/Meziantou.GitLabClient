@@ -14,17 +14,22 @@ namespace Meziantou.GitLab.Tests
     {
         public static GitLabDockerContainer DockerContainer { get; set; }
 
+        private readonly HttpClient _httpClient;
+        private readonly LoggingHandler _loggingHandler;
+
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {
             TestContext = testOutput;
-            Client = CreateClient(handler);
-        }
 
-        private HttpClient _httpClient;
-        private LoggingHandler _loggingHandler;
+            _loggingHandler = new LoggingHandler() { InnerHandler = handler ?? new HttpClientHandler() };
+            _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
+            Client = CreateClient(DockerContainer.StandardUserToken);
+            AdminClient = CreateClient(DockerContainer.AdminUserToken);
+        }
 
         public Random Random { get; } = new Random();
         public TestGitLabClient Client { get; }
+        public TestGitLabClient AdminClient { get; }
         public string ServerUri { get; }
         public TestContext TestContext { get; }
 
@@ -40,16 +45,13 @@ namespace Meziantou.GitLab.Tests
             return "GitLabClientTests" + Guid.NewGuid().ToString("N");
         }
 
-        private TestGitLabClient CreateClient(HttpClientHandler handler)
+        private TestGitLabClient CreateClient(string token)
         {
-            _loggingHandler = new LoggingHandler() { InnerHandler = handler ?? new HttpClientHandler() };
-            _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
-
-            var client = new TestGitLabClient(_httpClient, DockerContainer.GitLabUrl, DockerContainer.AdminToken);
-            client._jsonSerializerSettings.CheckAdditionalContent = true;
-            client._jsonSerializerSettings.Formatting = Formatting.Indented;
-            client._jsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
-            return client;
+            var adminClient = new TestGitLabClient(_httpClient, DockerContainer.GitLabUrl, token);
+            adminClient._jsonSerializerSettings.CheckAdditionalContent = true;
+            adminClient._jsonSerializerSettings.Formatting = Formatting.Indented;
+            adminClient._jsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
+            return adminClient;
         }
 
         public void Dispose()

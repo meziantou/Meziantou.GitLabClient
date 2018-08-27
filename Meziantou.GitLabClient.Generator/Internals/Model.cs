@@ -4,7 +4,7 @@ namespace Meziantou.GitLabClient.Generator
 {
     internal abstract class Model
     {
-        public Model(string name)
+        protected Model(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }

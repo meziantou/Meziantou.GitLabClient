@@ -23,15 +23,19 @@ namespace Meziantou.GitLab.Tests
         public int HttpsPort { get; set; } = 4433;
         public string AdminUserName { get; set; } = "root";
         public string AdminPassword { get; set; } = "dLpwdrZ9";
+        public string StandardUserName { get; set; } = "user";
+        public string StandardPassword { get; set; } = "dLpwdrZ9";
 
         public string GitLabUrl => "http://localhost:" + HttpPort;
 
-        public string AdminToken { get; set; }
+        public string AdminUserToken { get; set; }
+        public string StandardUserToken { get; set; }
 
         public async Task Setup()
         {
-            await SpawnDockerContainer();
-            await GenerateToken();
+            await SpawnDockerContainer().ConfigureAwait(false);
+            await GenerateAdminToken().ConfigureAwait(false);
+            await GenerateStandardToken().ConfigureAwait(false);
         }
 
         private async Task SpawnDockerContainer()
@@ -54,7 +58,7 @@ namespace Meziantou.GitLab.Tests
                         "--volume", "/data/gitlab/data:/var/opt/gitlab",
                         "-e", "POSTGRES_ENV_POSTGRES_USER=user_postgres",
                         "-d",
-                        "gitlab/gitlab-ce:latest");
+                        "gitlab/gitlab-ce:11.2.1-ce.0");
 
                     var result = await ProcessExtensions.RunAsTask("docker", arguments).ConfigureAwait(false);
                     Assert.AreEqual(0, result.ExitCode);
@@ -86,7 +90,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        private async Task GenerateToken()
+        private async Task GenerateAdminToken()
         {
             var conf = Configuration.Default
               .WithDefaultLoader(setup =>
@@ -132,7 +136,30 @@ namespace Meziantou.GitLab.Tests
 
                 result = await form.SubmitAsync().ConfigureAwait(false);
 
-                AdminToken = result.GetElementById("created-personal-access-token").GetAttribute("value");
+                AdminUserToken = result.GetElementById("created-personal-access-token").GetAttribute("value");
+            }
+        }
+
+        private async Task GenerateStandardToken()
+        {
+            using (var client = new GitLabClient(GitLabUrl, AdminUserToken))
+            {
+                var users = await client.GetUsersAsync(username: StandardUserName);
+                var user = users.Data.SingleOrDefault();
+                if (user == null)
+                {
+                    user = await client.CreateUserAsync(
+                        email: StandardUserName + "@dummy.com",
+                        username: StandardUserName,
+                        password: StandardPassword,
+                        name: StandardUserName,
+                        admin: false,
+                        canCreateGroup: true,
+                        skipConfirmation: true);
+                }
+
+                var token = await client.CreateImpersonationTokenAsync(user, "UnitTest", new[] { "api", "read_user" });
+                StandardUserToken = token.Token;
             }
         }
 
@@ -156,16 +183,16 @@ namespace Meziantou.GitLab.Tests
 
             private static string Sanatize(string cookie)
             {
-                var expires = "expires=";
+                const string Expires = "expires=";
                 var start = 0;
 
                 while (start < cookie.Length)
                 {
-                    var index = cookie.IndexOf(expires, start, StringComparison.OrdinalIgnoreCase);
+                    var index = cookie.IndexOf(Expires, start, StringComparison.OrdinalIgnoreCase);
 
                     if (index != -1)
                     {
-                        var position = index + expires.Length;
+                        var position = index + Expires.Length;
                         var end = cookie.IndexOfAny(new[] { ';', ',' }, position + 4);
 
                         if (end == -1)

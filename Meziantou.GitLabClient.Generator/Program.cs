@@ -20,7 +20,7 @@ namespace Meziantou.GitLabClient.Generator
 
         internal Project Project { get; set; } = new Project();
 
-        static void Main(string[] args)
+        private static void Main()
         {
             new Program().Generate();
         }
@@ -116,7 +116,6 @@ namespace Meziantou.GitLabClient.Generator
             {
                 return value.Split(new[] { '_', '-' }, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
             }
-
         }
 
         private void AddDocumentationComments(ICommentable commentable, Documentation documentation)
@@ -182,12 +181,12 @@ namespace Meziantou.GitLabClient.Generator
             }
 
             var arguments = new Dictionary<MethodParameter, MethodArgumentDeclaration>();
-            foreach (var param in method.Parameters)
+            foreach (var param in method.Parameters.OrderBy(p => p.IsOptional ? 1 : -1))
             {
-                var argument = m.AddArgument(new MethodArgumentDeclaration(param.Type, param.MethodParameterName ?? param.Name));
+                var argument = m.AddArgument(new MethodArgumentDeclaration(GetArgumentTypeRef(param.Type), param.MethodParameterName ?? param.Name));
                 if (param.IsOptional)
                 {
-                    argument.DefaultValue = new DefaultValueExpression(param.Type);
+                    argument.DefaultValue = new DefaultValueExpression(argument.Type.Clone());
                 }
 
                 arguments.Add(param, argument);
@@ -273,7 +272,7 @@ namespace Meziantou.GitLabClient.Generator
             var url = new VariableDeclarationStatement(typeof(string), "url", urlBuilder.InvokeMethod(nameof(UrlBuilder.Build)));
             m.Statements.Add(url);
 
-            var bodyArgument = method.Parameters.FirstOrDefault(p => p.Location == ParameterLocation.Body);
+            var bodyArgument = CreateBodyArgument(method, m);
             switch (method.MethodType)
             {
                 case MethodType.Get:
@@ -293,11 +292,11 @@ namespace Meziantou.GitLabClient.Generator
                     break;
 
                 case MethodType.Put:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, arguments[bodyArgument], cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Post:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, arguments[bodyArgument], cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Delete:
@@ -309,6 +308,25 @@ namespace Meziantou.GitLabClient.Generator
             }
 
             return m;
+        }
+
+        private VariableReference CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
+        {
+            var bodyArguments = method.Parameters.Where(p => p.Location == ParameterLocation.Body).ToList();
+            if (bodyArguments.Count == 0)
+                return null;
+
+            var variable = new VariableDeclarationStatement(typeof(Dictionary<string, object>), "body");
+            methodDeclaration.Statements.Add(variable);
+            variable.InitExpression = new NewObjectExpression(typeof(Dictionary<string, object>));
+            foreach (var arg in bodyArguments)
+            {
+                var argumentReference = methodDeclaration.Arguments.First(a => a.Data["Parameter"] == arg);
+                var assign = variable.InvokeMethod(nameof(Dictionary<string, object>.Add), arg.Name, argumentReference);
+                methodDeclaration.Statements.Add(assign);
+            }
+
+            return variable;
         }
 
         private void GenerateExtensionMethod(ClassDeclaration clientClass, Method method, MethodParameter methodParameter)
@@ -454,7 +472,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 if (addNullCheck)
                 {
-                    ctor.Statements.Insert(0, ctor.Arguments.First().CreateThrowIfNullStatement());
+                    ctor.Statements.Insert(0, ctor.Arguments[0].CreateThrowIfNullStatement());
                 }
 
                 // Add implicit converter
@@ -474,7 +492,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 if (addNullCheck)
                 {
-                    implicitOperator.Statements.Insert(0, implicitOperator.Arguments.First().CreateThrowIfNullStatement());
+                    implicitOperator.Statements.Insert(0, implicitOperator.Arguments[0].CreateThrowIfNullStatement());
                 }
 
                 Expression GetAssignExpression()
@@ -506,6 +524,17 @@ namespace Meziantou.GitLabClient.Generator
             if (modelRef.IsCollection)
             {
                 typeRef = new TypeReference(typeof(IReadOnlyList<>)).MakeGeneric(typeRef);
+            }
+
+            return typeRef;
+        }
+
+        private TypeReference GetArgumentTypeRef(ModelRef modelRef)
+        {
+            var typeRef = (TypeReference)modelRef;
+            if (modelRef.IsCollection)
+            {
+                typeRef = new TypeReference(typeof(IEnumerable<>)).MakeGeneric(typeRef);
             }
 
             return typeRef;

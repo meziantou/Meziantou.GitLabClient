@@ -16,7 +16,7 @@ namespace Meziantou.GitLab.Tests
         {
             using (var handler = Substitute.ForPartsOf<MockHandler>())
             {
-                handler.SendAsync(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
+                handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
                     .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                     {
                         Headers =
@@ -51,7 +51,7 @@ namespace Meziantou.GitLab.Tests
         {
             using (var handler = Substitute.ForPartsOf<MockHandler>())
             {
-                handler.SendAsync(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
+                handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
                     .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                     {
                         Headers =
@@ -61,11 +61,12 @@ namespace Meziantou.GitLab.Tests
                         Content = new JsonContent(new[] { new Dummy(), new Dummy() })
                     });
 
-                handler.SendAsync(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
+                handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
                     .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                     {
                         Headers =
                         {
+                            { "Link", "<http://dummy/?page=2>; rel=\"current\"" },
                         },
                         Content = new JsonContent(new[] { new Dummy() })
                     });
@@ -88,7 +89,7 @@ namespace Meziantou.GitLab.Tests
         {
             using (var handler = Substitute.ForPartsOf<MockHandler>())
             {
-                handler.SendAsync(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
+                handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
                     .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                     {
                         Headers =
@@ -98,11 +99,12 @@ namespace Meziantou.GitLab.Tests
                         Content = new JsonContent(new[] { new Dummy(), new Dummy() })
                     });
 
-                handler.SendAsync(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
+                handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
                     .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                     {
                         Headers =
                         {
+                            { "Link", "<http://dummy/?page=2>; rel=\"current\"" },
                         },
                         Content = new JsonContent(new[] { new Dummy() })
                     });
@@ -125,10 +127,10 @@ namespace Meziantou.GitLab.Tests
         {
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                return Task.FromResult(SendAsync(request.Method, request.RequestUri.AbsoluteUri));
+                return Task.FromResult(Send(request.Method, request.RequestUri.AbsoluteUri));
             }
 
-            public abstract HttpResponseMessage SendAsync(HttpMethod method, string url);
+            public abstract HttpResponseMessage Send(HttpMethod method, string url);
         }
 
         public class Dummy : GitLabObject

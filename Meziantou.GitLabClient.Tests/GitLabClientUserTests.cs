@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,10 +26,10 @@ namespace Meziantou.GitLab.Tests
             using (var context = GetContext())
             {
                 // Act
-                var user = await context.Client.GetUserAsync(2316509);
+                var user = await context.Client.GetUserAsync(1); // root
 
                 // Assert
-                Assert.IsNotNull(user.Name);
+                Assert.AreEqual("root", user.Username);
             }
         }
 
@@ -40,15 +39,18 @@ namespace Meziantou.GitLab.Tests
             using (var context = GetContext())
             {
                 // Act
-                var users = await context.Client.GetUsersAsync(pageOptions: new PageOptions() { PageSize = 10 });
+                // There should be only 2 users in GitLab, so get page of 1
+                var users = await context.Client.GetUsersAsync();
 
                 // Assert
                 Assert.IsNotNull(users);
 
-                var firstUsers = users.AsEnumerable().Take(users.PageSize + 1).ToList(); // Get the second page
-                Assert.AreEqual(11, firstUsers.Count);
-                CollectionAssert.AllItemsAreNotNull(firstUsers);
-                CollectionAssert.AllItemsAreUnique(firstUsers);
+                var allUsers = users.AsEnumerable().ToList();
+                Assert.IsTrue(allUsers.Count >= 2);
+                CollectionAssert.AllItemsAreNotNull(allUsers);
+                CollectionAssert.AllItemsAreUnique(allUsers);
+                CollectionAssert.Contains(allUsers.Select(u => u.Username).ToList(), "root");
+                CollectionAssert.Contains(allUsers.Select(u => u.Username).ToList(), "user");
             }
         }
 
@@ -58,24 +60,20 @@ namespace Meziantou.GitLab.Tests
             using (var context = GetContext())
             {
                 // Act
-                var data = new SetUserStatus
-                {
-                    Emoji = context.GetRandomEmojiName(),
-                    Message = Guid.NewGuid().ToString()
-                };
-
-                var status = await context.Client.SetUserStatusAsync(data);
+                var emoji = context.GetRandomEmojiName();
+                var message = context.GetRandomString();
+                var status = await context.Client.SetUserStatusAsync(emoji, message);
 
                 // Assert
-                Assert.AreEqual(data.Emoji, status.Emoji);
-                Assert.AreEqual(data.Message, status.Message);
+                Assert.AreEqual(emoji, status.Emoji);
+                Assert.AreEqual(message, status.Message);
                 Assert.IsNotNull(status.MessageHtml);
 
                 // Get status
                 var currentStatus = await context.Client.GetUserStatusAsync();
 
-                Assert.AreEqual(data.Emoji, currentStatus.Emoji);
-                Assert.AreEqual(data.Message, currentStatus.Message);
+                Assert.AreEqual(emoji, currentStatus.Emoji);
+                Assert.AreEqual(message, currentStatus.Message);
                 Assert.IsNotNull(currentStatus.MessageHtml);
             }
         }
@@ -86,11 +84,10 @@ namespace Meziantou.GitLab.Tests
             using (var context = GetContext())
             {
                 // Act
-                var currentStatus = await context.Client.GetUserStatusAsync("meziantou");
+                var currentStatus = await context.Client.GetUserStatusAsync("root");
 
-                Assert.IsNotNull(currentStatus.Emoji);
-                Assert.IsNotNull(currentStatus.Message);
-                Assert.IsNotNull(currentStatus.MessageHtml);
+                // Assert
+                Assert.IsNotNull(currentStatus);
             }
         }
 
@@ -100,11 +97,10 @@ namespace Meziantou.GitLab.Tests
             using (var context = GetContext())
             {
                 // Act
-                var currentStatus = await context.Client.GetUserStatusAsync("2316509");
+                var currentStatus = await context.Client.GetUserStatusAsync(1);
 
-                Assert.IsNotNull(currentStatus.Emoji);
-                Assert.IsNotNull(currentStatus.Message);
-                Assert.IsNotNull(currentStatus.MessageHtml);
+                // Assert
+                Assert.IsNotNull(currentStatus);
             }
         }
 
@@ -113,14 +109,10 @@ namespace Meziantou.GitLab.Tests
         {
             using (var context = GetContext())
             {
-                var model = new AddSshKey
-                {
-                    Title = context.GetRandomString(),
-                    Key = "ssh-dss AAAAB3NzaC1kc3MAAACBAMLrhYgI3atfrSD6KDas1b/3n6R/HP+bLaHHX6oh+L1vg31mdUqK0Ac/NjZoQunavoyzqdPYhFz9zzOezCrZKjuJDS3NRK9rspvjgM0xYR4d47oNZbdZbwkI4cTv/gcMlquRy0OvpfIvJtjtaJWMwTLtM5VhRusRuUlpH99UUVeXAAAAFQCVyX+92hBEjInEKL0v13c/egDCTQAAAIEAvFdWGq0ccOPbw4f/F8LpZqvWDydAcpXHV3thwb7WkFfppvm4SZte0zds1FJ+Hr8Xzzc5zMHe6J4Nlay/rP4ewmIW7iFKNBEYb/yWa+ceLrs+TfR672TaAgO6o7iSRofEq5YLdwgrwkMmIawa21FrZ2D9SPao/IwvENzk/xcHu7YAAACAQFXQH6HQnxOrw4dqf0NqeKy1tfIPxYYUZhPJfo9O0AmBW2S36pD2l14kS89fvz6Y1g8gN/FwFnRncMzlLY/hX70FSc/3hKBSbH6C6j8hwlgFKfizav21eS358JJz93leOakJZnGb8XlWvz1UJbwCsnR2VEY8Dz90uIk1l/UqHkA= loic@call"
-                };
-
                 // Act
-                var exception = await Assert.ThrowsExceptionAsync<GitLabException>(() => context.Client.AddSshKeyAsync(model));
+                var exception = await Assert.ThrowsExceptionAsync<GitLabException>(() => context.Client.AddSshKeyAsync(
+                    title: context.GetRandomString(),
+                    key: "ssh-dss AAAAB3NzaC1kc3MAAACBAMLrhYgI3atfrSD6KDas1b/3n6R/HP+bLaHHX6oh+L1vg31mdUqK0Ac/NjZoQunavoyzqdPYhFz9zzOezCrZKjuJDS3NRK9rspvjgM0xYR4d47oNZbdZbwkI4cTv/gcMlquRy0OvpfIvJtjtaJWMwTLtM5VhRusRuUlpH99UUVeXAAAAFQCVyX+92hBEjInEKL0v13c/egDCTQAAAIEAvFdWGq0ccOPbw4f/F8LpZqvWDydAcpXHV3thwb7WkFfppvm4SZte0zds1FJ+Hr8Xzzc5zMHe6J4Nlay/rP4ewmIW7iFKNBEYb/yWa+ceLrs+TfR672TaAgO6o7iSRofEq5YLdwgrwkMmIawa21FrZ2D9SPao/IwvENzk/xcHu7YAAACAQFXQH6HQnxOrw4dqf0NqeKy1tfIPxYYUZhPJfo9O0AmBW2S36pD2l14kS89fvz6Y1g8gN/FwFnRncMzlLY/hX70FSc/3hKBSbH6C6j8hwlgFKfizav21eS358JJz93leOakJZnGb8XlWvz1UJbwCsnR2VEY8Dz90uIk1l/UqHkA= loic@call"));
                 Assert.AreEqual("type is forbidden. Must be RSA, ECDSA, or ED25519", exception.ErrorObject.Message["key"].Single());
             }
         }
@@ -136,13 +128,15 @@ namespace Meziantou.GitLab.Tests
 
                 // Create Key
                 {
-                    var model = new AddSshKey
+                    var model = new
                     {
                         Title = context.GetRandomString(),
                         Key = generatedKey.PublicKey,
                     };
 
-                    var key = await context.Client.AddSshKeyAsync(model);
+                    var key = await context.Client.AddSshKeyAsync(
+                        title: model.Title,
+                        key: model.Key);
 
                     Assert.IsTrue(key.Id > 0);
                     Assert.AreEqual(model.Key, key.Key);

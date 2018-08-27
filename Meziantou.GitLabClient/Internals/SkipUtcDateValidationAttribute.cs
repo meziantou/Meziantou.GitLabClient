@@ -5,6 +5,7 @@ namespace Meziantou.GitLab
     /// <summary>
     /// Skip UTC validation. Only used by tests
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     internal class SkipUtcDateValidationAttribute : Attribute
     {
         public SkipUtcDateValidationAttribute(string reason)

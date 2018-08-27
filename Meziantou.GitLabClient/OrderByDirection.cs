@@ -6,6 +6,7 @@ namespace Meziantou.GitLab
     {
         [EnumMember(Value = "asc")]
         Ascending,
+
         [EnumMember(Value = "desc")]
         Descending,
     }

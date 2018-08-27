@@ -158,6 +158,12 @@ namespace Meziantou.GitLab
                             }
                         }
                     }
+                    else
+                    {
+#if DEBUG
+                        throw new GitLabException("The response does not contain page information.");
+#endif
+                    }
 
                     var pageIndex = response.Headers.GetHeaderValue("X-Page", -1);
                     var pageSize = response.Headers.GetHeaderValue("X-Per-Page", -1);

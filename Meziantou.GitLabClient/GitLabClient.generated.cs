@@ -214,6 +214,145 @@ namespace Meziantou.GitLab
         }
     }
 
+    public partial class ImpersonationToken : GitLab.GitLabObject
+    {
+        private long _id;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
+
+        private bool _revoked;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revoked", Required = Newtonsoft.Json.Required.Always)]
+        public bool Revoked
+        {
+            get
+            {
+                return this._revoked;
+            }
+            private set
+            {
+                this._revoked = value;
+            }
+        }
+
+        private System.Collections.Generic.IReadOnlyList<string> _scopes;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "scopes", Required = Newtonsoft.Json.Required.Always)]
+        public System.Collections.Generic.IReadOnlyList<string> Scopes
+        {
+            get
+            {
+                return this._scopes;
+            }
+            private set
+            {
+                this._scopes = value;
+            }
+        }
+
+        private string _token;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "token", Required = Newtonsoft.Json.Required.Always)]
+        public string Token
+        {
+            get
+            {
+                return this._token;
+            }
+            private set
+            {
+                this._token = value;
+            }
+        }
+
+        private bool _active;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "active", Required = Newtonsoft.Json.Required.Always)]
+        public bool Active
+        {
+            get
+            {
+                return this._active;
+            }
+            private set
+            {
+                this._active = value;
+            }
+        }
+
+        private bool _impersonation;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "impersonation", Required = Newtonsoft.Json.Required.Always)]
+        public bool Impersonation
+        {
+            get
+            {
+                return this._impersonation;
+            }
+            private set
+            {
+                this._impersonation = value;
+            }
+        }
+
+        private string _name;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name", Required = Newtonsoft.Json.Required.Always)]
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+
+        private System.DateTime _createdAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this._createdAt;
+            }
+            private set
+            {
+                this._createdAt = value;
+            }
+        }
+
+        private System.Nullable<System.DateTime> _expiresAt;
+
+        [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "expires_at", Required = Newtonsoft.Json.Required.AllowNull)]
+        public System.Nullable<System.DateTime> ExpiresAt
+        {
+            get
+            {
+                return this._expiresAt;
+            }
+            private set
+            {
+                this._expiresAt = value;
+            }
+        }
+    }
+
     public enum ImportStatus
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "none")]
@@ -1248,6 +1387,193 @@ namespace Meziantou.GitLab
         }
     }
 
+    public partial class Todo : GitLab.GitLabObject
+    {
+        private long _id;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
+
+        private TodoAction _actionName;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "action_name", Required = Newtonsoft.Json.Required.AllowNull)]
+        public TodoAction ActionName
+        {
+            get
+            {
+                return this._actionName;
+            }
+            private set
+            {
+                this._actionName = value;
+            }
+        }
+
+        private UserBasic _author;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author", Required = Newtonsoft.Json.Required.AllowNull)]
+        public UserBasic Author
+        {
+            get
+            {
+                return this._author;
+            }
+            private set
+            {
+                this._author = value;
+            }
+        }
+
+        private BasicProjectDetails _project;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project", Required = Newtonsoft.Json.Required.AllowNull)]
+        public BasicProjectDetails Project
+        {
+            get
+            {
+                return this._project;
+            }
+            private set
+            {
+                this._project = value;
+            }
+        }
+
+        private TodoType _targetType;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_type", Required = Newtonsoft.Json.Required.AllowNull)]
+        public TodoType TargetType
+        {
+            get
+            {
+                return this._targetType;
+            }
+            private set
+            {
+                this._targetType = value;
+            }
+        }
+
+        private GitLab.GitLabObject _target;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target", Required = Newtonsoft.Json.Required.Always)]
+        public GitLab.GitLabObject Target
+        {
+            get
+            {
+                return this._target;
+            }
+            private set
+            {
+                this._target = value;
+            }
+        }
+
+        private string _targetUrl;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_url", Required = Newtonsoft.Json.Required.Always)]
+        public string TargetUrl
+        {
+            get
+            {
+                return this._targetUrl;
+            }
+            private set
+            {
+                this._targetUrl = value;
+            }
+        }
+
+        private string _body;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "body", Required = Newtonsoft.Json.Required.Always)]
+        public string Body
+        {
+            get
+            {
+                return this._body;
+            }
+            private set
+            {
+                this._body = value;
+            }
+        }
+
+        private UserState _state;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state", Required = Newtonsoft.Json.Required.AllowNull)]
+        public UserState State
+        {
+            get
+            {
+                return this._state;
+            }
+            private set
+            {
+                this._state = value;
+            }
+        }
+
+        private System.DateTime _createdAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this._createdAt;
+            }
+            private set
+            {
+                this._createdAt = value;
+            }
+        }
+    }
+
+    public enum TodoAction
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned")]
+        Assigned,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "mentioned")]
+        Mentioned,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "build_failed")]
+        BuildFailed,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "marked")]
+        Marked,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "approval_required")]
+        ApprovalRequired,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "unmergeable")]
+        Unmergeable,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "directly_addressed")]
+        DirectlyAddressed
+    }
+
+    public enum TodoState
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "pending")]
+        Pending,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "done")]
+        Done
+    }
+
+    public enum TodoType
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "issue")]
+        Issue,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merge_request")]
+        MergeRequest
+    }
+
     public partial class User : UserBasic
     {
         private string _bio;
@@ -1763,6 +2089,20 @@ namespace Meziantou.GitLab
             return this.GitLabClient.GetUserStatusAsync(this, cancellationToken);
         }
 
+        /// <summary>Creates a new key owned by the currently authenticated user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(string title, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.AddSshKeyAsync(this, title, key, cancellationToken);
+        }
+
+        /// <summary>It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(string name, System.Collections.Generic.IEnumerable<string> scopes, System.Nullable<System.DateTime> expiresAt = default(System.Nullable<System.DateTime>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.CreateImpersonationTokenAsync(this, name, scopes, expiresAt, cancellationToken);
+        }
+
         /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1784,7 +2124,7 @@ namespace Meziantou.GitLab
     {
         private string _emoji;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji", Required = Newtonsoft.Json.Required.AllowNull)]
         public string Emoji
         {
             get
@@ -1799,7 +2139,7 @@ namespace Meziantou.GitLab
 
         private string _message;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message", Required = Newtonsoft.Json.Required.AllowNull)]
         public string Message
         {
             get
@@ -1814,7 +2154,7 @@ namespace Meziantou.GitLab
 
         private string _messageHtml;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message_html", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message_html", Required = Newtonsoft.Json.Required.AllowNull)]
         public string MessageHtml
         {
             get
@@ -1967,76 +2307,6 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class AddSshKey
-    {
-        private string _title;
-
-        /// <summary>new SSH Key's title</summary>
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title", Required = Newtonsoft.Json.Required.Always)]
-        public string Title
-        {
-            get
-            {
-                return this._title;
-            }
-            set
-            {
-                this._title = value;
-            }
-        }
-
-        private string _key;
-
-        /// <summary>new SSH key</summary>
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "key", Required = Newtonsoft.Json.Required.Always)]
-        public string Key
-        {
-            get
-            {
-                return this._key;
-            }
-            set
-            {
-                this._key = value;
-            }
-        }
-    }
-
-    public partial class SetUserStatus
-    {
-        private string _emoji;
-
-        /// <summary>The name of the emoji to use as status, if omitted speech_balloon is used. Emoji name can be one of the specified names in the Gemojione index.</summary>
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji", Required = Newtonsoft.Json.Required.Always)]
-        public string Emoji
-        {
-            get
-            {
-                return this._emoji;
-            }
-            set
-            {
-                this._emoji = value;
-            }
-        }
-
-        private string _message;
-
-        /// <summary>The message to set as a status. It can also contain emoji codes.</summary>
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message", Required = Newtonsoft.Json.Required.Always)]
-        public string Message
-        {
-            get
-            {
-                return this._message;
-            }
-            set
-            {
-                this._message = value;
-            }
-        }
-    }
-
     partial class GitLabClient
     {
         /// <summary>Gets currently authenticated user.</summary>
@@ -2127,13 +2397,19 @@ namespace Meziantou.GitLab
 
         /// <summary>Set the status of the current user.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<UserStatus> SetUserStatusAsync(SetUserStatus status, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<UserStatus> SetUserStatusAsync(string emoji = default(string), string message = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
 
             string url = urlBuilder.Build();
 
-            return this.PutJsonAsync<UserStatus>(url, status, cancellationToken);
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("emoji", emoji);
+
+            body.Add("message", message);
+
+            return this.PutJsonAsync<UserStatus>(url, body, cancellationToken);
         }
 
         /// <summary>Get a list of currently authenticated user's SSH keys.</summary>
@@ -2176,27 +2452,38 @@ namespace Meziantou.GitLab
 
         /// <summary>Creates a new key owned by the currently authenticated user.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(AddSshKey sshKey, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(string title, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys");
 
             string url = urlBuilder.Build();
 
-            return this.PostJsonAsync<SshKey>(url, sshKey, cancellationToken);
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("title", title);
+
+            body.Add("key", key);
+
+            return this.PostJsonAsync<SshKey>(url, body, cancellationToken);
         }
 
         /// <summary>Creates a new key owned by the currently authenticated user.</summary>
-        /// <param name="user">new SSH Key's title</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(string user, AddSshKey sshKey, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(UserRef user, string title, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys");
 
-            urlBuilder.WithValue("user", user);
+            urlBuilder.WithValue("user", user.Value);
 
             string url = urlBuilder.Build();
 
-            return this.PostJsonAsync<SshKey>(url, sshKey, cancellationToken);
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("title", title);
+
+            body.Add("key", key);
+
+            return this.PostJsonAsync<SshKey>(url, body, cancellationToken);
         }
 
         /// <summary>Deletes key owned by currently authenticated user.</summary>
@@ -2211,6 +2498,54 @@ namespace Meziantou.GitLab
             string url = urlBuilder.Build();
 
             return this.DeleteAsync(url, cancellationToken);
+        }
+
+        /// <summary>Creates a new user. Note only administrators can create new users.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<User> CreateUserAsync(string email, string username, string name, string password = default(string), System.Nullable<bool> admin = default(System.Nullable<bool>), System.Nullable<bool> canCreateGroup = default(System.Nullable<bool>), System.Nullable<bool> skipConfirmation = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users");
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("email", email);
+
+            body.Add("username", username);
+
+            body.Add("name", name);
+
+            body.Add("password", password);
+
+            body.Add("admin", admin);
+
+            body.Add("canCreateGroup", canCreateGroup);
+
+            body.Add("skipConfirmation", skipConfirmation);
+
+            return this.PostJsonAsync<User>(url, body, cancellationToken);
+        }
+
+        /// <summary>It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(UserRef user, string name, System.Collections.Generic.IEnumerable<string> scopes, System.Nullable<System.DateTime> expiresAt = default(System.Nullable<System.DateTime>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/impersonation_tokens");
+
+            urlBuilder.WithValue("user", user.Value);
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("name", name);
+
+            body.Add("expiresAt", expiresAt);
+
+            body.Add("scopes", scopes);
+
+            return this.PostJsonAsync<ImpersonationToken>(url, body, cancellationToken);
         }
 
         /// <summary>Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with "simple" fields are returned.</summary>
@@ -2363,6 +2698,40 @@ namespace Meziantou.GitLab
             string url = urlBuilder.Build();
 
             return this.GetPagedAsync<Project>(url, cancellationToken);
+        }
+
+        /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Todo>> GetTodoAsync(System.Nullable<TodoAction> action = default(System.Nullable<TodoAction>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos");
+
+            urlBuilder.WithValue("action", action);
+
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
+
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
+
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
+
+            string url = urlBuilder.Build();
+
+            return this.GetPagedAsync<Todo>(url, cancellationToken);
         }
     }
 }

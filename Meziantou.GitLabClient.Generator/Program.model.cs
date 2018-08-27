@@ -1,14 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Linq;
+using Newtonsoft.Json;
 
 namespace Meziantou.GitLabClient.Generator
 {
-    partial class Program
+    internal partial class Program
     {
         private Enumeration _access;
         private Enumeration _importStatus;
         private Enumeration _mergeMethod;
         private Enumeration _projectVisibility;
         private Enumeration _userState;
+        private Enumeration _todoAction;
+        private Enumeration _todoState;
+        private Enumeration _todoType;
 
         private Entity _basicProjectDetails;
         private Entity _groupAccess;
@@ -21,10 +25,11 @@ namespace Meziantou.GitLabClient.Generator
         private Entity _sharedGroup;
         private Entity _sshKey;
         private Entity _userActivity;
-        private Entity _userBasicModel;
-        private Entity _userModel;
-        private Entity _userSafeModel;
+        private Entity _userBasic;
+        private Entity _user;
+        private Entity _userSafe;
         private Entity _userStatus;
+        private Entity _todo;
 
         private ParameterEntity _projectRef;
         private ParameterEntity _sshKeyRef;
@@ -111,6 +116,38 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("Blocked"),
                 }
             });
+
+            _todoAction = Project.AddModel(new Enumeration("TodoAction")
+            {
+                Members =
+                {
+                    new EnumerationMember("Assigned"),
+                    new EnumerationMember("Mentioned"),
+                    new EnumerationMember("BuildFailed"),
+                    new EnumerationMember("Marked"),
+                    new EnumerationMember("ApprovalRequired"),
+                    new EnumerationMember("Unmergeable"),
+                    new EnumerationMember("DirectlyAddressed"),
+                }
+            });
+
+            _todoState = Project.AddModel(new Enumeration("TodoState")
+            {
+                Members =
+                {
+                    new EnumerationMember("Pending"),
+                    new EnumerationMember("Done"),
+                }
+            });
+
+            _todoType = Project.AddModel(new Enumeration("TodoType")
+            {
+                Members =
+                {
+                    new EnumerationMember("Issue"),
+                    new EnumerationMember("MergeRequest"),
+                }
+            });
         }
 
         private void CreateUserTypes()
@@ -126,7 +163,7 @@ namespace Meziantou.GitLabClient.Generator
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L13
-            _userSafeModel = Project.AddModel(new Entity("UserSafe")
+            _userSafe = Project.AddModel(new Entity("UserSafe")
             {
                 Properties =
                 {
@@ -137,9 +174,9 @@ namespace Meziantou.GitLabClient.Generator
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L17
-            _userBasicModel = Project.AddModel(new Entity("UserBasic")
+            _userBasic = Project.AddModel(new Entity("UserBasic")
             {
-                BaseType = _userSafeModel,
+                BaseType = _userSafe,
                 Properties =
                 {
                     new EntityProperty("AvatarUrl", ModelRef.String) { Required = Required.AllowNull },
@@ -150,9 +187,9 @@ namespace Meziantou.GitLabClient.Generator
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L32
-            _userModel = Project.AddModel(new Entity("User")
+            _user = Project.AddModel(new Entity("User")
             {
-                BaseType = _userBasicModel,
+                BaseType = _userBasic,
                 Properties =
                 {
                     new EntityProperty("Bio", ModelRef.String) { Required = Required.AllowNull },
@@ -187,9 +224,9 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Emoji", ModelRef.String),
-                    new EntityProperty("Message", ModelRef.String),
-                    new EntityProperty("MessageHtml", ModelRef.String),
+                    new EntityProperty("Emoji", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("Message", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("MessageHtml", ModelRef.String) { Required = Required.AllowNull },
                 }
             });
 
@@ -380,7 +417,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("OnlyAllowMergeIfPipelineSucceeds", ModelRef.Boolean),
                     new EntityProperty("OnlyMirrorProtectedBranches", ModelRef.NullableBoolean) { Required = Required.Default },
                     new EntityProperty("OpenIssuesCount", ModelRef.NullableInt32),
-                    new EntityProperty("Owner", _userBasicModel) { Required = Required.Default },
+                    new EntityProperty("Owner", _userBasic) { Required = Required.Default },
                     new EntityProperty("Permissions", permissions),
                     new EntityProperty("PrintingMergeRequestLinkEnabled", ModelRef.Boolean),
                     new EntityProperty("PublicJobs", ModelRef.Boolean),
@@ -394,6 +431,22 @@ namespace Meziantou.GitLabClient.Generator
                 }
             });
 
+            _todo = Project.AddModel(new Entity("Todo")
+            {
+                Properties =
+                {
+                    new EntityProperty("Id", ModelRef.Id),
+                    new EntityProperty("ActionName", _todoAction),
+                    new EntityProperty("Author", _userBasic),
+                    new EntityProperty("Project", _basicProjectDetails),
+                    new EntityProperty("TargetType", _todoType),
+                    new EntityProperty("Target", ModelRef.GitLabObject),
+                    new EntityProperty("TargetUrl", ModelRef.String),
+                    new EntityProperty("Body", ModelRef.String),
+                    new EntityProperty("State", _userState),
+                    new EntityProperty("CreatedAt", ModelRef.DateTime),
+                }
+            });
         }
 
         private void CreateRefs()
@@ -422,7 +475,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef(ModelRef.Id),
                     new ParameterEntityRef(ModelRef.String),
-                    new ParameterEntityRef(_userSafeModel, "Id"),
+                    new ParameterEntityRef(_userSafe, "Id"),
                 }
             });
         }
@@ -431,7 +484,7 @@ namespace Meziantou.GitLabClient.Generator
         {
             Project.AddMethod(new Method("GetUser", "user")
             {
-                ReturnType = _userModel,
+                ReturnType = _user,
                 Documentation = new Documentation
                 {
                     Summary = "Gets currently authenticated user.",
@@ -441,7 +494,7 @@ namespace Meziantou.GitLabClient.Generator
 
             Project.AddMethod(new Method("GetUser", "users/:id")
             {
-                ReturnType = _userModel,
+                ReturnType = _user,
                 Parameters =
                 {
                     new MethodParameter("id", ModelRef.Id)
@@ -456,7 +509,7 @@ namespace Meziantou.GitLabClient.Generator
             Project.AddMethod(new Method("GetUsers", "users")
             {
                 MethodType = MethodType.GetPaged,
-                ReturnType = new ModelRef(_userBasicModel),
+                ReturnType = new ModelRef(_userBasic),
                 Parameters =
                 {
                     new MethodParameter("username", ModelRef.String) { IsOptional = true },
@@ -496,34 +549,14 @@ namespace Meziantou.GitLabClient.Generator
                 },
             });
 
-            var setUserStatus = Project.AddRequestPayload(new Entity("SetUserStatus")
-            {
-                Properties =
-                {
-                    new EntityProperty("Emoji", ModelRef.String)
-                    {
-                        Documentation = new Documentation
-                        {
-                            Summary = "The name of the emoji to use as status, if omitted speech_balloon is used. Emoji name can be one of the specified names in the Gemojione index."
-                        }
-                    },
-                    new EntityProperty("Message", ModelRef.String)
-                    {
-                        Documentation = new Documentation
-                        {
-                            Summary = "The message to set as a status. It can also contain emoji codes."
-                        }
-                    },
-                }
-            });
-
             Project.AddMethod(new Method("SetUserStatus", "user/status")
             {
                 MethodType = MethodType.Put,
                 ReturnType = new ModelRef(_userStatus),
                 Parameters =
                 {
-                    new MethodParameter("status", setUserStatus) { Location = ParameterLocation.Body }
+                    new MethodParameter("emoji", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("message", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
                 },
                 Documentation = new Documentation
                 {
@@ -579,35 +612,17 @@ namespace Meziantou.GitLabClient.Generator
                 },
             });
 
-            var addSshKey = Project.AddRequestPayload(new Entity("AddSshKey")
+            var addSshKeyParameters = new MethodParameter[]
             {
-                Properties =
-                {
-                    new EntityProperty("Title", ModelRef.String)
-                    {
-                        Documentation = new Documentation
-                        {
-                            Summary = "new SSH Key's title"
-                        }
-                    },
-                    new EntityProperty("Key", ModelRef.String)
-                    {
-                        Documentation = new Documentation
-                        {
-                            Summary = "new SSH key"
-                        }
-                    },
-                }
-            });
+                new MethodParameter("title", ModelRef.String) { Location = ParameterLocation.Body },
+                new MethodParameter("key", ModelRef.String) { Location = ParameterLocation.Body },
+            };
 
             Project.AddMethod(new Method("AddSshKey", "user/keys")
             {
                 MethodType = MethodType.Post,
                 ReturnType = new ModelRef(_sshKey),
-                Parameters =
-                {
-                    new MethodParameter("sshKey", addSshKey) { Location = ParameterLocation.Body }
-                },
+                Parameters = addSshKeyParameters,
                 Documentation = new Documentation
                 {
                     Summary = "Creates a new key owned by the currently authenticated user.",
@@ -619,17 +634,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 MethodType = MethodType.Post,
                 ReturnType = new ModelRef(_sshKey),
-                Parameters =
+                Parameters = new[]
                 {
-                    new MethodParameter("user", ModelRef.String)
-                    {
-                        Documentation = "new SSH Key's title"
-                    },
-                    new MethodParameter("sshKey", addSshKey)
-                    {
-                        Location = ParameterLocation.Body
-                    }
-                },
+                    new MethodParameter("user", _userRef)
+                }.Concat(addSshKeyParameters).ToList(),
                 Documentation = new Documentation
                 {
                     Summary = "Creates a new key owned by the currently authenticated user.",
@@ -651,6 +659,61 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     Summary = "Deletes key owned by currently authenticated user.",
                     HelpLink = "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user"
+                },
+            });
+
+            Project.AddMethod(new Method("CreateUser", "users")
+            {
+                MethodType = MethodType.Post,
+                ReturnType = new ModelRef(_user),
+                Parameters =
+                {
+                    new MethodParameter("email", ModelRef.String) { Location = ParameterLocation.Body },
+                    new MethodParameter("username", ModelRef.String) { Location = ParameterLocation.Body },
+                    new MethodParameter("name", ModelRef.String) { Location = ParameterLocation.Body },
+                    new MethodParameter("password", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("admin", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("canCreateGroup", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("skipConfirmation", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
+                },
+                Documentation = new Documentation
+                {
+                    Summary = "Creates a new user. Note only administrators can create new users.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/users.html#user-creation"
+                },
+            });
+
+            var token = Project.AddModel(new Entity("ImpersonationToken")
+            {
+                Properties =
+                {
+                    new EntityProperty("Id", ModelRef.Id),
+                    new EntityProperty("Revoked", ModelRef.Boolean),
+                    new EntityProperty("Scopes", ModelRef.StringCollection),
+                    new EntityProperty("Token", ModelRef.String),
+                    new EntityProperty("Active", ModelRef.Boolean),
+                    new EntityProperty("Impersonation", ModelRef.Boolean),
+                    new EntityProperty("Name", ModelRef.String),
+                    new EntityProperty("CreatedAt", ModelRef.DateTime),
+                    new EntityProperty("ExpiresAt", ModelRef.NullableDate),
+                }
+            });
+
+            Project.AddMethod(new Method("CreateImpersonationToken", "users/:user/impersonation_tokens")
+            {
+                MethodType = MethodType.Post,
+                ReturnType = new ModelRef(token),
+                Parameters =
+                {
+                    new MethodParameter("user", _userRef),
+                    new MethodParameter("name", ModelRef.String) { Location = ParameterLocation.Body },
+                    new MethodParameter("expiresAt", ModelRef.NullableDate) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("scopes", ModelRef.StringCollection) { Location = ParameterLocation.Body },
+                },
+                Documentation = new Documentation
+                {
+                    Summary = "It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token"
                 },
             });
         }
@@ -724,6 +787,24 @@ namespace Meziantou.GitLabClient.Generator
                 Parameters =
                 {
                     new MethodParameter("id", _projectRef),
+                }
+            });
+        }
+
+        private void CreateTodoMethods()
+        {
+            Project.AddMethod(new Method("GetTodo", "todos")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos"
+                },
+                ReturnType = _todo,
+                MethodType = MethodType.GetPaged,
+                Parameters =
+                {
+                    new MethodParameter("action", new ModelRef(_todoAction){ IsNullable = true }) { IsOptional = true },
                 }
             });
         }
