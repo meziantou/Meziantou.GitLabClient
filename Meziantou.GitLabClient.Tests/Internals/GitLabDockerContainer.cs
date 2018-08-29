@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -10,32 +11,31 @@ using AngleSharp.Dom.Html;
 using AngleSharp.Services;
 using Docker.DotNet;
 using Docker.DotNet.Models;
-using Meziantou.Framework;
-using Meziantou.Framework.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
 {
     public class GitLabDockerContainer
     {
-        public string ContainerName { get; set; } = "MeziantouGitLabClientTests";
-        public int HttpPort { get; set; } = 8080;
-        public int HttpsPort { get; set; } = 4433;
-        public string AdminUserName { get; set; } = "root";
-        public string AdminPassword { get; set; } = "dLpwdrZ9";
-        public string StandardUserName { get; set; } = "user";
-        public string StandardPassword { get; set; } = "dLpwdrZ9";
+        public const string ContainerName = "MeziantouGitLabClientTests";
+        public const string ImageName = "gitlab/gitlab-ee";
+        public const string ImageTag = "latest";
+
+        public int HttpPort { get; } = 8080;
+        public string AdminUserName { get; } = "root";
+        public string StandardUserName { get; } = "user";
+        public string Password { get; } = "Pa$$w0rd";
 
         public string GitLabUrl => "http://localhost:" + HttpPort;
 
-        public string AdminUserToken { get; set; }
-        public string StandardUserToken { get; set; }
+        public string AdminUserToken { get; private set; }
+        public string StandardUserToken { get; private set; }
 
         public async Task Setup()
         {
-            await SpawnDockerContainer().ConfigureAwait(false);
-            await GenerateAdminToken().ConfigureAwait(false);
-            await GenerateStandardToken().ConfigureAwait(false);
+            await SpawnDockerContainer();
+            await GenerateAdminTokenAsync();
+            await GenerateStandardTokenAsync();
         }
 
         private async Task SpawnDockerContainer()
@@ -43,33 +43,55 @@ namespace Meziantou.GitLab.Tests
             using (var conf = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine")))
             using (var client = conf.CreateClient())
             {
-                var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).ConfigureAwait(false);
-                var gitLabContainer = containers.FirstOrDefault(c => c.Names.Contains("/" + ContainerName));
-                if (gitLabContainer == null)
+                var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true });
+                var container = containers.FirstOrDefault(c => c.Names.Contains("/" + ContainerName));
+                if (container == null)
                 {
-                    var arguments = CommandLineBuilder.WindowsQuotedArguments(
-                        "run",
-                        "--hostname", "localhost",
-                        "--publish", HttpsPort + ":443", "--publish", HttpPort + ":80", "--publish", "2222:22",
-                        "--name", ContainerName,
-                        "--restart", "always",
-                        "--volume", "/data/gitlab/config:/etc/gitlab",
-                        "--volume", "/data/gitlab/logs:/var/log/gitlab",
-                        "--volume", "/data/gitlab/data:/var/opt/gitlab",
-                        "-e", "POSTGRES_ENV_POSTGRES_USER=user_postgres",
-                        "-d",
-                        "gitlab/gitlab-ce:11.2.1-ce.0");
+                    // Download GitLab images
+                    await client.Images.CreateImageAsync(new ImagesCreateParameters() { FromImage = ImageName, Tag = ImageTag }, new AuthConfig() { }, new Progress<JSONMessage>());
 
-                    var result = await ProcessExtensions.RunAsTask("docker", arguments).ConfigureAwait(false);
-                    Assert.AreEqual(0, result.ExitCode);
+                    // Create the container
+                    var config = new Config()
+                    {
+                        Hostname = "localhost"
+                    };
+
+                    var hostConfig = new HostConfig()
+                    {
+                        PortBindings = new Dictionary<string, IList<PortBinding>>
+                        {
+                            { "80/tcp", new List<PortBinding> { new PortBinding { HostIP = "127.0.0.1", HostPort = HttpPort.ToString(CultureInfo.InvariantCulture) } } },
+                        }
+                    };
+
+                    var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(config)
+                    {
+                        Image = ImageName + ":" + ImageTag,
+                        Name = ContainerName,
+                        Tty = false,
+                        HostConfig = hostConfig,
+                    });
+
+                    containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true });
+                    container = containers.First(c => c.ID == response.ID);
+                }
+
+                // Start the container
+                if (container.State != "running")
+                {
+                    var started = await client.Containers.StartContainerAsync(container.ID, new ContainerStartParameters());
+                    if (!started)
+                    {
+                        Assert.Fail("Cannot start the docker container");
+                    }
                 }
 
                 // Wait for the container to be ready
-                await WaitForGitLabServer().ConfigureAwait(false);
+                await WaitForContainerAsync();
             }
         }
 
-        private async Task WaitForGitLabServer()
+        private async Task WaitForContainerAsync()
         {
             using (var httpClient = new HttpClient())
             {
@@ -90,7 +112,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        private async Task GenerateAdminToken()
+        private async Task GenerateAdminTokenAsync()
         {
             var conf = Configuration.Default
               .WithDefaultLoader(setup =>
@@ -109,9 +131,9 @@ namespace Meziantou.GitLab.Tests
             if (result.Location.PathName == "/users/password/edit")
             {
                 var form = result.Forms["new_user"];
-                ((IHtmlInputElement)form["user[password]"]).Value = AdminPassword;
-                ((IHtmlInputElement)form["user[password_confirmation]"]).Value = AdminPassword;
-                result = await form.SubmitAsync().ConfigureAwait(false);
+                ((IHtmlInputElement)form["user[password]"]).Value = Password;
+                ((IHtmlInputElement)form["user[password_confirmation]"]).Value = Password;
+                result = await form.SubmitAsync();
             }
 
             // Login
@@ -119,8 +141,8 @@ namespace Meziantou.GitLab.Tests
             {
                 var form = result.Forms["new_user"];
                 ((IHtmlInputElement)form["user[login]"]).Value = AdminUserName;
-                ((IHtmlInputElement)form["user[password]"]).Value = AdminPassword;
-                result = await form.SubmitAsync().ConfigureAwait(false);
+                ((IHtmlInputElement)form["user[password]"]).Value = Password;
+                result = await form.SubmitAsync();
             }
 
             // Create a token
@@ -134,13 +156,13 @@ namespace Meziantou.GitLab.Tests
                     element.IsChecked = true;
                 }
 
-                result = await form.SubmitAsync().ConfigureAwait(false);
+                result = await form.SubmitAsync();
 
                 AdminUserToken = result.GetElementById("created-personal-access-token").GetAttribute("value");
             }
         }
 
-        private async Task GenerateStandardToken()
+        private async Task GenerateStandardTokenAsync()
         {
             using (var client = new GitLabClient(GitLabUrl, AdminUserToken))
             {
@@ -151,7 +173,7 @@ namespace Meziantou.GitLab.Tests
                     user = await client.CreateUserAsync(
                         email: StandardUserName + "@dummy.com",
                         username: StandardUserName,
-                        password: StandardPassword,
+                        password: Password,
                         name: StandardUserName,
                         admin: false,
                         canCreateGroup: true,
@@ -163,6 +185,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
+        // TODO remove when resolved https://github.com/AngleSharp/AngleSharp/issues/702
         private class MemoryCookieProvider : ICookieProvider
         {
             public CookieContainer Container { get; } = new CookieContainer();
