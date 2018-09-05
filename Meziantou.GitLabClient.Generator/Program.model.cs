@@ -8,6 +8,9 @@ namespace Meziantou.GitLabClient.Generator
         private Enumeration _access;
         private Enumeration _importStatus;
         private Enumeration _mergeMethod;
+        private Enumeration _mergeRequestScopeFilter;
+        private Enumeration _mergeRequestState;
+        private Enumeration _mergeRequestStateFilter;
         private Enumeration _projectVisibility;
         private Enumeration _userState;
         private Enumeration _todoAction;
@@ -18,6 +21,7 @@ namespace Meziantou.GitLabClient.Generator
         private Entity _groupAccess;
         private Entity _identityModel;
         private Entity _memberAccess;
+        private Entity _mergeRequest;
         private Entity _namespaceBasic;
         private Entity _project;
         private Entity _projectAccess;
@@ -146,6 +150,40 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EnumerationMember("Issue"),
                     new EnumerationMember("MergeRequest"),
+                }
+            });
+
+            _mergeRequestScopeFilter = Project.AddModel(new Enumeration("MergeRequestScopeFilter")
+            {
+                Members =
+                {
+                    new EnumerationMember("AssignedToMe"),
+                    new EnumerationMember("All"),
+                }
+            });
+
+            _mergeRequestStateFilter = Project.AddModel(new Enumeration("MergeRequestStateFilter")
+            {
+                IsFlags = true,
+                GenerateAllMember = true,
+                Members =
+                {
+                    new EnumerationMember("Default", 0x0),
+                    new EnumerationMember("Opened", 0x1),
+                    new EnumerationMember("Closed", 0x2),
+                    new EnumerationMember("Locked", 0x4),
+                    new EnumerationMember("Merged", 0x8),
+                }
+            });
+
+            _mergeRequestState = Project.AddModel(new Enumeration("MergeRequestState")
+            {
+                Members =
+                {
+                    new EnumerationMember("Opened"),
+                    new EnumerationMember("Closed"),
+                    new EnumerationMember("Locked"),
+                    new EnumerationMember("Merged"),
                 }
             });
         }
@@ -445,6 +483,24 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("Body", ModelRef.String),
                     new EntityProperty("State", _userState),
                     new EntityProperty("CreatedAt", ModelRef.DateTime),
+                }
+            });
+
+            _mergeRequest = Project.AddModel(new Entity("MergeRequest")
+            {
+                Properties =
+                {
+                    new EntityProperty("Id", ModelRef.Id),
+                    new EntityProperty("Iid", ModelRef.Id),
+                    new EntityProperty("Author", _userBasic),
+                    new EntityProperty("Title", ModelRef.String),
+                    new EntityProperty("State", _mergeRequestState),
+                    new EntityProperty("ProjectId", ModelRef.Id),
+                    new EntityProperty("WebUrl", ModelRef.String),
+                    new EntityProperty("CreatedAt", ModelRef.DateTime),
+                    new EntityProperty("UpdatedAt", ModelRef.DateTime),
+                    new EntityProperty("MergeStatus", ModelRef.String),
+                    new EntityProperty("UserNotesCount", ModelRef.Int32),
                 }
             });
         }
@@ -805,6 +861,42 @@ namespace Meziantou.GitLabClient.Generator
                 Parameters =
                 {
                     new MethodParameter("action", new ModelRef(_todoAction){ IsNullable = true }) { IsOptional = true },
+                }
+            });
+        }
+
+        private void CreateMergeRequestsMethods()
+        {
+            Project.AddMethod(new Method("GetMergeRequests", "merge_requests")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests"
+                },
+                ReturnType = _mergeRequest,
+                MethodType = MethodType.GetPaged,
+                Parameters =
+                {
+                    new MethodParameter("state", new ModelRef(_mergeRequestState) { IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("scope", new ModelRef(_mergeRequestScopeFilter) { IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("assignee_id", new ModelRef(_userRef) { IsNullable = true }) { IsOptional = true },
+                }
+            });
+
+            Project.AddMethod(new Method("GetMergeRequests", "projects/:projectId/merge_requests")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Get all merge requests for this project.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests"
+                },
+                ReturnType = _mergeRequest,
+                MethodType = MethodType.GetPaged,
+                Parameters =
+                {
+                    new MethodParameter("projectId", ModelRef.Id),
+                    new MethodParameter("state", new ModelRef(_mergeRequestState) { IsNullable = true }) { IsOptional = true },
                 }
             });
         }

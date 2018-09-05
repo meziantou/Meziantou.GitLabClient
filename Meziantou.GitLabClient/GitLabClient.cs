@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.GitLabClient.Internals;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Meziantou.GitLab
 {

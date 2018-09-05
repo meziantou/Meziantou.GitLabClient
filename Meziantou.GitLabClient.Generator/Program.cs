@@ -223,7 +223,17 @@ namespace Meziantou.GitLabClient.Generator
             {
                 if (param.Type.IsParameterEntity)
                 {
-                    m.Statements.Add(urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param].GetMember("Value")));
+                    if (param.Type.IsNullable)
+                    {
+                        var hasValueCondition = new ConditionStatement();
+                        hasValueCondition.Condition = arguments[param].GetMember(nameof(Nullable<int>.HasValue));
+                        hasValueCondition.TrueStatements = urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param].GetMember(nameof(Nullable<int>.Value), "Value"));
+                        m.Statements.Add(hasValueCondition);
+                    }
+                    else
+                    {
+                        m.Statements.Add(urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param].GetMember("Value")));
+                    }
                 }
                 else
                 {
@@ -401,9 +411,19 @@ namespace Meziantou.GitLabClient.Generator
                 AddDocumentationComments(type, enumeration.Documentation);
                 type.Modifiers = Modifiers.Public;
                 type.BaseType = enumeration.BaseType;
+
+                if (enumeration.IsFlags)
+                {
+                    type.CustomAttributes.Add(new CustomAttribute(typeof(FlagsAttribute)));
+                }
+
                 foreach (var prop in enumeration.Members)
                 {
                     var enumerationMember = new Framework.CodeDom.EnumerationMember(prop.Name);
+                    if (prop.Value != null)
+                    {
+                        enumerationMember.Value = new LiteralExpression(prop.Value);
+                    }
 
                     if (enumeration.SerializeAsString)
                     {
@@ -414,6 +434,26 @@ namespace Meziantou.GitLabClient.Generator
                     }
 
                     AddDocumentationComments(enumerationMember, prop.Documentation);
+                    type.Members.Add(enumerationMember);
+                }
+
+                if (enumeration.GenerateAllMember)
+                {
+                    Expression initExpression = null;
+                    foreach (var member in type.Members)
+                    {
+                        Expression memberExpression = new TypeReference(type).GetMember(member.Name);
+                        if (initExpression == null)
+                        {
+                            initExpression = memberExpression;
+                        }
+                        else
+                        {
+                            initExpression = new BinaryExpression(BinaryOperator.BitwiseOr, initExpression, memberExpression);
+                        }
+                    }
+
+                    var enumerationMember = new Framework.CodeDom.EnumerationMember("All", initExpression);
                     type.Members.Add(enumerationMember);
                 }
             }

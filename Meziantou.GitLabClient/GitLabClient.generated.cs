@@ -2,11 +2,11 @@ namespace Meziantou.GitLab
 {
     public enum Access
     {
-        Guest,
-        Reporter,
-        Developer,
-        Maintainer,
-        Owner
+        Guest = 10,
+        Reporter = 20,
+        Developer = 30,
+        Maintainer = 40,
+        Owner = 50
     }
 
     public partial class BasicProjectDetails : ProjectIdentity
@@ -411,6 +411,210 @@ namespace Meziantou.GitLab
         /// <summary>No merge commits are created and all merges are fast-forwarded, which means that merging is only allowed if the branch could be fast-forwarded.</summary>
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "ff")]
         FastForward
+    }
+
+    public partial class MergeRequest : GitLab.GitLabObject
+    {
+        private long _id;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
+
+        private long _iid;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid", Required = Newtonsoft.Json.Required.Always)]
+        public long Iid
+        {
+            get
+            {
+                return this._iid;
+            }
+            private set
+            {
+                this._iid = value;
+            }
+        }
+
+        private UserBasic _author;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author", Required = Newtonsoft.Json.Required.AllowNull)]
+        public UserBasic Author
+        {
+            get
+            {
+                return this._author;
+            }
+            private set
+            {
+                this._author = value;
+            }
+        }
+
+        private string _title;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title", Required = Newtonsoft.Json.Required.Always)]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            private set
+            {
+                this._title = value;
+            }
+        }
+
+        private MergeRequestState _state;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state", Required = Newtonsoft.Json.Required.AllowNull)]
+        public MergeRequestState State
+        {
+            get
+            {
+                return this._state;
+            }
+            private set
+            {
+                this._state = value;
+            }
+        }
+
+        private long _projectId;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id", Required = Newtonsoft.Json.Required.Always)]
+        public long ProjectId
+        {
+            get
+            {
+                return this._projectId;
+            }
+            private set
+            {
+                this._projectId = value;
+            }
+        }
+
+        private string _webUrl;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url", Required = Newtonsoft.Json.Required.Always)]
+        public string WebUrl
+        {
+            get
+            {
+                return this._webUrl;
+            }
+            private set
+            {
+                this._webUrl = value;
+            }
+        }
+
+        private System.DateTime _createdAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this._createdAt;
+            }
+            private set
+            {
+                this._createdAt = value;
+            }
+        }
+
+        private System.DateTime _updatedAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at", Required = Newtonsoft.Json.Required.Always)]
+        public System.DateTime UpdatedAt
+        {
+            get
+            {
+                return this._updatedAt;
+            }
+            private set
+            {
+                this._updatedAt = value;
+            }
+        }
+
+        private string _mergeStatus;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_status", Required = Newtonsoft.Json.Required.Always)]
+        public string MergeStatus
+        {
+            get
+            {
+                return this._mergeStatus;
+            }
+            private set
+            {
+                this._mergeStatus = value;
+            }
+        }
+
+        private int _userNotesCount;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "user_notes_count", Required = Newtonsoft.Json.Required.Always)]
+        public int UserNotesCount
+        {
+            get
+            {
+                return this._userNotesCount;
+            }
+            private set
+            {
+                this._userNotesCount = value;
+            }
+        }
+    }
+
+    public enum MergeRequestScopeFilter
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned_to_me")]
+        AssignedToMe,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "all")]
+        All
+    }
+
+    public enum MergeRequestState
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
+        Opened,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "closed")]
+        Closed,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "locked")]
+        Locked,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
+        Merged
+    }
+
+    [System.FlagsAttribute]
+    public enum MergeRequestStateFilter
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "default")]
+        Default = 0,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
+        Opened = 1,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "closed")]
+        Closed = 2,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "locked")]
+        Locked = 4,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
+        Merged = 8,
+        All = ((((Meziantou.GitLab.MergeRequestStateFilter.Default | Meziantou.GitLab.MergeRequestStateFilter.Opened) | Meziantou.GitLab.MergeRequestStateFilter.Closed) | Meziantou.GitLab.MergeRequestStateFilter.Locked) | Meziantou.GitLab.MergeRequestStateFilter.Merged)
     }
 
     public partial class NamespaceBasic : GitLab.GitLabObject
@@ -2110,6 +2314,14 @@ namespace Meziantou.GitLab
         {
             return this.GitLabClient.GetProjectsAsync(this, archived, visibility, search, simple, owned, membership, starred, statistics, with_issues_enabled, with_merge_requests_enabled, wiki_checksum_failed, repository_checksum_failed, min_access_level, pageOptions, cancellationToken);
         }
+
+        /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetMergeRequestsAsync(state, scope, this, pageOptions, cancellationToken);
+        }
     }
 
     public enum UserState
@@ -2732,6 +2944,83 @@ namespace Meziantou.GitLab
             string url = urlBuilder.Build();
 
             return this.GetPagedAsync<Todo>(url, cancellationToken);
+        }
+
+        /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), System.Nullable<UserRef> assignee_id = default(System.Nullable<UserRef>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("merge_requests");
+
+            urlBuilder.WithValue("state", state);
+
+            urlBuilder.WithValue("scope", scope);
+
+            if (assignee_id.HasValue)
+            {
+                urlBuilder.WithValue("assignee_id", assignee_id.Value.Value);
+            }
+
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
+
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
+
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
+
+            string url = urlBuilder.Build();
+
+            return this.GetPagedAsync<MergeRequest>(url, cancellationToken);
+        }
+
+        /// <summary>Get all merge requests for this project.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(long projectId, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:projectId/merge_requests");
+
+            urlBuilder.WithValue("projectId", projectId);
+
+            urlBuilder.WithValue("state", state);
+
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
+
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
+
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
+
+            string url = urlBuilder.Build();
+
+            return this.GetPagedAsync<MergeRequest>(url, cancellationToken);
         }
     }
 }

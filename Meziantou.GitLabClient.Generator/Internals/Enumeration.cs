@@ -11,5 +11,7 @@ namespace Meziantou.GitLabClient.Generator
 
         public bool SerializeAsString { get; set; } = true;
         public IList<EnumerationMember> Members { get; } = new List<EnumerationMember>();
+        public bool IsFlags { get; set; }
+        public bool GenerateAllMember { get; set; }
     }
 }
