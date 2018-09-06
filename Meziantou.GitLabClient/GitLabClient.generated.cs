@@ -13,7 +13,7 @@ namespace Meziantou.GitLab
     {
         private string _avatarUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
         public string AvatarUrl
         {
             get
@@ -28,7 +28,7 @@ namespace Meziantou.GitLab
 
         private string _defaultBranch;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "default_branch", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "default_branch")]
         public string DefaultBranch
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
 
         private long _forksCount;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forks_count", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forks_count")]
         public long ForksCount
         {
             get
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab
 
         private string _httpUrlToRepo;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "http_url_to_repo", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "http_url_to_repo")]
         public string HttpUrlToRepo
         {
             get
@@ -73,7 +73,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _lastActivityAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_at")]
         public System.DateTime LastActivityAt
         {
             get
@@ -88,7 +88,7 @@ namespace Meziantou.GitLab
 
         private NamespaceBasic _namespace;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "namespace", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "namespace")]
         public NamespaceBasic Namespace
         {
             get
@@ -103,7 +103,7 @@ namespace Meziantou.GitLab
 
         private string _readmeUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "readme_url", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "readme_url")]
         public string ReadmeUrl
         {
             get
@@ -118,7 +118,7 @@ namespace Meziantou.GitLab
 
         private string _sshUrlToRepo;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ssh_url_to_repo", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ssh_url_to_repo")]
         public string SshUrlToRepo
         {
             get
@@ -133,7 +133,7 @@ namespace Meziantou.GitLab
 
         private long _starCount;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "star_count", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "star_count")]
         public long StarCount
         {
             get
@@ -148,7 +148,7 @@ namespace Meziantou.GitLab
 
         private System.Collections.Generic.IReadOnlyList<string> _tagList;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "tag_list", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "tag_list")]
         public System.Collections.Generic.IReadOnlyList<string> TagList
         {
             get
@@ -163,7 +163,7 @@ namespace Meziantou.GitLab
 
         private string _webUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
@@ -185,7 +185,7 @@ namespace Meziantou.GitLab
     {
         private string _provider;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "provider", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "provider")]
         public string Provider
         {
             get
@@ -200,7 +200,7 @@ namespace Meziantou.GitLab
 
         private string _externUid;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "extern_uid", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "extern_uid")]
         public string ExternUid
         {
             get
@@ -218,7 +218,7 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -233,7 +233,7 @@ namespace Meziantou.GitLab
 
         private bool _revoked;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revoked", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revoked")]
         public bool Revoked
         {
             get
@@ -248,7 +248,7 @@ namespace Meziantou.GitLab
 
         private System.Collections.Generic.IReadOnlyList<string> _scopes;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "scopes", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "scopes")]
         public System.Collections.Generic.IReadOnlyList<string> Scopes
         {
             get
@@ -263,7 +263,7 @@ namespace Meziantou.GitLab
 
         private string _token;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "token", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "token")]
         public string Token
         {
             get
@@ -278,7 +278,7 @@ namespace Meziantou.GitLab
 
         private bool _active;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "active", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "active")]
         public bool Active
         {
             get
@@ -293,7 +293,7 @@ namespace Meziantou.GitLab
 
         private bool _impersonation;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "impersonation", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "impersonation")]
         public bool Impersonation
         {
             get
@@ -308,7 +308,7 @@ namespace Meziantou.GitLab
 
         private string _name;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
@@ -323,7 +323,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _createdAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -339,7 +339,7 @@ namespace Meziantou.GitLab
         private System.Nullable<System.DateTime> _expiresAt;
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "expires_at", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "expires_at")]
         public System.Nullable<System.DateTime> ExpiresAt
         {
             get
@@ -371,7 +371,7 @@ namespace Meziantou.GitLab
     {
         private Access _accessLevel;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "access_level", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "access_level")]
         public Access AccessLevel
         {
             get
@@ -386,7 +386,7 @@ namespace Meziantou.GitLab
 
         private string _notificationLevel;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "notification_level", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "notification_level")]
         public string NotificationLevel
         {
             get
@@ -417,7 +417,7 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -432,7 +432,7 @@ namespace Meziantou.GitLab
 
         private long _iid;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
         public long Iid
         {
             get
@@ -447,7 +447,7 @@ namespace Meziantou.GitLab
 
         private UserBasic _author;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
         {
             get
@@ -462,7 +462,7 @@ namespace Meziantou.GitLab
 
         private string _title;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
         public string Title
         {
             get
@@ -477,7 +477,7 @@ namespace Meziantou.GitLab
 
         private MergeRequestState _state;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public MergeRequestState State
         {
             get
@@ -492,7 +492,7 @@ namespace Meziantou.GitLab
 
         private long _projectId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
         public long ProjectId
         {
             get
@@ -507,7 +507,7 @@ namespace Meziantou.GitLab
 
         private string _webUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
@@ -522,7 +522,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _createdAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -537,7 +537,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _updatedAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
         public System.DateTime UpdatedAt
         {
             get
@@ -552,7 +552,7 @@ namespace Meziantou.GitLab
 
         private string _mergeStatus;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_status", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_status")]
         public string MergeStatus
         {
             get
@@ -567,7 +567,7 @@ namespace Meziantou.GitLab
 
         private int _userNotesCount;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "user_notes_count", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "user_notes_count")]
         public int UserNotesCount
         {
             get
@@ -621,7 +621,7 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -636,7 +636,7 @@ namespace Meziantou.GitLab
 
         private string _name;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
@@ -651,7 +651,7 @@ namespace Meziantou.GitLab
 
         private string _path;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
         public string Path
         {
             get
@@ -666,7 +666,7 @@ namespace Meziantou.GitLab
 
         private string _kind;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "kind", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "kind")]
         public string Kind
         {
             get
@@ -681,7 +681,7 @@ namespace Meziantou.GitLab
 
         private string _fullPath;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "full_path", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "full_path")]
         public string FullPath
         {
             get
@@ -696,7 +696,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<long> _parentId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "parent_id", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "parent_id")]
         public System.Nullable<long> ParentId
         {
             get
@@ -714,7 +714,7 @@ namespace Meziantou.GitLab
     {
         private System.Nullable<int> _approvalsBeforeMerge;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "approvals_before_merge", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "approvals_before_merge")]
         public System.Nullable<int> ApprovalsBeforeMerge
         {
             get
@@ -729,7 +729,7 @@ namespace Meziantou.GitLab
 
         private bool _archived;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "archived", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "archived")]
         public bool Archived
         {
             get
@@ -744,7 +744,7 @@ namespace Meziantou.GitLab
 
         private string _ciConfigPath;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ci_config_path", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ci_config_path")]
         public string CiConfigPath
         {
             get
@@ -759,7 +759,7 @@ namespace Meziantou.GitLab
 
         private bool _containerRegistryEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "container_registry_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "container_registry_enabled")]
         public bool ContainerRegistryEnabled
         {
             get
@@ -774,7 +774,7 @@ namespace Meziantou.GitLab
 
         private long _creatorId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "creator_id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "creator_id")]
         public long CreatorId
         {
             get
@@ -789,7 +789,7 @@ namespace Meziantou.GitLab
 
         private BasicProjectDetails _forkedFromProject;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forked_from_project", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forked_from_project")]
         public BasicProjectDetails ForkedFromProject
         {
             get
@@ -804,7 +804,7 @@ namespace Meziantou.GitLab
 
         private ImportStatus _importStatus;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "import_status", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "import_status")]
         public ImportStatus ImportStatus
         {
             get
@@ -819,7 +819,7 @@ namespace Meziantou.GitLab
 
         private bool _issuesEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues_enabled")]
         public bool IssuesEnabled
         {
             get
@@ -834,7 +834,7 @@ namespace Meziantou.GitLab
 
         private bool _jobsEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "jobs_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "jobs_enabled")]
         public bool JobsEnabled
         {
             get
@@ -849,7 +849,7 @@ namespace Meziantou.GitLab
 
         private bool _lfsEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "lfs_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "lfs_enabled")]
         public bool LfsEnabled
         {
             get
@@ -864,7 +864,7 @@ namespace Meziantou.GitLab
 
         private ProjectLink _links;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "_links", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "_links")]
         public ProjectLink Links
         {
             get
@@ -879,7 +879,7 @@ namespace Meziantou.GitLab
 
         private MergeMethod _mergeMethod;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_method", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_method")]
         public MergeMethod MergeMethod
         {
             get
@@ -894,7 +894,7 @@ namespace Meziantou.GitLab
 
         private bool _mergeRequestsEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests_enabled")]
         public bool MergeRequestsEnabled
         {
             get
@@ -909,7 +909,7 @@ namespace Meziantou.GitLab
 
         private bool _mirror;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror")]
         public bool Mirror
         {
             get
@@ -924,7 +924,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<long> _mirrorUserId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_user_id", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_user_id")]
         public System.Nullable<long> MirrorUserId
         {
             get
@@ -939,7 +939,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _mirrorTriggerBuilds;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_trigger_builds", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_trigger_builds")]
         public System.Nullable<bool> MirrorTriggerBuilds
         {
             get
@@ -954,7 +954,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _mirrorOverwritesDivergedBranches;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_overwrites_diverged_branches", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_overwrites_diverged_branches")]
         public System.Nullable<bool> MirrorOverwritesDivergedBranches
         {
             get
@@ -969,7 +969,7 @@ namespace Meziantou.GitLab
 
         private bool _onlyAllowMergeIfAllDiscussionsAreResolved;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_all_discussions_are_resolved", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_all_discussions_are_resolved")]
         public bool OnlyAllowMergeIfAllDiscussionsAreResolved
         {
             get
@@ -984,7 +984,7 @@ namespace Meziantou.GitLab
 
         private bool _onlyAllowMergeIfPipelineSucceeds;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_pipeline_succeeds", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_pipeline_succeeds")]
         public bool OnlyAllowMergeIfPipelineSucceeds
         {
             get
@@ -999,7 +999,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _onlyMirrorProtectedBranches;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_mirror_protected_branches", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_mirror_protected_branches")]
         public System.Nullable<bool> OnlyMirrorProtectedBranches
         {
             get
@@ -1014,7 +1014,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<int> _openIssuesCount;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "open_issues_count", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "open_issues_count")]
         public System.Nullable<int> OpenIssuesCount
         {
             get
@@ -1029,7 +1029,7 @@ namespace Meziantou.GitLab
 
         private UserBasic _owner;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "owner", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "owner")]
         public UserBasic Owner
         {
             get
@@ -1044,7 +1044,7 @@ namespace Meziantou.GitLab
 
         private ProjectPermissions _permissions;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "permissions", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "permissions")]
         public ProjectPermissions Permissions
         {
             get
@@ -1059,7 +1059,7 @@ namespace Meziantou.GitLab
 
         private bool _printingMergeRequestLinkEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "printing_merge_request_link_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "printing_merge_request_link_enabled")]
         public bool PrintingMergeRequestLinkEnabled
         {
             get
@@ -1074,7 +1074,7 @@ namespace Meziantou.GitLab
 
         private bool _publicJobs;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "public_jobs", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "public_jobs")]
         public bool PublicJobs
         {
             get
@@ -1089,7 +1089,7 @@ namespace Meziantou.GitLab
 
         private bool _requestAccessEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "request_access_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "request_access_enabled")]
         public bool RequestAccessEnabled
         {
             get
@@ -1104,7 +1104,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _resolveOutdatedDiffDiscussions;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "resolve_outdated_diff_discussions", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "resolve_outdated_diff_discussions")]
         public System.Nullable<bool> ResolveOutdatedDiffDiscussions
         {
             get
@@ -1119,7 +1119,7 @@ namespace Meziantou.GitLab
 
         private bool _sharedRunnersEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_enabled")]
         public bool SharedRunnersEnabled
         {
             get
@@ -1134,7 +1134,7 @@ namespace Meziantou.GitLab
 
         private System.Collections.Generic.IReadOnlyList<SharedGroup> _sharedWithGroups;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_with_groups", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_with_groups")]
         public System.Collections.Generic.IReadOnlyList<SharedGroup> SharedWithGroups
         {
             get
@@ -1149,7 +1149,7 @@ namespace Meziantou.GitLab
 
         private bool _snippetsEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "snippets_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "snippets_enabled")]
         public bool SnippetsEnabled
         {
             get
@@ -1164,7 +1164,7 @@ namespace Meziantou.GitLab
 
         private ProjectVisibility _visibility;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "visibility", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "visibility")]
         public ProjectVisibility Visibility
         {
             get
@@ -1179,7 +1179,7 @@ namespace Meziantou.GitLab
 
         private bool _wikiEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "wiki_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "wiki_enabled")]
         public bool WikiEnabled
         {
             get
@@ -1201,7 +1201,7 @@ namespace Meziantou.GitLab
     {
         private System.DateTime _createdAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1216,7 +1216,7 @@ namespace Meziantou.GitLab
 
         private string _description;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "description", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "description")]
         public string Description
         {
             get
@@ -1231,7 +1231,7 @@ namespace Meziantou.GitLab
 
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -1246,7 +1246,7 @@ namespace Meziantou.GitLab
 
         private string _name;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
@@ -1261,7 +1261,7 @@ namespace Meziantou.GitLab
 
         private string _nameWithNamespace;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name_with_namespace", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name_with_namespace")]
         public string NameWithNamespace
         {
             get
@@ -1276,7 +1276,7 @@ namespace Meziantou.GitLab
 
         private string _path;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
         public string Path
         {
             get
@@ -1291,7 +1291,7 @@ namespace Meziantou.GitLab
 
         private string _pathWithNamespace;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path_with_namespace", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path_with_namespace")]
         public string PathWithNamespace
         {
             get
@@ -1324,7 +1324,7 @@ namespace Meziantou.GitLab
     {
         private string _events;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "events", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "events")]
         public string Events
         {
             get
@@ -1339,7 +1339,7 @@ namespace Meziantou.GitLab
 
         private string _issues;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues")]
         public string Issues
         {
             get
@@ -1354,7 +1354,7 @@ namespace Meziantou.GitLab
 
         private string _labels;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "labels", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "labels")]
         public string Labels
         {
             get
@@ -1369,7 +1369,7 @@ namespace Meziantou.GitLab
 
         private string _members;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "members", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "members")]
         public string Members
         {
             get
@@ -1384,7 +1384,7 @@ namespace Meziantou.GitLab
 
         private string _mergeRequests;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests")]
         public string MergeRequests
         {
             get
@@ -1399,7 +1399,7 @@ namespace Meziantou.GitLab
 
         private string _repoBranches;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "repo_branches", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "repo_branches")]
         public string RepoBranches
         {
             get
@@ -1414,7 +1414,7 @@ namespace Meziantou.GitLab
 
         private string _self;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "self", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "self")]
         public string Self
         {
             get
@@ -1432,7 +1432,7 @@ namespace Meziantou.GitLab
     {
         private GroupAccess _groupAccess;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access")]
         public GroupAccess GroupAccess
         {
             get
@@ -1447,7 +1447,7 @@ namespace Meziantou.GitLab
 
         private ProjectAccess _projectAccess;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_access", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_access")]
         public ProjectAccess ProjectAccess
         {
             get
@@ -1475,7 +1475,7 @@ namespace Meziantou.GitLab
     {
         private long _groupId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_id")]
         public long GroupId
         {
             get
@@ -1490,7 +1490,7 @@ namespace Meziantou.GitLab
 
         private string _groupName;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_name")]
         public string GroupName
         {
             get
@@ -1505,7 +1505,7 @@ namespace Meziantou.GitLab
 
         private Access _groupAccessLevel;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access_level", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access_level")]
         public Access GroupAccessLevel
         {
             get
@@ -1523,7 +1523,7 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -1538,7 +1538,7 @@ namespace Meziantou.GitLab
 
         private string _title;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
         public string Title
         {
             get
@@ -1553,7 +1553,7 @@ namespace Meziantou.GitLab
 
         private string _key;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "key", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "key")]
         public string Key
         {
             get
@@ -1568,7 +1568,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _createdAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1602,7 +1602,7 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -1617,7 +1617,7 @@ namespace Meziantou.GitLab
 
         private TodoAction _actionName;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "action_name", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "action_name")]
         public TodoAction ActionName
         {
             get
@@ -1632,7 +1632,7 @@ namespace Meziantou.GitLab
 
         private UserBasic _author;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
         {
             get
@@ -1647,7 +1647,7 @@ namespace Meziantou.GitLab
 
         private BasicProjectDetails _project;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project")]
         public BasicProjectDetails Project
         {
             get
@@ -1662,7 +1662,7 @@ namespace Meziantou.GitLab
 
         private TodoType _targetType;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_type", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_type")]
         public TodoType TargetType
         {
             get
@@ -1677,7 +1677,7 @@ namespace Meziantou.GitLab
 
         private GitLab.GitLabObject _target;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target")]
         public GitLab.GitLabObject Target
         {
             get
@@ -1692,7 +1692,7 @@ namespace Meziantou.GitLab
 
         private string _targetUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_url", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_url")]
         public string TargetUrl
         {
             get
@@ -1707,7 +1707,7 @@ namespace Meziantou.GitLab
 
         private string _body;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "body", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "body")]
         public string Body
         {
             get
@@ -1722,7 +1722,7 @@ namespace Meziantou.GitLab
 
         private UserState _state;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public UserState State
         {
             get
@@ -1737,7 +1737,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _createdAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1789,7 +1789,7 @@ namespace Meziantou.GitLab
     {
         private string _bio;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "bio", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "bio")]
         public string Bio
         {
             get
@@ -1804,7 +1804,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _canCreateGroup;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_group", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_group")]
         public System.Nullable<bool> CanCreateGroup
         {
             get
@@ -1819,7 +1819,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _canCreateProject;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_project", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_project")]
         public System.Nullable<bool> CanCreateProject
         {
             get
@@ -1834,7 +1834,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<long> _colorSchemeId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "color_scheme_id", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "color_scheme_id")]
         public System.Nullable<long> ColorSchemeId
         {
             get
@@ -1849,7 +1849,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<System.DateTime> _confirmedAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "confirmed_at", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "confirmed_at")]
         public System.Nullable<System.DateTime> ConfirmedAt
         {
             get
@@ -1864,7 +1864,7 @@ namespace Meziantou.GitLab
 
         private System.DateTime _createdAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1879,7 +1879,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<System.DateTime> _currentSignInAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "current_sign_in_at", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "current_sign_in_at")]
         public System.Nullable<System.DateTime> CurrentSignInAt
         {
             get
@@ -1894,7 +1894,7 @@ namespace Meziantou.GitLab
 
         private string _email;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "email", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "email")]
         public string Email
         {
             get
@@ -1909,7 +1909,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _external;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "external", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "external")]
         public System.Nullable<bool> External
         {
             get
@@ -1924,7 +1924,7 @@ namespace Meziantou.GitLab
 
         private System.Collections.Generic.IReadOnlyList<Identity> _identities;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "identities", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "identities")]
         public System.Collections.Generic.IReadOnlyList<Identity> Identities
         {
             get
@@ -1939,7 +1939,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _isAdmin;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "is_admin", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "is_admin")]
         public System.Nullable<bool> IsAdmin
         {
             get
@@ -1955,7 +1955,7 @@ namespace Meziantou.GitLab
         private System.Nullable<System.DateTime> _lastActivityOn;
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on")]
         public System.Nullable<System.DateTime> LastActivityOn
         {
             get
@@ -1970,7 +1970,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<System.DateTime> _lastSignInAt;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_sign_in_at", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_sign_in_at")]
         public System.Nullable<System.DateTime> LastSignInAt
         {
             get
@@ -1985,7 +1985,7 @@ namespace Meziantou.GitLab
 
         private string _linkedin;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "linkedin", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "linkedin")]
         public string Linkedin
         {
             get
@@ -2000,7 +2000,7 @@ namespace Meziantou.GitLab
 
         private string _location;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "location", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "location")]
         public string Location
         {
             get
@@ -2015,7 +2015,7 @@ namespace Meziantou.GitLab
 
         private string _organization;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "organization", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "organization")]
         public string Organization
         {
             get
@@ -2030,7 +2030,7 @@ namespace Meziantou.GitLab
 
         private object _privateProfile;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "private_profile", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "private_profile")]
         public object PrivateProfile
         {
             get
@@ -2045,7 +2045,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<long> _projectsLimit;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "projects_limit", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "projects_limit")]
         public System.Nullable<long> ProjectsLimit
         {
             get
@@ -2060,7 +2060,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<long> _sharedRunnersMinutesLimit;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_minutes_limit", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_minutes_limit")]
         public System.Nullable<long> SharedRunnersMinutesLimit
         {
             get
@@ -2075,7 +2075,7 @@ namespace Meziantou.GitLab
 
         private string _skype;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "skype", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "skype")]
         public string Skype
         {
             get
@@ -2090,7 +2090,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<long> _themeId;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "theme_id", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "theme_id")]
         public System.Nullable<long> ThemeId
         {
             get
@@ -2105,7 +2105,7 @@ namespace Meziantou.GitLab
 
         private string _twitter;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "twitter", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "twitter")]
         public string Twitter
         {
             get
@@ -2120,7 +2120,7 @@ namespace Meziantou.GitLab
 
         private System.Nullable<bool> _twoFactorEnabled;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "two_factor_enabled", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "two_factor_enabled")]
         public System.Nullable<bool> TwoFactorEnabled
         {
             get
@@ -2135,7 +2135,7 @@ namespace Meziantou.GitLab
 
         private string _websiteUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "website_url", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "website_url")]
         public string WebsiteUrl
         {
             get
@@ -2153,7 +2153,7 @@ namespace Meziantou.GitLab
     {
         private string _username;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
         public string Username
         {
             get
@@ -2169,7 +2169,7 @@ namespace Meziantou.GitLab
         private System.DateTime _lastActivityOn;
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on")]
         public System.DateTime LastActivityOn
         {
             get
@@ -2187,7 +2187,7 @@ namespace Meziantou.GitLab
     {
         private string _avatarUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
         public string AvatarUrl
         {
             get
@@ -2202,7 +2202,7 @@ namespace Meziantou.GitLab
 
         private string _avatarPath;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_path", Required = Newtonsoft.Json.Required.Default)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_path")]
         public string AvatarPath
         {
             get
@@ -2217,7 +2217,7 @@ namespace Meziantou.GitLab
 
         private UserState _state;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public UserState State
         {
             get
@@ -2232,7 +2232,7 @@ namespace Meziantou.GitLab
 
         private string _webUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
@@ -2250,7 +2250,7 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
@@ -2265,7 +2265,7 @@ namespace Meziantou.GitLab
 
         private string _name;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
@@ -2280,7 +2280,7 @@ namespace Meziantou.GitLab
 
         private string _username;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
         public string Username
         {
             get
@@ -2343,7 +2343,7 @@ namespace Meziantou.GitLab
     {
         private string _emoji;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji")]
         public string Emoji
         {
             get
@@ -2358,7 +2358,7 @@ namespace Meziantou.GitLab
 
         private string _message;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message")]
         public string Message
         {
             get
@@ -2373,7 +2373,7 @@ namespace Meziantou.GitLab
 
         private string _messageHtml;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message_html", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message_html")]
         public string MessageHtml
         {
             get

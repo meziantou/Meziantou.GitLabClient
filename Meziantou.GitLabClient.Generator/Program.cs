@@ -398,7 +398,7 @@ namespace Meziantou.GitLabClient.Generator
                         Arguments =
                         {
                             new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), prop.SerializationName ?? prop.Name),
-                            new CustomAttributeArgument(nameof(JsonPropertyAttribute.Required), RequiredMode(prop)),
+                            //new CustomAttributeArgument(nameof(JsonPropertyAttribute.Required), RequiredMode(prop)),
                         }
                     };
 
