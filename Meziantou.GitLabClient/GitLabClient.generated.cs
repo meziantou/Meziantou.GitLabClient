@@ -1311,6 +1311,14 @@ namespace Meziantou.GitLab
         {
             return this.GitLabClient.GetProjectAsync(this, pageOptions, cancellationToken);
         }
+
+        /// <summary>Get all merge requests for this project.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetMergeRequestsAsync(this, state, pageOptions, cancellationToken);
+        }
     }
 
     public partial class ProjectLink : GitLab.GitLabObject
@@ -2310,9 +2318,9 @@ namespace Meziantou.GitLab
         /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> with_issues_enabled = default(System.Nullable<bool>), System.Nullable<bool> with_merge_requests_enabled = default(System.Nullable<bool>), System.Nullable<bool> wiki_checksum_failed = default(System.Nullable<bool>), System.Nullable<bool> repository_checksum_failed = default(System.Nullable<bool>), System.Nullable<Access> min_access_level = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.GetProjectsAsync(this, archived, visibility, search, simple, owned, membership, starred, statistics, with_issues_enabled, with_merge_requests_enabled, wiki_checksum_failed, repository_checksum_failed, min_access_level, pageOptions, cancellationToken);
+            return this.GitLabClient.GetProjectsAsync(this, archived, visibility, search, simple, owned, membership, starred, statistics, withIssuesEnabled, withMergeRequestsEnabled, wikiChecksumFailed, repositoryChecksumFailed, minAccessLevel, pageOptions, cancellationToken);
         }
 
         /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
@@ -2380,7 +2388,7 @@ namespace Meziantou.GitLab
         }
     }
 
-    public readonly struct ProjectRef
+    public readonly struct ProjectIdOrPathRef
     {
         private readonly object _value;
 
@@ -2392,17 +2400,17 @@ namespace Meziantou.GitLab
             }
         }
 
-        public ProjectRef(long value)
+        public ProjectIdOrPathRef(long value)
         {
             this._value = value;
         }
 
-        public static implicit operator Meziantou.GitLab.ProjectRef(long value)
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(long value)
         {
-            return new Meziantou.GitLab.ProjectRef(value);
+            return new Meziantou.GitLab.ProjectIdOrPathRef(value);
         }
 
-        public ProjectRef(ProjectIdentity value)
+        public ProjectIdOrPathRef(ProjectIdentity value)
         {
             if ((value == null))
             {
@@ -2412,14 +2420,67 @@ namespace Meziantou.GitLab
             this._value = value.Id;
         }
 
-        public static implicit operator Meziantou.GitLab.ProjectRef(ProjectIdentity value)
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(ProjectIdentity value)
         {
             if ((value == null))
             {
                 throw new System.ArgumentNullException(nameof(value));
             }
 
-            return new Meziantou.GitLab.ProjectRef(value);
+            return new Meziantou.GitLab.ProjectIdOrPathRef(value);
+        }
+
+        public ProjectIdOrPathRef(string value)
+        {
+            this._value = value;
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(string value)
+        {
+            return new Meziantou.GitLab.ProjectIdOrPathRef(value);
+        }
+    }
+
+    public readonly struct ProjectIdRef
+    {
+        private readonly object _value;
+
+        public object Value
+        {
+            get
+            {
+                return this._value;
+            }
+        }
+
+        public ProjectIdRef(long value)
+        {
+            this._value = value;
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdRef(long value)
+        {
+            return new Meziantou.GitLab.ProjectIdRef(value);
+        }
+
+        public ProjectIdRef(ProjectIdentity value)
+        {
+            if ((value == null))
+            {
+                throw new System.ArgumentNullException(nameof(value));
+            }
+
+            this._value = value.Id;
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdRef(ProjectIdentity value)
+        {
+            if ((value == null))
+            {
+                throw new System.ArgumentNullException(nameof(value));
+            }
+
+            return new Meziantou.GitLab.ProjectIdRef(value);
         }
     }
 
@@ -2732,9 +2793,9 @@ namespace Meziantou.GitLab
 
             body.Add("admin", admin);
 
-            body.Add("canCreateGroup", canCreateGroup);
+            body.Add("can_create_group", canCreateGroup);
 
-            body.Add("skipConfirmation", skipConfirmation);
+            body.Add("skip_confirmation", skipConfirmation);
 
             return this.PostJsonAsync<User>(url, body, cancellationToken);
         }
@@ -2753,7 +2814,7 @@ namespace Meziantou.GitLab
 
             body.Add("name", name);
 
-            body.Add("expiresAt", expiresAt);
+            body.Add("expires_at", expiresAt);
 
             body.Add("scopes", scopes);
 
@@ -2763,7 +2824,7 @@ namespace Meziantou.GitLab
         /// <summary>Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with "simple" fields are returned.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> with_issues_enabled = default(System.Nullable<bool>), System.Nullable<bool> with_merge_requests_enabled = default(System.Nullable<bool>), System.Nullable<bool> wiki_checksum_failed = default(System.Nullable<bool>), System.Nullable<bool> repository_checksum_failed = default(System.Nullable<bool>), System.Nullable<Access> min_access_level = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
 
@@ -2783,15 +2844,15 @@ namespace Meziantou.GitLab
 
             urlBuilder.WithValue("statistics", statistics);
 
-            urlBuilder.WithValue("with_issues_enabled", with_issues_enabled);
+            urlBuilder.WithValue("with_issues_enabled", withIssuesEnabled);
 
-            urlBuilder.WithValue("with_merge_requests_enabled", with_merge_requests_enabled);
+            urlBuilder.WithValue("with_merge_requests_enabled", withMergeRequestsEnabled);
 
-            urlBuilder.WithValue("wiki_checksum_failed", wiki_checksum_failed);
+            urlBuilder.WithValue("wiki_checksum_failed", wikiChecksumFailed);
 
-            urlBuilder.WithValue("repository_checksum_failed", repository_checksum_failed);
+            urlBuilder.WithValue("repository_checksum_failed", repositoryChecksumFailed);
 
-            urlBuilder.WithValue("min_access_level", min_access_level);
+            urlBuilder.WithValue("min_access_level", minAccessLevel);
 
             if ((pageOptions != null))
             {
@@ -2821,7 +2882,7 @@ namespace Meziantou.GitLab
         /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(UserRef user, System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> with_issues_enabled = default(System.Nullable<bool>), System.Nullable<bool> with_merge_requests_enabled = default(System.Nullable<bool>), System.Nullable<bool> wiki_checksum_failed = default(System.Nullable<bool>), System.Nullable<bool> repository_checksum_failed = default(System.Nullable<bool>), System.Nullable<Access> min_access_level = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(UserRef user, System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/projects");
 
@@ -2843,15 +2904,15 @@ namespace Meziantou.GitLab
 
             urlBuilder.WithValue("statistics", statistics);
 
-            urlBuilder.WithValue("with_issues_enabled", with_issues_enabled);
+            urlBuilder.WithValue("with_issues_enabled", withIssuesEnabled);
 
-            urlBuilder.WithValue("with_merge_requests_enabled", with_merge_requests_enabled);
+            urlBuilder.WithValue("with_merge_requests_enabled", withMergeRequestsEnabled);
 
-            urlBuilder.WithValue("wiki_checksum_failed", wiki_checksum_failed);
+            urlBuilder.WithValue("wiki_checksum_failed", wikiChecksumFailed);
 
-            urlBuilder.WithValue("repository_checksum_failed", repository_checksum_failed);
+            urlBuilder.WithValue("repository_checksum_failed", repositoryChecksumFailed);
 
-            urlBuilder.WithValue("min_access_level", min_access_level);
+            urlBuilder.WithValue("min_access_level", minAccessLevel);
 
             if ((pageOptions != null))
             {
@@ -2881,7 +2942,7 @@ namespace Meziantou.GitLab
         /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectAsync(ProjectRef id, Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectAsync(ProjectIdRef id, Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:id");
 
@@ -2915,7 +2976,7 @@ namespace Meziantou.GitLab
         /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Todo>> GetTodoAsync(System.Nullable<TodoAction> action = default(System.Nullable<TodoAction>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Todo>> GetTodosAsync(System.Nullable<TodoAction> action = default(System.Nullable<TodoAction>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos");
 
@@ -2949,7 +3010,7 @@ namespace Meziantou.GitLab
         /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), System.Nullable<UserRef> assignee_id = default(System.Nullable<UserRef>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("merge_requests");
 
@@ -2957,9 +3018,9 @@ namespace Meziantou.GitLab
 
             urlBuilder.WithValue("scope", scope);
 
-            if (assignee_id.HasValue)
+            if (assigneeId.HasValue)
             {
-                urlBuilder.WithValue("assignee_id", assignee_id.Value.Value);
+                urlBuilder.WithValue("assignee_id", assigneeId.Value.Value);
             }
 
             if ((pageOptions != null))
@@ -2990,11 +3051,11 @@ namespace Meziantou.GitLab
         /// <summary>Get all merge requests for this project.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(long projectId, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(ProjectIdOrPathRef project, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:projectId/merge_requests");
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/merge_requests");
 
-            urlBuilder.WithValue("projectId", projectId);
+            urlBuilder.WithValue("project", project.Value);
 
             urlBuilder.WithValue("state", state);
 

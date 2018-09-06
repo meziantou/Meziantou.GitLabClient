@@ -183,7 +183,7 @@ namespace Meziantou.GitLabClient.Generator
             var arguments = new Dictionary<MethodParameter, MethodArgumentDeclaration>();
             foreach (var param in method.Parameters.OrderBy(p => p.IsOptional ? 1 : -1))
             {
-                var argument = m.AddArgument(new MethodArgumentDeclaration(GetArgumentTypeRef(param.Type), param.MethodParameterName ?? param.Name));
+                var argument = m.AddArgument(new MethodArgumentDeclaration(GetArgumentTypeRef(param.Type), param.MethodParameterName ?? ToArgumentName(param.Name)));
                 if (param.IsOptional)
                 {
                     argument.DefaultValue = new DefaultValueExpression(argument.Type.Clone());
@@ -374,7 +374,7 @@ namespace Meziantou.GitLabClient.Generator
                 foreach (var prop in entity.Properties)
                 {
                     var field = type.AddMember(new FieldDeclaration(ToFieldName(prop.Name), GetPropertyTypeRef(prop.Type), Modifiers.Private));
-                    var propertyMember = type.AddMember(new PropertyDeclaration(prop.Name, GetPropertyTypeRef(prop.Type))
+                    var propertyMember = type.AddMember(new PropertyDeclaration(ToPropertyName(prop.Name), GetPropertyTypeRef(prop.Type))
                     {
                         Modifiers = Modifiers.Public,
                         Getter = new ReturnStatement(field),
@@ -397,7 +397,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Arguments =
                         {
-                            new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), prop.SerializationName ?? ToSnakeCase(prop.Name)),
+                            new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), prop.SerializationName ?? prop.Name),
                             new CustomAttributeArgument(nameof(JsonPropertyAttribute.Required), RequiredMode(prop)),
                         }
                     };
@@ -419,7 +419,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 foreach (var prop in enumeration.Members)
                 {
-                    var enumerationMember = new Framework.CodeDom.EnumerationMember(prop.Name);
+                    var enumerationMember = new Framework.CodeDom.EnumerationMember(ToPropertyName(prop.Name));
                     if (prop.Value != null)
                     {
                         enumerationMember.Value = new LiteralExpression(prop.Value);
@@ -429,7 +429,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         enumerationMember.CustomAttributes.Add(new CustomAttribute(typeof(EnumMemberAttribute))
                         {
-                            Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), prop.SerializationName ?? ToSnakeCase(prop.Name)) }
+                            Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), prop.SerializationName ?? prop.Name) }
                         });
                     }
 
@@ -453,7 +453,7 @@ namespace Meziantou.GitLabClient.Generator
                         }
                     }
 
-                    var enumerationMember = new Framework.CodeDom.EnumerationMember("All", initExpression);
+                    var enumerationMember = new Framework.CodeDom.EnumerationMember(ToPropertyName("all"), initExpression);
                     type.Members.Add(enumerationMember);
                 }
             }
@@ -540,7 +540,7 @@ namespace Meziantou.GitLabClient.Generator
                     Expression value = new ArgumentReferenceExpression("value");
                     foreach (var member in refe.Properties)
                     {
-                        value = value.GetMember(member);
+                        value = value.GetMember(ToPropertyName(member));
                     }
 
                     return value;
@@ -550,13 +550,27 @@ namespace Meziantou.GitLabClient.Generator
 
         private string ToFieldName(string value)
         {
-            return "_" + char.ToLowerInvariant(value[0]) + value.Substring(1);
+            var pascalCase = ToPropertyName(value);
+            return "_" + char.ToLowerInvariant(pascalCase[0]) + pascalCase.Substring(1);
         }
 
-        private string ToSnakeCase(string value)
+        private string ToPropertyName(string value)
         {
-            return string.Concat(value.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
+            return value.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries)
+             .Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1))
+             .Aggregate(string.Empty, (s1, s2) => s1 + s2);
         }
+
+        private string ToArgumentName(string value)
+        {
+            var pascalCase = ToPropertyName(value);
+            return char.ToLowerInvariant(pascalCase[0]) + pascalCase.Substring(1);
+        }
+
+        //private string ToSnakeCase(string value)
+        //{
+        //    return string.Concat(value.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
+        //}
 
         private TypeReference GetPropertyTypeRef(ModelRef modelRef)
         {

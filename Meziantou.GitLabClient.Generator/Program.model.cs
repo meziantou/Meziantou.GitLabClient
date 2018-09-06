@@ -35,7 +35,8 @@ namespace Meziantou.GitLabClient.Generator
         private Entity _userStatus;
         private Entity _todo;
 
-        private ParameterEntity _projectRef;
+        private ParameterEntity _projectIdRef;
+        private ParameterEntity _projectIdOrPathRef;
         private ParameterEntity _sshKeyRef;
         private ParameterEntity _userRef;
 
@@ -50,11 +51,11 @@ namespace Meziantou.GitLabClient.Generator
                 SerializeAsString = false,
                 Members =
                 {
-                    new EnumerationMember("Guest", 10),
-                    new EnumerationMember("Reporter", 20),
-                    new EnumerationMember("Developer", 30),
-                    new EnumerationMember("Maintainer", 40),
-                    new EnumerationMember("Owner", 50),
+                    new EnumerationMember("guest", 10),
+                    new EnumerationMember("reporter", 20),
+                    new EnumerationMember("developer", 30),
+                    new EnumerationMember("maintainer", 40),
+                    new EnumerationMember("owner", 50),
                 }
             });
 
@@ -66,11 +67,11 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Members =
                 {
-                    new EnumerationMember("None"),
-                    new EnumerationMember("Scheduled"),
-                    new EnumerationMember("Failed"),
-                    new EnumerationMember("Started"),
-                    new EnumerationMember("Finished"),
+                    new EnumerationMember("none"),
+                    new EnumerationMember("scheduled"),
+                    new EnumerationMember("failed"),
+                    new EnumerationMember("started"),
+                    new EnumerationMember("finished"),
                 }
             });
 
@@ -82,15 +83,15 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Members =
                 {
-                    new EnumerationMember("Merge")
+                    new EnumerationMember("merge")
                     {
                         Documentation = "A merge commit is created for every merge, and merging is allowed as long as there are no conflicts."
                     },
-                    new EnumerationMember("RebaseMerge")
+                    new EnumerationMember("rebase_merge")
                     {
                         Documentation = "A merge commit is created for every merge, but merging is only allowed if fast-forward merge is possible. This way you could make sure that if this merge request would build, after merging to target branch it would also build."
                     },
-                    new EnumerationMember("FastForward")
+                    new EnumerationMember("fast_forward")
                     {
                         SerializationName = "ff",
                         Documentation = "No merge commits are created and all merges are fast-forwarded, which means that merging is only allowed if the branch could be fast-forwarded."
@@ -106,9 +107,9 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Members =
                 {
-                    new EnumerationMember("Private"),
-                    new EnumerationMember("Internal"),
-                    new EnumerationMember("Public"),
+                    new EnumerationMember("private"),
+                    new EnumerationMember("internal"),
+                    new EnumerationMember("public"),
                 }
             });
 
@@ -116,8 +117,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
-                    new EnumerationMember("Active"),
-                    new EnumerationMember("Blocked"),
+                    new EnumerationMember("active"),
+                    new EnumerationMember("blocked"),
                 }
             });
 
@@ -125,13 +126,13 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
-                    new EnumerationMember("Assigned"),
-                    new EnumerationMember("Mentioned"),
-                    new EnumerationMember("BuildFailed"),
-                    new EnumerationMember("Marked"),
-                    new EnumerationMember("ApprovalRequired"),
-                    new EnumerationMember("Unmergeable"),
-                    new EnumerationMember("DirectlyAddressed"),
+                    new EnumerationMember("assigned"),
+                    new EnumerationMember("mentioned"),
+                    new EnumerationMember("build_failed"),
+                    new EnumerationMember("marked"),
+                    new EnumerationMember("approval_required"),
+                    new EnumerationMember("unmergeable"),
+                    new EnumerationMember("directly_addressed"),
                 }
             });
 
@@ -139,8 +140,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
-                    new EnumerationMember("Pending"),
-                    new EnumerationMember("Done"),
+                    new EnumerationMember("pending"),
+                    new EnumerationMember("done"),
                 }
             });
 
@@ -148,8 +149,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
-                    new EnumerationMember("Issue"),
-                    new EnumerationMember("MergeRequest"),
+                    new EnumerationMember("issue"),
+                    new EnumerationMember("merge_request"),
                 }
             });
 
@@ -157,8 +158,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
-                    new EnumerationMember("AssignedToMe"),
-                    new EnumerationMember("All"),
+                    new EnumerationMember("assigned_to_me"),
+                    new EnumerationMember("all"),
                 }
             });
 
@@ -168,11 +169,11 @@ namespace Meziantou.GitLabClient.Generator
                 GenerateAllMember = true,
                 Members =
                 {
-                    new EnumerationMember("Default", 0x0),
-                    new EnumerationMember("Opened", 0x1),
-                    new EnumerationMember("Closed", 0x2),
-                    new EnumerationMember("Locked", 0x4),
-                    new EnumerationMember("Merged", 0x8),
+                    new EnumerationMember("default", 0x0),
+                    new EnumerationMember("opened", 0x1),
+                    new EnumerationMember("closed", 0x2),
+                    new EnumerationMember("locked", 0x4),
+                    new EnumerationMember("merged", 0x8),
                 }
             });
 
@@ -180,10 +181,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
-                    new EnumerationMember("Opened"),
-                    new EnumerationMember("Closed"),
-                    new EnumerationMember("Locked"),
-                    new EnumerationMember("Merged"),
+                    new EnumerationMember("opened"),
+                    new EnumerationMember("closed"),
+                    new EnumerationMember("locked"),
+                    new EnumerationMember("merged"),
                 }
             });
         }
@@ -195,8 +196,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Provider", ModelRef.String),
-                    new EntityProperty("ExternUid", ModelRef.String),
+                    new EntityProperty("provider", ModelRef.String),
+                    new EntityProperty("extern_uid", ModelRef.String),
                 }
             });
 
@@ -205,9 +206,9 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("Name", ModelRef.String),
-                    new EntityProperty("Username", ModelRef.String),
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("name", ModelRef.String),
+                    new EntityProperty("username", ModelRef.String),
                 }
             });
 
@@ -217,10 +218,10 @@ namespace Meziantou.GitLabClient.Generator
                 BaseType = _userSafe,
                 Properties =
                 {
-                    new EntityProperty("AvatarUrl", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("AvatarPath", ModelRef.String) { Required = Required.Default },
-                    new EntityProperty("State", _userState),
-                    new EntityProperty("WebUrl", ModelRef.String),
+                    new EntityProperty("avatar_url", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("avatar_path", ModelRef.String) { Required = Required.Default },
+                    new EntityProperty("state", _userState),
+                    new EntityProperty("web_url", ModelRef.String),
                 }
             });
 
@@ -230,30 +231,30 @@ namespace Meziantou.GitLabClient.Generator
                 BaseType = _userBasic,
                 Properties =
                 {
-                    new EntityProperty("Bio", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("CanCreateGroup", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("CanCreateProject", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("ColorSchemeId", ModelRef.NullableId) { Required = Required.Default },
-                    new EntityProperty("ConfirmedAt", ModelRef.NullableDateTime) { Required = Required.Default },
-                    new EntityProperty("CreatedAt", ModelRef.DateTime),
-                    new EntityProperty("CurrentSignInAt", ModelRef.NullableDateTime) { Required = Required.Default },
-                    new EntityProperty("Email", ModelRef.String) { Required = Required.Default },
-                    new EntityProperty("External", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("Identities", new ModelRef(_identityModel) { IsCollection = true }) { Required = Required.Default },
-                    new EntityProperty("IsAdmin", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("LastActivityOn", ModelRef.NullableDate) { Required = Required.Default },
-                    new EntityProperty("LastSignInAt", ModelRef.NullableDateTime) { Required = Required.Default },
-                    new EntityProperty("Linkedin", ModelRef.String),
-                    new EntityProperty("Location", ModelRef.String) { Required = Required.Default },
-                    new EntityProperty("Organization", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("PrivateProfile", ModelRef.Object) { Required = Required.Default },
-                    new EntityProperty("ProjectsLimit", ModelRef.NullableInt64) { Required = Required.Default },
-                    new EntityProperty("SharedRunnersMinutesLimit", ModelRef.NullableInt64) { Required = Required.Default },
-                    new EntityProperty("Skype", ModelRef.String),
-                    new EntityProperty("ThemeId", ModelRef.NullableId) { Required = Required.Default },
-                    new EntityProperty("Twitter", ModelRef.String),
-                    new EntityProperty("TwoFactorEnabled", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("WebsiteUrl", ModelRef.String),
+                    new EntityProperty("bio", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("can_create_group", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("can_create_project", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("color_scheme_id", ModelRef.NullableId) { Required = Required.Default },
+                    new EntityProperty("confirmed_at", ModelRef.NullableDateTime) { Required = Required.Default },
+                    new EntityProperty("created_at", ModelRef.DateTime),
+                    new EntityProperty("current_sign_in_at", ModelRef.NullableDateTime) { Required = Required.Default },
+                    new EntityProperty("email", ModelRef.String) { Required = Required.Default },
+                    new EntityProperty("external", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("identities", new ModelRef(_identityModel) { IsCollection = true }) { Required = Required.Default },
+                    new EntityProperty("is_admin", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("last_activity_on", ModelRef.NullableDate) { Required = Required.Default },
+                    new EntityProperty("last_sign_in_at", ModelRef.NullableDateTime) { Required = Required.Default },
+                    new EntityProperty("linkedin", ModelRef.String),
+                    new EntityProperty("location", ModelRef.String) { Required = Required.Default },
+                    new EntityProperty("organization", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("private_profile", ModelRef.Object) { Required = Required.Default },
+                    new EntityProperty("projects_limit", ModelRef.NullableInt64) { Required = Required.Default },
+                    new EntityProperty("shared_runners_minutes_limit", ModelRef.NullableInt64) { Required = Required.Default },
+                    new EntityProperty("skype", ModelRef.String),
+                    new EntityProperty("theme_id", ModelRef.NullableId) { Required = Required.Default },
+                    new EntityProperty("twitter", ModelRef.String),
+                    new EntityProperty("two_factor_enabled", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("website_url", ModelRef.String),
                 }
             });
 
@@ -262,9 +263,9 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Emoji", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("Message", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("MessageHtml", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("emoji", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("message", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("message_html", ModelRef.String) { Required = Required.AllowNull },
                 }
             });
 
@@ -273,8 +274,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Username", ModelRef.String),
-                    new EntityProperty("LastActivityOn", ModelRef.Date),
+                    new EntityProperty("username", ModelRef.String),
+                    new EntityProperty("last_activity_on", ModelRef.Date),
                 }
             });
 
@@ -282,10 +283,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("Title", ModelRef.String),
-                    new EntityProperty("Key", ModelRef.String),
-                    new EntityProperty("CreatedAt", ModelRef.DateTime),
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("key", ModelRef.String),
+                    new EntityProperty("created_at", ModelRef.DateTime),
                 },
                 Documentation = new Documentation
                 {
@@ -301,9 +302,9 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Properties =
                 {
-                    new EntityProperty("GroupId", ModelRef.Id),
-                    new EntityProperty("GroupName", ModelRef.String),
-                    new EntityProperty("GroupAccessLevel", _access),
+                    new EntityProperty("group_id", ModelRef.Id),
+                    new EntityProperty("group_name", ModelRef.String),
+                    new EntityProperty("group_access_level", _access),
                 }
             });
 
@@ -315,8 +316,8 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Properties =
                 {
-                    new EntityProperty("AccessLevel", _access),
-                    new EntityProperty("NotificationLevel", ModelRef.String),
+                    new EntityProperty("access_level", _access),
+                    new EntityProperty("notification_level", ModelRef.String),
                 }
             });
 
@@ -352,12 +353,12 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Properties =
                 {
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("Name", ModelRef.String),
-                    new EntityProperty("Path", ModelRef.String),
-                    new EntityProperty("Kind", ModelRef.String),
-                    new EntityProperty("FullPath", ModelRef.String),
-                    new EntityProperty("ParentId", ModelRef.NullableId),
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("name", ModelRef.String),
+                    new EntityProperty("path", ModelRef.String),
+                    new EntityProperty("kind", ModelRef.String),
+                    new EntityProperty("full_path", ModelRef.String),
+                    new EntityProperty("parent_id", ModelRef.NullableId),
                 }
             });
 
@@ -369,13 +370,13 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Properties =
                 {
-                    new EntityProperty("CreatedAt", ModelRef.DateTime),
-                    new EntityProperty("Description", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("Name", ModelRef.String),
-                    new EntityProperty("NameWithNamespace", ModelRef.String),
-                    new EntityProperty("Path", ModelRef.String),
-                    new EntityProperty("PathWithNamespace", ModelRef.String),
+                    new EntityProperty("created_at", ModelRef.DateTime),
+                    new EntityProperty("description", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("name", ModelRef.String),
+                    new EntityProperty("name_with_namespace", ModelRef.String),
+                    new EntityProperty("path", ModelRef.String),
+                    new EntityProperty("path_with_namespace", ModelRef.String),
                 }
             });
 
@@ -388,17 +389,17 @@ namespace Meziantou.GitLabClient.Generator
                 BaseType = _projectIdentity,
                 Properties =
                 {
-                    new EntityProperty("AvatarUrl", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("DefaultBranch", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("ForksCount", ModelRef.Int64),
-                    new EntityProperty("HttpUrlToRepo", ModelRef.String),
-                    new EntityProperty("LastActivityAt", ModelRef.DateTime),
-                    new EntityProperty("Namespace", _namespaceBasic),
-                    new EntityProperty("ReadmeUrl", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("SshUrlToRepo", ModelRef.String),
-                    new EntityProperty("StarCount", ModelRef.Int64),
-                    new EntityProperty("TagList", ModelRef.StringCollection),
-                    new EntityProperty("WebUrl", ModelRef.String),
+                    new EntityProperty("avatar_url", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("default_branch", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("forks_count", ModelRef.Int64),
+                    new EntityProperty("http_url_to_repo", ModelRef.String),
+                    new EntityProperty("last_activity_at", ModelRef.DateTime),
+                    new EntityProperty("namespace", _namespaceBasic),
+                    new EntityProperty("readme_url", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("ssh_url_to_repo", ModelRef.String),
+                    new EntityProperty("star_count", ModelRef.Int64),
+                    new EntityProperty("tag_list", ModelRef.StringCollection),
+                    new EntityProperty("web_url", ModelRef.String),
                 }
             });
 
@@ -406,13 +407,13 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Events", ModelRef.String),
-                    new EntityProperty("Issues", ModelRef.String) { Required = Required.Default },
-                    new EntityProperty("Labels", ModelRef.String),
-                    new EntityProperty("Members", ModelRef.String),
-                    new EntityProperty("MergeRequests", ModelRef.String) { Required = Required.Default },
-                    new EntityProperty("RepoBranches", ModelRef.String),
-                    new EntityProperty("Self", ModelRef.String),
+                    new EntityProperty("events", ModelRef.String),
+                    new EntityProperty("issues", ModelRef.String) { Required = Required.Default },
+                    new EntityProperty("labels", ModelRef.String),
+                    new EntityProperty("members", ModelRef.String),
+                    new EntityProperty("merge_requests", ModelRef.String) { Required = Required.Default },
+                    new EntityProperty("repo_branches", ModelRef.String),
+                    new EntityProperty("self", ModelRef.String),
                 }
             });
 
@@ -420,8 +421,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("GroupAccess", _groupAccess),
-                    new EntityProperty("ProjectAccess", _projectAccess),
+                    new EntityProperty("group_access", _groupAccess),
+                    new EntityProperty("project_access", _projectAccess),
                 }
             });
 
@@ -434,38 +435,38 @@ namespace Meziantou.GitLabClient.Generator
                 BaseType = _basicProjectDetails,
                 Properties =
                 {
-                    new EntityProperty("ApprovalsBeforeMerge", ModelRef.NullableInt32) { Required = Required.Default },
-                    new EntityProperty("Archived", ModelRef.Boolean),
-                    new EntityProperty("CiConfigPath", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("ContainerRegistryEnabled", ModelRef.Boolean),
-                    new EntityProperty("CreatorId", ModelRef.Id),
-                    new EntityProperty("ForkedFromProject", _basicProjectDetails) { Required = Required.Default },
-                    new EntityProperty("ImportStatus", _importStatus),
-                    new EntityProperty("IssuesEnabled", ModelRef.Boolean),
-                    new EntityProperty("JobsEnabled", ModelRef.Boolean),
-                    new EntityProperty("LfsEnabled", ModelRef.Boolean),
-                    new EntityProperty("Links", projectLinks) { SerializationName = "_links" },
-                    new EntityProperty("MergeMethod", _mergeMethod),
-                    new EntityProperty("MergeRequestsEnabled", ModelRef.Boolean),
-                    new EntityProperty("Mirror", ModelRef.Boolean),
-                    new EntityProperty("MirrorUserId", ModelRef.NullableId) { Required = Required.Default },
-                    new EntityProperty("MirrorTriggerBuilds", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("MirrorOverwritesDivergedBranches", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("OnlyAllowMergeIfAllDiscussionsAreResolved", ModelRef.Boolean),
-                    new EntityProperty("OnlyAllowMergeIfPipelineSucceeds", ModelRef.Boolean),
-                    new EntityProperty("OnlyMirrorProtectedBranches", ModelRef.NullableBoolean) { Required = Required.Default },
-                    new EntityProperty("OpenIssuesCount", ModelRef.NullableInt32),
-                    new EntityProperty("Owner", _userBasic) { Required = Required.Default },
-                    new EntityProperty("Permissions", permissions),
-                    new EntityProperty("PrintingMergeRequestLinkEnabled", ModelRef.Boolean),
-                    new EntityProperty("PublicJobs", ModelRef.Boolean),
-                    new EntityProperty("RequestAccessEnabled", ModelRef.Boolean),
-                    new EntityProperty("ResolveOutdatedDiffDiscussions", ModelRef.Boolean),
-                    new EntityProperty("SharedRunnersEnabled", ModelRef.Boolean),
-                    new EntityProperty("SharedWithGroups", new ModelRef(_sharedGroup) { IsCollection = true }),
-                    new EntityProperty("SnippetsEnabled", ModelRef.Boolean),
-                    new EntityProperty("Visibility", _projectVisibility),
-                    new EntityProperty("WikiEnabled", ModelRef.Boolean),
+                    new EntityProperty("approvals_before_merge", ModelRef.NullableInt32) { Required = Required.Default },
+                    new EntityProperty("archived", ModelRef.Boolean),
+                    new EntityProperty("ci_config_path", ModelRef.String) { Required = Required.AllowNull },
+                    new EntityProperty("container_registry_enabled", ModelRef.Boolean),
+                    new EntityProperty("creator_id", ModelRef.Id),
+                    new EntityProperty("forked_from_project", _basicProjectDetails) { Required = Required.Default },
+                    new EntityProperty("import_status", _importStatus),
+                    new EntityProperty("issues_enabled", ModelRef.Boolean),
+                    new EntityProperty("jobs_enabled", ModelRef.Boolean),
+                    new EntityProperty("lfs_enabled", ModelRef.Boolean),
+                    new EntityProperty("links", projectLinks) { SerializationName = "_links" },
+                    new EntityProperty("merge_method", _mergeMethod),
+                    new EntityProperty("merge_requests_enabled", ModelRef.Boolean),
+                    new EntityProperty("mirror", ModelRef.Boolean),
+                    new EntityProperty("mirror_user_id", ModelRef.NullableId) { Required = Required.Default },
+                    new EntityProperty("mirror_trigger_builds", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("mirror_overwrites_diverged_branches", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("only_allow_merge_if_all_discussions_are_resolved", ModelRef.Boolean),
+                    new EntityProperty("only_allow_merge_if_pipeline_succeeds", ModelRef.Boolean),
+                    new EntityProperty("only_mirror_protected_branches", ModelRef.NullableBoolean) { Required = Required.Default },
+                    new EntityProperty("open_issues_count", ModelRef.NullableInt32),
+                    new EntityProperty("owner", _userBasic) { Required = Required.Default },
+                    new EntityProperty("permissions", permissions),
+                    new EntityProperty("printing_merge_request_link_enabled", ModelRef.Boolean),
+                    new EntityProperty("public_jobs", ModelRef.Boolean),
+                    new EntityProperty("request_access_enabled", ModelRef.Boolean),
+                    new EntityProperty("resolve_outdated_diff_discussions", ModelRef.Boolean),
+                    new EntityProperty("shared_runners_enabled", ModelRef.Boolean),
+                    new EntityProperty("shared_with_groups", new ModelRef(_sharedGroup) { IsCollection = true }),
+                    new EntityProperty("snippets_enabled", ModelRef.Boolean),
+                    new EntityProperty("visibility", _projectVisibility),
+                    new EntityProperty("wiki_enabled", ModelRef.Boolean),
                 }
             });
 
@@ -473,16 +474,16 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("ActionName", _todoAction),
-                    new EntityProperty("Author", _userBasic),
-                    new EntityProperty("Project", _basicProjectDetails),
-                    new EntityProperty("TargetType", _todoType),
-                    new EntityProperty("Target", ModelRef.GitLabObject),
-                    new EntityProperty("TargetUrl", ModelRef.String),
-                    new EntityProperty("Body", ModelRef.String),
-                    new EntityProperty("State", _userState),
-                    new EntityProperty("CreatedAt", ModelRef.DateTime),
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("action_name", _todoAction),
+                    new EntityProperty("author", _userBasic),
+                    new EntityProperty("project", _basicProjectDetails),
+                    new EntityProperty("target_type", _todoType),
+                    new EntityProperty("target", ModelRef.GitLabObject),
+                    new EntityProperty("target_url", ModelRef.String),
+                    new EntityProperty("body", ModelRef.String),
+                    new EntityProperty("state", _userState),
+                    new EntityProperty("created_at", ModelRef.DateTime),
                 }
             });
 
@@ -490,29 +491,39 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("Iid", ModelRef.Id),
-                    new EntityProperty("Author", _userBasic),
-                    new EntityProperty("Title", ModelRef.String),
-                    new EntityProperty("State", _mergeRequestState),
-                    new EntityProperty("ProjectId", ModelRef.Id),
-                    new EntityProperty("WebUrl", ModelRef.String),
-                    new EntityProperty("CreatedAt", ModelRef.DateTime),
-                    new EntityProperty("UpdatedAt", ModelRef.DateTime),
-                    new EntityProperty("MergeStatus", ModelRef.String),
-                    new EntityProperty("UserNotesCount", ModelRef.Int32),
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("iid", ModelRef.Id),
+                    new EntityProperty("author", _userBasic),
+                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("state", _mergeRequestState),
+                    new EntityProperty("project_id", ModelRef.Id),
+                    new EntityProperty("web_url", ModelRef.String),
+                    new EntityProperty("created_at", ModelRef.DateTime),
+                    new EntityProperty("updated_at", ModelRef.DateTime),
+                    new EntityProperty("merge_status", ModelRef.String),
+                    new EntityProperty("user_notes_count", ModelRef.Int32),
                 }
             });
         }
 
         private void CreateRefs()
         {
-            _projectRef = Project.AddParameterEntity(new ParameterEntity("ProjectRef", ModelRef.Object)
+            _projectIdRef = Project.AddParameterEntity(new ParameterEntity("ProjectIdRef", ModelRef.Object)
             {
                 Refs =
                 {
                     new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(_projectIdentity, "Id"),
+                    new ParameterEntityRef(_projectIdentity, "id"),
+                }
+            });
+
+            _projectIdOrPathRef = Project.AddParameterEntity(new ParameterEntity("ProjectIdOrPathRef", ModelRef.Object)
+            {
+                Refs =
+                {
+                    new ParameterEntityRef(ModelRef.Id),
+                    new ParameterEntityRef(_projectIdentity, "id"),
+                    new ParameterEntityRef(ModelRef.String),
                 }
             });
 
@@ -521,7 +532,7 @@ namespace Meziantou.GitLabClient.Generator
                 Refs =
                 {
                     new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(_sshKey, "Id"),
+                    new ParameterEntityRef(_sshKey, "id"),
                 }
             });
 
@@ -531,7 +542,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef(ModelRef.Id),
                     new ParameterEntityRef(ModelRef.String),
-                    new ParameterEntityRef(_userSafe, "Id"),
+                    new ParameterEntityRef(_userSafe, "id"),
                 }
             });
         }
@@ -729,8 +740,8 @@ namespace Meziantou.GitLabClient.Generator
                     new MethodParameter("name", ModelRef.String) { Location = ParameterLocation.Body },
                     new MethodParameter("password", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
                     new MethodParameter("admin", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("canCreateGroup", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("skipConfirmation", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("can_create_group", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("skip_confirmation", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
                 },
                 Documentation = new Documentation
                 {
@@ -743,15 +754,15 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("Id", ModelRef.Id),
-                    new EntityProperty("Revoked", ModelRef.Boolean),
-                    new EntityProperty("Scopes", ModelRef.StringCollection),
-                    new EntityProperty("Token", ModelRef.String),
-                    new EntityProperty("Active", ModelRef.Boolean),
-                    new EntityProperty("Impersonation", ModelRef.Boolean),
-                    new EntityProperty("Name", ModelRef.String),
-                    new EntityProperty("CreatedAt", ModelRef.DateTime),
-                    new EntityProperty("ExpiresAt", ModelRef.NullableDate),
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("revoked", ModelRef.Boolean),
+                    new EntityProperty("scopes", ModelRef.StringCollection),
+                    new EntityProperty("token", ModelRef.String),
+                    new EntityProperty("active", ModelRef.Boolean),
+                    new EntityProperty("impersonation", ModelRef.Boolean),
+                    new EntityProperty("name", ModelRef.String),
+                    new EntityProperty("created_at", ModelRef.DateTime),
+                    new EntityProperty("expires_at", ModelRef.NullableDate),
                 }
             });
 
@@ -763,7 +774,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new MethodParameter("user", _userRef),
                     new MethodParameter("name", ModelRef.String) { Location = ParameterLocation.Body },
-                    new MethodParameter("expiresAt", ModelRef.NullableDate) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("expires_at", ModelRef.NullableDate) { IsOptional = true, Location = ParameterLocation.Body },
                     new MethodParameter("scopes", ModelRef.StringCollection) { Location = ParameterLocation.Body },
                 },
                 Documentation = new Documentation
@@ -842,14 +853,14 @@ namespace Meziantou.GitLabClient.Generator
                 MethodType = MethodType.GetPaged,
                 Parameters =
                 {
-                    new MethodParameter("id", _projectRef),
+                    new MethodParameter("id", _projectIdRef),
                 }
             });
         }
 
         private void CreateTodoMethods()
         {
-            Project.AddMethod(new Method("GetTodo", "todos")
+            Project.AddMethod(new Method("GetTodos", "todos")
             {
                 Documentation = new Documentation
                 {
@@ -860,7 +871,7 @@ namespace Meziantou.GitLabClient.Generator
                 MethodType = MethodType.GetPaged,
                 Parameters =
                 {
-                    new MethodParameter("action", new ModelRef(_todoAction){ IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("action", new ModelRef(_todoAction) { IsNullable = true }) { IsOptional = true },
                 }
             });
         }
@@ -884,7 +895,7 @@ namespace Meziantou.GitLabClient.Generator
                 }
             });
 
-            Project.AddMethod(new Method("GetMergeRequests", "projects/:projectId/merge_requests")
+            Project.AddMethod(new Method("GetMergeRequests", "projects/:project/merge_requests")
             {
                 Documentation = new Documentation
                 {
@@ -895,7 +906,7 @@ namespace Meziantou.GitLabClient.Generator
                 MethodType = MethodType.GetPaged,
                 Parameters =
                 {
-                    new MethodParameter("projectId", ModelRef.Id),
+                    new MethodParameter("project", _projectIdOrPathRef),
                     new MethodParameter("state", new ModelRef(_mergeRequestState) { IsNullable = true }) { IsOptional = true },
                 }
             });

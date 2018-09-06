@@ -4,14 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Meziantou.GitLab.Tests
 {
     [TestClass]
-    public class GitLabClientTodoTests : GitLabTest
+    public class GitLabClientMergeRequestTests : GitLabTest
     {
         [TestMethod]
-        public async Task GetTodo()
+        public async Task GetMergeRequests()
         {
             using (var context = GetContext())
             {
-                var todos = await context.Client.GetTodosAsync();
+                var todos = await context.Client.GetMergeRequestsAsync();
             }
         }
     }
