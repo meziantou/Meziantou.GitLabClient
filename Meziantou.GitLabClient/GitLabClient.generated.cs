@@ -1305,11 +1305,10 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectAsync(Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Project> GetProjectAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.GetProjectAsync(this, pageOptions, cancellationToken);
+            return this.GitLabClient.GetProjectAsync(this, cancellationToken);
         }
 
         /// <summary>Get all merge requests for this project.</summary>
@@ -2940,37 +2939,16 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectAsync(ProjectIdOrPathRef id, Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Project> GetProjectAsync(ProjectIdOrPathRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:id");
 
             urlBuilder.WithValue("id", id.Value);
 
-            if ((pageOptions != null))
-            {
-                if ((pageOptions.PageIndex > 0))
-                {
-                    urlBuilder.WithValue("page", pageOptions.PageIndex);
-                }
-
-                if ((pageOptions.PageSize > 0))
-                {
-                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
-                }
-
-                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
-                {
-                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
-                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
-                }
-            }
-
             string url = urlBuilder.Build();
 
-            return this.GetPagedAsync<Project>(url, cancellationToken);
+            return this.GetAsync<Project>(url, cancellationToken);
         }
 
         /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>

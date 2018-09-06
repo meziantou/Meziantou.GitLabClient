@@ -850,7 +850,7 @@ namespace Meziantou.GitLabClient.Generator
                     HelpLink = "https://docs.gitlab.com/ee/api/projects.html#get-single-project"
                 },
                 ReturnType = _project,
-                MethodType = MethodType.GetPaged,
+                MethodType = MethodType.Get,
                 Parameters =
                 {
                     new MethodParameter("id", _projectIdOrPathRef),
