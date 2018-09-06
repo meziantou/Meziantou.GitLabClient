@@ -260,7 +260,11 @@ namespace Meziantou.GitLab
 
         private JsonSerializerSettings CreateJsonSerializerSettings()
         {
-            return new JsonSerializerSettings();
+            return new JsonSerializerSettings()
+            {
+                CheckAdditionalContent = false,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+            };
         }
 
         private async Task EnsureStatusCodeAsync(HttpResponseMessage responseMessage)
