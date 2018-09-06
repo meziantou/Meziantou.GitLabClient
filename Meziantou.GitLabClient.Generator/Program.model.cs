@@ -853,7 +853,7 @@ namespace Meziantou.GitLabClient.Generator
                 MethodType = MethodType.GetPaged,
                 Parameters =
                 {
-                    new MethodParameter("id", _projectIdRef),
+                    new MethodParameter("id", _projectIdOrPathRef),
                 }
             });
         }
