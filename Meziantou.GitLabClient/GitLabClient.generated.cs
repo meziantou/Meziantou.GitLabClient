@@ -88,7 +88,7 @@ namespace Meziantou.GitLab
 
         private NamespaceBasic _namespace;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "namespace", Required = Newtonsoft.Json.Required.AllowNull)]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "namespace", Required = Newtonsoft.Json.Required.Default)]
         public NamespaceBasic Namespace
         {
             get
@@ -1102,10 +1102,10 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _resolveOutdatedDiffDiscussions;
+        private System.Nullable<bool> _resolveOutdatedDiffDiscussions;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "resolve_outdated_diff_discussions", Required = Newtonsoft.Json.Required.Always)]
-        public bool ResolveOutdatedDiffDiscussions
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "resolve_outdated_diff_discussions", Required = Newtonsoft.Json.Required.AllowNull)]
+        public System.Nullable<bool> ResolveOutdatedDiffDiscussions
         {
             get
             {
