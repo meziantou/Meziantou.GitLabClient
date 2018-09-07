@@ -177,6 +177,72 @@ namespace Meziantou.GitLab
         }
     }
 
+    public partial class FileCreated : GitLab.GitLabObject
+    {
+        private string _filePath;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
+        public string FilePath
+        {
+            get
+            {
+                return this._filePath;
+            }
+            private set
+            {
+                this._filePath = value;
+            }
+        }
+
+        private string _branch;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "branch")]
+        public string Branch
+        {
+            get
+            {
+                return this._branch;
+            }
+            private set
+            {
+                this._branch = value;
+            }
+        }
+    }
+
+    public partial class FileUpdated : GitLab.GitLabObject
+    {
+        private string _filePath;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
+        public string FilePath
+        {
+            get
+            {
+                return this._filePath;
+            }
+            private set
+            {
+                this._filePath = value;
+            }
+        }
+
+        private string _branch;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "branch")]
+        public string Branch
+        {
+            get
+            {
+                return this._branch;
+            }
+            private set
+            {
+                this._branch = value;
+            }
+        }
+    }
+
     public partial class GroupAccess : MemberAccess
     {
     }
@@ -353,6 +419,7 @@ namespace Meziantou.GitLab
         }
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum ImportStatus
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "none")]
@@ -365,6 +432,159 @@ namespace Meziantou.GitLab
         Started,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "finished")]
         Finished
+    }
+
+    public partial class Issue : GitLab.GitLabObject
+    {
+        private long _id;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
+
+        private long _iid;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
+        public long Iid
+        {
+            get
+            {
+                return this._iid;
+            }
+            private set
+            {
+                this._iid = value;
+            }
+        }
+
+        private UserBasic _author;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
+        public UserBasic Author
+        {
+            get
+            {
+                return this._author;
+            }
+            private set
+            {
+                this._author = value;
+            }
+        }
+
+        private string _title;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            private set
+            {
+                this._title = value;
+            }
+        }
+
+        private long _projectId;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
+        public long ProjectId
+        {
+            get
+            {
+                return this._projectId;
+            }
+            private set
+            {
+                this._projectId = value;
+            }
+        }
+
+        private string _webUrl;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
+        public string WebUrl
+        {
+            get
+            {
+                return this._webUrl;
+            }
+            private set
+            {
+                this._webUrl = value;
+            }
+        }
+
+        private System.DateTime _createdAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this._createdAt;
+            }
+            private set
+            {
+                this._createdAt = value;
+            }
+        }
+
+        private System.DateTime _updatedAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
+        public System.DateTime UpdatedAt
+        {
+            get
+            {
+                return this._updatedAt;
+            }
+            private set
+            {
+                this._updatedAt = value;
+            }
+        }
+
+        private System.Nullable<System.DateTime> _closedAt;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_at")]
+        public System.Nullable<System.DateTime> ClosedAt
+        {
+            get
+            {
+                return this._closedAt;
+            }
+            private set
+            {
+                this._closedAt = value;
+            }
+        }
+
+        private UserBasic _closedBy;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_by")]
+        public UserBasic ClosedBy
+        {
+            get
+            {
+                return this._closedBy;
+            }
+            private set
+            {
+                this._closedBy = value;
+            }
+        }
     }
 
     public partial class MemberAccess : GitLab.GitLabObject
@@ -400,6 +620,7 @@ namespace Meziantou.GitLab
         }
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum MergeMethod
     {
         /// <summary>A merge commit is created for every merge, and merging is allowed as long as there are no conflicts.</summary>
@@ -581,6 +802,7 @@ namespace Meziantou.GitLab
         }
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum MergeRequestScopeFilter
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned_to_me")]
@@ -589,6 +811,7 @@ namespace Meziantou.GitLab
         All
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum MergeRequestState
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
@@ -602,6 +825,7 @@ namespace Meziantou.GitLab
     }
 
     [System.FlagsAttribute]
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum MergeRequestStateFilter
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "default")]
@@ -1318,6 +1542,39 @@ namespace Meziantou.GitLab
         {
             return this.GitLabClient.GetMergeRequestsAsync(this, state, pageOptions, cancellationToken);
         }
+
+        /// <summary>Creates a new merge request.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.CreateMergeRequestAsync(this, sourceBranch, targetBranch, title, description, assigneeId, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, cancellationToken);
+        }
+
+        /// <summary>Creates a new merge request.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, assigneeId, this, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, cancellationToken);
+        }
+
+        /// <summary>Creates a new project issue.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Issue> CreateIssueAsync(string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.CreateIssueAsync(this, title, description, confidential, cancellationToken);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<FileCreated> CreateFileAsync(string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.CreateFileAsync(this, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, cancellationToken);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), string lastCommitId = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.UpdateFileAsync(this, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, lastCommitId, cancellationToken);
+        }
     }
 
     public partial class ProjectLink : GitLab.GitLabObject
@@ -1461,6 +1718,7 @@ namespace Meziantou.GitLab
         }
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum ProjectVisibility
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "private")]
@@ -1678,6 +1936,7 @@ namespace Meziantou.GitLab
         private GitLab.GitLabObject _target;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target")]
+        [Newtonsoft.Json.JsonConverterAttribute(typeof(TodoTargetJsonConverter))]
         public GitLab.GitLabObject Target
         {
             get
@@ -1720,10 +1979,10 @@ namespace Meziantou.GitLab
             }
         }
 
-        private UserState _state;
+        private TodoState _state;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
-        public UserState State
+        public TodoState State
         {
             get
             {
@@ -1751,6 +2010,7 @@ namespace Meziantou.GitLab
         }
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum TodoAction
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned")]
@@ -1769,6 +2029,7 @@ namespace Meziantou.GitLab
         DirectlyAddressed
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum TodoState
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "pending")]
@@ -1777,6 +2038,7 @@ namespace Meziantou.GitLab
         Done
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum TodoType
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "issue")]
@@ -2329,8 +2591,16 @@ namespace Meziantou.GitLab
         {
             return this.GitLabClient.GetMergeRequestsAsync(state, scope, this, pageOptions, cancellationToken);
         }
+
+        /// <summary>Creates a new merge request.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, this, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, cancellationToken);
+        }
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum UserState
     {
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "active")]
@@ -2387,7 +2657,8 @@ namespace Meziantou.GitLab
         }
     }
 
-    public readonly struct ProjectIdOrPathRef
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Meziantou.GitLab.ReferenceJsonConverter))]
+    public readonly struct ProjectIdOrPathRef : Meziantou.GitLab.IReference
     {
         private readonly object _value;
 
@@ -2440,7 +2711,8 @@ namespace Meziantou.GitLab
         }
     }
 
-    public readonly struct ProjectIdRef
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Meziantou.GitLab.ReferenceJsonConverter))]
+    public readonly struct ProjectIdRef : Meziantou.GitLab.IReference
     {
         private readonly object _value;
 
@@ -2483,7 +2755,8 @@ namespace Meziantou.GitLab
         }
     }
 
-    public readonly struct SshKeyRef
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Meziantou.GitLab.ReferenceJsonConverter))]
+    public readonly struct SshKeyRef : Meziantou.GitLab.IReference
     {
         private readonly object _value;
 
@@ -2526,7 +2799,8 @@ namespace Meziantou.GitLab
         }
     }
 
-    public readonly struct UserRef
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Meziantou.GitLab.ReferenceJsonConverter))]
+    public readonly struct UserRef : Meziantou.GitLab.IReference
     {
         private readonly object _value;
 
@@ -2677,9 +2951,15 @@ namespace Meziantou.GitLab
 
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
 
-            body.Add("emoji", emoji);
+            if ((emoji != null))
+            {
+                body.Add("emoji", emoji);
+            }
 
-            body.Add("message", message);
+            if ((message != null))
+            {
+                body.Add("message", message);
+            }
 
             return this.PutJsonAsync<UserStatus>(url, body, cancellationToken);
         }
@@ -2788,13 +3068,25 @@ namespace Meziantou.GitLab
 
             body.Add("name", name);
 
-            body.Add("password", password);
+            if ((password != null))
+            {
+                body.Add("password", password);
+            }
 
-            body.Add("admin", admin);
+            if ((admin != null))
+            {
+                body.Add("admin", admin);
+            }
 
-            body.Add("can_create_group", canCreateGroup);
+            if ((canCreateGroup != null))
+            {
+                body.Add("can_create_group", canCreateGroup);
+            }
 
-            body.Add("skip_confirmation", skipConfirmation);
+            if ((skipConfirmation != null))
+            {
+                body.Add("skip_confirmation", skipConfirmation);
+            }
 
             return this.PostJsonAsync<User>(url, body, cancellationToken);
         }
@@ -2813,7 +3105,10 @@ namespace Meziantou.GitLab
 
             body.Add("name", name);
 
-            body.Add("expires_at", expiresAt);
+            if ((expiresAt != null))
+            {
+                body.Add("expires_at", expiresAt);
+            }
 
             body.Add("scopes", scopes);
 
@@ -2951,6 +3246,144 @@ namespace Meziantou.GitLab
             return this.GetAsync<Project>(url, cancellationToken);
         }
 
+        /// <summary>Creates a new project owned by the authenticated user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Project> CreateProjectAsync(string name = default(string), string path = default(string), System.Nullable<long> namespaceId = default(System.Nullable<long>), string defaultBranch = default(string), string description = default(string), System.Nullable<bool> issueEnabled = default(System.Nullable<bool>), System.Nullable<bool> issuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> mergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> jobsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiEnabled = default(System.Nullable<bool>), System.Nullable<bool> snippetsEnabled = default(System.Nullable<bool>), System.Nullable<bool> resolveOutdatedDiffDiscussions = default(System.Nullable<bool>), System.Nullable<bool> containerRegistryEnabled = default(System.Nullable<bool>), System.Nullable<bool> sharedRunnersEnabled = default(System.Nullable<bool>), System.Nullable<bool> publicJobs = default(System.Nullable<bool>), System.Nullable<bool> onlyAllowMergeIfPipelineSucceeds = default(System.Nullable<bool>), System.Nullable<bool> onlyAllowMergeIfAllDiscussionsAreResolved = default(System.Nullable<bool>), System.Nullable<bool> requestAccessEnabled = default(System.Nullable<bool>), System.Nullable<bool> lfsEnabled = default(System.Nullable<bool>), System.Nullable<bool> printingMergeRequestLinkEnabled = default(System.Nullable<bool>), System.Nullable<MergeMethod> mergeMethod = default(System.Nullable<MergeMethod>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), System.Collections.Generic.IEnumerable<string> tagList = default(System.Collections.Generic.IEnumerable<string>), string ciConfigPath = default(string), System.Nullable<int> approvalsBeforeMerge = default(System.Nullable<int>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            if ((name != null))
+            {
+                body.Add("name", name);
+            }
+
+            if ((path != null))
+            {
+                body.Add("path", path);
+            }
+
+            if ((namespaceId != null))
+            {
+                body.Add("namespace_id", namespaceId);
+            }
+
+            if ((defaultBranch != null))
+            {
+                body.Add("default_branch", defaultBranch);
+            }
+
+            if ((description != null))
+            {
+                body.Add("description", description);
+            }
+
+            if ((issueEnabled != null))
+            {
+                body.Add("issue_enabled", issueEnabled);
+            }
+
+            if ((issuesEnabled != null))
+            {
+                body.Add("issues_enabled", issuesEnabled);
+            }
+
+            if ((mergeRequestsEnabled != null))
+            {
+                body.Add("merge_requests_enabled", mergeRequestsEnabled);
+            }
+
+            if ((jobsEnabled != null))
+            {
+                body.Add("jobs_enabled", jobsEnabled);
+            }
+
+            if ((wikiEnabled != null))
+            {
+                body.Add("wiki_enabled", wikiEnabled);
+            }
+
+            if ((snippetsEnabled != null))
+            {
+                body.Add("snippets_enabled", snippetsEnabled);
+            }
+
+            if ((resolveOutdatedDiffDiscussions != null))
+            {
+                body.Add("resolve_outdated_diff_discussions", resolveOutdatedDiffDiscussions);
+            }
+
+            if ((containerRegistryEnabled != null))
+            {
+                body.Add("container_registry_enabled", containerRegistryEnabled);
+            }
+
+            if ((sharedRunnersEnabled != null))
+            {
+                body.Add("shared_runners_enabled", sharedRunnersEnabled);
+            }
+
+            if ((publicJobs != null))
+            {
+                body.Add("public_jobs", publicJobs);
+            }
+
+            if ((onlyAllowMergeIfPipelineSucceeds != null))
+            {
+                body.Add("only_allow_merge_if_pipeline_succeeds", onlyAllowMergeIfPipelineSucceeds);
+            }
+
+            if ((onlyAllowMergeIfAllDiscussionsAreResolved != null))
+            {
+                body.Add("only_allow_merge_if_all_discussions_are_resolved", onlyAllowMergeIfAllDiscussionsAreResolved);
+            }
+
+            if ((requestAccessEnabled != null))
+            {
+                body.Add("request_access_enabled", requestAccessEnabled);
+            }
+
+            if ((lfsEnabled != null))
+            {
+                body.Add("lfs_enabled", lfsEnabled);
+            }
+
+            if ((printingMergeRequestLinkEnabled != null))
+            {
+                body.Add("printing_merge_request_link_enabled", printingMergeRequestLinkEnabled);
+            }
+
+            if ((mergeMethod != null))
+            {
+                body.Add("merge_method", mergeMethod);
+            }
+
+            if ((visibility != null))
+            {
+                body.Add("visibility", visibility);
+            }
+
+            if ((tagList != null))
+            {
+                body.Add("tag_list", tagList);
+            }
+
+            if ((ciConfigPath != null))
+            {
+                body.Add("ci_config_path", ciConfigPath);
+            }
+
+            if ((approvalsBeforeMerge != null))
+            {
+                body.Add("approvals_before_merge", approvalsBeforeMerge);
+            }
+
+            return this.PostJsonAsync<Project>(url, body, cancellationToken);
+        }
+
         /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>
         /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3060,6 +3493,178 @@ namespace Meziantou.GitLab
             string url = urlBuilder.Build();
 
             return this.GetPagedAsync<MergeRequest>(url, cancellationToken);
+        }
+
+        /// <summary>Creates a new merge request.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/merge_requests");
+
+            urlBuilder.WithValue("project", project.Value);
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("source_branch", sourceBranch);
+
+            body.Add("target_branch", targetBranch);
+
+            body.Add("title", title);
+
+            if ((description != null))
+            {
+                body.Add("description", description);
+            }
+
+            if ((assigneeId != null))
+            {
+                body.Add("assignee_id", assigneeId);
+            }
+
+            if ((targetProjectId != null))
+            {
+                body.Add("target_project_id", targetProjectId);
+            }
+
+            if ((removeSourceBranch != null))
+            {
+                body.Add("remove_source_branch", removeSourceBranch);
+            }
+
+            if ((allowCollaboration != null))
+            {
+                body.Add("allow_collaboration", allowCollaboration);
+            }
+
+            if ((allowMaintainerToPush != null))
+            {
+                body.Add("allow_maintainer_to_push", allowMaintainerToPush);
+            }
+
+            if ((squash != null))
+            {
+                body.Add("squash", squash);
+            }
+
+            return this.PostJsonAsync<MergeRequest>(url, body, cancellationToken);
+        }
+
+        /// <summary>Creates a new project issue.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Issue> CreateIssueAsync(ProjectIdOrPathRef project, string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/issues");
+
+            urlBuilder.WithValue("project", project.Value);
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("title", title);
+
+            if ((description != null))
+            {
+                body.Add("description", description);
+            }
+
+            if ((confidential != null))
+            {
+                body.Add("confidential", confidential);
+            }
+
+            return this.PostJsonAsync<Issue>(url, body, cancellationToken);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<FileCreated> CreateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/repository/files/:file_path");
+
+            urlBuilder.WithValue("project", project.Value);
+
+            urlBuilder.WithValue("file_path", filePath);
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("branch", branch);
+
+            if ((startBranch != null))
+            {
+                body.Add("start_branch", startBranch);
+            }
+
+            if ((encoding != null))
+            {
+                body.Add("encoding", encoding);
+            }
+
+            if ((authorEmail != null))
+            {
+                body.Add("author_email", authorEmail);
+            }
+
+            if ((authorName != null))
+            {
+                body.Add("author_name", authorName);
+            }
+
+            body.Add("content", content);
+
+            body.Add("commit_message", commitMessage);
+
+            return this.PostJsonAsync<FileCreated>(url, body, cancellationToken);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), string lastCommitId = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/repository/files/:file_path");
+
+            urlBuilder.WithValue("project", project.Value);
+
+            urlBuilder.WithValue("file_path", filePath);
+
+            string url = urlBuilder.Build();
+
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+
+            body.Add("branch", branch);
+
+            if ((startBranch != null))
+            {
+                body.Add("start_branch", startBranch);
+            }
+
+            if ((encoding != null))
+            {
+                body.Add("encoding", encoding);
+            }
+
+            if ((authorEmail != null))
+            {
+                body.Add("author_email", authorEmail);
+            }
+
+            if ((authorName != null))
+            {
+                body.Add("author_name", authorName);
+            }
+
+            if ((lastCommitId != null))
+            {
+                body.Add("last_commit_id", lastCommitId);
+            }
+
+            body.Add("content", content);
+
+            body.Add("commit_message", commitMessage);
+
+            return this.PutJsonAsync<FileUpdated>(url, body, cancellationToken);
         }
     }
 }

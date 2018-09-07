@@ -19,5 +19,6 @@ namespace Meziantou.GitLabClient.Generator
         public ModelRef Type { get; }
         public Documentation Documentation { get; set; }
         public Required? Required { get; set; }
+        public ModelRef JsonConverter { get; set; }
     }
 }

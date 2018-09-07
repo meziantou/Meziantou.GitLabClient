@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Meziantou.GitLabClient\Internals\IReference.cs" Link="Types\IReference.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\SkipUtcDateValidationAttribute.cs" Link="Types\SkipUtcDateValidationAttribute.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\UrlBuilder.cs" Link="Types\UrlBuilder.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\Models\ReferenceJsonConverter.cs" Link="Types\ReferenceJsonConverter.cs" />
     <Compile Include="..\Meziantou.GitLabClient\OrderBy.cs" Link="Types\OrderBy.cs" />
     <Compile Include="..\Meziantou.GitLabClient\OrderByDirection.cs" Link="Types\OrderByDirection.cs" />
     <Compile Include="..\Meziantou.GitLabClient\PageOptions.cs" Link="Types\PageOptions.cs" />

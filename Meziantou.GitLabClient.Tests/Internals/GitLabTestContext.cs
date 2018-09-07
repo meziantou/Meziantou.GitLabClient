@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Meziantou.GitLab.Tests
 
         private readonly HttpClient _httpClient;
         private readonly LoggingHandler _loggingHandler;
+        private readonly List<TestGitLabClient> _clients = new List<TestGitLabClient>();
 
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {
@@ -23,15 +25,33 @@ namespace Meziantou.GitLab.Tests
 
             _loggingHandler = new LoggingHandler() { InnerHandler = handler ?? new HttpClientHandler() };
             _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
-            Client = CreateClient(DockerContainer.StandardUserToken);
             AdminClient = CreateClient(DockerContainer.AdminUserToken);
         }
 
         public Random Random { get; } = new Random();
-        public TestGitLabClient Client { get; }
         public TestGitLabClient AdminClient { get; }
         public string ServerUri { get; }
         public TestContext TestContext { get; }
+
+        public async Task<GitLabClient> CreateNewUserAsync()
+        {
+            var username = "user_" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_" + Guid.NewGuid().ToString("N");
+            var email = username + "@dummy.com";
+            var password = "Pa$$w0rd";
+            var client = AdminClient;
+            var users = await client.GetUsersAsync(username: username);
+            var user = await client.CreateUserAsync(
+                email: email,
+                username: username,
+                password: password,
+                name: username,
+                admin: false,
+                canCreateGroup: true,
+                skipConfirmation: true);
+
+            var token = await client.CreateImpersonationTokenAsync(user, "UnitTest", new[] { "api", "read_user" });
+            return CreateClient(token.Token);
+        }
 
         public string GetRandomEmojiName()
         {
@@ -47,24 +67,26 @@ namespace Meziantou.GitLab.Tests
 
         private TestGitLabClient CreateClient(string token)
         {
-            var adminClient = new TestGitLabClient(_httpClient, DockerContainer.GitLabUrl, token);
-            adminClient._jsonSerializerSettings.CheckAdditionalContent = true;
-            adminClient._jsonSerializerSettings.Formatting = Formatting.Indented;
-            adminClient._jsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
-            return adminClient;
+            var client = new TestGitLabClient(_httpClient, DockerContainer.GitLabUrl, token);
+            client._jsonSerializerSettings.CheckAdditionalContent = true;
+            client._jsonSerializerSettings.Formatting = Formatting.Indented;
+            client._jsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
+            _clients.Add(client);
+            return client;
         }
 
         public void Dispose()
         {
             TestContext.WriteLine(string.Join("\n--------\n", _loggingHandler.Logs));
-            var objects = Client.Objects;
+            var objects = _clients.SelectMany(c => c.Objects).ToList();
 
-            Client?.Dispose();
             _httpClient?.Dispose();
 
             objects.ForEach(o =>
             {
+#if VALIDATE_UNMAPPED_PROPERTIES
                 GitLabObjectAssertions.DoesNotContainUnmappedProperties(o);
+#endif
                 GitLabObjectAssertions.DoesContainOnlyUtcDates(o);
                 GitLabObjectAssertions.DoesContainGitLabClient(o);
             });

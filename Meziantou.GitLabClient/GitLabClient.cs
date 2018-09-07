@@ -264,6 +264,7 @@ namespace Meziantou.GitLab
             {
                 CheckAdditionalContent = false,
                 MissingMemberHandling = MissingMemberHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore,
             };
         }
 

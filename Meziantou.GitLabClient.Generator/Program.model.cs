@@ -34,6 +34,7 @@ namespace Meziantou.GitLabClient.Generator
         private Entity _userSafe;
         private Entity _userStatus;
         private Entity _todo;
+        private Entity _issue;
 
         private ParameterEntity _projectIdRef;
         private ParameterEntity _projectIdOrPathRef;
@@ -479,10 +480,10 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("author", _userBasic),
                     new EntityProperty("project", _basicProjectDetails),
                     new EntityProperty("target_type", _todoType),
-                    new EntityProperty("target", ModelRef.GitLabObject),
+                    new EntityProperty("target", ModelRef.GitLabObject) { JsonConverter = new ModelRef("TodoTargetJsonConverter") },
                     new EntityProperty("target_url", ModelRef.String),
                     new EntityProperty("body", ModelRef.String),
-                    new EntityProperty("state", _userState),
+                    new EntityProperty("state", _todoState),
                     new EntityProperty("created_at", ModelRef.DateTime),
                 }
             });
@@ -502,6 +503,23 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("updated_at", ModelRef.DateTime),
                     new EntityProperty("merge_status", ModelRef.String),
                     new EntityProperty("user_notes_count", ModelRef.Int32),
+                }
+            });
+
+            _issue = Project.AddModel(new Entity("Issue")
+            {
+                Properties =
+                {
+                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("iid", ModelRef.Id),
+                    new EntityProperty("author", _userBasic),
+                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("project_id", ModelRef.Id),
+                    new EntityProperty("web_url", ModelRef.String),
+                    new EntityProperty("created_at", ModelRef.DateTime),
+                    new EntityProperty("updated_at", ModelRef.DateTime),
+                    new EntityProperty("closed_at", ModelRef.NullableDateTime),
+                    new EntityProperty("closed_by", _userBasic),
                 }
             });
         }
@@ -622,8 +640,8 @@ namespace Meziantou.GitLabClient.Generator
                 ReturnType = new ModelRef(_userStatus),
                 Parameters =
                 {
-                    new MethodParameter("emoji", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("message", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("emoji", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("message", ModelRef.String) { IsOptional = true },
                 },
                 Documentation = new Documentation
                 {
@@ -681,8 +699,8 @@ namespace Meziantou.GitLabClient.Generator
 
             var addSshKeyParameters = new MethodParameter[]
             {
-                new MethodParameter("title", ModelRef.String) { Location = ParameterLocation.Body },
-                new MethodParameter("key", ModelRef.String) { Location = ParameterLocation.Body },
+                new MethodParameter("title", ModelRef.String),
+                new MethodParameter("key", ModelRef.String),
             };
 
             Project.AddMethod(new Method("AddSshKey", "user/keys")
@@ -735,13 +753,13 @@ namespace Meziantou.GitLabClient.Generator
                 ReturnType = new ModelRef(_user),
                 Parameters =
                 {
-                    new MethodParameter("email", ModelRef.String) { Location = ParameterLocation.Body },
-                    new MethodParameter("username", ModelRef.String) { Location = ParameterLocation.Body },
-                    new MethodParameter("name", ModelRef.String) { Location = ParameterLocation.Body },
-                    new MethodParameter("password", ModelRef.String) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("admin", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("can_create_group", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("skip_confirmation", ModelRef.NullableBoolean) { IsOptional = true, Location = ParameterLocation.Body },
+                    new MethodParameter("email", ModelRef.String),
+                    new MethodParameter("username", ModelRef.String),
+                    new MethodParameter("name", ModelRef.String),
+                    new MethodParameter("password", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("admin", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("can_create_group", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("skip_confirmation", ModelRef.NullableBoolean) { IsOptional = true },
                 },
                 Documentation = new Documentation
                 {
@@ -773,9 +791,9 @@ namespace Meziantou.GitLabClient.Generator
                 Parameters =
                 {
                     new MethodParameter("user", _userRef),
-                    new MethodParameter("name", ModelRef.String) { Location = ParameterLocation.Body },
-                    new MethodParameter("expires_at", ModelRef.NullableDate) { IsOptional = true, Location = ParameterLocation.Body },
-                    new MethodParameter("scopes", ModelRef.StringCollection) { Location = ParameterLocation.Body },
+                    new MethodParameter("name", ModelRef.String),
+                    new MethodParameter("expires_at", ModelRef.NullableDate) { IsOptional = true },
+                    new MethodParameter("scopes", ModelRef.StringCollection),
                 },
                 Documentation = new Documentation
                 {
@@ -856,6 +874,45 @@ namespace Meziantou.GitLabClient.Generator
                     new MethodParameter("id", _projectIdOrPathRef),
                 }
             });
+
+            Project.AddMethod(new Method("CreateProject", "projects")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Creates a new project owned by the authenticated user.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#create-project"
+                },
+                ReturnType = _project,
+                MethodType = MethodType.Post,
+                Parameters =
+                {
+                    new MethodParameter("name", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("path", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("namespace_id", ModelRef.NullableId) { IsOptional = true },
+                    new MethodParameter("default_branch", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("description", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("issue_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("issues_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("merge_requests_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("jobs_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("wiki_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("snippets_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("resolve_outdated_diff_discussions", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("container_registry_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("shared_runners_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("public_jobs", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("only_allow_merge_if_pipeline_succeeds", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("only_allow_merge_if_all_discussions_are_resolved", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("request_access_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("lfs_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("printing_merge_request_link_enabled", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("merge_method", new ModelRef(_mergeMethod) { IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("visibility", new ModelRef(_projectVisibility) { IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("tag_list", ModelRef.StringCollection) { IsOptional = true },
+                    new MethodParameter("ci_config_path", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("approvals_before_merge", ModelRef.NullableInt32) { IsOptional = true },
+                }
+            });
         }
 
         private void CreateTodoMethods()
@@ -876,7 +933,7 @@ namespace Meziantou.GitLabClient.Generator
             });
         }
 
-        private void CreateMergeRequestsMethods()
+        private void CreateMergeRequestMethods()
         {
             Project.AddMethod(new Method("GetMergeRequests", "merge_requests")
             {
@@ -908,6 +965,118 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new MethodParameter("project", _projectIdOrPathRef),
                     new MethodParameter("state", new ModelRef(_mergeRequestState) { IsNullable = true }) { IsOptional = true },
+                }
+            });
+
+            Project.AddMethod(new Method("CreateMergeRequest", "projects/:project/merge_requests")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Creates a new merge request.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#create-mr"
+                },
+                ReturnType = _mergeRequest,
+                MethodType = MethodType.Post,
+                Parameters =
+                {
+                    new MethodParameter("project", _projectIdOrPathRef),
+                    new MethodParameter("source_branch", ModelRef.String),
+                    new MethodParameter("target_branch", ModelRef.String),
+                    new MethodParameter("title", ModelRef.String),
+                    new MethodParameter("description", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("assignee_id", new ModelRef(_userRef) { IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("target_project_id", new ModelRef(_projectIdRef) { IsNullable = true }) { IsOptional = true },
+                    new MethodParameter("remove_source_branch", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("allow_collaboration", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("allow_maintainer_to_push", ModelRef.NullableBoolean) { IsOptional = true },
+                    new MethodParameter("squash", ModelRef.NullableBoolean) { IsOptional = true },
+                }
+            });
+        }
+
+        private void CreateIssueMethods()
+        {
+            Project.AddMethod(new Method("CreateIssue", "projects/:project/issues")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Creates a new project issue.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/issues.html#new-issue"
+                },
+                ReturnType = _issue,
+                MethodType = MethodType.Post,
+                Parameters =
+                {
+                    new MethodParameter("project", _projectIdOrPathRef),
+                    new MethodParameter("title", ModelRef.String),
+                    new MethodParameter("description", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("confidential", ModelRef.NullableBoolean) { IsOptional = true },
+                }
+            });
+        }
+
+        private void CreateRepositoryMethods()
+        {
+            var fileCreated = Project.AddModel(new Entity("FileCreated")
+            {
+                Properties =
+                {
+                    new EntityProperty("file_path", ModelRef.String),
+                    new EntityProperty("branch", ModelRef.String),
+                }
+            });
+
+            var fileUpdated = Project.AddModel(new Entity("FileUpdated")
+            {
+                Properties =
+                {
+                    new EntityProperty("file_path", ModelRef.String),
+                    new EntityProperty("branch", ModelRef.String),
+                }
+            });
+
+            Project.AddMethod(new Method("CreateFile", "projects/:project/repository/files/:file_path")
+            {
+                Documentation = new Documentation
+                {
+                    HelpLink = "https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository"
+                },
+                ReturnType = fileCreated,
+                MethodType = MethodType.Post,
+                Parameters =
+                {
+                    new MethodParameter("project", _projectIdOrPathRef),
+                    new MethodParameter("file_path", ModelRef.String),
+                    new MethodParameter("branch", ModelRef.String),
+                    new MethodParameter("start_branch", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("encoding", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("author_email", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("author_name", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("content", ModelRef.String),
+                    new MethodParameter("commit_message", ModelRef.String),
+                }
+            });
+
+            Project.AddMethod(new Method("UpdateFile", "projects/:project/repository/files/:file_path")
+            {
+                Documentation = new Documentation
+                {
+                    HelpLink = "https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository"
+                },
+                ReturnType = fileUpdated,
+                MethodType = MethodType.Put,
+                Parameters =
+                {
+                    new MethodParameter("project", _projectIdOrPathRef),
+                    new MethodParameter("file_path", ModelRef.String),
+                    new MethodParameter("branch", ModelRef.String),
+                    new MethodParameter("start_branch", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("encoding", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("author_email", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("author_name", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("last_commit_id", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("content", ModelRef.String),
+                    new MethodParameter("commit_message", ModelRef.String),
                 }
             });
         }

@@ -10,8 +10,9 @@ namespace Meziantou.GitLab.Tests
         public async Task GetMergeRequests()
         {
             using (var context = GetContext())
+            using (var client = await context.CreateNewUserAsync())
             {
-                var todos = await context.Client.GetMergeRequestsAsync();
+                var mr = await client.GetMergeRequestsAsync();
             }
         }
     }

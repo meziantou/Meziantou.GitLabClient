@@ -2,6 +2,7 @@
 {
     internal enum ParameterLocation
     {
+        Default,
         Url,
         Body
     }

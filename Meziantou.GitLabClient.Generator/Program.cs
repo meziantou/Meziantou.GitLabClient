@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using Meziantou.Framework.CodeDom;
 using Meziantou.GitLab;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -219,7 +220,7 @@ namespace Meziantou.GitLabClient.Generator
                 new TypeReference(typeof(UrlBuilder)).InvokeMethod("Get", method.UrlTemplate));
             m.Statements.Add(urlBuilder);
 
-            foreach (var param in method.Parameters.Where(p => p.Location == ParameterLocation.Url))
+            foreach (var param in method.Parameters.Where(p => GetLocation(method, p) == ParameterLocation.Url))
             {
                 if (param.Type.IsParameterEntity)
                 {
@@ -322,7 +323,7 @@ namespace Meziantou.GitLabClient.Generator
 
         private VariableReference CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
         {
-            var bodyArguments = method.Parameters.Where(p => p.Location == ParameterLocation.Body).ToList();
+            var bodyArguments = method.Parameters.Where(p => GetLocation(method, p) == ParameterLocation.Body).ToList();
             if (bodyArguments.Count == 0)
                 return null;
 
@@ -333,7 +334,17 @@ namespace Meziantou.GitLabClient.Generator
             {
                 var argumentReference = methodDeclaration.Arguments.First(a => a.Data["Parameter"] == arg);
                 var assign = variable.InvokeMethod(nameof(Dictionary<string, object>.Add), arg.Name, argumentReference);
-                methodDeclaration.Statements.Add(assign);
+                if (arg.IsOptional)
+                {
+                    var condition = new ConditionStatement();
+                    condition.Condition = new BinaryExpression(BinaryOperator.NotEquals, argumentReference, new LiteralExpression(null));
+                    condition.TrueStatements = assign;
+                    methodDeclaration.Statements.Add(condition);
+                }
+                else
+                {
+                    methodDeclaration.Statements.Add(assign);
+                }
             }
 
             return variable;
@@ -401,8 +412,22 @@ namespace Meziantou.GitLabClient.Generator
                             //new CustomAttributeArgument(nameof(JsonPropertyAttribute.Required), RequiredMode(prop)),
                         }
                     };
-
                     propertyMember.CustomAttributes.Add(jsonPropertyAttribute);
+
+                    // [JsonConverterAttribute(typeof())]
+                    if (prop.JsonConverter != null)
+                    {
+                        var jsonConverterAttribute = new CustomAttribute(typeof(JsonConverterAttribute))
+                        {
+                            Arguments =
+                            {
+                                new CustomAttributeArgument(new TypeOfExpression(GetPropertyTypeRef(prop.JsonConverter))),
+                            }
+                        };
+
+                        propertyMember.CustomAttributes.Add(jsonConverterAttribute);
+                    }
+
                 }
             }
             else if (model is Enumeration enumeration)
@@ -415,6 +440,15 @@ namespace Meziantou.GitLabClient.Generator
                 if (enumeration.IsFlags)
                 {
                     type.CustomAttributes.Add(new CustomAttribute(typeof(FlagsAttribute)));
+                }
+
+                if (enumeration.SerializeAsString)
+                {
+                    //[JsonConverter(typeof(StringEnumConverter))]
+                    type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
+                    {
+                        Arguments = { new CustomAttributeArgument(new TypeOfExpression(typeof(StringEnumConverter))) }
+                    });
                 }
 
                 foreach (var prop in enumeration.Members)
@@ -477,6 +511,15 @@ namespace Meziantou.GitLabClient.Generator
         {
             var type = ns.AddType(new StructDeclaration(entity.Name));
             type.Modifiers = Modifiers.Public | Modifiers.ReadOnly;
+
+            type.Implements.Add(typeof(IReference));
+            type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
+            {
+                Arguments =
+                {
+                    new CustomAttributeArgument(new TypeOfExpression(typeof(ReferenceJsonConverter)))
+                }
+            });
 
             // Add Value Property (readonly)
             var valueField = new FieldDeclaration("_value", GetPropertyTypeRef(entity.FinalType), Modifiers.Private | Modifiers.ReadOnly);
@@ -567,10 +610,31 @@ namespace Meziantou.GitLabClient.Generator
             return char.ToLowerInvariant(pascalCase[0]) + pascalCase.Substring(1);
         }
 
-        //private string ToSnakeCase(string value)
-        //{
-        //    return string.Concat(value.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
-        //}
+        private ParameterLocation GetLocation(Method method, MethodParameter parameter)
+        {
+            if (parameter.Location != ParameterLocation.Default)
+            {
+                return parameter.Location;
+            }
+
+            if (method.UrlTemplate.Contains($":{parameter.Name}/") || method.UrlTemplate.EndsWith($":{parameter.Name}"))
+                return ParameterLocation.Url;
+
+            switch (method.MethodType)
+            {
+                case MethodType.Get:
+                case MethodType.GetPaged:
+                    return ParameterLocation.Url;
+
+                case MethodType.Put:
+                case MethodType.Post:
+                case MethodType.Delete:
+                    return ParameterLocation.Body;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
         private TypeReference GetPropertyTypeRef(ModelRef modelRef)
         {

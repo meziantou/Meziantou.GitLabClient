@@ -55,10 +55,6 @@ namespace Meziantou.GitLab
                     Parameters[key] = FormatEnum(v);
                     break;
 
-                //default:
-                //    Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", value);
-                //    break;
-
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value));
             }
