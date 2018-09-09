@@ -13,6 +13,26 @@ namespace Meziantou.GitLab
     {
         private string _avatarUrl;
 
+        private string _defaultBranch;
+
+        private long _forksCount;
+
+        private string _httpUrlToRepo;
+
+        private System.DateTime _lastActivityAt;
+
+        private NamespaceBasic _namespace;
+
+        private string _readmeUrl;
+
+        private string _sshUrlToRepo;
+
+        private long _starCount;
+
+        private System.Collections.Generic.IReadOnlyList<string> _tagList;
+
+        private string _webUrl;
+
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
         public string AvatarUrl
         {
@@ -25,8 +45,6 @@ namespace Meziantou.GitLab
                 this._avatarUrl = value;
             }
         }
-
-        private string _defaultBranch;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "default_branch")]
         public string DefaultBranch
@@ -41,8 +59,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private long _forksCount;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forks_count")]
         public long ForksCount
         {
@@ -55,8 +71,6 @@ namespace Meziantou.GitLab
                 this._forksCount = value;
             }
         }
-
-        private string _httpUrlToRepo;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "http_url_to_repo")]
         public string HttpUrlToRepo
@@ -71,8 +85,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.DateTime _lastActivityAt;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_at")]
         public System.DateTime LastActivityAt
         {
@@ -85,8 +97,6 @@ namespace Meziantou.GitLab
                 this._lastActivityAt = value;
             }
         }
-
-        private NamespaceBasic _namespace;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "namespace")]
         public NamespaceBasic Namespace
@@ -101,8 +111,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _readmeUrl;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "readme_url")]
         public string ReadmeUrl
         {
@@ -115,8 +123,6 @@ namespace Meziantou.GitLab
                 this._readmeUrl = value;
             }
         }
-
-        private string _sshUrlToRepo;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ssh_url_to_repo")]
         public string SshUrlToRepo
@@ -131,8 +137,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private long _starCount;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "star_count")]
         public long StarCount
         {
@@ -146,8 +150,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Collections.Generic.IReadOnlyList<string> _tagList;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "tag_list")]
         public System.Collections.Generic.IReadOnlyList<string> TagList
         {
@@ -160,8 +162,6 @@ namespace Meziantou.GitLab
                 this._tagList = value;
             }
         }
-
-        private string _webUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
@@ -179,22 +179,9 @@ namespace Meziantou.GitLab
 
     public partial class FileCreated : GitLab.GitLabObject
     {
-        private string _filePath;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
-        public string FilePath
-        {
-            get
-            {
-                return this._filePath;
-            }
-            private set
-            {
-                this._filePath = value;
-            }
-        }
-
         private string _branch;
+
+        private string _filePath;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "branch")]
         public string Branch
@@ -206,28 +193,28 @@ namespace Meziantou.GitLab
             private set
             {
                 this._branch = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
+        public string FilePath
+        {
+            get
+            {
+                return this._filePath;
+            }
+            private set
+            {
+                this._filePath = value;
             }
         }
     }
 
     public partial class FileUpdated : GitLab.GitLabObject
     {
-        private string _filePath;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
-        public string FilePath
-        {
-            get
-            {
-                return this._filePath;
-            }
-            private set
-            {
-                this._filePath = value;
-            }
-        }
-
         private string _branch;
+
+        private string _filePath;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "branch")]
         public string Branch
@@ -239,6 +226,19 @@ namespace Meziantou.GitLab
             private set
             {
                 this._branch = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
+        public string FilePath
+        {
+            get
+            {
+                return this._filePath;
+            }
+            private set
+            {
+                this._filePath = value;
             }
         }
     }
@@ -249,22 +249,9 @@ namespace Meziantou.GitLab
 
     public partial class Identity : GitLab.GitLabObject
     {
-        private string _provider;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "provider")]
-        public string Provider
-        {
-            get
-            {
-                return this._provider;
-            }
-            private set
-            {
-                this._provider = value;
-            }
-        }
-
         private string _externUid;
+
+        private string _provider;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "extern_uid")]
         public string ExternUid
@@ -278,71 +265,40 @@ namespace Meziantou.GitLab
                 this._externUid = value;
             }
         }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "provider")]
+        public string Provider
+        {
+            get
+            {
+                return this._provider;
+            }
+            private set
+            {
+                this._provider = value;
+            }
+        }
     }
 
     public partial class ImpersonationToken : GitLab.GitLabObject
     {
+        private bool _active;
+
+        private System.DateTime _createdAt;
+
+        private System.Nullable<System.DateTime> _expiresAt;
+
         private long _id;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
-        public long Id
-        {
-            get
-            {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
-            }
-        }
+        private bool _impersonation;
+
+        private string _name;
 
         private bool _revoked;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revoked")]
-        public bool Revoked
-        {
-            get
-            {
-                return this._revoked;
-            }
-            private set
-            {
-                this._revoked = value;
-            }
-        }
-
         private System.Collections.Generic.IReadOnlyList<string> _scopes;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "scopes")]
-        public System.Collections.Generic.IReadOnlyList<string> Scopes
-        {
-            get
-            {
-                return this._scopes;
-            }
-            private set
-            {
-                this._scopes = value;
-            }
-        }
-
         private string _token;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "token")]
-        public string Token
-        {
-            get
-            {
-                return this._token;
-            }
-            private set
-            {
-                this._token = value;
-            }
-        }
-
-        private bool _active;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "active")]
         public bool Active
@@ -357,7 +313,45 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _impersonation;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this._createdAt;
+            }
+            private set
+            {
+                this._createdAt = value;
+            }
+        }
+
+        [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "expires_at")]
+        public System.Nullable<System.DateTime> ExpiresAt
+        {
+            get
+            {
+                return this._expiresAt;
+            }
+            private set
+            {
+                this._expiresAt = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "impersonation")]
         public bool Impersonation
@@ -372,8 +366,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _name;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
@@ -387,34 +379,42 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.DateTime _createdAt;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
-        public System.DateTime CreatedAt
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revoked")]
+        public bool Revoked
         {
             get
             {
-                return this._createdAt;
+                return this._revoked;
             }
             private set
             {
-                this._createdAt = value;
+                this._revoked = value;
             }
         }
 
-        private System.Nullable<System.DateTime> _expiresAt;
-
-        [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "expires_at")]
-        public System.Nullable<System.DateTime> ExpiresAt
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "scopes")]
+        public System.Collections.Generic.IReadOnlyList<string> Scopes
         {
             get
             {
-                return this._expiresAt;
+                return this._scopes;
             }
             private set
             {
-                this._expiresAt = value;
+                this._scopes = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "token")]
+        public string Token
+        {
+            get
+            {
+                return this._token;
+            }
+            private set
+            {
+                this._token = value;
             }
         }
     }
@@ -436,37 +436,25 @@ namespace Meziantou.GitLab
 
     public partial class Issue : GitLab.GitLabObject
     {
-        private long _id;
+        private UserBasic _author;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
-        public long Id
-        {
-            get
-            {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
-            }
-        }
+        private System.Nullable<System.DateTime> _closedAt;
+
+        private UserBasic _closedBy;
+
+        private System.DateTime _createdAt;
+
+        private long _id;
 
         private long _iid;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
-        public long Iid
-        {
-            get
-            {
-                return this._iid;
-            }
-            private set
-            {
-                this._iid = value;
-            }
-        }
+        private long _projectId;
 
-        private UserBasic _author;
+        private string _title;
+
+        private System.DateTime _updatedAt;
+
+        private string _webUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
@@ -481,52 +469,31 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _title;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
-        public string Title
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_at")]
+        public System.Nullable<System.DateTime> ClosedAt
         {
             get
             {
-                return this._title;
+                return this._closedAt;
             }
             private set
             {
-                this._title = value;
+                this._closedAt = value;
             }
         }
 
-        private long _projectId;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
-        public long ProjectId
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_by")]
+        public UserBasic ClosedBy
         {
             get
             {
-                return this._projectId;
+                return this._closedBy;
             }
             private set
             {
-                this._projectId = value;
+                this._closedBy = value;
             }
         }
-
-        private string _webUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
-        public string WebUrl
-        {
-            get
-            {
-                return this._webUrl;
-            }
-            private set
-            {
-                this._webUrl = value;
-            }
-        }
-
-        private System.DateTime _createdAt;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
@@ -541,7 +508,57 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.DateTime _updatedAt;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
+        public long Iid
+        {
+            get
+            {
+                return this._iid;
+            }
+            private set
+            {
+                this._iid = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
+        public long ProjectId
+        {
+            get
+            {
+                return this._projectId;
+            }
+            private set
+            {
+                this._projectId = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            private set
+            {
+                this._title = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
         public System.DateTime UpdatedAt
@@ -556,33 +573,16 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<System.DateTime> _closedAt;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_at")]
-        public System.Nullable<System.DateTime> ClosedAt
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
+        public string WebUrl
         {
             get
             {
-                return this._closedAt;
+                return this._webUrl;
             }
             private set
             {
-                this._closedAt = value;
-            }
-        }
-
-        private UserBasic _closedBy;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_by")]
-        public UserBasic ClosedBy
-        {
-            get
-            {
-                return this._closedBy;
-            }
-            private set
-            {
-                this._closedBy = value;
+                this._webUrl = value;
             }
         }
     }
@@ -590,6 +590,8 @@ namespace Meziantou.GitLab
     public partial class MemberAccess : GitLab.GitLabObject
     {
         private Access _accessLevel;
+
+        private string _notificationLevel;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "access_level")]
         public Access AccessLevel
@@ -603,8 +605,6 @@ namespace Meziantou.GitLab
                 this._accessLevel = value;
             }
         }
-
-        private string _notificationLevel;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "notification_level")]
         public string NotificationLevel
@@ -636,37 +636,27 @@ namespace Meziantou.GitLab
 
     public partial class MergeRequest : GitLab.GitLabObject
     {
-        private long _id;
+        private UserBasic _author;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
-        public long Id
-        {
-            get
-            {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
-            }
-        }
+        private System.DateTime _createdAt;
+
+        private long _id;
 
         private long _iid;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
-        public long Iid
-        {
-            get
-            {
-                return this._iid;
-            }
-            private set
-            {
-                this._iid = value;
-            }
-        }
+        private string _mergeStatus;
 
-        private UserBasic _author;
+        private long _projectId;
+
+        private MergeRequestState _state;
+
+        private string _title;
+
+        private System.DateTime _updatedAt;
+
+        private int _userNotesCount;
+
+        private string _webUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
@@ -681,68 +671,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _title;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
-        public string Title
-        {
-            get
-            {
-                return this._title;
-            }
-            private set
-            {
-                this._title = value;
-            }
-        }
-
-        private MergeRequestState _state;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
-        public MergeRequestState State
-        {
-            get
-            {
-                return this._state;
-            }
-            private set
-            {
-                this._state = value;
-            }
-        }
-
-        private long _projectId;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
-        public long ProjectId
-        {
-            get
-            {
-                return this._projectId;
-            }
-            private set
-            {
-                this._projectId = value;
-            }
-        }
-
-        private string _webUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
-        public string WebUrl
-        {
-            get
-            {
-                return this._webUrl;
-            }
-            private set
-            {
-                this._webUrl = value;
-            }
-        }
-
-        private System.DateTime _createdAt;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
@@ -756,22 +684,31 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.DateTime _updatedAt;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
-        public System.DateTime UpdatedAt
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
+        public long Id
         {
             get
             {
-                return this._updatedAt;
+                return this._id;
             }
             private set
             {
-                this._updatedAt = value;
+                this._id = value;
             }
         }
 
-        private string _mergeStatus;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
+        public long Iid
+        {
+            get
+            {
+                return this._iid;
+            }
+            private set
+            {
+                this._iid = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_status")]
         public string MergeStatus
@@ -786,7 +723,57 @@ namespace Meziantou.GitLab
             }
         }
 
-        private int _userNotesCount;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
+        public long ProjectId
+        {
+            get
+            {
+                return this._projectId;
+            }
+            private set
+            {
+                this._projectId = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
+        public MergeRequestState State
+        {
+            get
+            {
+                return this._state;
+            }
+            private set
+            {
+                this._state = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            private set
+            {
+                this._title = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
+        public System.DateTime UpdatedAt
+        {
+            get
+            {
+                return this._updatedAt;
+            }
+            private set
+            {
+                this._updatedAt = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "user_notes_count")]
         public int UserNotesCount
@@ -798,6 +785,19 @@ namespace Meziantou.GitLab
             private set
             {
                 this._userNotesCount = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
+        public string WebUrl
+        {
+            get
+            {
+                return this._webUrl;
+            }
+            private set
+            {
+                this._webUrl = value;
             }
         }
     }
@@ -843,67 +843,17 @@ namespace Meziantou.GitLab
 
     public partial class NamespaceBasic : GitLab.GitLabObject
     {
+        private string _fullPath;
+
         private long _id;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
-        public long Id
-        {
-            get
-            {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
-            }
-        }
-
-        private string _name;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
-            }
-        }
-
-        private string _path;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
-        public string Path
-        {
-            get
-            {
-                return this._path;
-            }
-            private set
-            {
-                this._path = value;
-            }
-        }
 
         private string _kind;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "kind")]
-        public string Kind
-        {
-            get
-            {
-                return this._kind;
-            }
-            private set
-            {
-                this._kind = value;
-            }
-        }
+        private string _name;
 
-        private string _fullPath;
+        private System.Nullable<long> _parentId;
+
+        private string _path;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "full_path")]
         public string FullPath
@@ -918,7 +868,44 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<long> _parentId;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "kind")]
+        public string Kind
+        {
+            get
+            {
+                return this._kind;
+            }
+            private set
+            {
+                this._kind = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "parent_id")]
         public System.Nullable<long> ParentId
@@ -932,11 +919,86 @@ namespace Meziantou.GitLab
                 this._parentId = value;
             }
         }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
+        public string Path
+        {
+            get
+            {
+                return this._path;
+            }
+            private set
+            {
+                this._path = value;
+            }
+        }
     }
 
     public partial class Project : BasicProjectDetails
     {
         private System.Nullable<int> _approvalsBeforeMerge;
+
+        private bool _archived;
+
+        private string _ciConfigPath;
+
+        private bool _containerRegistryEnabled;
+
+        private long _creatorId;
+
+        private BasicProjectDetails _forkedFromProject;
+
+        private ImportStatus _importStatus;
+
+        private bool _issuesEnabled;
+
+        private bool _jobsEnabled;
+
+        private bool _lfsEnabled;
+
+        private ProjectLink _links;
+
+        private MergeMethod _mergeMethod;
+
+        private bool _mergeRequestsEnabled;
+
+        private bool _mirror;
+
+        private System.Nullable<bool> _mirrorOverwritesDivergedBranches;
+
+        private System.Nullable<bool> _mirrorTriggerBuilds;
+
+        private System.Nullable<long> _mirrorUserId;
+
+        private bool _onlyAllowMergeIfAllDiscussionsAreResolved;
+
+        private bool _onlyAllowMergeIfPipelineSucceeds;
+
+        private System.Nullable<bool> _onlyMirrorProtectedBranches;
+
+        private System.Nullable<int> _openIssuesCount;
+
+        private UserBasic _owner;
+
+        private ProjectPermissions _permissions;
+
+        private bool _printingMergeRequestLinkEnabled;
+
+        private bool _publicJobs;
+
+        private bool _requestAccessEnabled;
+
+        private System.Nullable<bool> _resolveOutdatedDiffDiscussions;
+
+        private bool _sharedRunnersEnabled;
+
+        private System.Collections.Generic.IReadOnlyList<SharedGroup> _sharedWithGroups;
+
+        private bool _snippetsEnabled;
+
+        private ProjectVisibility _visibility;
+
+        private bool _wikiEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "approvals_before_merge")]
         public System.Nullable<int> ApprovalsBeforeMerge
@@ -951,8 +1013,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _archived;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "archived")]
         public bool Archived
         {
@@ -965,8 +1025,6 @@ namespace Meziantou.GitLab
                 this._archived = value;
             }
         }
-
-        private string _ciConfigPath;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ci_config_path")]
         public string CiConfigPath
@@ -981,8 +1039,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _containerRegistryEnabled;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "container_registry_enabled")]
         public bool ContainerRegistryEnabled
         {
@@ -995,8 +1051,6 @@ namespace Meziantou.GitLab
                 this._containerRegistryEnabled = value;
             }
         }
-
-        private long _creatorId;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "creator_id")]
         public long CreatorId
@@ -1011,8 +1065,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private BasicProjectDetails _forkedFromProject;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forked_from_project")]
         public BasicProjectDetails ForkedFromProject
         {
@@ -1025,8 +1077,6 @@ namespace Meziantou.GitLab
                 this._forkedFromProject = value;
             }
         }
-
-        private ImportStatus _importStatus;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "import_status")]
         public ImportStatus ImportStatus
@@ -1041,8 +1091,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _issuesEnabled;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues_enabled")]
         public bool IssuesEnabled
         {
@@ -1055,8 +1103,6 @@ namespace Meziantou.GitLab
                 this._issuesEnabled = value;
             }
         }
-
-        private bool _jobsEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "jobs_enabled")]
         public bool JobsEnabled
@@ -1071,8 +1117,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _lfsEnabled;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "lfs_enabled")]
         public bool LfsEnabled
         {
@@ -1085,8 +1129,6 @@ namespace Meziantou.GitLab
                 this._lfsEnabled = value;
             }
         }
-
-        private ProjectLink _links;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "_links")]
         public ProjectLink Links
@@ -1101,8 +1143,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private MergeMethod _mergeMethod;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_method")]
         public MergeMethod MergeMethod
         {
@@ -1115,8 +1155,6 @@ namespace Meziantou.GitLab
                 this._mergeMethod = value;
             }
         }
-
-        private bool _mergeRequestsEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests_enabled")]
         public bool MergeRequestsEnabled
@@ -1131,8 +1169,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _mirror;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror")]
         public bool Mirror
         {
@@ -1145,38 +1181,6 @@ namespace Meziantou.GitLab
                 this._mirror = value;
             }
         }
-
-        private System.Nullable<long> _mirrorUserId;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_user_id")]
-        public System.Nullable<long> MirrorUserId
-        {
-            get
-            {
-                return this._mirrorUserId;
-            }
-            private set
-            {
-                this._mirrorUserId = value;
-            }
-        }
-
-        private System.Nullable<bool> _mirrorTriggerBuilds;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_trigger_builds")]
-        public System.Nullable<bool> MirrorTriggerBuilds
-        {
-            get
-            {
-                return this._mirrorTriggerBuilds;
-            }
-            private set
-            {
-                this._mirrorTriggerBuilds = value;
-            }
-        }
-
-        private System.Nullable<bool> _mirrorOverwritesDivergedBranches;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_overwrites_diverged_branches")]
         public System.Nullable<bool> MirrorOverwritesDivergedBranches
@@ -1191,7 +1195,31 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _onlyAllowMergeIfAllDiscussionsAreResolved;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_trigger_builds")]
+        public System.Nullable<bool> MirrorTriggerBuilds
+        {
+            get
+            {
+                return this._mirrorTriggerBuilds;
+            }
+            private set
+            {
+                this._mirrorTriggerBuilds = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_user_id")]
+        public System.Nullable<long> MirrorUserId
+        {
+            get
+            {
+                return this._mirrorUserId;
+            }
+            private set
+            {
+                this._mirrorUserId = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_all_discussions_are_resolved")]
         public bool OnlyAllowMergeIfAllDiscussionsAreResolved
@@ -1206,8 +1234,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _onlyAllowMergeIfPipelineSucceeds;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_pipeline_succeeds")]
         public bool OnlyAllowMergeIfPipelineSucceeds
         {
@@ -1220,8 +1246,6 @@ namespace Meziantou.GitLab
                 this._onlyAllowMergeIfPipelineSucceeds = value;
             }
         }
-
-        private System.Nullable<bool> _onlyMirrorProtectedBranches;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_mirror_protected_branches")]
         public System.Nullable<bool> OnlyMirrorProtectedBranches
@@ -1236,8 +1260,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<int> _openIssuesCount;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "open_issues_count")]
         public System.Nullable<int> OpenIssuesCount
         {
@@ -1250,8 +1272,6 @@ namespace Meziantou.GitLab
                 this._openIssuesCount = value;
             }
         }
-
-        private UserBasic _owner;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "owner")]
         public UserBasic Owner
@@ -1266,8 +1286,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private ProjectPermissions _permissions;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "permissions")]
         public ProjectPermissions Permissions
         {
@@ -1280,8 +1298,6 @@ namespace Meziantou.GitLab
                 this._permissions = value;
             }
         }
-
-        private bool _printingMergeRequestLinkEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "printing_merge_request_link_enabled")]
         public bool PrintingMergeRequestLinkEnabled
@@ -1296,8 +1312,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private bool _publicJobs;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "public_jobs")]
         public bool PublicJobs
         {
@@ -1310,8 +1324,6 @@ namespace Meziantou.GitLab
                 this._publicJobs = value;
             }
         }
-
-        private bool _requestAccessEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "request_access_enabled")]
         public bool RequestAccessEnabled
@@ -1326,8 +1338,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<bool> _resolveOutdatedDiffDiscussions;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "resolve_outdated_diff_discussions")]
         public System.Nullable<bool> ResolveOutdatedDiffDiscussions
         {
@@ -1340,8 +1350,6 @@ namespace Meziantou.GitLab
                 this._resolveOutdatedDiffDiscussions = value;
             }
         }
-
-        private bool _sharedRunnersEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_enabled")]
         public bool SharedRunnersEnabled
@@ -1356,8 +1364,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Collections.Generic.IReadOnlyList<SharedGroup> _sharedWithGroups;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_with_groups")]
         public System.Collections.Generic.IReadOnlyList<SharedGroup> SharedWithGroups
         {
@@ -1370,8 +1376,6 @@ namespace Meziantou.GitLab
                 this._sharedWithGroups = value;
             }
         }
-
-        private bool _snippetsEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "snippets_enabled")]
         public bool SnippetsEnabled
@@ -1386,8 +1390,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private ProjectVisibility _visibility;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "visibility")]
         public ProjectVisibility Visibility
         {
@@ -1400,8 +1402,6 @@ namespace Meziantou.GitLab
                 this._visibility = value;
             }
         }
-
-        private bool _wikiEnabled;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "wiki_enabled")]
         public bool WikiEnabled
@@ -1425,6 +1425,18 @@ namespace Meziantou.GitLab
     {
         private System.DateTime _createdAt;
 
+        private string _description;
+
+        private long _id;
+
+        private string _name;
+
+        private string _nameWithNamespace;
+
+        private string _path;
+
+        private string _pathWithNamespace;
+
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
@@ -1437,8 +1449,6 @@ namespace Meziantou.GitLab
                 this._createdAt = value;
             }
         }
-
-        private string _description;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "description")]
         public string Description
@@ -1453,8 +1463,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private long _id;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
@@ -1467,8 +1475,6 @@ namespace Meziantou.GitLab
                 this._id = value;
             }
         }
-
-        private string _name;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
@@ -1483,8 +1489,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _nameWithNamespace;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name_with_namespace")]
         public string NameWithNamespace
         {
@@ -1497,8 +1501,6 @@ namespace Meziantou.GitLab
                 this._nameWithNamespace = value;
             }
         }
-
-        private string _path;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
         public string Path
@@ -1513,8 +1515,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _pathWithNamespace;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path_with_namespace")]
         public string PathWithNamespace
         {
@@ -1528,19 +1528,17 @@ namespace Meziantou.GitLab
             }
         }
 
-        /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Project> GetProjectAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<FileCreated> CreateFileAsync(string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.GetProjectAsync(this, cancellationToken);
+            return this.GitLabClient.CreateFileAsync(this, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, cancellationToken);
         }
 
-        /// <summary>Get all merge requests for this project.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
+        /// <summary>Creates a new project issue.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Issue> CreateIssueAsync(string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.GetMergeRequestsAsync(this, state, pageOptions, cancellationToken);
+            return this.GitLabClient.CreateIssueAsync(this, title, description, confidential, cancellationToken);
         }
 
         /// <summary>Creates a new merge request.</summary>
@@ -1557,17 +1555,19 @@ namespace Meziantou.GitLab
             return this.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, assigneeId, this, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, cancellationToken);
         }
 
-        /// <summary>Creates a new project issue.</summary>
+        /// <summary>Get all merge requests for this project.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Issue> CreateIssueAsync(string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.CreateIssueAsync(this, title, description, confidential, cancellationToken);
+            return this.GitLabClient.GetMergeRequestsAsync(this, state, pageOptions, cancellationToken);
         }
 
+        /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<FileCreated> CreateFileAsync(string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Project> GetProjectAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.CreateFileAsync(this, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, cancellationToken);
+            return this.GitLabClient.GetProjectAsync(this, cancellationToken);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1580,6 +1580,18 @@ namespace Meziantou.GitLab
     public partial class ProjectLink : GitLab.GitLabObject
     {
         private string _events;
+
+        private string _issues;
+
+        private string _labels;
+
+        private string _members;
+
+        private string _mergeRequests;
+
+        private string _repoBranches;
+
+        private string _self;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "events")]
         public string Events
@@ -1594,8 +1606,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _issues;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues")]
         public string Issues
         {
@@ -1608,8 +1618,6 @@ namespace Meziantou.GitLab
                 this._issues = value;
             }
         }
-
-        private string _labels;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "labels")]
         public string Labels
@@ -1624,8 +1632,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _members;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "members")]
         public string Members
         {
@@ -1638,8 +1644,6 @@ namespace Meziantou.GitLab
                 this._members = value;
             }
         }
-
-        private string _mergeRequests;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests")]
         public string MergeRequests
@@ -1654,8 +1658,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _repoBranches;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "repo_branches")]
         public string RepoBranches
         {
@@ -1668,8 +1670,6 @@ namespace Meziantou.GitLab
                 this._repoBranches = value;
             }
         }
-
-        private string _self;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "self")]
         public string Self
@@ -1689,6 +1689,8 @@ namespace Meziantou.GitLab
     {
         private GroupAccess _groupAccess;
 
+        private ProjectAccess _projectAccess;
+
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access")]
         public GroupAccess GroupAccess
         {
@@ -1701,8 +1703,6 @@ namespace Meziantou.GitLab
                 this._groupAccess = value;
             }
         }
-
-        private ProjectAccess _projectAccess;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_access")]
         public ProjectAccess ProjectAccess
@@ -1731,7 +1731,24 @@ namespace Meziantou.GitLab
 
     public partial class SharedGroup : GitLab.GitLabObject
     {
+        private Access _groupAccessLevel;
+
         private long _groupId;
+
+        private string _groupName;
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access_level")]
+        public Access GroupAccessLevel
+        {
+            get
+            {
+                return this._groupAccessLevel;
+            }
+            private set
+            {
+                this._groupAccessLevel = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_id")]
         public long GroupId
@@ -1746,8 +1763,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _groupName;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_name")]
         public string GroupName
         {
@@ -1760,71 +1775,17 @@ namespace Meziantou.GitLab
                 this._groupName = value;
             }
         }
-
-        private Access _groupAccessLevel;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access_level")]
-        public Access GroupAccessLevel
-        {
-            get
-            {
-                return this._groupAccessLevel;
-            }
-            private set
-            {
-                this._groupAccessLevel = value;
-            }
-        }
     }
 
     public partial class SshKey : GitLab.GitLabObject
     {
+        private System.DateTime _createdAt;
+
         private long _id;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
-        public long Id
-        {
-            get
-            {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
-            }
-        }
-
-        private string _title;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
-        public string Title
-        {
-            get
-            {
-                return this._title;
-            }
-            private set
-            {
-                this._title = value;
-            }
-        }
 
         private string _key;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "key")]
-        public string Key
-        {
-            get
-            {
-                return this._key;
-            }
-            private set
-            {
-                this._key = value;
-            }
-        }
-
-        private System.DateTime _createdAt;
+        private string _title;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
@@ -1839,27 +1800,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        /// <summary>Get a single key.</summary>
-        /// <param name="id">The ID of an SSH key</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<SshKey> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            return this.GitLabClient.GetSshKeyAsync(this, cancellationToken);
-        }
-
-        /// <summary>Deletes key owned by currently authenticated user.</summary>
-        /// <param name="id">SSH key ID</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task DeleteAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            return this.GitLabClient.DeleteSshKeyAsync(this, cancellationToken);
-        }
-    }
-
-    public partial class Todo : GitLab.GitLabObject
-    {
-        private long _id;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
@@ -1873,7 +1813,70 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "key")]
+        public string Key
+        {
+            get
+            {
+                return this._key;
+            }
+            private set
+            {
+                this._key = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            private set
+            {
+                this._title = value;
+            }
+        }
+
+        /// <summary>Deletes key owned by currently authenticated user.</summary>
+        /// <param name="id">SSH key ID</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task DeleteAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.DeleteSshKeyAsync(this, cancellationToken);
+        }
+
+        /// <summary>Get a single key.</summary>
+        /// <param name="id">The ID of an SSH key</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<SshKey> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetSshKeyAsync(this, cancellationToken);
+        }
+    }
+
+    public partial class Todo : GitLab.GitLabObject
+    {
         private TodoAction _actionName;
+
+        private UserBasic _author;
+
+        private string _body;
+
+        private System.DateTime _createdAt;
+
+        private long _id;
+
+        private BasicProjectDetails _project;
+
+        private TodoState _state;
+
+        private GitLab.GitLabObject _target;
+
+        private TodoType _targetType;
+
+        private string _targetUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "action_name")]
         public TodoAction ActionName
@@ -1888,8 +1891,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private UserBasic _author;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
         {
@@ -1903,7 +1904,44 @@ namespace Meziantou.GitLab
             }
         }
 
-        private BasicProjectDetails _project;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "body")]
+        public string Body
+        {
+            get
+            {
+                return this._body;
+            }
+            private set
+            {
+                this._body = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this._createdAt;
+            }
+            private set
+            {
+                this._createdAt = value;
+            }
+        }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
+        public long Id
+        {
+            get
+            {
+                return this._id;
+            }
+            private set
+            {
+                this._id = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project")]
         public BasicProjectDetails Project
@@ -1918,22 +1956,18 @@ namespace Meziantou.GitLab
             }
         }
 
-        private TodoType _targetType;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_type")]
-        public TodoType TargetType
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
+        public TodoState State
         {
             get
             {
-                return this._targetType;
+                return this._state;
             }
             private set
             {
-                this._targetType = value;
+                this._state = value;
             }
         }
-
-        private GitLab.GitLabObject _target;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target")]
         [Newtonsoft.Json.JsonConverterAttribute(typeof(TodoTargetJsonConverter))]
@@ -1949,7 +1983,18 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _targetUrl;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_type")]
+        public TodoType TargetType
+        {
+            get
+            {
+                return this._targetType;
+            }
+            private set
+            {
+                this._targetType = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_url")]
         public string TargetUrl
@@ -1961,51 +2006,6 @@ namespace Meziantou.GitLab
             private set
             {
                 this._targetUrl = value;
-            }
-        }
-
-        private string _body;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "body")]
-        public string Body
-        {
-            get
-            {
-                return this._body;
-            }
-            private set
-            {
-                this._body = value;
-            }
-        }
-
-        private TodoState _state;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
-        public TodoState State
-        {
-            get
-            {
-                return this._state;
-            }
-            private set
-            {
-                this._state = value;
-            }
-        }
-
-        private System.DateTime _createdAt;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
-        public System.DateTime CreatedAt
-        {
-            get
-            {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
             }
         }
     }
@@ -2051,6 +2051,52 @@ namespace Meziantou.GitLab
     {
         private string _bio;
 
+        private System.Nullable<bool> _canCreateGroup;
+
+        private System.Nullable<bool> _canCreateProject;
+
+        private System.Nullable<long> _colorSchemeId;
+
+        private System.Nullable<System.DateTime> _confirmedAt;
+
+        private System.DateTime _createdAt;
+
+        private System.Nullable<System.DateTime> _currentSignInAt;
+
+        private string _email;
+
+        private System.Nullable<bool> _external;
+
+        private System.Collections.Generic.IReadOnlyList<Identity> _identities;
+
+        private System.Nullable<bool> _isAdmin;
+
+        private System.Nullable<System.DateTime> _lastActivityOn;
+
+        private System.Nullable<System.DateTime> _lastSignInAt;
+
+        private string _linkedin;
+
+        private string _location;
+
+        private string _organization;
+
+        private object _privateProfile;
+
+        private System.Nullable<long> _projectsLimit;
+
+        private System.Nullable<long> _sharedRunnersMinutesLimit;
+
+        private string _skype;
+
+        private System.Nullable<long> _themeId;
+
+        private string _twitter;
+
+        private System.Nullable<bool> _twoFactorEnabled;
+
+        private string _websiteUrl;
+
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "bio")]
         public string Bio
         {
@@ -2063,8 +2109,6 @@ namespace Meziantou.GitLab
                 this._bio = value;
             }
         }
-
-        private System.Nullable<bool> _canCreateGroup;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_group")]
         public System.Nullable<bool> CanCreateGroup
@@ -2079,8 +2123,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<bool> _canCreateProject;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_project")]
         public System.Nullable<bool> CanCreateProject
         {
@@ -2093,8 +2135,6 @@ namespace Meziantou.GitLab
                 this._canCreateProject = value;
             }
         }
-
-        private System.Nullable<long> _colorSchemeId;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "color_scheme_id")]
         public System.Nullable<long> ColorSchemeId
@@ -2109,8 +2149,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<System.DateTime> _confirmedAt;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "confirmed_at")]
         public System.Nullable<System.DateTime> ConfirmedAt
         {
@@ -2123,8 +2161,6 @@ namespace Meziantou.GitLab
                 this._confirmedAt = value;
             }
         }
-
-        private System.DateTime _createdAt;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
@@ -2139,8 +2175,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<System.DateTime> _currentSignInAt;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "current_sign_in_at")]
         public System.Nullable<System.DateTime> CurrentSignInAt
         {
@@ -2153,8 +2187,6 @@ namespace Meziantou.GitLab
                 this._currentSignInAt = value;
             }
         }
-
-        private string _email;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "email")]
         public string Email
@@ -2169,8 +2201,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<bool> _external;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "external")]
         public System.Nullable<bool> External
         {
@@ -2183,8 +2213,6 @@ namespace Meziantou.GitLab
                 this._external = value;
             }
         }
-
-        private System.Collections.Generic.IReadOnlyList<Identity> _identities;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "identities")]
         public System.Collections.Generic.IReadOnlyList<Identity> Identities
@@ -2199,8 +2227,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<bool> _isAdmin;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "is_admin")]
         public System.Nullable<bool> IsAdmin
         {
@@ -2213,8 +2239,6 @@ namespace Meziantou.GitLab
                 this._isAdmin = value;
             }
         }
-
-        private System.Nullable<System.DateTime> _lastActivityOn;
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on")]
@@ -2230,8 +2254,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<System.DateTime> _lastSignInAt;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_sign_in_at")]
         public System.Nullable<System.DateTime> LastSignInAt
         {
@@ -2244,8 +2266,6 @@ namespace Meziantou.GitLab
                 this._lastSignInAt = value;
             }
         }
-
-        private string _linkedin;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "linkedin")]
         public string Linkedin
@@ -2260,8 +2280,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _location;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "location")]
         public string Location
         {
@@ -2274,8 +2292,6 @@ namespace Meziantou.GitLab
                 this._location = value;
             }
         }
-
-        private string _organization;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "organization")]
         public string Organization
@@ -2290,8 +2306,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private object _privateProfile;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "private_profile")]
         public object PrivateProfile
         {
@@ -2304,8 +2318,6 @@ namespace Meziantou.GitLab
                 this._privateProfile = value;
             }
         }
-
-        private System.Nullable<long> _projectsLimit;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "projects_limit")]
         public System.Nullable<long> ProjectsLimit
@@ -2320,8 +2332,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<long> _sharedRunnersMinutesLimit;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_minutes_limit")]
         public System.Nullable<long> SharedRunnersMinutesLimit
         {
@@ -2334,8 +2344,6 @@ namespace Meziantou.GitLab
                 this._sharedRunnersMinutesLimit = value;
             }
         }
-
-        private string _skype;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "skype")]
         public string Skype
@@ -2350,8 +2358,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<long> _themeId;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "theme_id")]
         public System.Nullable<long> ThemeId
         {
@@ -2364,8 +2370,6 @@ namespace Meziantou.GitLab
                 this._themeId = value;
             }
         }
-
-        private string _twitter;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "twitter")]
         public string Twitter
@@ -2380,8 +2384,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private System.Nullable<bool> _twoFactorEnabled;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "two_factor_enabled")]
         public System.Nullable<bool> TwoFactorEnabled
         {
@@ -2394,8 +2396,6 @@ namespace Meziantou.GitLab
                 this._twoFactorEnabled = value;
             }
         }
-
-        private string _websiteUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "website_url")]
         public string WebsiteUrl
@@ -2413,22 +2413,9 @@ namespace Meziantou.GitLab
 
     public partial class UserActivity : GitLab.GitLabObject
     {
-        private string _username;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
-        public string Username
-        {
-            get
-            {
-                return this._username;
-            }
-            private set
-            {
-                this._username = value;
-            }
-        }
-
         private System.DateTime _lastActivityOn;
+
+        private string _username;
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on")]
@@ -2443,26 +2430,30 @@ namespace Meziantou.GitLab
                 this._lastActivityOn = value;
             }
         }
+
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
+        public string Username
+        {
+            get
+            {
+                return this._username;
+            }
+            private set
+            {
+                this._username = value;
+            }
+        }
     }
 
     public partial class UserBasic : UserSafe
     {
+        private string _avatarPath;
+
         private string _avatarUrl;
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
-        public string AvatarUrl
-        {
-            get
-            {
-                return this._avatarUrl;
-            }
-            private set
-            {
-                this._avatarUrl = value;
-            }
-        }
+        private UserState _state;
 
-        private string _avatarPath;
+        private string _webUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_path")]
         public string AvatarPath
@@ -2477,7 +2468,18 @@ namespace Meziantou.GitLab
             }
         }
 
-        private UserState _state;
+        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
+        public string AvatarUrl
+        {
+            get
+            {
+                return this._avatarUrl;
+            }
+            private set
+            {
+                this._avatarUrl = value;
+            }
+        }
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public UserState State
@@ -2491,8 +2493,6 @@ namespace Meziantou.GitLab
                 this._state = value;
             }
         }
-
-        private string _webUrl;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
@@ -2512,6 +2512,10 @@ namespace Meziantou.GitLab
     {
         private long _id;
 
+        private string _name;
+
+        private string _username;
+
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
@@ -2524,8 +2528,6 @@ namespace Meziantou.GitLab
                 this._id = value;
             }
         }
-
-        private string _name;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
@@ -2540,8 +2542,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _username;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
         public string Username
         {
@@ -2553,13 +2553,6 @@ namespace Meziantou.GitLab
             {
                 this._username = value;
             }
-        }
-
-        /// <summary>Get the status of a user.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            return this.GitLabClient.GetUserStatusAsync(this, cancellationToken);
         }
 
         /// <summary>Creates a new key owned by the currently authenticated user.</summary>
@@ -2576,12 +2569,11 @@ namespace Meziantou.GitLab
             return this.GitLabClient.CreateImpersonationTokenAsync(this, name, scopes, expiresAt, cancellationToken);
         }
 
-        /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
+        /// <summary>Creates a new merge request.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.GetProjectsAsync(this, archived, visibility, search, simple, owned, membership, starred, statistics, withIssuesEnabled, withMergeRequestsEnabled, wikiChecksumFailed, repositoryChecksumFailed, minAccessLevel, pageOptions, cancellationToken);
+            return this.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, this, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, cancellationToken);
         }
 
         /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
@@ -2592,11 +2584,19 @@ namespace Meziantou.GitLab
             return this.GitLabClient.GetMergeRequestsAsync(state, scope, this, pageOptions, cancellationToken);
         }
 
-        /// <summary>Creates a new merge request.</summary>
+        /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return this.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, this, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, cancellationToken);
+            return this.GitLabClient.GetProjectsAsync(this, archived, visibility, search, simple, owned, membership, starred, statistics, withIssuesEnabled, withMergeRequestsEnabled, wikiChecksumFailed, repositoryChecksumFailed, minAccessLevel, pageOptions, cancellationToken);
+        }
+
+        /// <summary>Get the status of a user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return this.GitLabClient.GetUserStatusAsync(this, cancellationToken);
         }
     }
 
@@ -2613,6 +2613,10 @@ namespace Meziantou.GitLab
     {
         private string _emoji;
 
+        private string _message;
+
+        private string _messageHtml;
+
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji")]
         public string Emoji
         {
@@ -2626,8 +2630,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        private string _message;
-
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message")]
         public string Message
         {
@@ -2640,8 +2642,6 @@ namespace Meziantou.GitLab
                 this._message = value;
             }
         }
-
-        private string _messageHtml;
 
         [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message_html")]
         public string MessageHtml
@@ -2662,22 +2662,9 @@ namespace Meziantou.GitLab
     {
         private readonly object _value;
 
-        public object Value
-        {
-            get
-            {
-                return this._value;
-            }
-        }
-
         public ProjectIdOrPathRef(long value)
         {
             this._value = value;
-        }
-
-        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(long value)
-        {
-            return new Meziantou.GitLab.ProjectIdOrPathRef(value);
         }
 
         public ProjectIdOrPathRef(ProjectIdentity value)
@@ -2690,6 +2677,24 @@ namespace Meziantou.GitLab
             this._value = value.Id;
         }
 
+        public ProjectIdOrPathRef(string value)
+        {
+            this._value = value;
+        }
+
+        public object Value
+        {
+            get
+            {
+                return this._value;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(long value)
+        {
+            return new Meziantou.GitLab.ProjectIdOrPathRef(value);
+        }
+
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(ProjectIdentity value)
         {
             if ((value == null))
@@ -2698,11 +2703,6 @@ namespace Meziantou.GitLab
             }
 
             return new Meziantou.GitLab.ProjectIdOrPathRef(value);
-        }
-
-        public ProjectIdOrPathRef(string value)
-        {
-            this._value = value;
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(string value)
@@ -2716,22 +2716,9 @@ namespace Meziantou.GitLab
     {
         private readonly object _value;
 
-        public object Value
-        {
-            get
-            {
-                return this._value;
-            }
-        }
-
         public ProjectIdRef(long value)
         {
             this._value = value;
-        }
-
-        public static implicit operator Meziantou.GitLab.ProjectIdRef(long value)
-        {
-            return new Meziantou.GitLab.ProjectIdRef(value);
         }
 
         public ProjectIdRef(ProjectIdentity value)
@@ -2742,6 +2729,19 @@ namespace Meziantou.GitLab
             }
 
             this._value = value.Id;
+        }
+
+        public object Value
+        {
+            get
+            {
+                return this._value;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdRef(long value)
+        {
+            return new Meziantou.GitLab.ProjectIdRef(value);
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdRef(ProjectIdentity value)
@@ -2760,22 +2760,9 @@ namespace Meziantou.GitLab
     {
         private readonly object _value;
 
-        public object Value
-        {
-            get
-            {
-                return this._value;
-            }
-        }
-
         public SshKeyRef(long value)
         {
             this._value = value;
-        }
-
-        public static implicit operator Meziantou.GitLab.SshKeyRef(long value)
-        {
-            return new Meziantou.GitLab.SshKeyRef(value);
         }
 
         public SshKeyRef(SshKey value)
@@ -2786,6 +2773,19 @@ namespace Meziantou.GitLab
             }
 
             this._value = value.Id;
+        }
+
+        public object Value
+        {
+            get
+            {
+                return this._value;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.SshKeyRef(long value)
+        {
+            return new Meziantou.GitLab.SshKeyRef(value);
         }
 
         public static implicit operator Meziantou.GitLab.SshKeyRef(SshKey value)
@@ -2804,32 +2804,14 @@ namespace Meziantou.GitLab
     {
         private readonly object _value;
 
-        public object Value
-        {
-            get
-            {
-                return this._value;
-            }
-        }
-
         public UserRef(long value)
         {
             this._value = value;
         }
 
-        public static implicit operator Meziantou.GitLab.UserRef(long value)
-        {
-            return new Meziantou.GitLab.UserRef(value);
-        }
-
         public UserRef(string value)
         {
             this._value = value;
-        }
-
-        public static implicit operator Meziantou.GitLab.UserRef(string value)
-        {
-            return new Meziantou.GitLab.UserRef(value);
         }
 
         public UserRef(UserSafe value)
@@ -2840,6 +2822,24 @@ namespace Meziantou.GitLab
             }
 
             this._value = value.Id;
+        }
+
+        public object Value
+        {
+            get
+            {
+                return this._value;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.UserRef(long value)
+        {
+            return new Meziantou.GitLab.UserRef(value);
+        }
+
+        public static implicit operator Meziantou.GitLab.UserRef(string value)
+        {
+            return new Meziantou.GitLab.UserRef(value);
         }
 
         public static implicit operator Meziantou.GitLab.UserRef(UserSafe value)
@@ -2855,151 +2855,17 @@ namespace Meziantou.GitLab
 
     partial class GitLabClient
     {
-        /// <summary>Gets currently authenticated user.</summary>
+        /// <summary>Creates a new key owned by the currently authenticated user.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<User> GetUserAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user");
-
-            string url = urlBuilder.Build();
-
-            return this.GetAsync<User>(url, cancellationToken);
-        }
-
-        /// <summary>Get a single user.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<User> GetUserAsync(long id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:id");
-
-            urlBuilder.WithValue("id", id);
-
-            string url = urlBuilder.Build();
-
-            return this.GetAsync<User>(url, cancellationToken);
-        }
-
-        /// <summary>Get a list of users.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<UserBasic>> GetUsersAsync(string username = default(string), bool onlyActiveUsers = default(bool), bool onlyBlockedUsers = default(bool), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users");
-
-            urlBuilder.WithValue("username", username);
-
-            urlBuilder.WithValue("active", onlyActiveUsers);
-
-            urlBuilder.WithValue("blocked", onlyBlockedUsers);
-
-            if ((pageOptions != null))
-            {
-                if ((pageOptions.PageIndex > 0))
-                {
-                    urlBuilder.WithValue("page", pageOptions.PageIndex);
-                }
-
-                if ((pageOptions.PageSize > 0))
-                {
-                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
-                }
-
-                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
-                {
-                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
-                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
-                }
-            }
-
-            string url = urlBuilder.Build();
-
-            return this.GetPagedAsync<UserBasic>(url, cancellationToken);
-        }
-
-        /// <summary>Get the status of the currently signed in user.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
-
-            string url = urlBuilder.Build();
-
-            return this.GetAsync<UserStatus>(url, cancellationToken);
-        }
-
-        /// <summary>Get the status of a user.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(UserRef user, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/status");
-
-            urlBuilder.WithValue("user", user.Value);
-
-            string url = urlBuilder.Build();
-
-            return this.GetAsync<UserStatus>(url, cancellationToken);
-        }
-
-        /// <summary>Set the status of the current user.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<UserStatus> SetUserStatusAsync(string emoji = default(string), string message = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
-
-            string url = urlBuilder.Build();
-
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
-            if ((emoji != null))
-            {
-                body.Add("emoji", emoji);
-            }
-
-            if ((message != null))
-            {
-                body.Add("message", message);
-            }
-
-            return this.PutJsonAsync<UserStatus>(url, body, cancellationToken);
-        }
-
-        /// <summary>Get a list of currently authenticated user's SSH keys.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSshKeysAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys");
-
-            string url = urlBuilder.Build();
-
-            return this.GetCollectionAsync<SshKey>(url, cancellationToken);
-        }
-
-        /// <summary>Get a list of a specified user's SSH keys. Available only for admin.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSshKeysAsync(long user, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(UserRef user, string title, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys");
-
-            urlBuilder.WithValue("user", user);
-
+            urlBuilder.WithValue("user", user.Value);
             string url = urlBuilder.Build();
-
-            return this.GetCollectionAsync<SshKey>(url, cancellationToken);
-        }
-
-        /// <summary>Get a single key.</summary>
-        /// <param name="id">The ID of an SSH key</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<SshKey> GetSshKeyAsync(SshKeyRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:id");
-
-            urlBuilder.WithValue("id", id.Value);
-
-            string url = urlBuilder.Build();
-
-            return this.GetAsync<SshKey>(url, cancellationToken);
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+            body.Add("title", title);
+            body.Add("key", key);
+            return this.PostJsonAsync<SshKey>(url, body, cancellationToken);
         }
 
         /// <summary>Creates a new key owned by the currently authenticated user.</summary>
@@ -3007,88 +2873,45 @@ namespace Meziantou.GitLab
         public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(string title, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys");
-
             string url = urlBuilder.Build();
-
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
             body.Add("title", title);
-
             body.Add("key", key);
-
             return this.PostJsonAsync<SshKey>(url, body, cancellationToken);
         }
 
-        /// <summary>Creates a new key owned by the currently authenticated user.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(UserRef user, string title, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<FileCreated> CreateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys");
-
-            urlBuilder.WithValue("user", user.Value);
-
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/repository/files/:file_path");
+            urlBuilder.WithValue("project", project.Value);
+            urlBuilder.WithValue("file_path", filePath);
             string url = urlBuilder.Build();
-
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
-            body.Add("title", title);
-
-            body.Add("key", key);
-
-            return this.PostJsonAsync<SshKey>(url, body, cancellationToken);
-        }
-
-        /// <summary>Deletes key owned by currently authenticated user.</summary>
-        /// <param name="id">SSH key ID</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task DeleteSshKeyAsync(SshKeyRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:id");
-
-            urlBuilder.WithValue("id", id.Value);
-
-            string url = urlBuilder.Build();
-
-            return this.DeleteAsync(url, cancellationToken);
-        }
-
-        /// <summary>Creates a new user. Note only administrators can create new users.</summary>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<User> CreateUserAsync(string email, string username, string name, string password = default(string), System.Nullable<bool> admin = default(System.Nullable<bool>), System.Nullable<bool> canCreateGroup = default(System.Nullable<bool>), System.Nullable<bool> skipConfirmation = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users");
-
-            string url = urlBuilder.Build();
-
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
-            body.Add("email", email);
-
-            body.Add("username", username);
-
-            body.Add("name", name);
-
-            if ((password != null))
+            body.Add("branch", branch);
+            if ((startBranch != null))
             {
-                body.Add("password", password);
+                body.Add("start_branch", startBranch);
             }
 
-            if ((admin != null))
+            if ((encoding != null))
             {
-                body.Add("admin", admin);
+                body.Add("encoding", encoding);
             }
 
-            if ((canCreateGroup != null))
+            if ((authorEmail != null))
             {
-                body.Add("can_create_group", canCreateGroup);
+                body.Add("author_email", authorEmail);
             }
 
-            if ((skipConfirmation != null))
+            if ((authorName != null))
             {
-                body.Add("skip_confirmation", skipConfirmation);
+                body.Add("author_name", authorName);
             }
 
-            return this.PostJsonAsync<User>(url, body, cancellationToken);
+            body.Add("content", content);
+            body.Add("commit_message", commitMessage);
+            return this.PostJsonAsync<FileCreated>(url, body, cancellationToken);
         }
 
         /// <summary>It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.</summary>
@@ -3096,154 +2919,88 @@ namespace Meziantou.GitLab
         public System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(UserRef user, string name, System.Collections.Generic.IEnumerable<string> scopes, System.Nullable<System.DateTime> expiresAt = default(System.Nullable<System.DateTime>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/impersonation_tokens");
-
             urlBuilder.WithValue("user", user.Value);
-
             string url = urlBuilder.Build();
-
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
             body.Add("name", name);
-
             if ((expiresAt != null))
             {
                 body.Add("expires_at", expiresAt);
             }
 
             body.Add("scopes", scopes);
-
             return this.PostJsonAsync<ImpersonationToken>(url, body, cancellationToken);
         }
 
-        /// <summary>Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with "simple" fields are returned.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
+        /// <summary>Creates a new project issue.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Issue> CreateIssueAsync(ProjectIdOrPathRef project, string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
-
-            urlBuilder.WithValue("archived", archived);
-
-            urlBuilder.WithValue("visibility", visibility);
-
-            urlBuilder.WithValue("search", search);
-
-            urlBuilder.WithValue("simple", simple);
-
-            urlBuilder.WithValue("owned", owned);
-
-            urlBuilder.WithValue("membership", membership);
-
-            urlBuilder.WithValue("starred", starred);
-
-            urlBuilder.WithValue("statistics", statistics);
-
-            urlBuilder.WithValue("with_issues_enabled", withIssuesEnabled);
-
-            urlBuilder.WithValue("with_merge_requests_enabled", withMergeRequestsEnabled);
-
-            urlBuilder.WithValue("wiki_checksum_failed", wikiChecksumFailed);
-
-            urlBuilder.WithValue("repository_checksum_failed", repositoryChecksumFailed);
-
-            urlBuilder.WithValue("min_access_level", minAccessLevel);
-
-            if ((pageOptions != null))
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/issues");
+            urlBuilder.WithValue("project", project.Value);
+            string url = urlBuilder.Build();
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+            body.Add("title", title);
+            if ((description != null))
             {
-                if ((pageOptions.PageIndex > 0))
-                {
-                    urlBuilder.WithValue("page", pageOptions.PageIndex);
-                }
-
-                if ((pageOptions.PageSize > 0))
-                {
-                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
-                }
-
-                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
-                {
-                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
-                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
-                }
+                body.Add("description", description);
             }
 
-            string url = urlBuilder.Build();
-
-            return this.GetPagedAsync<Project>(url, cancellationToken);
-        }
-
-        /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(UserRef user, System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/projects");
-
-            urlBuilder.WithValue("user", user.Value);
-
-            urlBuilder.WithValue("archived", archived);
-
-            urlBuilder.WithValue("visibility", visibility);
-
-            urlBuilder.WithValue("search", search);
-
-            urlBuilder.WithValue("simple", simple);
-
-            urlBuilder.WithValue("owned", owned);
-
-            urlBuilder.WithValue("membership", membership);
-
-            urlBuilder.WithValue("starred", starred);
-
-            urlBuilder.WithValue("statistics", statistics);
-
-            urlBuilder.WithValue("with_issues_enabled", withIssuesEnabled);
-
-            urlBuilder.WithValue("with_merge_requests_enabled", withMergeRequestsEnabled);
-
-            urlBuilder.WithValue("wiki_checksum_failed", wikiChecksumFailed);
-
-            urlBuilder.WithValue("repository_checksum_failed", repositoryChecksumFailed);
-
-            urlBuilder.WithValue("min_access_level", minAccessLevel);
-
-            if ((pageOptions != null))
+            if ((confidential != null))
             {
-                if ((pageOptions.PageIndex > 0))
-                {
-                    urlBuilder.WithValue("page", pageOptions.PageIndex);
-                }
-
-                if ((pageOptions.PageSize > 0))
-                {
-                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
-                }
-
-                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
-                {
-                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
-                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
-                }
+                body.Add("confidential", confidential);
             }
 
-            string url = urlBuilder.Build();
-
-            return this.GetPagedAsync<Project>(url, cancellationToken);
+            return this.PostJsonAsync<Issue>(url, body, cancellationToken);
         }
 
-        /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
+        /// <summary>Creates a new merge request.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Project> GetProjectAsync(ProjectIdOrPathRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:id");
-
-            urlBuilder.WithValue("id", id.Value);
-
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/merge_requests");
+            urlBuilder.WithValue("project", project.Value);
             string url = urlBuilder.Build();
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+            body.Add("source_branch", sourceBranch);
+            body.Add("target_branch", targetBranch);
+            body.Add("title", title);
+            if ((description != null))
+            {
+                body.Add("description", description);
+            }
 
-            return this.GetAsync<Project>(url, cancellationToken);
+            if ((assigneeId != null))
+            {
+                body.Add("assignee_id", assigneeId);
+            }
+
+            if ((targetProjectId != null))
+            {
+                body.Add("target_project_id", targetProjectId);
+            }
+
+            if ((removeSourceBranch != null))
+            {
+                body.Add("remove_source_branch", removeSourceBranch);
+            }
+
+            if ((allowCollaboration != null))
+            {
+                body.Add("allow_collaboration", allowCollaboration);
+            }
+
+            if ((allowMaintainerToPush != null))
+            {
+                body.Add("allow_maintainer_to_push", allowMaintainerToPush);
+            }
+
+            if ((squash != null))
+            {
+                body.Add("squash", squash);
+            }
+
+            return this.PostJsonAsync<MergeRequest>(url, body, cancellationToken);
         }
 
         /// <summary>Creates a new project owned by the authenticated user.</summary>
@@ -3251,11 +3008,8 @@ namespace Meziantou.GitLab
         public System.Threading.Tasks.Task<Project> CreateProjectAsync(string name = default(string), string path = default(string), System.Nullable<long> namespaceId = default(System.Nullable<long>), string defaultBranch = default(string), string description = default(string), System.Nullable<bool> issueEnabled = default(System.Nullable<bool>), System.Nullable<bool> issuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> mergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> jobsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiEnabled = default(System.Nullable<bool>), System.Nullable<bool> snippetsEnabled = default(System.Nullable<bool>), System.Nullable<bool> resolveOutdatedDiffDiscussions = default(System.Nullable<bool>), System.Nullable<bool> containerRegistryEnabled = default(System.Nullable<bool>), System.Nullable<bool> sharedRunnersEnabled = default(System.Nullable<bool>), System.Nullable<bool> publicJobs = default(System.Nullable<bool>), System.Nullable<bool> onlyAllowMergeIfPipelineSucceeds = default(System.Nullable<bool>), System.Nullable<bool> onlyAllowMergeIfAllDiscussionsAreResolved = default(System.Nullable<bool>), System.Nullable<bool> requestAccessEnabled = default(System.Nullable<bool>), System.Nullable<bool> lfsEnabled = default(System.Nullable<bool>), System.Nullable<bool> printingMergeRequestLinkEnabled = default(System.Nullable<bool>), System.Nullable<MergeMethod> mergeMethod = default(System.Nullable<MergeMethod>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), System.Collections.Generic.IEnumerable<string> tagList = default(System.Collections.Generic.IEnumerable<string>), string ciConfigPath = default(string), System.Nullable<int> approvalsBeforeMerge = default(System.Nullable<int>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
-
             string url = urlBuilder.Build();
-
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
             if ((name != null))
             {
                 body.Add("name", name);
@@ -3384,38 +3138,48 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<Project>(url, body, cancellationToken);
         }
 
-        /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>
-        /// <param name="pageOptions">The page index and page size</param>
+        /// <summary>Creates a new user. Note only administrators can create new users.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Todo>> GetTodosAsync(System.Nullable<TodoAction> action = default(System.Nullable<TodoAction>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<User> CreateUserAsync(string email, string username, string name, string password = default(string), System.Nullable<bool> admin = default(System.Nullable<bool>), System.Nullable<bool> canCreateGroup = default(System.Nullable<bool>), System.Nullable<bool> skipConfirmation = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos");
-
-            urlBuilder.WithValue("action", action);
-
-            if ((pageOptions != null))
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users");
+            string url = urlBuilder.Build();
+            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+            body.Add("email", email);
+            body.Add("username", username);
+            body.Add("name", name);
+            if ((password != null))
             {
-                if ((pageOptions.PageIndex > 0))
-                {
-                    urlBuilder.WithValue("page", pageOptions.PageIndex);
-                }
-
-                if ((pageOptions.PageSize > 0))
-                {
-                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
-                }
-
-                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
-                {
-                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
-                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
-                }
+                body.Add("password", password);
             }
 
-            string url = urlBuilder.Build();
+            if ((admin != null))
+            {
+                body.Add("admin", admin);
+            }
 
-            return this.GetPagedAsync<Todo>(url, cancellationToken);
+            if ((canCreateGroup != null))
+            {
+                body.Add("can_create_group", canCreateGroup);
+            }
+
+            if ((skipConfirmation != null))
+            {
+                body.Add("skip_confirmation", skipConfirmation);
+            }
+
+            return this.PostJsonAsync<User>(url, body, cancellationToken);
+        }
+
+        /// <summary>Deletes key owned by currently authenticated user.</summary>
+        /// <param name="id">SSH key ID</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task DeleteSshKeyAsync(SshKeyRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:id");
+            urlBuilder.WithValue("id", id.Value);
+            string url = urlBuilder.Build();
+            return this.DeleteAsync(url, cancellationToken);
         }
 
         /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
@@ -3424,11 +3188,8 @@ namespace Meziantou.GitLab
         public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("merge_requests");
-
             urlBuilder.WithValue("state", state);
-
             urlBuilder.WithValue("scope", scope);
-
             if (assigneeId.HasValue)
             {
                 urlBuilder.WithValue("assignee_id", assigneeId.Value.Value);
@@ -3449,13 +3210,11 @@ namespace Meziantou.GitLab
                 if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
                 {
                     urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
                     urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
                 }
             }
 
             string url = urlBuilder.Build();
-
             return this.GetPagedAsync<MergeRequest>(url, cancellationToken);
         }
 
@@ -3465,11 +3224,8 @@ namespace Meziantou.GitLab
         public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(ProjectIdOrPathRef project, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/merge_requests");
-
             urlBuilder.WithValue("project", project.Value);
-
             urlBuilder.WithValue("state", state);
-
             if ((pageOptions != null))
             {
                 if ((pageOptions.PageIndex > 0))
@@ -3485,156 +3241,268 @@ namespace Meziantou.GitLab
                 if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
                 {
                     urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
-
                     urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
                 }
             }
 
             string url = urlBuilder.Build();
-
             return this.GetPagedAsync<MergeRequest>(url, cancellationToken);
         }
 
-        /// <summary>Creates a new merge request.</summary>
+        /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Project> GetProjectAsync(ProjectIdOrPathRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/merge_requests");
-
-            urlBuilder.WithValue("project", project.Value);
-
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:id");
+            urlBuilder.WithValue("id", id.Value);
             string url = urlBuilder.Build();
-
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
-            body.Add("source_branch", sourceBranch);
-
-            body.Add("target_branch", targetBranch);
-
-            body.Add("title", title);
-
-            if ((description != null))
-            {
-                body.Add("description", description);
-            }
-
-            if ((assigneeId != null))
-            {
-                body.Add("assignee_id", assigneeId);
-            }
-
-            if ((targetProjectId != null))
-            {
-                body.Add("target_project_id", targetProjectId);
-            }
-
-            if ((removeSourceBranch != null))
-            {
-                body.Add("remove_source_branch", removeSourceBranch);
-            }
-
-            if ((allowCollaboration != null))
-            {
-                body.Add("allow_collaboration", allowCollaboration);
-            }
-
-            if ((allowMaintainerToPush != null))
-            {
-                body.Add("allow_maintainer_to_push", allowMaintainerToPush);
-            }
-
-            if ((squash != null))
-            {
-                body.Add("squash", squash);
-            }
-
-            return this.PostJsonAsync<MergeRequest>(url, body, cancellationToken);
+            return this.GetAsync<Project>(url, cancellationToken);
         }
 
-        /// <summary>Creates a new project issue.</summary>
+        /// <summary>Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with "simple" fields are returned.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<Issue> CreateIssueAsync(ProjectIdOrPathRef project, string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/issues");
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
+            urlBuilder.WithValue("archived", archived);
+            urlBuilder.WithValue("visibility", visibility);
+            urlBuilder.WithValue("search", search);
+            urlBuilder.WithValue("simple", simple);
+            urlBuilder.WithValue("owned", owned);
+            urlBuilder.WithValue("membership", membership);
+            urlBuilder.WithValue("starred", starred);
+            urlBuilder.WithValue("statistics", statistics);
+            urlBuilder.WithValue("with_issues_enabled", withIssuesEnabled);
+            urlBuilder.WithValue("with_merge_requests_enabled", withMergeRequestsEnabled);
+            urlBuilder.WithValue("wiki_checksum_failed", wikiChecksumFailed);
+            urlBuilder.WithValue("repository_checksum_failed", repositoryChecksumFailed);
+            urlBuilder.WithValue("min_access_level", minAccessLevel);
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
 
-            urlBuilder.WithValue("project", project.Value);
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
+
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
 
             string url = urlBuilder.Build();
-
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
-            body.Add("title", title);
-
-            if ((description != null))
-            {
-                body.Add("description", description);
-            }
-
-            if ((confidential != null))
-            {
-                body.Add("confidential", confidential);
-            }
-
-            return this.PostJsonAsync<Issue>(url, body, cancellationToken);
+            return this.GetPagedAsync<Project>(url, cancellationToken);
         }
 
+        /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public System.Threading.Tasks.Task<FileCreated> CreateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(UserRef user, System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/repository/files/:file_path");
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/projects");
+            urlBuilder.WithValue("user", user.Value);
+            urlBuilder.WithValue("archived", archived);
+            urlBuilder.WithValue("visibility", visibility);
+            urlBuilder.WithValue("search", search);
+            urlBuilder.WithValue("simple", simple);
+            urlBuilder.WithValue("owned", owned);
+            urlBuilder.WithValue("membership", membership);
+            urlBuilder.WithValue("starred", starred);
+            urlBuilder.WithValue("statistics", statistics);
+            urlBuilder.WithValue("with_issues_enabled", withIssuesEnabled);
+            urlBuilder.WithValue("with_merge_requests_enabled", withMergeRequestsEnabled);
+            urlBuilder.WithValue("wiki_checksum_failed", wikiChecksumFailed);
+            urlBuilder.WithValue("repository_checksum_failed", repositoryChecksumFailed);
+            urlBuilder.WithValue("min_access_level", minAccessLevel);
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
 
-            urlBuilder.WithValue("project", project.Value);
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
 
-            urlBuilder.WithValue("file_path", filePath);
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
 
             string url = urlBuilder.Build();
+            return this.GetPagedAsync<Project>(url, cancellationToken);
+        }
 
+        /// <summary>Get a single key.</summary>
+        /// <param name="id">The ID of an SSH key</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<SshKey> GetSshKeyAsync(SshKeyRef id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:id");
+            urlBuilder.WithValue("id", id.Value);
+            string url = urlBuilder.Build();
+            return this.GetAsync<SshKey>(url, cancellationToken);
+        }
+
+        /// <summary>Get a list of currently authenticated user's SSH keys.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSshKeysAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys");
+            string url = urlBuilder.Build();
+            return this.GetCollectionAsync<SshKey>(url, cancellationToken);
+        }
+
+        /// <summary>Get a list of a specified user's SSH keys. Available only for admin.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSshKeysAsync(long user, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys");
+            urlBuilder.WithValue("user", user);
+            string url = urlBuilder.Build();
+            return this.GetCollectionAsync<SshKey>(url, cancellationToken);
+        }
+
+        /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Todo>> GetTodosAsync(System.Nullable<TodoAction> action = default(System.Nullable<TodoAction>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos");
+            urlBuilder.WithValue("action", action);
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
+
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
+
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
+
+            string url = urlBuilder.Build();
+            return this.GetPagedAsync<Todo>(url, cancellationToken);
+        }
+
+        /// <summary>Gets currently authenticated user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<User> GetUserAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user");
+            string url = urlBuilder.Build();
+            return this.GetAsync<User>(url, cancellationToken);
+        }
+
+        /// <summary>Get a single user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<User> GetUserAsync(long id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:id");
+            urlBuilder.WithValue("id", id);
+            string url = urlBuilder.Build();
+            return this.GetAsync<User>(url, cancellationToken);
+        }
+
+        /// <summary>Get the status of a user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(UserRef user, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/status");
+            urlBuilder.WithValue("user", user.Value);
+            string url = urlBuilder.Build();
+            return this.GetAsync<UserStatus>(url, cancellationToken);
+        }
+
+        /// <summary>Get the status of the currently signed in user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
+            string url = urlBuilder.Build();
+            return this.GetAsync<UserStatus>(url, cancellationToken);
+        }
+
+        /// <summary>Get a list of users.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<UserBasic>> GetUsersAsync(string username = default(string), bool onlyActiveUsers = default(bool), bool onlyBlockedUsers = default(bool), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users");
+            urlBuilder.WithValue("username", username);
+            urlBuilder.WithValue("active", onlyActiveUsers);
+            urlBuilder.WithValue("blocked", onlyBlockedUsers);
+            if ((pageOptions != null))
+            {
+                if ((pageOptions.PageIndex > 0))
+                {
+                    urlBuilder.WithValue("page", pageOptions.PageIndex);
+                }
+
+                if ((pageOptions.PageSize > 0))
+                {
+                    urlBuilder.WithValue("per_page", pageOptions.PageSize);
+                }
+
+                if ((string.IsNullOrEmpty(pageOptions.OrderBy.Name) == false))
+                {
+                    urlBuilder.WithValue("order_by", pageOptions.OrderBy.Name);
+                    urlBuilder.WithValue("sort", pageOptions.OrderBy.Direction);
+                }
+            }
+
+            string url = urlBuilder.Build();
+            return this.GetPagedAsync<UserBasic>(url, cancellationToken);
+        }
+
+        /// <summary>Set the status of the current user.</summary>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public System.Threading.Tasks.Task<UserStatus> SetUserStatusAsync(string emoji = default(string), string message = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
+            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
-            body.Add("branch", branch);
-
-            if ((startBranch != null))
+            if ((emoji != null))
             {
-                body.Add("start_branch", startBranch);
+                body.Add("emoji", emoji);
             }
 
-            if ((encoding != null))
+            if ((message != null))
             {
-                body.Add("encoding", encoding);
+                body.Add("message", message);
             }
 
-            if ((authorEmail != null))
-            {
-                body.Add("author_email", authorEmail);
-            }
-
-            if ((authorName != null))
-            {
-                body.Add("author_name", authorName);
-            }
-
-            body.Add("content", content);
-
-            body.Add("commit_message", commitMessage);
-
-            return this.PostJsonAsync<FileCreated>(url, body, cancellationToken);
+            return this.PutJsonAsync<UserStatus>(url, body, cancellationToken);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), string lastCommitId = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/repository/files/:file_path");
-
             urlBuilder.WithValue("project", project.Value);
-
             urlBuilder.WithValue("file_path", filePath);
-
             string url = urlBuilder.Build();
-
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-
             body.Add("branch", branch);
-
             if ((startBranch != null))
             {
                 body.Add("start_branch", startBranch);
@@ -3661,9 +3529,7 @@ namespace Meziantou.GitLab
             }
 
             body.Add("content", content);
-
             body.Add("commit_message", commitMessage);
-
             return this.PutJsonAsync<FileUpdated>(url, body, cancellationToken);
         }
     }

@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.12.2" />
+    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.13.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 

@@ -63,6 +63,7 @@ namespace Meziantou.GitLabClient.Generator
                 }
             }
 
+            new DefaultFormatterVisitor().Visit(unit);
             using (var tw = new StreamWriter("../../../../Meziantou.GitLabClient/GitLabClient.generated.cs"))
             {
                 new CSharpCodeGenerator().Write(tw, unit);
@@ -103,7 +104,7 @@ namespace Meziantou.GitLabClient.Generator
                     foreach (var kvp in emojis.OrderBy(entry => entry.Key))
                     {
                         var field = emojiClass.AddMember(new FieldDeclaration("Emoji" + GetName(kvp.Key), typeof(string), Modifiers.Public | Modifiers.Const) { InitExpression = new LiteralExpression(kvp.Key) });
-                        field.CommentsBefore.Add(new Comment(new XElement("summary", $"Emoji {kvp.Value.Name} {kvp.Value.Moji}").ToString(), CommentType.DocumentationComment));
+                        field.XmlComments.AddSummary($"Emoji {kvp.Value.Name} {kvp.Value.Moji}");
                     }
                 }
             }
@@ -119,7 +120,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private void AddDocumentationComments(ICommentable commentable, Documentation documentation)
+        private void AddDocumentationComments(CodeObject commentable, Documentation documentation)
         {
             if (documentation != null)
             {
@@ -128,24 +129,24 @@ namespace Meziantou.GitLabClient.Generator
                     var method = arg.GetSelfOrParentOfType<MethodDeclaration>();
                     if (documentation.Summary != null)
                     {
-                        method.CommentsBefore.Add(new Comment(new XElement("param", new XAttribute("name", arg.Name), documentation.Summary).ToString(), CommentType.DocumentationComment));
+                        method.XmlComments.AddParam(arg.Name, documentation.Summary);
                     }
                 }
-                else
+                else if (commentable is IXmlCommentable xmlCommentable)
                 {
                     if (documentation.Summary != null)
                     {
-                        commentable.CommentsBefore.Add(new Comment(new XElement("summary", documentation.Summary).ToString(), CommentType.DocumentationComment));
+                        xmlCommentable.XmlComments.AddSummary(documentation.Summary);
                     }
 
                     if (documentation.Remark != null)
                     {
-                        commentable.CommentsBefore.Add(new Comment(new XElement("remark", documentation.Remark).ToString(), CommentType.DocumentationComment));
+                        xmlCommentable.XmlComments.Add(new XElement("remark", documentation.Remark));
                     }
 
                     if (documentation.Returns != null)
                     {
-                        commentable.CommentsBefore.Add(new Comment(new XElement("returns", documentation.Returns).ToString(), CommentType.DocumentationComment));
+                        xmlCommentable.XmlComments.AddReturn(documentation.Returns);
                     }
                 }
             }
@@ -217,7 +218,7 @@ namespace Meziantou.GitLabClient.Generator
 
             var urlBuilder = new VariableDeclarationStatement(
                 typeof(UrlBuilder), "urlBuilder",
-                new TypeReference(typeof(UrlBuilder)).InvokeMethod("Get", method.UrlTemplate));
+                new TypeReference(typeof(UrlBuilder)).CreateInvokeMethodExpression("Get", method.UrlTemplate));
             m.Statements.Add(urlBuilder);
 
             foreach (var param in method.Parameters.Where(p => GetLocation(method, p) == ParameterLocation.Url))
@@ -227,18 +228,18 @@ namespace Meziantou.GitLabClient.Generator
                     if (param.Type.IsNullable)
                     {
                         var hasValueCondition = new ConditionStatement();
-                        hasValueCondition.Condition = arguments[param].GetMember(nameof(Nullable<int>.HasValue));
-                        hasValueCondition.TrueStatements = urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param].GetMember(nameof(Nullable<int>.Value), "Value"));
+                        hasValueCondition.Condition = arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue));
+                        hasValueCondition.TrueStatements = urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.Value), "Value"));
                         m.Statements.Add(hasValueCondition);
                     }
                     else
                     {
-                        m.Statements.Add(urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param].GetMember("Value")));
+                        m.Statements.Add(urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param].CreateMemberReferenceExpression("Value")));
                     }
                 }
                 else
                 {
-                    m.Statements.Add(urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), param.Name, arguments[param]));
+                    m.Statements.Add(urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param]));
                 }
             }
 
@@ -251,27 +252,27 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         new ConditionStatement()
                         {
-                            Condition = new BinaryExpression(BinaryOperator.GreaterThan, pageArgument.GetMember(nameof(PageOptions.PageIndex)), new LiteralExpression(0)),
+                            Condition = new BinaryExpression(BinaryOperator.GreaterThan, pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageIndex)), new LiteralExpression(0)),
                             TrueStatements = new StatementCollection
                             {
-                                urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), "page", pageArgument.GetMember(nameof(PageOptions.PageIndex)))
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "page", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageIndex)))
                             }
                         },
                         new ConditionStatement()
                         {
-                            Condition = new BinaryExpression(BinaryOperator.GreaterThan, pageArgument.GetMember(nameof(PageOptions.PageSize)), new LiteralExpression(0)),
+                            Condition = new BinaryExpression(BinaryOperator.GreaterThan, pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageSize)), new LiteralExpression(0)),
                             TrueStatements = new StatementCollection
                             {
-                                urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), "per_page", pageArgument.GetMember(nameof(PageOptions.PageSize)))
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "per_page", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageSize)))
                             }
                         },
                         new ConditionStatement()
                         {
-                            Condition = new BinaryExpression(BinaryOperator.Equals, pageArgument.GetMember(nameof(PageOptions.OrderBy), nameof(OrderBy.Name)).IsNullOrEmpty(), new LiteralExpression(false)),
+                            Condition = new BinaryExpression(BinaryOperator.Equals, pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.OrderBy), nameof(OrderBy.Name)).CreateIsNullOrEmptyExpression(), new LiteralExpression(false)),
                             TrueStatements = new StatementCollection
                             {
-                                urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), "order_by", pageArgument.GetMember(nameof(PageOptions.OrderBy), nameof(OrderBy.Name))),
-                                urlBuilder.InvokeMethod(nameof(UrlBuilder.WithValue), "sort", pageArgument.GetMember(nameof(PageOptions.OrderBy), nameof(OrderBy.Direction)))
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "order_by", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.OrderBy), nameof(OrderBy.Name))),
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "sort", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.OrderBy), nameof(OrderBy.Direction)))
                             }
                         }
                     }
@@ -280,7 +281,7 @@ namespace Meziantou.GitLabClient.Generator
                 m.Statements.Add(pageCondition);
             }
 
-            var url = new VariableDeclarationStatement(typeof(string), "url", urlBuilder.InvokeMethod(nameof(UrlBuilder.Build)));
+            var url = new VariableDeclarationStatement(typeof(string), "url", urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.Build)));
             m.Statements.Add(url);
 
             var bodyArgument = CreateBodyArgument(method, m);
@@ -289,29 +290,29 @@ namespace Meziantou.GitLabClient.Generator
                 case MethodType.Get:
                     if (method.ReturnType.IsCollection)
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("GetCollectionAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetCollectionAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
                     }
                     else
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("GetAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
                     }
 
                     break;
 
                 case MethodType.GetPaged:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("GetPagedAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetPagedAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Put:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Post:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Delete:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().InvokeMethod("DeleteAsync", url, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("DeleteAsync", url, cancellationTokenArgument)));
                     break;
 
                 default:
@@ -321,7 +322,7 @@ namespace Meziantou.GitLabClient.Generator
             return m;
         }
 
-        private VariableReference CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
+        private VariableReferenceExpression CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
         {
             var bodyArguments = method.Parameters.Where(p => GetLocation(method, p) == ParameterLocation.Body).ToList();
             if (bodyArguments.Count == 0)
@@ -333,7 +334,7 @@ namespace Meziantou.GitLabClient.Generator
             foreach (var arg in bodyArguments)
             {
                 var argumentReference = methodDeclaration.Arguments.First(a => a.Data["Parameter"] == arg);
-                var assign = variable.InvokeMethod(nameof(Dictionary<string, object>.Add), arg.Name, argumentReference);
+                var assign = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, argumentReference);
                 if (arg.IsOptional)
                 {
                     var condition = new ConditionStatement();
@@ -355,7 +356,7 @@ namespace Meziantou.GitLabClient.Generator
             var m = GenerateMethod(clientClass, method);
             m.Statements.Clear();
 
-            var invoke = new MethodInvokeExpression(new ThisExpression().GetMember("GitLabClient", m.Name));
+            var invoke = new MethodInvokeExpression(new ThisExpression().CreateMemberReferenceExpression("GitLabClient", m.Name));
 
             foreach (var arg in m.Arguments.ToList())
             {
@@ -389,7 +390,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Modifiers = Modifiers.Public,
                         Getter = new ReturnStatement(field),
-                        Setter = new PropertyMemberDeclaration
+                        Setter = new PropertyAccessorDeclaration
                         {
                             Modifiers = isRequestPayload ? Modifiers.None : Modifiers.Private,
                             Statements = new AssignStatement(field, new ValueArgumentExpression())
@@ -476,7 +477,7 @@ namespace Meziantou.GitLabClient.Generator
                     Expression initExpression = null;
                     foreach (var member in type.Members)
                     {
-                        Expression memberExpression = new TypeReference(type).GetMember(member.Name);
+                        Expression memberExpression = new TypeReference(type).CreateMemberReferenceExpression(member.Name);
                         if (initExpression == null)
                         {
                             initExpression = memberExpression;
@@ -492,19 +493,19 @@ namespace Meziantou.GitLabClient.Generator
                 }
             }
 
-            Required RequiredMode(EntityProperty property)
-            {
-                if (property.Required.HasValue)
-                    return property.Required.Value;
+            //Required RequiredMode(EntityProperty property)
+            //{
+            //    if (property.Required.HasValue)
+            //        return property.Required.Value;
 
-                if (property.Type.IsNullable)
-                    return Required.AllowNull;
+            //    if (property.Type.IsNullable)
+            //        return Required.AllowNull;
 
-                if (property.Type.IsModel)
-                    return Required.AllowNull;
+            //    if (property.Type.IsModel)
+            //        return Required.AllowNull;
 
-                return Required.Always;
-            }
+            //    return Required.Always;
+            //}
         }
 
         private void GenerateParameterEntities(NamespaceDeclaration ns, ParameterEntity entity)
@@ -526,7 +527,7 @@ namespace Meziantou.GitLabClient.Generator
             var valueProperty = new PropertyDeclaration("Value", GetPropertyTypeRef(entity.FinalType))
             {
                 Modifiers = Modifiers.Public,
-                Getter = new PropertyMemberDeclaration
+                Getter = new PropertyAccessorDeclaration
                 {
                     Statements = new ReturnStatement(valueField)
                 }
@@ -583,7 +584,7 @@ namespace Meziantou.GitLabClient.Generator
                     Expression value = new ArgumentReferenceExpression("value");
                     foreach (var member in refe.Properties)
                     {
-                        value = value.GetMember(ToPropertyName(member));
+                        value = value.CreateMemberReferenceExpression(ToPropertyName(member));
                     }
 
                     return value;
