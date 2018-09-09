@@ -5,7 +5,6 @@ namespace Meziantou.GitLabClient.Generator
     internal class Project
     {
         public IList<Model> Models { get; } = new List<Model>();
-        public IList<Model> RequestPayloads { get; } = new List<Model>();
         public IList<ParameterEntity> ParameterEntities { get; } = new List<ParameterEntity>();
         public IList<Method> Methods { get; } = new List<Method>();
 
@@ -25,12 +24,6 @@ namespace Meziantou.GitLabClient.Generator
         {
             Methods.Add(method);
             return method;
-        }
-
-        public Model AddRequestPayload(Model model)
-        {
-            RequestPayloads.Add(model);
-            return model;
         }
     }
 }

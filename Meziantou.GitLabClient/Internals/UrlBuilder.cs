@@ -51,6 +51,10 @@ namespace Meziantou.GitLab
                     Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", v);
                     break;
 
+                case DateTime v:
+                    Parameters[key] = v.ToString("o");
+                    break;
+
                 case Enum v:
                     Parameters[key] = FormatEnum(v);
                     break;

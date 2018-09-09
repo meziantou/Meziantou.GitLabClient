@@ -6,6 +6,9 @@ namespace Meziantou.GitLab
 {
     internal class TodoTargetJsonConverter : JsonConverter
     {
+        public override bool CanRead => true;
+        public override bool CanWrite => false;
+
         public override bool CanConvert(Type objectType) => typeof(GitLabObject).IsAssignableFrom(objectType);
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -34,8 +37,5 @@ namespace Meziantou.GitLab
         {
             throw new NotSupportedException();
         }
-
-        public override bool CanRead => true;
-        public override bool CanWrite => false;
     }
 }

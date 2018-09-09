@@ -3,14 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Meziantou.GitLab</RootNamespace>
-    <Version>1.1.7</Version>
+    <Version>1.1.8</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="RequestModels\**" />
-    <EmbeddedResource Remove="RequestModels\**" />
-    <None Remove="RequestModels\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

@@ -5,6 +5,9 @@ namespace Meziantou.GitLab
 {
     internal class ReferenceJsonConverter : JsonConverter<IReference>
     {
+        public override bool CanRead => false;
+        public override bool CanWrite => true;
+
         public override IReference ReadJson(JsonReader reader, Type objectType, IReference existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             throw new NotSupportedException();
@@ -21,8 +24,5 @@ namespace Meziantou.GitLab
                 writer.WriteValue(value.Value);
             }
         }
-
-        public override bool CanRead => false;
-        public override bool CanWrite => true;
     }
 }

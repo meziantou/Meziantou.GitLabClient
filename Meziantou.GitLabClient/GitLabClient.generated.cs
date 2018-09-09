@@ -9,6 +9,131 @@ namespace Meziantou.GitLab
         Owner = 50
     }
 
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum ImportStatus
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "none")]
+        None,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "scheduled")]
+        Scheduled,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "failed")]
+        Failed,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "started")]
+        Started,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "finished")]
+        Finished
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum MergeMethod
+    {
+        /// <summary>A merge commit is created for every merge, and merging is allowed as long as there are no conflicts.</summary>
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merge")]
+        Merge,
+        /// <summary>A merge commit is created for every merge, but merging is only allowed if fast-forward merge is possible. This way you could make sure that if this merge request would build, after merging to target branch it would also build.</summary>
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "rebase_merge")]
+        RebaseMerge,
+        /// <summary>No merge commits are created and all merges are fast-forwarded, which means that merging is only allowed if the branch could be fast-forwarded.</summary>
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "ff")]
+        FastForward
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum MergeRequestScopeFilter
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned_to_me")]
+        AssignedToMe,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "all")]
+        All
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum MergeRequestState
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
+        Opened,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "closed")]
+        Closed,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "locked")]
+        Locked,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
+        Merged
+    }
+
+    [System.FlagsAttribute]
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum MergeRequestStateFilter
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "default")]
+        Default = 0,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
+        Opened = 1,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "closed")]
+        Closed = 2,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "locked")]
+        Locked = 4,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
+        Merged = 8,
+        All = ((((Meziantou.GitLab.MergeRequestStateFilter.Default | Meziantou.GitLab.MergeRequestStateFilter.Opened) | Meziantou.GitLab.MergeRequestStateFilter.Closed) | Meziantou.GitLab.MergeRequestStateFilter.Locked) | Meziantou.GitLab.MergeRequestStateFilter.Merged)
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum ProjectVisibility
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "private")]
+        Private,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "internal")]
+        Internal,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "public")]
+        Public
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum TodoAction
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned")]
+        Assigned,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "mentioned")]
+        Mentioned,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "build_failed")]
+        BuildFailed,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "marked")]
+        Marked,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "approval_required")]
+        ApprovalRequired,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "unmergeable")]
+        Unmergeable,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "directly_addressed")]
+        DirectlyAddressed
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum TodoState
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "pending")]
+        Pending,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "done")]
+        Done
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum TodoType
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "issue")]
+        Issue,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merge_request")]
+        MergeRequest
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum UserState
+    {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "active")]
+        Active,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "blocked")]
+        Blocked
+    }
+
     public partial class BasicProjectDetails : ProjectIdentity
     {
         private string _avatarUrl;
@@ -419,21 +544,6 @@ namespace Meziantou.GitLab
         }
     }
 
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum ImportStatus
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "none")]
-        None,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "scheduled")]
-        Scheduled,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "failed")]
-        Failed,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "started")]
-        Started,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "finished")]
-        Finished
-    }
-
     public partial class Issue : GitLab.GitLabObject
     {
         private UserBasic _author;
@@ -620,20 +730,6 @@ namespace Meziantou.GitLab
         }
     }
 
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum MergeMethod
-    {
-        /// <summary>A merge commit is created for every merge, and merging is allowed as long as there are no conflicts.</summary>
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merge")]
-        Merge,
-        /// <summary>A merge commit is created for every merge, but merging is only allowed if fast-forward merge is possible. This way you could make sure that if this merge request would build, after merging to target branch it would also build.</summary>
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "rebase_merge")]
-        RebaseMerge,
-        /// <summary>No merge commits are created and all merges are fast-forwarded, which means that merging is only allowed if the branch could be fast-forwarded.</summary>
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "ff")]
-        FastForward
-    }
-
     public partial class MergeRequest : GitLab.GitLabObject
     {
         private UserBasic _author;
@@ -800,45 +896,6 @@ namespace Meziantou.GitLab
                 this._webUrl = value;
             }
         }
-    }
-
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum MergeRequestScopeFilter
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned_to_me")]
-        AssignedToMe,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "all")]
-        All
-    }
-
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum MergeRequestState
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
-        Opened,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "closed")]
-        Closed,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "locked")]
-        Locked,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
-        Merged
-    }
-
-    [System.FlagsAttribute]
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum MergeRequestStateFilter
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "default")]
-        Default = 0,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "opened")]
-        Opened = 1,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "closed")]
-        Closed = 2,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "locked")]
-        Locked = 4,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
-        Merged = 8,
-        All = ((((Meziantou.GitLab.MergeRequestStateFilter.Default | Meziantou.GitLab.MergeRequestStateFilter.Opened) | Meziantou.GitLab.MergeRequestStateFilter.Closed) | Meziantou.GitLab.MergeRequestStateFilter.Locked) | Meziantou.GitLab.MergeRequestStateFilter.Merged)
     }
 
     public partial class NamespaceBasic : GitLab.GitLabObject
@@ -1718,17 +1775,6 @@ namespace Meziantou.GitLab
         }
     }
 
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum ProjectVisibility
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "private")]
-        Private,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "internal")]
-        Internal,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "public")]
-        Public
-    }
-
     public partial class SharedGroup : GitLab.GitLabObject
     {
         private Access _groupAccessLevel;
@@ -2008,43 +2054,6 @@ namespace Meziantou.GitLab
                 this._targetUrl = value;
             }
         }
-    }
-
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum TodoAction
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "assigned")]
-        Assigned,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "mentioned")]
-        Mentioned,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "build_failed")]
-        BuildFailed,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "marked")]
-        Marked,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "approval_required")]
-        ApprovalRequired,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "unmergeable")]
-        Unmergeable,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "directly_addressed")]
-        DirectlyAddressed
-    }
-
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum TodoState
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "pending")]
-        Pending,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "done")]
-        Done
-    }
-
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum TodoType
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "issue")]
-        Issue,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "merge_request")]
-        MergeRequest
     }
 
     public partial class User : UserBasic
@@ -2598,15 +2607,6 @@ namespace Meziantou.GitLab
         {
             return this.GitLabClient.GetUserStatusAsync(this, cancellationToken);
         }
-    }
-
-    [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum UserState
-    {
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "active")]
-        Active,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "blocked")]
-        Blocked
     }
 
     public partial class UserStatus : GitLab.GitLabObject

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal partial class Program
+    internal partial class GitLabClientGenerator
     {
         private Enumeration _access;
         private Enumeration _importStatus;
