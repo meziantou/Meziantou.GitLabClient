@@ -19,6 +19,7 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef Date { get; } = new ModelRef(typeof(DateTime));
         public static ModelRef NullableDate { get; } = new ModelRef(typeof(DateTime)) { IsNullable = true };
         public static ModelRef GitLabObject { get; } = new ModelRef("GitLab.GitLabObject");
+        public static ModelRef RequestOptions { get; } = new ModelRef("GitLab.RequestOptions");
 
         public static ModelRef Id { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableId { get; } = new ModelRef(typeof(long)) { IsNullable = true };

@@ -22,10 +22,6 @@ namespace Meziantou.GitLab
 
         public IAuthenticator Authenticator { get; set; }
 
-        public string ProfileToken { get; set; }
-
-        public string Sudo { get; set; }
-
         public GitLabClient(string serverUri, string token)
             : this(new HttpClient(), true, new Uri(serverUri, UriKind.Absolute), new TokenAuthenticator(token))
         {
@@ -56,12 +52,12 @@ namespace Meziantou.GitLab
             _streamingContext = new StreamingContext(StreamingContextStates.All, this);
         }
 
-        protected virtual Task<HttpResponseMessage> SendAsync(HttpRequestMessage message, CancellationToken cancellationToken)
+        protected virtual Task<HttpResponseMessage> SendAsync(HttpRequestMessage message, RequestOptions options, CancellationToken cancellationToken)
         {
-            return SendAsync(message, null, cancellationToken);
+            return SendAsync(message, options, null, cancellationToken);
         }
 
-        protected virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage message, Func<HttpResponseMessage, bool> isValidResponse, CancellationToken cancellationToken)
+        protected virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage message, RequestOptions options, Func<HttpResponseMessage, bool> isValidResponse, CancellationToken cancellationToken)
         {
             var authenticator = Authenticator;
             if (authenticator != null)
@@ -69,14 +65,17 @@ namespace Meziantou.GitLab
                 await authenticator.AuthenticateAsync(message, cancellationToken).ConfigureAwait(false);
             }
 
-            if (ProfileToken != null)
+            if (options != null)
             {
-                message.Headers.Add("X-Profile-Token", ProfileToken);
-            }
+                if (options.ProfileToken != null)
+                {
+                    message.Headers.Add("X-Profile-Token", options.ProfileToken);
+                }
 
-            if (Sudo != null)
-            {
-                message.Headers.Add("Sudo", Sudo);
+                if (options.Sudo != null)
+                {
+                    message.Headers.Add("Sudo", options.Sudo.Value.ValueAsString);
+                }
             }
 
             var response = await _httpClient.SendAsync(message, cancellationToken).ConfigureAwait(false);
@@ -93,14 +92,14 @@ namespace Meziantou.GitLab
             return response;
         }
 
-        protected virtual async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken) where T : GitLabObject
+        protected virtual async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             {
                 request.Method = HttpMethod.Get;
                 request.RequestUri = BuildUri(url);
 
-                using (var response = await SendAsync(request, IsValid, cancellationToken).ConfigureAwait(false))
+                using (var response = await SendAsync(request, options, IsValid, cancellationToken).ConfigureAwait(false))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                         return default;
@@ -115,28 +114,28 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected virtual async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, CancellationToken cancellationToken) where T : GitLabObject
+        protected virtual async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             {
                 request.Method = HttpMethod.Get;
                 request.RequestUri = BuildUri(url);
 
-                using (var response = await SendAsync(request, cancellationToken).ConfigureAwait(false))
+                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
                 {
                     return await Deserialize<IReadOnlyList<T>>(response).ConfigureAwait(false);
                 }
             }
         }
 
-        protected internal virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, CancellationToken cancellationToken) where T : GitLabObject
+        protected internal virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             {
                 request.Method = HttpMethod.Get;
                 request.RequestUri = BuildUri(url);
 
-                using (var response = await SendAsync(request, cancellationToken).ConfigureAwait(false))
+                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
                 {
                     string firstLink = null;
                     string lastLink = null;
@@ -200,7 +199,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected virtual async Task<T> PutJsonAsync<T>(string url, object data, CancellationToken cancellationToken) where T : GitLabObject
+        protected virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             using (var content = new JsonContent(data, _jsonSerializerSettings))
@@ -209,14 +208,14 @@ namespace Meziantou.GitLab
                 request.RequestUri = BuildUri(url);
                 request.Content = content;
 
-                using (var response = await SendAsync(request, cancellationToken).ConfigureAwait(false))
+                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
                 {
                     return await Deserialize<T>(response).ConfigureAwait(false);
                 }
             }
         }
 
-        protected virtual async Task<T> PostJsonAsync<T>(string url, object data, CancellationToken cancellationToken) where T : GitLabObject
+        protected virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             using (var content = new JsonContent(data, _jsonSerializerSettings))
@@ -225,21 +224,21 @@ namespace Meziantou.GitLab
                 request.RequestUri = BuildUri(url);
                 request.Content = content;
 
-                using (var response = await SendAsync(request, cancellationToken).ConfigureAwait(false))
+                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
                 {
                     return await Deserialize<T>(response).ConfigureAwait(false);
                 }
             }
         }
 
-        protected virtual async Task DeleteAsync(string url, CancellationToken cancellationToken)
+        protected virtual async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
         {
             using (var request = new HttpRequestMessage())
             {
                 request.Method = HttpMethod.Delete;
                 request.RequestUri = BuildUri(url);
 
-                using (var response = await SendAsync(request, cancellationToken).ConfigureAwait(false))
+                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
                 {
                     // TODO ensure there is no body
                 }
@@ -248,6 +247,7 @@ namespace Meziantou.GitLab
 
         private async Task<T> Deserialize<T>(HttpResponseMessage message)
         {
+            // TODO ensure the response type is json
             using (var s = await message.Content.ReadAsStreamAsync().ConfigureAwait(false))
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))

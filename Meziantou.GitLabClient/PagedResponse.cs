@@ -41,45 +41,70 @@ namespace Meziantou.GitLab
 
         public Task<PagedResponse<T>> GetFirstPageAsync(CancellationToken cancellationToken = default)
         {
+            return GetFirstPageAsync(default, cancellationToken);
+        }
+
+        public Task<PagedResponse<T>> GetFirstPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
+        {
             if (FirstPageUrl == null)
             {
                 return Task.FromResult<PagedResponse<T>>(null);
             }
 
-            return GitLabClient.GetPagedAsync<T>(FirstPageUrl, cancellationToken);
+            return GitLabClient.GetPagedAsync<T>(FirstPageUrl, options, cancellationToken);
         }
 
         public Task<PagedResponse<T>> GetLastPageAsync(CancellationToken cancellationToken = default)
+        {
+            return GetLastPageAsync(default, cancellationToken);
+        }
+
+        public Task<PagedResponse<T>> GetLastPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
         {
             if (LastPageUrl == null)
             {
                 return Task.FromResult<PagedResponse<T>>(null);
             }
 
-            return GitLabClient.GetPagedAsync<T>(LastPageUrl, cancellationToken);
+            return GitLabClient.GetPagedAsync<T>(LastPageUrl, options, cancellationToken);
         }
 
         public Task<PagedResponse<T>> GetPreviousPageAsync(CancellationToken cancellationToken = default)
+        {
+            return GetPreviousPageAsync(default, cancellationToken);
+        }
+
+        public Task<PagedResponse<T>> GetPreviousPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
         {
             if (PreviousPageUrl == null)
             {
                 return Task.FromResult<PagedResponse<T>>(null);
             }
 
-            return GitLabClient.GetPagedAsync<T>(PreviousPageUrl, cancellationToken);
+            return GitLabClient.GetPagedAsync<T>(PreviousPageUrl, options, cancellationToken);
         }
 
         public Task<PagedResponse<T>> GetNextPageAsync(CancellationToken cancellationToken = default)
+        {
+            return GetNextPageAsync(default, cancellationToken);
+        }
+
+        public Task<PagedResponse<T>> GetNextPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
         {
             if (NextPageUrl == null)
             {
                 return Task.FromResult<PagedResponse<T>>(null);
             }
 
-            return GitLabClient.GetPagedAsync<T>(NextPageUrl, cancellationToken);
+            return GitLabClient.GetPagedAsync<T>(NextPageUrl, options, cancellationToken);
         }
 
         public Task ForEachAsync(Action<T> action, CancellationToken cancellationToken = default)
+        {
+            return ForEachAsync(action, default, cancellationToken);
+        }
+
+        public Task ForEachAsync(Action<T> action, RequestOptions options, CancellationToken cancellationToken = default)
         {
             if (action == null)
             {
@@ -92,20 +117,30 @@ namespace Meziantou.GitLab
                 return TrueTask;
             }
 
-            return ForEachAsync(Func, cancellationToken);
+            return ForEachAsync(Func, options, cancellationToken);
         }
 
         public Task ForEachAsync(Func<T, bool> action, CancellationToken cancellationToken = default)
+        {
+            return ForEachAsync(action, cancellationToken);
+        }
+
+        public Task ForEachAsync(Func<T, bool> action, RequestOptions options, CancellationToken cancellationToken = default)
         {
             if (action == null)
             {
                 throw new ArgumentNullException(nameof(action));
             }
 
-            return ForEachAsync(item => Task.FromResult(action(item)), cancellationToken);
+            return ForEachAsync(item => Task.FromResult(action(item)), options, cancellationToken);
         }
 
-        public async Task ForEachAsync(Func<T, Task<bool>> action, CancellationToken cancellationToken = default)
+        public Task ForEachAsync(Func<T, Task<bool>> action, CancellationToken cancellationToken = default)
+        {
+            return ForEachAsync(action, default, cancellationToken);
+        }
+
+        public async Task ForEachAsync(Func<T, Task<bool>> action, RequestOptions options, CancellationToken cancellationToken = default)
         {
             if (action == null)
             {
@@ -122,11 +157,16 @@ namespace Meziantou.GitLab
                         return;
                 }
 
-                page = await page.GetNextPageAsync(cancellationToken).ConfigureAwait(false);
+                page = await page.GetNextPageAsync(options, cancellationToken).ConfigureAwait(false);
             }
         }
 
-        public async Task<IReadOnlyList<T>> ToListAsync(CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<T>> ToListAsync(CancellationToken cancellationToken = default)
+        {
+            return ToListAsync(default, cancellationToken);
+        }
+
+        public async Task<IReadOnlyList<T>> ToListAsync(RequestOptions options, CancellationToken cancellationToken = default)
         {
             var items = new List<T>();
             var page = this;
@@ -134,7 +174,7 @@ namespace Meziantou.GitLab
             {
                 items.AddRange(page.Data);
 
-                page = await page.GetNextPageAsync(cancellationToken).ConfigureAwait(false);
+                page = await page.GetNextPageAsync(options, cancellationToken).ConfigureAwait(false);
             }
 
             return items;

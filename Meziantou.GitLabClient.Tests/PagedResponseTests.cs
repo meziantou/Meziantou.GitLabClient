@@ -33,7 +33,7 @@ namespace Meziantou.GitLab.Tests
                 using (var context = GetContext(handler))
                 {
                     // Act
-                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", CancellationToken.None);
+                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", default, CancellationToken.None);
 
                     // Assert
                     Assert.AreEqual(2, page.PageIndex);
@@ -73,7 +73,7 @@ namespace Meziantou.GitLab.Tests
 
                 using (var context = GetContext(handler))
                 {
-                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", CancellationToken.None);
+                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", default, CancellationToken.None);
 
                     // Act
                     var result = page.AsEnumerable().Take(3).ToList();
@@ -111,7 +111,7 @@ namespace Meziantou.GitLab.Tests
 
                 using (var context = GetContext(handler))
                 {
-                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", CancellationToken.None);
+                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", default, CancellationToken.None);
 
                     // Act
                     var action = Substitute.For<Action<Dummy>>();

@@ -531,8 +531,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                    new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(_projectIdentity, "id"),
+                    new ParameterEntityRef("projectId", ModelRef.Id),
+                    new ParameterEntityRef("project", _projectIdentity, "id"),
                 }
             });
 
@@ -540,9 +540,9 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                    new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(_projectIdentity, "id"),
-                    new ParameterEntityRef(ModelRef.String),
+                    new ParameterEntityRef("projectId", ModelRef.Id),
+                    new ParameterEntityRef("project", _projectIdentity, "id"),
+                    new ParameterEntityRef("projectPathWithNamespace", ModelRef.String),
                 }
             });
 
@@ -550,8 +550,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                    new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(_sshKey, "id"),
+                    new ParameterEntityRef("sshKeyId", ModelRef.Id),
+                    new ParameterEntityRef("sskKey", _sshKey, "id"),
                 }
             });
 
@@ -559,9 +559,9 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                    new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(ModelRef.String),
-                    new ParameterEntityRef(_userSafe, "id"),
+                    new ParameterEntityRef("userId", ModelRef.Id),
+                    new ParameterEntityRef("userName", ModelRef.String),
+                    new ParameterEntityRef("user", _userSafe, "id"),
                 }
             });
 
@@ -569,8 +569,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                    new ParameterEntityRef(ModelRef.Id),
-                    new ParameterEntityRef(_mergeRequest, "iid"),
+                    new ParameterEntityRef("mergeRequestIid", ModelRef.Id),
+                    new ParameterEntityRef("mergeRequest", _mergeRequest, "iid"),
                 }
             });
         }

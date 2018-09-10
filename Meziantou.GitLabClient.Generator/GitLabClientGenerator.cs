@@ -166,10 +166,16 @@ namespace Meziantou.GitLabClient.Generator
                 });
             }
 
+            var requestOptionsArgument = m.AddArgument(new MethodArgumentDeclaration(ModelRef.RequestOptions, "requestOptions") { DefaultValue = new DefaultValueExpression(ModelRef.RequestOptions) });
+            AddDocumentationComments(requestOptionsArgument, new Documentation()
+            {
+                Summary = "Options of the request"
+            });
+
             var cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
             AddDocumentationComments(cancellationTokenArgument, new Documentation()
             {
-                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation."
+                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation"
             });
 
             // Method body
@@ -187,9 +193,11 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     if (param.Type.IsNullable)
                     {
-                        var hasValueCondition = new ConditionStatement();
-                        hasValueCondition.Condition = arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue));
-                        hasValueCondition.TrueStatements = urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.Value), "Value"));
+                        var hasValueCondition = new ConditionStatement
+                        {
+                            Condition = arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue)),
+                            TrueStatements = urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.Value), "Value"))
+                        };
                         m.Statements.Add(hasValueCondition);
                     }
                     else
@@ -250,29 +258,29 @@ namespace Meziantou.GitLabClient.Generator
                 case MethodType.Get:
                     if (method.ReturnType.IsCollection)
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetCollectionAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetCollectionAsync", new TypeReference[] { method.ReturnType }, url, requestOptionsArgument, cancellationTokenArgument)));
                     }
                     else
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType }, url, requestOptionsArgument, cancellationTokenArgument)));
                     }
 
                     break;
 
                 case MethodType.GetPaged:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetPagedAsync", new TypeReference[] { method.ReturnType }, url, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetPagedAsync", new TypeReference[] { method.ReturnType }, url, requestOptionsArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Put:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, requestOptionsArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Post:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, requestOptionsArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.Delete:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("DeleteAsync", url, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("DeleteAsync", url, requestOptionsArgument, cancellationTokenArgument)));
                     break;
 
                 default:
@@ -297,9 +305,11 @@ namespace Meziantou.GitLabClient.Generator
                 var assign = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, argumentReference);
                 if (arg.IsOptional)
                 {
-                    var condition = new ConditionStatement();
-                    condition.Condition = new BinaryExpression(BinaryOperator.NotEquals, argumentReference, new LiteralExpression(null));
-                    condition.TrueStatements = assign;
+                    var condition = new ConditionStatement
+                    {
+                        Condition = new BinaryExpression(BinaryOperator.NotEquals, argumentReference, new LiteralExpression(null)),
+                        TrueStatements = assign
+                    };
                     methodDeclaration.Statements.Add(condition);
                 }
                 else
@@ -468,7 +478,7 @@ namespace Meziantou.GitLabClient.Generator
         private void GenerateParameterEntities(NamespaceDeclaration ns, ParameterEntity entity)
         {
             var type = ns.AddType(new StructDeclaration(entity.Name));
-            type.Modifiers = Modifiers.Public | Modifiers.ReadOnly;
+            type.Modifiers = Modifiers.Public | Modifiers.ReadOnly | Modifiers.Partial;
 
             type.Implements.Add(typeof(IReference));
             type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
@@ -503,7 +513,7 @@ namespace Meziantou.GitLabClient.Generator
                     Modifiers = Modifiers.Private,
                     Arguments =
                     {
-                        new MethodArgumentDeclaration(GetPropertyTypeRef(refe.ModelRef), "value"),
+                        new MethodArgumentDeclaration(GetPropertyTypeRef(refe.ModelRef), refe.Name),
                     },
                     Statements =
                     {
@@ -523,11 +533,11 @@ namespace Meziantou.GitLabClient.Generator
                     ReturnType = type,
                     Arguments =
                     {
-                         new MethodArgumentDeclaration(GetPropertyTypeRef(refe.ModelRef), "value"),
+                         new MethodArgumentDeclaration(GetPropertyTypeRef(refe.ModelRef), refe.Name),
                     },
                     Statements =
                     {
-                        new ReturnStatement(new NewObjectExpression(type, new ArgumentReferenceExpression("value")))
+                        new ReturnStatement(new NewObjectExpression(type, new ArgumentReferenceExpression(refe.Name)))
                     }
                 });
 
@@ -538,7 +548,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 Expression GetAssignExpression()
                 {
-                    Expression value = new ArgumentReferenceExpression("value");
+                    Expression value = new ArgumentReferenceExpression(refe.Name);
                     foreach (var member in refe.Properties)
                     {
                         value = value.CreateMemberReferenceExpression(ToPropertyName(member));
