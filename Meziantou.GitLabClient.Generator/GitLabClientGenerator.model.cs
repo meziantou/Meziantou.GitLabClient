@@ -36,6 +36,7 @@ namespace Meziantou.GitLabClient.Generator
         private Entity _todo;
         private Entity _issue;
 
+        private ParameterEntity _mergeRequestIdRef;
         private ParameterEntity _projectIdRef;
         private ParameterEntity _projectIdOrPathRef;
         private ParameterEntity _sshKeyRef;
@@ -563,6 +564,15 @@ namespace Meziantou.GitLabClient.Generator
                     new ParameterEntityRef(_userSafe, "id"),
                 }
             });
+
+            _mergeRequestIdRef = Project.AddParameterEntity(new ParameterEntity("MergeRequestIidRef", ModelRef.Object)
+            {
+                Refs =
+                {
+                    new ParameterEntityRef(ModelRef.Id),
+                    new ParameterEntityRef(_mergeRequest, "iid"),
+                }
+            });
         }
 
         private void CreateUserMethods()
@@ -968,6 +978,22 @@ namespace Meziantou.GitLabClient.Generator
                 }
             });
 
+            Project.AddMethod(new Method("GetMergeRequest", "projects/:project/merge_requests/:merge_request")
+            {
+                Documentation = new Documentation
+                {
+                    Summary = "Shows information about a single merge request.",
+                    HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr"
+                },
+                ReturnType = _mergeRequest,
+                MethodType = MethodType.Get,
+                Parameters =
+                {
+                    new MethodParameter("project", _projectIdOrPathRef),
+                    new MethodParameter("merge_request", _mergeRequestIdRef),
+                }
+            });
+
             Project.AddMethod(new Method("CreateMergeRequest", "projects/:project/merge_requests")
             {
                 Documentation = new Documentation
@@ -1078,6 +1104,28 @@ namespace Meziantou.GitLabClient.Generator
                     new MethodParameter("content", ModelRef.String),
                     new MethodParameter("commit_message", ModelRef.String),
                 }
+            });
+        }
+
+        private void CreateVersionMethods()
+        {
+            var version = Project.AddModel(new Entity("ServerVersion")
+            {
+                Properties =
+                {
+                    new EntityProperty("version", ModelRef.String),
+                    new EntityProperty("revision", ModelRef.String),
+                }
+            });
+
+            Project.AddMethod(new Method("GetVersion", "version")
+            {
+                Documentation = new Documentation
+                {
+                    HelpLink = "https://docs.gitlab.com/ee/api/version.html"
+                },
+                ReturnType = version,
+                MethodType = MethodType.Get
             });
         }
     }

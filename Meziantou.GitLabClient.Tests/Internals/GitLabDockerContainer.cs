@@ -23,19 +23,17 @@ namespace Meziantou.GitLab.Tests
 
         public int HttpPort { get; } = 8080;
         public string AdminUserName { get; } = "root";
-        public string StandardUserName { get; } = "user";
-        public string Password { get; } = "Pa$$w0rd";
+        public string AdminPassword { get; } = "Pa$$w0rd";
 
         public string GitLabUrl => "http://localhost:" + HttpPort;
 
         public string AdminUserToken { get; private set; }
-        public string StandardUserToken { get; private set; }
+        public string ProfileToken { get; private set; }
 
         public async Task Setup()
         {
             await SpawnDockerContainer();
             await GenerateAdminTokenAsync();
-            await GenerateStandardTokenAsync();
         }
 
         private async Task SpawnDockerContainer()
@@ -51,11 +49,6 @@ namespace Meziantou.GitLab.Tests
                     await client.Images.CreateImageAsync(new ImagesCreateParameters() { FromImage = ImageName, Tag = ImageTag }, new AuthConfig() { }, new Progress<JSONMessage>());
 
                     // Create the container
-                    var config = new Config()
-                    {
-                        Hostname = "localhost"
-                    };
-
                     var hostConfig = new HostConfig()
                     {
                         PortBindings = new Dictionary<string, IList<PortBinding>>
@@ -64,8 +57,9 @@ namespace Meziantou.GitLab.Tests
                         }
                     };
 
-                    var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(config)
+                    var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters()
                     {
+                        Hostname = "localhost",
                         Image = ImageName + ":" + ImageTag,
                         Name = ContainerName,
                         Tty = false,
@@ -131,8 +125,8 @@ namespace Meziantou.GitLab.Tests
             if (result.Location.PathName == "/users/password/edit")
             {
                 var form = result.Forms["new_user"];
-                ((IHtmlInputElement)form["user[password]"]).Value = Password;
-                ((IHtmlInputElement)form["user[password_confirmation]"]).Value = Password;
+                ((IHtmlInputElement)form["user[password]"]).Value = AdminPassword;
+                ((IHtmlInputElement)form["user[password_confirmation]"]).Value = AdminPassword;
                 result = await form.SubmitAsync();
             }
 
@@ -141,7 +135,7 @@ namespace Meziantou.GitLab.Tests
             {
                 var form = result.Forms["new_user"];
                 ((IHtmlInputElement)form["user[login]"]).Value = AdminUserName;
-                ((IHtmlInputElement)form["user[password]"]).Value = Password;
+                ((IHtmlInputElement)form["user[password]"]).Value = AdminPassword;
                 result = await form.SubmitAsync();
             }
 
@@ -160,29 +154,12 @@ namespace Meziantou.GitLab.Tests
 
                 AdminUserToken = result.GetElementById("created-personal-access-token").GetAttribute("value");
             }
-        }
 
-        private async Task GenerateStandardTokenAsync()
-        {
-            using (var client = new GitLabClient(GitLabUrl, AdminUserToken))
-            {
-                var users = await client.GetUsersAsync(username: StandardUserName);
-                var user = users.Data.SingleOrDefault();
-                if (user == null)
-                {
-                    user = await client.CreateUserAsync(
-                        email: StandardUserName + "@dummy.com",
-                        username: StandardUserName,
-                        password: Password,
-                        name: StandardUserName,
-                        admin: false,
-                        canCreateGroup: true,
-                        skipConfirmation: true);
-                }
-
-                var token = await client.CreateImpersonationTokenAsync(user, "UnitTest", new[] { "api", "read_user" });
-                StandardUserToken = token.Token;
-            }
+            // Get X-Profile-Token
+            result = await context.OpenAsync(GitLabUrl + "/admin/requests_profiles");
+            var codeElements = result.QuerySelectorAll("code").ToList();
+            var tokenElement = codeElements.Single(n => n.TextContent.StartsWith("X-Profile-Token:"));
+            ProfileToken = tokenElement.TextContent.Substring("X-Profile-Token:".Length).Trim();
         }
 
         // TODO remove when resolved https://github.com/AngleSharp/AngleSharp/issues/702

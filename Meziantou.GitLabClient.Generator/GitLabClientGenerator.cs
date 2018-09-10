@@ -500,7 +500,7 @@ namespace Meziantou.GitLabClient.Generator
                 // Add constructor
                 var ctor = type.AddMember(new ConstructorDeclaration()
                 {
-                    Modifiers = Modifiers.Public,
+                    Modifiers = Modifiers.Private,
                     Arguments =
                     {
                         new MethodArgumentDeclaration(GetPropertyTypeRef(refe.ModelRef), "value"),

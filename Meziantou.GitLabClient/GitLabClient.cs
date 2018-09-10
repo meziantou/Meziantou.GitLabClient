@@ -22,6 +22,10 @@ namespace Meziantou.GitLab
 
         public IAuthenticator Authenticator { get; set; }
 
+        public string ProfileToken { get; set; }
+
+        public string Sudo { get; set; }
+
         public GitLabClient(string serverUri, string token)
             : this(new HttpClient(), true, new Uri(serverUri, UriKind.Absolute), new TokenAuthenticator(token))
         {
@@ -63,6 +67,16 @@ namespace Meziantou.GitLab
             if (authenticator != null)
             {
                 await authenticator.AuthenticateAsync(message, cancellationToken).ConfigureAwait(false);
+            }
+
+            if (ProfileToken != null)
+            {
+                message.Headers.Add("X-Profile-Token", ProfileToken);
+            }
+
+            if (Sudo != null)
+            {
+                message.Headers.Add("Sudo", Sudo);
             }
 
             var response = await _httpClient.SendAsync(message, cancellationToken).ConfigureAwait(false);
