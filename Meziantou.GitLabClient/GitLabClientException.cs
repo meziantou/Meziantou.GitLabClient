@@ -26,6 +26,14 @@ namespace Meziantou.GitLab
             ErrorObject = error;
         }
 
+        public GitLabException(HttpMethod httpMethod, Uri requestUri, HttpStatusCode httpStatusCode, string message)
+            : base(message)
+        {
+            HttpMethod = httpMethod;
+            RequestUri = requestUri;
+            HttpStatusCode = httpStatusCode;
+        }
+
         public GitLabException(GitLabError error, string message)
             : base(message)
         {

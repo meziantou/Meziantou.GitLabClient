@@ -247,7 +247,9 @@ namespace Meziantou.GitLab
 
         private async Task<T> Deserialize<T>(HttpResponseMessage message)
         {
-            // TODO ensure the response type is json
+            if (!IsJsonResponse(message))
+                throw new ArgumentException($"Content type must be application/json but is {message.Content.Headers.ContentType?.MediaType}", nameof(message));
+
             using (var s = await message.Content.ReadAsStreamAsync().ConfigureAwait(false))
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))
@@ -284,18 +286,22 @@ namespace Meziantou.GitLab
 
         private async Task EnsureStatusCodeAsync(HttpResponseMessage responseMessage)
         {
+            // TODO throw more specific exception (Unauthorized, Forbidden, NotFound, ValidationException, etc.)
             if (responseMessage.IsSuccessStatusCode)
                 return;
 
-            GitLabError error = null;
             if (IsJsonResponse(responseMessage))
             {
-                error = await Deserialize<GitLabError>(responseMessage).ConfigureAwait(false);
+                var error = await Deserialize<GitLabError>(responseMessage).ConfigureAwait(false);
+                var request = responseMessage.RequestMessage;
+                throw new GitLabException(request.Method, request.RequestUri, responseMessage.StatusCode, error);
             }
-
-            // TODO throw more specific exception (Unauthorized, Forbidden, NotFound, ValidationException, etc.)
-            var request = responseMessage.RequestMessage;
-            throw new GitLabException(request.Method, request.RequestUri, responseMessage.StatusCode, error);
+            else
+            {
+                var error = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var request = responseMessage.RequestMessage;
+                throw new GitLabException(request.Method, request.RequestUri, responseMessage.StatusCode, error);
+            }
         }
 
         private static bool IsJsonResponse(HttpResponseMessage message)
