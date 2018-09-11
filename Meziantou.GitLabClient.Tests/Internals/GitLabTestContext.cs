@@ -102,35 +102,35 @@ namespace Meziantou.GitLab.Tests
             {
             }
 
-            protected override async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+            public override async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
                 var result = await base.GetAsync<T>(url, options, cancellationToken);
                 Objects.Add(result);
                 return result;
             }
 
-            protected override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+            public override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
                 var readOnlyList = await base.GetCollectionAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
                 Objects.AddRange(readOnlyList);
                 return readOnlyList;
             }
 
-            protected internal override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+            public override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
                 var pagedResponse = await base.GetPagedAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
                 Objects.AddRange(pagedResponse.Data);
                 return pagedResponse;
             }
 
-            protected override async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+            public override async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
                 var result = await base.PostJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
                 Objects.Add(result);
                 return result;
             }
 
-            protected override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+            public override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
                 var result = await base.PutJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
                 Objects.Add(result);

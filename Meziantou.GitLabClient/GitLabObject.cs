@@ -24,12 +24,12 @@ namespace Meziantou.GitLab
         }
 
         [JsonIgnore]
-        internal GitLabClient GitLabClient { get; set; }
+        internal IGitLabClient GitLabClient { get; set; }
 
         [OnDeserialized]
         internal void OnDeserializedMethod(StreamingContext context)
         {
-            if (context.Context is GitLabClient client)
+            if (context.Context is IGitLabClient client)
             {
                 GitLabClient = client;
             }

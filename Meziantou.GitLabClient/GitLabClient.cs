@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    public partial class GitLabClient : IDisposable
+    public partial class GitLabClient : IGitLabClient, IDisposable
     {
         private readonly HttpClient _httpClient;
         private readonly bool _httpClientOwned;
@@ -92,7 +92,7 @@ namespace Meziantou.GitLab
             return response;
         }
 
-        protected virtual async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             {
@@ -114,7 +114,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected virtual async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             {
@@ -128,7 +128,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected internal virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             {
@@ -199,7 +199,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             using (var content = new JsonContent(data, _jsonSerializerSettings))
@@ -215,7 +215,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
             using (var request = new HttpRequestMessage())
             using (var content = new JsonContent(data, _jsonSerializerSettings))
@@ -231,7 +231,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected virtual async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
+        public virtual async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
         {
             using (var request = new HttpRequestMessage())
             {

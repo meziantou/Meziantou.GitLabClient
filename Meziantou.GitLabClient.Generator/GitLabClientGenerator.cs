@@ -57,10 +57,21 @@ namespace Meziantou.GitLabClient.Generator
                 GenerateParameterEntities(ns, entity);
             }
 
-            var clientClass = ns.AddType(new ClassDeclaration("GitLabClient") { Modifiers = Modifiers.Partial });
+            var clientInterface = ns.AddType(new InterfaceDeclaration("IGitLabClient") { Modifiers = Modifiers.Partial });
+
+            var clientClass = ns.AddType(new ClassDeclaration("GitLabClient")
+            {
+                Modifiers = Modifiers.Partial,
+                Implements =
+                {
+                    clientInterface
+                }
+            });
+
             foreach (var method in Project.Methods)
             {
-                GenerateMethod(clientClass, method);
+                GenerateInterfaceMethod(clientInterface, method);
+                var methodDeclaration = GenerateMethod(clientClass, method);
 
                 foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
                 {
@@ -111,72 +122,18 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
+        private MethodDeclaration GenerateInterfaceMethod(InterfaceDeclaration clientInterface, Method method)
+        {
+            var m = clientInterface.AddMember(new MethodDeclaration(method.Name + "Async"));
+            GenerateMethodSignature(method, m, out _, out _, out _, out _);
+            return m;
+        }
+
         private MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method)
         {
             var m = clientClass.AddMember(new MethodDeclaration(method.Name + "Async"));
-            AddDocumentationComments(m, method.Documentation);
-
-            // Method signature
+            GenerateMethodSignature(method, m, out var arguments, out var pageArgument, out var requestOptionsArgument, out var cancellationTokenArgument);
             m.Modifiers = Modifiers.Public;
-            if (method.MethodType == MethodType.GetPaged)
-            {
-                m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(new TypeReference("Meziantou.GitLab.PagedResponse").MakeGeneric(method.ReturnType));
-            }
-            else
-            {
-                if (method.ReturnType != null)
-                {
-                    if (method.ReturnType.IsCollection)
-                    {
-                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(new TypeReference(typeof(IReadOnlyList<>)).MakeGeneric(method.ReturnType));
-                    }
-                    else
-                    {
-                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType);
-                    }
-                }
-                else
-                {
-                    m.ReturnType = new TypeReference(typeof(Task));
-                }
-            }
-
-            var arguments = new Dictionary<MethodParameter, MethodArgumentDeclaration>();
-            foreach (var param in method.Parameters.OrderBy(p => p.IsOptional ? 1 : -1))
-            {
-                var argument = m.AddArgument(new MethodArgumentDeclaration(GetArgumentTypeRef(param.Type), param.MethodParameterName ?? ToArgumentName(param.Name)));
-                if (param.IsOptional)
-                {
-                    argument.DefaultValue = new DefaultValueExpression(argument.Type.Clone());
-                }
-
-                arguments.Add(param, argument);
-                argument.SetData("Parameter", param);
-                AddDocumentationComments(argument, param.Documentation);
-            }
-
-            MethodArgumentDeclaration pageArgument = null;
-            if (method.MethodType == MethodType.GetPaged)
-            {
-                pageArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(PageOptions), "pageOptions") { DefaultValue = new DefaultValueExpression(typeof(PageOptions)) });
-
-                AddDocumentationComments(pageArgument, new Documentation()
-                {
-                    Summary = "The page index and page size"
-                });
-            }
-
-            var requestOptionsArgument = m.AddArgument(new MethodArgumentDeclaration(ModelRef.RequestOptions, "requestOptions") { DefaultValue = new DefaultValueExpression(ModelRef.RequestOptions) });
-            AddDocumentationComments(requestOptionsArgument, new Documentation()
-            {
-                Summary = "Options of the request"
-            });
-
-            var cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
-            AddDocumentationComments(cancellationTokenArgument, new Documentation()
-            {
-                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation"
-            });
 
             // Method body
             m.Statements = new StatementCollection();
@@ -288,6 +245,71 @@ namespace Meziantou.GitLabClient.Generator
             }
 
             return m;
+        }
+
+        private void GenerateMethodSignature(Method method, MethodDeclaration m, out Dictionary<MethodParameter, MethodArgumentDeclaration> arguments, out MethodArgumentDeclaration pageArgument, out MethodArgumentDeclaration requestOptionsArgument, out MethodArgumentDeclaration cancellationTokenArgument)
+        {
+            AddDocumentationComments(m, method.Documentation);
+
+            if (method.MethodType == MethodType.GetPaged)
+            {
+                m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(new TypeReference("Meziantou.GitLab.PagedResponse").MakeGeneric(method.ReturnType));
+            }
+            else
+            {
+                if (method.ReturnType != null)
+                {
+                    if (method.ReturnType.IsCollection)
+                    {
+                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(new TypeReference(typeof(IReadOnlyList<>)).MakeGeneric(method.ReturnType));
+                    }
+                    else
+                    {
+                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType);
+                    }
+                }
+                else
+                {
+                    m.ReturnType = new TypeReference(typeof(Task));
+                }
+            }
+
+            arguments = new Dictionary<MethodParameter, MethodArgumentDeclaration>();
+            foreach (var param in method.Parameters.OrderBy(p => p.IsOptional ? 1 : -1))
+            {
+                var argument = m.AddArgument(new MethodArgumentDeclaration(GetArgumentTypeRef(param.Type), param.MethodParameterName ?? ToArgumentName(param.Name)));
+                if (param.IsOptional)
+                {
+                    argument.DefaultValue = new DefaultValueExpression(argument.Type.Clone());
+                }
+
+                arguments.Add(param, argument);
+                argument.SetData("Parameter", param);
+                AddDocumentationComments(argument, param.Documentation);
+            }
+
+            pageArgument = null;
+            if (method.MethodType == MethodType.GetPaged)
+            {
+                pageArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(PageOptions), "pageOptions") { DefaultValue = new DefaultValueExpression(typeof(PageOptions)) });
+
+                AddDocumentationComments(pageArgument, new Documentation()
+                {
+                    Summary = "The page index and page size"
+                });
+            }
+
+            requestOptionsArgument = m.AddArgument(new MethodArgumentDeclaration(ModelRef.RequestOptions, "requestOptions") { DefaultValue = new DefaultValueExpression(ModelRef.RequestOptions) });
+            AddDocumentationComments(requestOptionsArgument, new Documentation()
+            {
+                Summary = "Options of the request"
+            });
+
+            cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
+            AddDocumentationComments(cancellationTokenArgument, new Documentation()
+            {
+                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation"
+            });
         }
 
         private VariableReferenceExpression CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)

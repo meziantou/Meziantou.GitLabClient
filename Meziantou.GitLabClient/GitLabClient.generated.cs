@@ -2961,7 +2961,150 @@ namespace Meziantou.GitLab
         }
     }
 
-    partial class GitLabClient
+    public partial interface IGitLabClient
+    {
+        /// <summary>Creates a new key owned by the currently authenticated user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(string title, string key, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Creates a new key owned by the currently authenticated user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(UserRef user, string title, string key, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<FileCreated> CreateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(UserRef user, string name, System.Collections.Generic.IEnumerable<string> scopes, System.Nullable<System.DateTime> expiresAt = default(System.Nullable<System.DateTime>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Creates a new project issue.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Issue> CreateIssueAsync(ProjectIdOrPathRef project, string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Creates a new merge request.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Creates a new project owned by the authenticated user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Project> CreateProjectAsync(string name = default(string), string path = default(string), System.Nullable<long> namespaceId = default(System.Nullable<long>), string defaultBranch = default(string), string description = default(string), System.Nullable<bool> issueEnabled = default(System.Nullable<bool>), System.Nullable<bool> issuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> mergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> jobsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiEnabled = default(System.Nullable<bool>), System.Nullable<bool> snippetsEnabled = default(System.Nullable<bool>), System.Nullable<bool> resolveOutdatedDiffDiscussions = default(System.Nullable<bool>), System.Nullable<bool> containerRegistryEnabled = default(System.Nullable<bool>), System.Nullable<bool> sharedRunnersEnabled = default(System.Nullable<bool>), System.Nullable<bool> publicJobs = default(System.Nullable<bool>), System.Nullable<bool> onlyAllowMergeIfPipelineSucceeds = default(System.Nullable<bool>), System.Nullable<bool> onlyAllowMergeIfAllDiscussionsAreResolved = default(System.Nullable<bool>), System.Nullable<bool> requestAccessEnabled = default(System.Nullable<bool>), System.Nullable<bool> lfsEnabled = default(System.Nullable<bool>), System.Nullable<bool> printingMergeRequestLinkEnabled = default(System.Nullable<bool>), System.Nullable<MergeMethod> mergeMethod = default(System.Nullable<MergeMethod>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), System.Collections.Generic.IEnumerable<string> tagList = default(System.Collections.Generic.IEnumerable<string>), string ciConfigPath = default(string), System.Nullable<int> approvalsBeforeMerge = default(System.Nullable<int>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Creates a new user. Note only administrators can create new users.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<User> CreateUserAsync(string email, string username, string name, string password = default(string), System.Nullable<bool> admin = default(System.Nullable<bool>), System.Nullable<bool> canCreateGroup = default(System.Nullable<bool>), System.Nullable<bool> skipConfirmation = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Deletes key owned by currently authenticated user.</summary>
+        /// <param name="id">SSH key ID</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task DeleteSshKeyAsync(SshKeyRef id, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Shows information about a single merge request.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<MergeRequest> GetMergeRequestAsync(ProjectIdOrPathRef project, MergeRequestIidRef mergeRequest, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get all merge requests for this project.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(ProjectIdOrPathRef project, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Project> GetProjectAsync(ProjectIdOrPathRef id, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with "simple" fields are returned.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(UserRef user, System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a single key.</summary>
+        /// <param name="id">The ID of an SSH key</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<SshKey> GetSshKeyAsync(SshKeyRef id, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a list of currently authenticated user's SSH keys.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSshKeysAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a list of a specified user's SSH keys. Available only for admin.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSshKeysAsync(long user, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Todo>> GetTodosAsync(System.Nullable<TodoAction> action = default(System.Nullable<TodoAction>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Gets currently authenticated user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<User> GetUserAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a single user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<User> GetUserAsync(long id, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get the status of a user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(UserRef user, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get the status of the currently signed in user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get a list of users.</summary>
+        /// <param name="pageOptions">The page index and page size</param>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<UserBasic>> GetUsersAsync(string username = default(string), bool onlyActiveUsers = default(bool), bool onlyBlockedUsers = default(bool), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<ServerVersion> GetVersionAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Set the status of the current user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<UserStatus> SetUserStatusAsync(string emoji = default(string), string message = default(string), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), string lastCommitId = default(string), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    }
+
+    partial class GitLabClient : Meziantou.GitLab.IGitLabClient
     {
         /// <summary>Creates a new key owned by the currently authenticated user.</summary>
         /// <param name="requestOptions">Options of the request</param>
