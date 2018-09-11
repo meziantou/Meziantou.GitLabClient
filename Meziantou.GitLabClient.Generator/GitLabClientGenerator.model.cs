@@ -1100,7 +1100,7 @@ namespace Meziantou.GitLabClient.Generator
                     new MethodParameter("encoding", ModelRef.String) { IsOptional = true },
                     new MethodParameter("author_email", ModelRef.String) { IsOptional = true },
                     new MethodParameter("author_name", ModelRef.String) { IsOptional = true },
-                    new MethodParameter("last_commit_id", ModelRef.String) { IsOptional = true },
+                    new MethodParameter("last_commit_id", ModelRef.NullableSha1) { IsOptional = true },
                     new MethodParameter("content", ModelRef.String),
                     new MethodParameter("commit_message", ModelRef.String),
                 }
