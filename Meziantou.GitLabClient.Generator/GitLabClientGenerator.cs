@@ -42,6 +42,7 @@ namespace Meziantou.GitLabClient.Generator
             var unit = new CompilationUnit();
             var ns = unit.AddNamespace("Meziantou.GitLab");
 
+            // Generate types
             foreach (var model in Project.Models.OfType<Enumeration>().OrderBy(m => m.Name))
             {
                 GenerateEnumeration(ns, model);
@@ -68,20 +69,29 @@ namespace Meziantou.GitLabClient.Generator
                 }
             });
 
+            var clientExtensionsClass = ns.AddType(new ClassDeclaration("GitLabClientExtensions")
+            {
+                Modifiers = Modifiers.Partial | Modifiers.Public | Modifiers.Static
+            });
+
+            // Generate methods
             foreach (var method in Project.Methods)
             {
                 GenerateInterfaceMethod(clientInterface, method);
                 var methodDeclaration = GenerateMethod(clientClass, method);
 
+                // Add extension methods on entities
                 foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
                 {
                     foreach (var entity in param.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
                     {
                         var type = ns.Types.OfType<ClassDeclaration>().First(t => t.Name == entity.ModelRef.Model.Name);
-                        GenerateExtensionMethod(type, method, param);
+                        GenerateExtensionMethod(clientExtensionsClass, method, param);
                     }
                 }
             }
+
+            GenerateFileExtensionMethod(clientClass, clientExtensionsClass);
 
             new DefaultFormatterVisitor().Visit(unit);
             using (var tw = new StreamWriter("../../../../Meziantou.GitLabClient/GitLabClient.generated.cs"))
@@ -132,6 +142,7 @@ namespace Meziantou.GitLabClient.Generator
         private MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method)
         {
             var m = clientClass.AddMember(new MethodDeclaration(method.Name + "Async"));
+            m.SetData("Method", method);
             GenerateMethodSignature(method, m, out var arguments, out var pageArgument, out var requestOptionsArgument, out var cancellationTokenArgument);
             m.Modifiers = Modifiers.Public;
 
@@ -343,28 +354,88 @@ namespace Meziantou.GitLabClient.Generator
             return variable;
         }
 
-        private void GenerateExtensionMethod(ClassDeclaration clientClass, Method method, MethodParameter methodParameter)
+        private void GenerateExtensionMethod(ClassDeclaration extensionClass, Method method, MethodParameter methodParameter)
         {
-            var m = GenerateMethod(clientClass, method);
-            m.Statements.Clear();
-
-            var invoke = new MethodInvokeExpression(new ThisExpression().CreateMemberReferenceExpression("GitLabClient", m.Name));
-
-            foreach (var arg in m.Arguments.ToList())
+            foreach (var parameterEntityRef in methodParameter.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
             {
-                if (arg.Data.TryGetValue("Parameter", out var parameter) && methodParameter == parameter)
+                var m = GenerateMethod(extensionClass, method);
+                m.Modifiers |= Modifiers.Static;
+                var extensionArgument = new MethodArgumentDeclaration(parameterEntityRef.ModelRef, ToArgumentName(parameterEntityRef.ModelRef.Model.Name)) { IsExtension = true };
+
+                m.Statements.Clear();
+
+                var invoke = new MethodInvokeExpression(extensionArgument.CreateMemberReferenceExpression("GitLabClient", m.Name));
+
+                foreach (var arg in m.Arguments.ToList())
                 {
-                    m.Arguments.Remove(arg);
-                    invoke.Arguments.Add(new ThisExpression());
+                    if (arg.Data.TryGetValue("Parameter", out var parameter) && methodParameter == parameter)
+                    {
+                        m.Arguments.Remove(arg);
+                        invoke.Arguments.Add(extensionArgument);
+                    }
+                    else
+                    {
+                        invoke.Arguments.Add(arg);
+                    }
                 }
-                else
+
+                m.Statements.Add(new ReturnStatement(invoke));
+
+                m.Name = m.Name.Replace(extensionClass.Name, "", StringComparison.OrdinalIgnoreCase);
+                m.Arguments.Insert(0, extensionArgument);
+            }
+        }
+
+        private void GenerateFileExtensionMethod(ClassDeclaration classDeclaration, ClassDeclaration extensionClass)
+        {
+            var methods = classDeclaration.Members
+                .OfType<MethodDeclaration>()
+                .Where(ContainsFileArgument)
+                .ToList();
+
+            foreach (var methodDeclaration in methods)
+            {
+                var method = methodDeclaration.Data["Method"] as Method;
+                if (method == null)
+                    continue;
+
+                var m = GenerateMethod(extensionClass, method);
+                m.Modifiers |= Modifiers.Static;
+                m.Statements.Clear();
+
+                var extensionArgument = new MethodArgumentDeclaration(new TypeReference("IGitLabClient"), "client") { IsExtension = true };
+
+                var invoke = new MethodInvokeExpression(extensionArgument.CreateMemberReferenceExpression(methodDeclaration.Name));
+
+                foreach (var arg in m.Arguments.ToList())
                 {
-                    invoke.Arguments.Add(arg);
+                    if (arg.Name == "encoding")
+                    {
+                        invoke.Arguments.Add(new LiteralExpression("base64"));
+                        m.Arguments.Remove(arg);
+                    }
+                    else if (arg.Name == "content")
+                    {
+                        invoke.Arguments.Add(new TypeReference(typeof(Convert)).CreateInvokeMethodExpression(nameof(Convert.ToBase64String), arg));
+                        arg.Type = typeof(byte[]);
+                    }
+                    else
+                    {
+                        invoke.Arguments.Add(arg);
+                    }
                 }
+
+                m.Statements.Add(new ReturnStatement(invoke));
+
+                m.Name = m.Name.Replace(extensionClass.Name, "", StringComparison.OrdinalIgnoreCase);
+                m.Arguments.Insert(0, extensionArgument);
             }
 
-            m.Statements.Add(new ReturnStatement(invoke));
-            m.Name = m.Name.Replace(clientClass.Name, "", StringComparison.OrdinalIgnoreCase);
+            bool ContainsFileArgument(MethodDeclaration m)
+            {
+                return m.Arguments.Any(a => a.Name == "content" && a.Type.ClrFullTypeName == typeof(string).FullName) &&
+                       m.Arguments.Any(a => a.Name == "encoding" && a.Type.ClrFullTypeName == typeof(string).FullName);
+            }
         }
 
         private void GenerateEntity(NamespaceDeclaration ns, Entity entity)
