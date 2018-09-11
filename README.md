@@ -2,7 +2,7 @@
 
 .NET client for GitLab API
 
-NuGet: `Meziantou.GitLabCLient`
+NuGet: [Meziantou.GitLabCLient](https://www.nuget.org/packages/Meziantou.GitLabClient/)
 
 ````csharp
 using(var client = new GitLabClient("https://gitlab.com", token))
