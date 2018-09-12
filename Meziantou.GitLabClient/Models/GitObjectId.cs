@@ -3,8 +3,8 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    [JsonConverter(typeof(Sha1Converter))]
-    public readonly struct Sha1 : IEquatable<Sha1>
+    [JsonConverter(typeof(GitObjectIdConverter))]
+    public readonly struct GitObjectId : IEquatable<GitObjectId>
     {
         // a sha1 is 20 bytes long
         // 20 bytes to hexa => 40 characters
@@ -14,7 +14,7 @@ namespace Meziantou.GitLab
         private readonly uint _p4;
         private readonly uint _p5;
 
-        private Sha1(uint p1, uint p2, uint p3, uint p4, uint p5)
+        private GitObjectId(uint p1, uint p2, uint p3, uint p4, uint p5)
         {
             _p1 = p1;
             _p2 = p2;
@@ -23,9 +23,9 @@ namespace Meziantou.GitLab
             _p5 = p5;
         }
 
-        public static Sha1 Empty { get; } = default;
+        public static GitObjectId Empty { get; } = default;
 
-        public static bool TryParse(string value, out Sha1 result)
+        public static bool TryParse(string value, out GitObjectId result)
         {
             if (value == null || value.Length != 40)
             {
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             var isValid = true;
             if (isValid)
             {
-                result = new Sha1(p1, p2, p3, p4, p5);
+                result = new GitObjectId(p1, p2, p3, p4, p5);
                 return true;
             }
 
@@ -101,10 +101,10 @@ namespace Meziantou.GitLab
 
         public override bool Equals(object obj)
         {
-            return obj is Sha1 sha1 && Equals(sha1);
+            return obj is GitObjectId sha1 && Equals(sha1);
         }
 
-        public bool Equals(Sha1 other)
+        public bool Equals(GitObjectId other)
         {
             return _p1 == other._p1 &&
                    _p2 == other._p2 &&
@@ -124,8 +124,8 @@ namespace Meziantou.GitLab
             return hashCode;
         }
 
-        public static bool operator ==(Sha1 sha1, Sha1 sha2) => sha1.Equals(sha2);
+        public static bool operator ==(GitObjectId sha1, GitObjectId sha2) => sha1.Equals(sha2);
 
-        public static bool operator !=(Sha1 sha1, Sha1 sha2) => !(sha1 == sha2);
+        public static bool operator !=(GitObjectId sha1, GitObjectId sha2) => !(sha1 == sha2);
     }
 }

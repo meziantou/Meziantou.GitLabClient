@@ -2962,7 +2962,7 @@ namespace Meziantou.GitLab
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.Sha1> lastCommitId = default(System.Nullable<GitLab.Sha1>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.GitObjectId> lastCommitId = default(System.Nullable<GitLab.GitObjectId>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
     partial class GitLabClient : Meziantou.GitLab.IGitLabClient
@@ -3653,7 +3653,7 @@ namespace Meziantou.GitLab
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.Sha1> lastCommitId = default(System.Nullable<GitLab.Sha1>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(ProjectIdOrPathRef project, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.GitObjectId> lastCommitId = default(System.Nullable<GitLab.GitObjectId>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project/repository/files/:file_path");
             urlBuilder.WithValue("project", project.Value);
@@ -3835,14 +3835,14 @@ namespace Meziantou.GitLab
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this ProjectIdentity projectIdentity, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.Sha1> lastCommitId = default(System.Nullable<GitLab.Sha1>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this ProjectIdentity projectIdentity, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.GitObjectId> lastCommitId = default(System.Nullable<GitLab.GitObjectId>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             return projectIdentity.GitLabClient.UpdateFileAsync(projectIdentity, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, lastCommitId, requestOptions, cancellationToken);
         }
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this IGitLabClient client, ProjectIdOrPathRef project, string filePath, string branch, System.Byte[] content, string commitMessage, string startBranch = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.Sha1> lastCommitId = default(System.Nullable<GitLab.Sha1>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this IGitLabClient client, ProjectIdOrPathRef project, string filePath, string branch, System.Byte[] content, string commitMessage, string startBranch = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.GitObjectId> lastCommitId = default(System.Nullable<GitLab.GitObjectId>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             return client.UpdateFileAsync(project, filePath, branch, System.Convert.ToBase64String(content), commitMessage, startBranch, "base64", authorEmail, authorName, lastCommitId, requestOptions, cancellationToken);
         }

@@ -11,7 +11,7 @@ namespace Meziantou.GitLab.Tests
         [DataRow("8B274174AF7DEEB18A8242DE0EB590DAD5345532")]
         public void TryParse_ValidValue(string value)
         {
-            var parsed = Sha1.TryParse(value, out var sha1);
+            var parsed = GitObjectId.TryParse(value, out var sha1);
             Assert.IsTrue(parsed);
             Assert.AreEqual(value.ToLowerInvariant(), sha1.ToString());
             Assert.AreEqual(sha1, sha1);
