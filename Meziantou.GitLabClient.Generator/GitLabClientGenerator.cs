@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,21 +19,8 @@ namespace Meziantou.GitLabClient.Generator
 
         public void Generate()
         {
-            CreateProject();
+            CreateModel();
             GenerateCode();
-        }
-
-        private void CreateProject()
-        {
-            CreateEnumerations();
-            CreateUserTypes();
-            CreateRefs();
-
-            // Call all CreateXXXMethods()
-            foreach (var method in GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(m => m.Name.StartsWith("Create") && m.Name.EndsWith("Methods")))
-            {
-                method.Invoke(this, Array.Empty<object>());
-            }
         }
 
         private void GenerateCode()
@@ -75,18 +61,21 @@ namespace Meziantou.GitLabClient.Generator
             });
 
             // Generate methods
-            foreach (var method in Project.Methods)
+            foreach (var methodGroup in Project.MethodGroups)
             {
-                GenerateInterfaceMethod(clientInterface, method);
-                var methodDeclaration = GenerateMethod(clientClass, method);
-
-                // Add extension methods on entities
-                foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
+                foreach (var method in methodGroup.Methods)
                 {
-                    foreach (var entity in param.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
+                    GenerateInterfaceMethod(clientInterface, method);
+                    var methodDeclaration = GenerateMethod(clientClass, method);
+
+                    // Add extension methods on entities
+                    foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
                     {
-                        var type = ns.Types.OfType<ClassDeclaration>().First(t => t.Name == entity.ModelRef.Model.Name);
-                        GenerateExtensionMethod(clientExtensionsClass, method, param);
+                        foreach (var entity in param.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
+                        {
+                            var type = ns.Types.OfType<ClassDeclaration>().First(t => t.Name == entity.ModelRef.Model.Name);
+                            GenerateExtensionMethod(clientExtensionsClass, method, param);
+                        }
                     }
                 }
             }

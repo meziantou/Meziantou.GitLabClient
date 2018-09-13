@@ -6,7 +6,7 @@ namespace Meziantou.GitLabClient.Generator
     {
         public IList<Model> Models { get; } = new List<Model>();
         public IList<ParameterEntity> ParameterEntities { get; } = new List<ParameterEntity>();
-        public IList<Method> Methods { get; } = new List<Method>();
+        public IList<MethodGroup> MethodGroups { get; } = new List<MethodGroup>();
 
         public T AddModel<T>(T model) where T : Model
         {
@@ -20,10 +20,23 @@ namespace Meziantou.GitLabClient.Generator
             return parameterEntity;
         }
 
-        public Method AddMethod(Method method)
+        public MethodGroup AddMethodGroup(MethodGroup group)
         {
-            Methods.Add(method);
-            return method;
+            MethodGroups.Add(group);
+            return group;
+        }
+
+        public MethodGroup AddMethodGroup(string name, Method[] methods)
+        {
+            var group = new MethodGroup();
+            group.Name = name;
+            foreach (var method in methods)
+            {
+                group.Methods.Add(method);
+            }
+
+            MethodGroups.Add(group);
+            return group;
         }
     }
 }

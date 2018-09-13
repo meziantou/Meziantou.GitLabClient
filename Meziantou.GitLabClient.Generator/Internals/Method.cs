@@ -13,7 +13,7 @@ namespace Meziantou.GitLabClient.Generator
         public string Name { get; }
         public string UrlTemplate { get; }
         public ModelRef ReturnType { get; set; }
-        public MethodType MethodType { get; set; } = MethodType.Get;
+        public MethodType MethodType { get; set; }
         public IList<MethodParameter> Parameters { get; set; } = new List<MethodParameter>();
         public Documentation Documentation { get; set; }
     }
