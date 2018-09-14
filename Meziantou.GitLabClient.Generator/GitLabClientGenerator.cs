@@ -229,11 +229,28 @@ namespace Meziantou.GitLabClient.Generator
                     break;
 
                 case MethodType.Put:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, requestOptionsArgument, cancellationTokenArgument)));
+                    var putArgs = new List<Expression>();
+                    putArgs.Add(url);
+                    putArgs.Add((Expression)bodyArgument ?? new LiteralExpression(null));
+                    putArgs.Add(requestOptionsArgument);
+                    putArgs.Add(cancellationTokenArgument);
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, putArgs.ToArray())));
                     break;
 
                 case MethodType.Post:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, url, bodyArgument, requestOptionsArgument, cancellationTokenArgument)));
+                    var postArgs = new List<Expression>();
+                    postArgs.Add(url);
+                    postArgs.Add((Expression)bodyArgument ?? new LiteralExpression(null));
+                    postArgs.Add(requestOptionsArgument);
+                    postArgs.Add(cancellationTokenArgument);
+                    if (method.ReturnType != null)
+                    {
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, postArgs.ToArray())));
+                    }
+                    else
+                    {
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", postArgs.ToArray())));
+                    }
                     break;
 
                 case MethodType.Delete:

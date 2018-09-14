@@ -2787,6 +2787,50 @@ namespace Meziantou.GitLab
     }
 
     [Newtonsoft.Json.JsonConverterAttribute(typeof(Meziantou.GitLab.ReferenceJsonConverter))]
+    public readonly partial struct TodoRef : Meziantou.GitLab.IReference
+    {
+        private readonly object _value;
+
+        private TodoRef(long TodoId)
+        {
+            this._value = TodoId;
+        }
+
+        private TodoRef(Todo todo)
+        {
+            if ((todo == null))
+            {
+                throw new System.ArgumentNullException(nameof(todo));
+            }
+
+            this._value = todo.Id;
+        }
+
+        public object Value
+        {
+            get
+            {
+                return this._value;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.TodoRef(long TodoId)
+        {
+            return new Meziantou.GitLab.TodoRef(TodoId);
+        }
+
+        public static implicit operator Meziantou.GitLab.TodoRef(Todo todo)
+        {
+            if ((todo == null))
+            {
+                throw new System.ArgumentNullException(nameof(todo));
+            }
+
+            return new Meziantou.GitLab.TodoRef(todo);
+        }
+    }
+
+    [Newtonsoft.Json.JsonConverterAttribute(typeof(Meziantou.GitLab.ReferenceJsonConverter))]
     public readonly partial struct UserRef : Meziantou.GitLab.IReference
     {
         private readonly object _value;
@@ -2953,15 +2997,15 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<User> GetUserAsync(long id, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <summary>Get the status of a user.</summary>
-        /// <param name="requestOptions">Options of the request</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(UserRef user, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
         /// <summary>Get the status of the currently signed in user.</summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Get the status of a user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(UserRef user, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>Get a list of users.</summary>
         /// <param name="pageOptions">The page index and page size</param>
@@ -2972,6 +3016,16 @@ namespace Meziantou.GitLab
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<ServerVersion> GetVersionAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Marks all pending todos for the current user as done.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task MarkAllTodosAsDoneAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>Marks a single pending todo given by its ID for the current user as done.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(TodoRef todo, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
@@ -3589,6 +3643,16 @@ namespace Meziantou.GitLab
             return this.GetAsync<User>(url, requestOptions, cancellationToken);
         }
 
+        /// <summary>Get the status of the currently signed in user.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
+            string url = urlBuilder.Build();
+            return this.GetAsync<UserStatus>(url, requestOptions, cancellationToken);
+        }
+
         /// <summary>Get the status of a user.</summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
@@ -3596,16 +3660,6 @@ namespace Meziantou.GitLab
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/status");
             urlBuilder.WithValue("user", user.Value);
-            string url = urlBuilder.Build();
-            return this.GetAsync<UserStatus>(url, requestOptions, cancellationToken);
-        }
-
-        /// <summary>Get the status of the currently signed in user.</summary>
-        /// <param name="requestOptions">Options of the request</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
             string url = urlBuilder.Build();
             return this.GetAsync<UserStatus>(url, requestOptions, cancellationToken);
         }
@@ -3650,6 +3704,27 @@ namespace Meziantou.GitLab
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("version");
             string url = urlBuilder.Build();
             return this.GetAsync<ServerVersion>(url, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Marks all pending todos for the current user as done.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public System.Threading.Tasks.Task MarkAllTodosAsDoneAsync(GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos/mark_as_done");
+            string url = urlBuilder.Build();
+            return this.PostJsonAsync(url, null, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Marks a single pending todo given by its ID for the current user as done.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(TodoRef todo, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos/:todo/mark_as_done");
+            urlBuilder.WithValue("todo", todo.Value);
+            string url = urlBuilder.Build();
+            return this.PostJsonAsync<Todo>(url, null, requestOptions, cancellationToken);
         }
 
         /// <param name="requestOptions">Options of the request</param>
@@ -3874,6 +3949,14 @@ namespace Meziantou.GitLab
         public static System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(this UserSafe userSafe, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             return userSafe.GitLabClient.GetUserStatusAsync(userSafe, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Marks a single pending todo given by its ID for the current user as done.</summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(this Todo todo, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            return todo.GitLabClient.MarkTodoAsDoneAsync(todo, requestOptions, cancellationToken);
         }
 
         /// <param name="requestOptions">Options of the request</param>

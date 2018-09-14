@@ -152,6 +152,14 @@ namespace Meziantou.GitLab.Tests
                 }
             }
 
+            public override async Task PostJsonAsync(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+            {
+                using (await _readerWriterLockSlim.WriterLockAsync())
+                {
+                    await base.PostJsonAsync(url, data, options, cancellationToken).ConfigureAwait(false);
+                }
+            }
+
             public override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
                 using (await _readerWriterLockSlim.WriterLockAsync())

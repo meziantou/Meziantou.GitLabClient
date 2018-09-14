@@ -551,7 +551,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                new ParameterEntityRef("projectId", ModelRef.Id),
+                    new ParameterEntityRef("projectId", ModelRef.Id),
                     new ParameterEntityRef("project", projectIdentity, "id"),
                 }
             });
@@ -560,7 +560,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                new ParameterEntityRef("projectId", ModelRef.Id),
+                    new ParameterEntityRef("projectId", ModelRef.Id),
                     new ParameterEntityRef("project", projectIdentity, "id"),
                     new ParameterEntityRef("projectPathWithNamespace", ModelRef.String),
                 }
@@ -570,7 +570,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                new ParameterEntityRef("sshKeyId", ModelRef.Id),
+                    new ParameterEntityRef("sshKeyId", ModelRef.Id),
                     new ParameterEntityRef("sskKey", sshKey, "id"),
                 }
             });
@@ -579,7 +579,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                new ParameterEntityRef("userId", ModelRef.Id),
+                    new ParameterEntityRef("userId", ModelRef.Id),
                     new ParameterEntityRef("userName", ModelRef.String),
                     new ParameterEntityRef("user", userSafe, "id"),
                 }
@@ -589,8 +589,17 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs =
                 {
-                new ParameterEntityRef("mergeRequestIid", ModelRef.Id),
+                    new ParameterEntityRef("mergeRequestIid", ModelRef.Id),
                     new ParameterEntityRef("mergeRequest", mergeRequest, "iid"),
+                }
+            });
+
+            var todoIdRef = Project.AddParameterEntity(new ParameterEntity("TodoRef", ModelRef.Object)
+            {
+                Refs =
+                {
+                    new ParameterEntityRef("TodoId", ModelRef.Id),
+                    new ParameterEntityRef("todo", todo, "id"),
                 }
             });
 
@@ -889,6 +898,29 @@ namespace Meziantou.GitLabClient.Generator
                         {
                             new MethodParameter("action", new ModelRef(todoAction) { IsNullable = true }) { IsOptional = true },
                         }
+                    },
+                    new Method("MarkTodoAsDone", "todos/:todo/mark_as_done")
+                    {
+                        Documentation = new Documentation
+                        {
+                            Summary = "Marks a single pending todo given by its ID for the current user as done.",
+                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done"
+                        },
+                        ReturnType = todo,
+                        MethodType = MethodType.Post,
+                        Parameters =
+                        {
+                            new MethodParameter("todo", todoIdRef),
+                        }
+                    },
+                    new Method("MarkAllTodosAsDone", "todos/mark_as_done")
+                    {
+                        Documentation = new Documentation
+                        {
+                            Summary = "Marks all pending todos for the current user as done.",
+                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done"
+                        },
+                        MethodType = MethodType.Post,
                     },
                 });
 

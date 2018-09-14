@@ -231,6 +231,22 @@ namespace Meziantou.GitLab
             }
         }
 
+        public virtual async Task PostJsonAsync(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+        {
+            using (var request = new HttpRequestMessage())
+            using (var content = new JsonContent(data, _jsonSerializerSettings))
+            {
+                request.Method = HttpMethod.Post;
+                request.RequestUri = BuildUri(url);
+                request.Content = content;
+
+                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
+                {
+                    // TODO ensure no content
+                }
+            }
+        }
+
         public virtual async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
         {
             using (var request = new HttpRequestMessage())
