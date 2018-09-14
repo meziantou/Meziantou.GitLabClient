@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Nito.AsyncEx;
+using Polly;
 
 namespace Meziantou.GitLab.Tests
 {
@@ -17,14 +19,20 @@ namespace Meziantou.GitLab.Tests
 
         private readonly HttpClient _httpClient;
         private readonly LoggingHandler _loggingHandler;
+        private readonly RetryHandler _retryHandler;
         private readonly List<TestGitLabClient> _clients = new List<TestGitLabClient>();
 
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {
             TestContext = testOutput;
 
-            _loggingHandler = new LoggingHandler() { InnerHandler = handler ?? new HttpClientHandler() };
-            _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
+            _retryHandler = new RetryHandler();
+            _loggingHandler = new LoggingHandler();
+
+            _loggingHandler.InnerHandler = handler ?? new HttpClientHandler();
+            _retryHandler.InnerHandler = _loggingHandler;
+
+            _httpClient = new HttpClient(_retryHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.AdminUserToken);
         }
 
@@ -95,6 +103,8 @@ namespace Meziantou.GitLab.Tests
 
         public class TestGitLabClient : GitLabClient
         {
+            private static readonly AsyncReaderWriterLock _readerWriterLockSlim = new AsyncReaderWriterLock();
+
             public List<object> Objects { get; } = new List<object>();
 
             public TestGitLabClient(HttpClient client, string serverUri, string token)
@@ -104,37 +114,60 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                var result = await base.GetAsync<T>(url, options, cancellationToken);
-                Objects.Add(result);
-                return result;
+                using (await _readerWriterLockSlim.ReaderLockAsync())
+                {
+                    var result = await base.GetAsync<T>(url, options, cancellationToken);
+                    Objects.Add(result);
+                    return result;
+                }
             }
 
             public override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                var readOnlyList = await base.GetCollectionAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
-                Objects.AddRange(readOnlyList);
-                return readOnlyList;
+                using (await _readerWriterLockSlim.ReaderLockAsync())
+                {
+                    var readOnlyList = await base.GetCollectionAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
+                    Objects.AddRange(readOnlyList);
+                    return readOnlyList;
+                }
             }
 
             public override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                var pagedResponse = await base.GetPagedAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
-                Objects.AddRange(pagedResponse.Data);
-                return pagedResponse;
+                using (await _readerWriterLockSlim.ReaderLockAsync())
+                {
+                    var pagedResponse = await base.GetPagedAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
+                    Objects.AddRange(pagedResponse.Data);
+                    return pagedResponse;
+                }
             }
 
             public override async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
-                var result = await base.PostJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
-                Objects.Add(result);
-                return result;
+                using (await _readerWriterLockSlim.WriterLockAsync())
+                {
+                    var result = await base.PostJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
+                    Objects.Add(result);
+                    return result;
+                }
             }
 
             public override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
-                var result = await base.PutJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
-                Objects.Add(result);
-                return result;
+                using (await _readerWriterLockSlim.WriterLockAsync())
+                {
+                    var result = await base.PutJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
+                    Objects.Add(result);
+                    return result;
+                }
+            }
+
+            public override async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
+            {
+                using (await _readerWriterLockSlim.WriterLockAsync())
+                {
+                    await base.DeleteAsync(url, options, cancellationToken);
+                }
             }
         }
 
@@ -197,6 +230,23 @@ namespace Meziantou.GitLab.Tests
                         }
                     }
                 }
+            }
+        }
+
+        public class RetryHandler : DelegatingHandler
+        {
+            private readonly IAsyncPolicy<HttpResponseMessage> _policy;
+
+            public RetryHandler()
+            {
+                _policy = Policy<HttpResponseMessage>
+                    .HandleResult(response => (int)response.StatusCode >= 500)
+                    .WaitAndRetryAsync(3, count => TimeSpan.FromSeconds(2));
+            }
+
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                return _policy.ExecuteAsync(() => base.SendAsync(request, cancellationToken));
             }
         }
     }
