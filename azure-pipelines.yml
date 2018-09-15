@@ -10,7 +10,6 @@ variables:
 
 jobs:
 - job: 
-  pool: Default
   steps:
   - script: dotnet build
   - script: dotnet test
