@@ -1,7 +1,16 @@
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: Release
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
 steps:
-- script: dotnet build
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: build
+  
+- script: dotnet pack Meziantou.GitLabClient/Meziantou.GitLabClient.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  displayName: pack
+  
+- script: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key $(NuGetApiKey) --force-english-output
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+  displayName: push
+  continueOnError: true
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
