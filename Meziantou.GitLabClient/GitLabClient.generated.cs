@@ -136,2466 +136,1467 @@ namespace Meziantou.GitLab
 
     public partial class BasicProjectDetails : ProjectIdentity
     {
-        private string _avatarUrl;
+        internal BasicProjectDetails(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _defaultBranch;
-
-        private long _forksCount;
-
-        private string _httpUrlToRepo;
-
-        private System.DateTime _lastActivityAt;
-
-        private NamespaceBasic _namespace;
-
-        private string _readmeUrl;
-
-        private string _sshUrlToRepo;
-
-        private long _starCount;
-
-        private System.Collections.Generic.IReadOnlyList<string> _tagList;
-
-        private string _webUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
         public string AvatarUrl
         {
             get
             {
-                return this._avatarUrl;
-            }
-            private set
-            {
-                this._avatarUrl = value;
+                return this.GetValueOrDefault<string>("avatar_url", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "default_branch")]
         public string DefaultBranch
         {
             get
             {
-                return this._defaultBranch;
-            }
-            private set
-            {
-                this._defaultBranch = value;
+                return this.GetValueOrDefault<string>("default_branch", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forks_count")]
         public long ForksCount
         {
             get
             {
-                return this._forksCount;
-            }
-            private set
-            {
-                this._forksCount = value;
+                return this.GetValueOrDefault<long>("forks_count", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "http_url_to_repo")]
         public string HttpUrlToRepo
         {
             get
             {
-                return this._httpUrlToRepo;
-            }
-            private set
-            {
-                this._httpUrlToRepo = value;
+                return this.GetValueOrDefault<string>("http_url_to_repo", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_at")]
         public System.DateTime LastActivityAt
         {
             get
             {
-                return this._lastActivityAt;
-            }
-            private set
-            {
-                this._lastActivityAt = value;
+                return this.GetValueOrDefault<System.DateTime>("last_activity_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "namespace")]
         public NamespaceBasic Namespace
         {
             get
             {
-                return this._namespace;
-            }
-            private set
-            {
-                this._namespace = value;
+                return this.GetValueOrDefault<NamespaceBasic>("namespace", default(NamespaceBasic));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "readme_url")]
         public string ReadmeUrl
         {
             get
             {
-                return this._readmeUrl;
-            }
-            private set
-            {
-                this._readmeUrl = value;
+                return this.GetValueOrDefault<string>("readme_url", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ssh_url_to_repo")]
         public string SshUrlToRepo
         {
             get
             {
-                return this._sshUrlToRepo;
-            }
-            private set
-            {
-                this._sshUrlToRepo = value;
+                return this.GetValueOrDefault<string>("ssh_url_to_repo", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "star_count")]
         public long StarCount
         {
             get
             {
-                return this._starCount;
-            }
-            private set
-            {
-                this._starCount = value;
+                return this.GetValueOrDefault<long>("star_count", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "tag_list")]
         public System.Collections.Generic.IReadOnlyList<string> TagList
         {
             get
             {
-                return this._tagList;
-            }
-            private set
-            {
-                this._tagList = value;
+                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("tag_list", default(System.Collections.Generic.IReadOnlyList<string>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
             {
-                return this._webUrl;
-            }
-            private set
-            {
-                this._webUrl = value;
+                return this.GetValueOrDefault<string>("web_url", default(string));
             }
         }
     }
 
     public partial class FileCreated : GitLab.GitLabObject
     {
-        private string _branch;
+        internal FileCreated(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _filePath;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "branch")]
         public string Branch
         {
             get
             {
-                return this._branch;
-            }
-            private set
-            {
-                this._branch = value;
+                return this.GetValueOrDefault<string>("branch", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
         public string FilePath
         {
             get
             {
-                return this._filePath;
-            }
-            private set
-            {
-                this._filePath = value;
+                return this.GetValueOrDefault<string>("file_path", default(string));
             }
         }
     }
 
     public partial class FileUpdated : GitLab.GitLabObject
     {
-        private string _branch;
+        internal FileUpdated(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _filePath;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "branch")]
         public string Branch
         {
             get
             {
-                return this._branch;
-            }
-            private set
-            {
-                this._branch = value;
+                return this.GetValueOrDefault<string>("branch", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "file_path")]
         public string FilePath
         {
             get
             {
-                return this._filePath;
-            }
-            private set
-            {
-                this._filePath = value;
+                return this.GetValueOrDefault<string>("file_path", default(string));
             }
         }
     }
 
     public partial class GroupAccess : MemberAccess
     {
+        internal GroupAccess(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
     }
 
     public partial class Identity : GitLab.GitLabObject
     {
-        private string _externUid;
+        internal Identity(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _provider;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "extern_uid")]
         public string ExternUid
         {
             get
             {
-                return this._externUid;
-            }
-            private set
-            {
-                this._externUid = value;
+                return this.GetValueOrDefault<string>("extern_uid", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "provider")]
         public string Provider
         {
             get
             {
-                return this._provider;
-            }
-            private set
-            {
-                this._provider = value;
+                return this.GetValueOrDefault<string>("provider", default(string));
             }
         }
     }
 
     public partial class ImpersonationToken : GitLab.GitLabObject
     {
-        private bool _active;
+        internal ImpersonationToken(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private System.DateTime _createdAt;
-
-        private System.Nullable<System.DateTime> _expiresAt;
-
-        private long _id;
-
-        private bool _impersonation;
-
-        private string _name;
-
-        private bool _revoked;
-
-        private System.Collections.Generic.IReadOnlyList<string> _scopes;
-
-        private string _token;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "active")]
         public bool Active
         {
             get
             {
-                return this._active;
-            }
-            private set
-            {
-                this._active = value;
+                return this.GetValueOrDefault<bool>("active", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "expires_at")]
         public System.Nullable<System.DateTime> ExpiresAt
         {
             get
             {
-                return this._expiresAt;
-            }
-            private set
-            {
-                this._expiresAt = value;
+                return this.GetValueOrDefault<System.Nullable<System.DateTime>>("expires_at", default(System.Nullable<System.DateTime>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "impersonation")]
         public bool Impersonation
         {
             get
             {
-                return this._impersonation;
-            }
-            private set
-            {
-                this._impersonation = value;
+                return this.GetValueOrDefault<bool>("impersonation", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
             {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
+                return this.GetValueOrDefault<string>("name", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revoked")]
         public bool Revoked
         {
             get
             {
-                return this._revoked;
-            }
-            private set
-            {
-                this._revoked = value;
+                return this.GetValueOrDefault<bool>("revoked", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "scopes")]
         public System.Collections.Generic.IReadOnlyList<string> Scopes
         {
             get
             {
-                return this._scopes;
-            }
-            private set
-            {
-                this._scopes = value;
+                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("scopes", default(System.Collections.Generic.IReadOnlyList<string>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "token")]
         public string Token
         {
             get
             {
-                return this._token;
-            }
-            private set
-            {
-                this._token = value;
+                return this.GetValueOrDefault<string>("token", default(string));
             }
         }
     }
 
     public partial class Issue : GitLab.GitLabObject
     {
-        private UserBasic _author;
+        internal Issue(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private System.Nullable<System.DateTime> _closedAt;
-
-        private UserBasic _closedBy;
-
-        private System.DateTime _createdAt;
-
-        private long _id;
-
-        private long _iid;
-
-        private long _projectId;
-
-        private string _title;
-
-        private System.DateTime _updatedAt;
-
-        private string _webUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
         {
             get
             {
-                return this._author;
-            }
-            private set
-            {
-                this._author = value;
+                return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_at")]
         public System.Nullable<System.DateTime> ClosedAt
         {
             get
             {
-                return this._closedAt;
-            }
-            private set
-            {
-                this._closedAt = value;
+                return this.GetValueOrDefault<System.Nullable<System.DateTime>>("closed_at", default(System.Nullable<System.DateTime>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "closed_by")]
         public UserBasic ClosedBy
         {
             get
             {
-                return this._closedBy;
-            }
-            private set
-            {
-                this._closedBy = value;
+                return this.GetValueOrDefault<UserBasic>("closed_by", default(UserBasic));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
         public long Iid
         {
             get
             {
-                return this._iid;
-            }
-            private set
-            {
-                this._iid = value;
+                return this.GetValueOrDefault<long>("iid", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
         public long ProjectId
         {
             get
             {
-                return this._projectId;
-            }
-            private set
-            {
-                this._projectId = value;
+                return this.GetValueOrDefault<long>("project_id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
         public string Title
         {
             get
             {
-                return this._title;
-            }
-            private set
-            {
-                this._title = value;
+                return this.GetValueOrDefault<string>("title", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
         public System.DateTime UpdatedAt
         {
             get
             {
-                return this._updatedAt;
-            }
-            private set
-            {
-                this._updatedAt = value;
+                return this.GetValueOrDefault<System.DateTime>("updated_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
             {
-                return this._webUrl;
-            }
-            private set
-            {
-                this._webUrl = value;
+                return this.GetValueOrDefault<string>("web_url", default(string));
             }
         }
     }
 
     public partial class MemberAccess : GitLab.GitLabObject
     {
-        private Access _accessLevel;
+        internal MemberAccess(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _notificationLevel;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "access_level")]
         public Access AccessLevel
         {
             get
             {
-                return this._accessLevel;
-            }
-            private set
-            {
-                this._accessLevel = value;
+                return this.GetValueOrDefault<Access>("access_level", default(Access));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "notification_level")]
         public string NotificationLevel
         {
             get
             {
-                return this._notificationLevel;
-            }
-            private set
-            {
-                this._notificationLevel = value;
+                return this.GetValueOrDefault<string>("notification_level", default(string));
             }
         }
     }
 
     public partial class MergeRequest : GitLab.GitLabObject
     {
-        private UserBasic _author;
+        internal MergeRequest(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private System.DateTime _createdAt;
-
-        private long _id;
-
-        private long _iid;
-
-        private string _mergeStatus;
-
-        private long _projectId;
-
-        private MergeRequestState _state;
-
-        private string _title;
-
-        private System.DateTime _updatedAt;
-
-        private int _userNotesCount;
-
-        private string _webUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
         {
             get
             {
-                return this._author;
-            }
-            private set
-            {
-                this._author = value;
+                return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "iid")]
         public long Iid
         {
             get
             {
-                return this._iid;
-            }
-            private set
-            {
-                this._iid = value;
+                return this.GetValueOrDefault<long>("iid", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_status")]
         public string MergeStatus
         {
             get
             {
-                return this._mergeStatus;
-            }
-            private set
-            {
-                this._mergeStatus = value;
+                return this.GetValueOrDefault<string>("merge_status", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_id")]
         public long ProjectId
         {
             get
             {
-                return this._projectId;
-            }
-            private set
-            {
-                this._projectId = value;
+                return this.GetValueOrDefault<long>("project_id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public MergeRequestState State
         {
             get
             {
-                return this._state;
-            }
-            private set
-            {
-                this._state = value;
+                return this.GetValueOrDefault<MergeRequestState>("state", default(MergeRequestState));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
         public string Title
         {
             get
             {
-                return this._title;
-            }
-            private set
-            {
-                this._title = value;
+                return this.GetValueOrDefault<string>("title", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "updated_at")]
         public System.DateTime UpdatedAt
         {
             get
             {
-                return this._updatedAt;
-            }
-            private set
-            {
-                this._updatedAt = value;
+                return this.GetValueOrDefault<System.DateTime>("updated_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "user_notes_count")]
         public int UserNotesCount
         {
             get
             {
-                return this._userNotesCount;
-            }
-            private set
-            {
-                this._userNotesCount = value;
+                return this.GetValueOrDefault<int>("user_notes_count", default(int));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
             {
-                return this._webUrl;
-            }
-            private set
-            {
-                this._webUrl = value;
+                return this.GetValueOrDefault<string>("web_url", default(string));
             }
         }
     }
 
     public partial class NamespaceBasic : GitLab.GitLabObject
     {
-        private string _fullPath;
+        internal NamespaceBasic(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private long _id;
-
-        private string _kind;
-
-        private string _name;
-
-        private System.Nullable<long> _parentId;
-
-        private string _path;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "full_path")]
         public string FullPath
         {
             get
             {
-                return this._fullPath;
-            }
-            private set
-            {
-                this._fullPath = value;
+                return this.GetValueOrDefault<string>("full_path", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "kind")]
         public string Kind
         {
             get
             {
-                return this._kind;
-            }
-            private set
-            {
-                this._kind = value;
+                return this.GetValueOrDefault<string>("kind", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
             {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
+                return this.GetValueOrDefault<string>("name", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "parent_id")]
         public System.Nullable<long> ParentId
         {
             get
             {
-                return this._parentId;
-            }
-            private set
-            {
-                this._parentId = value;
+                return this.GetValueOrDefault<System.Nullable<long>>("parent_id", default(System.Nullable<long>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
         public string Path
         {
             get
             {
-                return this._path;
-            }
-            private set
-            {
-                this._path = value;
+                return this.GetValueOrDefault<string>("path", default(string));
             }
         }
     }
 
     public partial class Project : BasicProjectDetails
     {
-        private System.Nullable<int> _approvalsBeforeMerge;
+        internal Project(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private bool _archived;
-
-        private string _ciConfigPath;
-
-        private bool _containerRegistryEnabled;
-
-        private long _creatorId;
-
-        private BasicProjectDetails _forkedFromProject;
-
-        private ImportStatus _importStatus;
-
-        private bool _issuesEnabled;
-
-        private bool _jobsEnabled;
-
-        private bool _lfsEnabled;
-
-        private ProjectLink _links;
-
-        private MergeMethod _mergeMethod;
-
-        private bool _mergeRequestsEnabled;
-
-        private bool _mirror;
-
-        private System.Nullable<bool> _mirrorOverwritesDivergedBranches;
-
-        private System.Nullable<bool> _mirrorTriggerBuilds;
-
-        private System.Nullable<long> _mirrorUserId;
-
-        private bool _onlyAllowMergeIfAllDiscussionsAreResolved;
-
-        private bool _onlyAllowMergeIfPipelineSucceeds;
-
-        private System.Nullable<bool> _onlyMirrorProtectedBranches;
-
-        private System.Nullable<int> _openIssuesCount;
-
-        private UserBasic _owner;
-
-        private ProjectPermissions _permissions;
-
-        private bool _printingMergeRequestLinkEnabled;
-
-        private bool _publicJobs;
-
-        private bool _requestAccessEnabled;
-
-        private System.Nullable<bool> _resolveOutdatedDiffDiscussions;
-
-        private bool _sharedRunnersEnabled;
-
-        private System.Collections.Generic.IReadOnlyList<SharedGroup> _sharedWithGroups;
-
-        private bool _snippetsEnabled;
-
-        private ProjectVisibility _visibility;
-
-        private bool _wikiEnabled;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "approvals_before_merge")]
         public System.Nullable<int> ApprovalsBeforeMerge
         {
             get
             {
-                return this._approvalsBeforeMerge;
-            }
-            private set
-            {
-                this._approvalsBeforeMerge = value;
+                return this.GetValueOrDefault<System.Nullable<int>>("approvals_before_merge", default(System.Nullable<int>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "archived")]
         public bool Archived
         {
             get
             {
-                return this._archived;
-            }
-            private set
-            {
-                this._archived = value;
+                return this.GetValueOrDefault<bool>("archived", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "ci_config_path")]
         public string CiConfigPath
         {
             get
             {
-                return this._ciConfigPath;
-            }
-            private set
-            {
-                this._ciConfigPath = value;
+                return this.GetValueOrDefault<string>("ci_config_path", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "container_registry_enabled")]
         public bool ContainerRegistryEnabled
         {
             get
             {
-                return this._containerRegistryEnabled;
-            }
-            private set
-            {
-                this._containerRegistryEnabled = value;
+                return this.GetValueOrDefault<bool>("container_registry_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "creator_id")]
         public long CreatorId
         {
             get
             {
-                return this._creatorId;
-            }
-            private set
-            {
-                this._creatorId = value;
+                return this.GetValueOrDefault<long>("creator_id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "forked_from_project")]
         public BasicProjectDetails ForkedFromProject
         {
             get
             {
-                return this._forkedFromProject;
-            }
-            private set
-            {
-                this._forkedFromProject = value;
+                return this.GetValueOrDefault<BasicProjectDetails>("forked_from_project", default(BasicProjectDetails));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "import_status")]
         public ImportStatus ImportStatus
         {
             get
             {
-                return this._importStatus;
-            }
-            private set
-            {
-                this._importStatus = value;
+                return this.GetValueOrDefault<ImportStatus>("import_status", default(ImportStatus));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues_enabled")]
         public bool IssuesEnabled
         {
             get
             {
-                return this._issuesEnabled;
-            }
-            private set
-            {
-                this._issuesEnabled = value;
+                return this.GetValueOrDefault<bool>("issues_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "jobs_enabled")]
         public bool JobsEnabled
         {
             get
             {
-                return this._jobsEnabled;
-            }
-            private set
-            {
-                this._jobsEnabled = value;
+                return this.GetValueOrDefault<bool>("jobs_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "lfs_enabled")]
         public bool LfsEnabled
         {
             get
             {
-                return this._lfsEnabled;
-            }
-            private set
-            {
-                this._lfsEnabled = value;
+                return this.GetValueOrDefault<bool>("lfs_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "_links")]
         public ProjectLink Links
         {
             get
             {
-                return this._links;
-            }
-            private set
-            {
-                this._links = value;
+                return this.GetValueOrDefault<ProjectLink>("_links", default(ProjectLink));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_method")]
         public MergeMethod MergeMethod
         {
             get
             {
-                return this._mergeMethod;
-            }
-            private set
-            {
-                this._mergeMethod = value;
+                return this.GetValueOrDefault<MergeMethod>("merge_method", default(MergeMethod));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests_enabled")]
         public bool MergeRequestsEnabled
         {
             get
             {
-                return this._mergeRequestsEnabled;
-            }
-            private set
-            {
-                this._mergeRequestsEnabled = value;
+                return this.GetValueOrDefault<bool>("merge_requests_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror")]
         public bool Mirror
         {
             get
             {
-                return this._mirror;
-            }
-            private set
-            {
-                this._mirror = value;
+                return this.GetValueOrDefault<bool>("mirror", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_overwrites_diverged_branches")]
         public System.Nullable<bool> MirrorOverwritesDivergedBranches
         {
             get
             {
-                return this._mirrorOverwritesDivergedBranches;
-            }
-            private set
-            {
-                this._mirrorOverwritesDivergedBranches = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("mirror_overwrites_diverged_branches", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_trigger_builds")]
         public System.Nullable<bool> MirrorTriggerBuilds
         {
             get
             {
-                return this._mirrorTriggerBuilds;
-            }
-            private set
-            {
-                this._mirrorTriggerBuilds = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("mirror_trigger_builds", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "mirror_user_id")]
         public System.Nullable<long> MirrorUserId
         {
             get
             {
-                return this._mirrorUserId;
-            }
-            private set
-            {
-                this._mirrorUserId = value;
+                return this.GetValueOrDefault<System.Nullable<long>>("mirror_user_id", default(System.Nullable<long>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_all_discussions_are_resolved")]
         public bool OnlyAllowMergeIfAllDiscussionsAreResolved
         {
             get
             {
-                return this._onlyAllowMergeIfAllDiscussionsAreResolved;
-            }
-            private set
-            {
-                this._onlyAllowMergeIfAllDiscussionsAreResolved = value;
+                return this.GetValueOrDefault<bool>("only_allow_merge_if_all_discussions_are_resolved", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_allow_merge_if_pipeline_succeeds")]
         public bool OnlyAllowMergeIfPipelineSucceeds
         {
             get
             {
-                return this._onlyAllowMergeIfPipelineSucceeds;
-            }
-            private set
-            {
-                this._onlyAllowMergeIfPipelineSucceeds = value;
+                return this.GetValueOrDefault<bool>("only_allow_merge_if_pipeline_succeeds", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "only_mirror_protected_branches")]
         public System.Nullable<bool> OnlyMirrorProtectedBranches
         {
             get
             {
-                return this._onlyMirrorProtectedBranches;
-            }
-            private set
-            {
-                this._onlyMirrorProtectedBranches = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("only_mirror_protected_branches", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "open_issues_count")]
         public System.Nullable<int> OpenIssuesCount
         {
             get
             {
-                return this._openIssuesCount;
-            }
-            private set
-            {
-                this._openIssuesCount = value;
+                return this.GetValueOrDefault<System.Nullable<int>>("open_issues_count", default(System.Nullable<int>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "owner")]
         public UserBasic Owner
         {
             get
             {
-                return this._owner;
-            }
-            private set
-            {
-                this._owner = value;
+                return this.GetValueOrDefault<UserBasic>("owner", default(UserBasic));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "permissions")]
         public ProjectPermissions Permissions
         {
             get
             {
-                return this._permissions;
-            }
-            private set
-            {
-                this._permissions = value;
+                return this.GetValueOrDefault<ProjectPermissions>("permissions", default(ProjectPermissions));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "printing_merge_request_link_enabled")]
         public bool PrintingMergeRequestLinkEnabled
         {
             get
             {
-                return this._printingMergeRequestLinkEnabled;
-            }
-            private set
-            {
-                this._printingMergeRequestLinkEnabled = value;
+                return this.GetValueOrDefault<bool>("printing_merge_request_link_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "public_jobs")]
         public bool PublicJobs
         {
             get
             {
-                return this._publicJobs;
-            }
-            private set
-            {
-                this._publicJobs = value;
+                return this.GetValueOrDefault<bool>("public_jobs", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "request_access_enabled")]
         public bool RequestAccessEnabled
         {
             get
             {
-                return this._requestAccessEnabled;
-            }
-            private set
-            {
-                this._requestAccessEnabled = value;
+                return this.GetValueOrDefault<bool>("request_access_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "resolve_outdated_diff_discussions")]
         public System.Nullable<bool> ResolveOutdatedDiffDiscussions
         {
             get
             {
-                return this._resolveOutdatedDiffDiscussions;
-            }
-            private set
-            {
-                this._resolveOutdatedDiffDiscussions = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("resolve_outdated_diff_discussions", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_enabled")]
         public bool SharedRunnersEnabled
         {
             get
             {
-                return this._sharedRunnersEnabled;
-            }
-            private set
-            {
-                this._sharedRunnersEnabled = value;
+                return this.GetValueOrDefault<bool>("shared_runners_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_with_groups")]
         public System.Collections.Generic.IReadOnlyList<SharedGroup> SharedWithGroups
         {
             get
             {
-                return this._sharedWithGroups;
-            }
-            private set
-            {
-                this._sharedWithGroups = value;
+                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<SharedGroup>>("shared_with_groups", default(System.Collections.Generic.IReadOnlyList<SharedGroup>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "snippets_enabled")]
         public bool SnippetsEnabled
         {
             get
             {
-                return this._snippetsEnabled;
-            }
-            private set
-            {
-                this._snippetsEnabled = value;
+                return this.GetValueOrDefault<bool>("snippets_enabled", default(bool));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "visibility")]
         public ProjectVisibility Visibility
         {
             get
             {
-                return this._visibility;
-            }
-            private set
-            {
-                this._visibility = value;
+                return this.GetValueOrDefault<ProjectVisibility>("visibility", default(ProjectVisibility));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "wiki_enabled")]
         public bool WikiEnabled
         {
             get
             {
-                return this._wikiEnabled;
-            }
-            private set
-            {
-                this._wikiEnabled = value;
+                return this.GetValueOrDefault<bool>("wiki_enabled", default(bool));
             }
         }
     }
 
     public partial class ProjectAccess : MemberAccess
     {
+        internal ProjectAccess(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
     }
 
     public partial class ProjectIdentity : GitLab.GitLabObject
     {
-        private System.DateTime _createdAt;
+        internal ProjectIdentity(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _description;
-
-        private long _id;
-
-        private string _name;
-
-        private string _nameWithNamespace;
-
-        private string _path;
-
-        private string _pathWithNamespace;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "description")]
         public string Description
         {
             get
             {
-                return this._description;
-            }
-            private set
-            {
-                this._description = value;
+                return this.GetValueOrDefault<string>("description", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
             {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
+                return this.GetValueOrDefault<string>("name", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name_with_namespace")]
         public string NameWithNamespace
         {
             get
             {
-                return this._nameWithNamespace;
-            }
-            private set
-            {
-                this._nameWithNamespace = value;
+                return this.GetValueOrDefault<string>("name_with_namespace", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path")]
         public string Path
         {
             get
             {
-                return this._path;
-            }
-            private set
-            {
-                this._path = value;
+                return this.GetValueOrDefault<string>("path", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "path_with_namespace")]
         public string PathWithNamespace
         {
             get
             {
-                return this._pathWithNamespace;
-            }
-            private set
-            {
-                this._pathWithNamespace = value;
+                return this.GetValueOrDefault<string>("path_with_namespace", default(string));
             }
         }
     }
 
     public partial class ProjectLink : GitLab.GitLabObject
     {
-        private string _events;
+        internal ProjectLink(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _issues;
-
-        private string _labels;
-
-        private string _members;
-
-        private string _mergeRequests;
-
-        private string _repoBranches;
-
-        private string _self;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "events")]
         public string Events
         {
             get
             {
-                return this._events;
-            }
-            private set
-            {
-                this._events = value;
+                return this.GetValueOrDefault<string>("events", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "issues")]
         public string Issues
         {
             get
             {
-                return this._issues;
-            }
-            private set
-            {
-                this._issues = value;
+                return this.GetValueOrDefault<string>("issues", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "labels")]
         public string Labels
         {
             get
             {
-                return this._labels;
-            }
-            private set
-            {
-                this._labels = value;
+                return this.GetValueOrDefault<string>("labels", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "members")]
         public string Members
         {
             get
             {
-                return this._members;
-            }
-            private set
-            {
-                this._members = value;
+                return this.GetValueOrDefault<string>("members", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "merge_requests")]
         public string MergeRequests
         {
             get
             {
-                return this._mergeRequests;
-            }
-            private set
-            {
-                this._mergeRequests = value;
+                return this.GetValueOrDefault<string>("merge_requests", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "repo_branches")]
         public string RepoBranches
         {
             get
             {
-                return this._repoBranches;
-            }
-            private set
-            {
-                this._repoBranches = value;
+                return this.GetValueOrDefault<string>("repo_branches", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "self")]
         public string Self
         {
             get
             {
-                return this._self;
-            }
-            private set
-            {
-                this._self = value;
+                return this.GetValueOrDefault<string>("self", default(string));
             }
         }
     }
 
     public partial class ProjectPermissions : GitLab.GitLabObject
     {
-        private GroupAccess _groupAccess;
+        internal ProjectPermissions(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private ProjectAccess _projectAccess;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access")]
         public GroupAccess GroupAccess
         {
             get
             {
-                return this._groupAccess;
-            }
-            private set
-            {
-                this._groupAccess = value;
+                return this.GetValueOrDefault<GroupAccess>("group_access", default(GroupAccess));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project_access")]
         public ProjectAccess ProjectAccess
         {
             get
             {
-                return this._projectAccess;
-            }
-            private set
-            {
-                this._projectAccess = value;
+                return this.GetValueOrDefault<ProjectAccess>("project_access", default(ProjectAccess));
             }
         }
     }
 
     public partial class RenderedMarkdown : GitLab.GitLabObject
     {
-        private string _html;
+        internal RenderedMarkdown(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "html")]
         public string Html
         {
             get
             {
-                return this._html;
-            }
-            private set
-            {
-                this._html = value;
+                return this.GetValueOrDefault<string>("html", default(string));
             }
         }
     }
 
     public partial class ServerVersion : GitLab.GitLabObject
     {
-        private string _revision;
+        internal ServerVersion(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _version;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "revision")]
         public string Revision
         {
             get
             {
-                return this._revision;
-            }
-            private set
-            {
-                this._revision = value;
+                return this.GetValueOrDefault<string>("revision", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "version")]
         public string Version
         {
             get
             {
-                return this._version;
-            }
-            private set
-            {
-                this._version = value;
+                return this.GetValueOrDefault<string>("version", default(string));
             }
         }
     }
 
     public partial class SharedGroup : GitLab.GitLabObject
     {
-        private Access _groupAccessLevel;
+        internal SharedGroup(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private long _groupId;
-
-        private string _groupName;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_access_level")]
         public Access GroupAccessLevel
         {
             get
             {
-                return this._groupAccessLevel;
-            }
-            private set
-            {
-                this._groupAccessLevel = value;
+                return this.GetValueOrDefault<Access>("group_access_level", default(Access));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_id")]
         public long GroupId
         {
             get
             {
-                return this._groupId;
-            }
-            private set
-            {
-                this._groupId = value;
+                return this.GetValueOrDefault<long>("group_id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "group_name")]
         public string GroupName
         {
             get
             {
-                return this._groupName;
-            }
-            private set
-            {
-                this._groupName = value;
+                return this.GetValueOrDefault<string>("group_name", default(string));
             }
         }
     }
 
     public partial class SshKey : GitLab.GitLabObject
     {
-        private System.DateTime _createdAt;
+        internal SshKey(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private long _id;
-
-        private string _key;
-
-        private string _title;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "key")]
         public string Key
         {
             get
             {
-                return this._key;
-            }
-            private set
-            {
-                this._key = value;
+                return this.GetValueOrDefault<string>("key", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "title")]
         public string Title
         {
             get
             {
-                return this._title;
-            }
-            private set
-            {
-                this._title = value;
+                return this.GetValueOrDefault<string>("title", default(string));
             }
         }
     }
 
     public partial class Todo : GitLab.GitLabObject
     {
-        private TodoAction _actionName;
+        internal Todo(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private UserBasic _author;
-
-        private string _body;
-
-        private System.DateTime _createdAt;
-
-        private long _id;
-
-        private BasicProjectDetails _project;
-
-        private TodoState _state;
-
-        private GitLab.GitLabObject _target;
-
-        private TodoType _targetType;
-
-        private string _targetUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "action_name")]
         public TodoAction ActionName
         {
             get
             {
-                return this._actionName;
-            }
-            private set
-            {
-                this._actionName = value;
+                return this.GetValueOrDefault<TodoAction>("action_name", default(TodoAction));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "author")]
         public UserBasic Author
         {
             get
             {
-                return this._author;
-            }
-            private set
-            {
-                this._author = value;
+                return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "body")]
         public string Body
         {
             get
             {
-                return this._body;
-            }
-            private set
-            {
-                this._body = value;
+                return this.GetValueOrDefault<string>("body", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "project")]
         public BasicProjectDetails Project
         {
             get
             {
-                return this._project;
-            }
-            private set
-            {
-                this._project = value;
+                return this.GetValueOrDefault<BasicProjectDetails>("project", default(BasicProjectDetails));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public TodoState State
         {
             get
             {
-                return this._state;
-            }
-            private set
-            {
-                this._state = value;
+                return this.GetValueOrDefault<TodoState>("state", default(TodoState));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target")]
-        [Newtonsoft.Json.JsonConverterAttribute(typeof(TodoTargetJsonConverter))]
-        public GitLab.GitLabObject Target
-        {
-            get
-            {
-                return this._target;
-            }
-            private set
-            {
-                this._target = value;
-            }
-        }
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_type")]
         public TodoType TargetType
         {
             get
             {
-                return this._targetType;
-            }
-            private set
-            {
-                this._targetType = value;
+                return this.GetValueOrDefault<TodoType>("target_type", default(TodoType));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "target_url")]
         public string TargetUrl
         {
             get
             {
-                return this._targetUrl;
-            }
-            private set
-            {
-                this._targetUrl = value;
+                return this.GetValueOrDefault<string>("target_url", default(string));
             }
         }
     }
 
     public partial class User : UserBasic
     {
-        private string _bio;
+        internal User(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private System.Nullable<bool> _canCreateGroup;
-
-        private System.Nullable<bool> _canCreateProject;
-
-        private System.Nullable<long> _colorSchemeId;
-
-        private System.Nullable<System.DateTime> _confirmedAt;
-
-        private System.DateTime _createdAt;
-
-        private System.Nullable<System.DateTime> _currentSignInAt;
-
-        private string _email;
-
-        private System.Nullable<bool> _external;
-
-        private System.Collections.Generic.IReadOnlyList<Identity> _identities;
-
-        private System.Nullable<bool> _isAdmin;
-
-        private System.Nullable<System.DateTime> _lastActivityOn;
-
-        private System.Nullable<System.DateTime> _lastSignInAt;
-
-        private string _linkedin;
-
-        private string _location;
-
-        private string _organization;
-
-        private object _privateProfile;
-
-        private System.Nullable<long> _projectsLimit;
-
-        private System.Nullable<long> _sharedRunnersMinutesLimit;
-
-        private string _skype;
-
-        private System.Nullable<long> _themeId;
-
-        private string _twitter;
-
-        private System.Nullable<bool> _twoFactorEnabled;
-
-        private string _websiteUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "bio")]
         public string Bio
         {
             get
             {
-                return this._bio;
-            }
-            private set
-            {
-                this._bio = value;
+                return this.GetValueOrDefault<string>("bio", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_group")]
         public System.Nullable<bool> CanCreateGroup
         {
             get
             {
-                return this._canCreateGroup;
-            }
-            private set
-            {
-                this._canCreateGroup = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("can_create_group", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "can_create_project")]
         public System.Nullable<bool> CanCreateProject
         {
             get
             {
-                return this._canCreateProject;
-            }
-            private set
-            {
-                this._canCreateProject = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("can_create_project", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "color_scheme_id")]
         public System.Nullable<long> ColorSchemeId
         {
             get
             {
-                return this._colorSchemeId;
-            }
-            private set
-            {
-                this._colorSchemeId = value;
+                return this.GetValueOrDefault<System.Nullable<long>>("color_scheme_id", default(System.Nullable<long>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "confirmed_at")]
         public System.Nullable<System.DateTime> ConfirmedAt
         {
             get
             {
-                return this._confirmedAt;
-            }
-            private set
-            {
-                this._confirmedAt = value;
+                return this.GetValueOrDefault<System.Nullable<System.DateTime>>("confirmed_at", default(System.Nullable<System.DateTime>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
-                return this._createdAt;
-            }
-            private set
-            {
-                this._createdAt = value;
+                return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "current_sign_in_at")]
         public System.Nullable<System.DateTime> CurrentSignInAt
         {
             get
             {
-                return this._currentSignInAt;
-            }
-            private set
-            {
-                this._currentSignInAt = value;
+                return this.GetValueOrDefault<System.Nullable<System.DateTime>>("current_sign_in_at", default(System.Nullable<System.DateTime>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "email")]
         public string Email
         {
             get
             {
-                return this._email;
-            }
-            private set
-            {
-                this._email = value;
+                return this.GetValueOrDefault<string>("email", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "external")]
         public System.Nullable<bool> External
         {
             get
             {
-                return this._external;
-            }
-            private set
-            {
-                this._external = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("external", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "identities")]
         public System.Collections.Generic.IReadOnlyList<Identity> Identities
         {
             get
             {
-                return this._identities;
-            }
-            private set
-            {
-                this._identities = value;
+                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<Identity>>("identities", default(System.Collections.Generic.IReadOnlyList<Identity>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "is_admin")]
         public System.Nullable<bool> IsAdmin
         {
             get
             {
-                return this._isAdmin;
-            }
-            private set
-            {
-                this._isAdmin = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("is_admin", default(System.Nullable<bool>));
             }
         }
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on")]
         public System.Nullable<System.DateTime> LastActivityOn
         {
             get
             {
-                return this._lastActivityOn;
-            }
-            private set
-            {
-                this._lastActivityOn = value;
+                return this.GetValueOrDefault<System.Nullable<System.DateTime>>("last_activity_on", default(System.Nullable<System.DateTime>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_sign_in_at")]
         public System.Nullable<System.DateTime> LastSignInAt
         {
             get
             {
-                return this._lastSignInAt;
-            }
-            private set
-            {
-                this._lastSignInAt = value;
+                return this.GetValueOrDefault<System.Nullable<System.DateTime>>("last_sign_in_at", default(System.Nullable<System.DateTime>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "linkedin")]
         public string Linkedin
         {
             get
             {
-                return this._linkedin;
-            }
-            private set
-            {
-                this._linkedin = value;
+                return this.GetValueOrDefault<string>("linkedin", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "location")]
         public string Location
         {
             get
             {
-                return this._location;
-            }
-            private set
-            {
-                this._location = value;
+                return this.GetValueOrDefault<string>("location", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "organization")]
         public string Organization
         {
             get
             {
-                return this._organization;
-            }
-            private set
-            {
-                this._organization = value;
+                return this.GetValueOrDefault<string>("organization", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "private_profile")]
         public object PrivateProfile
         {
             get
             {
-                return this._privateProfile;
-            }
-            private set
-            {
-                this._privateProfile = value;
+                return this.GetValueOrDefault<object>("private_profile", default(object));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "projects_limit")]
         public System.Nullable<long> ProjectsLimit
         {
             get
             {
-                return this._projectsLimit;
-            }
-            private set
-            {
-                this._projectsLimit = value;
+                return this.GetValueOrDefault<System.Nullable<long>>("projects_limit", default(System.Nullable<long>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "shared_runners_minutes_limit")]
         public System.Nullable<long> SharedRunnersMinutesLimit
         {
             get
             {
-                return this._sharedRunnersMinutesLimit;
-            }
-            private set
-            {
-                this._sharedRunnersMinutesLimit = value;
+                return this.GetValueOrDefault<System.Nullable<long>>("shared_runners_minutes_limit", default(System.Nullable<long>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "skype")]
         public string Skype
         {
             get
             {
-                return this._skype;
-            }
-            private set
-            {
-                this._skype = value;
+                return this.GetValueOrDefault<string>("skype", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "theme_id")]
         public System.Nullable<long> ThemeId
         {
             get
             {
-                return this._themeId;
-            }
-            private set
-            {
-                this._themeId = value;
+                return this.GetValueOrDefault<System.Nullable<long>>("theme_id", default(System.Nullable<long>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "twitter")]
         public string Twitter
         {
             get
             {
-                return this._twitter;
-            }
-            private set
-            {
-                this._twitter = value;
+                return this.GetValueOrDefault<string>("twitter", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "two_factor_enabled")]
         public System.Nullable<bool> TwoFactorEnabled
         {
             get
             {
-                return this._twoFactorEnabled;
-            }
-            private set
-            {
-                this._twoFactorEnabled = value;
+                return this.GetValueOrDefault<System.Nullable<bool>>("two_factor_enabled", default(System.Nullable<bool>));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "website_url")]
         public string WebsiteUrl
         {
             get
             {
-                return this._websiteUrl;
-            }
-            private set
-            {
-                this._websiteUrl = value;
+                return this.GetValueOrDefault<string>("website_url", default(string));
             }
         }
     }
 
     public partial class UserActivity : GitLab.GitLabObject
     {
-        private System.DateTime _lastActivityOn;
-
-        private string _username;
+        internal UserActivity(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "last_activity_on")]
         public System.DateTime LastActivityOn
         {
             get
             {
-                return this._lastActivityOn;
-            }
-            private set
-            {
-                this._lastActivityOn = value;
+                return this.GetValueOrDefault<System.DateTime>("last_activity_on", default(System.DateTime));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
         public string Username
         {
             get
             {
-                return this._username;
-            }
-            private set
-            {
-                this._username = value;
+                return this.GetValueOrDefault<string>("username", default(string));
             }
         }
     }
 
     public partial class UserBasic : UserSafe
     {
-        private string _avatarPath;
+        internal UserBasic(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _avatarUrl;
-
-        private UserState _state;
-
-        private string _webUrl;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_path")]
         public string AvatarPath
         {
             get
             {
-                return this._avatarPath;
-            }
-            private set
-            {
-                this._avatarPath = value;
+                return this.GetValueOrDefault<string>("avatar_path", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "avatar_url")]
         public string AvatarUrl
         {
             get
             {
-                return this._avatarUrl;
-            }
-            private set
-            {
-                this._avatarUrl = value;
+                return this.GetValueOrDefault<string>("avatar_url", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "state")]
         public UserState State
         {
             get
             {
-                return this._state;
-            }
-            private set
-            {
-                this._state = value;
+                return this.GetValueOrDefault<UserState>("state", default(UserState));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "web_url")]
         public string WebUrl
         {
             get
             {
-                return this._webUrl;
-            }
-            private set
-            {
-                this._webUrl = value;
+                return this.GetValueOrDefault<string>("web_url", default(string));
             }
         }
     }
 
     public partial class UserSafe : GitLab.GitLabObject
     {
-        private long _id;
+        internal UserSafe(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _name;
-
-        private string _username;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "id")]
         public long Id
         {
             get
             {
-                return this._id;
-            }
-            private set
-            {
-                this._id = value;
+                return this.GetValueOrDefault<long>("id", default(long));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "name")]
         public string Name
         {
             get
             {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
+                return this.GetValueOrDefault<string>("name", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "username")]
         public string Username
         {
             get
             {
-                return this._username;
-            }
-            private set
-            {
-                this._username = value;
+                return this.GetValueOrDefault<string>("username", default(string));
             }
         }
     }
 
     public partial class UserStatus : GitLab.GitLabObject
     {
-        private string _emoji;
+        internal UserStatus(Newtonsoft.Json.Linq.JObject obj)
+            : base(obj)
+        {
+        }
 
-        private string _message;
-
-        private string _messageHtml;
-
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "emoji")]
         public string Emoji
         {
             get
             {
-                return this._emoji;
-            }
-            private set
-            {
-                this._emoji = value;
+                return this.GetValueOrDefault<string>("emoji", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message")]
         public string Message
         {
             get
             {
-                return this._message;
-            }
-            private set
-            {
-                this._message = value;
+                return this.GetValueOrDefault<string>("message", default(string));
             }
         }
 
-        [Newtonsoft.Json.JsonPropertyAttribute(PropertyName = "message_html")]
         public string MessageHtml
         {
             get
             {
-                return this._messageHtml;
-            }
-            private set
-            {
-                this._messageHtml = value;
+                return this.GetValueOrDefault<string>("message_html", default(string));
             }
         }
     }
@@ -3817,7 +2818,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<SshKey> AddSshKeyAsync(this UserSafe userSafe, string title, string key, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return userSafe.GitLabClient.AddSshKeyAsync(userSafe, title, key, requestOptions, cancellationToken);
+            return ((IGitLabObject)userSafe).GitLabClient.AddSshKeyAsync(userSafe, title, key, requestOptions, cancellationToken);
         }
 
         /// <param name="requestOptions">Options of the request</param>
@@ -3831,7 +2832,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<FileCreated> CreateFileAsync(this ProjectIdentity projectIdentity, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.CreateFileAsync(projectIdentity, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.CreateFileAsync(projectIdentity, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, requestOptions, cancellationToken);
         }
 
         /// <summary>It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.</summary>
@@ -3839,7 +2840,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(this UserSafe userSafe, string name, System.Collections.Generic.IEnumerable<string> scopes, System.Nullable<System.DateTime> expiresAt = default(System.Nullable<System.DateTime>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return userSafe.GitLabClient.CreateImpersonationTokenAsync(userSafe, name, scopes, expiresAt, requestOptions, cancellationToken);
+            return ((IGitLabObject)userSafe).GitLabClient.CreateImpersonationTokenAsync(userSafe, name, scopes, expiresAt, requestOptions, cancellationToken);
         }
 
         /// <summary>Creates a new project issue.</summary>
@@ -3847,7 +2848,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Issue> CreateIssueAsync(this ProjectIdentity projectIdentity, string title, string description = default(string), System.Nullable<bool> confidential = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.CreateIssueAsync(projectIdentity, title, description, confidential, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.CreateIssueAsync(projectIdentity, title, description, confidential, requestOptions, cancellationToken);
         }
 
         /// <summary>Creates a new merge request.</summary>
@@ -3855,7 +2856,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this ProjectIdentity projectIdentity, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.CreateMergeRequestAsync(projectIdentity, sourceBranch, targetBranch, title, description, assigneeId, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.CreateMergeRequestAsync(projectIdentity, sourceBranch, targetBranch, title, description, assigneeId, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, requestOptions, cancellationToken);
         }
 
         /// <summary>Creates a new merge request.</summary>
@@ -3863,7 +2864,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this UserSafe userSafe, ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<ProjectIdRef> targetProjectId = default(System.Nullable<ProjectIdRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return userSafe.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, userSafe, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, requestOptions, cancellationToken);
+            return ((IGitLabObject)userSafe).GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, userSafe, targetProjectId, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, requestOptions, cancellationToken);
         }
 
         /// <summary>Creates a new merge request.</summary>
@@ -3871,7 +2872,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this ProjectIdentity projectIdentity, ProjectIdOrPathRef project, string sourceBranch, string targetBranch, string title, string description = default(string), System.Nullable<UserRef> assigneeId = default(System.Nullable<UserRef>), System.Nullable<bool> removeSourceBranch = default(System.Nullable<bool>), System.Nullable<bool> allowCollaboration = default(System.Nullable<bool>), System.Nullable<bool> allowMaintainerToPush = default(System.Nullable<bool>), System.Nullable<bool> squash = default(System.Nullable<bool>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, assigneeId, projectIdentity, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.CreateMergeRequestAsync(project, sourceBranch, targetBranch, title, description, assigneeId, projectIdentity, removeSourceBranch, allowCollaboration, allowMaintainerToPush, squash, requestOptions, cancellationToken);
         }
 
         /// <summary>Deletes key owned by currently authenticated user.</summary>
@@ -3880,7 +2881,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task DeleteSshKeyAsync(this SshKey sshKey, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return sshKey.GitLabClient.DeleteSshKeyAsync(sshKey, requestOptions, cancellationToken);
+            return ((IGitLabObject)sshKey).GitLabClient.DeleteSshKeyAsync(sshKey, requestOptions, cancellationToken);
         }
 
         /// <summary>Shows information about a single merge request.</summary>
@@ -3888,7 +2889,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest> GetMergeRequestAsync(this ProjectIdentity projectIdentity, MergeRequestIidRef mergeRequest, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.GetMergeRequestAsync(projectIdentity, mergeRequest, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.GetMergeRequestAsync(projectIdentity, mergeRequest, requestOptions, cancellationToken);
         }
 
         /// <summary>Shows information about a single merge request.</summary>
@@ -3896,7 +2897,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest> GetMergeRequestAsync(this MergeRequest mergeRequest, ProjectIdOrPathRef project, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return mergeRequest.GitLabClient.GetMergeRequestAsync(project, mergeRequest, requestOptions, cancellationToken);
+            return ((IGitLabObject)mergeRequest).GitLabClient.GetMergeRequestAsync(project, mergeRequest, requestOptions, cancellationToken);
         }
 
         /// <summary>Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.</summary>
@@ -3905,7 +2906,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(this UserSafe userSafe, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), System.Nullable<MergeRequestScopeFilter> scope = default(System.Nullable<MergeRequestScopeFilter>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return userSafe.GitLabClient.GetMergeRequestsAsync(state, scope, userSafe, pageOptions, requestOptions, cancellationToken);
+            return ((IGitLabObject)userSafe).GitLabClient.GetMergeRequestsAsync(state, scope, userSafe, pageOptions, requestOptions, cancellationToken);
         }
 
         /// <summary>Get all merge requests for this project.</summary>
@@ -3914,7 +2915,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<MergeRequest>> GetMergeRequestsAsync(this ProjectIdentity projectIdentity, System.Nullable<MergeRequestState> state = default(System.Nullable<MergeRequestState>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.GetMergeRequestsAsync(projectIdentity, state, pageOptions, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.GetMergeRequestsAsync(projectIdentity, state, pageOptions, requestOptions, cancellationToken);
         }
 
         /// <summary>Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.</summary>
@@ -3922,7 +2923,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Project> GetProjectAsync(this ProjectIdentity projectIdentity, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.GetProjectAsync(projectIdentity, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.GetProjectAsync(projectIdentity, requestOptions, cancellationToken);
         }
 
         /// <summary>Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.</summary>
@@ -3931,7 +2932,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Meziantou.GitLab.PagedResponse<Project>> GetProjectsAsync(this UserSafe userSafe, System.Nullable<bool> archived = default(System.Nullable<bool>), System.Nullable<ProjectVisibility> visibility = default(System.Nullable<ProjectVisibility>), string search = default(string), System.Nullable<bool> simple = default(System.Nullable<bool>), System.Nullable<bool> owned = default(System.Nullable<bool>), System.Nullable<bool> membership = default(System.Nullable<bool>), System.Nullable<bool> starred = default(System.Nullable<bool>), System.Nullable<bool> statistics = default(System.Nullable<bool>), System.Nullable<bool> withIssuesEnabled = default(System.Nullable<bool>), System.Nullable<bool> withMergeRequestsEnabled = default(System.Nullable<bool>), System.Nullable<bool> wikiChecksumFailed = default(System.Nullable<bool>), System.Nullable<bool> repositoryChecksumFailed = default(System.Nullable<bool>), System.Nullable<Access> minAccessLevel = default(System.Nullable<Access>), Meziantou.GitLab.PageOptions pageOptions = default(Meziantou.GitLab.PageOptions), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return userSafe.GitLabClient.GetProjectsAsync(userSafe, archived, visibility, search, simple, owned, membership, starred, statistics, withIssuesEnabled, withMergeRequestsEnabled, wikiChecksumFailed, repositoryChecksumFailed, minAccessLevel, pageOptions, requestOptions, cancellationToken);
+            return ((IGitLabObject)userSafe).GitLabClient.GetProjectsAsync(userSafe, archived, visibility, search, simple, owned, membership, starred, statistics, withIssuesEnabled, withMergeRequestsEnabled, wikiChecksumFailed, repositoryChecksumFailed, minAccessLevel, pageOptions, requestOptions, cancellationToken);
         }
 
         /// <summary>Get a single key.</summary>
@@ -3940,7 +2941,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<SshKey> GetSshKeyAsync(this SshKey sshKey, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return sshKey.GitLabClient.GetSshKeyAsync(sshKey, requestOptions, cancellationToken);
+            return ((IGitLabObject)sshKey).GitLabClient.GetSshKeyAsync(sshKey, requestOptions, cancellationToken);
         }
 
         /// <summary>Get the status of a user.</summary>
@@ -3948,7 +2949,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<UserStatus> GetUserStatusAsync(this UserSafe userSafe, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return userSafe.GitLabClient.GetUserStatusAsync(userSafe, requestOptions, cancellationToken);
+            return ((IGitLabObject)userSafe).GitLabClient.GetUserStatusAsync(userSafe, requestOptions, cancellationToken);
         }
 
         /// <summary>Marks a single pending todo given by its ID for the current user as done.</summary>
@@ -3956,14 +2957,14 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(this Todo todo, GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return todo.GitLabClient.MarkTodoAsDoneAsync(todo, requestOptions, cancellationToken);
+            return ((IGitLabObject)todo).GitLabClient.MarkTodoAsDoneAsync(todo, requestOptions, cancellationToken);
         }
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this ProjectIdentity projectIdentity, string filePath, string branch, string content, string commitMessage, string startBranch = default(string), string encoding = default(string), string authorEmail = default(string), string authorName = default(string), System.Nullable<GitLab.GitObjectId> lastCommitId = default(System.Nullable<GitLab.GitObjectId>), GitLab.RequestOptions requestOptions = default(GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            return projectIdentity.GitLabClient.UpdateFileAsync(projectIdentity, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, lastCommitId, requestOptions, cancellationToken);
+            return ((IGitLabObject)projectIdentity).GitLabClient.UpdateFileAsync(projectIdentity, filePath, branch, content, commitMessage, startBranch, encoding, authorEmail, authorName, lastCommitId, requestOptions, cancellationToken);
         }
 
         /// <param name="requestOptions">Options of the request</param>

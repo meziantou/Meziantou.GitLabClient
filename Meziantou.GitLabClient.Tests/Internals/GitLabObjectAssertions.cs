@@ -8,26 +8,6 @@ namespace Meziantou.GitLab.Tests
 {
     public static class GitLabObjectAssertions
     {
-        public static void DoesNotContainUnmappedProperties(object o, bool validateChildProperties = true)
-        {
-            foreach (var obj in GetObjects(o))
-            {
-                if (obj.AdditionalData.Count > 0)
-                {
-                    Assert.Fail($"Type '{obj.GetType().FullName}' has unmapped properties: {string.Join("\n", obj.AdditionalData.Select(kvp => kvp.Key + " (" + kvp.Value + ")"))}");
-                }
-
-                if (validateChildProperties)
-                {
-                    var properties = TypeDescriptor.GetProperties(obj);
-                    foreach (PropertyDescriptor prop in properties)
-                    {
-                        DoesNotContainUnmappedProperties(prop.GetValue(obj), validateChildProperties);
-                    }
-                }
-            }
-        }
-
         public static void DoesContainOnlyUtcDates(object o)
         {
             foreach (var obj in GetObjects(o))
@@ -51,7 +31,7 @@ namespace Meziantou.GitLab.Tests
         {
             foreach (var obj in GetObjects(o))
             {
-                Assert.IsNotNull(obj.GitLabClient);
+                Assert.IsNotNull(((IGitLabObject)obj).GitLabClient);
 
                 if (validateChildProperties)
                 {

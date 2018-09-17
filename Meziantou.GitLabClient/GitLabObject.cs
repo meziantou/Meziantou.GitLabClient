@@ -1,21 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab
 {
-    public abstract class GitLabObject
+    [JsonConverter(typeof(GitLabObjectConverter))]
+    public class GitLabObject : IGitLabObject
     {
-        private IDictionary<string, JToken> _additionalData = null;
-
-        public virtual bool TryGetValue(string name, out object result)
+        internal GitLabObject(JObject obj)
         {
-            if (AdditionalData != null && AdditionalData.TryGetValue(name, out var value))
+            Object = obj;
+        }
+
+        public virtual bool TryGetValue(string name, Type type, out object result)
+        {
+            if (Object != null && Object.TryGetValue(name, out var value))
             {
-                result = value.ToObject(typeof(object), new JsonSerializer { Converters = { new JsonObjectConverter() } });
+                result = value.ToObject(type, new JsonSerializer
+                {
+                    Converters =
+                    {
+                        new GitLabObjectConverter(),
+                        new GitObjectIdConverter(),
+                        new JsonObjectConverter(),
+                    }
+                });
+
+                if (result is IGitLabObject g)
+                {
+                    g.GitLabClient = ((IGitLabObject)this).GitLabClient;
+                }
+
                 return true;
             }
 
@@ -23,31 +40,46 @@ namespace Meziantou.GitLab
             return false;
         }
 
-        [JsonExtensionData]
-        internal IDictionary<string, JToken> AdditionalData
+        public virtual bool TryGetValue<T>(string name, out T result)
         {
-            get
+            if (TryGetValue(name, typeof(T), out var r))
             {
-                if (_additionalData == null)
-                {
-                    _additionalData = new Dictionary<string, JToken>();
-                }
-
-                return _additionalData;
+                result = (T)r;
+                return true;
             }
+
+            result = default;
+            return false;
         }
 
-        [JsonIgnore]
-        internal IGitLabClient GitLabClient { get; set; }
-
-        [OnDeserialized]
-        internal void OnDeserializedMethod(StreamingContext context)
+        public T GetValueOrDefault<T>(string name)
         {
-            if (context.Context is IGitLabClient client)
-            {
-                GitLabClient = client;
-            }
+            return GetValueOrDefault(name, default(T));
         }
+
+        public T GetValueOrDefault<T>(string name, T defaultValue)
+        {
+            if (TryGetValue<T>(name, out var result))
+            {
+                return result;
+            }
+
+            return defaultValue;
+        }
+
+        public object GetValueOrDefault(string name, Type type, object defaultValue)
+        {
+            if (TryGetValue(name, type, out var result))
+            {
+                return result;
+            }
+
+            return defaultValue;
+        }
+
+        IGitLabClient IGitLabObject.GitLabClient { get; set; }
+
+        private JObject Object { get; }
 
         // Convert JToken to .NET standard types
         private class JsonObjectConverter : JsonConverter
@@ -57,7 +89,7 @@ namespace Meziantou.GitLab
 
             public override bool CanConvert(Type objectType)
             {
-                return true;
+                return typeof(object) == objectType || typeof(object[]) == objectType;
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

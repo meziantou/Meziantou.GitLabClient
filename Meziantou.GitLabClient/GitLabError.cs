@@ -1,12 +1,19 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab
 {
+    // TODO code properies
     public class GitLabError : GitLabObject
     {
-        public string Error { get; set; }
-        public string ErrorDescription { get; set; }
-        public string Scope { get; set; }
-        public IReadOnlyDictionary<string, IReadOnlyList<string>> Message { get; set; }
+        public GitLabError(JObject obj)
+            : base(obj)
+        {
+        }
+
+        public string Error => GetValueOrDefault<string>("error");
+        public string ErrorDescription => GetValueOrDefault<string>("error_description");
+        public string Scope => GetValueOrDefault<string>("scope");
+        public IReadOnlyDictionary<string, IReadOnlyList<string>> Message => GetValueOrDefault<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message");
     }
 }

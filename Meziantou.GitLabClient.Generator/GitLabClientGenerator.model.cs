@@ -449,7 +449,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("author", userBasic),
                     new EntityProperty("project", basicProjectDetails),
                     new EntityProperty("target_type", todoType),
-                    new EntityProperty("target", ModelRef.GitLabObject) { JsonConverter = new ModelRef("TodoTargetJsonConverter") },
+                    //new EntityProperty("target", ModelRef.GitLabObject) { JsonConverter = new ModelRef("TodoTargetJsonConverter") },
                     new EntityProperty("target_url", ModelRef.String),
                     new EntityProperty("body", ModelRef.String),
                     new EntityProperty("state", todoState),

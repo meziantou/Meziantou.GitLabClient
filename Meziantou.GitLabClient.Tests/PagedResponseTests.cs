@@ -27,13 +27,13 @@ namespace Meziantou.GitLab.Tests
                             { "X-Total", "50" },
                             { "X-Total-Pages", "10" },
                         },
-                        Content = new JsonContent(new[] { new Dummy(), new Dummy() })
+                        Content = new JsonContent(new[] { new object(), new object() })
                     });
 
                 using (var context = GetContext(handler))
                 {
                     // Act
-                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", default, CancellationToken.None);
+                    var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://dummy", default, CancellationToken.None);
 
                     // Assert
                     Assert.AreEqual(2, page.PageIndex);
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab.Tests
                         {
                             { "Link", "<http://dummy/?page=2>; rel=\"next\"" },
                         },
-                        Content = new JsonContent(new[] { new Dummy(), new Dummy() })
+                        Content = new JsonContent(new[] { new object(), new object() })
                     });
 
                 handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
@@ -68,12 +68,12 @@ namespace Meziantou.GitLab.Tests
                         {
                             { "Link", "<http://dummy/?page=2>; rel=\"current\"" },
                         },
-                        Content = new JsonContent(new[] { new Dummy() })
+                        Content = new JsonContent(new[] { new object() })
                     });
 
                 using (var context = GetContext(handler))
                 {
-                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", default, CancellationToken.None);
+                    var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://dummy", default, CancellationToken.None);
 
                     // Act
                     var result = page.AsEnumerable().Take(3).ToList();
@@ -96,7 +96,7 @@ namespace Meziantou.GitLab.Tests
                         {
                             { "Link", "<http://dummy/?page=2>; rel=\"next\"" },
                         },
-                        Content = new JsonContent(new[] { new Dummy(), new Dummy() })
+                        Content = new JsonContent(new[] { new object(), new object() })
                     });
 
                 handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
@@ -106,15 +106,15 @@ namespace Meziantou.GitLab.Tests
                         {
                             { "Link", "<http://dummy/?page=2>; rel=\"current\"" },
                         },
-                        Content = new JsonContent(new[] { new Dummy() })
+                        Content = new JsonContent(new[] { new object() })
                     });
 
                 using (var context = GetContext(handler))
                 {
-                    var page = await context.AdminClient.GetPagedAsync<Dummy>("http://dummy", default, CancellationToken.None);
+                    var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://dummy", default, CancellationToken.None);
 
                     // Act
-                    var action = Substitute.For<Action<Dummy>>();
+                    var action = Substitute.For<Action<object>>();
                     await page.ForEachAsync(action);
 
                     // Assert
@@ -131,10 +131,6 @@ namespace Meziantou.GitLab.Tests
             }
 
             public abstract HttpResponseMessage Send(HttpMethod method, string url);
-        }
-
-        public class Dummy : GitLabObject
-        {
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Meziantou.GitLab
 {
-    public class PagedResponse<T> : GitLabObject
+    public class PagedResponse<T>
         where T : GitLabObject
     {
         private static readonly Task<bool> TrueTask = Task.FromResult(true);
@@ -23,6 +23,9 @@ namespace Meziantou.GitLab
         public bool IsLastPage => NextPageUrl == null;
         public bool IsFirstPage => PreviousPageUrl == null;
 
+        internal GitLabClient GitLabClient { get; }
+        public IReadOnlyList<T> Data { get; }
+
         internal PagedResponse(GitLabClient client, IReadOnlyList<T> data, int pageIndex, int pageSize, int totalItems, int totalPages, string firstUrl, string lastUrl, string previousUrl, string nextUrl)
         {
             GitLabClient = client ?? throw new ArgumentNullException(nameof(client));
@@ -36,8 +39,6 @@ namespace Meziantou.GitLab
             PreviousPageUrl = previousUrl;
             NextPageUrl = nextUrl;
         }
-
-        public IReadOnlyList<T> Data { get; }
 
         public Task<PagedResponse<T>> GetFirstPageAsync(CancellationToken cancellationToken = default)
         {

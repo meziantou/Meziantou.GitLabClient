@@ -10,6 +10,7 @@ using Meziantou.Framework.CodeDom;
 using Meziantou.GitLab;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -370,7 +371,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 m.Statements.Clear();
 
-                var invoke = new MethodInvokeExpression(extensionArgument.CreateMemberReferenceExpression("GitLabClient", m.Name));
+                var invoke = new MethodInvokeExpression(new CastExpression(extensionArgument, new TypeReference("IGitLabObject")).CreateMemberReferenceExpression("GitLabClient", m.Name));
 
                 foreach (var arg in m.Arguments.ToList())
                 {
@@ -450,18 +451,37 @@ namespace Meziantou.GitLabClient.Generator
             AddDocumentationComments(type, entity.Documentation);
             type.Modifiers = Modifiers.Public | Modifiers.Partial;
             type.BaseType = entity.BaseType ?? ModelRef.GitLabObject;
+
+            // Add default constructor
+            var ctor = type.AddMember(new ConstructorDeclaration()
+            {
+                Arguments =
+                {
+                    new MethodArgumentDeclaration(typeof(JObject), "obj")
+                },
+                Modifiers = Modifiers.Internal,
+                Initializer = new ConstructorBaseInitializer(new ArgumentReferenceExpression("obj"))
+            });
+
+            // Add properties
             foreach (var prop in entity.Properties)
             {
-                var field = type.AddMember(new FieldDeclaration(ToFieldName(prop.Name), GetPropertyTypeRef(prop.Type), Modifiers.Private));
                 var propertyMember = type.AddMember(new PropertyDeclaration(ToPropertyName(prop.Name), GetPropertyTypeRef(prop.Type))
                 {
                     Modifiers = Modifiers.Public,
-                    Getter = new ReturnStatement(field),
-                    Setter = new PropertyAccessorDeclaration
+                    Getter = new StatementCollection
                     {
-                        Modifiers = Modifiers.Private,
-                        Statements = new AssignStatement(field, new ValueArgumentExpression())
-                    },
+                        new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetValueOrDefault",
+                        new TypeReference[]
+                        {
+                            GetPropertyTypeRef(prop.Type)
+                        },
+                        new Expression[]
+                        {
+                            prop.SerializationName ?? prop.Name,
+                            new DefaultValueExpression(GetPropertyTypeRef(prop.Type)),
+                        }))
+                    }
                 });
 
                 AddDocumentationComments(propertyMember, prop.Documentation);
@@ -471,45 +491,20 @@ namespace Meziantou.GitLabClient.Generator
                     propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(SkipUtcDateValidationAttribute)) { Arguments = { new CustomAttributeArgument("Does not contain time nor timezone (e.g. 2018-01-01)") } });
                 }
 
-                // [Newtonsoft.Json.JsonProperty(PropertyName = "")]
-                var jsonPropertyAttribute = new CustomAttribute(typeof(JsonPropertyAttribute))
-                {
-                    Arguments =
-                        {
-                            new CustomAttributeArgument(nameof(JsonPropertyAttribute.PropertyName), prop.SerializationName ?? prop.Name),
-                            //new CustomAttributeArgument(nameof(JsonPropertyAttribute.Required), RequiredMode(prop)),
-                        }
-                };
-                propertyMember.CustomAttributes.Add(jsonPropertyAttribute);
-
                 // [JsonConverterAttribute(typeof())]
                 if (prop.JsonConverter != null)
                 {
                     var jsonConverterAttribute = new CustomAttribute(typeof(JsonConverterAttribute))
                     {
                         Arguments =
-                            {
-                                new CustomAttributeArgument(new TypeOfExpression(GetPropertyTypeRef(prop.JsonConverter))),
-                            }
+                        {
+                            new CustomAttributeArgument(new TypeOfExpression(GetPropertyTypeRef(prop.JsonConverter))),
+                        }
                     };
 
                     propertyMember.CustomAttributes.Add(jsonConverterAttribute);
                 }
             }
-
-            //Required RequiredMode(EntityProperty property)
-            //{
-            //    if (property.Required.HasValue)
-            //        return property.Required.Value;
-
-            //    if (property.Type.IsNullable)
-            //        return Required.AllowNull;
-
-            //    if (property.Type.IsModel)
-            //        return Required.AllowNull;
-
-            //    return Required.Always;
-            //}
         }
 
         private void GenerateEnumeration(NamespaceDeclaration ns, Enumeration enumeration)
