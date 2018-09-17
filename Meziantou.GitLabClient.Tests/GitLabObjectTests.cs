@@ -83,10 +83,20 @@ namespace Meziantou.GitLab.Tests
             Assert.IsTrue(result);
             Assert.IsInstanceOfType(value, typeof(object[]));
 
-            var array = (object[])value;
+            var array = value;
             Assert.IsInstanceOfType(array[0], typeof(IDictionary<string, object>));
             Assert.IsInstanceOfType(array[1], typeof(long));
             Assert.IsInstanceOfType(array[2], typeof(string));
+        }
+
+        [TestMethod]
+        public void AsDynamic()
+        {
+            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": 2 }");
+
+            dynamic dyn = obj;
+            var result = dyn.Prop1;
+            Assert.AreEqual(2, (int)result);
         }
     }
 }

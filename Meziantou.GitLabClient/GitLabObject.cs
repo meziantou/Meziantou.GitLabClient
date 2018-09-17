@@ -1,32 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Dynamic;
+using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab
 {
     [JsonConverter(typeof(GitLabObjectConverter))]
-    public class GitLabObject : IGitLabObject
+    public class GitLabObject : IGitLabObject, IDynamicMetaObjectProvider
     {
+        private static readonly JsonSerializer _jsonSerializer;
+
+        static GitLabObject()
+        {
+            _jsonSerializer = new JsonSerializer
+            {
+                Converters =
+                {
+                    new GitLabObjectConverter(),
+                    new GitObjectIdConverter(),
+                    new JsonObjectConverter(),
+                }
+            };
+        }
+
+        IGitLabClient IGitLabObject.GitLabClient { get; set; }
+
+        private JObject Object { get; }
+
         internal GitLabObject(JObject obj)
         {
-            Object = obj;
+            Object = obj ?? throw new ArgumentNullException(nameof(obj));
         }
 
         public virtual bool TryGetValue(string name, Type type, out object result)
         {
-            if (Object != null && Object.TryGetValue(name, out var value))
+            if (Object.TryGetValue(name, out var value))
             {
-                result = value.ToObject(type, new JsonSerializer
-                {
-                    Converters =
-                    {
-                        new GitLabObjectConverter(),
-                        new GitObjectIdConverter(),
-                        new JsonObjectConverter(),
-                    }
-                });
+                result = value.ToObject(type, _jsonSerializer);
 
                 if (result is IGitLabObject g)
                 {
@@ -77,95 +88,9 @@ namespace Meziantou.GitLab
             return defaultValue;
         }
 
-        IGitLabClient IGitLabObject.GitLabClient { get; set; }
-
-        private JObject Object { get; }
-
-        // Convert JToken to .NET standard types
-        private class JsonObjectConverter : JsonConverter
+        DynamicMetaObject IDynamicMetaObjectProvider.GetMetaObject(Expression parameter)
         {
-            public override bool CanRead => true;
-            public override bool CanWrite => false;
-
-            public override bool CanConvert(Type objectType)
-            {
-                return typeof(object) == objectType || typeof(object[]) == objectType;
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                var token = JToken.Load(reader);
-                if (token is JValue v)
-                {
-                    return v.Value;
-                }
-
-                if (token is JObject o)
-                {
-                    return ToDictionary(o);
-                }
-
-                if (token is JArray a)
-                {
-                    return ToArray(a);
-                }
-
-                return null;
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
-            private static IDictionary<string, object> ToDictionary(JObject json)
-            {
-                var propertyValuePairs = json.ToObject<Dictionary<string, object>>();
-                ProcessJObjectProperties(propertyValuePairs);
-                ProcessJArrayProperties(propertyValuePairs);
-                return propertyValuePairs;
-            }
-
-            private static void ProcessJObjectProperties(IDictionary<string, object> propertyValuePairs)
-            {
-                var objectPropertyNames = (from property in propertyValuePairs
-                                           let propertyName = property.Key
-                                           let value = property.Value
-                                           where value is JObject
-                                           select propertyName).ToList();
-
-                objectPropertyNames.ForEach(propertyName => propertyValuePairs[propertyName] = ToDictionary((JObject)propertyValuePairs[propertyName]));
-            }
-
-            private static void ProcessJArrayProperties(IDictionary<string, object> propertyValuePairs)
-            {
-                var arrayPropertyNames = (from property in propertyValuePairs
-                                          let propertyName = property.Key
-                                          let value = property.Value
-                                          where value is JArray
-                                          select propertyName).ToList();
-
-                arrayPropertyNames.ForEach(propertyName => propertyValuePairs[propertyName] = ToArray((JArray)propertyValuePairs[propertyName]));
-            }
-
-            private static object[] ToArray(JArray array)
-            {
-                return array.ToObject<object[]>().Select(ProcessArrayEntry).ToArray();
-            }
-
-            private static object ProcessArrayEntry(object value)
-            {
-                if (value is JObject obj)
-                {
-                    return ToDictionary(obj);
-                }
-                if (value is JArray array)
-                {
-                    return ToArray(array);
-                }
-                return value;
-            }
-
-        }
+            return new DelegatingMetaObject(Object, parameter, BindingRestrictions.Empty, Object);
+        }      
     }
 }
