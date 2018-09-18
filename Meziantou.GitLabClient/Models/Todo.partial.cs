@@ -4,25 +4,32 @@ namespace Meziantou.GitLab
 {
     public partial class Todo
     {
+        private GitLabObject _target;
+
         public GitLabObject Target
         {
             get
             {
-                Type type;
-                switch (TargetType)
+                if (_target == null)
                 {
-                    case TodoType.Issue:
-                        type = typeof(Issue);
-                        break;
-                    case TodoType.MergeRequest:
-                        type = typeof(MergeRequest);
-                        break;
-                    default:
-                        type = typeof(GitLabObject);
-                        break;
+                    Type type;
+                    switch (TargetType)
+                    {
+                        case TodoType.Issue:
+                            type = typeof(Issue);
+                            break;
+                        case TodoType.MergeRequest:
+                            type = typeof(MergeRequest);
+                            break;
+                        default:
+                            type = typeof(GitLabObject);
+                            break;
+                    }
+
+                    _target = (GitLabObject)GetValueOrDefault("target", type, default(GitLabObject));
                 }
 
-                return (GitLabObject)GetValueOrDefault("target", type, default(GitLabObject));
+                return _target;
             }
         }
     }

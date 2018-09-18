@@ -91,6 +91,6 @@ namespace Meziantou.GitLab
         DynamicMetaObject IDynamicMetaObjectProvider.GetMetaObject(Expression parameter)
         {
             return new DelegatingMetaObject(Object, parameter, BindingRestrictions.Empty, Object);
-        }      
+        }
     }
 }
