@@ -5,7 +5,7 @@ namespace Meziantou.GitLab
 {
     public class GitLabError : GitLabObject
     {
-        public GitLabError(JObject obj)
+        internal GitLabError(JObject obj)
             : base(obj)
         {
         }
@@ -13,6 +13,36 @@ namespace Meziantou.GitLab
         public string Error => GetValueOrDefault<string>("error");
         public string ErrorDescription => GetValueOrDefault<string>("error_description");
         public string Scope => GetValueOrDefault<string>("scope");
-        public IReadOnlyDictionary<string, IReadOnlyList<string>> Message => GetValueOrDefault<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message");
+        public string Message
+        {
+            get
+            {
+                if (TryGetValue<JToken>("message", out var result))
+                {
+                    if (result.Type == JTokenType.String)
+                    {
+                        return GetValueOrDefault<string>("message");
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public IReadOnlyDictionary<string, IReadOnlyList<string>> Messages
+        {
+            get
+            {
+                if (TryGetValue<JToken>("message", out var result))
+                {
+                    if (result.Type == JTokenType.Object)
+                    {
+                        return GetValueOrDefault<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message");
+                    }
+                }
+
+                return null;
+            }
+        }
     }
 }

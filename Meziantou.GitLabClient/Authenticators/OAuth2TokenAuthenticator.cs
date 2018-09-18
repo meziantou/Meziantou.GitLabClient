@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Meziantou.GitLab
 {
-    public class TokenAuthenticator : IAuthenticator
+    public class OAuth2TokenAuthenticator : IAuthenticator
     {
-        public TokenAuthenticator(string token)
+        public OAuth2TokenAuthenticator(string token)
         {
             Token = token ?? throw new ArgumentNullException(nameof(token));
         }
@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
 
         public Task AuthenticateAsync(HttpRequestMessage message, CancellationToken cancellationToken)
         {
-            message.Headers.Add("Private-Token", Token);
+            message.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Token);
             return Task.CompletedTask;
         }
     }

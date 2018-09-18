@@ -29,6 +29,7 @@ namespace Meziantou.GitLab.Tests
 
         public string AdminUserToken { get; private set; }
         public string ProfileToken { get; private set; }
+        public string Cookies { get; private set; }
 
         public async Task Setup()
         {
@@ -160,6 +161,11 @@ namespace Meziantou.GitLab.Tests
             var codeElements = result.QuerySelectorAll("code").ToList();
             var tokenElement = codeElements.Single(n => n.TextContent.StartsWith("X-Profile-Token:"));
             ProfileToken = tokenElement.TextContent.Substring("X-Profile-Token:".Length).Trim();
+
+            // Get admin login cookie
+            var a = new CookieContainer();
+            a.SetCookies(new Uri("http://dummy"), result.Cookie);
+            Cookies = a.GetCookies(new Uri("http://dummy")).Cast<System.Net.Cookie>().Single(c => c.Name == "_gitlab_session").Value;
         }
 
         // TODO remove when resolved https://github.com/AngleSharp/AngleSharp/issues/702

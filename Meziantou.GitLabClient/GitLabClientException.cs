@@ -64,14 +64,19 @@ namespace Meziantou.GitLab
             if (error.Error != null)
                 return error.Error;
 
-            if (error.Message != null)
+            var message = error.Message;
+            if (message != null)
+                return message;
+
+            var messages = error.Messages;
+            if (messages != null)
             {
                 var sb = new StringBuilder();
-                foreach (var message in error.Message)
+                foreach (var msg in messages)
                 {
-                    foreach (var value in message.Value)
+                    foreach (var value in msg.Value)
                     {
-                        sb.Append(message.Key).Append(' ').AppendLine(value);
+                        sb.Append(msg.Key).Append(' ').AppendLine(value);
                     }
                 }
 
