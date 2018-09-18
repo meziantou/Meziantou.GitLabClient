@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab
 {
-    // TODO code properies
     public class GitLabError : GitLabObject
     {
         public GitLabError(JObject obj)

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Meziantou.GitLab
 {
-    public static class PageResponseExtensions
+    public static class PagedResponseExtensions
     {
         public static async Task<IReadOnlyList<T>> ToListAsync<T>(this Task<PagedResponse<T>> pageResponse)
             where T : GitLabObject

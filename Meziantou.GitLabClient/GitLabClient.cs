@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         private readonly bool _httpClientOwned;
         private readonly StreamingContext _streamingContext;
         // internal for testing purpose
-        internal readonly JsonSerializerSettings _jsonSerializerSettings;
+        internal readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings();
 
         public Uri ServerUri { get; }
 
@@ -48,7 +48,6 @@ namespace Meziantou.GitLab
             _httpClientOwned = httpClientOwned;
             ServerUri = new Uri(serverUri, "api/v4/");
             Authenticator = authenticator;
-            _jsonSerializerSettings = CreateJsonSerializerSettings();
             _streamingContext = new StreamingContext(StreamingContextStates.All, this);
         }
 
@@ -289,17 +288,7 @@ namespace Meziantou.GitLab
                 _httpClient.Dispose();
             }
         }
-
-        private JsonSerializerSettings CreateJsonSerializerSettings()
-        {
-            return new JsonSerializerSettings()
-            {
-                CheckAdditionalContent = false,
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Ignore,
-            };
-        }
-
+        
         private async Task EnsureStatusCodeAsync(HttpResponseMessage responseMessage)
         {
             // TODO throw more specific exception (Unauthorized, Forbidden, NotFound, ValidationException, etc.)
