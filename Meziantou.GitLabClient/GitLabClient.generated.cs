@@ -141,12 +141,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal BasicProjectDetails()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
         public string AvatarUrl
         {
             get
             {
                 return this.GetValueOrDefault<string>("avatar_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("avatar_url", value);
             }
         }
 
@@ -157,6 +166,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("default_branch", default(string));
             }
+            internal set
+            {
+                this.SetValue("default_branch", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("forks_count")]
@@ -165,6 +178,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("forks_count", default(long));
+            }
+            internal set
+            {
+                this.SetValue("forks_count", value);
             }
         }
 
@@ -175,6 +192,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("http_url_to_repo", default(string));
             }
+            internal set
+            {
+                this.SetValue("http_url_to_repo", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("last_activity_at")]
@@ -183,6 +204,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.DateTime>("last_activity_at", default(System.DateTime));
+            }
+            internal set
+            {
+                this.SetValue("last_activity_at", value);
             }
         }
 
@@ -193,6 +218,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<NamespaceBasic>("namespace", default(NamespaceBasic));
             }
+            internal set
+            {
+                this.SetValue("namespace", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("readme_url")]
@@ -201,6 +230,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("readme_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("readme_url", value);
             }
         }
 
@@ -211,6 +244,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("ssh_url_to_repo", default(string));
             }
+            internal set
+            {
+                this.SetValue("ssh_url_to_repo", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("star_count")]
@@ -219,6 +256,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("star_count", default(long));
+            }
+            internal set
+            {
+                this.SetValue("star_count", value);
             }
         }
 
@@ -229,6 +270,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("tag_list", default(System.Collections.Generic.IReadOnlyList<string>));
             }
+            internal set
+            {
+                this.SetValue("tag_list", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
@@ -237,6 +282,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("web_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("web_url", value);
             }
         }
     }
@@ -248,12 +297,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal FileCreated()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("branch")]
         public string Branch
         {
             get
             {
                 return this.GetValueOrDefault<string>("branch", default(string));
+            }
+            internal set
+            {
+                this.SetValue("branch", value);
             }
         }
 
@@ -263,6 +321,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("file_path", default(string));
+            }
+            internal set
+            {
+                this.SetValue("file_path", value);
             }
         }
     }
@@ -274,12 +336,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal FileUpdated()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("branch")]
         public string Branch
         {
             get
             {
                 return this.GetValueOrDefault<string>("branch", default(string));
+            }
+            internal set
+            {
+                this.SetValue("branch", value);
             }
         }
 
@@ -290,6 +361,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("file_path", default(string));
             }
+            internal set
+            {
+                this.SetValue("file_path", value);
+            }
         }
     }
 
@@ -297,6 +372,11 @@ namespace Meziantou.GitLab
     {
         internal GroupAccess(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
+        {
+        }
+
+        internal GroupAccess()
+            : base(new Newtonsoft.Json.Linq.JObject())
         {
         }
     }
@@ -308,12 +388,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal Identity()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("extern_uid")]
         public string ExternUid
         {
             get
             {
                 return this.GetValueOrDefault<string>("extern_uid", default(string));
+            }
+            internal set
+            {
+                this.SetValue("extern_uid", value);
             }
         }
 
@@ -323,6 +412,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("provider", default(string));
+            }
+            internal set
+            {
+                this.SetValue("provider", value);
             }
         }
 
@@ -347,7 +440,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.Identity a, Meziantou.GitLab.Identity b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Identity>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.Identity a, Meziantou.GitLab.Identity b)
@@ -364,12 +457,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal ImpersonationToken()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("active")]
         public bool Active
         {
             get
             {
                 return this.GetValueOrDefault<bool>("active", default(bool));
+            }
+            internal set
+            {
+                this.SetValue("active", value);
             }
         }
 
@@ -379,6 +481,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
+            }
+            internal set
+            {
+                this.SetValue("created_at", value);
             }
         }
 
@@ -390,6 +496,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<System.DateTime>>("expires_at", default(System.Nullable<System.DateTime>));
             }
+            internal set
+            {
+                this.SetValue("expires_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("id")]
@@ -398,6 +508,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("id", value);
             }
         }
 
@@ -408,6 +522,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("impersonation", default(bool));
             }
+            internal set
+            {
+                this.SetValue("impersonation", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("name")]
@@ -416,6 +534,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("name", default(string));
+            }
+            internal set
+            {
+                this.SetValue("name", value);
             }
         }
 
@@ -426,6 +548,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("revoked", default(bool));
             }
+            internal set
+            {
+                this.SetValue("revoked", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("scopes")]
@@ -435,6 +561,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("scopes", default(System.Collections.Generic.IReadOnlyList<string>));
             }
+            internal set
+            {
+                this.SetValue("scopes", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("token")]
@@ -443,6 +573,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("token", default(string));
+            }
+            internal set
+            {
+                this.SetValue("token", value);
             }
         }
 
@@ -466,7 +600,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.ImpersonationToken a, Meziantou.GitLab.ImpersonationToken b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ImpersonationToken>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.ImpersonationToken a, Meziantou.GitLab.ImpersonationToken b)
@@ -483,12 +617,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal Issue()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
             {
                 return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
+            }
+            internal set
+            {
+                this.SetValue("author", value);
             }
         }
 
@@ -499,6 +642,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<System.DateTime>>("closed_at", default(System.Nullable<System.DateTime>));
             }
+            internal set
+            {
+                this.SetValue("closed_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("closed_by")]
@@ -507,6 +654,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<UserBasic>("closed_by", default(UserBasic));
+            }
+            internal set
+            {
+                this.SetValue("closed_by", value);
             }
         }
 
@@ -517,6 +668,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
+            internal set
+            {
+                this.SetValue("created_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("id")]
@@ -525,6 +680,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("id", value);
             }
         }
 
@@ -535,6 +694,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<long>("iid", default(long));
             }
+            internal set
+            {
+                this.SetValue("iid", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("project_id")]
@@ -543,6 +706,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("project_id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("project_id", value);
             }
         }
 
@@ -553,6 +720,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("title", default(string));
             }
+            internal set
+            {
+                this.SetValue("title", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("updated_at")]
@@ -562,6 +733,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.DateTime>("updated_at", default(System.DateTime));
             }
+            internal set
+            {
+                this.SetValue("updated_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
@@ -570,6 +745,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("web_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("web_url", value);
             }
         }
 
@@ -593,7 +772,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.Issue a, Meziantou.GitLab.Issue b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Issue>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.Issue a, Meziantou.GitLab.Issue b)
@@ -609,12 +788,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal MemberAccess()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("access_level")]
         public Access AccessLevel
         {
             get
             {
                 return this.GetValueOrDefault<Access>("access_level", default(Access));
+            }
+            internal set
+            {
+                this.SetValue("access_level", value);
             }
         }
 
@@ -624,6 +812,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("notification_level", default(string));
+            }
+            internal set
+            {
+                this.SetValue("notification_level", value);
             }
         }
     }
@@ -636,12 +828,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal MergeRequest()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
             {
                 return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
+            }
+            internal set
+            {
+                this.SetValue("author", value);
             }
         }
 
@@ -652,6 +853,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
+            internal set
+            {
+                this.SetValue("created_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("id")]
@@ -660,6 +865,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("id", value);
             }
         }
 
@@ -670,6 +879,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<long>("iid", default(long));
             }
+            internal set
+            {
+                this.SetValue("iid", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("merge_status")]
@@ -678,6 +891,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("merge_status", default(string));
+            }
+            internal set
+            {
+                this.SetValue("merge_status", value);
             }
         }
 
@@ -688,6 +905,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<long>("project_id", default(long));
             }
+            internal set
+            {
+                this.SetValue("project_id", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("state")]
@@ -696,6 +917,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<MergeRequestState>("state", default(MergeRequestState));
+            }
+            internal set
+            {
+                this.SetValue("state", value);
             }
         }
 
@@ -706,6 +931,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("title", default(string));
             }
+            internal set
+            {
+                this.SetValue("title", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("updated_at")]
@@ -714,6 +943,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.DateTime>("updated_at", default(System.DateTime));
+            }
+            internal set
+            {
+                this.SetValue("updated_at", value);
             }
         }
 
@@ -724,6 +957,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<int>("user_notes_count", default(int));
             }
+            internal set
+            {
+                this.SetValue("user_notes_count", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
@@ -732,6 +969,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("web_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("web_url", value);
             }
         }
 
@@ -755,7 +996,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.MergeRequest a, Meziantou.GitLab.MergeRequest b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.MergeRequest>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.MergeRequest a, Meziantou.GitLab.MergeRequest b)
@@ -772,12 +1013,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal NamespaceBasic()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("full_path")]
         public string FullPath
         {
             get
             {
                 return this.GetValueOrDefault<string>("full_path", default(string));
+            }
+            internal set
+            {
+                this.SetValue("full_path", value);
             }
         }
 
@@ -788,6 +1038,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<long>("id", default(long));
             }
+            internal set
+            {
+                this.SetValue("id", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("kind")]
@@ -796,6 +1050,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("kind", default(string));
+            }
+            internal set
+            {
+                this.SetValue("kind", value);
             }
         }
 
@@ -806,6 +1064,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("name", default(string));
             }
+            internal set
+            {
+                this.SetValue("name", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("parent_id")]
@@ -815,6 +1077,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<long>>("parent_id", default(System.Nullable<long>));
             }
+            internal set
+            {
+                this.SetValue("parent_id", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("path")]
@@ -823,6 +1089,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("path", default(string));
+            }
+            internal set
+            {
+                this.SetValue("path", value);
             }
         }
 
@@ -846,7 +1116,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.NamespaceBasic a, Meziantou.GitLab.NamespaceBasic b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.NamespaceBasic>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.NamespaceBasic a, Meziantou.GitLab.NamespaceBasic b)
@@ -862,12 +1132,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal Project()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("approvals_before_merge")]
         public System.Nullable<int> ApprovalsBeforeMerge
         {
             get
             {
                 return this.GetValueOrDefault<System.Nullable<int>>("approvals_before_merge", default(System.Nullable<int>));
+            }
+            internal set
+            {
+                this.SetValue("approvals_before_merge", value);
             }
         }
 
@@ -878,6 +1157,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("archived", default(bool));
             }
+            internal set
+            {
+                this.SetValue("archived", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("ci_config_path")]
@@ -886,6 +1169,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("ci_config_path", default(string));
+            }
+            internal set
+            {
+                this.SetValue("ci_config_path", value);
             }
         }
 
@@ -896,6 +1183,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("container_registry_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("container_registry_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("creator_id")]
@@ -904,6 +1195,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("creator_id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("creator_id", value);
             }
         }
 
@@ -914,6 +1209,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<BasicProjectDetails>("forked_from_project", default(BasicProjectDetails));
             }
+            internal set
+            {
+                this.SetValue("forked_from_project", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("import_status")]
@@ -922,6 +1221,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<ImportStatus>("import_status", default(ImportStatus));
+            }
+            internal set
+            {
+                this.SetValue("import_status", value);
             }
         }
 
@@ -932,6 +1235,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("issues_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("issues_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("jobs_enabled")]
@@ -940,6 +1247,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<bool>("jobs_enabled", default(bool));
+            }
+            internal set
+            {
+                this.SetValue("jobs_enabled", value);
             }
         }
 
@@ -950,6 +1261,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("lfs_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("lfs_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("_links")]
@@ -958,6 +1273,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<ProjectLink>("_links", default(ProjectLink));
+            }
+            internal set
+            {
+                this.SetValue("_links", value);
             }
         }
 
@@ -968,6 +1287,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<MergeMethod>("merge_method", default(MergeMethod));
             }
+            internal set
+            {
+                this.SetValue("merge_method", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("merge_requests_enabled")]
@@ -976,6 +1299,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<bool>("merge_requests_enabled", default(bool));
+            }
+            internal set
+            {
+                this.SetValue("merge_requests_enabled", value);
             }
         }
 
@@ -986,6 +1313,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("mirror", default(bool));
             }
+            internal set
+            {
+                this.SetValue("mirror", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("mirror_overwrites_diverged_branches")]
@@ -994,6 +1325,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("mirror_overwrites_diverged_branches", default(System.Nullable<bool>));
+            }
+            internal set
+            {
+                this.SetValue("mirror_overwrites_diverged_branches", value);
             }
         }
 
@@ -1004,6 +1339,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("mirror_trigger_builds", default(System.Nullable<bool>));
             }
+            internal set
+            {
+                this.SetValue("mirror_trigger_builds", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("mirror_user_id")]
@@ -1012,6 +1351,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<long>>("mirror_user_id", default(System.Nullable<long>));
+            }
+            internal set
+            {
+                this.SetValue("mirror_user_id", value);
             }
         }
 
@@ -1022,6 +1365,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("only_allow_merge_if_all_discussions_are_resolved", default(bool));
             }
+            internal set
+            {
+                this.SetValue("only_allow_merge_if_all_discussions_are_resolved", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("only_allow_merge_if_pipeline_succeeds")]
@@ -1030,6 +1377,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<bool>("only_allow_merge_if_pipeline_succeeds", default(bool));
+            }
+            internal set
+            {
+                this.SetValue("only_allow_merge_if_pipeline_succeeds", value);
             }
         }
 
@@ -1040,6 +1391,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("only_mirror_protected_branches", default(System.Nullable<bool>));
             }
+            internal set
+            {
+                this.SetValue("only_mirror_protected_branches", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("open_issues_count")]
@@ -1048,6 +1403,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<int>>("open_issues_count", default(System.Nullable<int>));
+            }
+            internal set
+            {
+                this.SetValue("open_issues_count", value);
             }
         }
 
@@ -1058,6 +1417,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<UserBasic>("owner", default(UserBasic));
             }
+            internal set
+            {
+                this.SetValue("owner", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("permissions")]
@@ -1066,6 +1429,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<ProjectPermissions>("permissions", default(ProjectPermissions));
+            }
+            internal set
+            {
+                this.SetValue("permissions", value);
             }
         }
 
@@ -1076,6 +1443,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("printing_merge_request_link_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("printing_merge_request_link_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("public_jobs")]
@@ -1084,6 +1455,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<bool>("public_jobs", default(bool));
+            }
+            internal set
+            {
+                this.SetValue("public_jobs", value);
             }
         }
 
@@ -1094,6 +1469,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("request_access_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("request_access_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("resolve_outdated_diff_discussions")]
@@ -1102,6 +1481,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("resolve_outdated_diff_discussions", default(System.Nullable<bool>));
+            }
+            internal set
+            {
+                this.SetValue("resolve_outdated_diff_discussions", value);
             }
         }
 
@@ -1112,6 +1495,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("shared_runners_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("shared_runners_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("shared_with_groups")]
@@ -1120,6 +1507,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<SharedGroup>>("shared_with_groups", default(System.Collections.Generic.IReadOnlyList<SharedGroup>));
+            }
+            internal set
+            {
+                this.SetValue("shared_with_groups", value);
             }
         }
 
@@ -1130,6 +1521,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("snippets_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("snippets_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("visibility")]
@@ -1138,6 +1533,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<ProjectVisibility>("visibility", default(ProjectVisibility));
+            }
+            internal set
+            {
+                this.SetValue("visibility", value);
             }
         }
 
@@ -1148,6 +1547,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<bool>("wiki_enabled", default(bool));
             }
+            internal set
+            {
+                this.SetValue("wiki_enabled", value);
+            }
         }
     }
 
@@ -1155,6 +1558,11 @@ namespace Meziantou.GitLab
     {
         internal ProjectAccess(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
+        {
+        }
+
+        internal ProjectAccess()
+            : base(new Newtonsoft.Json.Linq.JObject())
         {
         }
     }
@@ -1167,12 +1575,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal ProjectIdentity()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
+            }
+            internal set
+            {
+                this.SetValue("created_at", value);
             }
         }
 
@@ -1183,6 +1600,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("description", default(string));
             }
+            internal set
+            {
+                this.SetValue("description", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("id")]
@@ -1191,6 +1612,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("id", value);
             }
         }
 
@@ -1201,6 +1626,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("name", default(string));
             }
+            internal set
+            {
+                this.SetValue("name", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("name_with_namespace")]
@@ -1209,6 +1638,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("name_with_namespace", default(string));
+            }
+            internal set
+            {
+                this.SetValue("name_with_namespace", value);
             }
         }
 
@@ -1219,6 +1652,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("path", default(string));
             }
+            internal set
+            {
+                this.SetValue("path", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("path_with_namespace")]
@@ -1227,6 +1664,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("path_with_namespace", default(string));
+            }
+            internal set
+            {
+                this.SetValue("path_with_namespace", value);
             }
         }
 
@@ -1250,7 +1691,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.ProjectIdentity a, Meziantou.GitLab.ProjectIdentity b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ProjectIdentity>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.ProjectIdentity a, Meziantou.GitLab.ProjectIdentity b)
@@ -1266,12 +1707,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal ProjectLink()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("events")]
         public string Events
         {
             get
             {
                 return this.GetValueOrDefault<string>("events", default(string));
+            }
+            internal set
+            {
+                this.SetValue("events", value);
             }
         }
 
@@ -1282,6 +1732,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("issues", default(string));
             }
+            internal set
+            {
+                this.SetValue("issues", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("labels")]
@@ -1290,6 +1744,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("labels", default(string));
+            }
+            internal set
+            {
+                this.SetValue("labels", value);
             }
         }
 
@@ -1300,6 +1758,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("members", default(string));
             }
+            internal set
+            {
+                this.SetValue("members", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("merge_requests")]
@@ -1308,6 +1770,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("merge_requests", default(string));
+            }
+            internal set
+            {
+                this.SetValue("merge_requests", value);
             }
         }
 
@@ -1318,6 +1784,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("repo_branches", default(string));
             }
+            internal set
+            {
+                this.SetValue("repo_branches", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("self")]
@@ -1326,6 +1796,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("self", default(string));
+            }
+            internal set
+            {
+                this.SetValue("self", value);
             }
         }
     }
@@ -1337,12 +1811,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal ProjectPermissions()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("group_access")]
         public GroupAccess GroupAccess
         {
             get
             {
                 return this.GetValueOrDefault<GroupAccess>("group_access", default(GroupAccess));
+            }
+            internal set
+            {
+                this.SetValue("group_access", value);
             }
         }
 
@@ -1352,6 +1835,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<ProjectAccess>("project_access", default(ProjectAccess));
+            }
+            internal set
+            {
+                this.SetValue("project_access", value);
             }
         }
     }
@@ -1363,12 +1850,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal RenderedMarkdown()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("html")]
         public string Html
         {
             get
             {
                 return this.GetValueOrDefault<string>("html", default(string));
+            }
+            internal set
+            {
+                this.SetValue("html", value);
             }
         }
 
@@ -1392,7 +1888,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.RenderedMarkdown a, Meziantou.GitLab.RenderedMarkdown b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.RenderedMarkdown>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.RenderedMarkdown a, Meziantou.GitLab.RenderedMarkdown b)
@@ -1408,12 +1904,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal ServerVersion()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("revision")]
         public string Revision
         {
             get
             {
                 return this.GetValueOrDefault<string>("revision", default(string));
+            }
+            internal set
+            {
+                this.SetValue("revision", value);
             }
         }
 
@@ -1423,6 +1928,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("version", default(string));
+            }
+            internal set
+            {
+                this.SetValue("version", value);
             }
         }
 
@@ -1447,7 +1956,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.ServerVersion a, Meziantou.GitLab.ServerVersion b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ServerVersion>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.ServerVersion a, Meziantou.GitLab.ServerVersion b)
@@ -1463,12 +1972,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal SharedGroup()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("group_access_level")]
         public Access GroupAccessLevel
         {
             get
             {
                 return this.GetValueOrDefault<Access>("group_access_level", default(Access));
+            }
+            internal set
+            {
+                this.SetValue("group_access_level", value);
             }
         }
 
@@ -1479,6 +1997,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<long>("group_id", default(long));
             }
+            internal set
+            {
+                this.SetValue("group_id", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("group_name")]
@@ -1487,6 +2009,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("group_name", default(string));
+            }
+            internal set
+            {
+                this.SetValue("group_name", value);
             }
         }
     }
@@ -1499,12 +2025,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal SshKey()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
+            }
+            internal set
+            {
+                this.SetValue("created_at", value);
             }
         }
 
@@ -1515,6 +2050,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<long>("id", default(long));
             }
+            internal set
+            {
+                this.SetValue("id", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("key")]
@@ -1524,6 +2063,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("key", default(string));
             }
+            internal set
+            {
+                this.SetValue("key", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("title")]
@@ -1532,6 +2075,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("title", default(string));
+            }
+            internal set
+            {
+                this.SetValue("title", value);
             }
         }
 
@@ -1555,7 +2102,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.SshKey a, Meziantou.GitLab.SshKey b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.SshKey>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.SshKey a, Meziantou.GitLab.SshKey b)
@@ -1571,12 +2118,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal Todo()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("action_name")]
         public TodoAction ActionName
         {
             get
             {
                 return this.GetValueOrDefault<TodoAction>("action_name", default(TodoAction));
+            }
+            internal set
+            {
+                this.SetValue("action_name", value);
             }
         }
 
@@ -1587,6 +2143,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
             }
+            internal set
+            {
+                this.SetValue("author", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("body")]
@@ -1595,6 +2155,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("body", default(string));
+            }
+            internal set
+            {
+                this.SetValue("body", value);
             }
         }
 
@@ -1605,6 +2169,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
+            internal set
+            {
+                this.SetValue("created_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("id")]
@@ -1613,6 +2181,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<long>("id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("id", value);
             }
         }
 
@@ -1623,6 +2195,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<BasicProjectDetails>("project", default(BasicProjectDetails));
             }
+            internal set
+            {
+                this.SetValue("project", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("state")]
@@ -1631,6 +2207,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<TodoState>("state", default(TodoState));
+            }
+            internal set
+            {
+                this.SetValue("state", value);
             }
         }
 
@@ -1641,6 +2221,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<TodoType>("target_type", default(TodoType));
             }
+            internal set
+            {
+                this.SetValue("target_type", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("target_url")]
@@ -1649,6 +2233,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("target_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("target_url", value);
             }
         }
 
@@ -1672,7 +2260,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.Todo a, Meziantou.GitLab.Todo b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Todo>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.Todo a, Meziantou.GitLab.Todo b)
@@ -1688,12 +2276,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal User()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("bio")]
         public string Bio
         {
             get
             {
                 return this.GetValueOrDefault<string>("bio", default(string));
+            }
+            internal set
+            {
+                this.SetValue("bio", value);
             }
         }
 
@@ -1704,6 +2301,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("can_create_group", default(System.Nullable<bool>));
             }
+            internal set
+            {
+                this.SetValue("can_create_group", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("can_create_project")]
@@ -1712,6 +2313,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("can_create_project", default(System.Nullable<bool>));
+            }
+            internal set
+            {
+                this.SetValue("can_create_project", value);
             }
         }
 
@@ -1722,6 +2327,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<long>>("color_scheme_id", default(System.Nullable<long>));
             }
+            internal set
+            {
+                this.SetValue("color_scheme_id", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("confirmed_at")]
@@ -1730,6 +2339,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<System.DateTime>>("confirmed_at", default(System.Nullable<System.DateTime>));
+            }
+            internal set
+            {
+                this.SetValue("confirmed_at", value);
             }
         }
 
@@ -1740,6 +2353,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.DateTime>("created_at", default(System.DateTime));
             }
+            internal set
+            {
+                this.SetValue("created_at", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("current_sign_in_at")]
@@ -1748,6 +2365,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<System.DateTime>>("current_sign_in_at", default(System.Nullable<System.DateTime>));
+            }
+            internal set
+            {
+                this.SetValue("current_sign_in_at", value);
             }
         }
 
@@ -1758,6 +2379,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("email", default(string));
             }
+            internal set
+            {
+                this.SetValue("email", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("external")]
@@ -1766,6 +2391,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("external", default(System.Nullable<bool>));
+            }
+            internal set
+            {
+                this.SetValue("external", value);
             }
         }
 
@@ -1776,6 +2405,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<Identity>>("identities", default(System.Collections.Generic.IReadOnlyList<Identity>));
             }
+            internal set
+            {
+                this.SetValue("identities", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("is_admin")]
@@ -1784,6 +2417,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("is_admin", default(System.Nullable<bool>));
+            }
+            internal set
+            {
+                this.SetValue("is_admin", value);
             }
         }
 
@@ -1795,6 +2432,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<System.DateTime>>("last_activity_on", default(System.Nullable<System.DateTime>));
             }
+            internal set
+            {
+                this.SetValue("last_activity_on", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("last_sign_in_at")]
@@ -1803,6 +2444,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<System.DateTime>>("last_sign_in_at", default(System.Nullable<System.DateTime>));
+            }
+            internal set
+            {
+                this.SetValue("last_sign_in_at", value);
             }
         }
 
@@ -1813,6 +2458,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("linkedin", default(string));
             }
+            internal set
+            {
+                this.SetValue("linkedin", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("location")]
@@ -1821,6 +2470,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("location", default(string));
+            }
+            internal set
+            {
+                this.SetValue("location", value);
             }
         }
 
@@ -1831,6 +2484,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("organization", default(string));
             }
+            internal set
+            {
+                this.SetValue("organization", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("private_profile")]
@@ -1839,6 +2496,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<object>("private_profile", default(object));
+            }
+            internal set
+            {
+                this.SetValue("private_profile", value);
             }
         }
 
@@ -1849,6 +2510,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<long>>("projects_limit", default(System.Nullable<long>));
             }
+            internal set
+            {
+                this.SetValue("projects_limit", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("shared_runners_minutes_limit")]
@@ -1857,6 +2522,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<long>>("shared_runners_minutes_limit", default(System.Nullable<long>));
+            }
+            internal set
+            {
+                this.SetValue("shared_runners_minutes_limit", value);
             }
         }
 
@@ -1867,6 +2536,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("skype", default(string));
             }
+            internal set
+            {
+                this.SetValue("skype", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("theme_id")]
@@ -1875,6 +2548,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.Nullable<long>>("theme_id", default(System.Nullable<long>));
+            }
+            internal set
+            {
+                this.SetValue("theme_id", value);
             }
         }
 
@@ -1885,6 +2562,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("twitter", default(string));
             }
+            internal set
+            {
+                this.SetValue("twitter", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("two_factor_enabled")]
@@ -1894,6 +2575,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Nullable<bool>>("two_factor_enabled", default(System.Nullable<bool>));
             }
+            internal set
+            {
+                this.SetValue("two_factor_enabled", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("website_url")]
@@ -1902,6 +2587,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("website_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("website_url", value);
             }
         }
     }
@@ -1913,6 +2602,11 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal UserActivity()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
         [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime LastActivityOn
@@ -1920,6 +2614,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.DateTime>("last_activity_on", default(System.DateTime));
+            }
+            internal set
+            {
+                this.SetValue("last_activity_on", value);
             }
         }
 
@@ -1929,6 +2627,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("username", default(string));
+            }
+            internal set
+            {
+                this.SetValue("username", value);
             }
         }
     }
@@ -1940,12 +2642,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal UserBasic()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("avatar_path")]
         public string AvatarPath
         {
             get
             {
                 return this.GetValueOrDefault<string>("avatar_path", default(string));
+            }
+            internal set
+            {
+                this.SetValue("avatar_path", value);
             }
         }
 
@@ -1956,6 +2667,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("avatar_url", default(string));
             }
+            internal set
+            {
+                this.SetValue("avatar_url", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("state")]
@@ -1965,6 +2680,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<UserState>("state", default(UserState));
             }
+            internal set
+            {
+                this.SetValue("state", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
@@ -1973,6 +2692,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("web_url", default(string));
+            }
+            internal set
+            {
+                this.SetValue("web_url", value);
             }
         }
     }
@@ -1985,12 +2708,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal UserSafe()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
             {
                 return this.GetValueOrDefault<long>("id", default(long));
+            }
+            internal set
+            {
+                this.SetValue("id", value);
             }
         }
 
@@ -2001,6 +2733,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("name", default(string));
             }
+            internal set
+            {
+                this.SetValue("name", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("username")]
@@ -2009,6 +2745,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("username", default(string));
+            }
+            internal set
+            {
+                this.SetValue("username", value);
             }
         }
 
@@ -2032,7 +2772,7 @@ namespace Meziantou.GitLab
 
         public static bool operator !=(Meziantou.GitLab.UserSafe a, Meziantou.GitLab.UserSafe b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.UserSafe>.Default.Equals(a, b);
+            return (!(a == b));
         }
 
         public static bool operator ==(Meziantou.GitLab.UserSafe a, Meziantou.GitLab.UserSafe b)
@@ -2048,12 +2788,21 @@ namespace Meziantou.GitLab
         {
         }
 
+        internal UserStatus()
+            : base(new Newtonsoft.Json.Linq.JObject())
+        {
+        }
+
         [Meziantou.GitLab.MappedPropertyAttribute("emoji")]
         public string Emoji
         {
             get
             {
                 return this.GetValueOrDefault<string>("emoji", default(string));
+            }
+            internal set
+            {
+                this.SetValue("emoji", value);
             }
         }
 
@@ -2064,6 +2813,10 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<string>("message", default(string));
             }
+            internal set
+            {
+                this.SetValue("message", value);
+            }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("message_html")]
@@ -2072,6 +2825,10 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<string>("message_html", default(string));
+            }
+            internal set
+            {
+                this.SetValue("message_html", value);
             }
         }
     }

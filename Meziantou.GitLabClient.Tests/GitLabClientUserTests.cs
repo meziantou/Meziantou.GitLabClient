@@ -36,19 +36,21 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
+        [DoNotParallelize] // Getting a collection on GitLab is not thread safe... AllItemsAreUnique may be false because another test may add a new user
         public async Task GetAllUsers()
         {
             using (var context = GetContext())
             using (var client = await context.CreateNewUserAsync())
             {
-                // Act
                 var currentUser = await client.GetUserAsync();
+
+                // Act
                 var users = await client.GetUsersAsync().ToListAsync();
 
                 // Assert
                 Assert.IsNotNull(users);
 
-                // There should be more than 2 users in GitLab (root and current user)
+                // There should be at least 2 users in GitLab (root and current user)
                 Assert.IsTrue(users.Count >= 2);
                 CollectionAssert.AllItemsAreNotNull(users.ToArray());
                 CollectionAssert.AllItemsAreUnique(users.ToArray());

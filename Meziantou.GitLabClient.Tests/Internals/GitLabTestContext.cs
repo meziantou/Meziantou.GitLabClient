@@ -41,7 +41,7 @@ namespace Meziantou.GitLab.Tests
         public string ServerUri { get; }
         public TestContext TestContext { get; }
 
-        public async Task<GitLabClient> CreateNewUserAsync()
+        public async Task<TestGitLabClient> CreateNewUserAsync()
         {
             var username = "user_" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_" + Guid.NewGuid().ToString("N");
             var email = username + "@dummy.com";
@@ -114,7 +114,7 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.ReaderLockAsync())
+                using (await ReaderLockAsync())
                 {
                     var result = await base.GetAsync<T>(url, options, cancellationToken);
                     Objects.Add(result);
@@ -124,7 +124,7 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.ReaderLockAsync())
+                using (await ReaderLockAsync())
                 {
                     var readOnlyList = await base.GetCollectionAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
                     Objects.AddRange(readOnlyList);
@@ -134,7 +134,7 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.ReaderLockAsync())
+                using (await ReaderLockAsync())
                 {
                     var pagedResponse = await base.GetPagedAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
                     Objects.AddRange(pagedResponse.Data);
@@ -144,7 +144,7 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.WriterLockAsync())
+                using (await WriterLockAsync())
                 {
                     var result = await base.PostJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
                     Objects.Add(result);
@@ -154,7 +154,7 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task PostJsonAsync(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.WriterLockAsync())
+                using (await WriterLockAsync())
                 {
                     await base.PostJsonAsync(url, data, options, cancellationToken).ConfigureAwait(false);
                 }
@@ -162,7 +162,7 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.WriterLockAsync())
+                using (await WriterLockAsync())
                 {
                     var result = await base.PutJsonAsync<T>(url, data, options, cancellationToken).ConfigureAwait(false);
                     Objects.Add(result);
@@ -172,10 +172,20 @@ namespace Meziantou.GitLab.Tests
 
             public override async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
             {
-                using (await _readerWriterLockSlim.WriterLockAsync())
+                using (await WriterLockAsync())
                 {
                     await base.DeleteAsync(url, options, cancellationToken);
                 }
+            }
+
+            private Task<IDisposable> ReaderLockAsync()
+            {
+                return _readerWriterLockSlim.ReaderLockAsync();
+            }
+
+            private Task<IDisposable> WriterLockAsync()
+            {
+                return _readerWriterLockSlim.WriterLockAsync();
             }
         }
 

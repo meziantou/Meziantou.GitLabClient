@@ -465,6 +465,12 @@ namespace Meziantou.GitLabClient.Generator
                 Initializer = new ConstructorBaseInitializer(new ArgumentReferenceExpression("obj"))
             });
 
+            var internalCtor = type.AddMember(new ConstructorDeclaration()
+            {
+                Modifiers = Modifiers.Internal,
+                Initializer = new ConstructorBaseInitializer(new NewObjectExpression(typeof(JObject)))
+            });
+
             // Add properties
             foreach (var prop in entity.Properties)
             {
@@ -483,7 +489,20 @@ namespace Meziantou.GitLabClient.Generator
                             prop.SerializationName ?? prop.Name,
                             new DefaultValueExpression(GetPropertyTypeRef(prop.Type)),
                         }))
-                    }
+                    },
+                    Setter = new PropertyAccessorDeclaration
+                    {
+                        Modifiers = Modifiers.Internal,
+                        Statements = new StatementCollection
+                        {
+                            new ThisExpression().CreateInvokeMethodExpression("SetValue",
+                            new Expression[]
+                            {
+                                prop.SerializationName ?? prop.Name,
+                                new ValueArgumentExpression(),
+                            })
+                        }
+                    },
                 });
 
                 AddDocumentationComments(propertyMember, prop.Documentation);
@@ -599,9 +618,7 @@ namespace Meziantou.GitLabClient.Generator
                 notEqual.ReturnType = typeof(bool);
                 notEqual.Arguments.Add(new MethodArgumentDeclaration(type, "a"));
                 notEqual.Arguments.Add(new MethodArgumentDeclaration(type, "b"));
-                notEqual.Statements.Add(new ReturnStatement(new TypeReference(typeof(EqualityComparer<>)).MakeGeneric(type).CreateMemberReferenceExpression("Default").CreateInvokeMethodExpression("Equals",
-                    new ArgumentReferenceExpression("a"),
-                    new ArgumentReferenceExpression("b"))));
+                notEqual.Statements.Add(new ReturnStatement(new UnaryExpression(UnaryOperator.Not, new BinaryExpression(BinaryOperator.Equals, new ArgumentReferenceExpression("a"), new ArgumentReferenceExpression("b")))));
             }
 
             void GenerateDebuggerDisplay()

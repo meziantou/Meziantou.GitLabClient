@@ -26,16 +26,16 @@ namespace Meziantou.GitLab
 
         IGitLabClient IGitLabObject.GitLabClient { get; set; }
 
-        private JObject Object { get; }
+        protected JObject JsonObject { get; }
 
         internal GitLabObject(JObject obj)
         {
-            Object = obj ?? throw new ArgumentNullException(nameof(obj));
+            JsonObject = obj ?? throw new ArgumentNullException(nameof(obj));
         }
 
         public virtual bool TryGetValue(string name, Type type, out object result)
         {
-            if (Object.TryGetValue(name, out var value))
+            if (JsonObject.TryGetValue(name, out var value))
             {
                 result = value.ToObject(type, _jsonSerializer);
 
@@ -88,9 +88,14 @@ namespace Meziantou.GitLab
             return defaultValue;
         }
 
+        private protected void SetValue(string propertyName, object value)
+        {
+            JsonObject[propertyName] = JToken.FromObject(value);
+        }
+
         DynamicMetaObject IDynamicMetaObjectProvider.GetMetaObject(Expression parameter)
         {
-            return new DelegatingMetaObject(Object, parameter, BindingRestrictions.Empty, Object);
+            return new DelegatingMetaObject(JsonObject, parameter, BindingRestrictions.Empty, JsonObject);
         }
     }
 }
