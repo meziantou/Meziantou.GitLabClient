@@ -10,9 +10,16 @@ namespace Meziantou.GitLab
         {
         }
 
+        [MappedProperty("error")]
         public string Error => GetValueOrDefault<string>("error");
+
+        [MappedProperty("error_description")]
         public string ErrorDescription => GetValueOrDefault<string>("error_description");
+
+        [MappedProperty("scope")]
         public string Scope => GetValueOrDefault<string>("scope");
+
+        [MappedProperty("message")]
         public string Message
         {
             get
@@ -29,6 +36,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [MappedProperty("message")]
         public IReadOnlyDictionary<string, IReadOnlyList<string>> Messages
         {
             get

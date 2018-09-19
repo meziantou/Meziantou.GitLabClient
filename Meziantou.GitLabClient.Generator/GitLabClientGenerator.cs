@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -83,6 +84,7 @@ namespace Meziantou.GitLabClient.Generator
 
             GenerateFileExtensionMethod(clientClass, clientExtensionsClass);
 
+            // Write file
             new DefaultFormatterVisitor().Visit(unit);
             using (var tw = new StreamWriter("../../../../Meziantou.GitLabClient/GitLabClient.generated.cs"))
             {
@@ -491,19 +493,128 @@ namespace Meziantou.GitLabClient.Generator
                     propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(SkipUtcDateValidationAttribute)) { Arguments = { new CustomAttributeArgument("Does not contain time nor timezone (e.g. 2018-01-01)") } });
                 }
 
-                // [JsonConverterAttribute(typeof())]
-                if (prop.JsonConverter != null)
-                {
-                    var jsonConverterAttribute = new CustomAttribute(typeof(JsonConverterAttribute))
-                    {
-                        Arguments =
-                        {
-                            new CustomAttributeArgument(new TypeOfExpression(GetPropertyTypeRef(prop.JsonConverter))),
-                        }
-                    };
+                propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(MappedPropertyAttribute)) { Arguments = { new CustomAttributeArgument(prop.SerializationName ?? prop.Name) } });
+            }
 
-                    propertyMember.CustomAttributes.Add(jsonConverterAttribute);
+            // Generate Equals members (Equals, GetHashCode, ==, !=, IEquatable<T>)
+            var displayProperty = entity.Properties.FirstOrDefault(p => p.IsDisplayName);
+            var keyProperties = entity.Properties.Where(p => p.IsKey).ToList();
+            if (keyProperties.Count > 0)
+            {
+                type.Implements.Add(new TypeReference(typeof(IEquatable<>)).MakeGeneric(type));
+
+                GenerateEqualMethod();
+                GenerateEqualTypedMethod();
+                GenerateGetHashCode();
+                GenerateEqualityOperator();
+            }
+
+            // Generate EntityDisplayName (DebuggerDisplay, ToString)
+            if (displayProperty != null)
+            {
+                GenerateDebuggerDisplay();
+            }
+
+            void GenerateEqualMethod()
+            {
+                var equal = type.AddMember(new MethodDeclaration(nameof(object.Equals)));
+                equal.Modifiers = Modifiers.Public | Modifiers.Override;
+                equal.ReturnType = typeof(bool);
+                var objArg = equal.AddArgument("obj", typeof(object));
+                var statements = new StatementCollection();
+                equal.Statements = statements;
+
+                var typedVariable = new VariableDeclarationStatement(type, "a", new ConvertExpression(objArg, type));
+                statements.Add(typedVariable);
+                statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("Equals", typedVariable)));
+            }
+
+            void GenerateEqualTypedMethod()
+            {
+                var equal = type.AddMember(new MethodDeclaration(nameof(object.Equals)));
+                equal.Modifiers = Modifiers.Public | Modifiers.Virtual;
+                equal.ReturnType = typeof(bool);
+                var objArg = equal.AddArgument("obj", type);
+
+                var returnExpression = new BinaryExpression(BinaryOperator.NotEquals, objArg, new LiteralExpression(null));
+                foreach (var key in keyProperties)
+                {
+                    var typeRef = GetPropertyTypeRef(key.Type);
+                    var expr = new BinaryExpression(BinaryOperator.Equals,
+                        new ThisExpression().CreateMemberReferenceExpression(ToPropertyName(key.Name)),
+                        objArg.CreateMemberReferenceExpression(ToPropertyName(key.Name)));
+
+                    returnExpression = new BinaryExpression(BinaryOperator.And, returnExpression, expr);
                 }
+
+                equal.Statements = new ReturnStatement(returnExpression);
+            }
+
+            void GenerateGetHashCode()
+            {
+                var equal = type.AddMember(new MethodDeclaration(nameof(object.GetHashCode)));
+                equal.Modifiers = Modifiers.Public | Modifiers.Override;
+                equal.ReturnType = typeof(int);
+
+                var statements = new StatementCollection();
+                var hashCode = new VariableDeclarationStatement(typeof(int), "hashCode", new LiteralExpression(574293967));
+                statements.Add(hashCode);
+
+                foreach (var key in keyProperties)
+                {
+                    var typeRef = Type.GetType(GetPropertyTypeRef(key.Type).ClrFullTypeName);
+                    if (typeRef.IsValueType)
+                    {
+                        statements.Add(new AssignStatement(hashCode,
+                            new BinaryExpression(BinaryOperator.Add,
+                                new BinaryExpression(BinaryOperator.Multiply, hashCode, new LiteralExpression(-1521134295)),
+                                new ThisExpression().CreateMemberReferenceExpression(ToPropertyName(key.Name)).CreateInvokeMethodExpression(nameof(GetHashCode)))));
+                    }
+                    else
+                    {
+                        statements.Add(new AssignStatement(hashCode,
+                           new BinaryExpression(BinaryOperator.Add,
+                               new BinaryExpression(BinaryOperator.Multiply, hashCode, new LiteralExpression(-1521134295)),
+                               new TypeReference(typeof(EqualityComparer<>)).MakeGeneric(key.Type).CreateMemberReferenceExpression("Default").CreateInvokeMethodExpression("GetHashCode", ToPropertyName(key.Name)))));
+                    }
+                }
+
+                statements.Add(new ReturnStatement(hashCode));
+                equal.Statements = statements;
+            }
+
+            void GenerateEqualityOperator()
+            {
+                var equal = type.AddMember(new OperatorDeclaration("=="));
+                equal.Modifiers = Modifiers.Public | Modifiers.Static;
+                equal.ReturnType = typeof(bool);
+                equal.Arguments.Add(new MethodArgumentDeclaration(type, "a"));
+                equal.Arguments.Add(new MethodArgumentDeclaration(type, "b"));
+                equal.Statements.Add(new ReturnStatement(new TypeReference(typeof(EqualityComparer<>)).MakeGeneric(type).CreateMemberReferenceExpression("Default").CreateInvokeMethodExpression("Equals",
+                    new ArgumentReferenceExpression("a"),
+                    new ArgumentReferenceExpression("b"))));
+
+                var notEqual = type.AddMember(new OperatorDeclaration("!="));
+                notEqual.Modifiers = Modifiers.Public | Modifiers.Static;
+                notEqual.ReturnType = typeof(bool);
+                notEqual.Arguments.Add(new MethodArgumentDeclaration(type, "a"));
+                notEqual.Arguments.Add(new MethodArgumentDeclaration(type, "b"));
+                notEqual.Statements.Add(new ReturnStatement(new TypeReference(typeof(EqualityComparer<>)).MakeGeneric(type).CreateMemberReferenceExpression("Default").CreateInvokeMethodExpression("Equals",
+                    new ArgumentReferenceExpression("a"),
+                    new ArgumentReferenceExpression("b"))));
+            }
+
+            void GenerateDebuggerDisplay()
+            {
+                var properties = new[] { displayProperty }.Concat(keyProperties).Where(p => p != null);
+
+                type.CustomAttributes.Add(new CustomAttribute(typeof(DebuggerDisplayAttribute))
+                {
+                    Arguments =
+                    {
+                        new CustomAttributeArgument(new LiteralExpression("{GetType().Name,nq} " + string.Join(", ", properties.Select(v=>$"{ToPropertyName(v.Name)}={{{ToPropertyName(v.Name)}}}")))),
+                    }
+                });
             }
         }
 

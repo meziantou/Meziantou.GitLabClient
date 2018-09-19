@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Meziantou.GitLabClient.Internals
+namespace Meziantou.GitLab
 {
     // http://www.rfc-editor.org/rfc/rfc5988.txt
     internal class LinkHeaderValue

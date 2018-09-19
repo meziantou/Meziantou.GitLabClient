@@ -6,6 +6,7 @@ namespace Meziantou.GitLab
     {
         private GitLabObject _target;
 
+        [MappedProperty("target")]
         public GitLabObject Target
         {
             get

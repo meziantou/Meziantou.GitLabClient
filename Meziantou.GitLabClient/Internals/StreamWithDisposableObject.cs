@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Meziantou.GitLab.Internals
+namespace Meziantou.GitLab
 {
     internal class StreamWithDisposableObject : Stream
     {

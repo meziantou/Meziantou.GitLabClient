@@ -1,5 +1,4 @@
-﻿using Meziantou.GitLabClient.Internals;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
 {

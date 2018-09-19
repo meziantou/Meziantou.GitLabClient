@@ -7,8 +7,7 @@ using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Meziantou.GitLab.Internals;
-using Meziantou.GitLabClient.Internals;
+using Meziantou.GitLabClient;
 using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
