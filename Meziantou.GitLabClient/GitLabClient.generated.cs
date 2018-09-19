@@ -141,6 +141,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
         public string AvatarUrl
         {
             get
@@ -149,6 +150,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("default_branch")]
         public string DefaultBranch
         {
             get
@@ -157,6 +159,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("forks_count")]
         public long ForksCount
         {
             get
@@ -165,6 +168,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("http_url_to_repo")]
         public string HttpUrlToRepo
         {
             get
@@ -173,6 +177,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("last_activity_at")]
         public System.DateTime LastActivityAt
         {
             get
@@ -181,6 +186,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("namespace")]
         public NamespaceBasic Namespace
         {
             get
@@ -189,6 +195,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("readme_url")]
         public string ReadmeUrl
         {
             get
@@ -197,6 +204,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("ssh_url_to_repo")]
         public string SshUrlToRepo
         {
             get
@@ -205,6 +213,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("star_count")]
         public long StarCount
         {
             get
@@ -213,6 +222,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("tag_list")]
         public System.Collections.Generic.IReadOnlyList<string> TagList
         {
             get
@@ -221,6 +231,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
         public string WebUrl
         {
             get
@@ -237,6 +248,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("branch")]
         public string Branch
         {
             get
@@ -245,6 +257,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("file_path")]
         public string FilePath
         {
             get
@@ -261,6 +274,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("branch")]
         public string Branch
         {
             get
@@ -269,6 +283,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("file_path")]
         public string FilePath
         {
             get
@@ -286,13 +301,14 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class Identity : GitLab.GitLabObject
+    public partial class Identity : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.Identity>
     {
         internal Identity(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("extern_uid")]
         public string ExternUid
         {
             get
@@ -301,6 +317,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("provider")]
         public string Provider
         {
             get
@@ -308,15 +325,46 @@ namespace Meziantou.GitLab
                 return this.GetValueOrDefault<string>("provider", default(string));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.Identity a = (obj as Meziantou.GitLab.Identity);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.Identity obj)
+        {
+            return (((obj != null) && (this.Provider == obj.Provider)) && (this.ExternUid == obj.ExternUid));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + System.Collections.Generic.EqualityComparer<string>.Default.GetHashCode("Provider"));
+            hashCode = ((hashCode * -1521134295) + System.Collections.Generic.EqualityComparer<string>.Default.GetHashCode("ExternUid"));
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.Identity a, Meziantou.GitLab.Identity b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Identity>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.Identity a, Meziantou.GitLab.Identity b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Identity>.Default.Equals(a, b);
+        }
     }
 
-    public partial class ImpersonationToken : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Name={Name}, Id={Id}")]
+    public partial class ImpersonationToken : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.ImpersonationToken>
     {
         internal ImpersonationToken(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("active")]
         public bool Active
         {
             get
@@ -325,6 +373,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -334,6 +383,7 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
+        [Meziantou.GitLab.MappedPropertyAttribute("expires_at")]
         public System.Nullable<System.DateTime> ExpiresAt
         {
             get
@@ -342,6 +392,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -350,6 +401,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("impersonation")]
         public bool Impersonation
         {
             get
@@ -358,6 +410,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -366,6 +419,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("revoked")]
         public bool Revoked
         {
             get
@@ -374,6 +428,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("scopes")]
         public System.Collections.Generic.IReadOnlyList<string> Scopes
         {
             get
@@ -382,6 +437,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("token")]
         public string Token
         {
             get
@@ -389,15 +445,45 @@ namespace Meziantou.GitLab
                 return this.GetValueOrDefault<string>("token", default(string));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.ImpersonationToken a = (obj as Meziantou.GitLab.ImpersonationToken);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.ImpersonationToken obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.ImpersonationToken a, Meziantou.GitLab.ImpersonationToken b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ImpersonationToken>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.ImpersonationToken a, Meziantou.GitLab.ImpersonationToken b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ImpersonationToken>.Default.Equals(a, b);
+        }
     }
 
-    public partial class Issue : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Title={Title}, Id={Id}")]
+    public partial class Issue : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.Issue>
     {
         internal Issue(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
@@ -406,6 +492,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("closed_at")]
         public System.Nullable<System.DateTime> ClosedAt
         {
             get
@@ -414,6 +501,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("closed_by")]
         public UserBasic ClosedBy
         {
             get
@@ -422,6 +510,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -430,6 +519,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -438,6 +528,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("iid")]
         public long Iid
         {
             get
@@ -446,6 +537,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("project_id")]
         public long ProjectId
         {
             get
@@ -454,6 +546,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("title")]
         public string Title
         {
             get
@@ -462,6 +555,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("updated_at")]
         public System.DateTime UpdatedAt
         {
             get
@@ -470,12 +564,41 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
         public string WebUrl
         {
             get
             {
                 return this.GetValueOrDefault<string>("web_url", default(string));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.Issue a = (obj as Meziantou.GitLab.Issue);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.Issue obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.Issue a, Meziantou.GitLab.Issue b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Issue>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.Issue a, Meziantou.GitLab.Issue b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Issue>.Default.Equals(a, b);
         }
     }
 
@@ -486,6 +609,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("access_level")]
         public Access AccessLevel
         {
             get
@@ -494,6 +618,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("notification_level")]
         public string NotificationLevel
         {
             get
@@ -503,13 +628,15 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class MergeRequest : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Title={Title}, Id={Id}")]
+    public partial class MergeRequest : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.MergeRequest>
     {
         internal MergeRequest(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
@@ -518,6 +645,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -526,6 +654,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -534,6 +663,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("iid")]
         public long Iid
         {
             get
@@ -542,6 +672,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("merge_status")]
         public string MergeStatus
         {
             get
@@ -550,6 +681,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("project_id")]
         public long ProjectId
         {
             get
@@ -558,6 +690,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("state")]
         public MergeRequestState State
         {
             get
@@ -566,6 +699,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("title")]
         public string Title
         {
             get
@@ -574,6 +708,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("updated_at")]
         public System.DateTime UpdatedAt
         {
             get
@@ -582,6 +717,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("user_notes_count")]
         public int UserNotesCount
         {
             get
@@ -590,6 +726,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
         public string WebUrl
         {
             get
@@ -597,15 +734,45 @@ namespace Meziantou.GitLab
                 return this.GetValueOrDefault<string>("web_url", default(string));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.MergeRequest a = (obj as Meziantou.GitLab.MergeRequest);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.MergeRequest obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.MergeRequest a, Meziantou.GitLab.MergeRequest b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.MergeRequest>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.MergeRequest a, Meziantou.GitLab.MergeRequest b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.MergeRequest>.Default.Equals(a, b);
+        }
     }
 
-    public partial class NamespaceBasic : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} FullPath={FullPath}, Id={Id}")]
+    public partial class NamespaceBasic : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.NamespaceBasic>
     {
         internal NamespaceBasic(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("full_path")]
         public string FullPath
         {
             get
@@ -614,6 +781,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -622,6 +790,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("kind")]
         public string Kind
         {
             get
@@ -630,6 +799,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -638,6 +808,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("parent_id")]
         public System.Nullable<long> ParentId
         {
             get
@@ -646,12 +817,41 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("path")]
         public string Path
         {
             get
             {
                 return this.GetValueOrDefault<string>("path", default(string));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.NamespaceBasic a = (obj as Meziantou.GitLab.NamespaceBasic);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.NamespaceBasic obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.NamespaceBasic a, Meziantou.GitLab.NamespaceBasic b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.NamespaceBasic>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.NamespaceBasic a, Meziantou.GitLab.NamespaceBasic b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.NamespaceBasic>.Default.Equals(a, b);
         }
     }
 
@@ -662,6 +862,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("approvals_before_merge")]
         public System.Nullable<int> ApprovalsBeforeMerge
         {
             get
@@ -670,6 +871,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("archived")]
         public bool Archived
         {
             get
@@ -678,6 +880,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("ci_config_path")]
         public string CiConfigPath
         {
             get
@@ -686,6 +889,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("container_registry_enabled")]
         public bool ContainerRegistryEnabled
         {
             get
@@ -694,6 +898,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("creator_id")]
         public long CreatorId
         {
             get
@@ -702,6 +907,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("forked_from_project")]
         public BasicProjectDetails ForkedFromProject
         {
             get
@@ -710,6 +916,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("import_status")]
         public ImportStatus ImportStatus
         {
             get
@@ -718,6 +925,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("issues_enabled")]
         public bool IssuesEnabled
         {
             get
@@ -726,6 +934,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("jobs_enabled")]
         public bool JobsEnabled
         {
             get
@@ -734,6 +943,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("lfs_enabled")]
         public bool LfsEnabled
         {
             get
@@ -742,6 +952,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("_links")]
         public ProjectLink Links
         {
             get
@@ -750,6 +961,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("merge_method")]
         public MergeMethod MergeMethod
         {
             get
@@ -758,6 +970,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("merge_requests_enabled")]
         public bool MergeRequestsEnabled
         {
             get
@@ -766,6 +979,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("mirror")]
         public bool Mirror
         {
             get
@@ -774,6 +988,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("mirror_overwrites_diverged_branches")]
         public System.Nullable<bool> MirrorOverwritesDivergedBranches
         {
             get
@@ -782,6 +997,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("mirror_trigger_builds")]
         public System.Nullable<bool> MirrorTriggerBuilds
         {
             get
@@ -790,6 +1006,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("mirror_user_id")]
         public System.Nullable<long> MirrorUserId
         {
             get
@@ -798,6 +1015,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("only_allow_merge_if_all_discussions_are_resolved")]
         public bool OnlyAllowMergeIfAllDiscussionsAreResolved
         {
             get
@@ -806,6 +1024,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("only_allow_merge_if_pipeline_succeeds")]
         public bool OnlyAllowMergeIfPipelineSucceeds
         {
             get
@@ -814,6 +1033,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("only_mirror_protected_branches")]
         public System.Nullable<bool> OnlyMirrorProtectedBranches
         {
             get
@@ -822,6 +1042,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("open_issues_count")]
         public System.Nullable<int> OpenIssuesCount
         {
             get
@@ -830,6 +1051,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("owner")]
         public UserBasic Owner
         {
             get
@@ -838,6 +1060,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("permissions")]
         public ProjectPermissions Permissions
         {
             get
@@ -846,6 +1069,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("printing_merge_request_link_enabled")]
         public bool PrintingMergeRequestLinkEnabled
         {
             get
@@ -854,6 +1078,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("public_jobs")]
         public bool PublicJobs
         {
             get
@@ -862,6 +1087,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("request_access_enabled")]
         public bool RequestAccessEnabled
         {
             get
@@ -870,6 +1096,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("resolve_outdated_diff_discussions")]
         public System.Nullable<bool> ResolveOutdatedDiffDiscussions
         {
             get
@@ -878,6 +1105,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("shared_runners_enabled")]
         public bool SharedRunnersEnabled
         {
             get
@@ -886,6 +1114,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("shared_with_groups")]
         public System.Collections.Generic.IReadOnlyList<SharedGroup> SharedWithGroups
         {
             get
@@ -894,6 +1123,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("snippets_enabled")]
         public bool SnippetsEnabled
         {
             get
@@ -902,6 +1132,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("visibility")]
         public ProjectVisibility Visibility
         {
             get
@@ -910,6 +1141,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("wiki_enabled")]
         public bool WikiEnabled
         {
             get
@@ -927,13 +1159,15 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class ProjectIdentity : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} PathWithNamespace={PathWithNamespace}, Id={Id}")]
+    public partial class ProjectIdentity : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.ProjectIdentity>
     {
         internal ProjectIdentity(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -942,6 +1176,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("description")]
         public string Description
         {
             get
@@ -950,6 +1185,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -958,6 +1194,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -966,6 +1203,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("name_with_namespace")]
         public string NameWithNamespace
         {
             get
@@ -974,6 +1212,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("path")]
         public string Path
         {
             get
@@ -982,12 +1221,41 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("path_with_namespace")]
         public string PathWithNamespace
         {
             get
             {
                 return this.GetValueOrDefault<string>("path_with_namespace", default(string));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.ProjectIdentity a = (obj as Meziantou.GitLab.ProjectIdentity);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.ProjectIdentity obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.ProjectIdentity a, Meziantou.GitLab.ProjectIdentity b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ProjectIdentity>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.ProjectIdentity a, Meziantou.GitLab.ProjectIdentity b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ProjectIdentity>.Default.Equals(a, b);
         }
     }
 
@@ -998,6 +1266,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("events")]
         public string Events
         {
             get
@@ -1006,6 +1275,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("issues")]
         public string Issues
         {
             get
@@ -1014,6 +1284,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("labels")]
         public string Labels
         {
             get
@@ -1022,6 +1293,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("members")]
         public string Members
         {
             get
@@ -1030,6 +1302,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("merge_requests")]
         public string MergeRequests
         {
             get
@@ -1038,6 +1311,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("repo_branches")]
         public string RepoBranches
         {
             get
@@ -1046,6 +1320,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("self")]
         public string Self
         {
             get
@@ -1062,6 +1337,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("group_access")]
         public GroupAccess GroupAccess
         {
             get
@@ -1070,6 +1346,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("project_access")]
         public ProjectAccess ProjectAccess
         {
             get
@@ -1079,13 +1356,14 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class RenderedMarkdown : GitLab.GitLabObject
+    public partial class RenderedMarkdown : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.RenderedMarkdown>
     {
         internal RenderedMarkdown(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("html")]
         public string Html
         {
             get
@@ -1093,15 +1371,44 @@ namespace Meziantou.GitLab
                 return this.GetValueOrDefault<string>("html", default(string));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.RenderedMarkdown a = (obj as Meziantou.GitLab.RenderedMarkdown);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.RenderedMarkdown obj)
+        {
+            return ((obj != null) && (this.Html == obj.Html));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + System.Collections.Generic.EqualityComparer<string>.Default.GetHashCode("Html"));
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.RenderedMarkdown a, Meziantou.GitLab.RenderedMarkdown b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.RenderedMarkdown>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.RenderedMarkdown a, Meziantou.GitLab.RenderedMarkdown b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.RenderedMarkdown>.Default.Equals(a, b);
+        }
     }
 
-    public partial class ServerVersion : GitLab.GitLabObject
+    public partial class ServerVersion : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.ServerVersion>
     {
         internal ServerVersion(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("revision")]
         public string Revision
         {
             get
@@ -1110,12 +1417,42 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("version")]
         public string Version
         {
             get
             {
                 return this.GetValueOrDefault<string>("version", default(string));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.ServerVersion a = (obj as Meziantou.GitLab.ServerVersion);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.ServerVersion obj)
+        {
+            return (((obj != null) && (this.Version == obj.Version)) && (this.Revision == obj.Revision));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + System.Collections.Generic.EqualityComparer<string>.Default.GetHashCode("Version"));
+            hashCode = ((hashCode * -1521134295) + System.Collections.Generic.EqualityComparer<string>.Default.GetHashCode("Revision"));
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.ServerVersion a, Meziantou.GitLab.ServerVersion b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ServerVersion>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.ServerVersion a, Meziantou.GitLab.ServerVersion b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ServerVersion>.Default.Equals(a, b);
         }
     }
 
@@ -1126,6 +1463,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("group_access_level")]
         public Access GroupAccessLevel
         {
             get
@@ -1134,6 +1472,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("group_id")]
         public long GroupId
         {
             get
@@ -1142,6 +1481,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("group_name")]
         public string GroupName
         {
             get
@@ -1151,13 +1491,15 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class SshKey : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Title={Title}, Id={Id}")]
+    public partial class SshKey : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.SshKey>
     {
         internal SshKey(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1166,6 +1508,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -1174,6 +1517,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("key")]
         public string Key
         {
             get
@@ -1182,6 +1526,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("title")]
         public string Title
         {
             get
@@ -1189,15 +1534,44 @@ namespace Meziantou.GitLab
                 return this.GetValueOrDefault<string>("title", default(string));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.SshKey a = (obj as Meziantou.GitLab.SshKey);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.SshKey obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.SshKey a, Meziantou.GitLab.SshKey b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.SshKey>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.SshKey a, Meziantou.GitLab.SshKey b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.SshKey>.Default.Equals(a, b);
+        }
     }
 
-    public partial class Todo : GitLab.GitLabObject
+    public partial class Todo : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.Todo>
     {
         internal Todo(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("action_name")]
         public TodoAction ActionName
         {
             get
@@ -1206,6 +1580,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
@@ -1214,6 +1589,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("body")]
         public string Body
         {
             get
@@ -1222,6 +1598,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1230,6 +1607,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -1238,6 +1616,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("project")]
         public BasicProjectDetails Project
         {
             get
@@ -1246,6 +1625,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("state")]
         public TodoState State
         {
             get
@@ -1254,6 +1634,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("target_type")]
         public TodoType TargetType
         {
             get
@@ -1262,12 +1643,41 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("target_url")]
         public string TargetUrl
         {
             get
             {
                 return this.GetValueOrDefault<string>("target_url", default(string));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.Todo a = (obj as Meziantou.GitLab.Todo);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.Todo obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.Todo a, Meziantou.GitLab.Todo b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Todo>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.Todo a, Meziantou.GitLab.Todo b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Todo>.Default.Equals(a, b);
         }
     }
 
@@ -1278,6 +1688,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("bio")]
         public string Bio
         {
             get
@@ -1286,6 +1697,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("can_create_group")]
         public System.Nullable<bool> CanCreateGroup
         {
             get
@@ -1294,6 +1706,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("can_create_project")]
         public System.Nullable<bool> CanCreateProject
         {
             get
@@ -1302,6 +1715,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("color_scheme_id")]
         public System.Nullable<long> ColorSchemeId
         {
             get
@@ -1310,6 +1724,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("confirmed_at")]
         public System.Nullable<System.DateTime> ConfirmedAt
         {
             get
@@ -1318,6 +1733,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
         public System.DateTime CreatedAt
         {
             get
@@ -1326,6 +1742,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("current_sign_in_at")]
         public System.Nullable<System.DateTime> CurrentSignInAt
         {
             get
@@ -1334,6 +1751,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("email")]
         public string Email
         {
             get
@@ -1342,6 +1760,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("external")]
         public System.Nullable<bool> External
         {
             get
@@ -1350,6 +1769,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("identities")]
         public System.Collections.Generic.IReadOnlyList<Identity> Identities
         {
             get
@@ -1358,6 +1778,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("is_admin")]
         public System.Nullable<bool> IsAdmin
         {
             get
@@ -1367,6 +1788,7 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
+        [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
         public System.Nullable<System.DateTime> LastActivityOn
         {
             get
@@ -1375,6 +1797,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("last_sign_in_at")]
         public System.Nullable<System.DateTime> LastSignInAt
         {
             get
@@ -1383,6 +1806,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("linkedin")]
         public string Linkedin
         {
             get
@@ -1391,6 +1815,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("location")]
         public string Location
         {
             get
@@ -1399,6 +1824,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("organization")]
         public string Organization
         {
             get
@@ -1407,6 +1833,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("private_profile")]
         public object PrivateProfile
         {
             get
@@ -1415,6 +1842,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("projects_limit")]
         public System.Nullable<long> ProjectsLimit
         {
             get
@@ -1423,6 +1851,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("shared_runners_minutes_limit")]
         public System.Nullable<long> SharedRunnersMinutesLimit
         {
             get
@@ -1431,6 +1860,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("skype")]
         public string Skype
         {
             get
@@ -1439,6 +1869,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("theme_id")]
         public System.Nullable<long> ThemeId
         {
             get
@@ -1447,6 +1878,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("twitter")]
         public string Twitter
         {
             get
@@ -1455,6 +1887,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("two_factor_enabled")]
         public System.Nullable<bool> TwoFactorEnabled
         {
             get
@@ -1463,6 +1896,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("website_url")]
         public string WebsiteUrl
         {
             get
@@ -1480,6 +1914,7 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
+        [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime LastActivityOn
         {
             get
@@ -1488,6 +1923,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("username")]
         public string Username
         {
             get
@@ -1504,6 +1940,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("avatar_path")]
         public string AvatarPath
         {
             get
@@ -1512,6 +1949,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
         public string AvatarUrl
         {
             get
@@ -1520,6 +1958,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("state")]
         public UserState State
         {
             get
@@ -1528,6 +1967,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
         public string WebUrl
         {
             get
@@ -1537,13 +1977,15 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class UserSafe : GitLab.GitLabObject
+    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Username={Username}, Id={Id}")]
+    public partial class UserSafe : GitLab.GitLabObject, System.IEquatable<Meziantou.GitLab.UserSafe>
     {
         internal UserSafe(Newtonsoft.Json.Linq.JObject obj)
             : base(obj)
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -1552,6 +1994,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -1560,12 +2003,41 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("username")]
         public string Username
         {
             get
             {
                 return this.GetValueOrDefault<string>("username", default(string));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Meziantou.GitLab.UserSafe a = (obj as Meziantou.GitLab.UserSafe);
+            return this.Equals(a);
+        }
+
+        public virtual bool Equals(Meziantou.GitLab.UserSafe obj)
+        {
+            return ((obj != null) && (this.Id == obj.Id));
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 574293967;
+            hashCode = ((hashCode * -1521134295) + this.Id.GetHashCode());
+            return hashCode;
+        }
+
+        public static bool operator !=(Meziantou.GitLab.UserSafe a, Meziantou.GitLab.UserSafe b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.UserSafe>.Default.Equals(a, b);
+        }
+
+        public static bool operator ==(Meziantou.GitLab.UserSafe a, Meziantou.GitLab.UserSafe b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.UserSafe>.Default.Equals(a, b);
         }
     }
 
@@ -1576,6 +2048,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("emoji")]
         public string Emoji
         {
             get
@@ -1584,6 +2057,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("message")]
         public string Message
         {
             get
@@ -1592,6 +2066,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.MappedPropertyAttribute("message_html")]
         public string MessageHtml
         {
             get

@@ -166,8 +166,8 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Properties =
                 {
-                    new EntityProperty("provider", ModelRef.String),
-                    new EntityProperty("extern_uid", ModelRef.String),
+                    new EntityProperty("provider", ModelRef.String) { IsKey = true },
+                    new EntityProperty("extern_uid", ModelRef.String) { IsKey = true },
                 }
             });
 
@@ -176,9 +176,9 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("name", ModelRef.String),
-                    new EntityProperty("username", ModelRef.String),
+                    new EntityProperty("username", ModelRef.String) { IsDisplayName = true },
                 }
             });
 
@@ -253,8 +253,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
-                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
+                    new EntityProperty("title", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("key", ModelRef.String),
                     new EntityProperty("created_at", ModelRef.DateTime),
                 },
@@ -323,11 +323,11 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("name", ModelRef.String),
                     new EntityProperty("path", ModelRef.String),
                     new EntityProperty("kind", ModelRef.String),
-                    new EntityProperty("full_path", ModelRef.String),
+                    new EntityProperty("full_path", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("parent_id", ModelRef.NullableId),
                 }
             });
@@ -342,11 +342,11 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EntityProperty("created_at", ModelRef.DateTime),
                     new EntityProperty("description", ModelRef.String) { Required = Required.AllowNull },
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("name", ModelRef.String),
                     new EntityProperty("name_with_namespace", ModelRef.String),
                     new EntityProperty("path", ModelRef.String),
-                    new EntityProperty("path_with_namespace", ModelRef.String),
+                    new EntityProperty("path_with_namespace", ModelRef.String) { IsDisplayName = true },
                 }
             });
 
@@ -444,7 +444,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("action_name", todoAction),
                     new EntityProperty("author", userBasic),
                     new EntityProperty("project", basicProjectDetails),
@@ -461,10 +461,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("iid", ModelRef.Id),
                     new EntityProperty("author", userBasic),
-                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("title", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("state", mergeRequestState),
                     new EntityProperty("project_id", ModelRef.Id),
                     new EntityProperty("web_url", ModelRef.String),
@@ -479,10 +479,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("iid", ModelRef.Id),
                     new EntityProperty("author", userBasic),
-                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("title", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("project_id", ModelRef.Id),
                     new EntityProperty("web_url", ModelRef.String),
                     new EntityProperty("created_at", ModelRef.DateTime),
@@ -496,13 +496,13 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("id", ModelRef.Id),
+                    new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("revoked", ModelRef.Boolean),
                     new EntityProperty("scopes", ModelRef.StringCollection),
                     new EntityProperty("token", ModelRef.String),
                     new EntityProperty("active", ModelRef.Boolean),
                     new EntityProperty("impersonation", ModelRef.Boolean),
-                    new EntityProperty("name", ModelRef.String),
+                    new EntityProperty("name", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("created_at", ModelRef.DateTime),
                     new EntityProperty("expires_at", ModelRef.NullableDate),
                 }
@@ -530,8 +530,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("version", ModelRef.String),
-                    new EntityProperty("revision", ModelRef.String),
+                    new EntityProperty("version", ModelRef.String) { IsKey = true },
+                    new EntityProperty("revision", ModelRef.String) { IsKey = true },
                 }
             });
 
@@ -539,7 +539,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Properties =
                 {
-                    new EntityProperty("html", ModelRef.String),
+                    new EntityProperty("html", ModelRef.String) { IsKey = true },
                 }
             });
 

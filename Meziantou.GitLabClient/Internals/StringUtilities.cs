@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Meziantou.GitLabClient.Internals
+namespace Meziantou.GitLabClient
 {
     internal static class StringUtilities
     {

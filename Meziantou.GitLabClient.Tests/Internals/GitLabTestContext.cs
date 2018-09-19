@@ -77,9 +77,9 @@ namespace Meziantou.GitLab.Tests
         {
             var client = new TestGitLabClient(_httpClient, DockerContainer.GitLabUrl, token);
             //client.ProfileToken = DockerContainer.ProfileToken;
-            client._jsonSerializerSettings.CheckAdditionalContent = true;
-            client._jsonSerializerSettings.Formatting = Formatting.Indented;
-            client._jsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
+            client.JsonSerializerSettings.CheckAdditionalContent = true;
+            client.JsonSerializerSettings.Formatting = Formatting.Indented;
+            client.JsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
             _clients.Add(client);
             return client;
         }

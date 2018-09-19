@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http.Headers;
 
-namespace Meziantou.GitLabClient.Internals
+namespace Meziantou.GitLabClient
 {
     internal static class HttpHeadersExtensions
     {
