@@ -2,6 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Meziantou.GitLabClient.svg)](https://www.nuget.org/packages/Meziantou.GitLabClient/)
 [![Build Status](https://meziantou.visualstudio.com/GitHub%20projects/_apis/build/status/meziantou.Meziantou.GitLabClient)](https://meziantou.visualstudio.com/GitHub%20projects/_build/latest?definitionId=37)
+[![GitHub license](https://img.shields.io/github/license/meziantou/Meziantou.GitLabClient.svg)](https://github.com/meziantou/Meziantou.GitLabClient/blob/master/LICENSE)
 
 .NET client for GitLab API. Support .NET Standard 2.0.
 
