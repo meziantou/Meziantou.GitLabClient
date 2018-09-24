@@ -71,14 +71,14 @@ namespace Meziantou.GitLabClient.Generator
                     var methodDeclaration = GenerateMethod(clientClass, method);
 
                     // Add extension methods on entities
-                    foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
-                    {
-                        foreach (var entity in param.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
-                        {
-                            var type = ns.Types.OfType<ClassDeclaration>().First(t => t.Name == entity.ModelRef.Model.Name);
-                            GenerateExtensionMethod(clientExtensionsClass, method, param);
-                        }
-                    }
+                    //foreach (var param in method.Parameters.Where(p => p.Type.IsParameterEntity))
+                    //{
+                    //    foreach (var entity in param.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
+                    //    {
+                    //        var type = ns.Types.OfType<ClassDeclaration>().First(t => t.Name == entity.ModelRef.Model.Name);
+                    //        GenerateExtensionMethod(clientExtensionsClass, method, param);
+                    //    }
+                    //}
                 }
             }
 

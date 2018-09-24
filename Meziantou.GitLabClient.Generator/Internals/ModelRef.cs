@@ -20,8 +20,8 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef NullableDate { get; } = new ModelRef(typeof(DateTime)) { IsNullable = true };
         public static ModelRef GitLabObject { get; } = new ModelRef("GitLab.GitLabObject");
         public static ModelRef RequestOptions { get; } = new ModelRef("GitLab.RequestOptions");
-        public static ModelRef Sha1 { get; } = new ModelRef("GitLab.Sha1");
-        public static ModelRef NullableSha1 { get; } = new ModelRef("GitLab.GitObjectId") { IsNullable = true };
+        public static ModelRef GitObjectId { get; } = new ModelRef("GitLab.GitObjectId");
+        public static ModelRef NullableGitObjectId { get; } = new ModelRef("GitLab.GitObjectId") { IsNullable = true };
 
         public static ModelRef Id { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableId { get; } = new ModelRef(typeof(long)) { IsNullable = true };
@@ -55,6 +55,16 @@ namespace Meziantou.GitLabClient.Generator
         public ModelRef(ParameterEntity model)
         {
             ParameterEntity = model;
+        }
+
+        public ModelRef(ModelRef modelRef)
+        {
+            Type = modelRef.Type;
+            Model = modelRef.Model;
+            ParameterEntity = modelRef.ParameterEntity;
+            TypeName = modelRef.TypeName;
+            IsNullable = modelRef.IsNullable;
+            IsCollection = modelRef.IsCollection;
         }
 
         public static implicit operator ModelRef(Model model) => new ModelRef(model);

@@ -53,27 +53,8 @@ namespace Meziantou.GitLab.Tests
                     issueEnabled: true,
                     visibility: ProjectVisibility.Public);
 
-                // Add a file
-                await client.CreateFileAsync(project,
-                    filePath: "readme.md",
-                    branch: "master",
-                    content: context.GetRandomString(),
-                    commitMessage: context.GetRandomString());
-
-                await client.UpdateFileAsync(project,
-                    filePath: "readme.md",
-                    branch: "new_branch",
-                    startBranch: "master",
-                    content: context.GetRandomString(),
-                    commitMessage: context.GetRandomString());
-
-                // Create merge request
-                var mergeRequest = await client.CreateMergeRequestAsync(
-                    project,
-                    sourceBranch: "new_branch",
-                    targetBranch: "master",
-                    title: context.GetRandomString(),
-                    assigneeId: currentUser);
+                // Create a merge request
+                var mergeRequest = await client.CreateMergeRequestAsync(project, assignedToMe: true);
 
                 // Should have 1 todo
                 todos = await client.GetTodosAsync().ToListAsync();

@@ -99,6 +99,15 @@ namespace Meziantou.GitLabClient.Generator
                 }
             });
 
+            var mergeRequestStatus = Project.AddModel(new Enumeration("MergeRequestStatus")
+            {
+                Members =
+                {
+                    new EnumerationMember("can_be_merged"),
+                    new EnumerationMember("cannot_be_merged"),
+                }
+            });
+
             var projectVisibility = Project.AddModel(new Enumeration("ProjectVisibility")
             {
                 Documentation = new Documentation
@@ -152,6 +161,16 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("issue"),
                     new EnumerationMember("merge_request"),
                 }
+            });
+
+            var mergeRequestView = Project.AddModel(new Enumeration("MergeRequestView")
+            {
+                Members =
+                {
+                    new EnumerationMember("default"),
+                    new EnumerationMember("simple"),
+                },
+                SerializeAsString = true,
             });
 
             #endregion
@@ -449,7 +468,6 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("author", userBasic),
                     new EntityProperty("project", basicProjectDetails),
                     new EntityProperty("target_type", todoType),
-                    //new EntityProperty("target", ModelRef.GitLabObject) { JsonConverter = new ModelRef("TodoTargetJsonConverter") },
                     new EntityProperty("target_url", ModelRef.String),
                     new EntityProperty("body", ModelRef.String),
                     new EntityProperty("state", todoState),
@@ -464,14 +482,30 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("iid", ModelRef.Id),
                     new EntityProperty("author", userBasic),
+                    new EntityProperty("assignee", userBasic),
                     new EntityProperty("title", ModelRef.String) { IsDisplayName = true },
+                    new EntityProperty("description", ModelRef.String),
                     new EntityProperty("state", mergeRequestState),
                     new EntityProperty("project_id", ModelRef.Id),
+                    new EntityProperty("source_project_id", ModelRef.Id),
+                    new EntityProperty("target_project_id", ModelRef.Id),
                     new EntityProperty("web_url", ModelRef.String),
                     new EntityProperty("created_at", ModelRef.DateTime),
                     new EntityProperty("updated_at", ModelRef.DateTime),
-                    new EntityProperty("merge_status", ModelRef.String),
                     new EntityProperty("user_notes_count", ModelRef.Int32),
+                    new EntityProperty("target_branch", ModelRef.String),
+                    new EntityProperty("source_branch", ModelRef.String),
+                    new EntityProperty("upvotes", ModelRef.Int32),
+                    new EntityProperty("downvotes", ModelRef.Int32),
+                    new EntityProperty("labels", ModelRef.StringCollection),
+                    new EntityProperty("work_in_progress", ModelRef.Boolean),
+                    new EntityProperty("merge_when_pipeline_succeeds", ModelRef.Boolean),
+                    new EntityProperty("merge_status", mergeRequestStatus),
+                    new EntityProperty("sha", ModelRef.GitObjectId),
+                    new EntityProperty("merge_commit_sha", ModelRef.NullableGitObjectId),
+                    new EntityProperty("should_remove_source_branch", ModelRef.NullableBoolean),
+                    new EntityProperty("force_remove_source_branch", ModelRef.NullableBoolean),
+                    new EntityProperty("squash", ModelRef.Boolean),
                 }
             });
 
@@ -581,7 +615,6 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("userId", ModelRef.Id),
                     new ParameterEntityRef("userName", ModelRef.String),
-                    new ParameterEntityRef("user", userSafe, "id"),
                 }
             });
 
@@ -666,6 +699,47 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("state", new ModelRef(mergeRequestState) { IsNullable = true }) { IsOptional = true },
                             new MethodParameter("scope", new ModelRef(mergeRequestScopeFilter) { IsNullable = true }) { IsOptional = true },
                             new MethodParameter("assignee_id", new ModelRef(userRef) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("author_id", new ModelRef(userRef) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("milestone", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("view", new ModelRef(mergeRequestView) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("labels", ModelRef.StringCollection) { IsOptional = true },
+                            new MethodParameter("created_after", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("created_before", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("updated_after", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("updated_before", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("my_reaction_emoji", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("source_branch", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("target_branch", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("search", ModelRef.String) { IsOptional = true },
+                        }
+                    },
+                    new Method("GetMergeRequests", "groups/:group/merge_requests")
+                    {
+                        Documentation = new Documentation
+                        {
+                            Summary = "Get all merge requests for this group and its subgroups.",
+                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests"
+                        },
+                        ReturnType = mergeRequest,
+                        MethodType = MethodType.GetPaged,
+                        Parameters =
+                        {
+                            new MethodParameter("group", ModelRef.Id),
+                            new MethodParameter("state", new ModelRef(mergeRequestState) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("scope", new ModelRef(mergeRequestScopeFilter) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("assignee_id", new ModelRef(userRef) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("author_id", new ModelRef(userRef) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("milestone", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("view", new ModelRef(mergeRequestView) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("labels", ModelRef.StringCollection) { IsOptional = true },
+                            new MethodParameter("created_after", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("created_before", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("updated_after", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("updated_before", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("my_reaction_emoji", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("source_branch", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("target_branch", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("search", ModelRef.String) { IsOptional = true },
                         }
                     },
                     new Method("GetMergeRequests", "projects/:project/merge_requests")
@@ -680,7 +754,22 @@ namespace Meziantou.GitLabClient.Generator
                         Parameters =
                         {
                             new MethodParameter("project", projectIdOrPathRef),
+                            new MethodParameter("iids", new ModelRef(ModelRef.GitObjectId) { IsCollection = true }) { IsOptional = true },
                             new MethodParameter("state", new ModelRef(mergeRequestState) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("scope", new ModelRef(mergeRequestScopeFilter) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("assignee_id", new ModelRef(userRef) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("author_id", new ModelRef(userRef) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("milestone", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("view", new ModelRef(mergeRequestView) { IsNullable = true }) { IsOptional = true },
+                            new MethodParameter("labels", ModelRef.StringCollection) { IsOptional = true },
+                            new MethodParameter("created_after", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("created_before", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("updated_after", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("updated_before", ModelRef.NullableDateTime) { IsOptional = true },
+                            new MethodParameter("my_reaction_emoji", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("source_branch", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("target_branch", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("search", ModelRef.String) { IsOptional = true },
                         }
                     },
                     new Method("GetMergeRequest", "projects/:project/merge_requests/:merge_request")
@@ -875,7 +964,7 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("encoding", ModelRef.String) { IsOptional = true },
                             new MethodParameter("author_email", ModelRef.String) { IsOptional = true },
                             new MethodParameter("author_name", ModelRef.String) { IsOptional = true },
-                            new MethodParameter("last_commit_id", ModelRef.NullableSha1) { IsOptional = true },
+                            new MethodParameter("last_commit_id", ModelRef.NullableGitObjectId) { IsOptional = true },
                             new MethodParameter("content", ModelRef.String),
                             new MethodParameter("commit_message", ModelRef.String),
                         }

@@ -20,27 +20,7 @@ namespace Meziantou.GitLab.Tests
                     issueEnabled: true,
                     visibility: ProjectVisibility.Public);
 
-                // Add a file
-                await client.CreateFileAsync(project,
-                    filePath: "readme.md",
-                    branch: "master",
-                    content: context.GetRandomString(),
-                    commitMessage: context.GetRandomString());
-
-                await client.UpdateFileAsync(project,
-                    filePath: "readme.md",
-                    branch: "new_branch",
-                    startBranch: "master",
-                    content: context.GetRandomString(),
-                    commitMessage: context.GetRandomString());
-
-                // Create merge request
-                var mergeRequest = await client.CreateMergeRequestAsync(
-                    project,
-                    sourceBranch: "new_branch",
-                    targetBranch: "master",
-                    title: context.GetRandomString(),
-                    assigneeId: currentUser);
+                var mergeRequest = await client.CreateMergeRequestAsync(project, assignedToMe: true);
 
                 // Get all MR of the project
                 var mergeRequests = await client.GetMergeRequestsAsync(project).ToListAsync();
@@ -50,6 +30,26 @@ namespace Meziantou.GitLab.Tests
                 // Get single merge request
                 var mr = await client.GetMergeRequestAsync(project, mergeRequest);
                 Assert.AreEqual(mergeRequest.Id, mergeRequests[0].Id);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetMergeRequestWithConflict()
+        {
+            using (var context = GetContext())
+            using (var client = await context.CreateNewUserAsync())
+            {
+                var currentUser = await client.GetUserAsync();
+
+                // Create a project
+                var project = await client.CreateProjectAsync(
+                    name: context.GetRandomString(),
+                    issueEnabled: true,
+                    visibility: ProjectVisibility.Public);
+
+                var mergeRequest = await client.CreateMergeRequestAsync(project, hasConflict: true);
+
+                Assert.AreEqual(MergeRequestStatus.CannotBeMerged, mergeRequest.MergeStatus);
             }
         }
     }

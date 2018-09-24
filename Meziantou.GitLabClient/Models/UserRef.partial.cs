@@ -17,5 +17,15 @@ namespace Meziantou.GitLab
                 return null;
             }
         }
+
+        private UserRef(UserSafe user)
+        {
+            _value = user?.Id;
+        }
+
+        public static implicit operator UserRef(UserSafe user)
+        {
+            return new UserRef(user);
+        }
     }
 }
