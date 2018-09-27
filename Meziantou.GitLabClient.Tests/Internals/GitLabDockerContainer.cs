@@ -19,7 +19,7 @@ namespace Meziantou.GitLab.Tests
     {
         public const string ContainerName = "MeziantouGitLabClientTests";
         public const string ImageName = "gitlab/gitlab-ee";
-        public const string ImageTag = "latest";
+        public const string ImageTag = "11.3.0-ee.0";
 
         public int HttpPort { get; } = 8080;
         public string AdminUserName { get; } = "root";

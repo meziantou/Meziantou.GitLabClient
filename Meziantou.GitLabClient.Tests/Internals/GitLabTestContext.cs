@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Polly;
 
 namespace Meziantou.GitLab.Tests
 {
@@ -18,20 +17,17 @@ namespace Meziantou.GitLab.Tests
 
         private readonly HttpClient _httpClient;
         private readonly LoggingHandler _loggingHandler;
-        private readonly RetryHandler _retryHandler;
         private readonly List<TestGitLabClient> _clients = new List<TestGitLabClient>();
 
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {
             TestContext = testOutput;
 
-            _retryHandler = new RetryHandler();
             _loggingHandler = new LoggingHandler();
 
             _loggingHandler.InnerHandler = handler ?? new HttpClientHandler();
-            _retryHandler.InnerHandler = _loggingHandler;
 
-            _httpClient = new HttpClient(_retryHandler, disposeHandler: true);
+            _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.AdminUserToken);
         }
 
@@ -159,23 +155,6 @@ namespace Meziantou.GitLab.Tests
                         }
                     }
                 }
-            }
-        }
-
-        public class RetryHandler : DelegatingHandler
-        {
-            private readonly IAsyncPolicy<HttpResponseMessage> _policy;
-
-            public RetryHandler()
-            {
-                _policy = Policy<HttpResponseMessage>
-                    .HandleResult(response => (int)response.StatusCode >= 500)
-                    .WaitAndRetryAsync(3, count => TimeSpan.FromSeconds(2));
-            }
-
-            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                return _policy.ExecuteAsync(() => base.SendAsync(request, cancellationToken));
             }
         }
     }

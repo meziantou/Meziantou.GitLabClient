@@ -173,6 +173,17 @@ namespace Meziantou.GitLabClient.Generator
                 SerializeAsString = true,
             });
 
+            var wikiPageFormat = Project.AddModel(new Enumeration("WikiPageFormat")
+            {
+                Members =
+                {
+                    new EnumerationMember("markdown"),
+                    new EnumerationMember("rdoc"),
+                    new EnumerationMember("asciidoc"),
+                },
+                SerializeAsString = true,
+            });
+
             #endregion
 
             #region Entities
@@ -574,6 +585,17 @@ namespace Meziantou.GitLabClient.Generator
                 Properties =
                 {
                     new EntityProperty("html", ModelRef.String) { IsKey = true },
+                }
+            });
+
+            var wikiPage = Project.AddModel(new Entity("WikiPage")
+            {
+                Properties =
+                {
+                    new EntityProperty("slug", ModelRef.String) { IsKey = true },
+                    new EntityProperty("title", ModelRef.String),
+                    new EntityProperty("content", ModelRef.String),
+                    new EntityProperty("format", wikiPageFormat),
                 }
             });
 
@@ -1235,6 +1257,85 @@ namespace Meziantou.GitLabClient.Generator
                         },
                         ReturnType = version,
                         MethodType = MethodType.Get
+                    },
+                });
+
+            Project.AddMethodGroup("Wiki",
+                new[]
+                {
+                    new Method("GetWikiPages", "projects/:project/wikis")
+                    {
+                        Documentation = new Documentation
+                        {
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                        },
+                        ReturnType = new ModelRef(wikiPage) { IsCollection = true },
+                        MethodType = MethodType.Get,
+                        Parameters =
+                        {
+                            new MethodParameter("project", projectIdOrPathRef),
+                        },
+                    },
+                    new Method("GetWikiPage", "projects/:project/wikis/:slug")
+                    {
+                        Documentation = new Documentation
+                        {
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                        },
+                        ReturnType = wikiPage,
+                        MethodType = MethodType.Get,
+                        Parameters =
+                        {
+                            new MethodParameter("project", projectIdOrPathRef),
+                            new MethodParameter("slug", ModelRef.String),
+                        },
+                    },
+                    new Method("CreateWikiPage", "projects/:project/wikis")
+                    {
+                        Documentation = new Documentation
+                        {
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                        },
+                        ReturnType = wikiPage,
+                        MethodType = MethodType.Post,
+                        Parameters =
+                        {
+                            new MethodParameter("project", projectIdOrPathRef),
+                            new MethodParameter("content", ModelRef.String),
+                            new MethodParameter("title", ModelRef.String),
+                            new MethodParameter("format", new ModelRef(wikiPageFormat) { IsNullable = true }) { IsOptional = true },
+                        },
+                    },
+                    new Method("UpdateWikiPage", "projects/:project/wikis/:slug")
+                    {
+                        Documentation = new Documentation
+                        {
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                        },
+                        ReturnType = wikiPage,
+                        MethodType = MethodType.Put,
+                        Parameters =
+                        {
+                            new MethodParameter("project", projectIdOrPathRef),
+                            new MethodParameter("slug", ModelRef.String),
+                            new MethodParameter("content", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("title", ModelRef.String) { IsOptional = true },
+                            new MethodParameter("format", new ModelRef(wikiPageFormat) { IsNullable = true }) { IsOptional = true },
+                        },
+                    },
+                    new Method("DeleteWikiPage", "projects/:project/wikis/:slug")
+                    {
+                        Documentation = new Documentation
+                        {
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                        },
+                        ReturnType = null,
+                        MethodType = MethodType.Delete,
+                        Parameters =
+                        {
+                            new MethodParameter("project", projectIdOrPathRef),
+                            new MethodParameter("slug", ModelRef.String),
+                        },
                     },
                 });
 
