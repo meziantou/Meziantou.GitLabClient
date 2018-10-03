@@ -376,7 +376,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("name", ModelRef.String),
                     new EntityProperty("name_with_namespace", ModelRef.String),
                     new EntityProperty("path", ModelRef.String),
-                    new EntityProperty("path_with_namespace", ModelRef.String) { IsDisplayName = true },
+                    new EntityProperty("path_with_namespace", ModelRef.PathWithNamespace) { IsDisplayName = true },
                 }
             });
 
@@ -618,7 +618,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("projectId", ModelRef.Id),
                     new ParameterEntityRef("project", projectIdentity, "id"),
-                    new ParameterEntityRef("projectPathWithNamespace", ModelRef.String),
+                    new ParameterEntityRef("projectPathWithNamespace", ModelRef.PathWithNamespace),
                 }
             });
 
