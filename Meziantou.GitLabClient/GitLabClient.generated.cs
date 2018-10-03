@@ -1896,11 +1896,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("path_with_namespace")]
-        public GitLab.PathWithNamespace PathWithNamespace
+        public Meziantou.GitLab.PathWithNamespace PathWithNamespace
         {
             get
             {
-                return this.GetValueOrDefault<GitLab.PathWithNamespace>("path_with_namespace", default(GitLab.PathWithNamespace));
+                return this.GetValueOrDefault<Meziantou.GitLab.PathWithNamespace>("path_with_namespace", default(Meziantou.GitLab.PathWithNamespace));
             }
             internal set
             {
@@ -3227,7 +3227,12 @@ namespace Meziantou.GitLab
             this._value = project.Id;
         }
 
-        private ProjectIdOrPathRef(GitLab.PathWithNamespace projectPathWithNamespace)
+        private ProjectIdOrPathRef(Meziantou.GitLab.PathWithNamespace projectPathWithNamespace)
+        {
+            this._value = projectPathWithNamespace;
+        }
+
+        private ProjectIdOrPathRef(string projectPathWithNamespace)
         {
             this._value = projectPathWithNamespace;
         }
@@ -3255,7 +3260,12 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.ProjectIdOrPathRef(project);
         }
 
-        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(GitLab.PathWithNamespace projectPathWithNamespace)
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(Meziantou.GitLab.PathWithNamespace projectPathWithNamespace)
+        {
+            return new Meziantou.GitLab.ProjectIdOrPathRef(projectPathWithNamespace);
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(string projectPathWithNamespace)
         {
             return new Meziantou.GitLab.ProjectIdOrPathRef(projectPathWithNamespace);
         }

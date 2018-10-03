@@ -22,7 +22,7 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef RequestOptions { get; } = new ModelRef("GitLab.RequestOptions");
         public static ModelRef GitObjectId { get; } = new ModelRef("GitLab.GitObjectId");
         public static ModelRef NullableGitObjectId { get; } = new ModelRef("GitLab.GitObjectId") { IsNullable = true };
-        public static ModelRef PathWithNamespace { get; } = new ModelRef("GitLab.PathWithNamespace");
+        public static ModelRef PathWithNamespace { get; } = new ModelRef(typeof(GitLab.PathWithNamespace));
 
         public static ModelRef Id { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableId { get; } = new ModelRef(typeof(long)) { IsNullable = true };

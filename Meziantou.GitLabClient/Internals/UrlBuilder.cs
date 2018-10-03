@@ -59,6 +59,10 @@ namespace Meziantou.GitLab
                     Parameters[key] = FormatEnum(v);
                     break;
 
+                case PathWithNamespace v:
+                    Parameters[key] = v.FullPath;
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value));
             }

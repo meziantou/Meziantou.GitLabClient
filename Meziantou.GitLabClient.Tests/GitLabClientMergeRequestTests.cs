@@ -34,6 +34,25 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
+        public async Task CreateMergeRequests()
+        {
+            using (var context = GetContext())
+            using (var client = await context.CreateNewUserAsync())
+            {
+                var currentUser = await client.GetUserAsync();
+
+                // Create a project
+                var project = await client.CreateProjectAsync(
+                    name: context.GetRandomString(),
+                    issueEnabled: true,
+                    visibility: ProjectVisibility.Public);
+
+                var mergeRequest1 = await client.CreateMergeRequestAsync(project.PathWithNamespace, assignedToMe: true);
+                var mergeRequest2 = await client.CreateMergeRequestAsync(project.PathWithNamespace.FullPath, assignedToMe: true);
+            }
+        }
+
+        [TestMethod]
         public async Task GetMergeRequestWithConflict()
         {
             using (var context = GetContext())

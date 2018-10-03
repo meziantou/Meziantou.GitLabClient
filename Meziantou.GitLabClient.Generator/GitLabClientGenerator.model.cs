@@ -619,6 +619,7 @@ namespace Meziantou.GitLabClient.Generator
                     new ParameterEntityRef("projectId", ModelRef.Id),
                     new ParameterEntityRef("project", projectIdentity, "id"),
                     new ParameterEntityRef("projectPathWithNamespace", ModelRef.PathWithNamespace),
+                    new ParameterEntityRef("projectPathWithNamespace", ModelRef.String),
                 }
             });
 
