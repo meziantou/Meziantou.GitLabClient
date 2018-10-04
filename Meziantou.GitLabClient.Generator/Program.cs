@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal partial class Program
+    internal static partial class Program
     {
         public static bool MustGenerateEmoji => false;
 

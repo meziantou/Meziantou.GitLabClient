@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Nito.AsyncEx;
+using Meziantou.Framework.Threading;
 
 namespace Meziantou.GitLab.Tests
 {
@@ -87,12 +87,12 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        private Task<IDisposable> ReaderLockAsync()
+        private Task<AsyncReaderWriterLock.Releaser> ReaderLockAsync()
         {
             return _readerWriterLockSlim.ReaderLockAsync();
         }
 
-        private Task<IDisposable> WriterLockAsync()
+        private Task<AsyncReaderWriterLock.Releaser> WriterLockAsync()
         {
             return _readerWriterLockSlim.WriterLockAsync();
         }
