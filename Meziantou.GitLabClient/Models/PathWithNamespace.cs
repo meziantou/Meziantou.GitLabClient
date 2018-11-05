@@ -18,7 +18,7 @@ namespace Meziantou.GitLab
 
         public string FullPath { get; }
 
-        public string Path
+        public string Name
         {
             get
             {

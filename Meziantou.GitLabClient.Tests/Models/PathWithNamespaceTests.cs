@@ -16,7 +16,7 @@ namespace Meziantou.GitLab.Tests.Models
             var value = new PathWithNamespace(pathWithNamespace);
 
             Assert.AreEqual(ns, value.Namespace);
-            Assert.AreEqual(path, value.Path);
+            Assert.AreEqual(path, value.Name);
         }
     }
 }
