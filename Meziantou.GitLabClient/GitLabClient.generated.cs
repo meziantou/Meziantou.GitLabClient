@@ -140,7 +140,9 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "issue")]
         Issue,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "merge_request")]
-        MergeRequest
+        MergeRequest,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "commit")]
+        Commit
     }
 
     [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]

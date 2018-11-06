@@ -160,6 +160,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EnumerationMember("issue"),
                     new EnumerationMember("merge_request"),
+                    new EnumerationMember("commit"),
                 }
             });
 
