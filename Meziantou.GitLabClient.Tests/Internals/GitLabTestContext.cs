@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Meziantou.Framework.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
@@ -24,7 +25,7 @@ namespace Meziantou.GitLab.Tests
         {
             TestContext = testOutput;
 
-            _loggingHandler = new LoggingHandler
+            _loggingHandler = new LoggingHandler(this)
             {
                 InnerHandler = handler ?? new HttpClientHandler(),
             };
@@ -35,7 +36,6 @@ namespace Meziantou.GitLab.Tests
 
         public Random Random { get; } = new Random();
         public TestGitLabClient AdminClient { get; }
-        public string ServerUri { get; }
         public TestContext TestContext { get; }
 
         public async Task<TestGitLabClient> CreateNewUserAsync()
@@ -45,8 +45,6 @@ namespace Meziantou.GitLab.Tests
             var password = "Pa$$w0rd";
             var client = AdminClient;
 
-            var users = await client.GetUsersAsync(username: username);
-            // TODO check users
             var user = await client.CreateUserAsync(
                 email: email,
                 username: username,
@@ -75,7 +73,7 @@ namespace Meziantou.GitLab.Tests
         private TestGitLabClient CreateClient(string token)
         {
             var client = new TestGitLabClient(this, _httpClient, DockerContainer.GitLabUrl, token);
-            //client.ProfileToken = DockerContainer.ProfileToken;
+            // TODO client.ProfileToken = DockerContainer.ProfileToken;
             client.JsonSerializerSettings.CheckAdditionalContent = true;
             client.JsonSerializerSettings.Formatting = Formatting.Indented;
             client.JsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine("{0}", e);
@@ -103,12 +101,27 @@ namespace Meziantou.GitLab.Tests
 
         private sealed class LoggingHandler : DelegatingHandler
         {
-            public IList<string> Logs { get; } = new List<string>();
+            private GitLabTestContext _gitLabTestContext;
 
-            protected override async Task<HttpResponseMessage> SendAsync(
-                HttpRequestMessage request,
-                CancellationToken cancellationToken)
+            public LoggingHandler(GitLabTestContext gitLabTestContext)
             {
+                _gitLabTestContext = gitLabTestContext;
+            }
+
+            public IList<string> Logs { get; } = new SynchronizedList<string>();
+
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                // TODO remove
+                _gitLabTestContext.TestContext.WriteLine(request.RequestUri.ToString());
+
+                // Fix url: http://container_name/ => http://localhost:48624/
+                if (request.RequestUri.Port == 80 || request.RequestUri.Port == 443)
+                {
+                    var builder = new UriBuilder(request.RequestUri) { Host = "localhost", Port = DockerContainer.HttpPort };
+                    request.RequestUri = builder.Uri;
+                }
+
                 var sb = new StringBuilder();
                 sb.Append(request.Method).Append(' ').Append(request.RequestUri).AppendLine();
                 LogHeaders(request.Headers, sb);
@@ -117,31 +130,37 @@ namespace Meziantou.GitLab.Tests
                 {
                     LogHeaders(request.Content.Headers, sb);
 
-                    var requestBody = await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    var requestBody = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
                     sb.AppendLine().AppendLine(requestBody);
                 }
 
-                var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
-
-                sb.AppendLine("--------");
-                sb.Append((int)response.StatusCode).Append(' ').AppendLine(response.ReasonPhrase);
-                LogHeaders(response.Headers, sb);
-                if (response.Content != null)
+                try
                 {
-                    LogHeaders(response.Content.Headers, sb);
-                    var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                    if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
-                    {
-                        sb.AppendLine().AppendLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented));
-                    }
-                    else
-                    {
-                        sb.AppendLine().AppendLine(responseContent);
-                    }
-                }
+                    var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
-                Logs.Add(sb.ToString());
-                return response;
+                    sb.AppendLine("--------");
+                    sb.Append((int)response.StatusCode).Append(' ').AppendLine(response.ReasonPhrase);
+                    LogHeaders(response.Headers, sb);
+                    if (response.Content != null)
+                    {
+                        LogHeaders(response.Content.Headers, sb);
+                        var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
+                        {
+                            sb.AppendLine().AppendLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented));
+                        }
+                        else
+                        {
+                            sb.AppendLine().AppendLine(responseContent);
+                        }
+                    }
+
+                    return response;
+                }
+                finally
+                {
+                    Logs.Add(sb.ToString());
+                }
             }
 
             private static void LogHeaders(HttpHeaders headers, StringBuilder sb)

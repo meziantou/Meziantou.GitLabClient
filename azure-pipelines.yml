@@ -10,15 +10,45 @@ pr:
 variables:
   BuildConfiguration: Release
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  DOTNET_VERSION: '5.0.100-preview.7.20366.6'
+  DOTNET_VERSION: '3.1.x'
 
 stages:
 - stage: build
-  jobs:
+  jobs:  
   - job: "build"
     pool:
-      vmImage: windows-2019
+      vmImage: ubuntu-latest
     steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: $(DOTNET_VERSION)
+    
+    - task: DotNetCoreCLI@2
+      displayName: Build solution
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(BuildConfiguration)'
+
+  - job: "test"
+    strategy:
+      matrix:
+        gitlab-13:
+          imageName: 'gitlab/gitlab-ee:13.2.4-ee.0' # Keep in sync with the version in GitLabDockerContainer.cs
+        gitlab-12:
+          imageName: 'gitlab/gitlab-ee:12.10.11-ee.0'
+    pool:
+      vmImage: ubuntu-latest
+    services:
+      gitlab:
+        image: $(imageName)
+        ports:
+        - 48624:80
+    steps:
+    - script: curl http://localhost:48624/
+      displayName: "Test GitLab is accessible"
+
     - task: UseDotNet@2
       inputs:
         packageType: sdk

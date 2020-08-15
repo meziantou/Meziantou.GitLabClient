@@ -62,6 +62,7 @@ namespace Meziantou.GitLab.Tests
                 visibility: ProjectVisibility.Public);
 
             var mergeRequest = await client.CreateMergeRequestAsync(project, hasConflict: true);
+            mergeRequest = await client.WaitForStatusReady(mergeRequest);
 
             Assert.AreEqual(MergeRequestStatus.CannotBeMerged, mergeRequest.MergeStatus);
         }

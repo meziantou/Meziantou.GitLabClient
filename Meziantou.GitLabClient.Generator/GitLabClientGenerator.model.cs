@@ -103,6 +103,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Members =
                 {
+                    new EnumerationMember("checking"),
                     new EnumerationMember("can_be_merged"),
                     new EnumerationMember("cannot_be_merged"),
                 },

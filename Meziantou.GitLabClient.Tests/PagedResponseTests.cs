@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 
 namespace Meziantou.GitLab.Tests
 {
@@ -14,24 +14,23 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public async Task FillProperties()
         {
-            using var handler = Substitute.ForPartsOf<MockHandler>();
-            handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
-                .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            using var handler = new MockHandler();
+            handler.AddResponse("GET http://localhost:3000/", new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Headers =
                 {
-                    Headers =
-                    {
-                            { "Link", "<http://dummy/?page=3>; rel=\"next\", <http://dummy/?page=1>; rel=\"prev\", <http://dummy/?page=1>; rel=\"first\", <http://dummy/?page=10>; rel=\"last\"" },
-                            { "X-Page", "2" },
-                            { "X-Per-Page", "5" },
-                            { "X-Total", "50" },
-                            { "X-Total-Pages", "10" },
-                    },
-                    Content = new JsonContent(new[] { new object(), new object() }),
-                });
+                    { "Link", "<http://localhost:3000/?page=3>; rel=\"next\", <http://localhost:3000/?page=1>; rel=\"prev\", <http://localhost:3000/?page=1>; rel=\"first\", <http://localhost:3000/?page=10>; rel=\"last\"" },
+                    { "X-Page", "2" },
+                    { "X-Per-Page", "5" },
+                    { "X-Total", "50" },
+                    { "X-Total-Pages", "10" },
+                },
+                Content = new JsonContent(new[] { new object(), new object() }),
+            });
 
             using var context = GetContext(handler);
             // Act
-            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://dummy", default, CancellationToken.None);
+            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
 
             // Assert
             Assert.AreEqual(2, page.PageIndex);
@@ -45,29 +44,27 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public async Task AsEnumerable()
         {
-            using var handler = Substitute.ForPartsOf<MockHandler>();
-            handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
-                .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            using var handler = new MockHandler();
+            handler.AddResponse("GET http://localhost:3000/", new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Headers =
                 {
-                    Headers =
-                    {
-                            { "Link", "<http://dummy/?page=2>; rel=\"next\"" },
-                    },
-                    Content = new JsonContent(new[] { new object(), new object() }),
-                });
+                    { "Link", "<http://localhost:3000/?page=2>; rel=\"next\"" },
+                },
+                Content = new JsonContent(new[] { new object(), new object() }),
+            });
 
-            handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
-                .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            handler.AddResponse("GET http://localhost:3000/?page=2", new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Headers =
                 {
-                    Headers =
-                    {
-                            { "Link", "<http://dummy/?page=2>; rel=\"current\"" },
-                    },
-                    Content = new JsonContent(new[] { new object() }),
-                });
+                    { "Link", "<http://localhost:3000/?page=2>; rel=\"current\"" },
+                },
+                Content = new JsonContent(new[] { new object() }),
+            });
 
             using var context = GetContext(handler);
-            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://dummy", default, CancellationToken.None);
+            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
 
             // Act
             var result = page.AsEnumerable().Take(3).ToList();
@@ -79,46 +76,52 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public async Task Foreach()
         {
-            using var handler = Substitute.ForPartsOf<MockHandler>();
-            handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/"))
-                .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            using var handler = new MockHandler();
+            handler.AddResponse("GET http://localhost:3000/", new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Headers =
                 {
-                    Headers =
-                    {
-                            { "Link", "<http://dummy/?page=2>; rel=\"next\"" },
-                    },
-                    Content = new JsonContent(new[] { new object(), new object() }),
-                });
+                    { "Link", "<http://localhost:3000/?page=2>; rel=\"next\"" },
+                },
+                Content = new JsonContent(new[] { new object(), new object() }),
+            });
 
-            handler.Send(Arg.Is(HttpMethod.Get), Arg.Is("http://dummy/?page=2"))
-                .Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            handler.AddResponse("GET http://localhost:3000/?page=2", new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Headers =
                 {
-                    Headers =
-                    {
-                            { "Link", "<http://dummy/?page=2>; rel=\"current\"" },
-                    },
-                    Content = new JsonContent(new[] { new object() }),
-                });
+                    { "Link", "<http://localhost:3000/?page=2>; rel=\"current\"" },
+                },
+                Content = new JsonContent(new[] { new object() }),
+            });
 
             using var context = GetContext(handler);
-            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://dummy", default, CancellationToken.None);
+            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
 
             // Act
-            var action = Substitute.For<Action<object>>();
-            await page.ForEachAsync(action);
+            var count = 0;
+            await page.ForEachAsync(_ => count++);
 
             // Assert
-            action.ReceivedWithAnyArgs(3);
+            Assert.AreEqual(3, count);
         }
 
-        public abstract class MockHandler : HttpClientHandler
+        private sealed class MockHandler : HttpClientHandler
         {
-            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            private readonly List<(string Request, HttpResponseMessage Response)> _mocks = new List<(string request, HttpResponseMessage response)>();
+            private int _index;
+
+            public void AddResponse(string expectedRequest, HttpResponseMessage response)
             {
-                return Task.FromResult(Send(request.Method, request.RequestUri.AbsoluteUri));
+                _mocks.Add((expectedRequest, response));
             }
 
-            public abstract HttpResponseMessage Send(HttpMethod method, string url);
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                var (expectedRequest, response) = _mocks[_index++];
+                Assert.AreEqual(expectedRequest, $"{request.Method} {request.RequestUri}");
+                return Task.FromResult(response);
+            }
         }
     }
 }

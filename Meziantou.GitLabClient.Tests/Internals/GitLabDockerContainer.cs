@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AngleSharp;
@@ -19,13 +18,13 @@ namespace Meziantou.GitLab.Tests
     {
         public const string ContainerName = "MeziantouGitLabClientTests";
         public const string ImageName = "gitlab/gitlab-ee";
-        public const string ImageTag = "11.3.0-ee.0";
+        public const string ImageTag = "13.2.4-ee.0"; // Keep in sync with azure-pipelines.yml
 
-        public int HttpPort { get; } = 8080;
+        public int HttpPort { get; } = 48624;
         public string AdminUserName { get; } = "root";
         public string AdminPassword { get; } = "Pa$$w0rd";
 
-        public string GitLabUrl => "http://localhost:" + HttpPort.ToStringInvariant();
+        public Uri GitLabUrl => new Uri("http://localhost:" + HttpPort.ToStringInvariant());
 
         public string AdminUserToken { get; private set; }
         public string ProfileToken { get; private set; }
@@ -39,6 +38,21 @@ namespace Meziantou.GitLab.Tests
 
         private async Task SpawnDockerContainer()
         {
+            // Check if the Azure Pipeline container is accessible?
+            try
+            {
+                using var httpClient = new HttpClient();
+                var result = await httpClient.GetStringAsync(GitLabUrl).ConfigureAwait(false);
+                Console.WriteLine(result);
+                return;
+            }
+            catch
+            {
+                // Not on Azure Pipelines
+            }
+
+            // Spawn the container
+            // https://docs.gitlab.com/omnibus/settings/configuration.html
             using var conf = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine"));
             using var client = conf.CreateClient();
             var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).ConfigureAwait(false);
@@ -113,10 +127,10 @@ namespace Meziantou.GitLab.Tests
               .WithDefaultCookies()
               .WithLocaleBasedEncoding();
 
-            var context = BrowsingContext.New(conf);
+            using var context = BrowsingContext.New(conf);
 
             // Change password
-            var result = await context.OpenAsync(GitLabUrl).ConfigureAwait(false);
+            var result = await context.OpenAsync(GitLabUrl.AbsoluteUri).ConfigureAwait(false);
             if (result.Location.PathName == "/users/password/edit")
             {
                 var form = result.Forms["new_user"];
@@ -157,9 +171,8 @@ namespace Meziantou.GitLab.Tests
             ProfileToken = tokenElement.TextContent.Substring("X-Profile-Token:".Length).Trim();
 
             // Get admin login cookie
-            var a = new CookieContainer();
-            a.SetCookies(new Uri("http://dummy"), result.Cookie);
-            Cookies = a.GetCookies(new Uri("http://dummy")).Cast<Cookie>().Single(c => c.Name == "_gitlab_session").Value;
+            //result.Cookie:  experimentation_subject_id=XXX; _gitlab_session=XXXX; known_sign_in=XXXX
+            Cookies = result.Cookie.Split(';').Select(part => part.Trim()).Single(part => part.StartsWith("_gitlab_session=", StringComparison.Ordinal)).Substring("_gitlab_session=".Length);
         }
     }
 }

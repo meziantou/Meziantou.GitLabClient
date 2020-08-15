@@ -14,7 +14,6 @@
     <RepositoryUrl>https://github.com/meziantou/Meziantou.GitLabClient.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageLicenseUrl>https://github.com/meziantou/Meziantou.GitLabClient/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <!-- disable the nullable warnings when compiling for target that haven't annotation -->

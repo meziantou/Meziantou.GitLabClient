@@ -23,13 +23,13 @@ namespace Meziantou.GitLab
 
         public IAuthenticator Authenticator { get; set; }
 
-        public GitLabClient(string serverUri, string personalAccessToken)
-            : this(new HttpClient(), httpClientOwned: true, new Uri(serverUri, UriKind.Absolute), new PersonalAccessTokenAuthenticator(personalAccessToken))
+        public GitLabClient(Uri serverUri, string personalAccessToken)
+            : this(new HttpClient(), httpClientOwned: true, serverUri, new PersonalAccessTokenAuthenticator(personalAccessToken))
         {
         }
 
-        public GitLabClient(string serverUri)
-            : this(new HttpClient(), httpClientOwned: true, new Uri(serverUri, UriKind.Absolute), authenticator: null)
+        public GitLabClient(Uri serverUri)
+            : this(new HttpClient(), httpClientOwned: true, serverUri, authenticator: null)
         {
         }
 
@@ -38,8 +38,8 @@ namespace Meziantou.GitLab
         {
         }
 
-        public GitLabClient(HttpClient httpClient, string serverUri, string personalAccessToken)
-            : this(httpClient, httpClientOwned: true, new Uri(serverUri, UriKind.Absolute), new PersonalAccessTokenAuthenticator(personalAccessToken))
+        public GitLabClient(HttpClient httpClient, Uri serverUri, string personalAccessToken)
+            : this(httpClient, httpClientOwned: true, serverUri, new PersonalAccessTokenAuthenticator(personalAccessToken))
         {
         }
 

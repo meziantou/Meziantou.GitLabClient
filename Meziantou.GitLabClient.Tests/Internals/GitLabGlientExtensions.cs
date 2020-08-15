@@ -45,5 +45,15 @@ namespace Meziantou.GitLab.Tests
 
             return mergeRequest;
         }
+
+        public static async Task<MergeRequest> WaitForStatusReady(this TestGitLabClient client, MergeRequest mergeRequest)
+        {
+            while (mergeRequest.MergeStatus == MergeRequestStatus.Checking)
+            {
+                mergeRequest = await client.GetMergeRequestAsync(mergeRequest.ProjectId, mergeRequest.Iid);
+            }
+
+            return mergeRequest;
+        }
     }
 }

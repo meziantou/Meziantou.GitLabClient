@@ -80,6 +80,8 @@ namespace Meziantou.GitLab
     [Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum MergeRequestStatus
     {
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "checking")]
+        Checking,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "can_be_merged")]
         CanBeMerged,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "cannot_be_merged")]

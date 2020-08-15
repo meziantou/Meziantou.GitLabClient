@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Meziantou.GitLab.Tests
 
         public GitLabTestContext Context { get; set; }
 
-        public TestGitLabClient(GitLabTestContext context, HttpClient client, string serverUri, string token)
+        public TestGitLabClient(GitLabTestContext context, HttpClient client, Uri serverUri, string token)
             : base(client, serverUri, token)
         {
             Context = context;

@@ -122,20 +122,22 @@ namespace Meziantou.GitLab.Tests
             using var client = await context.CreateNewUserAsync();
             long keyId;
 
-            // Create Key
-            {
-                var model = new
-                {
-                    Title = context.GetRandomString(),
-                    Key = generatedKey.PublicKey,
-                };
+            var user = await client.GetUserAsync();
 
+            // Create Key
+            var model = new
+            {
+                Title = context.GetRandomString(),
+                Key = generatedKey.PublicKey,
+            };
+            var expectedKey = model.Key;
+            {
                 var key = await client.AddSshKeyAsync(
                     title: model.Title,
                     key: model.Key);
 
                 Assert.IsTrue(key.Id > 0);
-                Assert.AreEqual(model.Key, key.Key);
+                StringAssert.StartsWith(key.Key, expectedKey);
                 Assert.AreEqual(model.Title, key.Title);
                 Assert.AreNotEqual(default, key.CreatedAt);
 
@@ -146,7 +148,7 @@ namespace Meziantou.GitLab.Tests
             {
                 var key = await client.GetSshKeyAsync(keyId);
                 Assert.AreEqual(keyId, key.Id);
-                Assert.IsNotNull(key.Key);
+                StringAssert.StartsWith(key.Key, expectedKey);
                 Assert.IsNotNull(key.Title);
                 Assert.AreNotEqual(default, key.CreatedAt);
             }
