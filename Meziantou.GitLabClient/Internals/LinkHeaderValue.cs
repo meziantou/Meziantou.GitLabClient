@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace Meziantou.GitLab
 {
     // http://www.rfc-editor.org/rfc/rfc5988.txt
-    internal class LinkHeaderValue
+    internal sealed class LinkHeaderValue
     {
         public string Url { get; }
         public string Rel { get; }
@@ -23,7 +23,7 @@ namespace Meziantou.GitLab
                 return false;
             }
 
-            var match = Regex.Match(value, "^\\s*<(?<url>[^>]*)>\\s*;\\s*rel\\s*=\\s*\"(?<rel>[^\"]*)\"\\s*$");
+            var match = Regex.Match(value, "^\\s*<(?<url>[^>]*)>\\s*;\\s*rel\\s*=\\s*\"(?<rel>[^\"]*)\"\\s*$", RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
             if (match.Success)
             {
                 var url = match.Groups["url"].Value;

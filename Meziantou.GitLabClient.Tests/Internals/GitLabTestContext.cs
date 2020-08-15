@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,9 +24,10 @@ namespace Meziantou.GitLab.Tests
         {
             TestContext = testOutput;
 
-            _loggingHandler = new LoggingHandler();
-
-            _loggingHandler.InnerHandler = handler ?? new HttpClientHandler();
+            _loggingHandler = new LoggingHandler
+            {
+                InnerHandler = handler ?? new HttpClientHandler(),
+            };
 
             _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.AdminUserToken);
@@ -38,11 +40,13 @@ namespace Meziantou.GitLab.Tests
 
         public async Task<TestGitLabClient> CreateNewUserAsync()
         {
-            var username = "user_" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_" + Guid.NewGuid().ToString("N");
+            var username = "user_" + DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture) + "_" + Guid.NewGuid().ToString("N");
             var email = username + "@dummy.com";
             var password = "Pa$$w0rd";
             var client = AdminClient;
+
             var users = await client.GetUsersAsync(username: username);
+            // TODO check users
             var user = await client.CreateUserAsync(
                 email: email,
                 username: username,
@@ -63,7 +67,7 @@ namespace Meziantou.GitLab.Tests
             return (string)fields[index].GetValue(null);
         }
 
-        public string GetRandomString()
+        public virtual string GetRandomString()
         {
             return "GitLabClientTests" + Guid.NewGuid().ToString("N");
         }
@@ -74,7 +78,7 @@ namespace Meziantou.GitLab.Tests
             //client.ProfileToken = DockerContainer.ProfileToken;
             client.JsonSerializerSettings.CheckAdditionalContent = true;
             client.JsonSerializerSettings.Formatting = Formatting.Indented;
-            client.JsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine(string.Format("{0}", e));
+            client.JsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine("{0}", e);
             _clients.Add(client);
             return client;
         }
@@ -85,6 +89,7 @@ namespace Meziantou.GitLab.Tests
             var objects = _clients.SelectMany(c => c.Objects).ToList();
 
             _httpClient?.Dispose();
+            _loggingHandler?.Dispose();
 
             objects.ForEach(o =>
             {
@@ -96,9 +101,9 @@ namespace Meziantou.GitLab.Tests
             });
         }
 
-        public class LoggingHandler : DelegatingHandler
+        private sealed class LoggingHandler : DelegatingHandler
         {
-            public List<string> Logs { get; } = new List<string>();
+            public IList<string> Logs { get; } = new List<string>();
 
             protected override async Task<HttpResponseMessage> SendAsync(
                 HttpRequestMessage request,
@@ -112,19 +117,19 @@ namespace Meziantou.GitLab.Tests
                 {
                     LogHeaders(request.Content.Headers, sb);
 
-                    var requestBody = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var requestBody = await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     sb.AppendLine().AppendLine(requestBody);
                 }
 
                 var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
                 sb.AppendLine("--------");
-                sb.Append((int)response.StatusCode).Append(" ").AppendLine(response.ReasonPhrase);
+                sb.Append((int)response.StatusCode).Append(' ').AppendLine(response.ReasonPhrase);
                 LogHeaders(response.Headers, sb);
                 if (response.Content != null)
                 {
                     LogHeaders(response.Content.Headers, sb);
-                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
                     {
                         sb.AppendLine().AppendLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented));

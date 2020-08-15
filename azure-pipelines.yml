@@ -1,16 +1,96 @@
-variables:
-  buildConfiguration: Release
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+trigger:
+- '*'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: build
-  
-- script: dotnet pack Meziantou.GitLabClient/Meziantou.GitLabClient.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-  displayName: pack
-  
-- script: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key $(NuGetApiKey) --force-english-output
-  workingDirectory: $(Build.ArtifactStagingDirectory)
-  displayName: push
-  continueOnError: true
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+pr:
+  branches:
+    include:
+    - '*'
+  autoCancel: false
+
+variables:
+  BuildConfiguration: Release
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_VERSION: '5.0.100-preview.7.20366.6'
+
+stages:
+- stage: build
+  jobs:
+  - job: "build"
+    pool:
+      vmImage: windows-2019
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: $(DOTNET_VERSION)
+    
+    - task: DotNetCoreCLI@2
+      displayName: Build solution
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(BuildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: Run tests
+      inputs:
+        command: test
+        arguments: '--configuration $(BuildConfiguration)'
+        projects: '**/*Tests.csproj'
+        nobuild: true
+
+  - job: "create_nuget"
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: $(DOTNET_VERSION)
+
+    - task: DotNetCoreCLI@2
+      displayName: dotnet pack
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/*.csproj'
+        configuration: '$(BuildConfiguration)'
+        packDirectory: '$(Build.ArtifactStagingDirectory)'
+        versioningScheme: 'off'
+
+    - publish: $(Build.ArtifactStagingDirectory)
+      artifact: NuGetPackages
+
+- stage: deploy
+  jobs:
+  - job: "deploy_nuget"
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - checkout: none
+
+    - download: current
+      artifact: NuGetPackages
+      
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: $(DOTNET_VERSION)
+
+    - powershell: |
+        Write-Host "Searching nupkg in folder: $(Pipeline.Workspace)"
+        $files = Get-ChildItem $(Pipeline.Workspace)/NuGetPackages/* -Include *.nupkg
+        foreach($file in $files) {
+            Write-Host "Pushing NuGet package: $($file.FullName)"
+            if ($env:Build_SourceBranch -eq 'refs/heads/master')
+            {
+              # Push both nupkg and snupkg
+              & dotnet nuget push "$($file.FullName)" --api-key "$(NuGetApiKey)" --source https://api.nuget.org/v3/index.json --force-english-output --skip-duplicate
+            }
+            else
+            {
+              Write-Host "Not on the default branch => Do not push"
+            }
+        }
+      ignoreLASTEXITCODE: true
+      displayName: Publish NuGet packages
+      continueOnError: true

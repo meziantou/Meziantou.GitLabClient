@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Globalization;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
     [JsonConverter(typeof(GitObjectIdConverter))]
+    [StructLayout(LayoutKind.Auto)]
     public readonly struct GitObjectId : IEquatable<GitObjectId>
     {
         // a sha1 is 20 bytes long
@@ -23,7 +26,7 @@ namespace Meziantou.GitLab
             _p5 = p5;
         }
 
-        public static GitObjectId Empty { get; } = default;
+        public static GitObjectId Empty { get; }
 
         public static bool TryParse(string value, out GitObjectId result)
         {
@@ -36,12 +39,12 @@ namespace Meziantou.GitLab
             //TODO when supported: Span<byte> b = stackalloc byte[20];
             var index = 0;
 
+            var isValid = true;
             var p1 = GetUInt32(ref index);
             var p2 = GetUInt32(ref index);
             var p3 = GetUInt32(ref index);
             var p4 = GetUInt32(ref index);
             var p5 = GetUInt32(ref index);
-            var isValid = true;
             if (isValid)
             {
                 result = new GitObjectId(p1, p2, p3, p4, p5);
@@ -92,11 +95,11 @@ namespace Meziantou.GitLab
 
         public override string ToString()
         {
-            return _p1.ToString("x8") +
-                   _p2.ToString("x8") +
-                   _p3.ToString("x8") +
-                   _p4.ToString("x8") +
-                   _p5.ToString("x8");
+            return _p1.ToString("x8", CultureInfo.InvariantCulture) +
+                   _p2.ToString("x8", CultureInfo.InvariantCulture) +
+                   _p3.ToString("x8", CultureInfo.InvariantCulture) +
+                   _p4.ToString("x8", CultureInfo.InvariantCulture) +
+                   _p5.ToString("x8", CultureInfo.InvariantCulture);
         }
 
         public override bool Equals(object obj)

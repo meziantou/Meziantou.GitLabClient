@@ -76,10 +76,8 @@ namespace Meziantou.GitLab
                 {
                     return string.Join(",", descriptor.Values.Where(ev => enumValue.HasFlag(ev.Key)).Select(ev => ev.Value));
                 }
-                else
-                {
-                    return descriptor.Values[enumValue];
-                }
+
+                return descriptor.Values[enumValue];
             }
         }
 
@@ -93,7 +91,8 @@ namespace Meziantou.GitLab
                     url,
                     "(?<=^|/)(:" + Regex.Escape(parameter.Key) + ")(?=\\?|#|/|$)",
                     Uri.EscapeDataString(parameterValue),
-                    RegexOptions.CultureInvariant);
+                    RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture,
+                    TimeSpan.FromSeconds(1));
 
                 if (newUrl != url)
                 {
@@ -102,8 +101,7 @@ namespace Meziantou.GitLab
                 else
                 {
                     // Append to query string
-                    var index = url.IndexOf('?');
-                    if (index >= 0)
+                    if (url.Contains('?', StringComparison.Ordinal))
                     {
                         url += "&" + Uri.EscapeDataString(parameter.Key) + "=" + Uri.EscapeDataString(parameterValue);
                     }

@@ -21,7 +21,7 @@ namespace Meziantou.GitLab.Tests
                     var propertyValue = property.GetValue(o);
                     if (propertyValue is DateTime dt)
                     {
-                        Assert.AreEqual(DateTimeKind.Utc, dt.Kind, $"The value of '{o.GetType().FullName}.{property.Name}' is not a UTC DateTime ({dt.ToString("o")}).");
+                        Assert.AreEqual(DateTimeKind.Utc, dt.Kind, $"The value of '{o.GetType().FullName}.{property.Name}' is not a UTC DateTime ({dt:o}).");
                     }
                 }
             }

@@ -5,15 +5,13 @@
 namespace Meziantou.GitLab.Tests
 {
     [TestClass]
-#pragma warning disable RCS1102 // Make class static.
     public class Initialize
-#pragma warning restore RCS1102
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
             var container = new GitLabDockerContainer();
-            container.Setup().Wait();
+            container.Setup().Wait(context.CancellationTokenSource.Token);
 
             GitLabTestContext.DockerContainer = container;
         }

@@ -15,7 +15,8 @@ namespace Meziantou.GitLab
             if (reader.TokenType == JsonToken.StartObject)
             {
                 var obj = JObject.Load(reader);
-                var gitLabObject = (GitLabObject)Activator.CreateInstance(objectType, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, new object[] { obj }, null);
+                // TODO create expression
+                var gitLabObject = (GitLabObject)Activator.CreateInstance(objectType, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, binder: null, args: new object[] { obj }, culture: null);
 
                 if (serializer.Context.Context is IGitLabClient client)
                 {

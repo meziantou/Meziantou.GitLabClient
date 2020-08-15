@@ -8,8 +8,9 @@ namespace Meziantou.GitLab
 {
     public class PagedResponse<T>
         where T : GitLabObject
+        // TODO IAsyncEnumerable
     {
-        private static readonly Task<bool> TrueTask = Task.FromResult(true);
+        private static readonly Task<bool> s_trueTask = Task.FromResult(true);
 
         public int PageIndex { get; }
         public int PageSize { get; }
@@ -115,7 +116,7 @@ namespace Meziantou.GitLab
             Task<bool> Func(T item)
             {
                 action(item);
-                return TrueTask;
+                return s_trueTask;
             }
 
             return ForEachAsync(Func, options, cancellationToken);
@@ -250,19 +251,17 @@ namespace Meziantou.GitLab
                     _currentIndex = -1;
                     return true;
                 }
-                else
-                {
-                    if (_currentPage.NextPageUrl == null)
-                        return false;
 
-                    var nextPage = _currentPage.GetNextPageAsync().Result;
-                    if (nextPage == null)
-                        return false;
+                if (_currentPage.NextPageUrl == null)
+                    return false;
 
-                    _currentPage = nextPage;
-                    _currentIndex = -1;
-                    return true;
-                }
+                var nextPage = _currentPage.GetNextPageAsync().Result;
+                if (nextPage == null)
+                    return false;
+
+                _currentPage = nextPage;
+                _currentIndex = -1;
+                return true;
             }
 
             public void Reset()

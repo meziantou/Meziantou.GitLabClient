@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>false</IsPackable>
     <DefineConstants>$(DefineConstants);REF</DefineConstants>
   </PropertyGroup>
 
@@ -20,12 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.13.6" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Types\" />
+    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.13.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
 </Project>

@@ -22,21 +22,17 @@ namespace Meziantou.GitLab.Tests
 
         public static RsaSshKey GenerateQuickest()
         {
-            using (var rsa = RSA.Create())
-            {
-                var size = rsa.LegalKeySizes.Min();
-                rsa.KeySize = size.MinSize;
+            using var rsa = RSA.Create();
+            var size = rsa.LegalKeySizes.Min();
+            rsa.KeySize = size.MinSize;
 
-                return Generate(rsa);
-            }
+            return Generate(rsa);
         }
 
         public static RsaSshKey Generate(int keyLength)
         {
-            using (var rsa = RSA.Create(keyLength))
-            {
-                return Generate(rsa);
-            }
+            using var rsa = RSA.Create(keyLength);
+            return Generate(rsa);
         }
 
         public static RsaSshKey Generate(RSA cryptoServiceProvider)
@@ -48,17 +44,17 @@ namespace Meziantou.GitLab.Tests
             {
                 writer.Write(new byte[] { 0x00, 0x00, 0x00 });
                 writer.Write(KeyType);
-                WritePrefixed(writer, keyParameters.Exponent, true);
-                WritePrefixed(writer, keyParameters.Modulus, true);
+                WritePrefixed(writer, keyParameters.Exponent, addLeadingNull: true);
+                WritePrefixed(writer, keyParameters.Modulus, addLeadingNull: true);
             }
 
             var privateBuffer = new byte[PaddedPrefixSize + keyParameters.D.Length + PaddedPrefixSize + keyParameters.P.Length + PaddedPrefixSize + keyParameters.Q.Length + PaddedPrefixSize + keyParameters.InverseQ.Length];
             using (var writer = new BinaryWriter(new MemoryStream(privateBuffer)))
             {
-                WritePrefixed(writer, keyParameters.D, true);
-                WritePrefixed(writer, keyParameters.P, true);
-                WritePrefixed(writer, keyParameters.Q, true);
-                WritePrefixed(writer, keyParameters.InverseQ, true);
+                WritePrefixed(writer, keyParameters.D, addLeadingNull: true);
+                WritePrefixed(writer, keyParameters.P, addLeadingNull: true);
+                WritePrefixed(writer, keyParameters.Q, addLeadingNull: true);
+                WritePrefixed(writer, keyParameters.InverseQ, addLeadingNull: true);
             }
 
             var publicBlob = KeyType + " " + Convert.ToBase64String(publicBuffer);

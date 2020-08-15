@@ -10,28 +10,24 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public async Task CookieAuthenticator()
         {
-            using (var context = GetContext())
-            using (var client = await context.CreateNewUserAsync())
-            {
-                client.Authenticator = new CookieAuthenticator(GitLabTestContext.DockerContainer.Cookies);
-                var user = await client.GetUserAsync();
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+            client.Authenticator = new CookieAuthenticator(GitLabTestContext.DockerContainer.Cookies);
+            var user = await client.GetUserAsync();
 
-                Assert.AreEqual("root", user.Username);
-            }
+            Assert.AreEqual("root", user.Username);
         }
 
         [TestMethod]
         public async Task OAuth2Authenticator()
         {
             // TODO Find a way to generate an OAuth2 token from the test
-            using (var context = GetContext())
-            using (var client = await context.CreateNewUserAsync())
-            {
-                client.Authenticator = new OAuth2TokenAuthenticator("Dummy");
-                var ex = await Assert.ThrowsExceptionAsync<GitLabException>(() => client.GetUserAsync());
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+            client.Authenticator = new OAuth2TokenAuthenticator("Dummy");
+            var ex = await Assert.ThrowsExceptionAsync<GitLabException>(() => client.GetUserAsync());
 
-                Assert.AreEqual(HttpStatusCode.Unauthorized, ex.HttpStatusCode);
-            }
+            Assert.AreEqual(HttpStatusCode.Unauthorized, ex.HttpStatusCode);
         }
     }
 }

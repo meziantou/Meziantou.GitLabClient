@@ -53,13 +53,13 @@ namespace Meziantou.GitLabClient.Generator
                 Modifiers = Modifiers.Partial,
                 Implements =
                 {
-                    clientInterface
-                }
+                    clientInterface,
+                },
             });
 
             var clientExtensionsClass = ns.AddType(new ClassDeclaration("GitLabClientExtensions")
             {
-                Modifiers = Modifiers.Partial | Modifiers.Public | Modifiers.Static
+                Modifiers = Modifiers.Partial | Modifiers.Public | Modifiers.Static,
             });
 
             // Generate methods
@@ -86,10 +86,8 @@ namespace Meziantou.GitLabClient.Generator
 
             // Write file
             new DefaultFormatterVisitor().Visit(unit);
-            using (var tw = new StreamWriter("../../../../Meziantou.GitLabClient/GitLabClient.generated.cs"))
-            {
-                new CSharpCodeGenerator().Write(tw, unit);
-            }
+            using var tw = new StreamWriter("../../../../Meziantou.GitLabClient/GitLabClient.generated.cs");
+            new CSharpCodeGenerator().Write(tw, unit);
         }
 
         private void AddDocumentationComments(CodeObject commentable, Documentation documentation)
@@ -156,7 +154,7 @@ namespace Meziantou.GitLabClient.Generator
                         var hasValueCondition = new ConditionStatement
                         {
                             Condition = arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue)),
-                            TrueStatements = urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.Value), "Value"))
+                            TrueStatements = urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), param.Name, arguments[param].CreateMemberReferenceExpression(nameof(Nullable<int>.Value), "Value")),
                         };
                         m.Statements.Add(hasValueCondition);
                     }
@@ -183,16 +181,16 @@ namespace Meziantou.GitLabClient.Generator
                             Condition = new BinaryExpression(BinaryOperator.GreaterThan, pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageIndex)), new LiteralExpression(0)),
                             TrueStatements = new StatementCollection
                             {
-                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "page", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageIndex)))
-                            }
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "page", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageIndex))),
+                            },
                         },
                         new ConditionStatement()
                         {
                             Condition = new BinaryExpression(BinaryOperator.GreaterThan, pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageSize)), new LiteralExpression(0)),
                             TrueStatements = new StatementCollection
                             {
-                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "per_page", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageSize)))
-                            }
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "per_page", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.PageSize))),
+                            },
                         },
                         new ConditionStatement()
                         {
@@ -200,10 +198,10 @@ namespace Meziantou.GitLabClient.Generator
                             TrueStatements = new StatementCollection
                             {
                                 urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "order_by", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.OrderBy), nameof(OrderBy.Name))),
-                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "sort", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.OrderBy), nameof(OrderBy.Direction)))
-                            }
-                        }
-                    }
+                                urlBuilder.CreateInvokeMethodExpression(nameof(UrlBuilder.WithValue), "sort", pageArgument.CreateMemberReferenceExpression(nameof(PageOptions.OrderBy), nameof(OrderBy.Direction))),
+                            },
+                        },
+                    },
                 };
 
                 m.Statements.Add(pageCondition);
@@ -315,20 +313,20 @@ namespace Meziantou.GitLabClient.Generator
 
                 AddDocumentationComments(pageArgument, new Documentation()
                 {
-                    Summary = "The page index and page size"
+                    Summary = "The page index and page size",
                 });
             }
 
             requestOptionsArgument = m.AddArgument(new MethodArgumentDeclaration(ModelRef.RequestOptions, "requestOptions") { DefaultValue = new DefaultValueExpression(ModelRef.RequestOptions) });
             AddDocumentationComments(requestOptionsArgument, new Documentation()
             {
-                Summary = "Options of the request"
+                Summary = "Options of the request",
             });
 
             cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
             AddDocumentationComments(cancellationTokenArgument, new Documentation()
             {
-                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation"
+                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation",
             });
         }
 
@@ -350,7 +348,7 @@ namespace Meziantou.GitLabClient.Generator
                     var condition = new ConditionStatement
                     {
                         Condition = new BinaryExpression(BinaryOperator.NotEquals, argumentReference, new LiteralExpression(null)),
-                        TrueStatements = assign
+                        TrueStatements = assign,
                     };
                     methodDeclaration.Statements.Add(condition);
                 }
@@ -440,7 +438,7 @@ namespace Meziantou.GitLabClient.Generator
                 m.Arguments.Insert(0, extensionArgument);
             }
 
-            bool ContainsFileArgument(MethodDeclaration m)
+            static bool ContainsFileArgument(MethodDeclaration m)
             {
                 return m.Arguments.Any(a => a.Name == "content" && a.Type.ClrFullTypeName == typeof(string).FullName) &&
                        m.Arguments.Any(a => a.Name == "encoding" && a.Type.ClrFullTypeName == typeof(string).FullName);
@@ -459,16 +457,16 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Arguments =
                 {
-                    new MethodArgumentDeclaration(typeof(JObject), "obj")
+                    new MethodArgumentDeclaration(typeof(JObject), "obj"),
                 },
                 Modifiers = Modifiers.Internal,
-                Initializer = new ConstructorBaseInitializer(new ArgumentReferenceExpression("obj"))
+                Initializer = new ConstructorBaseInitializer(new ArgumentReferenceExpression("obj")),
             });
 
             var internalCtor = type.AddMember(new ConstructorDeclaration()
             {
                 Modifiers = Modifiers.Internal,
-                Initializer = new ConstructorBaseInitializer(new NewObjectExpression(typeof(JObject)))
+                Initializer = new ConstructorBaseInitializer(new NewObjectExpression(typeof(JObject))),
             });
 
             // Add properties
@@ -482,13 +480,13 @@ namespace Meziantou.GitLabClient.Generator
                         new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetValueOrDefault",
                         new TypeReference[]
                         {
-                            GetPropertyTypeRef(prop.Type)
+                            GetPropertyTypeRef(prop.Type),
                         },
                         new Expression[]
                         {
                             prop.SerializationName ?? prop.Name,
                             new DefaultValueExpression(GetPropertyTypeRef(prop.Type)),
-                        }))
+                        })),
                     },
                     Setter = new PropertyAccessorDeclaration
                     {
@@ -500,8 +498,8 @@ namespace Meziantou.GitLabClient.Generator
                             {
                                 prop.SerializationName ?? prop.Name,
                                 new ValueArgumentExpression(),
-                            })
-                        }
+                            }),
+                        },
                     },
                 });
 
@@ -630,7 +628,7 @@ namespace Meziantou.GitLabClient.Generator
                     Arguments =
                     {
                         new CustomAttributeArgument(new LiteralExpression("{GetType().Name,nq} " + string.Join(", ", properties.Select(v=>$"{ToPropertyName(v.Name)}={{{ToPropertyName(v.Name)}}}")))),
-                    }
+                    },
                 });
             }
         }
@@ -652,7 +650,7 @@ namespace Meziantou.GitLabClient.Generator
                 //[JsonConverter(typeof(StringEnumConverter))]
                 type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
                 {
-                    Arguments = { new CustomAttributeArgument(new TypeOfExpression(typeof(StringEnumConverter))) }
+                    Arguments = { new CustomAttributeArgument(new TypeOfExpression(typeof(StringEnumConverter))) },
                 });
             }
 
@@ -668,7 +666,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     enumerationMember.CustomAttributes.Add(new CustomAttribute(typeof(EnumMemberAttribute))
                     {
-                        Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), prop.SerializationName ?? prop.Name) }
+                        Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), prop.SerializationName ?? prop.Name) },
                     });
                 }
 
@@ -697,7 +695,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private void GenerateParameterEntities(NamespaceDeclaration ns, ParameterEntity entity)
+        private static void GenerateParameterEntities(NamespaceDeclaration ns, ParameterEntity entity)
         {
             var type = ns.AddType(new StructDeclaration(entity.Name));
             type.Modifiers = Modifiers.Public | Modifiers.ReadOnly | Modifiers.Partial;
@@ -707,8 +705,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Arguments =
                 {
-                    new CustomAttributeArgument(new TypeOfExpression(typeof(ReferenceJsonConverter)))
-                }
+                    new CustomAttributeArgument(new TypeOfExpression(typeof(ReferenceJsonConverter))),
+                },
             });
 
             // Add Value Property (readonly)
@@ -718,8 +716,8 @@ namespace Meziantou.GitLabClient.Generator
                 Modifiers = Modifiers.Public,
                 Getter = new PropertyAccessorDeclaration
                 {
-                    Statements = new ReturnStatement(valueField)
-                }
+                    Statements = new ReturnStatement(valueField),
+                },
             };
 
             type.AddMember(valueField);
@@ -739,8 +737,8 @@ namespace Meziantou.GitLabClient.Generator
                     },
                     Statements =
                     {
-                        new AssignStatement(valueField, GetAssignExpression())
-                    }
+                        new AssignStatement(valueField, GetAssignExpression()),
+                    },
                 });
 
                 if (addNullCheck)
@@ -759,8 +757,8 @@ namespace Meziantou.GitLabClient.Generator
                     },
                     Statements =
                     {
-                        new ReturnStatement(new NewObjectExpression(type, new ArgumentReferenceExpression(refe.Name)))
-                    }
+                        new ReturnStatement(new NewObjectExpression(type, new ArgumentReferenceExpression(refe.Name))),
+                    },
                 });
 
                 if (addNullCheck)
@@ -781,33 +779,33 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private string ToFieldName(string value)
+        private static string ToFieldName(string value)
         {
             var pascalCase = ToPropertyName(value);
             return "_" + char.ToLowerInvariant(pascalCase[0]) + pascalCase.Substring(1);
         }
 
-        private string ToPropertyName(string value)
+        private static string ToPropertyName(string value)
         {
             return value.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries)
              .Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1))
              .Aggregate(string.Empty, (s1, s2) => s1 + s2);
         }
 
-        private string ToArgumentName(string value)
+        private static string ToArgumentName(string value)
         {
             var pascalCase = ToPropertyName(value);
             return char.ToLowerInvariant(pascalCase[0]) + pascalCase.Substring(1);
         }
 
-        private ParameterLocation GetParameterLocation(Method method, MethodParameter parameter)
+        private static ParameterLocation GetParameterLocation(Method method, MethodParameter parameter)
         {
             if (parameter.Location != ParameterLocation.Default)
             {
                 return parameter.Location;
             }
 
-            if (method.UrlTemplate.Contains($":{parameter.Name}/") || method.UrlTemplate.EndsWith($":{parameter.Name}"))
+            if (method.UrlTemplate.Contains($":{parameter.Name}/", StringComparison.Ordinal) || method.UrlTemplate.EndsWith($":{parameter.Name}", StringComparison.Ordinal))
                 return ParameterLocation.Url;
 
             switch (method.MethodType)
@@ -826,7 +824,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private TypeReference GetPropertyTypeRef(ModelRef modelRef)
+        private static TypeReference GetPropertyTypeRef(ModelRef modelRef)
         {
             var typeRef = (TypeReference)modelRef;
             if (modelRef.IsCollection)
@@ -837,7 +835,7 @@ namespace Meziantou.GitLabClient.Generator
             return typeRef;
         }
 
-        private TypeReference GetArgumentTypeRef(ModelRef modelRef)
+        private static TypeReference GetArgumentTypeRef(ModelRef modelRef)
         {
             var typeRef = (TypeReference)modelRef;
             if (modelRef.IsCollection)

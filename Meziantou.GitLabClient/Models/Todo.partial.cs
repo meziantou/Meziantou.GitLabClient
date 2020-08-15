@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Meziantou.GitLab
+﻿namespace Meziantou.GitLab
 {
     public partial class Todo
     {
@@ -13,19 +11,12 @@ namespace Meziantou.GitLab
             {
                 if (_target == null)
                 {
-                    Type type;
-                    switch (TargetType)
+                    var type = TargetType switch
                     {
-                        case TodoType.Issue:
-                            type = typeof(Issue);
-                            break;
-                        case TodoType.MergeRequest:
-                            type = typeof(MergeRequest);
-                            break;
-                        default:
-                            type = typeof(GitLabObject);
-                            break;
-                    }
+                        TodoType.Issue => typeof(Issue),
+                        TodoType.MergeRequest => typeof(MergeRequest),
+                        _ => typeof(GitLabObject),
+                    };
 
                     _target = (GitLabObject)GetValueOrDefault("target", type, default(GitLabObject));
                 }

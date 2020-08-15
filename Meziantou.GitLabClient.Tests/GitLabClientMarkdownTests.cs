@@ -9,15 +9,13 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public async Task RenderMarkdown()
         {
-            using (var context = GetContext())
-            using (var client = await context.CreateNewUserAsync())
-            {
-                // Act
-                var result = await client.RenderMarkdownAsync("# title");
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+            // Act
+            var result = await client.RenderMarkdownAsync("# title");
 
-                // Assert
-                Assert.AreEqual("<h1>title</h1>", result.Html);
-            }
+            // Assert
+            Assert.AreEqual("<h1>title</h1>", result.Html);
         }
     }
 }

@@ -4,6 +4,6 @@
     {
         Default,
         Url,
-        Body
+        Body,
     }
 }

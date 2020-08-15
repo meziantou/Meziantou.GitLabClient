@@ -12,7 +12,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#project-visibility-level"
+                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#project-visibility-level",
                 },
                 SerializeAsString = false,
                 Members =
@@ -22,14 +22,14 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("developer", 30),
                     new EnumerationMember("maintainer", 40),
                     new EnumerationMember("owner", 50),
-                }
+                },
             });
 
             var importStatus = Project.AddModel(new Enumeration("ImportStatus")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://docs.gitlab.com/ee/api/project_import_export.html#import-status"
+                    HelpLink = "https://docs.gitlab.com/ee/api/project_import_export.html#import-status",
                 },
                 Members =
                 {
@@ -38,31 +38,31 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("failed"),
                     new EnumerationMember("started"),
                     new EnumerationMember("finished"),
-                }
+                },
             });
 
             var mergeMethod = Project.AddModel(new Enumeration("MergeMethod")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#project-visibility-lhttps://docs.gitlab.com/ee/api/projects.html#project-merge-methodevel"
+                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#project-visibility-lhttps://docs.gitlab.com/ee/api/projects.html#project-merge-methodevel",
                 },
                 Members =
                 {
                     new EnumerationMember("merge")
                     {
-                        Documentation = "A merge commit is created for every merge, and merging is allowed as long as there are no conflicts."
+                        Documentation = "A merge commit is created for every merge, and merging is allowed as long as there are no conflicts.",
                     },
                     new EnumerationMember("rebase_merge")
                     {
-                        Documentation = "A merge commit is created for every merge, but merging is only allowed if fast-forward merge is possible. This way you could make sure that if this merge request would build, after merging to target branch it would also build."
+                        Documentation = "A merge commit is created for every merge, but merging is only allowed if fast-forward merge is possible. This way you could make sure that if this merge request would build, after merging to target branch it would also build.",
                     },
                     new EnumerationMember("fast_forward")
                     {
                         SerializationName = "ff",
-                        Documentation = "No merge commits are created and all merges are fast-forwarded, which means that merging is only allowed if the branch could be fast-forwarded."
-                    }
-                }
+                        Documentation = "No merge commits are created and all merges are fast-forwarded, which means that merging is only allowed if the branch could be fast-forwarded.",
+                    },
+                },
             });
 
             var mergeRequestScopeFilter = Project.AddModel(new Enumeration("MergeRequestScopeFilter")
@@ -71,7 +71,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EnumerationMember("assigned_to_me"),
                     new EnumerationMember("all"),
-                }
+                },
             });
 
             var mergeRequestStateFilter = Project.AddModel(new Enumeration("MergeRequestStateFilter")
@@ -85,7 +85,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("closed", 0x2),
                     new EnumerationMember("locked", 0x4),
                     new EnumerationMember("merged", 0x8),
-                }
+                },
             });
 
             var mergeRequestState = Project.AddModel(new Enumeration("MergeRequestState")
@@ -96,7 +96,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("closed"),
                     new EnumerationMember("locked"),
                     new EnumerationMember("merged"),
-                }
+                },
             });
 
             var mergeRequestStatus = Project.AddModel(new Enumeration("MergeRequestStatus")
@@ -105,21 +105,21 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EnumerationMember("can_be_merged"),
                     new EnumerationMember("cannot_be_merged"),
-                }
+                },
             });
 
             var projectVisibility = Project.AddModel(new Enumeration("ProjectVisibility")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#project-visibility-level"
+                    HelpLink = "https://docs.gitlab.com/ee/api/projects.html#project-visibility-level",
                 },
                 Members =
                 {
                     new EnumerationMember("private"),
                     new EnumerationMember("internal"),
                     new EnumerationMember("public"),
-                }
+                },
             });
 
             var userState = Project.AddModel(new Enumeration("UserState")
@@ -128,7 +128,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EnumerationMember("active"),
                     new EnumerationMember("blocked"),
-                }
+                },
             });
 
             var todoAction = Project.AddModel(new Enumeration("TodoAction")
@@ -142,7 +142,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("approval_required"),
                     new EnumerationMember("unmergeable"),
                     new EnumerationMember("directly_addressed"),
-                }
+                },
             });
 
             var todoState = Project.AddModel(new Enumeration("TodoState")
@@ -151,7 +151,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EnumerationMember("pending"),
                     new EnumerationMember("done"),
-                }
+                },
             });
 
             var todoType = Project.AddModel(new Enumeration("TodoType")
@@ -161,7 +161,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EnumerationMember("issue"),
                     new EnumerationMember("merge_request"),
                     new EnumerationMember("commit"),
-                }
+                },
             });
 
             var mergeRequestView = Project.AddModel(new Enumeration("MergeRequestView")
@@ -193,13 +193,13 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L43"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L43",
                 },
                 Properties =
                 {
                     new EntityProperty("provider", ModelRef.String) { IsKey = true },
                     new EntityProperty("extern_uid", ModelRef.String) { IsKey = true },
-                }
+                },
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L13
@@ -210,7 +210,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("id", ModelRef.Id) { IsKey = true },
                     new EntityProperty("name", ModelRef.String),
                     new EntityProperty("username", ModelRef.String) { IsDisplayName = true },
-                }
+                },
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L17
@@ -223,7 +223,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("avatar_path", ModelRef.String) { Required = Required.Default },
                     new EntityProperty("state", userState),
                     new EntityProperty("web_url", ModelRef.String),
-                }
+                },
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L32
@@ -256,7 +256,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("twitter", ModelRef.String),
                     new EntityProperty("two_factor_enabled", ModelRef.NullableBoolean) { Required = Required.Default },
                     new EntityProperty("website_url", ModelRef.String),
-                }
+                },
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L65
@@ -267,7 +267,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("emoji", ModelRef.String) { Required = Required.AllowNull },
                     new EntityProperty("message", ModelRef.String) { Required = Required.AllowNull },
                     new EntityProperty("message_html", ModelRef.String) { Required = Required.AllowNull },
-                }
+                },
             });
 
             // https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L37
@@ -277,7 +277,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EntityProperty("username", ModelRef.String),
                     new EntityProperty("last_activity_on", ModelRef.Date),
-                }
+                },
             });
 
             var sshKey = Project.AddModel(new Entity("SshKey")
@@ -291,66 +291,66 @@ namespace Meziantou.GitLabClient.Generator
                 },
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L682"
-                }
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L682",
+                },
             });
 
             var sharedGroup = Project.AddModel(new Entity("SharedGroup")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L88"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L88",
                 },
                 Properties =
                 {
                     new EntityProperty("group_id", ModelRef.Id),
                     new EntityProperty("group_name", ModelRef.String),
                     new EntityProperty("group_access_level", access),
-                }
+                },
             });
 
             var memberAccess = Project.AddModel(new Entity("MemberAccess")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L836"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L836",
                 },
                 Properties =
                 {
                     new EntityProperty("access_level", access),
                     new EntityProperty("notification_level", ModelRef.String),
-                }
+                },
             });
 
             var projectAccess = Project.AddModel(new Entity("ProjectAccess")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L845"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L845",
                 },
                 BaseType = memberAccess,
                 Properties =
                 {
-                }
+                },
             });
 
             var groupAccess = Project.AddModel(new Entity("GroupAccess")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L848"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L848",
                 },
                 BaseType = memberAccess,
                 Properties =
                 {
-                }
+                },
             });
 
             var namespaceBasic = Project.AddModel(new Entity("NamespaceBasic")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L822"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L822",
                 },
                 Properties =
                 {
@@ -360,14 +360,14 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("kind", ModelRef.String),
                     new EntityProperty("full_path", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("parent_id", ModelRef.NullableId),
-                }
+                },
             });
 
             var projectIdentity = Project.AddModel(new Entity("ProjectIdentity")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L96"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L96",
                 },
                 Properties =
                 {
@@ -378,14 +378,14 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("name_with_namespace", ModelRef.String),
                     new EntityProperty("path", ModelRef.String),
                     new EntityProperty("path_with_namespace", ModelRef.PathWithNamespace) { IsDisplayName = true },
-                }
+                },
             });
 
             var basicProjectDetails = Project.AddModel(new Entity("BasicProjectDetails")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L125"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L125",
                 },
                 BaseType = projectIdentity,
                 Properties =
@@ -401,7 +401,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("star_count", ModelRef.Int64),
                     new EntityProperty("tag_list", ModelRef.StringCollection),
                     new EntityProperty("web_url", ModelRef.String),
-                }
+                },
             });
 
             var projectLinks = Project.AddModel(new Entity("ProjectLink")
@@ -415,7 +415,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("merge_requests", ModelRef.String) { Required = Required.Default },
                     new EntityProperty("repo_branches", ModelRef.String),
                     new EntityProperty("self", ModelRef.String),
-                }
+                },
             });
 
             var permissions = Project.AddModel(new Entity("ProjectPermissions")
@@ -424,14 +424,14 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EntityProperty("group_access", groupAccess),
                     new EntityProperty("project_access", projectAccess),
-                }
+                },
             });
 
             var project = Project.AddModel(new Entity("Project")
             {
                 Documentation = new Documentation
                 {
-                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L158"
+                    HelpLink = "https://gitlab.com/gitlab-org/gitlab-ce/blob/30c960d4eee9a4814e593abef8e13cd52914bd88/lib/api/entities.rb#L158",
                 },
                 BaseType = basicProjectDetails,
                 Properties =
@@ -468,7 +468,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("snippets_enabled", ModelRef.Boolean),
                     new EntityProperty("visibility", projectVisibility),
                     new EntityProperty("wiki_enabled", ModelRef.Boolean),
-                }
+                },
             });
 
             var todo = Project.AddModel(new Entity("Todo")
@@ -484,7 +484,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("body", ModelRef.String),
                     new EntityProperty("state", todoState),
                     new EntityProperty("created_at", ModelRef.DateTime),
-                }
+                },
             });
 
             var mergeRequest = Project.AddModel(new Entity("MergeRequest")
@@ -518,7 +518,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("should_remove_source_branch", ModelRef.NullableBoolean),
                     new EntityProperty("force_remove_source_branch", ModelRef.NullableBoolean),
                     new EntityProperty("squash", ModelRef.Boolean),
-                }
+                },
             });
 
             var issue = Project.AddModel(new Entity("Issue")
@@ -535,7 +535,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("updated_at", ModelRef.DateTime),
                     new EntityProperty("closed_at", ModelRef.NullableDateTime),
                     new EntityProperty("closed_by", userBasic),
-                }
+                },
             });
 
             var token = Project.AddModel(new Entity("ImpersonationToken")
@@ -551,7 +551,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("name", ModelRef.String) { IsDisplayName = true },
                     new EntityProperty("created_at", ModelRef.DateTime),
                     new EntityProperty("expires_at", ModelRef.NullableDate),
-                }
+                },
             });
 
             var fileCreated = Project.AddModel(new Entity("FileCreated")
@@ -560,7 +560,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EntityProperty("file_path", ModelRef.String),
                     new EntityProperty("branch", ModelRef.String),
-                }
+                },
             });
 
             var fileUpdated = Project.AddModel(new Entity("FileUpdated")
@@ -569,7 +569,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EntityProperty("file_path", ModelRef.String),
                     new EntityProperty("branch", ModelRef.String),
-                }
+                },
             });
 
             var version = Project.AddModel(new Entity("ServerVersion")
@@ -578,7 +578,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new EntityProperty("version", ModelRef.String) { IsKey = true },
                     new EntityProperty("revision", ModelRef.String) { IsKey = true },
-                }
+                },
             });
 
             var renderMarkdownResult = Project.AddModel(new Entity("RenderedMarkdown")
@@ -586,7 +586,7 @@ namespace Meziantou.GitLabClient.Generator
                 Properties =
                 {
                     new EntityProperty("html", ModelRef.String) { IsKey = true },
-                }
+                },
             });
 
             var wikiPage = Project.AddModel(new Entity("WikiPage")
@@ -597,7 +597,7 @@ namespace Meziantou.GitLabClient.Generator
                     new EntityProperty("title", ModelRef.String),
                     new EntityProperty("content", ModelRef.String),
                     new EntityProperty("format", wikiPageFormat),
-                }
+                },
             });
 
             #endregion
@@ -610,7 +610,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("projectId", ModelRef.Id),
                     new ParameterEntityRef("project", projectIdentity, "id"),
-                }
+                },
             });
 
             var projectIdOrPathRef = Project.AddParameterEntity(new ParameterEntity("ProjectIdOrPathRef", ModelRef.Object)
@@ -621,7 +621,7 @@ namespace Meziantou.GitLabClient.Generator
                     new ParameterEntityRef("project", projectIdentity, "id"),
                     new ParameterEntityRef("projectPathWithNamespace", ModelRef.PathWithNamespace),
                     new ParameterEntityRef("projectPathWithNamespace", ModelRef.String),
-                }
+                },
             });
 
             var sshKeyRef = Project.AddParameterEntity(new ParameterEntity("SshKeyRef", ModelRef.Object)
@@ -630,7 +630,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("sshKeyId", ModelRef.Id),
                     new ParameterEntityRef("sskKey", sshKey, "id"),
-                }
+                },
             });
 
             var userRef = Project.AddParameterEntity(new ParameterEntity("UserRef", ModelRef.Object)
@@ -639,7 +639,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("userId", ModelRef.Id),
                     new ParameterEntityRef("userName", ModelRef.String),
-                }
+                },
             });
 
             var mergeRequestIdRef = Project.AddParameterEntity(new ParameterEntity("MergeRequestIidRef", ModelRef.Object)
@@ -648,7 +648,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("mergeRequestIid", ModelRef.Id),
                     new ParameterEntityRef("mergeRequest", mergeRequest, "iid"),
-                }
+                },
             });
 
             var todoIdRef = Project.AddParameterEntity(new ParameterEntity("TodoRef", ModelRef.Object)
@@ -657,7 +657,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     new ParameterEntityRef("TodoId", ModelRef.Id),
                     new ParameterEntityRef("todo", todo, "id"),
-                }
+                },
             });
 
             #endregion
@@ -672,7 +672,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Creates a new project issue.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/issues.html#new-issue"
+                            HelpLink = "https://docs.gitlab.com/ee/api/issues.html#new-issue",
                         },
                         ReturnType = issue,
                         MethodType = MethodType.Post,
@@ -682,8 +682,8 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("title", ModelRef.String),
                             new MethodParameter("description", ModelRef.String) { IsOptional = true },
                             new MethodParameter("confidential", ModelRef.NullableBoolean) { IsOptional = true },
-                        }
-                    }
+                        },
+                    },
                 });
 
             Project.AddMethodGroup("Markdown",
@@ -693,7 +693,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                             HelpLink = "https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document"
+                             HelpLink = "https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document",
                         },
                         MethodType = MethodType.Post,
                         ReturnType = renderMarkdownResult,
@@ -702,8 +702,8 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("text", ModelRef.String),
                             new MethodParameter("gfm", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("project", ModelRef.String) { IsOptional = true },
-                        }
-                    }
+                        },
+                    },
                 });
 
             Project.AddMethodGroup("MergeRequest",
@@ -714,7 +714,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Get all merge requests the authenticated user has access to. By default it returns only merge requests created by the current user. To get all merge requests, use parameter scope=all.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests"
+                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests",
                         },
                         ReturnType = mergeRequest,
                         MethodType = MethodType.GetPaged,
@@ -735,14 +735,14 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("source_branch", ModelRef.String) { IsOptional = true },
                             new MethodParameter("target_branch", ModelRef.String) { IsOptional = true },
                             new MethodParameter("search", ModelRef.String) { IsOptional = true },
-                        }
+                        },
                     },
                     new Method("GetMergeRequests", "groups/:group/merge_requests")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Get all merge requests for this group and its subgroups.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests"
+                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests",
                         },
                         ReturnType = mergeRequest,
                         MethodType = MethodType.GetPaged,
@@ -764,14 +764,14 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("source_branch", ModelRef.String) { IsOptional = true },
                             new MethodParameter("target_branch", ModelRef.String) { IsOptional = true },
                             new MethodParameter("search", ModelRef.String) { IsOptional = true },
-                        }
+                        },
                     },
                     new Method("GetMergeRequests", "projects/:project/merge_requests")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Get all merge requests for this project.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests"
+                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests",
                         },
                         ReturnType = mergeRequest,
                         MethodType = MethodType.GetPaged,
@@ -794,14 +794,14 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("source_branch", ModelRef.String) { IsOptional = true },
                             new MethodParameter("target_branch", ModelRef.String) { IsOptional = true },
                             new MethodParameter("search", ModelRef.String) { IsOptional = true },
-                        }
+                        },
                     },
                     new Method("GetMergeRequest", "projects/:project/merge_requests/:merge_request")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Shows information about a single merge request.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr"
+                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr",
                         },
                         ReturnType = mergeRequest,
                         MethodType = MethodType.Get,
@@ -809,14 +809,14 @@ namespace Meziantou.GitLabClient.Generator
                         {
                             new MethodParameter("project", projectIdOrPathRef),
                             new MethodParameter("merge_request", mergeRequestIdRef),
-                        }
+                        },
                     },
                     new Method("CreateMergeRequest", "projects/:project/merge_requests")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Creates a new merge request.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#create-mr"
+                            HelpLink = "https://docs.gitlab.com/ee/api/merge_requests.html#create-mr",
                         },
                         ReturnType = mergeRequest,
                         MethodType = MethodType.Post,
@@ -833,8 +833,8 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("allow_collaboration", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("allow_maintainer_to_push", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("squash", ModelRef.NullableBoolean) { IsOptional = true },
-                        }
-                    }
+                        },
+                    },
                 });
 
             Project.AddMethodGroup("Project",
@@ -845,7 +845,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with \"simple\" fields are returned.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#list-all-projects"
+                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#list-all-projects",
                         },
                         ReturnType = project,
                         MethodType = MethodType.GetPaged,
@@ -864,14 +864,14 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("wiki_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("repository_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("min_access_level", new ModelRef(access) { IsNullable = true }) { IsOptional = true },
-                        }
+                        },
                     },
                     new Method("GetProjects", "users/:user/projects")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#list-user-projects"
+                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#list-user-projects",
                         },
                         ReturnType = project,
                         MethodType = MethodType.GetPaged,
@@ -891,28 +891,28 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("wiki_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("repository_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
                             new MethodParameter("min_access_level", new ModelRef(access) { IsNullable = true }) { IsOptional = true },
-                        }
+                        },
                     },
                     new Method("GetProject", "projects/:id")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#get-single-project"
+                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#get-single-project",
                         },
                         ReturnType = project,
                         MethodType = MethodType.Get,
                         Parameters =
                         {
                             new MethodParameter("id", projectIdOrPathRef),
-                        }
+                        },
                     },
                     new Method("CreateProject", "projects")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Creates a new project owned by the authenticated user.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#create-project"
+                            HelpLink = "https://docs.gitlab.com/ee/api/projects.html#create-project",
                         },
                         ReturnType = project,
                         MethodType = MethodType.Post,
@@ -943,7 +943,7 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("tag_list", ModelRef.StringCollection) { IsOptional = true },
                             new MethodParameter("ci_config_path", ModelRef.String) { IsOptional = true },
                             new MethodParameter("approvals_before_merge", ModelRef.NullableInt32) { IsOptional = true },
-                        }
+                        },
                     },
                 });
 
@@ -954,7 +954,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository"
+                            HelpLink = "https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository",
                         },
                         ReturnType = fileCreated,
                         MethodType = MethodType.Post,
@@ -969,13 +969,13 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("author_name", ModelRef.String) { IsOptional = true },
                             new MethodParameter("content", ModelRef.String),
                             new MethodParameter("commit_message", ModelRef.String),
-                        }
+                        },
                     },
                     new Method("UpdateFile", "projects/:project/repository/files/:file_path")
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository"
+                            HelpLink = "https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository",
                         },
                         ReturnType = fileUpdated,
                         MethodType = MethodType.Put,
@@ -991,7 +991,7 @@ namespace Meziantou.GitLabClient.Generator
                             new MethodParameter("last_commit_id", ModelRef.NullableGitObjectId) { IsOptional = true },
                             new MethodParameter("content", ModelRef.String),
                             new MethodParameter("commit_message", ModelRef.String),
-                        }
+                        },
                     },
                 });
 
@@ -1003,35 +1003,35 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Returns a list of todos. When no filter is applied, it returns all pending todos for the current user. Different filters allow the user to precise the request.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos"
+                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos",
                         },
                         ReturnType = todo,
                         MethodType = MethodType.GetPaged,
                         Parameters =
                         {
                             new MethodParameter("action", new ModelRef(todoAction) { IsNullable = true }) { IsOptional = true },
-                        }
+                        },
                     },
                     new Method("MarkTodoAsDone", "todos/:todo/mark_as_done")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Marks a single pending todo given by its ID for the current user as done.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done"
+                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done",
                         },
                         ReturnType = todo,
                         MethodType = MethodType.Post,
                         Parameters =
                         {
                             new MethodParameter("todo", todoIdRef),
-                        }
+                        },
                     },
                     new Method("MarkAllTodosAsDone", "todos/mark_as_done")
                     {
                         Documentation = new Documentation
                         {
                             Summary = "Marks all pending todos for the current user as done.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done"
+                            HelpLink = "https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done",
                         },
                         MethodType = MethodType.Post,
                     },
@@ -1054,7 +1054,7 @@ namespace Meziantou.GitLabClient.Generator
                         ReturnType = user,
                         Parameters =
                     {
-                        new MethodParameter("id", ModelRef.Id)
+                        new MethodParameter("id", ModelRef.Id),
                     },
                         Documentation = new Documentation
                         {
@@ -1094,12 +1094,12 @@ namespace Meziantou.GitLabClient.Generator
                         ReturnType = new ModelRef(userStatus),
                         Parameters =
                         {
-                            new MethodParameter("user", userRef)
+                            new MethodParameter("user", userRef),
                         },
                         Documentation = new Documentation
                         {
                             Summary = "Get the status of a user.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user",
                         },
                     },
                     new Method("SetUserStatus", "user/status")
@@ -1114,7 +1114,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Set the status of the current user.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#set-user-status"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#set-user-status",
                         },
                     },
                     new Method("GetSshKeys", "user/keys")
@@ -1124,7 +1124,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Get a list of currently authenticated user's SSH keys.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys",
                         },
                     },
                     new Method("GetSshKeys", "users/:user/keys")
@@ -1133,12 +1133,12 @@ namespace Meziantou.GitLabClient.Generator
                         ReturnType = new ModelRef(sshKey) { IsCollection = true },
                         Parameters =
                         {
-                            new MethodParameter("user", ModelRef.Id)
+                            new MethodParameter("user", ModelRef.Id),
                         },
                         Documentation = new Documentation
                         {
                             Summary = "Get a list of a specified user's SSH keys. Available only for admin.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user",
                         },
                     },
                     new Method("GetSshKey", "user/keys/:id")
@@ -1152,13 +1152,13 @@ namespace Meziantou.GitLabClient.Generator
                                 Documentation = new Documentation
                                 {
                                     Summary = "The ID of an SSH key",
-                                }
-                            }
+                                },
+                            },
                         },
                         Documentation = new Documentation
                         {
                             Summary = "Get a single key.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#single-ssh-key"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#single-ssh-key",
                         },
                     },
                     new Method("AddSshKey", "user/keys")
@@ -1173,7 +1173,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Creates a new key owned by the currently authenticated user.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#add-ssh-key"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#add-ssh-key",
                         },
                     },
                     new Method("AddSshKey", "users/:user/keys")
@@ -1189,7 +1189,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Creates a new key owned by the currently authenticated user.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#add-ssh-key"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#add-ssh-key",
                         },
                     },
                     new Method("DeleteSshKey", "user/keys/:id")
@@ -1199,13 +1199,13 @@ namespace Meziantou.GitLabClient.Generator
                         {
                             new MethodParameter("id", sshKeyRef)
                             {
-                                Documentation = "SSH key ID"
-                            }
+                                Documentation = "SSH key ID",
+                            },
                         },
                         Documentation = new Documentation
                         {
                             Summary = "Deletes key owned by currently authenticated user.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user",
                         },
                     },
                     new Method("CreateUser", "users")
@@ -1225,7 +1225,7 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "Creates a new user. Note only administrators can create new users.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#user-creation"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#user-creation",
                         },
                     },
                     new Method("CreateImpersonationToken", "users/:user/impersonation_tokens")
@@ -1242,9 +1242,9 @@ namespace Meziantou.GitLabClient.Generator
                         Documentation = new Documentation
                         {
                             Summary = "It creates a new impersonation token. Note that only administrators can do this. You are only able to create impersonation tokens to impersonate the user and perform both API calls and Git reads and writes. The user will not see these tokens in their profile settings page.",
-                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token"
+                            HelpLink = "https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token",
                         },
-                    }
+                    },
                 }
                 );
 
@@ -1255,10 +1255,10 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/version.html"
+                            HelpLink = "https://docs.gitlab.com/ee/api/version.html",
                         },
                         ReturnType = version,
-                        MethodType = MethodType.Get
+                        MethodType = MethodType.Get,
                     },
                 });
 
@@ -1269,7 +1269,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages",
                         },
                         ReturnType = new ModelRef(wikiPage) { IsCollection = true },
                         MethodType = MethodType.Get,
@@ -1282,7 +1282,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages",
                         },
                         ReturnType = wikiPage,
                         MethodType = MethodType.Get,
@@ -1296,7 +1296,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages",
                         },
                         ReturnType = wikiPage,
                         MethodType = MethodType.Post,
@@ -1312,7 +1312,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages",
                         },
                         ReturnType = wikiPage,
                         MethodType = MethodType.Put,
@@ -1329,7 +1329,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Documentation = new Documentation
                         {
-                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages"
+                            HelpLink = "https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages",
                         },
                         ReturnType = null,
                         MethodType = MethodType.Delete,

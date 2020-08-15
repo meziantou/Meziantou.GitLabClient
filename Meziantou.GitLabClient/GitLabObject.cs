@@ -9,18 +9,18 @@ namespace Meziantou.GitLab
     [JsonConverter(typeof(GitLabObjectConverter))]
     public class GitLabObject : IGitLabObject, IDynamicMetaObjectProvider
     {
-        private static readonly JsonSerializer _jsonSerializer;
+        private static readonly JsonSerializer s_jsonSerializer = GetJsonSerializer();
 
-        static GitLabObject()
+        private static JsonSerializer GetJsonSerializer()
         {
-            _jsonSerializer = new JsonSerializer
+            return new JsonSerializer
             {
                 Converters =
                 {
                     new GitLabObjectConverter(),
                     new GitObjectIdConverter(),
                     new JsonObjectConverter(),
-                }
+                },
             };
         }
 
@@ -35,9 +35,9 @@ namespace Meziantou.GitLab
 
         public virtual bool TryGetValue(string name, Type type, out object result)
         {
-            if (JsonObject.TryGetValue(name, out var value))
+            if (JsonObject.TryGetValue(name, StringComparison.Ordinal, out var value))
             {
-                result = value.ToObject(type, _jsonSerializer);
+                result = value.ToObject(type, s_jsonSerializer);
 
                 if (result is IGitLabObject g)
                 {
@@ -94,6 +94,11 @@ namespace Meziantou.GitLab
         }
 
         DynamicMetaObject IDynamicMetaObjectProvider.GetMetaObject(Expression parameter)
+        {
+            return GetMetaObject(parameter);
+        }
+
+        protected virtual DynamicMetaObject GetMetaObject(Expression parameter)
         {
             return new DelegatingMetaObject(JsonObject, parameter, BindingRestrictions.Empty, JsonObject);
         }

@@ -24,22 +24,22 @@ namespace Meziantou.GitLab
         public IAuthenticator Authenticator { get; set; }
 
         public GitLabClient(string serverUri, string personalAccessToken)
-            : this(new HttpClient(), true, new Uri(serverUri, UriKind.Absolute), new PersonalAccessTokenAuthenticator(personalAccessToken))
+            : this(new HttpClient(), httpClientOwned: true, new Uri(serverUri, UriKind.Absolute), new PersonalAccessTokenAuthenticator(personalAccessToken))
         {
         }
 
         public GitLabClient(string serverUri)
-            : this(new HttpClient(), true, new Uri(serverUri, UriKind.Absolute), null)
+            : this(new HttpClient(), httpClientOwned: true, new Uri(serverUri, UriKind.Absolute), authenticator: null)
         {
         }
 
         public GitLabClient(HttpClient httpClient)
-            : this(httpClient, false, null, null)
+            : this(httpClient, httpClientOwned: false, serverUri: null, authenticator: null)
         {
         }
 
         public GitLabClient(HttpClient httpClient, string serverUri, string personalAccessToken)
-            : this(httpClient, true, new Uri(serverUri, UriKind.Absolute), new PersonalAccessTokenAuthenticator(personalAccessToken))
+            : this(httpClient, httpClientOwned: true, new Uri(serverUri, UriKind.Absolute), new PersonalAccessTokenAuthenticator(personalAccessToken))
         {
         }
 
@@ -82,175 +82,154 @@ namespace Meziantou.GitLab
             return new HttpResponse(response, this);
         }
 
-        public virtual async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+            where T : GitLabObject
         {
-            using (var request = new HttpRequestMessage())
+            using var request = new HttpRequestMessage
             {
-                request.Method = HttpMethod.Get;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.RelativeOrAbsolute),
+            };
 
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
-                {
-                    if (response.StatusCode == HttpStatusCode.NotFound)
-                        return default;
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return default;
 
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-                    return await response.ToObjectAsync<T>().ConfigureAwait(false);
-                }
-            }
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
+            return await response.ToObjectAsync<T>().ConfigureAwait(false);
         }
 
-        public virtual async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+            where T : GitLabObject
         {
-            using (var request = new HttpRequestMessage())
+            using var request = new HttpRequestMessage
             {
-                request.Method = HttpMethod.Get;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.RelativeOrAbsolute),
+            };
 
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
-                {
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-                    return await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
-                }
-            }
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
+            return await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
         }
 
-        public virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+            where T : GitLabObject
         {
-            using (var request = new HttpRequestMessage())
+            using var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
+
+            string firstLink = null;
+            string lastLink = null;
+            string prevLink = null;
+            string nextLink = null;
+
+            var headers = response.ResponseHeaders;
+            if (headers.TryGetValues("link", out var values))
             {
-                request.Method = HttpMethod.Get;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
+                foreach (var value in values)
                 {
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-
-                    string firstLink = null;
-                    string lastLink = null;
-                    string prevLink = null;
-                    string nextLink = null;
-
-                    var headers = response.ResponseHeaders;
-                    if (headers.TryGetValues("link", out var values))
+                    foreach (var linkValue in value.Split(','))
                     {
-                        foreach (var value in values)
+                        if (LinkHeaderValue.TryParse(linkValue, out var headerValue))
                         {
-                            foreach (var linkValue in value.Split(','))
+                            if (string.Equals(headerValue.Rel, "first", StringComparison.OrdinalIgnoreCase))
                             {
-                                if (LinkHeaderValue.TryParse(linkValue, out var headerValue))
-                                {
-                                    if (string.Equals(headerValue.Rel, "first", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        firstLink = headerValue.Url;
-                                    }
-                                    else if (string.Equals(headerValue.Rel, "last", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        lastLink = headerValue.Url;
-                                    }
-                                    else if (string.Equals(headerValue.Rel, "next", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        nextLink = headerValue.Url;
-                                    }
-                                    else if (string.Equals(headerValue.Rel, "prev", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        prevLink = headerValue.Url;
-                                    }
-                                }
+                                firstLink = headerValue.Url;
+                            }
+                            else if (string.Equals(headerValue.Rel, "last", StringComparison.OrdinalIgnoreCase))
+                            {
+                                lastLink = headerValue.Url;
+                            }
+                            else if (string.Equals(headerValue.Rel, "next", StringComparison.OrdinalIgnoreCase))
+                            {
+                                nextLink = headerValue.Url;
+                            }
+                            else if (string.Equals(headerValue.Rel, "prev", StringComparison.OrdinalIgnoreCase))
+                            {
+                                prevLink = headerValue.Url;
                             }
                         }
                     }
-                    else
-                    {
-#if DEBUG
-                        throw new GitLabException("The response does not contain page information.");
-#endif
-                    }
-
-                    var pageIndex = headers.GetHeaderValue("X-Page", -1);
-                    var pageSize = headers.GetHeaderValue("X-Per-Page", -1);
-                    var total = headers.GetHeaderValue("X-Total", -1);
-                    var totalPages = headers.GetHeaderValue("X-Total-Pages", -1);
-
-                    var data = await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
-
-                    return new PagedResponse<T>(
-                        client: this,
-                        data: data,
-                        pageIndex: pageIndex,
-                        pageSize: pageSize,
-                        totalItems: total,
-                        totalPages: totalPages,
-                        firstUrl: firstLink,
-                        previousUrl: prevLink,
-                        nextUrl: nextLink,
-                        lastUrl: lastLink);
                 }
             }
+            else
+            {
+#if DEBUG
+                throw new GitLabException("The response does not contain page information.");
+#endif
+            }
+
+            var pageIndex = headers.GetHeaderValue("X-Page", -1);
+            var pageSize = headers.GetHeaderValue("X-Per-Page", -1);
+            var total = headers.GetHeaderValue("X-Total", -1);
+            var totalPages = headers.GetHeaderValue("X-Total-Pages", -1);
+
+            var data = await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
+
+            return new PagedResponse<T>(
+                client: this,
+                data: data,
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                totalItems: total,
+                totalPages: totalPages,
+                firstUrl: firstLink,
+                previousUrl: prevLink,
+                nextUrl: nextLink,
+                lastUrl: lastLink);
         }
 
         public virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
-            using (var request = new HttpRequestMessage())
-            using (var content = new JsonContent(data, JsonSerializerSettings))
-            {
-                request.Method = HttpMethod.Put;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-                request.Content = content;
+            using var request = new HttpRequestMessage();
+            using var content = new JsonContent(data, JsonSerializerSettings);
+            request.Method = HttpMethod.Put;
+            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            request.Content = content;
 
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
-                {
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-                    return await response.ToObjectAsync<T>().ConfigureAwait(false);
-                }
-            }
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
+            return await response.ToObjectAsync<T>().ConfigureAwait(false);
         }
 
         public virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
         {
-            using (var request = new HttpRequestMessage())
-            using (var content = new JsonContent(data, JsonSerializerSettings))
-            {
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-                request.Content = content;
+            using var request = new HttpRequestMessage();
+            using var content = new JsonContent(data, JsonSerializerSettings);
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            request.Content = content;
 
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
-                {
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-                    return await response.ToObjectAsync<T>().ConfigureAwait(false);
-                }
-            }
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
+            return await response.ToObjectAsync<T>().ConfigureAwait(false);
         }
 
         public virtual async Task PostJsonAsync(string url, object data, RequestOptions options, CancellationToken cancellationToken)
         {
-            using (var request = new HttpRequestMessage())
-            using (var content = new JsonContent(data, JsonSerializerSettings))
-            {
-                request.Method = HttpMethod.Post;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-                request.Content = content;
+            using var request = new HttpRequestMessage();
+            using var content = new JsonContent(data, JsonSerializerSettings);
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            request.Content = content;
 
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
-                {
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-                }
-            }
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
         }
 
         public virtual async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
         {
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = HttpMethod.Delete;
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            using var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Delete;
+            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                using (var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false))
-                {
-                    await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-                }
-            }
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            await response.EnsureStatusCodeAsync().ConfigureAwait(false);
         }
 
         public void Dispose()
@@ -316,15 +295,13 @@ namespace Meziantou.GitLab
                 if (!IsJsonResponse(ResponseMessage))
                     throw new InvalidOperationException($"Content type must be application/json but is {ResponseMessage.Content.Headers.ContentType?.MediaType}");
 
-                using (var s = await ResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                using (var sr = new StreamReader(s))
-                using (var reader = new JsonTextReader(sr))
-                {
-                    var jsonSerializer = JsonSerializer.Create(Client.JsonSerializerSettings);
-                    jsonSerializer.Context = Client.StreamingContext;
+                using var s = await ResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                using var sr = new StreamReader(s);
+                using var reader = new JsonTextReader(sr);
+                var jsonSerializer = JsonSerializer.Create(Client.JsonSerializerSettings);
+                jsonSerializer.Context = Client.StreamingContext;
 
-                    return (T)jsonSerializer.Deserialize(reader, typeof(T));
-                }
+                return (T)jsonSerializer.Deserialize(reader, typeof(T));
             }
 
             private static bool IsJsonResponse(HttpResponseMessage message)

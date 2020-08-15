@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Meziantou.Framework;
 using Meziantou.Framework.Threading;
 
 namespace Meziantou.GitLab.Tests
 {
     public class TestGitLabClient : GitLabClient
     {
-        private static readonly AsyncReaderWriterLock _readerWriterLockSlim = new AsyncReaderWriterLock();
+        private static readonly AsyncReaderWriterLock s_readerWriterLockSlim = new AsyncReaderWriterLock();
 
-        public List<object> Objects { get; } = new List<object>();
+        public IList<object> Objects { get; } = new List<object>();
 
         public GitLabTestContext Context { get; set; }
 
@@ -87,14 +87,14 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        private Task<AsyncReaderWriterLock.Releaser> ReaderLockAsync()
+        private static Task<AsyncReaderWriterLock.Releaser> ReaderLockAsync()
         {
-            return _readerWriterLockSlim.ReaderLockAsync();
+            return s_readerWriterLockSlim.ReaderLockAsync();
         }
 
-        private Task<AsyncReaderWriterLock.Releaser> WriterLockAsync()
+        private static Task<AsyncReaderWriterLock.Releaser> WriterLockAsync()
         {
-            return _readerWriterLockSlim.WriterLockAsync();
+            return s_readerWriterLockSlim.WriterLockAsync();
         }
     }
 }

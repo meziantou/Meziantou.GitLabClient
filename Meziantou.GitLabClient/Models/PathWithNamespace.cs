@@ -63,7 +63,7 @@ namespace Meziantou.GitLab
 
         public override int GetHashCode()
         {
-            return -1939223833 + EqualityComparer<string>.Default.GetHashCode(FullPath);
+            return -1939223833 + StringComparer.Ordinal.GetHashCode(FullPath);
         }
 
         public override string ToString() => FullPath;

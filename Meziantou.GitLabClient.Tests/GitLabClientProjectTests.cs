@@ -9,11 +9,9 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public async Task GetProjects()
         {
-            using (var context = GetContext())
-            using (var client = await context.CreateNewUserAsync())
-            {
-                var projects = await client.GetProjectsAsync();
-            }
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+            var projects = await client.GetProjectsAsync();
         }
     }
 }

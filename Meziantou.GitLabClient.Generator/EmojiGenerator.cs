@@ -11,7 +11,7 @@ namespace Meziantou.GitLabClient.Generator
 {
     internal class EmojiGenerator
     {
-        public async Task Generate()
+        public static async Task Generate()
         {
             var unit = new CompilationUnit();
             var ns = unit.AddNamespace("Meziantou.GitLab");
@@ -20,20 +20,18 @@ namespace Meziantou.GitLabClient.Generator
 
             using (var httpClient = new HttpClient())
             {
-                using (var result = await httpClient.GetAsync("https://raw.githubusercontent.com/jonathanwiesel/gemojione/master/config/index.json"))
+                using var result = await httpClient.GetAsync("https://raw.githubusercontent.com/jonathanwiesel/gemojione/master/config/index.json").ConfigureAwait(false);
+                var str = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var emojis = JsonConvert.DeserializeObject<Dictionary<string, Emoji>>(str);
+                foreach (var kvp in emojis.OrderBy(entry => entry.Key))
                 {
-                    var str = await result.Content.ReadAsStringAsync();
-                    var emojis = JsonConvert.DeserializeObject<Dictionary<string, Emoji>>(str);
-                    foreach (var kvp in emojis.OrderBy(entry => entry.Key))
+                    var constant = new FieldDeclaration("Emoji" + GetName(kvp.Key), typeof(string), Modifiers.Public | Modifiers.Const)
                     {
-                        var constant = new FieldDeclaration("Emoji" + GetName(kvp.Key), typeof(string), Modifiers.Public | Modifiers.Const)
-                        {
-                            InitExpression = new LiteralExpression(kvp.Key)
-                        };
+                        InitExpression = new LiteralExpression(kvp.Key),
+                    };
 
-                        var field = emojiClass.AddMember(constant);
-                        field.XmlComments.AddSummary($"Emoji {kvp.Value.Name} {kvp.Value.Moji}");
-                    }
+                    var field = emojiClass.AddMember(constant);
+                    field.XmlComments.AddSummary($"Emoji {kvp.Value.Name} {kvp.Value.Moji}");
                 }
             }
 
@@ -42,7 +40,7 @@ namespace Meziantou.GitLabClient.Generator
                 new CSharpCodeGenerator().Write(tw, unit);
             }
 
-            string GetName(string value)
+            static string GetName(string value)
             {
                 return value.Split(new[] { '_', '-' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1))
@@ -50,7 +48,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private class Emoji
+        private sealed class Emoji
         {
             public string Name { get; set; }
             public string Moji { get; set; }

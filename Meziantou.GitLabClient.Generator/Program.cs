@@ -10,7 +10,7 @@ namespace Meziantou.GitLabClient.Generator
         {
             if (MustGenerateEmoji)
             {
-                await new EmojiGenerator().Generate();
+                await EmojiGenerator.Generate().ConfigureAwait(false);
             }
 
             new GitLabClientGenerator().Generate();
