@@ -33,7 +33,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public string? Namespace
+        public PathWithNamespace? Namespace
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
                 if (indexOf < 0)
                     return null;
 
-                return FullPath.Substring(0, indexOf);
+                return new PathWithNamespace(FullPath.Substring(0, indexOf));
             }
         }
 

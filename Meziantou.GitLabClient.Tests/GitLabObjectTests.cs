@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Meziantou.GitLab.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
@@ -92,11 +94,14 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public void AsDynamic()
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": 2 }");
+            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"prop1\": 2 }");
 
             dynamic dyn = obj;
-            var result = dyn.Prop1;
-            Assert.AreEqual(2, (int)result);
+            var result1 = dyn.prop1;
+            Assert.AreEqual(2, (int)result1);
+
+            Assert.IsNull(dyn.Prop1);
+            Assert.ThrowsException<InvalidOperationException>(() => dyn.Prop1 = "test");
         }
     }
 }

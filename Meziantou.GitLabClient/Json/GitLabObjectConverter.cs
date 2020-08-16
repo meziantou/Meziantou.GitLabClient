@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Meziantou.GitLab.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,7 +21,7 @@ namespace Meziantou.GitLab
 
                 if (serializer.Context.Context is IGitLabClient client)
                 {
-                    ((IGitLabObject)gitLabObject).GitLabClient = client;
+                    gitLabObject.GitLabClient = client;
                 }
 
                 return gitLabObject;

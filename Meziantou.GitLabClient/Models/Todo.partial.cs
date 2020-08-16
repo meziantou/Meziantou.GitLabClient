@@ -1,24 +1,26 @@
-﻿namespace Meziantou.GitLab
+﻿using Meziantou.GitLab.Core;
+
+namespace Meziantou.GitLab
 {
     public partial class Todo
     {
+        private const string TargetName = "target";
+
         private GitLabObject _target;
 
-        [MappedProperty("target")]
+        [MappedProperty(TargetName)]
         public GitLabObject Target
         {
             get
             {
                 if (_target == null)
                 {
-                    var type = TargetType switch
+                    _target = TargetType switch
                     {
-                        TodoType.Issue => typeof(Issue),
-                        TodoType.MergeRequest => typeof(MergeRequest),
-                        _ => typeof(GitLabObject),
+                        TodoType.Issue => GetValueOrDefault<Issue>(TargetName),
+                        TodoType.MergeRequest => GetValueOrDefault<MergeRequest>(TargetName),
+                        _ => GetValueOrDefault<GitLabObject>(TargetName),
                     };
-
-                    _target = (GitLabObject)GetValueOrDefault("target", type, default(GitLabObject));
                 }
 
                 return _target;

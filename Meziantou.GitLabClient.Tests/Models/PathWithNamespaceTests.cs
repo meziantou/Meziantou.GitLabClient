@@ -10,7 +10,7 @@ namespace Meziantou.GitLab.Tests.Models
         [DataRow("Test/Project", "Test", "Project")]
         [DataRow("Test/SubGroup/Project", "Test/SubGroup", "Project")]
         [DataRow("Project", null, "Project")]
-        [DataRow("Test/", "Test", null)]
+        [DataRow("Test/", "Test", "")]
         public void ParseGroupAndPath(string pathWithNamespace, string ns, string path)
         {
             var value = new PathWithNamespace(pathWithNamespace);

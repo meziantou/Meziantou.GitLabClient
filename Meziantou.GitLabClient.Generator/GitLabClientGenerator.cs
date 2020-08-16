@@ -476,12 +476,6 @@ namespace Meziantou.GitLabClient.Generator
                 Initializer = new ConstructorBaseInitializer(new ArgumentReferenceExpression("obj")),
             });
 
-            var internalCtor = type.AddMember(new ConstructorDeclaration()
-            {
-                Modifiers = Modifiers.Internal,
-                Initializer = new ConstructorBaseInitializer(new NewObjectExpression(typeof(JObject))),
-            });
-
             // Add properties
             foreach (var prop in entity.Properties)
             {
@@ -500,19 +494,6 @@ namespace Meziantou.GitLabClient.Generator
                             prop.SerializationName ?? prop.Name,
                             new DefaultValueExpression(GetPropertyTypeRef(prop.Type)),
                         })),
-                    },
-                    Setter = new PropertyAccessorDeclaration
-                    {
-                        Modifiers = Modifiers.Internal,
-                        Statements = new StatementCollection
-                        {
-                            new ThisExpression().CreateInvokeMethodExpression("SetValue",
-                            new Expression[]
-                            {
-                                prop.SerializationName ?? prop.Name,
-                                new ValueArgumentExpression(),
-                            }),
-                        },
                     },
                 });
 
@@ -661,6 +642,7 @@ namespace Meziantou.GitLabClient.Generator
             if (enumeration.SerializeAsString)
             {
                 //[JsonConverter(typeof(StringEnumConverter))]
+                // TODO create custom converter here
                 type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
                 {
                     Arguments = { new CustomAttributeArgument(new TypeOfExpression(typeof(StringEnumConverter))) },
@@ -713,12 +695,12 @@ namespace Meziantou.GitLabClient.Generator
             var type = ns.AddType(new StructDeclaration(entity.Name));
             type.Modifiers = Modifiers.Public | Modifiers.ReadOnly | Modifiers.Partial;
 
-            type.Implements.Add(typeof(IReference));
+            type.Implements.Add(typeof(IGitLabObjectReference));
             type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
             {
                 Arguments =
                 {
-                    new CustomAttributeArgument(new TypeOfExpression(typeof(ReferenceJsonConverter))),
+                    new CustomAttributeArgument(new TypeOfExpression(typeof(GitLabObjectReferenceJsonConverter))),
                 },
             });
 

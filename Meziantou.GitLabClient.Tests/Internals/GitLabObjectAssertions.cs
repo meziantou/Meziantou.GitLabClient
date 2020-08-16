@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Meziantou.GitLab.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
@@ -31,7 +32,7 @@ namespace Meziantou.GitLab.Tests
         {
             foreach (var obj in GetObjects(o))
             {
-                Assert.IsNotNull(((IGitLabObject)obj).GitLabClient);
+                Assert.IsNotNull(obj.GitLabClient);
 
                 if (validateChildProperties)
                 {

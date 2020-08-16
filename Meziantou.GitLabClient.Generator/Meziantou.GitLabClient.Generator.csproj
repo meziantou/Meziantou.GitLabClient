@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Meziantou.GitLabClient\Internals\IReference.cs" Link="Types\IReference.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\Internals\IGitLabObjectReference.cs" Link="Types\IGitLabObjectReference.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\MappedPropertyAttribute.cs" Link="Types\MappedPropertyAttribute.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\SkipUtcDateValidationAttribute.cs" Link="Types\SkipUtcDateValidationAttribute.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\UrlBuilder.cs" Link="Types\UrlBuilder.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Json\ReferenceJsonConverter.cs" Link="Types\ReferenceJsonConverter.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\Json\GitLabObjectReferenceJsonConverter.cs" Link="Types\GitLabObjectReferenceJsonConverter.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Models\PathWithNamespace.cs" Link="Types\PathWithNamespace.cs" />
     <Compile Include="..\Meziantou.GitLabClient\OrderBy.cs" Link="Types\OrderBy.cs" />
     <Compile Include="..\Meziantou.GitLabClient\OrderByDirection.cs" Link="Types\OrderByDirection.cs" />

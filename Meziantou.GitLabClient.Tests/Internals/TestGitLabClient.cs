@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.Framework;
 using Meziantou.Framework.Threading;
+using Meziantou.GitLab.Core;
 
 namespace Meziantou.GitLab.Tests
 {

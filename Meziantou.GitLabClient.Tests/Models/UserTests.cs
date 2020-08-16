@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab.Tests.Models
 {
@@ -33,11 +34,15 @@ namespace Meziantou.GitLab.Tests.Models
 
         public static IEnumerable<object[]> User_Equals_Value()
         {
-            yield return new object[] { new User(), null, false };
-            yield return new object[] { new User { Id = 1 }, new User { Id = 2 }, false };
+            var emptyUser = JObject.Parse(@"{ }");
+            var user1 = JObject.Parse(@"{ ""id"": 1 }");
+            var user2 = JObject.Parse(@"{ ""id"": 2 }");
 
-            yield return new object[] { new User(), new User(), true };
-            yield return new object[] { new User { Id = 1 }, new User { Id = 1 }, true };
+            yield return new object[] { new User(emptyUser), null, false };
+            yield return new object[] { new User(user1), new User(user2), false };
+
+            yield return new object[] { new User(emptyUser), new User(emptyUser), true };
+            yield return new object[] { new User(user1), new User(user1), true };
         }
     }
 }

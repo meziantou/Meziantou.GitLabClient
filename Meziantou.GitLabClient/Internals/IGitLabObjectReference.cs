@@ -1,6 +1,6 @@
 ﻿namespace Meziantou.GitLab
 {
-    internal interface IReference
+    internal interface IGitLabObjectReference
     {
         object Value { get; }
     }

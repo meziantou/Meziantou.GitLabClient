@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
 {
+    // TODO improve performance
     internal sealed class UrlBuilder
     {
         private static readonly ConcurrentDictionary<Type, EnumDescriptor> s_enumDescriptors = new ConcurrentDictionary<Type, EnumDescriptor>();

@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Meziantou.GitLab.Core;
 using Meziantou.GitLabClient;
 using Newtonsoft.Json;
 
@@ -110,7 +111,7 @@ namespace Meziantou.GitLab
 
             using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
             await response.EnsureStatusCodeAsync().ConfigureAwait(false);
-            return await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
+            return await response.ToCollectionAsync<T>().ConfigureAwait(false);
         }
 
         public virtual async Task<GitLabPageResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
@@ -166,7 +167,7 @@ namespace Meziantou.GitLab
             var total = headers.GetHeaderValue("X-Total", -1);
             var totalPages = headers.GetHeaderValue("X-Total-Pages", -1);
 
-            var data = await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
+            var data = await response.ToCollectionAsync<T>().ConfigureAwait(false);
 
             return new GitLabPageResponse<T>(
                 client: this,
@@ -181,7 +182,8 @@ namespace Meziantou.GitLab
                 lastUrl: lastLink);
         }
 
-        public virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+            where T : GitLabObject
         {
             using var request = new HttpRequestMessage();
             using var content = new JsonContent(data, JsonSerializerSettings);
@@ -194,7 +196,8 @@ namespace Meziantou.GitLab
             return await response.ToObjectAsync<T>().ConfigureAwait(false);
         }
 
-        public virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject
+        public virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+            where T : GitLabObject
         {
             using var request = new HttpRequestMessage();
             using var content = new JsonContent(data, JsonSerializerSettings);
@@ -234,7 +237,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        protected class HttpResponse : IDisposable
+        protected sealed class HttpResponse : IDisposable
         {
             public HttpResponse(HttpResponseMessage message, GitLabClient client)
             {
@@ -269,8 +272,16 @@ namespace Meziantou.GitLab
             }
 
             public Task<T> ToObjectAsync<T>()
+                where T : GitLabObject
             {
                 return DeserializeAsync<T>();
+            }
+
+            // TODO validate the collection is actually readonly
+            public Task<IReadOnlyList<T>> ToCollectionAsync<T>()
+                where T : GitLabObject
+            {
+                return DeserializeAsync<IReadOnlyList<T>>();
             }
 
             public async Task<Stream> ToStreamAsync()

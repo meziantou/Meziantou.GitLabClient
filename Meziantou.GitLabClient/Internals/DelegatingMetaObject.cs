@@ -38,17 +38,17 @@ namespace Meziantou.GitLab
 
         public override DynamicMetaObject BindCreateInstance(CreateInstanceBinder binder, DynamicMetaObject[] args)
         {
-            return _innerMetaObject.BindCreateInstance(binder, args);
+            return null;
         }
 
         public override DynamicMetaObject BindDeleteIndex(DeleteIndexBinder binder, DynamicMetaObject[] indexes)
         {
-            return _innerMetaObject.BindDeleteIndex(binder, indexes);
+            return null;
         }
 
         public override DynamicMetaObject BindDeleteMember(DeleteMemberBinder binder)
         {
-            return _innerMetaObject.BindDeleteMember(binder);
+            return null;
         }
 
         public override DynamicMetaObject BindGetIndex(GetIndexBinder binder, DynamicMetaObject[] indexes)
@@ -58,17 +58,17 @@ namespace Meziantou.GitLab
 
         public override DynamicMetaObject BindInvoke(InvokeBinder binder, DynamicMetaObject[] args)
         {
-            return _innerMetaObject.BindInvoke(binder, args);
+            return null;
         }
 
         public override DynamicMetaObject BindSetIndex(SetIndexBinder binder, DynamicMetaObject[] indexes, DynamicMetaObject value)
         {
-            return _innerMetaObject.BindSetIndex(binder, indexes, value);
+            return null;
         }
 
         public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value)
         {
-            return _innerMetaObject.BindSetMember(binder, value);
+            return null;
         }
 
         public override DynamicMetaObject BindUnaryOperation(UnaryOperationBinder binder)

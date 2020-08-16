@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Meziantou.GitLab.Core;
 using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab
 {
-    public class GitLabError : GitLabObject
+    public sealed class GitLabError : GitLabObject
     {
         internal GitLabError(JObject obj)
             : base(obj)

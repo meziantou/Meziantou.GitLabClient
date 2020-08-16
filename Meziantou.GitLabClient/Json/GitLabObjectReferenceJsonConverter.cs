@@ -3,17 +3,17 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    internal sealed class ReferenceJsonConverter : JsonConverter<IReference>
+    internal sealed class GitLabObjectReferenceJsonConverter : JsonConverter<IGitLabObjectReference>
     {
         public override bool CanRead => false;
         public override bool CanWrite => true;
 
-        public override IReference ReadJson(JsonReader reader, Type objectType, IReference existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override IGitLabObjectReference ReadJson(JsonReader reader, Type objectType, IGitLabObjectReference existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             throw new NotSupportedException();
         }
 
-        public override void WriteJson(JsonWriter writer, IReference value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, IGitLabObjectReference value, JsonSerializer serializer)
         {
             if (value == null)
             {
