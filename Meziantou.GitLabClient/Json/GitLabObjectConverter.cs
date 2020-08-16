@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLab
 {
-    internal class GitLabObjectConverter : JsonConverter<GitLabObject>
+    internal sealed class GitLabObjectConverter : JsonConverter<GitLabObject>
     {
         public override bool CanRead => true;
         public override bool CanWrite => false;

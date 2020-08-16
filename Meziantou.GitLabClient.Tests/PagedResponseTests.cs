@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -39,71 +38,6 @@ namespace Meziantou.GitLab.Tests
             Assert.AreEqual(50, page.TotalItems);
             Assert.IsFalse(page.IsFirstPage);
             Assert.IsFalse(page.IsLastPage);
-        }
-
-        [TestMethod]
-        public async Task AsEnumerable()
-        {
-            using var handler = new MockHandler();
-            handler.AddResponse("GET http://localhost:3000/", new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Headers =
-                {
-                    { "Link", "<http://localhost:3000/?page=2>; rel=\"next\"" },
-                },
-                Content = new JsonContent(new[] { new object(), new object() }),
-            });
-
-            handler.AddResponse("GET http://localhost:3000/?page=2", new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Headers =
-                {
-                    { "Link", "<http://localhost:3000/?page=2>; rel=\"current\"" },
-                },
-                Content = new JsonContent(new[] { new object() }),
-            });
-
-            using var context = GetContext(handler);
-            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
-
-            // Act
-            var result = page.AsEnumerable().Take(3).ToList();
-
-            // Assert
-            Assert.AreEqual(3, result.Count);
-        }
-
-        [TestMethod]
-        public async Task Foreach()
-        {
-            using var handler = new MockHandler();
-            handler.AddResponse("GET http://localhost:3000/", new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Headers =
-                {
-                    { "Link", "<http://localhost:3000/?page=2>; rel=\"next\"" },
-                },
-                Content = new JsonContent(new[] { new object(), new object() }),
-            });
-
-            handler.AddResponse("GET http://localhost:3000/?page=2", new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Headers =
-                {
-                    { "Link", "<http://localhost:3000/?page=2>; rel=\"current\"" },
-                },
-                Content = new JsonContent(new[] { new object() }),
-            });
-
-            using var context = GetContext(handler);
-            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
-
-            // Act
-            var count = 0;
-            await page.ForEachAsync(_ => count++);
-
-            // Assert
-            Assert.AreEqual(3, count);
         }
 
         private sealed class MockHandler : HttpClientHandler

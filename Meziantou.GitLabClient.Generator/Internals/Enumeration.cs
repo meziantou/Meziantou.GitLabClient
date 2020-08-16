@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class Enumeration : Model
+    internal sealed class Enumeration : Model
     {
         public Enumeration(string name)
             : base(name)

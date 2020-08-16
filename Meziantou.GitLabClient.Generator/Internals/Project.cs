@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class Project
+    internal sealed class Project
     {
         public IList<Model> Models { get; } = new List<Model>();
         public IList<ParameterEntity> ParameterEntities { get; } = new List<ParameterEntity>();
@@ -28,8 +28,7 @@ namespace Meziantou.GitLabClient.Generator
 
         public MethodGroup AddMethodGroup(string name, Method[] methods)
         {
-            var group = new MethodGroup();
-            group.Name = name;
+            var group = new MethodGroup { Name = name };
             foreach (var method in methods)
             {
                 group.Methods.Add(method);

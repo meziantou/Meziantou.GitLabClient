@@ -113,13 +113,10 @@ namespace Meziantou.GitLab
             return await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
         }
 
-        public virtual async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+        public virtual async Task<GitLabPageResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
             where T : GitLabObject
         {
-            using var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
+            using var request = new HttpRequestMessage(HttpMethod.Get, new Uri(url, UriKind.RelativeOrAbsolute));
             using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
             await response.EnsureStatusCodeAsync().ConfigureAwait(false);
 
@@ -171,7 +168,7 @@ namespace Meziantou.GitLab
 
             var data = await response.ToObjectAsync<IReadOnlyList<T>>().ConfigureAwait(false);
 
-            return new PagedResponse<T>(
+            return new GitLabPageResponse<T>(
                 client: this,
                 data: data,
                 pageIndex: pageIndex,
@@ -224,15 +221,12 @@ namespace Meziantou.GitLab
 
         public virtual async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
         {
-            using var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Delete;
-            request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
+            using var request = new HttpRequestMessage(HttpMethod.Delete, new Uri(url, UriKind.RelativeOrAbsolute));
             using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
             await response.EnsureStatusCodeAsync().ConfigureAwait(false);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (_httpClientOwned)
             {

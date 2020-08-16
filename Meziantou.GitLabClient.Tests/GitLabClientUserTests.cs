@@ -59,7 +59,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var emoji = context.GetRandomEmojiName();
+            var emoji = Emoji.EmojiThumbsup;
             var message = context.GetRandomString();
             var status = await client.SetUserStatusAsync(emoji, message);
 

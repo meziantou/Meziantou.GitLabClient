@@ -3,7 +3,7 @@
 namespace Meziantou.GitLab
 {
     [AttributeUsage(AttributeTargets.Property)]
-    internal class MappedPropertyAttribute : Attribute
+    internal sealed class MappedPropertyAttribute : Attribute
     {
         public MappedPropertyAttribute(string name)
         {

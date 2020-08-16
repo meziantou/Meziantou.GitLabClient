@@ -3,7 +3,7 @@ using Meziantou.Framework.CodeDom;
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class ModelRef
+    internal sealed class ModelRef
     {
         public static ModelRef Object { get; } = new ModelRef(typeof(object));
         public static ModelRef String { get; } = new ModelRef(typeof(string));

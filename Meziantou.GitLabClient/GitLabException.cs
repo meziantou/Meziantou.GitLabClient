@@ -17,6 +17,11 @@ namespace Meziantou.GitLab
         {
         }
 
+        public GitLabException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
         public GitLabException(HttpMethod httpMethod, Uri requestUri, HttpStatusCode httpStatusCode, GitLabError error)
             : base(GetMessage(error))
         {

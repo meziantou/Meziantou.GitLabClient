@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    internal class GitObjectIdConverter : JsonConverter<GitObjectId>
+    internal sealed class GitObjectIdConverter : JsonConverter<GitObjectId>
     {
         public override bool CanRead => true;
         public override bool CanWrite => true;

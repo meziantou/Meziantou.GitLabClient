@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class ParameterEntity
+    internal sealed class ParameterEntity
     {
         public ParameterEntity(string name, ModelRef finalType)
         {

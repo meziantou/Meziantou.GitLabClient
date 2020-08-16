@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    internal class JsonContent : StringContent
+    internal sealed class JsonContent : StringContent
     {
         public JsonContent(object content)
             : base(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")

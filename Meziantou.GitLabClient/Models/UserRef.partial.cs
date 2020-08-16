@@ -23,9 +23,6 @@ namespace Meziantou.GitLab
             _value = user?.Id;
         }
 
-        public static implicit operator UserRef(UserSafe user)
-        {
-            return new UserRef(user);
-        }
+        public static implicit operator UserRef(UserSafe user) => new UserRef(user);
     }
 }

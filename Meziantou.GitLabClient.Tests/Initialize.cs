@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [assembly: Parallelize(Scope = ExecutionScope.MethodLevel)]
 
 namespace Meziantou.GitLab.Tests
 {
     [TestClass]
+    [SuppressMessage("Design", "CA1052:Static holder types should be Static or NotInheritable", Justification = "This is required by MSTest")]
     public class Initialize
     {
         [AssemblyInitialize]

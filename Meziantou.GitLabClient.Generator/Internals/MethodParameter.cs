@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class MethodParameter
+    internal sealed class MethodParameter
     {
         public MethodParameter(string name, ModelRef type)
         {

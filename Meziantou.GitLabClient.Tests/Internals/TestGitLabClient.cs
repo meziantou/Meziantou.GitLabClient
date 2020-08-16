@@ -42,7 +42,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<GitLabPageResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
         {
             using (await ReaderLockAsync())
             {

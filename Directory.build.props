@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <LangVersion>Latest</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Features>strict</Features>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -28,7 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     
-    <PackageReference Include="Meziantou.Analyzer" Version="1.0.534">
+    <PackageReference Include="Meziantou.Analyzer" Version="1.0.535">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

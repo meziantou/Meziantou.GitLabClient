@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal partial class GitLabClientGenerator
+    internal sealed partial class GitLabClientGenerator
     {
         private void CreateModel()
         {

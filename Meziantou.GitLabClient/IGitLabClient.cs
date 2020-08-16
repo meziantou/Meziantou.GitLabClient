@@ -12,6 +12,6 @@ namespace Meziantou.GitLab
         Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject;
         Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject;
         Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken);
-        Task<PagedResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject;
+        Task<GitLabPageResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken) where T : GitLabObject;
     }
 }

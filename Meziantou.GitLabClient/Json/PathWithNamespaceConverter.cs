@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    internal class PathWithNamespaceConverter : JsonConverter<PathWithNamespace>
+    internal sealed class PathWithNamespaceConverter : JsonConverter<PathWithNamespace>
     {
         public override bool CanRead => true;
         public override bool CanWrite => true;

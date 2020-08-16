@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class Method
+    internal sealed class Method
     {
         public Method(string name, string urlTemplate)
         {

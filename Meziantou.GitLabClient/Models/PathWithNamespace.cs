@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#nullable enable
+using System;
 #if !REF
 using Newtonsoft.Json;
 #endif
@@ -22,21 +22,18 @@ namespace Meziantou.GitLab
         {
             get
             {
-                if (FullPath == null)
-                    return null;
-
                 var indexOf = FullPath.LastIndexOf('/');
                 if (indexOf < 0)
                     return FullPath;
 
                 if (FullPath.Length == indexOf + 1)
-                    return null;
+                    return "";
 
                 return FullPath.Substring(indexOf + 1);
             }
         }
 
-        public string Namespace
+        public string? Namespace
         {
             get
             {
@@ -51,7 +48,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is PathWithNamespace pathWithNamespace && Equals(pathWithNamespace);
         }
@@ -73,7 +70,5 @@ namespace Meziantou.GitLab
         public static bool operator !=(PathWithNamespace namespace1, PathWithNamespace namespace2) => !(namespace1 == namespace2);
 
         public static implicit operator string(PathWithNamespace value) => value.FullPath;
-
-        public static implicit operator PathWithNamespace(string value) => new PathWithNamespace(value);
     }
 }

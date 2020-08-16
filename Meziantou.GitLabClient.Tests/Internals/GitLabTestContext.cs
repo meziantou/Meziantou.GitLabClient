@@ -7,13 +7,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Meziantou.Framework;
 using Meziantou.Framework.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
 namespace Meziantou.GitLab.Tests
 {
-    public class GitLabTestContext : IDisposable
+    public sealed class GitLabTestContext : IDisposable
     {
         public static GitLabDockerContainer DockerContainer { get; set; }
 
@@ -65,9 +66,11 @@ namespace Meziantou.GitLab.Tests
             return (string)fields[index].GetValue(null);
         }
 
-        public virtual string GetRandomString()
+        public string GetRandomString()
         {
-            return "GitLabClientTests" + Guid.NewGuid().ToString("N");
+            Span<byte> buffer = stackalloc byte[16];
+            Random.NextBytes(buffer);
+            return "GitLabClientTests_" + ((ReadOnlySpan<byte>)buffer).ToHexa(HexaOptions.LowerCase);
         }
 
         private TestGitLabClient CreateClient(string token)
@@ -101,7 +104,7 @@ namespace Meziantou.GitLab.Tests
 
         private sealed class LoggingHandler : DelegatingHandler
         {
-            private GitLabTestContext _gitLabTestContext;
+            private readonly GitLabTestContext _gitLabTestContext;
 
             public LoggingHandler(GitLabTestContext gitLabTestContext)
             {

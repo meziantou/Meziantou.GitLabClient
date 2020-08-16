@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Meziantou.GitLab
 {
-    internal class DelegatingMetaObject : DynamicMetaObject
+    internal sealed class DelegatingMetaObject : DynamicMetaObject
     {
         private readonly IDynamicMetaObjectProvider _innerProvider;
         private readonly DynamicMetaObject _innerMetaObject;

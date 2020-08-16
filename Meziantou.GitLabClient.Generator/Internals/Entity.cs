@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class Entity : Model
+    internal sealed class Entity : Model
     {
         public Entity(string name)
             : base(name)

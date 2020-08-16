@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 namespace Meziantou.GitLab
 {
     // Convert JToken to .NET standard types
-    internal class JsonObjectConverter : JsonConverter
+    internal sealed class JsonObjectConverter : JsonConverter
     {
         public override bool CanRead => true;
         public override bool CanWrite => false;

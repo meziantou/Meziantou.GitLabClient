@@ -1,6 +1,6 @@
 ﻿namespace Meziantou.GitLabClient.Generator
 {
-    internal class Documentation
+    internal sealed class Documentation
     {
         public string Summary { get; set; }
         public string Remark { get; set; }

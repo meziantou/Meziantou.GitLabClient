@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal partial class GitLabClientGenerator
+    internal sealed partial class GitLabClientGenerator
     {
         internal Project Project { get; set; } = new Project();
 
@@ -90,7 +90,7 @@ namespace Meziantou.GitLabClient.Generator
             new CSharpCodeGenerator().Write(tw, unit);
         }
 
-        private void AddDocumentationComments(CodeObject commentable, Documentation documentation)
+        private static void AddDocumentationComments(CodeObject commentable, Documentation documentation)
         {
             if (documentation != null)
             {
@@ -122,14 +122,14 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private MethodDeclaration GenerateInterfaceMethod(InterfaceDeclaration clientInterface, Method method)
+        private static MethodDeclaration GenerateInterfaceMethod(InterfaceDeclaration clientInterface, Method method)
         {
             var m = clientInterface.AddMember(new MethodDeclaration(method.Name + "Async"));
             GenerateMethodSignature(method, m, out _, out _, out _, out _);
             return m;
         }
 
-        private MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method)
+        private static MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method)
         {
             var m = clientClass.AddMember(new MethodDeclaration(method.Name + "Async"));
             m.SetData("Method", method);
@@ -226,24 +226,28 @@ namespace Meziantou.GitLabClient.Generator
                     break;
 
                 case MethodType.GetPaged:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetPagedAsync", new TypeReference[] { method.ReturnType }, url, requestOptionsArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new NewObjectExpression(m.ReturnType!.Clone(), new ThisExpression(), url, requestOptionsArgument)));
                     break;
 
                 case MethodType.Put:
-                    var putArgs = new List<Expression>();
-                    putArgs.Add(url);
-                    putArgs.Add((Expression)bodyArgument ?? new LiteralExpression(null));
-                    putArgs.Add(requestOptionsArgument);
-                    putArgs.Add(cancellationTokenArgument);
+                    var putArgs = new List<Expression>
+                    {
+                        url,
+                        (Expression)bodyArgument ?? new LiteralExpression(null),
+                        requestOptionsArgument,
+                        cancellationTokenArgument!,
+                    };
                     m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, putArgs.ToArray())));
                     break;
 
                 case MethodType.Post:
-                    var postArgs = new List<Expression>();
-                    postArgs.Add(url);
-                    postArgs.Add((Expression)bodyArgument ?? new LiteralExpression(null));
-                    postArgs.Add(requestOptionsArgument);
-                    postArgs.Add(cancellationTokenArgument);
+                    var postArgs = new List<Expression>
+                    {
+                        url,
+                        (Expression)bodyArgument ?? new LiteralExpression(null),
+                        requestOptionsArgument,
+                        cancellationTokenArgument!,
+                    };
                     if (method.ReturnType != null)
                     {
                         m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, postArgs.ToArray())));
@@ -265,13 +269,14 @@ namespace Meziantou.GitLabClient.Generator
             return m;
         }
 
-        private void GenerateMethodSignature(Method method, MethodDeclaration m, out Dictionary<MethodParameter, MethodArgumentDeclaration> arguments, out MethodArgumentDeclaration pageArgument, out MethodArgumentDeclaration requestOptionsArgument, out MethodArgumentDeclaration cancellationTokenArgument)
+        private static void GenerateMethodSignature(Method method, MethodDeclaration m, out Dictionary<MethodParameter, MethodArgumentDeclaration> arguments, out MethodArgumentDeclaration pageArgument, out MethodArgumentDeclaration requestOptionsArgument, out MethodArgumentDeclaration cancellationTokenArgument)
         {
             AddDocumentationComments(m, method.Documentation);
 
             if (method.MethodType == MethodType.GetPaged)
             {
-                m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(new TypeReference("Meziantou.GitLab.PagedResponse").MakeGeneric(method.ReturnType));
+                // TODO strongly typed
+                m.ReturnType = new TypeReference("Meziantou.GitLab.PagedResponse").MakeGeneric(method.ReturnType);
             }
             else
             {
@@ -323,14 +328,21 @@ namespace Meziantou.GitLabClient.Generator
                 Summary = "Options of the request",
             });
 
-            cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
-            AddDocumentationComments(cancellationTokenArgument, new Documentation()
+            if (method.MethodType != MethodType.GetPaged)
             {
-                Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation",
-            });
+                cancellationTokenArgument = m.AddArgument(new MethodArgumentDeclaration(typeof(CancellationToken), "cancellationToken") { DefaultValue = new DefaultValueExpression(typeof(CancellationToken)) });
+                AddDocumentationComments(cancellationTokenArgument, new Documentation()
+                {
+                    Summary = "A cancellation token that can be used by other objects or threads to receive notice of cancellation",
+                });
+            }
+            else
+            {
+                cancellationTokenArgument = null;
+            }
         }
 
-        private VariableReferenceExpression CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
+        private static VariableReferenceExpression CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
         {
             var bodyArguments = method.Parameters.Where(p => GetParameterLocation(method, p) == ParameterLocation.Body).ToList();
             if (bodyArguments.Count == 0)
@@ -361,7 +373,7 @@ namespace Meziantou.GitLabClient.Generator
             return variable;
         }
 
-        private void GenerateExtensionMethod(ClassDeclaration extensionClass, Method method, MethodParameter methodParameter)
+        private static void GenerateExtensionMethod(ClassDeclaration extensionClass, Method method, MethodParameter methodParameter)
         {
             foreach (var parameterEntityRef in methodParameter.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
             {
@@ -393,7 +405,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private void GenerateFileExtensionMethod(ClassDeclaration classDeclaration, ClassDeclaration extensionClass)
+        private static void GenerateFileExtensionMethod(ClassDeclaration classDeclaration, ClassDeclaration extensionClass)
         {
             var methods = classDeclaration.Members
                 .OfType<MethodDeclaration>()
@@ -402,17 +414,18 @@ namespace Meziantou.GitLabClient.Generator
 
             foreach (var methodDeclaration in methods)
             {
-                var method = methodDeclaration.Data["Method"] as Method;
-                if (method == null)
+                if (methodDeclaration.Data["Method"] is not Method method)
                     continue;
 
                 var m = GenerateMethod(extensionClass, method);
                 m.Modifiers |= Modifiers.Static;
+
+                Debug.Assert(m.Statements != null);
                 m.Statements.Clear();
 
                 var extensionArgument = new MethodArgumentDeclaration(new TypeReference("IGitLabClient"), "client") { IsExtension = true };
 
-                var invoke = new MethodInvokeExpression(extensionArgument.CreateMemberReferenceExpression(methodDeclaration.Name));
+                var invoke = new MethodInvokeExpression(extensionArgument.CreateMemberReferenceExpression(methodDeclaration.Name!));
 
                 foreach (var arg in m.Arguments.ToList())
                 {
@@ -633,7 +646,7 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private void GenerateEnumeration(NamespaceDeclaration ns, Enumeration enumeration)
+        private static void GenerateEnumeration(NamespaceDeclaration ns, Enumeration enumeration)
         {
             var type = ns.AddType(new EnumerationDeclaration(enumeration.Name));
             AddDocumentationComments(type, enumeration.Documentation);
@@ -808,20 +821,12 @@ namespace Meziantou.GitLabClient.Generator
             if (method.UrlTemplate.Contains($":{parameter.Name}/", StringComparison.Ordinal) || method.UrlTemplate.EndsWith($":{parameter.Name}", StringComparison.Ordinal))
                 return ParameterLocation.Url;
 
-            switch (method.MethodType)
+            return method.MethodType switch
             {
-                case MethodType.Get:
-                case MethodType.GetPaged:
-                    return ParameterLocation.Url;
-
-                case MethodType.Put:
-                case MethodType.Post:
-                case MethodType.Delete:
-                    return ParameterLocation.Body;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                MethodType.Get or MethodType.GetPaged => ParameterLocation.Url,
+                MethodType.Put or MethodType.Post or MethodType.Delete => ParameterLocation.Body,
+                _ => throw new ArgumentOutOfRangeException(nameof(method)),
+            };
         }
 
         private static TypeReference GetPropertyTypeRef(ModelRef modelRef)

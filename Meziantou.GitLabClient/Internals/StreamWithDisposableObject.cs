@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Meziantou.GitLab
 {
-    internal class StreamWithDisposableObject : Stream
+    internal sealed class StreamWithDisposableObject : Stream
     {
         private readonly Stream _stream;
         private readonly IDisposable _disposable;

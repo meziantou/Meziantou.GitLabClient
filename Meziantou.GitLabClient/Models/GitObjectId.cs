@@ -65,7 +65,9 @@ namespace Meziantou.GitLab
                 }
             }
 
+#pragma warning disable IDE0062 // Make local function 'static'
             uint GetByte(char c1, char c2)
+#pragma warning restore IDE0062 // Make local function 'static'
             {
                 unchecked
                 {
@@ -116,16 +118,7 @@ namespace Meziantou.GitLab
                    _p5 == other._p5;
         }
 
-        public override int GetHashCode()
-        {
-            var hashCode = 1974593755;
-            hashCode = hashCode * -1521134295 + _p1.GetHashCode();
-            hashCode = hashCode * -1521134295 + _p2.GetHashCode();
-            hashCode = hashCode * -1521134295 + _p3.GetHashCode();
-            hashCode = hashCode * -1521134295 + _p4.GetHashCode();
-            hashCode = hashCode * -1521134295 + _p5.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(_p1, _p2, _p3, _p4, _p5);
 
         public static bool operator ==(GitObjectId sha1, GitObjectId sha2) => sha1.Equals(sha2);
 

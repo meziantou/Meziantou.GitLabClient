@@ -23,7 +23,7 @@ namespace Meziantou.GitLab
             return new UrlBuilder(template);
         }
 
-        private IDictionary<string, string> Parameters { get; } = new Dictionary<string, string>();
+        private IDictionary<string, string> Parameters { get; } = new Dictionary<string, string>(StringComparer.Ordinal);
 
         public string Template { get; }
 
@@ -52,7 +52,7 @@ namespace Meziantou.GitLab
                     break;
 
                 case DateTime v:
-                    Parameters[key] = v.ToString("o");
+                    Parameters[key] = v.ToString("o", CultureInfo.InvariantCulture);
                     break;
 
                 case Enum v:
@@ -115,7 +115,7 @@ namespace Meziantou.GitLab
             return url;
         }
 
-        private class EnumDescriptor
+        private sealed class EnumDescriptor
         {
             public bool IsFlags { get; }
             public Dictionary<Enum, string> Values { get; }

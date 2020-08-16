@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class EnumerationMember
+    internal sealed class EnumerationMember
     {
         public EnumerationMember(string name)
             : this(name, value: null)

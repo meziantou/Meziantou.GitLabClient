@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLab
 {
-    internal class ReferenceJsonConverter : JsonConverter<IReference>
+    internal sealed class ReferenceJsonConverter : JsonConverter<IReference>
     {
         public override bool CanRead => false;
         public override bool CanWrite => true;

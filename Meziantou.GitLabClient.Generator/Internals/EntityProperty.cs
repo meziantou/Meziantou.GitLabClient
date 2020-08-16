@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.GitLabClient.Generator
 {
-    internal class EntityProperty
+    internal sealed class EntityProperty
     {
         public EntityProperty(string name, ModelRef type)
         {
