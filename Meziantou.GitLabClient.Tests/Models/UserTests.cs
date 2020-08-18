@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
@@ -34,9 +35,9 @@ namespace Meziantou.GitLab.Tests.Models
 
         public static IEnumerable<object[]> User_Equals_Value()
         {
-            var emptyUser = JObject.Parse(@"{ }");
-            var user1 = JObject.Parse(@"{ ""id"": 1 }");
-            var user2 = JObject.Parse(@"{ ""id"": 2 }");
+            var emptyUser = JsonDocument.Parse(@"{ }").RootElement;
+            var user1 = JsonDocument.Parse(@"{ ""id"": 1 }").RootElement;
+            var user2 = JsonDocument.Parse(@"{ ""id"": 2 }").RootElement;
 
             yield return new object[] { new User(emptyUser), null, false };
             yield return new object[] { new User(user1), new User(user2), false };

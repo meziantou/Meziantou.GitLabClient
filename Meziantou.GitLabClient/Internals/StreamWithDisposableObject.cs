@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,12 +63,12 @@ namespace Meziantou.GitLab
             base.Dispose(disposing);
         }
 
-        public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+        public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object? state)
         {
             return _stream.BeginRead(buffer, offset, count, callback, state);
         }
 
-        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object? state)
         {
             return _stream.BeginWrite(buffer, offset, count, callback, state);
         }
@@ -129,6 +130,37 @@ namespace Meziantou.GitLab
         {
             get => _stream.ReadTimeout;
             set => _stream.ReadTimeout = value;
+        }
+
+        public override void CopyTo(Stream destination, int bufferSize)
+        {
+            _stream.CopyTo(destination, bufferSize);
+        }
+
+        [SuppressMessage("Usage", "CA2215:Dispose methods should call base class dispose", Justification = "We just wrap the type")]
+        public override ValueTask DisposeAsync()
+        {
+            return _stream.DisposeAsync();
+        }
+
+        public override int Read(Span<byte> buffer)
+        {
+            return _stream.Read(buffer);
+        }
+
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            return _stream.ReadAsync(buffer, cancellationToken);
+        }
+
+        public override void Write(ReadOnlySpan<byte> buffer)
+        {
+            _stream.Write(buffer);
+        }
+
+        public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            return _stream.WriteAsync(buffer, cancellationToken);
         }
     }
 }

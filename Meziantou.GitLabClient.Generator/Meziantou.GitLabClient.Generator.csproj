@@ -12,7 +12,7 @@
     <Compile Include="..\Meziantou.GitLabClient\Internals\MappedPropertyAttribute.cs" Link="Types\MappedPropertyAttribute.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\SkipUtcDateValidationAttribute.cs" Link="Types\SkipUtcDateValidationAttribute.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Internals\UrlBuilder.cs" Link="Types\UrlBuilder.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Json\GitLabObjectReferenceJsonConverter.cs" Link="Types\GitLabObjectReferenceJsonConverter.cs" />
+    <Compile Include="..\Meziantou.GitLabClient\Serialization\GitLabObjectReferenceJsonConverter.cs" Link="Types\GitLabObjectReferenceJsonConverter.cs" />
     <Compile Include="..\Meziantou.GitLabClient\Models\PathWithNamespace.cs" Link="Types\PathWithNamespace.cs" />
     <Compile Include="..\Meziantou.GitLabClient\OrderBy.cs" Link="Types\OrderBy.cs" />
     <Compile Include="..\Meziantou.GitLabClient\OrderByDirection.cs" Link="Types\OrderByDirection.cs" />
@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meziantou.Framework.CodeDom" Version="2.13.9" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Meziantou.Framework" Version="2.20.4" />
+    <PackageReference Include="Meziantou.Framework.CodeDom" Version="3.2.6" />
   </ItemGroup>
 
 </Project>

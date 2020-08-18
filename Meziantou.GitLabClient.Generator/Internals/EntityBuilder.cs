@@ -1,0 +1,28 @@
+﻿using System;
+
+namespace Meziantou.GitLabClient.Generator
+{
+    internal sealed class EntityBuilder
+    {
+        private readonly Action<Entity> _configure;
+
+        public EntityBuilder(string name, Action<Entity> configure)
+        {
+            Value = new Entity(name);
+            _configure = configure;
+        }
+
+        public Entity Value { get; }
+
+        public void Build()
+        {
+            _configure(Value);
+        }
+
+        public ModelRef MakeCollection()
+        {
+            ModelRef result = Value;
+            return result.MakeCollection();
+        }
+    }
+}

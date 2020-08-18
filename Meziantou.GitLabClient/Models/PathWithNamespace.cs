@@ -1,7 +1,7 @@
-﻿#nullable enable
-using System;
+﻿using System;
 #if !REF
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using Meziantou.GitLab.Serialization;
 #endif
 
 namespace Meziantou.GitLab
@@ -29,7 +29,7 @@ namespace Meziantou.GitLab
                 if (FullPath.Length == indexOf + 1)
                     return "";
 
-                return FullPath.Substring(indexOf + 1);
+                return FullPath[(indexOf + 1)..];
             }
         }
 

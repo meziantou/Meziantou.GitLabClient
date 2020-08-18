@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 namespace Meziantou.GitLab
 {
     // TODO improve performance
+    // TODO create overloads of WithValue for specific types
+    // TODO generate values for enum
     internal sealed class UrlBuilder
     {
         private static readonly ConcurrentDictionary<Type, EnumDescriptor> s_enumDescriptors = new ConcurrentDictionary<Type, EnumDescriptor>();
@@ -28,7 +30,7 @@ namespace Meziantou.GitLab
 
         public string Template { get; }
 
-        public UrlBuilder WithValue(string key, object value)
+        public UrlBuilder WithValue(string key, object? value)
         {
             switch (value)
             {
@@ -116,6 +118,7 @@ namespace Meziantou.GitLab
             return url;
         }
 
+        // TODO remove and use generated WriteValue
         private sealed class EnumDescriptor
         {
             public bool IsFlags { get; }

@@ -1,54 +1,47 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Meziantou.GitLab.Core;
-using Newtonsoft.Json.Linq;
+using Meziantou.GitLab.Serialization;
 
 namespace Meziantou.GitLab
 {
+    [JsonConverter(typeof(GitLabErrorJsonConverter))]
     public sealed class GitLabError : GitLabObject
     {
-        internal GitLabError(JObject obj)
+        internal GitLabError(JsonElement obj)
             : base(obj)
         {
         }
 
         [MappedProperty("error")]
-        public string Error => GetValueOrDefault<string>("error");
+        public string? Error => GetValueOrDefault<string>("error");
 
         [MappedProperty("error_description")]
-        public string ErrorDescription => GetValueOrDefault<string>("error_description");
+        public string? ErrorDescription => GetValueOrDefault<string>("error_description");
 
         [MappedProperty("scope")]
-        public string Scope => GetValueOrDefault<string>("scope");
+        public string? Scope => GetValueOrDefault<string>("scope");
 
         [MappedProperty("message")]
-        public string Message
+        public string? Message
         {
             get
             {
-                if (TryGetValue<JToken>("message", out var result))
-                {
-                    if (result.Type == JTokenType.String)
-                    {
-                        return GetValueOrDefault<string>("message");
-                    }
-                }
+                if (TryGetValue<string>("message", out var result))
+                    return result;
 
                 return null;
             }
         }
 
         [MappedProperty("message")]
-        public IReadOnlyDictionary<string, IReadOnlyList<string>> Messages
+        public IReadOnlyDictionary<string, IReadOnlyList<string>>? Messages
         {
             get
             {
-                if (TryGetValue<JToken>("message", out var result))
-                {
-                    if (result.Type == JTokenType.Object)
-                    {
-                        return GetValueOrDefault<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message");
-                    }
-                }
+                if (TryGetValue<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message", out var result))
+                    return result;
 
                 return null;
             }

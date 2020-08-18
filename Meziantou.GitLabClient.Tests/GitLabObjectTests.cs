@@ -1,18 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Meziantou.GitLab.Core;
+using Meziantou.GitLab.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace Meziantou.GitLab.Tests
 {
     [TestClass]
     public class GitLabObjectTests
     {
-        [TestMethod]
-        public void TryGetValue_Boolean()
+        private static async Task<T> Deserialize<T>(string json)
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": true }");
+            using var ms = new MemoryStream();
+            ms.Write(Encoding.UTF8.GetBytes(json));
+            ms.Seek(0, SeekOrigin.Begin);
+            return await JsonSerialization.DeserializeAsync<T>(ms, CancellationToken.None);
+        }
+
+        [TestMethod]
+        public async Task TryGetValue_Boolean()
+        {
+            var obj = await Deserialize<GitLabObject>("{ \"Prop1\": true }");
 
             var result = obj.TryGetValue("Prop1", out bool value);
             Assert.IsTrue(result);
@@ -21,9 +32,9 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
-        public void TryGetValue_Double()
+        public async Task TryGetValue_Double()
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": 1.3 }");
+            var obj = await Deserialize<GitLabObject>("{ \"Prop1\": 1.3 }");
 
             var result = obj.TryGetValue("Prop1", out double value);
             Assert.IsTrue(result);
@@ -32,9 +43,9 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
-        public void TryGetValue_Long()
+        public async Task TryGetValue_Long()
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": 2 }");
+            var obj = await Deserialize<GitLabObject>("{ \"Prop1\": 2 }");
 
             var result = obj.TryGetValue("Prop1", out long value);
             Assert.IsTrue(result);
@@ -43,9 +54,9 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
-        public void TryGetValue_String()
+        public async Task TryGetValue_String()
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": \"test\" }");
+            var obj = await Deserialize<GitLabObject>("{ \"Prop1\": \"test\" }");
 
             var result = obj.TryGetValue("Prop1", out string value);
             Assert.IsTrue(result);
@@ -54,9 +65,9 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
-        public void TryGetValue_Null()
+        public async Task TryGetValue_Null()
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": null }");
+            var obj = await Deserialize<GitLabObject>("{ \"Prop1\": null }");
 
             var result = obj.TryGetValue("Prop1", out object value);
             Assert.IsTrue(result);
@@ -64,44 +75,17 @@ namespace Meziantou.GitLab.Tests
         }
 
         [TestMethod]
-        public void TryGetValue_Object()
+        public async Task TryGetValue_Array()
         {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": { \"SubProp1\": 1 } }");
+            var obj = await Deserialize<GitLabObject>("{ \"Prop1\": [1, 2] }");
 
-            var result = obj.TryGetValue("Prop1", out object value);
+            var result = obj.TryGetValue("Prop1", out int[] value);
             Assert.IsTrue(result);
-            Assert.IsInstanceOfType(value, typeof(IDictionary<string, object>));
-
-            var dict = (IDictionary<string, object>)value;
-            Assert.AreEqual(1L, dict["SubProp1"]);
-        }
-
-        [TestMethod]
-        public void TryGetValue_Array()
-        {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"Prop1\": [{ \"Prop1\": 1 }, 2, \"test\"] }");
-
-            var result = obj.TryGetValue("Prop1", out object[] value);
-            Assert.IsTrue(result);
-            Assert.IsInstanceOfType(value, typeof(object[]));
+            Assert.IsInstanceOfType(value, typeof(int[]));
 
             var array = value;
-            Assert.IsInstanceOfType(array[0], typeof(IDictionary<string, object>));
-            Assert.IsInstanceOfType(array[1], typeof(long));
-            Assert.IsInstanceOfType(array[2], typeof(string));
-        }
-
-        [TestMethod]
-        public void AsDynamic()
-        {
-            var obj = JsonConvert.DeserializeObject<GitLabObject>("{ \"prop1\": 2 }");
-
-            dynamic dyn = obj;
-            var result1 = dyn.prop1;
-            Assert.AreEqual(2, (int)result1);
-
-            Assert.IsNull(dyn.Prop1);
-            Assert.ThrowsException<InvalidOperationException>(() => dyn.Prop1 = "test");
+            Assert.IsInstanceOfType(array[0], typeof(int));
+            Assert.IsInstanceOfType(array[1], typeof(int));
         }
     }
 }

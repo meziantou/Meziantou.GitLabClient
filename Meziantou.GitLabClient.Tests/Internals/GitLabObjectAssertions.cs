@@ -28,24 +28,6 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public static void DoesContainGitLabClient(object o, bool validateChildProperties = true)
-        {
-            foreach (var obj in GetObjects(o))
-            {
-                Assert.IsNotNull(obj.GitLabClient);
-
-                if (validateChildProperties)
-                {
-                    var properties = TypeDescriptor.GetProperties(o);
-                    foreach (PropertyDescriptor property in properties)
-                    {
-                        var propertyValue = property.GetValue(o);
-                        DoesContainGitLabClient(propertyValue, validateChildProperties);
-                    }
-                }
-            }
-        }
-
         private static IEnumerable<GitLabObject> GetObjects(object o)
         {
             switch (o)

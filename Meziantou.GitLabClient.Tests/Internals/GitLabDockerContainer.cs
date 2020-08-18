@@ -168,11 +168,11 @@ namespace Meziantou.GitLab.Tests
             result = await context.OpenAsync(GitLabUrl + "/admin/requests_profiles");
             var codeElements = result.QuerySelectorAll("code").ToList();
             var tokenElement = codeElements.Single(n => n.TextContent.StartsWith("X-Profile-Token:", StringComparison.Ordinal));
-            ProfileToken = tokenElement.TextContent.Substring("X-Profile-Token:".Length).Trim();
+            ProfileToken = tokenElement.TextContent["X-Profile-Token:".Length..].Trim();
 
             // Get admin login cookie
             //result.Cookie:  experimentation_subject_id=XXX; _gitlab_session=XXXX; known_sign_in=XXXX
-            Cookies = result.Cookie.Split(';').Select(part => part.Trim()).Single(part => part.StartsWith("_gitlab_session=", StringComparison.Ordinal)).Substring("_gitlab_session=".Length);
+            Cookies = result.Cookie.Split(';').Select(part => part.Trim()).Single(part => part.StartsWith("_gitlab_session=", StringComparison.Ordinal))["_gitlab_session=".Length..];
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Meziantou.GitLab.Tests
             var password = "Pa$$w0rd";
             var client = AdminClient;
 
-            var user = await client.CreateUserAsync(
+            var user = await client.User.CreateUserAsync(
                 email: email,
                 username: username,
                 password: password,
@@ -55,7 +55,7 @@ namespace Meziantou.GitLab.Tests
                 canCreateGroup: true,
                 skipConfirmation: true);
 
-            var token = await client.CreateImpersonationTokenAsync(user, "UnitTest", new[] { "api", "read_user" });
+            var token = await client.User.CreateImpersonationTokenAsync(user, "UnitTest", scopes: new[] { "api", "read_user" });
             return CreateClient(token.Token);
         }
 
@@ -75,11 +75,10 @@ namespace Meziantou.GitLab.Tests
 
         private TestGitLabClient CreateClient(string token)
         {
-            var client = new TestGitLabClient(this, _httpClient, DockerContainer.GitLabUrl, token);
-            // TODO client.ProfileToken = DockerContainer.ProfileToken;
-            client.JsonSerializerSettings.CheckAdditionalContent = true;
-            client.JsonSerializerSettings.Formatting = Formatting.Indented;
-            client.JsonSerializerSettings.Error = (sender, e) => TestContext.WriteLine("{0}", e);
+            var client = new TestGitLabClient(this, _httpClient, DockerContainer.GitLabUrl, token)
+            {
+                ProfileToken = DockerContainer.ProfileToken,
+            };
             _clients.Add(client);
             return client;
         }
@@ -98,7 +97,6 @@ namespace Meziantou.GitLab.Tests
                 GitLabObjectAssertions.DoesNotContainUnmappedProperties(o);
 #endif
                 GitLabObjectAssertions.DoesContainOnlyUtcDates(o);
-                GitLabObjectAssertions.DoesContainGitLabClient(o);
             });
         }
 

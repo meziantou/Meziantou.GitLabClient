@@ -12,10 +12,10 @@ namespace Meziantou.GitLab.Core
         public int PageSize { get; }
         public int TotalItems { get; }
         public int TotalPages { get; }
-        private string PreviousPageUrl { get; }
-        private string NextPageUrl { get; }
-        private string FirstPageUrl { get; }
-        private string LastPageUrl { get; }
+        private string? PreviousPageUrl { get; }
+        private string? NextPageUrl { get; }
+        private string? FirstPageUrl { get; }
+        private string? LastPageUrl { get; }
 
         public bool IsLastPage => NextPageUrl == null;
         public bool IsFirstPage => PreviousPageUrl == null;
@@ -23,7 +23,7 @@ namespace Meziantou.GitLab.Core
         internal GitLabClient GitLabClient { get; }
         public IReadOnlyList<T> Data { get; }
 
-        internal GitLabPageResponse(GitLabClient client, IReadOnlyList<T> data, int pageIndex, int pageSize, int totalItems, int totalPages, string firstUrl, string lastUrl, string previousUrl, string nextUrl)
+        internal GitLabPageResponse(GitLabClient client, IReadOnlyList<T> data, int pageIndex, int pageSize, int totalItems, int totalPages, string? firstUrl, string? lastUrl, string? previousUrl, string? nextUrl)
         {
             GitLabClient = client ?? throw new ArgumentNullException(nameof(client));
             Data = data ?? throw new ArgumentNullException(nameof(data));
@@ -37,44 +37,44 @@ namespace Meziantou.GitLab.Core
             NextPageUrl = nextUrl;
         }
 
-        public ValueTask<GitLabPageResponse<T>> GetFirstPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
+        public ValueTask<GitLabPageResponse<T>> GetFirstPageAsync(RequestOptions? options, CancellationToken cancellationToken = default)
         {
             if (FirstPageUrl == null)
             {
                 return new ValueTask<GitLabPageResponse<T>>();
             }
 
-            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedAsync<T>(FirstPageUrl, options, cancellationToken));
+            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedCollectionAsync<T>(FirstPageUrl, options, cancellationToken));
         }
 
-        public ValueTask<GitLabPageResponse<T>> GetLastPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
+        public ValueTask<GitLabPageResponse<T>> GetLastPageAsync(RequestOptions? options, CancellationToken cancellationToken = default)
         {
             if (LastPageUrl == null)
             {
                 return new ValueTask<GitLabPageResponse<T>>();
             }
 
-            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedAsync<T>(LastPageUrl, options, cancellationToken));
+            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedCollectionAsync<T>(LastPageUrl, options, cancellationToken));
         }
 
-        public ValueTask<GitLabPageResponse<T>> GetPreviousPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
+        public ValueTask<GitLabPageResponse<T>> GetPreviousPageAsync(RequestOptions? options, CancellationToken cancellationToken = default)
         {
             if (PreviousPageUrl == null)
             {
                 return new ValueTask<GitLabPageResponse<T>>();
             }
 
-            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedAsync<T>(PreviousPageUrl, options, cancellationToken));
+            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedCollectionAsync<T>(PreviousPageUrl, options, cancellationToken));
         }
 
-        public ValueTask<GitLabPageResponse<T>> GetNextPageAsync(RequestOptions options, CancellationToken cancellationToken = default)
+        public ValueTask<GitLabPageResponse<T>> GetNextPageAsync(RequestOptions? options, CancellationToken cancellationToken = default)
         {
             if (NextPageUrl == null)
             {
                 return new ValueTask<GitLabPageResponse<T>>();
             }
 
-            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedAsync<T>(NextPageUrl, options, cancellationToken));
+            return new ValueTask<GitLabPageResponse<T>>(GitLabClient.GetPagedCollectionAsync<T>(NextPageUrl, options, cancellationToken));
         }
     }
 }

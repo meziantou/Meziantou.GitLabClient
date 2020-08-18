@@ -17,8 +17,8 @@ namespace Meziantou.GitLab
                 {
                     _target = TargetType switch
                     {
-                        TodoType.Issue => GetValueOrDefault<Issue>(TargetName),
-                        TodoType.MergeRequest => GetValueOrDefault<MergeRequest>(TargetName),
+                        TodoTargetType.Issue => GetValueOrDefault<Issue>(TargetName),
+                        TodoTargetType.MergeRequest => GetValueOrDefault<MergeRequest>(TargetName),
                         _ => GetValueOrDefault<GitLabObject>(TargetName),
                     };
                 }

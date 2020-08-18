@@ -3,6 +3,7 @@
     internal enum MethodType
     {
         Get,
+        GetCollection,
         GetPaged,
         Put,
         Post,

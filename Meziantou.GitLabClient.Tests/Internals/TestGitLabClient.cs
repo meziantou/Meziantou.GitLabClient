@@ -17,6 +17,8 @@ namespace Meziantou.GitLab.Tests
 
         public GitLabTestContext Context { get; set; }
 
+        public string ProfileToken { get; set; }
+
         public TestGitLabClient(GitLabTestContext context, HttpClient client, Uri serverUri, string token)
             : base(client, serverUri, token)
         {
@@ -43,11 +45,11 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task<GitLabPageResponse<T>> GetPagedAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<GitLabPageResponse<T>> GetPagedCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
         {
             using (await ReaderLockAsync())
             {
-                var pagedResponse = await base.GetPagedAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
+                var pagedResponse = await base.GetPagedCollectionAsync<T>(url, options, cancellationToken).ConfigureAwait(false);
                 Objects.AddRange(pagedResponse.Data);
                 return pagedResponse;
             }

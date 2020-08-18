@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using Meziantou.GitLab.Serialization;
 
 namespace Meziantou.GitLab
 {
-    [JsonConverter(typeof(GitObjectIdConverter))]
+    [JsonConverter(typeof(GitObjectIdJsonConverter))]
     [StructLayout(LayoutKind.Auto)]
     public readonly struct GitObjectId : IEquatable<GitObjectId>
     {
+        // TODO wrap string we should support SHA1 and SHA256
         // a sha1 is 20 bytes long
         // 20 bytes to hexa => 40 characters
         private readonly uint _p1;
@@ -52,6 +54,7 @@ namespace Meziantou.GitLab
             }
 
             result = default;
+
             return false;
 
             uint GetUInt32(ref int i)
@@ -104,7 +107,7 @@ namespace Meziantou.GitLab
                    _p5.ToString("x8", CultureInfo.InvariantCulture);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is GitObjectId sha1 && Equals(sha1);
         }

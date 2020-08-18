@@ -61,7 +61,7 @@ namespace Meziantou.GitLab
         public HttpStatusCode HttpStatusCode { get; }
         public GitLabError ErrorObject { get; }
 
-        private static string GetMessage(GitLabError error)
+        private static string? GetMessage(GitLabError error)
         {
             if (error.ErrorDescription != null)
                 return error.ErrorDescription;

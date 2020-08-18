@@ -1,35 +1,29 @@
 ﻿using System;
-using System.Dynamic;
-using System.Linq.Expressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Meziantou.GitLab.Serialization;
 
 namespace Meziantou.GitLab.Core
 {
-    [JsonConverter(typeof(GitLabObjectConverter))]
-    public class GitLabObject : IDynamicMetaObjectProvider
+    [JsonConverter(typeof(GitLabObjectJsonConverter))]
+    public class GitLabObject
     {
-        private static readonly JsonSerializer s_jsonSerializer = GetJsonSerializer();
+        internal readonly JsonElement _jsonObject;
 
-        private readonly JObject _jsonObject;
-
-        internal IGitLabClient GitLabClient { get; set; }
-
-        protected internal GitLabObject(JObject obj)
+        protected internal GitLabObject(JsonElement jsonObject)
         {
-            _jsonObject = obj ?? throw new ArgumentNullException(nameof(obj));
+            if (jsonObject.ValueKind != JsonValueKind.Object)
+                throw new ArgumentException("The JSON element is not an object", nameof(jsonObject));
+
+            _jsonObject = jsonObject;
         }
 
-        protected virtual bool TryGetValue(string name, Type type, out object result)
+        protected virtual bool TryGetValue(string name, Type type, out object? result)
         {
-            if (_jsonObject.TryGetValue(name, StringComparison.Ordinal, out var value))
+            if (_jsonObject.TryGetProperty(name, out var value))
             {
-                result = value.ToObject(type, s_jsonSerializer);
-                if (result is GitLabObject g)
-                {
-                    g.GitLabClient = GitLabClient;
-                }
-
+                result = JsonSerialization.ToObject(value, type);
                 return true;
             }
 
@@ -37,7 +31,7 @@ namespace Meziantou.GitLab.Core
             return false;
         }
 
-        internal protected bool TryGetValue<T>(string name, out T result)
+        internal protected bool TryGetValue<T>(string name, [MaybeNull] out T result)
         {
             if (TryGetValue(name, typeof(T), out var r))
             {
@@ -49,41 +43,19 @@ namespace Meziantou.GitLab.Core
             return false;
         }
 
+        [return: MaybeNull]
         protected T GetValueOrDefault<T>(string name)
         {
             return GetValueOrDefault(name, default(T));
         }
 
-        protected T GetValueOrDefault<T>(string name, T defaultValue)
+        [return: MaybeNull]
+        protected T GetValueOrDefault<T>(string name, [AllowNull] T defaultValue)
         {
             if (TryGetValue<T>(name, out var result))
-            {
                 return result;
-            }
 
             return defaultValue;
-        }
-
-        DynamicMetaObject IDynamicMetaObjectProvider.GetMetaObject(Expression parameter)
-        {
-            return GetMetaObject(parameter);
-        }
-
-        protected virtual DynamicMetaObject GetMetaObject(Expression parameter)
-        {
-            return new DelegatingMetaObject(_jsonObject, parameter, BindingRestrictions.Empty, _jsonObject);
-        }
-
-        private static JsonSerializer GetJsonSerializer()
-        {
-            return new JsonSerializer
-            {
-                Converters =
-                {
-                    new GitLabObjectConverter(),
-                    new JsonObjectConverter(),
-                },
-            };
         }
     }
 }

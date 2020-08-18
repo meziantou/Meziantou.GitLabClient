@@ -5,16 +5,15 @@ using Meziantou.GitLab.Core;
 
 namespace Meziantou.GitLab
 {
-    public class PagedResponse<T> : IAsyncEnumerable<T>
+    public sealed class PagedResponse<T> : IAsyncEnumerable<T>
         where T : GitLabObject
     {
         private readonly string _initialUrl;
-        private readonly RequestOptions _options;
+        private readonly RequestOptions? _options;
 
-        internal GitLabClient GitLabClient { get; }
         public GitLabClient Client { get; }
 
-        internal PagedResponse(GitLabClient client, string initialUrl, RequestOptions options)
+        internal PagedResponse(GitLabClient client, string initialUrl, RequestOptions? options)
         {
             Client = client;
             _initialUrl = initialUrl;
@@ -24,7 +23,7 @@ namespace Meziantou.GitLab
         public async IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
             var url = _initialUrl;
-            var page = await Client.GetPagedAsync<T>(url, _options, cancellationToken).ConfigureAwait(false);
+            var page = await Client.GetPagedCollectionAsync<T>(url, _options, cancellationToken).ConfigureAwait(false);
             do
             {
                 foreach (var item in page.Data)

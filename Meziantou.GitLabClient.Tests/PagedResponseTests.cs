@@ -25,12 +25,12 @@ namespace Meziantou.GitLab.Tests
                     { "X-Total", "50" },
                     { "X-Total-Pages", "10" },
                 },
-                Content = new JsonContent(new[] { new object(), new object() }),
+                Content = new JsonContent(new[] { new object(), new object() }, settings: null),
             });
 
             using var context = GetContext(handler);
             // Act
-            var page = await context.AdminClient.GetPagedAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
+            var page = await context.AdminClient.GetPagedCollectionAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
 
             // Assert
             Assert.AreEqual(2, page.PageIndex);

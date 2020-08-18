@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
@@ -15,7 +16,7 @@ namespace Meziantou.GitLab
             Rel = rel ?? throw new ArgumentNullException(nameof(rel));
         }
 
-        public static bool TryParse(string value, out LinkHeaderValue result)
+        public static bool TryParse(string value, [NotNullWhen(returnValue: true)] out LinkHeaderValue? result)
         {
             if (string.IsNullOrEmpty(value))
             {
