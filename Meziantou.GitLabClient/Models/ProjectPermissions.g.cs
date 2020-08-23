@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<GroupAccess>("group_access", default(GroupAccess));
+                return this.GetRequiredNonNullValue<GroupAccess>("group_access");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<ProjectAccess>("project_access", default(ProjectAccess));
+                return this.GetRequiredNonNullValue<ProjectAccess>("project_access");
             }
         }
     }

@@ -18,6 +18,26 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "cannot_be_merged")]
         CannotBeMerged
     }
+
+    partial class UrlBuilder
+    {
+        public void SetValue(string key, Meziantou.GitLab.MergeRequestStatus? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetValue(key, value.GetValueOrDefault());
+            }
+            else
+            {
+                this.SetNullValue(key);
+            }
+        }
+
+        public void SetValue(string key, Meziantou.GitLab.MergeRequestStatus value)
+        {
+            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -48,7 +68,7 @@ namespace Meziantou.GitLab.Serialization
                 return "cannot_be_merged";
             }
 
-            throw new System.ArgumentOutOfRangeException(nameof(value));
+            throw new System.ArgumentOutOfRangeException(nameof(value), string.Concat("Value '", value.ToString(), "' is not valid"));
         }
 
         private static Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeRequestStatus>[] CreateMergeRequestStatusMembers()

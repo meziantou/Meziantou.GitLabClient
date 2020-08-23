@@ -33,11 +33,6 @@ namespace Meziantou.GitLab
             this._value = projectPathWithNamespace;
         }
 
-        private ProjectIdOrPathRef(string projectPathWithNamespace)
-        {
-            this._value = projectPathWithNamespace;
-        }
-
         public object Value
         {
             get
@@ -46,17 +41,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static Meziantou.GitLab.ProjectIdOrPathRef FromInt64(long projectId)
-        {
-            return new Meziantou.GitLab.ProjectIdOrPathRef(projectId);
-        }
-
-        public static Meziantou.GitLab.ProjectIdOrPathRef FromPathWithNamespace(Meziantou.GitLab.PathWithNamespace projectPathWithNamespace)
-        {
-            return new Meziantou.GitLab.ProjectIdOrPathRef(projectPathWithNamespace);
-        }
-
-        public static Meziantou.GitLab.ProjectIdOrPathRef FromProjectIdentity(ProjectIdentity project)
+        public static Meziantou.GitLab.ProjectIdOrPathRef FromProject(ProjectIdentity project)
         {
             if ((project == null))
             {
@@ -66,34 +51,34 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.ProjectIdOrPathRef(project);
         }
 
-        public static Meziantou.GitLab.ProjectIdOrPathRef FromString(string projectPathWithNamespace)
+        public static Meziantou.GitLab.ProjectIdOrPathRef FromProjectId(long projectId)
+        {
+            return new Meziantou.GitLab.ProjectIdOrPathRef(projectId);
+        }
+
+        public static Meziantou.GitLab.ProjectIdOrPathRef FromProjectPathWithNamespace(Meziantou.GitLab.PathWithNamespace projectPathWithNamespace)
         {
             return new Meziantou.GitLab.ProjectIdOrPathRef(projectPathWithNamespace);
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
             return this.Value.ToString();
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(long projectId)
         {
-            return Meziantou.GitLab.ProjectIdOrPathRef.FromInt64(projectId);
+            return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectId(projectId);
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(ProjectIdentity project)
         {
-            return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectIdentity(project);
+            return Meziantou.GitLab.ProjectIdOrPathRef.FromProject(project);
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(Meziantou.GitLab.PathWithNamespace projectPathWithNamespace)
         {
-            return Meziantou.GitLab.ProjectIdOrPathRef.FromPathWithNamespace(projectPathWithNamespace);
-        }
-
-        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(string projectPathWithNamespace)
-        {
-            return Meziantou.GitLab.ProjectIdOrPathRef.FromString(projectPathWithNamespace);
+            return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectPathWithNamespace(projectPathWithNamespace);
         }
     }
 }

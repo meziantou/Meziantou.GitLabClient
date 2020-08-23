@@ -1,10 +1,11 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Meziantou.GitLab
 {
     public partial struct UserRef
     {
-        public string ValueAsString
+        public string? ValueAsString
         {
             get
             {
@@ -14,15 +15,8 @@ namespace Meziantou.GitLab
                 if (Value is long id)
                     return id.ToString(CultureInfo.InvariantCulture);
 
-                return null;
+                throw new InvalidOperationException($"Value of type '{Value.GetType()}' is not supported");
             }
         }
-
-        private UserRef(UserSafe user)
-        {
-            _value = user?.Id;
-        }
-
-        public static implicit operator UserRef(UserSafe user) => new UserRef(user);
     }
 }

@@ -159,7 +159,7 @@ namespace Meziantou.GitLab
             else
             {
 #if DEBUG
-                throw new GitLabException("The response does not contain page information.");
+                throw new GitLabException(request.Method, request.RequestUri, response.StatusCode, "The response does not contain the pagination headers.");
 #endif
             }
 

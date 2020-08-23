@@ -8,13 +8,11 @@ namespace Meziantou.GitLab.Serialization
     {
         public override GitObjectId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TokenType == JsonTokenType.String)
-            {
-                if (GitObjectId.TryParse(reader.GetString(), out var result))
-                    return result;
-            }
+            var value = reader.GetString();
+            if (value != null)
+                return new GitObjectId(value);
 
-            return default;
+            return GitObjectId.Empty;
         }
 
         public override void Write(Utf8JsonWriter writer, GitObjectId value, JsonSerializerOptions options)

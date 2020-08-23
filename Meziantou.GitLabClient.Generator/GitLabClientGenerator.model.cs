@@ -1,429 +1,7 @@
-﻿using System;
-
-namespace Meziantou.GitLabClient.Generator
+﻿namespace Meziantou.GitLabClient.Generator
 {
     internal sealed partial class GitLabClientGenerator
     {
-        private static class Enumerations
-        {
-            public static ModelRef AccessLevel { get; private set; }
-            public static ModelRef ImportStatus { get; private set; }
-            public static ModelRef MergeMethod { get; private set; }
-            public static ModelRef MergeRequestScopeFilter { get; private set; }
-            public static ModelRef MergeRequestStateFilter { get; private set; }
-            public static ModelRef MergeRequestState { get; private set; }
-            public static ModelRef MergeRequestStatus { get; private set; }
-            public static ModelRef MergeRequestView { get; private set; }
-            public static ModelRef ProjectVisibility { get; private set; }
-            public static ModelRef UserState { get; private set; }
-            public static ModelRef TodoAction { get; private set; }
-            public static ModelRef TodoState { get; private set; }
-            public static ModelRef TodoType { get; private set; }
-            public static ModelRef WikiPageFormat { get; private set; }
-
-            public static void Create(Project project)
-            {
-                AccessLevel = project.AddEnumeration("AccessLevel")
-                    .AddMember("guest", 10)
-                    .AddMember("reporter", 20)
-                    .AddMember("developer", 30)
-                    .AddMember("maintainer", 40)
-                    .AddMember("owner", 50);
-
-                ImportStatus = project.AddStringEnumeration("ImportStatus")
-                    .AddMembers("none", "scheduled", "failed", "started", "finished");
-
-                MergeMethod = project.AddStringEnumeration("MergeMethod")
-                    .AddMembers("merge", "rebase_merge")
-                    .AddMember("fast_forward", serializationName: "ff");
-
-                MergeRequestScopeFilter = project.AddStringEnumeration("MergeRequestScopeFilter")
-                    .AddMembers("assigned_to_me", "all");
-
-                MergeRequestState = project.AddStringEnumeration("MergeRequestState")
-                    .AddMembers("opened", "closed", "locked", "merged");
-
-                MergeRequestStatus = project.AddStringEnumeration("MergeRequestStatus")
-                    .AddMembers("checking", "can_be_merged", "cannot_be_merged");
-
-                ProjectVisibility = project.AddStringEnumeration("ProjectVisibility")
-                    .AddMembers("private", "internal", "public");
-
-                UserState = project.AddStringEnumeration("UserState")
-                    .AddMembers("active", "blocked");
-
-                TodoAction = project.AddStringEnumeration("TodoAction")
-                    .AddMembers("assigned", "mentioned", "build_failed", "marked", "approval_required", "unmergeable", "directly_addressed");
-
-                TodoState = project.AddStringEnumeration("TodoState")
-                    .AddMembers("pending", "done");
-
-                TodoType = project.AddStringEnumeration("TodoTargetType")
-                    .AddMembers("Issue", "MergeRequest", "Commit");
-
-                MergeRequestView = project.AddStringEnumeration("MergeRequestView")
-                    .AddMembers("default", "simple");
-
-                WikiPageFormat = project.AddStringEnumeration("WikiPageFormat")
-                    .AddMembers("markdown", "rdoc", "asciidoc");
-            }
-        }
-
-        private static class Entities
-        {
-            public static EntityBuilder IdentityModel { get; private set; }
-            public static EntityBuilder UserBasic { get; private set; }
-            public static EntityBuilder User { get; private set; }
-            public static EntityBuilder UserStatus { get; private set; }
-            public static EntityBuilder UserActivity { get; private set; }
-            public static EntityBuilder SshKey { get; private set; }
-            public static EntityBuilder SharedGroup { get; private set; }
-            public static EntityBuilder MemberAccess { get; private set; }
-            public static EntityBuilder ProjectAccess { get; private set; }
-            public static EntityBuilder GroupAccess { get; private set; }
-            public static EntityBuilder NamespaceBasic { get; private set; }
-            public static EntityBuilder ProjectIdentity { get; private set; }
-            public static EntityBuilder BasicProjectDetails { get; private set; }
-            public static EntityBuilder ProjectLinks { get; private set; }
-            public static EntityBuilder Permissions { get; private set; }
-            public static EntityBuilder Project { get; private set; }
-            public static EntityBuilder Todo { get; private set; }
-            public static EntityBuilder MergeRequest { get; private set; }
-            public static EntityBuilder Issue { get; private set; }
-            public static EntityBuilder Token { get; private set; }
-            public static EntityBuilder FileCreated { get; private set; }
-            public static EntityBuilder FileUpdated { get; private set; }
-            public static EntityBuilder Version { get; private set; }
-            public static EntityBuilder RenderMarkdownResult { get; private set; }
-            public static EntityBuilder WikiPage { get; private set; }
-            public static EntityBuilder UserSafe { get; private set; }
-
-            public static void Create(Project projectBuilder)
-            {
-                IdentityModel = CreateEntity("Identity", entity => entity
-                    .AddProperty("provider", ModelRef.String, PropertyOptions.IsKey)
-                    .AddProperty("extern_uid", ModelRef.String, PropertyOptions.IsKey)
-                );
-
-                UserSafe = CreateEntity("UserSafe", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("name", ModelRef.String)
-                    .AddProperty("username", ModelRef.String, PropertyOptions.IsDisplayName)
-                );
-
-                UserBasic = CreateEntity("UserBasic", entity => entity
-                    .WithBaseType(UserSafe)
-                    .AddProperty("avatar_url", ModelRef.String)
-                    .AddProperty("avatar_path", ModelRef.String)
-                    .AddProperty("state", Enumerations.UserState)
-                    .AddProperty("web_url", ModelRef.String)
-                );
-
-                User = CreateEntity("User", entity => entity
-                    .WithBaseType(UserBasic)
-                    .AddProperty("bio", ModelRef.String)
-                    .AddProperty("can_create_group", ModelRef.NullableBoolean)
-                    .AddProperty("can_create_project", ModelRef.NullableBoolean)
-                    .AddProperty("color_scheme_id", ModelRef.NullableNumberId)
-                    .AddProperty("confirmed_at", ModelRef.NullableDateTime)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                    .AddProperty("current_sign_in_at", ModelRef.NullableDateTime)
-                    .AddProperty("email", ModelRef.String)
-                    .AddProperty("external", ModelRef.NullableBoolean)
-                    .AddProperty("identities", IdentityModel.MakeCollection())
-                    .AddProperty("is_admin", ModelRef.NullableBoolean)
-                    .AddProperty("last_activity_on", ModelRef.NullableDate)
-                    .AddProperty("last_sign_in_at", ModelRef.NullableDateTime)
-                    .AddProperty("linkedin", ModelRef.String)
-                    .AddProperty("location", ModelRef.String)
-                    .AddProperty("organization", ModelRef.String)
-                    .AddProperty("private_profile", ModelRef.Object)
-                    .AddProperty("projects_limit", ModelRef.NullableNumber)
-                    .AddProperty("shared_runners_minutes_limit", ModelRef.NullableNumber)
-                    .AddProperty("skype", ModelRef.String)
-                    .AddProperty("theme_id", ModelRef.NullableNumberId)
-                    .AddProperty("twitter", ModelRef.String)
-                    .AddProperty("two_factor_enabled", ModelRef.NullableBoolean)
-                    .AddProperty("website_url", ModelRef.String)
-                    );
-
-                UserStatus = CreateEntity("UserStatus", entity => entity
-                    .AddProperty("emoji", ModelRef.String)
-                    .AddProperty("message", ModelRef.String)
-                    .AddProperty("message_html", ModelRef.String)
-                );
-
-                UserActivity = CreateEntity("UserActivity", entity => entity
-                    .AddProperty("username", ModelRef.String)
-                    .AddProperty("last_activity_on", ModelRef.Date)
-                );
-
-                SshKey = CreateEntity("SshKey", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("title", ModelRef.String, PropertyOptions.IsDisplayName)
-                    .AddProperty("key", ModelRef.String)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                );
-
-                SharedGroup = CreateEntity("SharedGroup", entity => entity
-                    .AddProperty("group_id", ModelRef.NumberId)
-                    .AddProperty("group_name", ModelRef.String)
-                    .AddProperty("group_access_level", Enumerations.AccessLevel)
-                );
-
-                MemberAccess = CreateEntity("MemberAccess", entity => entity
-                    .AddProperty("access_level", Enumerations.AccessLevel)
-                    .AddProperty("notification_level", ModelRef.String)
-                );
-
-                ProjectAccess = CreateEntity("ProjectAccess", entity => entity
-                    .WithBaseType(MemberAccess)
-                );
-
-                GroupAccess = CreateEntity("GroupAccess", entity => entity
-                    .WithBaseType(MemberAccess)
-                );
-
-                NamespaceBasic = CreateEntity("NamespaceBasic", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("name", ModelRef.String)
-                    .AddProperty("path", ModelRef.String)
-                    .AddProperty("kind", ModelRef.String)
-                    .AddProperty("full_path", ModelRef.String, PropertyOptions.IsDisplayName)
-                    .AddProperty("parent_id", ModelRef.NullableNumberId)
-                );
-
-                ProjectIdentity = CreateEntity("ProjectIdentity", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                    .AddProperty("description", ModelRef.String)
-                    .AddProperty("name", ModelRef.String)
-                    .AddProperty("name_with_namespace", ModelRef.String)
-                    .AddProperty("path", ModelRef.String)
-                    .AddProperty("path_with_namespace", ModelRef.PathWithNamespace, PropertyOptions.IsDisplayName)
-                );
-
-                BasicProjectDetails = CreateEntity("BasicProjectDetails", entity => entity
-                    .WithBaseType(ProjectIdentity)
-                    .AddProperty("avatar_url", ModelRef.String)
-                    .AddProperty("default_branch", ModelRef.String)
-                    .AddProperty("forks_count", ModelRef.Number)
-                    .AddProperty("http_url_to_repo", ModelRef.String)
-                    .AddProperty("last_activity_at", ModelRef.DateTime)
-                    .AddProperty("namespace", NamespaceBasic)
-                    .AddProperty("readme_url", ModelRef.String)
-                    .AddProperty("ssh_url_to_repo", ModelRef.String)
-                    .AddProperty("star_count", ModelRef.Number)
-                    .AddProperty("tag_list", ModelRef.StringCollection)
-                    .AddProperty("web_url", ModelRef.String)
-                );
-
-                ProjectLinks = CreateEntity("ProjectLink", entity => entity
-                    .AddProperty("events", ModelRef.String)
-                    .AddProperty("issues", ModelRef.String)
-                    .AddProperty("labels", ModelRef.String)
-                    .AddProperty("members", ModelRef.String)
-                    .AddProperty("merge_requests", ModelRef.String)
-                    .AddProperty("repo_branches", ModelRef.String)
-                    .AddProperty("self", ModelRef.String)
-                );
-
-                Permissions = CreateEntity("ProjectPermissions", entity => entity
-                    .AddProperty("group_access", GroupAccess)
-                    .AddProperty("project_access", ProjectAccess)
-                );
-
-                Project = CreateEntity("Project", entity => entity
-                    .WithBaseType(BasicProjectDetails)
-                    .AddProperty("approvals_before_merge", ModelRef.NullableNumber)
-                    .AddProperty("archived", ModelRef.Boolean)
-                    .AddProperty("ci_config_path", ModelRef.String)
-                    .AddProperty("container_registry_enabled", ModelRef.Boolean)
-                    .AddProperty("creator_id", ModelRef.NumberId)
-                    .AddProperty("forked_from_project", BasicProjectDetails)
-                    .AddProperty("import_status", Enumerations.ImportStatus)
-                    .AddProperty("issues_enabled", ModelRef.Boolean)
-                    .AddProperty("jobs_enabled", ModelRef.Boolean)
-                    .AddProperty("lfs_enabled", ModelRef.Boolean)
-                    .AddProperty("_links", ProjectLinks)
-                    .AddProperty("merge_method", Enumerations.MergeMethod)
-                    .AddProperty("merge_requests_enabled", ModelRef.Boolean)
-                    .AddProperty("mirror", ModelRef.Boolean)
-                    .AddProperty("mirror_user_id", ModelRef.NullableNumberId)
-                    .AddProperty("mirror_trigger_builds", ModelRef.NullableBoolean)
-                    .AddProperty("mirror_overwrites_diverged_branches", ModelRef.NullableBoolean)
-                    .AddProperty("only_allow_merge_if_all_discussions_are_resolved", ModelRef.Boolean)
-                    .AddProperty("only_allow_merge_if_pipeline_succeeds", ModelRef.Boolean)
-                    .AddProperty("only_mirror_protected_branches", ModelRef.NullableBoolean)
-                    .AddProperty("open_issues_count", ModelRef.NullableNumber)
-                    .AddProperty("owner", Entities.UserBasic)
-                    .AddProperty("permissions", Permissions)
-                    .AddProperty("printing_merge_request_link_enabled", ModelRef.Boolean)
-                    .AddProperty("public_jobs", ModelRef.Boolean)
-                    .AddProperty("request_access_enabled", ModelRef.Boolean)
-                    .AddProperty("resolve_outdated_diff_discussions", ModelRef.NullableBoolean)
-                    .AddProperty("shared_runners_enabled", ModelRef.Boolean)
-                    .AddProperty("shared_with_groups", SharedGroup.MakeCollection())
-                    .AddProperty("snippets_enabled", ModelRef.Boolean)
-                    .AddProperty("visibility", Enumerations.ProjectVisibility)
-                    .AddProperty("wiki_enabled", ModelRef.Boolean)
-                );
-
-                Todo = CreateEntity("Todo", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("action_name", Enumerations.TodoAction)
-                    .AddProperty("author", Entities.UserBasic)
-                    .AddProperty("project", BasicProjectDetails)
-                    .AddProperty("target_type", Enumerations.TodoType)
-                    .AddProperty("target_url", ModelRef.String)
-                    .AddProperty("body", ModelRef.String)
-                    .AddProperty("state", Enumerations.TodoState)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                );
-
-                MergeRequest = CreateEntity("MergeRequest", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("iid", ModelRef.NumberId)
-                    .AddProperty("author", Entities.UserBasic)
-                    .AddProperty("assignee", Entities.UserBasic)
-                    .AddProperty("title", ModelRef.String, PropertyOptions.IsDisplayName)
-                    .AddProperty("description", ModelRef.String)
-                    .AddProperty("state", Enumerations.MergeRequestState)
-                    .AddProperty("project_id", ModelRef.NumberId)
-                    .AddProperty("source_project_id", ModelRef.NumberId)
-                    .AddProperty("target_project_id", ModelRef.NumberId)
-                    .AddProperty("web_url", ModelRef.String)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                    .AddProperty("updated_at", ModelRef.DateTime)
-                    .AddProperty("user_notes_count", ModelRef.Number)
-                    .AddProperty("target_branch", ModelRef.String)
-                    .AddProperty("source_branch", ModelRef.String)
-                    .AddProperty("upvotes", ModelRef.Number)
-                    .AddProperty("downvotes", ModelRef.Number)
-                    .AddProperty("labels", ModelRef.StringCollection)
-                    .AddProperty("work_in_progress", ModelRef.Boolean)
-                    .AddProperty("merge_when_pipeline_succeeds", ModelRef.Boolean)
-                    .AddProperty("merge_status", Enumerations.MergeRequestStatus)
-                    .AddProperty("sha", ModelRef.GitObjectId)
-                    .AddProperty("merge_commit_sha", ModelRef.NullableGitObjectId)
-                    .AddProperty("should_remove_source_branch", ModelRef.NullableBoolean)
-                    .AddProperty("force_remove_source_branch", ModelRef.NullableBoolean)
-                    .AddProperty("squash", ModelRef.Boolean)
-                );
-
-                Issue = CreateEntity("Issue", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("iid", ModelRef.NumberId)
-                    .AddProperty("author", Entities.UserBasic)
-                    .AddProperty("title", ModelRef.String, PropertyOptions.IsDisplayName)
-                    .AddProperty("project_id", ModelRef.NumberId)
-                    .AddProperty("web_url", ModelRef.String)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                    .AddProperty("updated_at", ModelRef.DateTime)
-                    .AddProperty("closed_at", ModelRef.NullableDateTime)
-                    .AddProperty("closed_by", Entities.UserBasic)
-                );
-
-                Token = CreateEntity("ImpersonationToken", entity => entity
-                    .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                    .AddProperty("revoked", ModelRef.Boolean)
-                    .AddProperty("scopes", ModelRef.StringCollection)
-                    .AddProperty("token", ModelRef.String)
-                    .AddProperty("active", ModelRef.Boolean)
-                    .AddProperty("impersonation", ModelRef.Boolean)
-                    .AddProperty("name", ModelRef.String, PropertyOptions.IsDisplayName)
-                    .AddProperty("created_at", ModelRef.DateTime)
-                    .AddProperty("expires_at", ModelRef.NullableDate)
-                );
-
-                FileCreated = CreateEntity("FileCreated", entity => entity
-                    .AddProperty("file_path", ModelRef.String)
-                    .AddProperty("branch", ModelRef.String)
-                );
-
-                FileUpdated = CreateEntity("FileUpdated", entity => entity
-                    .AddProperty("file_path", ModelRef.String)
-                    .AddProperty("branch", ModelRef.String)
-                );
-
-                Version = CreateEntity("ServerVersion", entity => entity
-                    .AddProperty("version", ModelRef.String, PropertyOptions.IsKey)
-                    .AddProperty("revision", ModelRef.String, PropertyOptions.IsKey)
-                );
-
-                RenderMarkdownResult = CreateEntity("RenderedMarkdown", entity => entity
-                    .AddProperty("html", ModelRef.String, PropertyOptions.IsKey)
-                );
-
-                WikiPage = CreateEntity("WikiPage", entity => entity
-                    .AddProperty("slug", ModelRef.String, PropertyOptions.IsKey)
-                    .AddProperty("title", ModelRef.String)
-                    .AddProperty("content", ModelRef.String)
-                    .AddProperty("format", Enumerations.WikiPageFormat)
-                );
-
-                PostCreate(projectBuilder);
-            }
-
-            private static EntityBuilder CreateEntity(string name, Action<Entity> configure) => new EntityBuilder(name, configure);
-
-            private static void PostCreate(Project project)
-            {
-                // Ensure values are created
-                foreach (var property in typeof(Entities).GetProperties())
-                {
-                    var entityBuilder = ((EntityBuilder)property.GetGetMethod().Invoke(obj: null, parameters: null));
-                    entityBuilder.Build();
-                    project.AddModel<Entity>(entityBuilder.Value);
-                }
-            }
-        }
-
-        private static class EntityRefs
-        {
-            public static ParameterEntity ProjectIdRef { get; private set; }
-            public static ParameterEntity ProjectIdOrPathRef { get; private set; }
-            public static ParameterEntity SshKeyRef { get; private set; }
-            public static ParameterEntity UserRef { get; private set; }
-            public static ParameterEntity MergeRequestIdRef { get; private set; }
-            public static ParameterEntity TodoIdRef { get; private set; }
-
-            public static void Create(Project project)
-            {
-                ProjectIdRef = project.AddParameterEntity("ProjectIdRef",
-                    ParameterEntityRef.Create("projectId", ModelRef.NumberId),
-                    ParameterEntityRef.Create("project", Entities.ProjectIdentity)
-                );
-
-                ProjectIdOrPathRef = project.AddParameterEntity("ProjectIdOrPathRef",
-                    ParameterEntityRef.Create("projectId", ModelRef.NumberId),
-                    ParameterEntityRef.Create("project", Entities.ProjectIdentity),
-                    ParameterEntityRef.Create("projectPathWithNamespace", ModelRef.PathWithNamespace),
-                    ParameterEntityRef.Create("projectPathWithNamespace", ModelRef.String)
-                );
-
-                SshKeyRef = project.AddParameterEntity("SshKeyRef",
-                    ParameterEntityRef.Create("sshKeyId", ModelRef.NumberId),
-                    ParameterEntityRef.Create("sskKey", Entities.SshKey)
-                );
-
-                UserRef = project.AddParameterEntity("UserRef",
-                    ParameterEntityRef.Create("userId", ModelRef.NumberId),
-                    ParameterEntityRef.Create("userName", ModelRef.String)
-                );
-
-                MergeRequestIdRef = project.AddParameterEntity("MergeRequestIidRef",
-                    ParameterEntityRef.Create("mergeRequestIid", ModelRef.NumberId),
-                    ParameterEntityRef.Create("mergeRequest", Entities.MergeRequest, "iid")
-                );
-
-                TodoIdRef = project.AddParameterEntity("TodoRef",
-                    ParameterEntityRef.Create("TodoId", ModelRef.NumberId),
-                    ParameterEntityRef.Create("todo", Entities.Todo)
-                );
-            }
-        }
-
         private static void CreateMarkdownMethods(Project project)
         {
             var group = project.AddMethodGroup("Markdown");
@@ -440,10 +18,10 @@ namespace Meziantou.GitLabClient.Generator
         {
             var group = project.AddMethodGroup("User");
 
-            group.AddMethod("Get", MethodType.Get, "user")
+            group.AddMethod("GetCurrentUser", MethodType.Get, "user")
                 .WithReturnType(Entities.User);
 
-            group.AddMethod("Get", MethodType.Get, "users/:id")
+            group.AddMethod("GetById", MethodType.Get, "users/:id")
                 .WithReturnType(Entities.User)
                 .AddRequiredParameter("id", ModelRef.NumberId)
                 ;
@@ -455,7 +33,7 @@ namespace Meziantou.GitLabClient.Generator
                 .AddOptionalParameter("blocked", ModelRef.Boolean)
                 ;
 
-            group.AddMethod("GetStatus", MethodType.Get, "user/status")
+            group.AddMethod("GetCurrentUserStatus", MethodType.Get, "user/status")
                 .WithReturnType(Entities.UserStatus)
                 ;
 
@@ -464,13 +42,13 @@ namespace Meziantou.GitLabClient.Generator
                 .AddRequiredParameter("user", EntityRefs.UserRef)
                 ;
 
-            group.AddMethod("SetStatus", MethodType.Put, "users/status")
+            group.AddMethod("SetCurrentUserStatus", MethodType.Put, "users/status")
                 .WithReturnType(Entities.UserStatus)
                 .AddOptionalParameter("emoji", ModelRef.String)
                 .AddOptionalParameter("message", ModelRef.String)
                 ;
 
-            group.AddMethod("GetSSHKeys", MethodType.GetCollection, "user/keys")
+            group.AddMethod("GetCurrentUserSSHKeys", MethodType.GetCollection, "user/keys")
                 .WithReturnType(Entities.SshKey)
                 ;
 
@@ -484,7 +62,7 @@ namespace Meziantou.GitLabClient.Generator
                 .AddRequiredParameter("id", EntityRefs.SshKeyRef)
                 ;
 
-            group.AddMethod("AddSSHKey", MethodType.Post, "user/keys")
+            group.AddMethod("AddSSHKeyToCurrentUser", MethodType.Post, "user/keys")
                 .WithReturnType(Entities.SshKey)
                 .AddRequiredParameter("title", ModelRef.String)
                 .AddRequiredParameter("key", ModelRef.String)
@@ -497,8 +75,13 @@ namespace Meziantou.GitLabClient.Generator
                 .AddRequiredParameter("key", ModelRef.String)
                 ;
 
-            group.AddMethod("DeleteSSHKey", MethodType.Delete, "user/keys/:id")
+            group.AddMethod("DeleteSSHKeyFromCurrentUser", MethodType.Delete, "user/keys/:key_id")
                 .AddRequiredParameter("id", EntityRefs.SshKeyRef)
+                ;
+            
+            group.AddMethod("DeleteSSHKey", MethodType.Delete, "users/:user/keys/:key")
+                .AddRequiredParameter("id", EntityRefs.UserRef)
+                .AddRequiredParameter("key", EntityRefs.SshKeyRef)
                 ;
 
             group.AddMethod("CreateUser", MethodType.Post, "users")
@@ -521,6 +104,80 @@ namespace Meziantou.GitLabClient.Generator
                 ;
         }
 
+        private static void CreateProjectMethods(Project project)
+        {
+            var group = project.AddMethodGroup("Project");
+
+            group.AddMethod("Get", MethodType.GetPaged, "projects")
+                .WithReturnType(Entities.Project)
+                .AddOptionalParameter("archived", ModelRef.Boolean)
+                .AddOptionalParameter("visibility", Enumerations.ProjectVisibility)
+                .AddOptionalParameter("search", ModelRef.String)
+                .AddOptionalParameter("simple", ModelRef.Boolean)
+                .AddOptionalParameter("owned", ModelRef.Boolean)
+                .AddOptionalParameter("membership", ModelRef.Boolean)
+                .AddOptionalParameter("starred", ModelRef.Boolean)
+                .AddOptionalParameter("statistics", ModelRef.Boolean)
+                .AddOptionalParameter("with_issues_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("with_merge_requests_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("wiki_checksum_failed", ModelRef.Boolean)
+                .AddOptionalParameter("repository_checksum_failed", ModelRef.Boolean)
+                .AddOptionalParameter("min_access_level", Enumerations.AccessLevel)
+                ;
+
+            group.AddMethod("GetByUser", MethodType.GetPaged, "users/:user/projects")
+                .WithReturnType(Entities.Project)
+                .AddRequiredParameter("user", EntityRefs.UserRef)
+                .AddOptionalParameter("archived", ModelRef.Boolean)
+                .AddOptionalParameter("visibility", Enumerations.ProjectVisibility)
+                .AddOptionalParameter("search", ModelRef.String)
+                .AddOptionalParameter("simple", ModelRef.Boolean)
+                .AddOptionalParameter("owned", ModelRef.Boolean)
+                .AddOptionalParameter("membership", ModelRef.Boolean)
+                .AddOptionalParameter("starred", ModelRef.Boolean)
+                .AddOptionalParameter("statistics", ModelRef.Boolean)
+                .AddOptionalParameter("with_issues_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("with_merge_requests_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("wiki_checksum_failed", ModelRef.Boolean)
+                .AddOptionalParameter("repository_checksum_failed", ModelRef.Boolean)
+                .AddOptionalParameter("min_access_level", Enumerations.AccessLevel)
+                ;
+
+            group.AddMethod("GetById", MethodType.Get, "projects/:id")
+                .WithReturnType(Entities.Project)
+                .WithRequestTypeName("GetSingleProject")
+                .AddRequiredParameter("id", EntityRefs.ProjectIdOrPathRef)
+                ;
+
+            group.AddMethod("Create", MethodType.Post, "projects")
+                .WithReturnType(Entities.Project)
+                .AddOptionalParameter("name", ModelRef.String)
+                .AddOptionalParameter("path", ModelRef.String)
+                .AddOptionalParameter("namespace_id", ModelRef.NumberId)
+                .AddOptionalParameter("default_branch", ModelRef.String)
+                .AddOptionalParameter("description", ModelRef.String)
+                .AddOptionalParameter("issues_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("merge_requests_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("jobs_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("wiki_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("snippets_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("resolve_outdated_diff_discussions", ModelRef.Boolean)
+                .AddOptionalParameter("container_registry_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("shared_runners_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("public_jobs", ModelRef.Boolean)
+                .AddOptionalParameter("only_allow_merge_if_pipeline_succeeds", ModelRef.Boolean)
+                .AddOptionalParameter("only_allow_merge_if_all_discussions_are_resolved", ModelRef.Boolean)
+                .AddOptionalParameter("request_access_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("lfs_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("printing_merge_request_link_enabled", ModelRef.Boolean)
+                .AddOptionalParameter("merge_method", Enumerations.MergeMethod)
+                .AddOptionalParameter("visibility", Enumerations.ProjectVisibility)
+                .AddOptionalParameter("tag_list", ModelRef.StringCollection)
+                .AddOptionalParameter("ci_config_path", ModelRef.String)
+                .AddOptionalParameter("approvals_before_merge", ModelRef.Number)
+                ;
+        }
+
         private void CreateModel()
         {
             Enumerations.Create(Project);
@@ -529,6 +186,7 @@ namespace Meziantou.GitLabClient.Generator
 
             CreateMarkdownMethods(Project);
             CreateUserMethods(Project);
+            CreateProjectMethods(Project);
 
             //Project.AddMethodGroup("Issue", // TODO method AddMethod
             //    new[]
@@ -679,116 +337,6 @@ namespace Meziantou.GitLabClient.Generator
             //                new MethodParameter("allow_collaboration", ModelRef.NullableBoolean) { IsOptional = true },
             //                new MethodParameter("allow_maintainer_to_push", ModelRef.NullableBoolean) { IsOptional = true },
             //                new MethodParameter("squash", ModelRef.NullableBoolean) { IsOptional = true },
-            //            },
-            //        },
-            //    });
-
-            //Project.AddMethodGroup("Project",
-            //    new[]
-            //    {
-            //        new Method("GetProjects", "projects")
-            //        {
-            //            Documentation = new Documentation
-            //            {
-            //                Summary = "Get a list of all visible projects across GitLab for the authenticated user. When accessed without authentication, only public projects with \"simple\" fields are returned.",
-            //                HelpLink = "https://docs.gitlab.com/ee/api/projects.html#list-all-projects",
-            //            },
-            //            ReturnType = Entities.Project,
-            //            MethodType = MethodType.GetPaged,
-            //            Parameters =
-            //            {
-            //                new MethodParameter("archived", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("visibility", Enumerations.ProjectVisibility.MakeNullable()) { IsOptional = true },
-            //                new MethodParameter("search", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("simple", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("owned", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("membership", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("starred", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("statistics", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("with_issues_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("with_merge_requests_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("wiki_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("repository_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("min_access_level", Enumerations.AccessLevel.MakeNullable()) { IsOptional = true },
-            //            },
-            //        },
-            //        new Method("GetProjects", "users/:user/projects")
-            //        {
-            //            Documentation = new Documentation
-            //            {
-            //                Summary = "Get a list of visible projects for the given user. When accessed without authentication, only public projects are returned.",
-            //                HelpLink = "https://docs.gitlab.com/ee/api/projects.html#list-user-projects",
-            //            },
-            //            ReturnType = Entities.Project,
-            //            MethodType = MethodType.GetPaged,
-            //            Parameters =
-            //            {
-            //                new MethodParameter("user", EntityRefs.UserRef),
-            //                new MethodParameter("archived", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("visibility", Enumerations.ProjectVisibility.MakeNullable()) { IsOptional = true },
-            //                new MethodParameter("search", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("simple", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("owned", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("membership", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("starred", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("statistics", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("with_issues_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("with_merge_requests_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("wiki_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("repository_checksum_failed", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("min_access_level", Enumerations.AccessLevel.MakeNullable()) { IsOptional = true },
-            //            },
-            //        },
-            //        new Method("GetProject", "projects/:id")
-            //        {
-            //            Documentation = new Documentation
-            //            {
-            //                Summary = "Get a specific project. This endpoint can be accessed without authentication if the project is publicly accessible.",
-            //                HelpLink = "https://docs.gitlab.com/ee/api/projects.html#get-single-project",
-            //            },
-            //            ReturnType = Entities.Project,
-            //            MethodType = MethodType.Get,
-            //            Parameters =
-            //            {
-            //                new MethodParameter("id", EntityRefs.ProjectIdOrPathRef),
-            //            },
-            //        },
-            //        new Method("CreateProject", "projects")
-            //        {
-            //            Documentation = new Documentation
-            //            {
-            //                Summary = "Creates a new project owned by the authenticated user.",
-            //                HelpLink = "https://docs.gitlab.com/ee/api/projects.html#create-project",
-            //            },
-            //            ReturnType = Entities.Project,
-            //            MethodType = MethodType.Post,
-            //            Parameters =
-            //            {
-            //                new MethodParameter("name", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("path", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("namespace_id", ModelRef.NullableNumberId) { IsOptional = true },
-            //                new MethodParameter("default_branch", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("description", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("issue_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("issues_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("merge_requests_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("jobs_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("wiki_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("snippets_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("resolve_outdated_diff_discussions", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("container_registry_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("shared_runners_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("public_jobs", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("only_allow_merge_if_pipeline_succeeds", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("only_allow_merge_if_all_discussions_are_resolved", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("request_access_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("lfs_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("printing_merge_request_link_enabled", ModelRef.NullableBoolean) { IsOptional = true },
-            //                new MethodParameter("merge_method", Enumerations.MergeMethod.MakeNullable()) { IsOptional = true },
-            //                new MethodParameter("visibility", Enumerations.ProjectVisibility.MakeNullable()) { IsOptional = true },
-            //                new MethodParameter("tag_list", ModelRef.StringCollection) { IsOptional = true },
-            //                new MethodParameter("ci_config_path", ModelRef.String) { IsOptional = true },
-            //                new MethodParameter("approvals_before_merge", ModelRef.NullableNumber) { IsOptional = true },
             //            },
             //        },
             //    });

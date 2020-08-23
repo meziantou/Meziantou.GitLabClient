@@ -36,12 +36,12 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static Meziantou.GitLab.SshKeyRef FromInt64(long sshKeyId)
+        public static Meziantou.GitLab.SshKeyRef FromSshKeyId(long sshKeyId)
         {
             return new Meziantou.GitLab.SshKeyRef(sshKeyId);
         }
 
-        public static Meziantou.GitLab.SshKeyRef FromSshKey(SshKey sskKey)
+        public static Meziantou.GitLab.SshKeyRef FromSskKey(SshKey sskKey)
         {
             if ((sskKey == null))
             {
@@ -58,12 +58,12 @@ namespace Meziantou.GitLab
 
         public static implicit operator Meziantou.GitLab.SshKeyRef(long sshKeyId)
         {
-            return Meziantou.GitLab.SshKeyRef.FromInt64(sshKeyId);
+            return Meziantou.GitLab.SshKeyRef.FromSshKeyId(sshKeyId);
         }
 
         public static implicit operator Meziantou.GitLab.SshKeyRef(SshKey sskKey)
         {
-            return Meziantou.GitLab.SshKeyRef.FromSshKey(sskKey);
+            return Meziantou.GitLab.SshKeyRef.FromSskKey(sskKey);
         }
     }
 }

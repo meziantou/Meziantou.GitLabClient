@@ -15,7 +15,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var result = await client.Markdown.RenderMarkdownAsync("# title");
+            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title"));
 
             // Assert
             // data-sourcepos="1:1-1:7"

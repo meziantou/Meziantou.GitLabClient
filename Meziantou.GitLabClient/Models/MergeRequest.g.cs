@@ -22,7 +22,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserBasic>("assignee", default(UserBasic));
+                return this.GetRequiredNonNullValue<UserBasic>("assignee");
             }
         }
 
@@ -31,7 +31,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
+                return this.GetRequiredNonNullValue<UserBasic>("author");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("description", default(string));
+                return this.GetRequiredNonNullValue<string>("description");
             }
         }
 
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<int>("downvotes", default(int));
+                return this.GetRequiredNonNullValue<int>("downvotes");
             }
         }
 
@@ -76,7 +76,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -85,7 +85,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("iid", default(long));
+                return this.GetRequiredNonNullValue<long>("iid");
             }
         }
 
@@ -94,7 +94,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("labels", default(System.Collections.Generic.IReadOnlyList<string>));
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<string>>("labels");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<MergeRequestStatus>("merge_status", default(MergeRequestStatus));
+                return this.GetRequiredNonNullValue<MergeRequestStatus>("merge_status");
             }
         }
 
@@ -121,7 +121,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("merge_when_pipeline_succeeds", default(bool));
+                return this.GetRequiredNonNullValue<bool>("merge_when_pipeline_succeeds");
             }
         }
 
@@ -130,7 +130,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("project_id", default(long));
+                return this.GetRequiredNonNullValue<long>("project_id");
             }
         }
 
@@ -139,7 +139,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<Meziantou.GitLab.GitObjectId>("sha", default(Meziantou.GitLab.GitObjectId));
+                return this.GetRequiredNonNullValue<Meziantou.GitLab.GitObjectId>("sha");
             }
         }
 
@@ -157,7 +157,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("source_branch", default(string));
+                return this.GetRequiredNonNullValue<string>("source_branch");
             }
         }
 
@@ -166,7 +166,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("source_project_id", default(long));
+                return this.GetRequiredNonNullValue<long>("source_project_id");
             }
         }
 
@@ -175,7 +175,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("squash", default(bool));
+                return this.GetRequiredNonNullValue<bool>("squash");
             }
         }
 
@@ -184,7 +184,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<MergeRequestState>("state", default(MergeRequestState));
+                return this.GetRequiredNonNullValue<MergeRequestState>("state");
             }
         }
 
@@ -193,7 +193,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("target_branch", default(string));
+                return this.GetRequiredNonNullValue<string>("target_branch");
             }
         }
 
@@ -202,7 +202,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("target_project_id", default(long));
+                return this.GetRequiredNonNullValue<long>("target_project_id");
             }
         }
 
@@ -211,7 +211,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("title", default(string));
+                return this.GetRequiredNonNullValue<string>("title");
             }
         }
 
@@ -220,7 +220,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("updated_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("updated_at");
             }
         }
 
@@ -229,7 +229,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<int>("upvotes", default(int));
+                return this.GetRequiredNonNullValue<int>("upvotes");
             }
         }
 
@@ -238,7 +238,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<int>("user_notes_count", default(int));
+                return this.GetRequiredNonNullValue<int>("user_notes_count");
             }
         }
 
@@ -247,7 +247,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("web_url", default(string));
+                return this.GetRequiredNonNullValue<string>("web_url");
             }
         }
 
@@ -256,7 +256,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("work_in_progress", default(bool));
+                return this.GetRequiredNonNullValue<bool>("work_in_progress");
             }
         }
 

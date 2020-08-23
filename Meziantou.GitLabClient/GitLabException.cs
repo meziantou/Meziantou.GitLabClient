@@ -1,27 +1,14 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization;
 using System.Text;
 
 namespace Meziantou.GitLab
 {
+    [SuppressMessage("Design", "CA1032:Implement standard exception constructors", Justification = "Ensure the properties are set")]
     public class GitLabException : Exception
     {
-        public GitLabException()
-        {
-        }
-
-        public GitLabException(string message)
-            : base(message)
-        {
-        }
-
-        public GitLabException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
-
         public GitLabException(HttpMethod httpMethod, Uri requestUri, HttpStatusCode httpStatusCode, GitLabError error)
             : base(GetMessage(error))
         {
@@ -39,27 +26,10 @@ namespace Meziantou.GitLab
             HttpStatusCode = httpStatusCode;
         }
 
-        public GitLabException(GitLabError error, string message)
-            : base(message)
-        {
-            ErrorObject = error;
-        }
-
-        public GitLabException(GitLabError error, string message, Exception innerException)
-            : base(message, innerException)
-        {
-            ErrorObject = error;
-        }
-
-        protected GitLabException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-
         public HttpMethod HttpMethod { get; }
         public Uri RequestUri { get; }
         public HttpStatusCode HttpStatusCode { get; }
-        public GitLabError ErrorObject { get; }
+        public GitLabError? ErrorObject { get; }
 
         private static string? GetMessage(GitLabError error)
         {

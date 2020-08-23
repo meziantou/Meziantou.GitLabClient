@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("html", default(string));
+                return this.GetRequiredNonNullValue<string>("html");
             }
         }
 

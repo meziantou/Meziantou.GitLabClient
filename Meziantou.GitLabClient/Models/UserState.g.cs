@@ -16,6 +16,26 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "blocked")]
         Blocked
     }
+
+    partial class UrlBuilder
+    {
+        public void SetValue(string key, Meziantou.GitLab.UserState? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetValue(key, value.GetValueOrDefault());
+            }
+            else
+            {
+                this.SetNullValue(key);
+            }
+        }
+
+        public void SetValue(string key, Meziantou.GitLab.UserState value)
+        {
+            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -36,7 +56,7 @@ namespace Meziantou.GitLab.Serialization
                 return "blocked";
             }
 
-            throw new System.ArgumentOutOfRangeException(nameof(value));
+            throw new System.ArgumentOutOfRangeException(nameof(value), string.Concat("Value '", value.ToString(), "' is not valid"));
         }
 
         public static Meziantou.GitLab.UserState UserStateFromString(string value)

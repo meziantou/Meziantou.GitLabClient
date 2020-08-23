@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("content", default(string));
+                return this.GetRequiredNonNullValue<string>("content");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<WikiPageFormat>("format", default(WikiPageFormat));
+                return this.GetRequiredNonNullValue<WikiPageFormat>("format");
             }
         }
 
@@ -39,7 +39,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("slug", default(string));
+                return this.GetRequiredNonNullValue<string>("slug");
             }
         }
 
@@ -48,7 +48,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("title", default(string));
+                return this.GetRequiredNonNullValue<string>("title");
             }
         }
 

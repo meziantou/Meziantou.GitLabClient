@@ -14,7 +14,10 @@ namespace Meziantou.GitLab.Serialization
             if (reader.TokenType == JsonTokenType.String)
             {
                 var value = reader.GetString();
-                return FromString(value);
+                if (value != null)
+                {
+                    return FromString(value);
+                }
             }
 
             return default;

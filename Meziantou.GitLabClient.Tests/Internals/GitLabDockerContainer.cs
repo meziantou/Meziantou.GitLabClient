@@ -153,7 +153,7 @@ namespace Meziantou.GitLab.Tests
             {
                 result = await context.OpenAsync(GitLabUrl + "/profile/personal_access_tokens");
                 var form = result.Forms["new_personal_access_token"];
-                ((IHtmlInputElement)form["personal_access_token[name]"]).Value = $"GitLabClientTest-{DateTime.Now:yyyyMMdd-HHmmss}";
+                ((IHtmlInputElement)form["personal_access_token[name]"]).Value = $"GitLabClientTest-" + DateTime.UtcNow.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
                 foreach (var element in form.Elements.OfType<IHtmlInputElement>().Where(e => e.Name == "personal_access_token[scopes][]"))
                 {
                     element.IsChecked = true;

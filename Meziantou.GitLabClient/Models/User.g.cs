@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("bio", default(string));
+                return this.GetRequiredNonNullValue<string>("bio");
             }
         }
 
@@ -66,7 +66,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
@@ -84,7 +84,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("email", default(string));
+                return this.GetRequiredNonNullValue<string>("email");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<Identity>>("identities", default(System.Collections.Generic.IReadOnlyList<Identity>));
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<Identity>>("identities");
             }
         }
 
@@ -135,29 +135,29 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("linkedin")]
-        public string Linkedin
+        public string? Linkedin
         {
             get
             {
-                return this.GetValueOrDefault<string>("linkedin", default(string));
+                return this.GetValueOrDefault<string?>("linkedin", default(string?));
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("location")]
-        public string Location
+        public string? Location
         {
             get
             {
-                return this.GetValueOrDefault<string>("location", default(string));
+                return this.GetValueOrDefault<string?>("location", default(string?));
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("organization")]
-        public string Organization
+        public string? Organization
         {
             get
             {
-                return this.GetValueOrDefault<string>("organization", default(string));
+                return this.GetValueOrDefault<string?>("organization", default(string?));
             }
         }
 
@@ -166,7 +166,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<object>("private_profile", default(object));
+                return this.GetRequiredNonNullValue<object>("private_profile");
             }
         }
 
@@ -189,11 +189,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("skype")]
-        public string Skype
+        public string? Skype
         {
             get
             {
-                return this.GetValueOrDefault<string>("skype", default(string));
+                return this.GetValueOrDefault<string?>("skype", default(string?));
             }
         }
 
@@ -207,11 +207,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("twitter")]
-        public string Twitter
+        public string? Twitter
         {
             get
             {
-                return this.GetValueOrDefault<string>("twitter", default(string));
+                return this.GetValueOrDefault<string?>("twitter", default(string?));
             }
         }
 
@@ -225,11 +225,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("website_url")]
-        public string WebsiteUrl
+        public string? WebsiteUrl
         {
             get
             {
-                return this.GetValueOrDefault<string>("website_url", default(string));
+                return this.GetValueOrDefault<string?>("website_url", default(string?));
             }
         }
     }

@@ -17,11 +17,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("avatar_path")]
-        public string AvatarPath
+        public string? AvatarPath
         {
             get
             {
-                return this.GetValueOrDefault<string>("avatar_path", default(string));
+                return this.GetValueOrDefault<string?>("avatar_path", default(string?));
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("avatar_url", default(string));
+                return this.GetRequiredNonNullValue<string>("avatar_url");
             }
         }
 
@@ -39,16 +39,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserState>("state", default(UserState));
+                return this.GetRequiredNonNullValue<UserState>("state");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
-        public string WebUrl
+        public string? WebUrl
         {
             get
             {
-                return this.GetValueOrDefault<string>("web_url", default(string));
+                return this.GetValueOrDefault<string?>("web_url", default(string?));
             }
         }
     }

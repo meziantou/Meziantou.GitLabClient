@@ -16,6 +16,26 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "simple")]
         Simple
     }
+
+    partial class UrlBuilder
+    {
+        public void SetValue(string key, Meziantou.GitLab.MergeRequestView? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetValue(key, value.GetValueOrDefault());
+            }
+            else
+            {
+                this.SetNullValue(key);
+            }
+        }
+
+        public void SetValue(string key, Meziantou.GitLab.MergeRequestView value)
+        {
+            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -41,7 +61,7 @@ namespace Meziantou.GitLab.Serialization
                 return "simple";
             }
 
-            throw new System.ArgumentOutOfRangeException(nameof(value));
+            throw new System.ArgumentOutOfRangeException(nameof(value), string.Concat("Value '", value.ToString(), "' is not valid"));
         }
 
         private static Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeRequestView>[] CreateMergeRequestViewMembers()

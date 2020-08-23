@@ -22,7 +22,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -31,7 +31,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("name", default(string));
+                return this.GetRequiredNonNullValue<string>("name");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("username", default(string));
+                return this.GetRequiredNonNullValue<string>("username");
             }
         }
 

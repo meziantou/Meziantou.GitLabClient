@@ -13,6 +13,7 @@ namespace Meziantou.GitLabClient.Generator
         public MethodGroup MethodGroup { get; set; }
         public string Name { get; }
         public string UrlTemplate { get; }
+        public string RequestTypeName { get; set; }
         public ModelRef ReturnType { get; set; }
         public MethodType MethodType { get; set; }
         public IList<MethodParameter> Parameters { get; set; } = new List<MethodParameter>();
@@ -39,6 +40,12 @@ namespace Meziantou.GitLabClient.Generator
         public Method WithReturnType(ModelRef returnType)
         {
             ReturnType = returnType;
+            return this;
+        }
+
+        public Method WithRequestTypeName(string requestTypeName)
+        {
+            RequestTypeName = requestTypeName;
             return this;
         }
     }

@@ -4,20 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
-    <DefineConstants>$(DefineConstants);REF</DefineConstants>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\Meziantou.GitLabClient\Internals\IGitLabObjectReference.cs" Link="Types\IGitLabObjectReference.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Internals\MappedPropertyAttribute.cs" Link="Types\MappedPropertyAttribute.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Internals\SkipUtcDateValidationAttribute.cs" Link="Types\SkipUtcDateValidationAttribute.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Internals\UrlBuilder.cs" Link="Types\UrlBuilder.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Serialization\GitLabObjectReferenceJsonConverter.cs" Link="Types\GitLabObjectReferenceJsonConverter.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\Models\PathWithNamespace.cs" Link="Types\PathWithNamespace.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\OrderBy.cs" Link="Types\OrderBy.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\OrderByDirection.cs" Link="Types\OrderByDirection.cs" />
-    <Compile Include="..\Meziantou.GitLabClient\PageOptions.cs" Link="Types\PageOptions.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Meziantou.Framework" Version="2.20.4" />

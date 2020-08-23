@@ -22,7 +22,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTime>("last_activity_on", default(System.DateTime));
+                return this.GetRequiredNonNullValue<System.DateTime>("last_activity_on");
             }
         }
 
@@ -31,7 +31,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("username", default(string));
+                return this.GetRequiredNonNullValue<string>("username");
             }
         }
     }

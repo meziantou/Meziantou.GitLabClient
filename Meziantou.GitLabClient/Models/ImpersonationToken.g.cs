@@ -22,7 +22,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("active", default(bool));
+                return this.GetRequiredNonNullValue<bool>("active");
             }
         }
 
@@ -31,7 +31,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
@@ -50,7 +50,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -59,7 +59,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("impersonation", default(bool));
+                return this.GetRequiredNonNullValue<bool>("impersonation");
             }
         }
 
@@ -68,7 +68,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("name", default(string));
+                return this.GetRequiredNonNullValue<string>("name");
             }
         }
 
@@ -77,7 +77,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("revoked", default(bool));
+                return this.GetRequiredNonNullValue<bool>("revoked");
             }
         }
 
@@ -86,7 +86,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("scopes", default(System.Collections.Generic.IReadOnlyList<string>));
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<string>>("scopes");
             }
         }
 
@@ -95,7 +95,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("token", default(string));
+                return this.GetRequiredNonNullValue<string>("token");
             }
         }
 

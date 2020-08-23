@@ -25,7 +25,7 @@ namespace Meziantou.GitLab.Tests
             Context = context;
         }
 
-        public override async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<T> GetAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await ReaderLockAsync())
             {
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<IReadOnlyList<T>> GetCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await ReaderLockAsync())
             {
@@ -45,7 +45,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task<GitLabPageResponse<T>> GetPagedCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<GitLabPageResponse<T>> GetPagedCollectionAsync<T>(string url, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await ReaderLockAsync())
             {
@@ -55,7 +55,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await WriterLockAsync())
             {
@@ -65,7 +65,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task PostJsonAsync(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task PostJsonAsync(string url, object data, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await WriterLockAsync())
             {
@@ -73,7 +73,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await WriterLockAsync())
             {
@@ -83,7 +83,7 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
-        public override async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken)
+        public override async Task DeleteAsync(string url, RequestOptions options, CancellationToken cancellationToken = default)
         {
             using (await WriterLockAsync())
             {

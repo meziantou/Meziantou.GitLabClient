@@ -5,6 +5,7 @@ using Meziantou.GitLab.Core;
 
 namespace Meziantou.GitLab
 {
+    // TODO Add options
     public sealed class PagedResponse<T> : IAsyncEnumerable<T>
         where T : GitLabObject
     {

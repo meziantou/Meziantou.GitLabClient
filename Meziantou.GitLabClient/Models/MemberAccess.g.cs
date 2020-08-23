@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<AccessLevel>("access_level", default(AccessLevel));
+                return this.GetRequiredNonNullValue<AccessLevel>("access_level");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("notification_level", default(string));
+                return this.GetRequiredNonNullValue<string>("notification_level");
             }
         }
     }

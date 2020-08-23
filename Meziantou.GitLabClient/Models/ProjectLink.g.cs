@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("events", default(string));
+                return this.GetRequiredNonNullValue<string>("events");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("issues", default(string));
+                return this.GetRequiredNonNullValue<string>("issues");
             }
         }
 
@@ -39,7 +39,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("labels", default(string));
+                return this.GetRequiredNonNullValue<string>("labels");
             }
         }
 
@@ -48,7 +48,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("members", default(string));
+                return this.GetRequiredNonNullValue<string>("members");
             }
         }
 
@@ -57,7 +57,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("merge_requests", default(string));
+                return this.GetRequiredNonNullValue<string>("merge_requests");
             }
         }
 
@@ -66,7 +66,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("repo_branches", default(string));
+                return this.GetRequiredNonNullValue<string>("repo_branches");
             }
         }
 
@@ -75,7 +75,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("self", default(string));
+                return this.GetRequiredNonNullValue<string>("self");
             }
         }
     }

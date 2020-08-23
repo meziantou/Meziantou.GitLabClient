@@ -26,6 +26,26 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "directly_addressed")]
         DirectlyAddressed
     }
+
+    partial class UrlBuilder
+    {
+        public void SetValue(string key, Meziantou.GitLab.TodoAction? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetValue(key, value.GetValueOrDefault());
+            }
+            else
+            {
+                this.SetNullValue(key);
+            }
+        }
+
+        public void SetValue(string key, Meziantou.GitLab.TodoAction value)
+        {
+            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -71,7 +91,7 @@ namespace Meziantou.GitLab.Serialization
                 return "directly_addressed";
             }
 
-            throw new System.ArgumentOutOfRangeException(nameof(value));
+            throw new System.ArgumentOutOfRangeException(nameof(value), string.Concat("Value '", value.ToString(), "' is not valid"));
         }
 
         public static Meziantou.GitLab.TodoAction TodoActionFromString(string value)

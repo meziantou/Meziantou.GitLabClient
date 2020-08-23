@@ -31,6 +31,7 @@ namespace Meziantou.GitLab.Core
             return false;
         }
 
+        // Internal for testing purpose
         internal protected bool TryGetValue<T>(string name, [MaybeNull] out T result)
         {
             if (TryGetValue(name, typeof(T), out var r))
@@ -56,6 +57,20 @@ namespace Meziantou.GitLab.Core
                 return result;
 
             return defaultValue;
+        }
+
+        protected T GetRequiredNonNullValue<T>(string name)
+            where T : notnull
+        {
+            if (TryGetValue<T>(name, out var value))
+            {
+                if (value is null)
+                    throw new ArgumentException($"The property '{name}' doesn't exists", nameof(name));
+
+                return value;
+            }
+
+            throw new ArgumentException($"The property '{name}' is null", nameof(name));
         }
     }
 }

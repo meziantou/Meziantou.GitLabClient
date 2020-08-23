@@ -36,11 +36,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static Meziantou.GitLab.MergeRequestIidRef FromInt64(long mergeRequestIid)
-        {
-            return new Meziantou.GitLab.MergeRequestIidRef(mergeRequestIid);
-        }
-
         public static Meziantou.GitLab.MergeRequestIidRef FromMergeRequest(MergeRequest mergeRequest)
         {
             if ((mergeRequest == null))
@@ -51,6 +46,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.MergeRequestIidRef(mergeRequest);
         }
 
+        public static Meziantou.GitLab.MergeRequestIidRef FromMergeRequestIid(long mergeRequestIid)
+        {
+            return new Meziantou.GitLab.MergeRequestIidRef(mergeRequestIid);
+        }
+
         public override string ToString()
         {
             return this.Value.ToString();
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab
 
         public static implicit operator Meziantou.GitLab.MergeRequestIidRef(long mergeRequestIid)
         {
-            return Meziantou.GitLab.MergeRequestIidRef.FromInt64(mergeRequestIid);
+            return Meziantou.GitLab.MergeRequestIidRef.FromMergeRequestIid(mergeRequestIid);
         }
 
         public static implicit operator Meziantou.GitLab.MergeRequestIidRef(MergeRequest mergeRequest)

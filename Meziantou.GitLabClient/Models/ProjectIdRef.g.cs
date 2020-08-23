@@ -36,12 +36,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static Meziantou.GitLab.ProjectIdRef FromInt64(long projectId)
-        {
-            return new Meziantou.GitLab.ProjectIdRef(projectId);
-        }
-
-        public static Meziantou.GitLab.ProjectIdRef FromProjectIdentity(ProjectIdentity project)
+        public static Meziantou.GitLab.ProjectIdRef FromProject(ProjectIdentity project)
         {
             if ((project == null))
             {
@@ -51,6 +46,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.ProjectIdRef(project);
         }
 
+        public static Meziantou.GitLab.ProjectIdRef FromProjectId(long projectId)
+        {
+            return new Meziantou.GitLab.ProjectIdRef(projectId);
+        }
+
         public override string ToString()
         {
             return this.Value.ToString();
@@ -58,12 +58,12 @@ namespace Meziantou.GitLab
 
         public static implicit operator Meziantou.GitLab.ProjectIdRef(long projectId)
         {
-            return Meziantou.GitLab.ProjectIdRef.FromInt64(projectId);
+            return Meziantou.GitLab.ProjectIdRef.FromProjectId(projectId);
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdRef(ProjectIdentity project)
         {
-            return Meziantou.GitLab.ProjectIdRef.FromProjectIdentity(project);
+            return Meziantou.GitLab.ProjectIdRef.FromProject(project);
         }
     }
 }

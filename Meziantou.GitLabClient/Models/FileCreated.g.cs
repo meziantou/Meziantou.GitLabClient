@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("branch", default(string));
+                return this.GetRequiredNonNullValue<string>("branch");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("file_path", default(string));
+                return this.GetRequiredNonNullValue<string>("file_path");
             }
         }
     }

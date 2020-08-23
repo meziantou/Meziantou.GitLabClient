@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<TodoAction>("action_name", default(TodoAction));
+                return this.GetRequiredNonNullValue<TodoAction>("action_name");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
+                return this.GetRequiredNonNullValue<UserBasic>("author");
             }
         }
 
@@ -39,7 +39,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("body", default(string));
+                return this.GetRequiredNonNullValue<string>("body");
             }
         }
 
@@ -48,7 +48,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
@@ -57,7 +57,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -66,7 +66,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<BasicProjectDetails>("project", default(BasicProjectDetails));
+                return this.GetRequiredNonNullValue<BasicProjectDetails>("project");
             }
         }
 
@@ -75,7 +75,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<TodoState>("state", default(TodoState));
+                return this.GetRequiredNonNullValue<TodoState>("state");
             }
         }
 
@@ -84,7 +84,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<TodoTargetType>("target_type", default(TodoTargetType));
+                return this.GetRequiredNonNullValue<TodoTargetType>("target_type");
             }
         }
 
@@ -93,7 +93,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("target_url", default(string));
+                return this.GetRequiredNonNullValue<string>("target_url");
             }
         }
 

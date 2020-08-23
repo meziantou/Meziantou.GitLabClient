@@ -20,16 +20,16 @@ namespace Meziantou.GitLab
     {
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<RenderedMarkdown?> RenderMarkdownAsync(string text, bool? gfm = default(bool?), string? project = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<RenderedMarkdown> RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
     partial class GitLabClient : Meziantou.GitLab.IGitLabMarkdownClient
     {
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<RenderedMarkdown?> Meziantou.GitLab.IGitLabMarkdownClient.RenderMarkdownAsync(string text, bool? gfm, string? project, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<RenderedMarkdown> Meziantou.GitLab.IGitLabMarkdownClient.RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.Markdown_RenderMarkdownAsync(text, gfm, project, requestOptions, cancellationToken);
+            return this.Markdown_RenderMarkdownAsync(request, requestOptions, cancellationToken);
         }
 
         public Meziantou.GitLab.IGitLabMarkdownClient Markdown
@@ -42,23 +42,73 @@ namespace Meziantou.GitLab
 
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<RenderedMarkdown?> Markdown_RenderMarkdownAsync(string text, bool? gfm = default(bool?), string? project = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<RenderedMarkdown> Markdown_RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("markdown");
             string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            body.Add("text", text);
-            if ((gfm != null))
+            body.Add("text", request.Text);
+            if ((request.Gfm != null))
             {
-                body.Add("gfm", gfm);
+                body.Add("gfm", request.Gfm);
             }
 
-            if ((project != null))
+            if ((request.Project != null))
             {
-                body.Add("project", project);
+                body.Add("project", request.Project);
             }
 
             return this.PostJsonAsync<RenderedMarkdown>(url, body, requestOptions, cancellationToken);
+        }
+    }
+
+    public partial class RenderMarkdownMarkdownRequest
+    {
+        private bool? _gfm;
+
+        private string? _project;
+
+        private string _text;
+
+        public RenderMarkdownMarkdownRequest(string text)
+        {
+            this._text = text;
+        }
+
+        public bool? Gfm
+        {
+            get
+            {
+                return this._gfm;
+            }
+            set
+            {
+                this._gfm = value;
+            }
+        }
+
+        public string? Project
+        {
+            get
+            {
+                return this._project;
+            }
+            set
+            {
+                this._project = value;
+            }
+        }
+
+        public string Text
+        {
+            get
+            {
+                return this._text;
+            }
+            set
+            {
+                this._text = value;
+            }
         }
     }
 }

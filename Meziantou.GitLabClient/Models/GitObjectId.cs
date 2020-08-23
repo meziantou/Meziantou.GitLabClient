@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 using Meziantou.GitLab.Serialization;
@@ -10,118 +9,43 @@ namespace Meziantou.GitLab
     [StructLayout(LayoutKind.Auto)]
     public readonly struct GitObjectId : IEquatable<GitObjectId>
     {
-        // TODO wrap string we should support SHA1 and SHA256
-        // a sha1 is 20 bytes long
-        // 20 bytes to hexa => 40 characters
-        private readonly uint _p1;
-        private readonly uint _p2;
-        private readonly uint _p3;
-        private readonly uint _p4;
-        private readonly uint _p5;
+        private readonly string _id;
 
-        private GitObjectId(uint p1, uint p2, uint p3, uint p4, uint p5)
+        public GitObjectId(string id)
         {
-            _p1 = p1;
-            _p2 = p2;
-            _p3 = p3;
-            _p4 = p4;
-            _p5 = p5;
+            // Sha1 or Sha256
+            if (id.Length != 40 && id.Length != 64)
+                throw new ArgumentException($"The provided value '{id}' is not a valid SHA1 or SHA256", nameof(id));
+
+            foreach (var c in id)
+            {
+                if (!IsValid(c))
+                    throw new ArgumentException($"The provided value '{id}' is not a valid SHA1 or SHA256: '{c}' is not valid", nameof(id));
+            }
+
+            _id = id;
+        }
+
+        private static bool IsValid(char c)
+        {
+            return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
         }
 
         public static GitObjectId Empty { get; }
 
-        public static bool TryParse(string value, out GitObjectId result)
-        {
-            if (value == null || value.Length != 40)
-            {
-                result = default;
-                return false;
-            }
-
-            //TODO when supported: Span<byte> b = stackalloc byte[20];
-            var index = 0;
-
-            var isValid = true;
-            var p1 = GetUInt32(ref index);
-            var p2 = GetUInt32(ref index);
-            var p3 = GetUInt32(ref index);
-            var p4 = GetUInt32(ref index);
-            var p5 = GetUInt32(ref index);
-            if (isValid)
-            {
-                result = new GitObjectId(p1, p2, p3, p4, p5);
-                return true;
-            }
-
-            result = default;
-
-            return false;
-
-            uint GetUInt32(ref int i)
-            {
-                unchecked
-                {
-                    return (GetByte(value[i++], value[i++]) << 24) |
-                           (GetByte(value[i++], value[i++]) << 16) |
-                           (GetByte(value[i++], value[i++]) << 8) |
-                           GetByte(value[i++], value[i++]);
-                }
-            }
-
-#pragma warning disable IDE0062 // Make local function 'static'
-            uint GetByte(char c1, char c2)
-#pragma warning restore IDE0062 // Make local function 'static'
-            {
-                unchecked
-                {
-                    return (GetHexVal(c1) << 4) | GetHexVal(c2);
-                }
-            }
-
-            uint GetHexVal(char c)
-            {
-                const uint Digit = '0';
-                const uint LowerCase = 'a' - 10;
-                const uint UpperCase = 'A' - 10;
-
-                if (c >= '0' && c <= '9')
-                    return c - Digit;
-
-                if (c >= 'A' && c <= 'F') // Upper case
-                    return c - UpperCase;
-
-                if (c >= 'a' && c <= 'f') // Upper case
-                    return c - LowerCase;
-
-                isValid = false;
-                return 0;
-            }
-        }
-
-        public override string ToString()
-        {
-            return _p1.ToString("x8", CultureInfo.InvariantCulture) +
-                   _p2.ToString("x8", CultureInfo.InvariantCulture) +
-                   _p3.ToString("x8", CultureInfo.InvariantCulture) +
-                   _p4.ToString("x8", CultureInfo.InvariantCulture) +
-                   _p5.ToString("x8", CultureInfo.InvariantCulture);
-        }
+        public override string ToString() => _id;
 
         public override bool Equals(object? obj)
         {
-            return obj is GitObjectId sha1 && Equals(sha1);
+            return obj is GitObjectId gitObjectId && Equals(gitObjectId);
         }
 
         public bool Equals(GitObjectId other)
         {
-            return _p1 == other._p1 &&
-                   _p2 == other._p2 &&
-                   _p3 == other._p3 &&
-                   _p4 == other._p4 &&
-                   _p5 == other._p5;
+            return _id == other._id;
         }
 
-        public override int GetHashCode() => HashCode.Combine(_p1, _p2, _p3, _p4, _p5);
+        public override int GetHashCode() => HashCode.Combine(_id);
 
         public static bool operator ==(GitObjectId sha1, GitObjectId sha2) => sha1.Equals(sha2);
 

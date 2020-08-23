@@ -8,6 +8,7 @@ namespace Meziantou.GitLabClient.Generator
     {
         public static ModelRef Object { get; } = new ModelRef(typeof(object));
         public static ModelRef String { get; } = new ModelRef(typeof(string));
+        public static ModelRef NullableString { get; } = new ModelRef(typeof(string)).MakeNullable();
         public static ModelRef StringCollection { get; } = new ModelRef(typeof(string)).MakeCollection();
         public static ModelRef Number { get; } = new ModelRef(typeof(int));
         public static ModelRef NullableNumber { get; } = new ModelRef(typeof(int)).MakeNullable();
@@ -21,7 +22,7 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef RequestOptions { get; } = new ModelRef("Meziantou.GitLab.RequestOptions");
         public static ModelRef GitObjectId { get; } = new ModelRef("Meziantou.GitLab.GitObjectId");
         public static ModelRef NullableGitObjectId { get; } = new ModelRef("Meziantou.GitLab.GitObjectId").MakeNullable();
-        public static ModelRef PathWithNamespace { get; } = new ModelRef(typeof(GitLab.PathWithNamespace));
+        public static ModelRef PathWithNamespace { get; } = new ModelRef("Meziantou.GitLab.PathWithNamespace");
         public static ModelRef NumberId { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableNumberId { get; } = new ModelRef(typeof(long)).MakeNullable();
 

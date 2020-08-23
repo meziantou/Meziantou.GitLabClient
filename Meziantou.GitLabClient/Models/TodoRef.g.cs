@@ -36,11 +36,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static Meziantou.GitLab.TodoRef FromInt64(long TodoId)
-        {
-            return new Meziantou.GitLab.TodoRef(TodoId);
-        }
-
         public static Meziantou.GitLab.TodoRef FromTodo(Todo todo)
         {
             if ((todo == null))
@@ -51,6 +46,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.TodoRef(todo);
         }
 
+        public static Meziantou.GitLab.TodoRef FromTodoId(long TodoId)
+        {
+            return new Meziantou.GitLab.TodoRef(TodoId);
+        }
+
         public override string ToString()
         {
             return this.Value.ToString();
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab
 
         public static implicit operator Meziantou.GitLab.TodoRef(long TodoId)
         {
-            return Meziantou.GitLab.TodoRef.FromInt64(TodoId);
+            return Meziantou.GitLab.TodoRef.FromTodoId(TodoId);
         }
 
         public static implicit operator Meziantou.GitLab.TodoRef(Todo todo)

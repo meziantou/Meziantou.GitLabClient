@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Meziantou.GitLab.Core;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
 {
     public static class GitLabObjectAssertions
     {
-        public static void DoesContainOnlyUtcDates(object o)
+        public static void DoesContainOnlyUtcDates(ISet<string> errorMessages, object o)
         {
             foreach (var obj in GetObjects(o))
             {
@@ -19,10 +18,41 @@ namespace Meziantou.GitLab.Tests
                     if (property.Attributes.OfType<SkipUtcDateValidationAttribute>().Any())
                         continue;
 
-                    var propertyValue = property.GetValue(o);
-                    if (propertyValue is DateTime dt)
+                    try
                     {
-                        Assert.AreEqual(DateTimeKind.Utc, dt.Kind, $"The value of '{o.GetType().FullName}.{property.Name}' is not a UTC DateTime ({dt:o}).");
+                        var propertyValue = property.GetValue(o);
+                        if (propertyValue is DateTime dt)
+                        {
+                            if (dt.Kind != DateTimeKind.Utc)
+                            {
+                                errorMessages.Add(FormattableString.Invariant($"The value of '{o.GetType().Name}.{property.Name}' is not a UTC DateTime ({dt:o})"));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
+        public static void DoesNotContainUnmappedProperties(ISet<string> errorMessages, object o)
+        {
+            foreach (var obj in GetObjects(o))
+            {
+                var properties = TypeDescriptor.GetProperties(o);
+                foreach (PropertyDescriptor property in properties)
+                {
+                    if (!property.Attributes.OfType<MappedPropertyAttribute>().Any())
+                        continue;
+
+                    try
+                    {
+                        _ = property.GetValue(o);
+                    }
+                    catch
+                    {
+                        errorMessages.Add($"Property '{o.GetType().Name}.{property.Name}' is required but is not set");
                     }
                 }
             }

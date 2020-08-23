@@ -8,9 +8,9 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public void Build_ShouldReplaceSegmentValuesAtTheEnd()
         {
-            var url = UrlBuilder.Get("/projects/:id")
-                .WithValue("id", 10)
-                .Build();
+            var urlBuilder = UrlBuilder.Get("/projects/:id");
+            urlBuilder.SetValue("id", 10);
+            var url = urlBuilder.Build();
 
             Assert.AreEqual("/projects/10", url);
         }
@@ -18,9 +18,9 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public void Build_ShouldReplaceSegmentValuesInTheMiddle()
         {
-            var url = UrlBuilder.Get("/projects/:id/pipelines")
-                .WithValue("id", 10)
-                .Build();
+            var urlBuilder = UrlBuilder.Get("/projects/:id/pipelines");
+            urlBuilder.SetValue("id", 10);
+            var url = urlBuilder.Build();
 
             Assert.AreEqual("/projects/10/pipelines", url);
         }
@@ -28,10 +28,10 @@ namespace Meziantou.GitLab.Tests
         [TestMethod]
         public void Build_ShouldAddQueryStringParameter()
         {
-            var url = UrlBuilder.Get("/projects")
-                .WithValue("id", 10)
-                .WithValue("name", "test")
-                .Build();
+            var urlBuilder = UrlBuilder.Get("/projects");
+            urlBuilder.SetValue("id", 10);
+            urlBuilder.SetValue("name", "test");
+            var url = urlBuilder.Build();
 
             Assert.AreEqual("/projects?id=10&name=test", url);
         }

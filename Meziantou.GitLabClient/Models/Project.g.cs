@@ -30,16 +30,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("archived", default(bool));
+                return this.GetRequiredNonNullValue<bool>("archived");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("ci_config_path")]
-        public string CiConfigPath
+        public string? CiConfigPath
         {
             get
             {
-                return this.GetValueOrDefault<string>("ci_config_path", default(string));
+                return this.GetValueOrDefault<string?>("ci_config_path", default(string?));
             }
         }
 
@@ -48,7 +48,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("container_registry_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("container_registry_enabled");
             }
         }
 
@@ -57,16 +57,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("creator_id", default(long));
+                return this.GetRequiredNonNullValue<long>("creator_id");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("forked_from_project")]
-        public BasicProjectDetails ForkedFromProject
+        public BasicProjectDetails? ForkedFromProject
         {
             get
             {
-                return this.GetValueOrDefault<BasicProjectDetails>("forked_from_project", default(BasicProjectDetails));
+                return this.GetValueOrDefault<BasicProjectDetails?>("forked_from_project", default(BasicProjectDetails?));
             }
         }
 
@@ -75,7 +75,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<ImportStatus>("import_status", default(ImportStatus));
+                return this.GetRequiredNonNullValue<ImportStatus>("import_status");
             }
         }
 
@@ -84,7 +84,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("issues_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("issues_enabled");
             }
         }
 
@@ -93,7 +93,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("jobs_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("jobs_enabled");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("lfs_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("lfs_enabled");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<ProjectLink>("_links", default(ProjectLink));
+                return this.GetRequiredNonNullValue<ProjectLink>("_links");
             }
         }
 
@@ -120,7 +120,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<MergeMethod>("merge_method", default(MergeMethod));
+                return this.GetRequiredNonNullValue<MergeMethod>("merge_method");
             }
         }
 
@@ -129,16 +129,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("merge_requests_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("merge_requests_enabled");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("mirror")]
-        public bool Mirror
+        public bool? Mirror
         {
             get
             {
-                return this.GetValueOrDefault<bool>("mirror", default(bool));
+                return this.GetValueOrDefault<bool?>("mirror", default(bool?));
             }
         }
 
@@ -174,7 +174,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("only_allow_merge_if_all_discussions_are_resolved", default(bool));
+                return this.GetRequiredNonNullValue<bool>("only_allow_merge_if_all_discussions_are_resolved");
             }
         }
 
@@ -183,7 +183,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("only_allow_merge_if_pipeline_succeeds", default(bool));
+                return this.GetRequiredNonNullValue<bool>("only_allow_merge_if_pipeline_succeeds");
             }
         }
 
@@ -210,16 +210,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserBasic>("owner", default(UserBasic));
+                return this.GetRequiredNonNullValue<UserBasic>("owner");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("permissions")]
-        public ProjectPermissions Permissions
+        public ProjectPermissions? Permissions
         {
             get
             {
-                return this.GetValueOrDefault<ProjectPermissions>("permissions", default(ProjectPermissions));
+                return this.GetValueOrDefault<ProjectPermissions?>("permissions", default(ProjectPermissions?));
             }
         }
 
@@ -228,7 +228,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("printing_merge_request_link_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("printing_merge_request_link_enabled");
             }
         }
 
@@ -237,7 +237,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("public_jobs", default(bool));
+                return this.GetRequiredNonNullValue<bool>("public_jobs");
             }
         }
 
@@ -246,7 +246,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("request_access_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("request_access_enabled");
             }
         }
 
@@ -264,7 +264,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("shared_runners_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("shared_runners_enabled");
             }
         }
 
@@ -273,7 +273,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<SharedGroup>>("shared_with_groups", default(System.Collections.Generic.IReadOnlyList<SharedGroup>));
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<SharedGroup>>("shared_with_groups");
             }
         }
 
@@ -282,7 +282,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("snippets_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("snippets_enabled");
             }
         }
 
@@ -291,7 +291,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<ProjectVisibility>("visibility", default(ProjectVisibility));
+                return this.GetRequiredNonNullValue<ProjectVisibility>("visibility");
             }
         }
 
@@ -300,7 +300,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<bool>("wiki_enabled", default(bool));
+                return this.GetRequiredNonNullValue<bool>("wiki_enabled");
             }
         }
     }

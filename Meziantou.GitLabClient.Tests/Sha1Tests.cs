@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
 {
@@ -11,10 +12,16 @@ namespace Meziantou.GitLab.Tests
         [DataRow("8B274174AF7DEEB18A8242DE0EB590DAD5345532")]
         public void TryParse_ValidValue(string value)
         {
-            var parsed = GitObjectId.TryParse(value, out var sha1);
-            Assert.IsTrue(parsed);
-            Assert.AreEqual(value.ToLowerInvariant(), sha1.ToString());
-            Assert.AreEqual(sha1, sha1);
+            var parsed = new GitObjectId(value);
+            Assert.AreEqual(value, parsed.ToString());
+        }
+
+        [DataTestMethod]
+        [DataRow("1")] // Invalid length
+        [DataRow("ZZ274174af7deeb18a8242de0eb590dad5345532")] // Invalid character
+        public void TryParse_NotValidValue(string value)
+        {
+            Assert.ThrowsException<ArgumentException>(() => new GitObjectId(value));
         }
     }
 }

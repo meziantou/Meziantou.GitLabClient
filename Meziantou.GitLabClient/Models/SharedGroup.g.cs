@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<AccessLevel>("group_access_level", default(AccessLevel));
+                return this.GetRequiredNonNullValue<AccessLevel>("group_access_level");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("group_id", default(long));
+                return this.GetRequiredNonNullValue<long>("group_id");
             }
         }
 
@@ -39,7 +39,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("group_name", default(string));
+                return this.GetRequiredNonNullValue<string>("group_name");
             }
         }
     }

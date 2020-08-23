@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("extern_uid", default(string));
+                return this.GetRequiredNonNullValue<string>("extern_uid");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("provider", default(string));
+                return this.GetRequiredNonNullValue<string>("provider");
             }
         }
 

@@ -22,7 +22,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
@@ -31,7 +31,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("key", default(string));
+                return this.GetRequiredNonNullValue<string>("key");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("title", default(string));
+                return this.GetRequiredNonNullValue<string>("title");
             }
         }
 

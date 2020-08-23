@@ -18,6 +18,26 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "Commit")]
         Commit
     }
+
+    partial class UrlBuilder
+    {
+        public void SetValue(string key, Meziantou.GitLab.TodoTargetType? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetValue(key, value.GetValueOrDefault());
+            }
+            else
+            {
+                this.SetNullValue(key);
+            }
+        }
+
+        public void SetValue(string key, Meziantou.GitLab.TodoTargetType value)
+        {
+            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -43,7 +63,7 @@ namespace Meziantou.GitLab.Serialization
                 return "Commit";
             }
 
-            throw new System.ArgumentOutOfRangeException(nameof(value));
+            throw new System.ArgumentOutOfRangeException(nameof(value), string.Concat("Value '", value.ToString(), "' is not valid"));
         }
 
         public static Meziantou.GitLab.TodoTargetType TodoTargetTypeFromString(string value)

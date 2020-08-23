@@ -17,20 +17,20 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
-        public string AvatarUrl
+        public string? AvatarUrl
         {
             get
             {
-                return this.GetValueOrDefault<string>("avatar_url", default(string));
+                return this.GetValueOrDefault<string?>("avatar_url", default(string?));
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("default_branch")]
-        public string DefaultBranch
+        public string? DefaultBranch
         {
             get
             {
-                return this.GetValueOrDefault<string>("default_branch", default(string));
+                return this.GetValueOrDefault<string?>("default_branch", default(string?));
             }
         }
 
@@ -39,7 +39,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<int>("forks_count", default(int));
+                return this.GetRequiredNonNullValue<int>("forks_count");
             }
         }
 
@@ -48,7 +48,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("http_url_to_repo", default(string));
+                return this.GetRequiredNonNullValue<string>("http_url_to_repo");
             }
         }
 
@@ -57,7 +57,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("last_activity_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("last_activity_at");
             }
         }
 
@@ -66,16 +66,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<NamespaceBasic>("namespace", default(NamespaceBasic));
+                return this.GetRequiredNonNullValue<NamespaceBasic>("namespace");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("readme_url")]
-        public string ReadmeUrl
+        public string? ReadmeUrl
         {
             get
             {
-                return this.GetValueOrDefault<string>("readme_url", default(string));
+                return this.GetValueOrDefault<string?>("readme_url", default(string?));
             }
         }
 
@@ -84,7 +84,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("ssh_url_to_repo", default(string));
+                return this.GetRequiredNonNullValue<string>("ssh_url_to_repo");
             }
         }
 
@@ -93,7 +93,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<int>("star_count", default(int));
+                return this.GetRequiredNonNullValue<int>("star_count");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<string>>("tag_list", default(System.Collections.Generic.IReadOnlyList<string>));
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<string>>("tag_list");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("web_url", default(string));
+                return this.GetRequiredNonNullValue<string>("web_url");
             }
         }
     }

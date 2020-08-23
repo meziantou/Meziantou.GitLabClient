@@ -22,7 +22,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserBasic>("author", default(UserBasic));
+                return this.GetRequiredNonNullValue<UserBasic>("author");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<UserBasic>("closed_by", default(UserBasic));
+                return this.GetRequiredNonNullValue<UserBasic>("closed_by");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -67,7 +67,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("iid", default(long));
+                return this.GetRequiredNonNullValue<long>("iid");
             }
         }
 
@@ -76,7 +76,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("project_id", default(long));
+                return this.GetRequiredNonNullValue<long>("project_id");
             }
         }
 
@@ -85,7 +85,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("title", default(string));
+                return this.GetRequiredNonNullValue<string>("title");
             }
         }
 
@@ -94,7 +94,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("updated_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("updated_at");
             }
         }
 
@@ -103,7 +103,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("web_url", default(string));
+                return this.GetRequiredNonNullValue<string>("web_url");
             }
         }
 

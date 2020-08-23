@@ -6,7 +6,7 @@ namespace Meziantou.GitLab
     {
         private const string TargetName = "target";
 
-        private GitLabObject _target;
+        private GitLabObject? _target;
 
         [MappedProperty(TargetName)]
         public GitLabObject Target
@@ -17,9 +17,9 @@ namespace Meziantou.GitLab
                 {
                     _target = TargetType switch
                     {
-                        TodoTargetType.Issue => GetValueOrDefault<Issue>(TargetName),
-                        TodoTargetType.MergeRequest => GetValueOrDefault<MergeRequest>(TargetName),
-                        _ => GetValueOrDefault<GitLabObject>(TargetName),
+                        TodoTargetType.Issue => GetRequiredNonNullValue<Issue>(TargetName),
+                        TodoTargetType.MergeRequest => GetRequiredNonNullValue<MergeRequest>(TargetName),
+                        _ => GetRequiredNonNullValue<GitLabObject>(TargetName),
                     };
                 }
 

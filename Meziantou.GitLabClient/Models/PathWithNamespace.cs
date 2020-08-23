@@ -1,14 +1,11 @@
-﻿using System;
-#if !REF
+﻿#nullable enable
+using System;
 using System.Text.Json.Serialization;
 using Meziantou.GitLab.Serialization;
-#endif
 
 namespace Meziantou.GitLab
 {
-#if !REF
     [JsonConverter(typeof(PathWithNamespaceConverter))]
-#endif
     public readonly struct PathWithNamespace : IEquatable<PathWithNamespace>
     {
         public PathWithNamespace(string pathWithNamespace)

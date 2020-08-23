@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
@@ -12,9 +10,10 @@ namespace Meziantou.GitLab
     // TODO improve performance
     // TODO create overloads of WithValue for specific types
     // TODO generate values for enum
-    internal sealed class UrlBuilder
+    internal sealed partial class UrlBuilder
     {
-        private static readonly ConcurrentDictionary<Type, EnumDescriptor> s_enumDescriptors = new ConcurrentDictionary<Type, EnumDescriptor>();
+        [SuppressMessage("Usage", "MA0002:IEqualityComparer<string> is missing", Justification = "The default comparer is the one needed (Ordinal) and not providing it may be faster")]
+        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         private UrlBuilder(string template)
         {
@@ -26,68 +25,114 @@ namespace Meziantou.GitLab
             return new UrlBuilder(template);
         }
 
-        private IDictionary<string, string> Parameters { get; } = new Dictionary<string, string>(StringComparer.Ordinal);
-
         public string Template { get; }
 
-        public UrlBuilder WithValue(string key, object? value)
+        public void SetValue(string key, string? value)
         {
-            switch (value)
+            if (value is null)
             {
-                case null:
-                    Parameters.Remove(key);
-                    break;
-
-                case string v:
-                    Parameters[key] = v;
-                    break;
-
-                case bool v:
-                    Parameters[key] = v ? "true" : "false";
-                    break;
-
-                case int v:
-                    Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", v);
-                    break;
-
-                case long v:
-                    Parameters[key] = string.Format(CultureInfo.InvariantCulture, "{0}", v);
-                    break;
-
-                case DateTime v:
-                    Parameters[key] = v.ToString("o", CultureInfo.InvariantCulture);
-                    break;
-
-                case Enum v:
-                    Parameters[key] = FormatEnum(v);
-                    break;
-
-                case PathWithNamespace v:
-                    Parameters[key] = v.FullPath;
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                SetNullValue(key);
             }
-
-            return this;
-
-            string FormatEnum(Enum enumValue)
+            else
             {
-                var descriptor = s_enumDescriptors.GetOrAdd(enumValue.GetType(), type => EnumDescriptor.Build(type));
-                if (descriptor.IsFlags)
-                {
-                    return string.Join(",", descriptor.Values.Where(ev => enumValue.HasFlag(ev.Key)).Select(ev => ev.Value));
-                }
-
-                return descriptor.Values[enumValue];
+                _parameters[key] = value;
             }
+        }
+
+        public void SetValue(string key, bool? value)
+        {
+            if (value is null)
+            {
+                SetNullValue(key);
+            }
+            else
+            {
+                SetValue(key, value.GetValueOrDefault());
+            }
+        }
+
+        public void SetValue(string key, bool value)
+        {
+            _parameters[key] = value ? "true" : "false";
+        }
+
+        public void SetValue(string key, int? value)
+        {
+            if (value is null)
+            {
+                SetNullValue(key);
+            }
+            else
+            {
+                SetValue(key, value.GetValueOrDefault());
+            }
+        }
+
+        public void SetValue(string key, int value)
+        {
+            _parameters[key] = value.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public void SetValue(string key, long? value)
+        {
+            if (value is null)
+            {
+                SetNullValue(key);
+            }
+            else
+            {
+                SetValue(key, value.GetValueOrDefault());
+            }
+        }
+
+        public void SetValue(string key, long value)
+        {
+            _parameters[key] = value.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public void SetValue(string key, DateTime? value)
+        {
+            if (value is null)
+            {
+                SetNullValue(key);
+            }
+            else
+            {
+                SetValue(key, value.GetValueOrDefault());
+            }
+        }
+
+        public void SetValue(string key, DateTime value)
+        {
+            _parameters[key] = value.ToString("o", CultureInfo.InvariantCulture);
+        }
+
+        public void SetValue(string key, PathWithNamespace? value)
+        {
+            if (value is null)
+            {
+                SetNullValue(key);
+            }
+            else
+            {
+                SetValue(key, value.GetValueOrDefault());
+            }
+        }
+
+        public void SetValue(string key, PathWithNamespace value)
+        {
+            _parameters[key] = value.FullPath;
+        }
+
+        private void SetNullValue(string key)
+        {
+            _parameters.Remove(key);
         }
 
         public string Build()
         {
             var url = Template;
-            foreach (var parameter in Parameters)
+            foreach (var parameter in _parameters)
             {
                 var parameterValue = parameter.Value;
                 var newUrl = Regex.Replace(
@@ -116,34 +161,6 @@ namespace Meziantou.GitLab
             }
 
             return url;
-        }
-
-        // TODO remove and use generated WriteValue
-        private sealed class EnumDescriptor
-        {
-            public bool IsFlags { get; }
-            public Dictionary<Enum, string> Values { get; }
-
-            public EnumDescriptor(bool isFlags, Dictionary<Enum, string> values)
-            {
-                IsFlags = isFlags;
-                Values = values ?? throw new ArgumentNullException(nameof(values));
-            }
-
-            public static EnumDescriptor Build(Type type)
-            {
-#if DEBUG
-                if (!type.IsEnum)
-                    throw new ArgumentException("type must be an enumeration", nameof(type));
-#endif
-
-                var isFlags = type.GetCustomAttribute<FlagsAttribute>() != null;
-                var names = Enum.GetNames(type).ToDictionary(
-                    name => (Enum)Enum.Parse(type, name),
-                    name => type.GetField(name).GetCustomAttribute<EnumMemberAttribute>().Value); // In our case the attribute must be present
-
-                return new EnumDescriptor(isFlags, names);
-            }
         }
     }
 }

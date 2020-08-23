@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("emoji", default(string));
+                return this.GetRequiredNonNullValue<string>("emoji");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("message", default(string));
+                return this.GetRequiredNonNullValue<string>("message");
             }
         }
 
@@ -39,7 +39,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("message_html", default(string));
+                return this.GetRequiredNonNullValue<string>("message_html");
             }
         }
     }

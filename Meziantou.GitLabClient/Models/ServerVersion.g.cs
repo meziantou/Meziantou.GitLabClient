@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("revision", default(string));
+                return this.GetRequiredNonNullValue<string>("revision");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("version", default(string));
+                return this.GetRequiredNonNullValue<string>("version");
             }
         }
 

@@ -22,16 +22,16 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<System.DateTimeOffset>("created_at", default(System.DateTimeOffset));
+                return this.GetRequiredNonNullValue<System.DateTimeOffset>("created_at");
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("description")]
-        public string Description
+        public string? Description
         {
             get
             {
-                return this.GetValueOrDefault<string>("description", default(string));
+                return this.GetValueOrDefault<string?>("description", default(string?));
             }
         }
 
@@ -40,7 +40,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<long>("id", default(long));
+                return this.GetRequiredNonNullValue<long>("id");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("name", default(string));
+                return this.GetRequiredNonNullValue<string>("name");
             }
         }
 
@@ -58,7 +58,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("name_with_namespace", default(string));
+                return this.GetRequiredNonNullValue<string>("name_with_namespace");
             }
         }
 
@@ -67,7 +67,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<string>("path", default(string));
+                return this.GetRequiredNonNullValue<string>("path");
             }
         }
 
@@ -76,7 +76,7 @@ namespace Meziantou.GitLab
         {
             get
             {
-                return this.GetValueOrDefault<Meziantou.GitLab.PathWithNamespace>("path_with_namespace", default(Meziantou.GitLab.PathWithNamespace));
+                return this.GetRequiredNonNullValue<Meziantou.GitLab.PathWithNamespace>("path_with_namespace");
             }
         }
 

@@ -27,19 +27,4 @@ namespace Meziantou.GitLab.Serialization
 
         protected abstract T CreateInstance(JsonElement jsonElement);
     }
-
-    internal sealed class GitLabObjectJsonConverter : GitLabObjectBaseJsonConverter<GitLabObject>
-    {
-        protected override GitLabObject CreateInstance(JsonElement jsonElement)
-        {
-            return new GitLabObject(jsonElement);
-        }
-    }
-    internal sealed class GitLabErrorJsonConverter : GitLabObjectBaseJsonConverter<GitLabError>
-    {
-        protected override GitLabError CreateInstance(JsonElement jsonElement)
-        {
-            return new GitLabError(jsonElement);
-        }
-    }
 }

@@ -12,7 +12,7 @@
 //        {
 //            using var context = GetContext();
 //            using var client = await context.CreateNewUserAsync();
-//            var currentUser = await client.GetUserAsync();
+//            var currentUser = await client.User.GetUserAsync();
 
 //            var todos = await client.GetTodosAsync().ToListAsync();
 //            Assert.AreEqual(0, todos.Count);

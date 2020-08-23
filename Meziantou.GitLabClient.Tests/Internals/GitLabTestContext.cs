@@ -46,16 +46,18 @@ namespace Meziantou.GitLab.Tests
             var password = "Pa$$w0rd";
             var client = AdminClient;
 
-            var user = await client.User.CreateUserAsync(
-                email: email,
-                username: username,
-                password: password,
-                name: username,
-                admin: false,
-                canCreateGroup: true,
-                skipConfirmation: true);
+            var user = await client.User.CreateUserAsync(new CreateUserUserRequest(email, username, username)
+            {
+                Password = password,
+                Admin = false,
+                CanCreateGroup = true,
+                SkipConfirmation = true,
+            });
 
-            var token = await client.User.CreateImpersonationTokenAsync(user, "UnitTest", scopes: new[] { "api", "read_user" });
+            var token = await client.User.CreateImpersonationTokenAsync(new CreateImpersonationTokenUserRequest(user, "UnitTest")
+            {
+                Scopes = new[] { "api", "read_user" },
+            });
             return CreateClient(token.Token);
         }
 
@@ -91,13 +93,17 @@ namespace Meziantou.GitLab.Tests
             _httpClient?.Dispose();
             _loggingHandler?.Dispose();
 
+            var errorMessages = new HashSet<string>(StringComparer.Ordinal);
             objects.ForEach(o =>
             {
-#if VALIDATE_UNMAPPED_PROPERTIES
-                GitLabObjectAssertions.DoesNotContainUnmappedProperties(o);
-#endif
-                GitLabObjectAssertions.DoesContainOnlyUtcDates(o);
+                GitLabObjectAssertions.DoesNotContainUnmappedProperties(errorMessages, o);
+                GitLabObjectAssertions.DoesContainOnlyUtcDates(errorMessages, o);
             });
+
+            if (errorMessages.Count > 0)
+            {
+                Assert.Fail(string.Join("\n", errorMessages));
+            }
         }
 
         private sealed class LoggingHandler : DelegatingHandler
