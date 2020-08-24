@@ -205,7 +205,7 @@ namespace Meziantou.GitLab
             return result;
         }
 
-        public virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
+        public virtual async Task<T> PostJsonAsync<T>(string url, object? data, RequestOptions? options, CancellationToken cancellationToken = default)
             where T : GitLabObject
         {
             using var request = new HttpRequestMessage();
