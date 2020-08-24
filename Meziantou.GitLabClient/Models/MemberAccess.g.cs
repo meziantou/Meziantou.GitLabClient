@@ -33,6 +33,16 @@ namespace Meziantou.GitLab
                 return this.GetRequiredNonNullValue<string>("notification_level");
             }
         }
+
+        public GroupAccess AsGroupAccess()
+        {
+            return new GroupAccess(this.JsonObject);
+        }
+
+        public ProjectAccess AsProjectAccess()
+        {
+            return new ProjectAccess(this.JsonObject);
+        }
     }
 }
 

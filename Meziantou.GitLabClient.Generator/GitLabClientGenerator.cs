@@ -102,7 +102,18 @@ namespace Meziantou.GitLabClient.Generator
 
             foreach (var model in project.Models.OfType<Entity>().OrderBy(m => m.Name))
             {
-                GenerateEntity(model);
+                var children = new List<Entity>();
+                FindChildren(children, project.Models.OfType<Entity>(), model);
+                GenerateEntity(model, children);
+
+                static void FindChildren(List<Entity> children, IEnumerable<Entity> entities, Entity entity)
+                {
+                    foreach (var e in entities.Where(e => e.BaseType != null && e.BaseType.IsModel && e.BaseType.Model == entity))
+                    {
+                        children.Add(e);
+                        FindChildren(children, entities, e);
+                    }
+                }
             }
 
             foreach (var entity in project.ParameterEntities.OrderBy(p => p.Name))
@@ -601,7 +612,7 @@ namespace Meziantou.GitLabClient.Generator
         //    }
         //}
 
-        private void GenerateEntity(Entity entity)
+        private void GenerateEntity(Entity entity, List<Entity> children)
         {
             var unit = CreateUnit("Models/" + entity.Name + ".cs");
             var ns = unit.AddNamespace(RootNamespace);
@@ -699,6 +710,8 @@ namespace Meziantou.GitLabClient.Generator
             {
                 GenerateDebuggerDisplay();
             }
+
+            GenerateAsMethods();
 
             void GenerateEqualMethod()
             {
@@ -813,6 +826,18 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     Arguments = { new CustomAttributeArgument(new TypeOfExpression(converterType)) },
                 });
+            }
+
+            void GenerateAsMethods()
+            {
+                foreach (var child in children)
+                {
+                    var asMethod = type.AddMember(new MethodDeclaration());
+                    asMethod.Name = "As" + child.Name;
+                    asMethod.Modifiers = Modifiers.Public;
+                    asMethod.ReturnType = ((ModelRef)child).ToPropertyTypeReference();
+                    asMethod.Statements = new ReturnStatement(new NewObjectExpression(asMethod.ReturnType, new MemberReferenceExpression(new ThisExpression(), "JsonObject")));
+                }
             }
         }
 

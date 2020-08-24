@@ -19,6 +19,8 @@ namespace Meziantou.GitLab.Core
             _jsonObject = jsonObject;
         }
 
+        protected JsonElement JsonObject => _jsonObject;
+
         protected virtual bool TryGetValue(string name, Type type, out object? result)
         {
             if (_jsonObject.TryGetProperty(name, out var value))

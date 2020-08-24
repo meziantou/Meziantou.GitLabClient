@@ -44,6 +44,16 @@ namespace Meziantou.GitLab
             }
         }
 
+        public User AsUser()
+        {
+            return new User(this.JsonObject);
+        }
+
+        public UserBasic AsUserBasic()
+        {
+            return new UserBasic(this.JsonObject);
+        }
+
         public override bool Equals(object? obj)
         {
             return this.Equals((obj as Meziantou.GitLab.UserSafe));

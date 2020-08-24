@@ -80,6 +80,16 @@ namespace Meziantou.GitLab
             }
         }
 
+        public BasicProjectDetails AsBasicProjectDetails()
+        {
+            return new BasicProjectDetails(this.JsonObject);
+        }
+
+        public Project AsProject()
+        {
+            return new Project(this.JsonObject);
+        }
+
         public override bool Equals(object? obj)
         {
             return this.Equals((obj as Meziantou.GitLab.ProjectIdentity));

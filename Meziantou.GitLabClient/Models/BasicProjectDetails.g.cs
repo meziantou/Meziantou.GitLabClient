@@ -115,6 +115,11 @@ namespace Meziantou.GitLab
                 return this.GetValueOrDefault<System.Uri?>("web_url", default(System.Uri?));
             }
         }
+
+        public Project AsProject()
+        {
+            return new Project(this.JsonObject);
+        }
     }
 }
 
