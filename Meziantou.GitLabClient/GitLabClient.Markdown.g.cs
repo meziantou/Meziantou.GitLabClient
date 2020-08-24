@@ -50,7 +50,11 @@ namespace Meziantou.GitLab
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("markdown");
             string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            body.Add("text", request.Text);
+            if ((request.Text != null))
+            {
+                body.Add("text", request.Text);
+            }
+
             if ((request.Gfm != null))
             {
                 body.Add("gfm", request.Gfm);
@@ -71,11 +75,15 @@ namespace Meziantou.GitLab
 
         private Meziantou.GitLab.PathWithNamespace? _project;
 
-        private string _text;
+        private string? _text;
 
-        public RenderMarkdownMarkdownRequest(string text)
+        public RenderMarkdownMarkdownRequest(string? text)
         {
             this._text = text;
+        }
+
+        public RenderMarkdownMarkdownRequest()
+        {
         }
 
         public bool? Gfm
@@ -102,7 +110,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public string Text
+        public string? Text
         {
             get
             {

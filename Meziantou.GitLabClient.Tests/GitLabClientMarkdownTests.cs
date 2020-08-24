@@ -28,8 +28,8 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
 
-            var project = await client.Project.CreateAsync(new CreateProjectRequest { Name = "test" });
-            var issue = await client.Issue.CreateAsync(new CreateIssueRequest(project, "my issue"));
+            var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test" });
+            var issue = await client.Issues.CreateAsync(new CreateIssueRequest(project, "my issue"));
 
             // Act
             var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title\n\nIssue #" + issue.Iid.ToStringInvariant())

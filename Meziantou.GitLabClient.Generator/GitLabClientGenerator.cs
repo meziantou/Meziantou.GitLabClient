@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Humanizer;
 using Meziantou.Framework;
 using Meziantou.Framework.CodeDom;
 
@@ -103,7 +104,11 @@ namespace Meziantou.GitLabClient.Generator
             foreach (var model in project.Models.OfType<Entity>().OrderBy(m => m.Name))
             {
                 var children = new List<Entity>();
-                FindChildren(children, project.Models.OfType<Entity>(), model);
+                if (model.BaseType == null)
+                {
+                    FindChildren(children, project.Models.OfType<Entity>(), model);
+                }
+
                 GenerateEntity(model, children);
 
                 static void FindChildren(List<Entity> children, IEnumerable<Entity> entities, Entity entity)
@@ -266,24 +271,24 @@ namespace Meziantou.GitLabClient.Generator
                 if (param.Type.IsParameterEntity)
                 {
                     var propertyName = param.Type.ParameterEntity.FinalType == ModelRef.Object ? "ValueAsString" : "Value";
-                    if (param.Type.IsNullable)
+                    //if (param.Type.IsNullable || !param.IsRequired)
+                    //{
+                    var hasValueCondition = new ConditionStatement
                     {
-                        var hasValueCondition = new ConditionStatement
-                        {
-                            Condition = CreatePropertyReference().CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue)),
-                            TrueStatements = urlBuilder
-                                .CreateInvokeMethodExpression(
-                                    "SetValue",
-                                    param.Name,
-                                    CreatePropertyReference().CreateMemberReferenceExpression(nameof(Nullable<int>.Value), propertyName)),
-                        };
-                        m.Statements.Add(hasValueCondition);
-                    }
-                    else
-                    {
-                        var propertyReference = CreatePropertyReference().CreateMemberReferenceExpression(propertyName);
-                        m.Statements.Add(urlBuilder.CreateInvokeMethodExpression("SetValue", param.Name, propertyReference));
-                    }
+                        Condition = CreatePropertyReference().CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue)),
+                        TrueStatements = urlBuilder
+                            .CreateInvokeMethodExpression(
+                                "SetValue",
+                                param.Name,
+                                CreatePropertyReference().CreateMemberReferenceExpression(nameof(Nullable<int>.Value), propertyName)),
+                    };
+                    m.Statements.Add(hasValueCondition);
+                    //}
+                    //else
+                    //{
+                    //    var propertyReference = CreatePropertyReference().CreateMemberReferenceExpression(propertyName);
+                    //    m.Statements.Add(urlBuilder.CreateInvokeMethodExpression("SetValue", param.Name, propertyReference));
+                    //}
                 }
                 else
                 {
@@ -414,7 +419,7 @@ namespace Meziantou.GitLabClient.Generator
             if (method.Parameters.Count == 0)
                 return null;
 
-            var name = (method.RequestTypeName ?? (method.Name + method.MethodGroup.Name)) + "Request";
+            var name = (method.RequestTypeName ?? (method.Name + method.MethodGroup.Name.Singularize())) + "Request";
             var type = namespaceDeclaration.AddType(new ClassDeclaration(name));
             type.Modifiers = Modifiers.Public | Modifiers.Partial;
 
@@ -424,11 +429,7 @@ namespace Meziantou.GitLabClient.Generator
             // properties
             foreach (var param in method.Parameters)
             {
-                var paramType = GetArgumentTypeRef(param);
-                if (!param.IsRequired)
-                {
-                    paramType = paramType.MakeNullable();
-                }
+                var paramType = GetArgumentTypeRef(param).MakeNullable();
 
                 // field
                 var field = type.AddMember(new FieldDeclaration(ToFieldName(param.Name), paramType));
@@ -449,6 +450,13 @@ namespace Meziantou.GitLabClient.Generator
                 }
             }
 
+            if (ctor.Arguments.Count > 0)
+            {
+                var defaultCtor = type.AddMember(new ConstructorDeclaration());
+                defaultCtor.Modifiers = Modifiers.Public;
+                defaultCtor.Statements = new StatementCollection();
+            }
+
             return type;
         }
 
@@ -466,19 +474,19 @@ namespace Meziantou.GitLabClient.Generator
                 Expression CreateArgumentReference() => new ArgumentReferenceExpression("request").CreateMemberReferenceExpression(ToPropertyName(arg.Name));
 
                 var assign = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, CreateArgumentReference());
-                if (!arg.IsRequired)
+                //if (!arg.IsRequired)
+                //{
+                var condition = new ConditionStatement
                 {
-                    var condition = new ConditionStatement
-                    {
-                        Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
-                        TrueStatements = assign,
-                    };
-                    methodDeclaration.Statements.Add(condition);
-                }
-                else
-                {
-                    methodDeclaration.Statements.Add(assign);
-                }
+                    Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
+                    TrueStatements = assign,
+                };
+                methodDeclaration.Statements.Add(condition);
+                //}
+                //else
+                //{
+                //    methodDeclaration.Statements.Add(assign);
+                //}
             }
 
             return variable;

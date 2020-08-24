@@ -4,7 +4,7 @@
     {
         public void Create(Project project)
         {
-            var group = project.AddMethodGroup("Issue");
+            var group = project.AddMethodGroup("Issues");
 
             group.AddMethod("Create", MethodType.Post, "/projects/:project_id/issues", "https://docs.gitlab.com/ee/api/issues.html#new-issue")
                 .WithReturnType(Entities.Issue)

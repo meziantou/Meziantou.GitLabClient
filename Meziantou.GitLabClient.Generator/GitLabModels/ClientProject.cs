@@ -4,7 +4,7 @@
     {
         public void Create(Project project)
         {
-            var group = project.AddMethodGroup("Project");
+            var group = project.AddMethodGroup("Projects");
 
             group.AddMethod("Get", MethodType.GetPaged, "/projects", "https://docs.gitlab.com/ee/api/projects.html#list-all-projects")
                 .WithReturnType(Entities.Project)

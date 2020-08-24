@@ -291,7 +291,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             WikiPage = CreateEntity("WikiPage", entity => entity
                 .AddProperty("slug", ModelRef.String, PropertyOptions.IsKey)
                 .AddProperty("title", ModelRef.String)
-                .AddProperty("content", ModelRef.String)
+                .AddProperty("content", ModelRef.NullableString)
                 .AddProperty("format", Enumerations.WikiPageFormat)
             );
 

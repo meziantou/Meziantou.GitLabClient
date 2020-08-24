@@ -12,15 +12,15 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
 
-            var project = await client.Project.CreateAsync(new CreateProjectRequest { Name = "test" });
+            var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test" });
             Assert.IsNotNull(project.WebUrl);
             Assert.IsNotNull(project.SshUrlToRepo);
             Assert.IsNotNull(project.HttpUrlToRepo);
 
-            var projects = await client.Project.Get().ToListAsync();
+            var projects = await client.Projects.Get().ToListAsync();
 
-            var projectById_project = await client.Project.GetByIdAsync(project);
-            var projectById_pathWithNamespace = await client.Project.GetByIdAsync(project.PathWithNamespace);
+            var projectById_project = await client.Projects.GetByIdAsync(project);
+            var projectById_pathWithNamespace = await client.Projects.GetByIdAsync(project.PathWithNamespace);
 
             Assert.AreEqual("test", project.Name);
             Assert.AreEqual(project, projectById_project);

@@ -46,7 +46,7 @@ namespace Meziantou.GitLab.Tests
             var password = "Pa$$w0rd";
             var client = AdminClient;
 
-            var user = await client.User.CreateUserAsync(new CreateUserUserRequest(email, username, username)
+            var user = await client.Users.CreateUserAsync(new CreateUserUserRequest(email, username, username)
             {
                 Password = password,
                 Admin = false,
@@ -54,7 +54,7 @@ namespace Meziantou.GitLab.Tests
                 SkipConfirmation = true,
             });
 
-            var token = await client.User.CreateImpersonationTokenAsync(new CreateImpersonationTokenUserRequest(user, "UnitTest")
+            var token = await client.Users.CreateImpersonationTokenAsync(new CreateImpersonationTokenUserRequest(user, "UnitTest")
             {
                 Scopes = new[] { "api", "read_user" },
             });

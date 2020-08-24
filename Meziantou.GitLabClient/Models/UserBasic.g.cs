@@ -51,11 +51,6 @@ namespace Meziantou.GitLab
                 return this.GetRequiredNonNullValue<System.Uri>("web_url");
             }
         }
-
-        public User AsUser()
-        {
-            return new User(this.JsonObject);
-        }
     }
 }
 

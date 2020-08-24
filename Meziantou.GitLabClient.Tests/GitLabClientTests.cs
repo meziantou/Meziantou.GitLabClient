@@ -13,7 +13,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             ((TestGitLabClient)client).Authenticator = new CookieAuthenticator(GitLabTestContext.DockerContainer.Credentials.Cookies);
-            var user = await client.User.GetCurrentUserAsync();
+            var user = await client.Users.GetCurrentUserAsync();
 
             Assert.AreEqual("root", user.Username);
         }
@@ -24,7 +24,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             ((TestGitLabClient)client).Authenticator = new OAuth2TokenAuthenticator("Dummy");
-            var ex = await Assert.ThrowsExceptionAsync<GitLabException>(() => client.User.GetAll().ToListAsync());
+            var ex = await Assert.ThrowsExceptionAsync<GitLabException>(() => client.Users.GetAll().ToListAsync());
 
             Assert.AreEqual(HttpStatusCode.Unauthorized, ex.HttpStatusCode);
         }

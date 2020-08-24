@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
@@ -101,6 +103,23 @@ namespace Meziantou.GitLab
             SetStringValue(key, value.ToString("o", CultureInfo.InvariantCulture));
         }
 
+        public void SetValue(string key, DateTimeOffset? value)
+        {
+            if (value is null)
+            {
+                RemoveValues(key);
+            }
+            else
+            {
+                SetValue(key, value.GetValueOrDefault());
+            }
+        }
+
+        public void SetValue(string key, DateTimeOffset value)
+        {
+            SetStringValue(key, value.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
+        }
+
         public void SetValue(string key, PathWithNamespace? value)
         {
             if (value is null)
@@ -116,6 +135,31 @@ namespace Meziantou.GitLab
         public void SetValue(string key, PathWithNamespace value)
         {
             SetStringValue(key, value.FullPath);
+        }
+
+        public void SetValue(string key, IEnumerable<string>? value)
+        {
+            if (value is null)
+            {
+                RemoveValues(key);
+            }
+            else
+            {
+                SetStringValue(key, string.Join(',', value));
+            }
+        }
+
+        public void SetValue(string key, IEnumerable<long>? value)
+        {
+            if (value is null)
+            {
+                RemoveValues(key);
+            }
+            else
+            {
+                // TODO optimize with a string builder?
+                SetStringValue(key, string.Join(',', value.Select(v => v.ToString(CultureInfo.InvariantCulture))));
+            }
         }
 
         private void RemoveValues(string key)

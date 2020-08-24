@@ -17,11 +17,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("content")]
-        public string Content
+        public string? Content
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("content");
+                return this.GetValueOrDefault<string?>("content", default(string?));
             }
         }
 

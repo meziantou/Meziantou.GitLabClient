@@ -13,7 +13,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var user = await client.User.GetCurrentUserAsync();
+            var user = await client.Users.GetCurrentUserAsync();
 
             // Assert
             Assert.IsNotNull(user.Name);
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var user = await client.User.GetByIdAsync(1); // root
+            var user = await client.Users.GetByIdAsync(1); // root
 
             // Assert
             Assert.AreEqual("root", user.Username);
@@ -37,10 +37,10 @@ namespace Meziantou.GitLab.Tests
         {
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
-            var currentUser = await client.User.GetCurrentUserAsync();
+            var currentUser = await client.Users.GetCurrentUserAsync();
 
             // Act
-            var users = await client.User.GetAll().ToListAsync();
+            var users = await client.Users.GetAll().ToListAsync();
 
             // Assert
             Assert.IsNotNull(users);
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab.Tests
             // Act
             var emoji = Emoji.EmojiThumbsup;
             var message = context.GetRandomString();
-            var status = await client.User.SetCurrentUserStatusAsync(new SetCurrentUserStatusUserRequest { Emoji = emoji, Message = message });
+            var status = await client.Users.SetCurrentUserStatusAsync(new SetCurrentUserStatusUserRequest { Emoji = emoji, Message = message });
 
             // Assert
             Assert.AreEqual(emoji, status.Emoji);
@@ -69,7 +69,7 @@ namespace Meziantou.GitLab.Tests
             Assert.IsNotNull(status.MessageHtml);
 
             // Get status
-            var currentStatus = await client.User.GetCurrentUserStatusAsync();
+            var currentStatus = await client.Users.GetCurrentUserStatusAsync();
 
             Assert.AreEqual(emoji, currentStatus.Emoji);
             Assert.AreEqual(message, currentStatus.Message);
@@ -82,7 +82,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var currentStatus = await client.User.GetStatusAsync("root");
+            var currentStatus = await client.Users.GetStatusAsync("root");
 
             // Assert
             Assert.IsNotNull(currentStatus);
@@ -94,7 +94,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var currentStatus = await client.User.GetStatusAsync(1);
+            var currentStatus = await client.Users.GetStatusAsync(1);
 
             // Assert
             Assert.IsNotNull(currentStatus);
@@ -109,14 +109,14 @@ namespace Meziantou.GitLab.Tests
             using var client = await context.CreateNewUserAsync();
             long keyId;
 
-            var user = await client.User.GetCurrentUserAsync();
+            var user = await client.Users.GetCurrentUserAsync();
 
             // Create Key
             var model = new AddSSHKeyToCurrentUserUserRequest(title: context.GetRandomString(), key: generatedKey.PublicKey);
             var expectedKey = model.Key;
 
             {
-                var key = await client.User.AddSSHKeyToCurrentUserAsync(model);
+                var key = await client.Users.AddSSHKeyToCurrentUserAsync(model);
 
                 Assert.IsTrue(key.Id > 0);
                 StringAssert.StartsWith(key.Key, expectedKey);
@@ -128,7 +128,7 @@ namespace Meziantou.GitLab.Tests
 
             // Get key
             {
-                var key = await client.User.GetCurrentUserSSHKeyAsync(keyId);
+                var key = await client.Users.GetCurrentUserSSHKeyAsync(keyId);
                 Assert.AreEqual(keyId, key.Id);
                 StringAssert.StartsWith(key.Key, expectedKey);
                 Assert.IsNotNull(key.Title);
@@ -137,18 +137,18 @@ namespace Meziantou.GitLab.Tests
 
             // List SSH keys
             {
-                var keys = await client.User.GetCurrentUserSSHKeysAsync();
+                var keys = await client.Users.GetCurrentUserSSHKeysAsync();
                 CollectionAssert.Contains(keys.Select(k => k.Id).ToList(), keyId);
             }
 
             // Delete key
             {
-                await client.User.DeleteSSHKeyFromCurrentUserAsync(new DeleteSSHKeyFromCurrentUserUserRequest(keyId));
+                await client.Users.DeleteSSHKeyFromCurrentUserAsync(new DeleteSSHKeyFromCurrentUserUserRequest(keyId));
             }
 
             // Get key (new key must not be present)
             {
-                var key = await client.User.GetCurrentUserSSHKeyAsync(keyId);
+                var key = await client.Users.GetCurrentUserSSHKeyAsync(keyId);
                 Assert.IsNull(key);
             }
         }

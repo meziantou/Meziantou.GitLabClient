@@ -10,13 +10,13 @@ namespace Meziantou.GitLab
 {
     public partial interface IGitLabClient
     {
-        Meziantou.GitLab.IGitLabIssueClient Issue
+        Meziantou.GitLab.IGitLabIssuesClient Issues
         {
             get;
         }
     }
 
-    public partial interface IGitLabIssueClient
+    public partial interface IGitLabIssuesClient
     {
         /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         /// <param name="requestOptions">Options of the request</param>
@@ -24,17 +24,17 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Issue> CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
-    public partial class GitLabClient : Meziantou.GitLab.IGitLabIssueClient
+    public partial class GitLabClient : Meziantou.GitLab.IGitLabIssuesClient
     {
         /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<Issue> Meziantou.GitLab.IGitLabIssueClient.CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<Issue> Meziantou.GitLab.IGitLabIssuesClient.CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.Issue_CreateAsync(request, requestOptions, cancellationToken);
+            return this.Issues_CreateAsync(request, requestOptions, cancellationToken);
         }
 
-        public Meziantou.GitLab.IGitLabIssueClient Issue
+        public Meziantou.GitLab.IGitLabIssuesClient Issues
         {
             get
             {
@@ -45,13 +45,21 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<Issue> Issue_CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<Issue> Issues_CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/issues");
-            urlBuilder.SetValue("project_id", request.ProjectId.ValueAsString);
+            if (request.ProjectId.HasValue)
+            {
+                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+            }
+
             string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            body.Add("title", request.Title);
+            if ((request.Title != null))
+            {
+                body.Add("title", request.Title);
+            }
+
             if ((request.Description != null))
             {
                 body.Add("description", request.Description);
@@ -72,14 +80,18 @@ namespace Meziantou.GitLab
 
         private string? _description;
 
-        private ProjectIdOrPathRef _projectId;
+        private ProjectIdOrPathRef? _projectId;
 
-        private string _title;
+        private string? _title;
 
-        public CreateIssueRequest(ProjectIdOrPathRef projectId, string title)
+        public CreateIssueRequest(ProjectIdOrPathRef? projectId, string? title)
         {
             this._projectId = projectId;
             this._title = title;
+        }
+
+        public CreateIssueRequest()
+        {
         }
 
         public bool? Confidential
@@ -106,7 +118,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public ProjectIdOrPathRef ProjectId
+        public ProjectIdOrPathRef? ProjectId
         {
             get
             {
@@ -118,7 +130,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public string Title
+        public string? Title
         {
             get
             {

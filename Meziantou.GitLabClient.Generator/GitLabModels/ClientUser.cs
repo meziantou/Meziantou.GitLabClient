@@ -4,7 +4,7 @@
     {
         public void Create(Project project)
         {
-            var group = project.AddMethodGroup("User");
+            var group = project.AddMethodGroup("Users");
 
             group.AddMethod("GetCurrentUser", MethodType.Get, "/user", "https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users")
                 .WithReturnType(Entities.User);

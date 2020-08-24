@@ -204,7 +204,7 @@ namespace Meziantou.GitLab.Tests
 
                 try
                 {
-                    var user = await client.User.GetCurrentUserAsync();
+                    var user = await client.Users.GetCurrentUserAsync();
                     Credentials = credentials;
                 }
                 catch (GitLabException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.Unauthorized)
