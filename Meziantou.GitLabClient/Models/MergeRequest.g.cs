@@ -18,11 +18,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("assignee")]
-        public UserBasic Assignee
+        public UserBasic? Assignee
         {
             get
             {
-                return this.GetRequiredNonNullValue<UserBasic>("assignee");
+                return this.GetValueOrDefault<UserBasic?>("assignee", default(UserBasic?));
             }
         }
 
@@ -45,11 +45,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("description")]
-        public string Description
+        public string? Description
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("description");
+                return this.GetValueOrDefault<string?>("description", default(string?));
             }
         }
 

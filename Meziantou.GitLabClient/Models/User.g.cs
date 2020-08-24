@@ -17,11 +17,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("bio")]
-        public string Bio
+        public string? Bio
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("bio");
+                return this.GetValueOrDefault<string?>("bio", default(string?));
             }
         }
 

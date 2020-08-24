@@ -54,7 +54,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             User = CreateEntity("User", entity => entity
                 .WithBaseType(UserBasic)
-                .AddProperty("bio", ModelRef.String)
+                .AddProperty("bio", ModelRef.NullableString)
                 .AddProperty("can_create_group", ModelRef.NullableBoolean)
                 .AddProperty("can_create_project", ModelRef.NullableBoolean)
                 .AddProperty("color_scheme_id", ModelRef.NullableNumberId)
@@ -218,9 +218,9 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
                 .AddProperty("iid", ModelRef.NumberId)
                 .AddProperty("author", Entities.UserBasic)
-                .AddProperty("assignee", Entities.UserBasic)
+                .AddProperty("assignee", Entities.UserBasic.MakeNullable())
                 .AddProperty("title", ModelRef.String, PropertyOptions.IsDisplayName)
-                .AddProperty("description", ModelRef.String)
+                .AddProperty("description", ModelRef.NullableString)
                 .AddProperty("state", Enumerations.MergeRequestState)
                 .AddProperty("project_id", ModelRef.NumberId)
                 .AddProperty("source_project_id", ModelRef.NumberId)

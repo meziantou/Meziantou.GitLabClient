@@ -83,9 +83,33 @@ namespace Meziantou.GitLab
             return Meziantou.GitLab.TodoRef.FromTodoId(todoId);
         }
 
+        public static implicit operator Meziantou.GitLab.TodoRef?(long? todoId)
+        {
+            if (todoId.HasValue)
+            {
+                return Meziantou.GitLab.TodoRef.FromTodoId(todoId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static implicit operator Meziantou.GitLab.TodoRef(Todo todo)
         {
             return Meziantou.GitLab.TodoRef.FromTodo(todo);
+        }
+
+        public static implicit operator Meziantou.GitLab.TodoRef?(Todo? todo)
+        {
+            if (object.ReferenceEquals(todo, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.TodoRef.FromTodo(todo);
+            }
         }
 
         public static bool operator !=(Meziantou.GitLab.TodoRef a, Meziantou.GitLab.TodoRef b)

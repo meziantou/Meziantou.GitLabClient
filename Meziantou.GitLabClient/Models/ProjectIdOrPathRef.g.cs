@@ -13,6 +13,11 @@ namespace Meziantou.GitLab
     {
         private readonly object _value;
 
+        private ProjectIdOrPathRef(long projectId)
+        {
+            this._value = projectId;
+        }
+
         private ProjectIdOrPathRef(ProjectIdentity project)
         {
             if ((project == null))
@@ -28,17 +33,17 @@ namespace Meziantou.GitLab
             this._value = projectPathWithNamespace;
         }
 
-        private ProjectIdOrPathRef(long projectId)
-        {
-            this._value = projectId;
-        }
-
         public object Value
         {
             get
             {
                 return this._value;
             }
+        }
+
+        public bool Equals(Meziantou.GitLab.ProjectIdOrPathRef obj)
+        {
+            return object.Equals(this.Value, obj.Value);
         }
 
         public override bool Equals(object? obj)
@@ -51,11 +56,6 @@ namespace Meziantou.GitLab
             {
                 return false;
             }
-        }
-
-        public bool Equals(Meziantou.GitLab.ProjectIdOrPathRef obj)
-        {
-            return object.Equals(this.Value, obj.Value);
         }
 
         public static Meziantou.GitLab.ProjectIdOrPathRef FromProject(ProjectIdentity project)
@@ -88,11 +88,6 @@ namespace Meziantou.GitLab
             return this.Value.ToString();
         }
 
-        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(long projectId)
-        {
-            return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectId(projectId);
-        }
-
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(ProjectIdentity project)
         {
             return Meziantou.GitLab.ProjectIdOrPathRef.FromProject(project);
@@ -101,6 +96,47 @@ namespace Meziantou.GitLab
         public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(Meziantou.GitLab.PathWithNamespace projectPathWithNamespace)
         {
             return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectPathWithNamespace(projectPathWithNamespace);
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef?(Meziantou.GitLab.PathWithNamespace? projectPathWithNamespace)
+        {
+            if (projectPathWithNamespace.HasValue)
+            {
+                return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectPathWithNamespace(projectPathWithNamespace.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef?(long? projectId)
+        {
+            if (projectId.HasValue)
+            {
+                return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectId(projectId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef(long projectId)
+        {
+            return Meziantou.GitLab.ProjectIdOrPathRef.FromProjectId(projectId);
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdOrPathRef?(ProjectIdentity? project)
+        {
+            if (object.ReferenceEquals(project, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.ProjectIdOrPathRef.FromProject(project);
+            }
         }
 
         public static bool operator !=(Meziantou.GitLab.ProjectIdOrPathRef a, Meziantou.GitLab.ProjectIdOrPathRef b)

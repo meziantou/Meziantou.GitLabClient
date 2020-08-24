@@ -83,9 +83,33 @@ namespace Meziantou.GitLab
             return Meziantou.GitLab.ProjectIdRef.FromProjectId(projectId);
         }
 
+        public static implicit operator Meziantou.GitLab.ProjectIdRef?(long? projectId)
+        {
+            if (projectId.HasValue)
+            {
+                return Meziantou.GitLab.ProjectIdRef.FromProjectId(projectId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static implicit operator Meziantou.GitLab.ProjectIdRef(ProjectIdentity project)
         {
             return Meziantou.GitLab.ProjectIdRef.FromProject(project);
+        }
+
+        public static implicit operator Meziantou.GitLab.ProjectIdRef?(ProjectIdentity? project)
+        {
+            if (object.ReferenceEquals(project, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.ProjectIdRef.FromProject(project);
+            }
         }
 
         public static bool operator !=(Meziantou.GitLab.ProjectIdRef a, Meziantou.GitLab.ProjectIdRef b)

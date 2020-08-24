@@ -13,6 +13,11 @@ namespace Meziantou.GitLab
     {
         private readonly object _value;
 
+        private UserRef(long userId)
+        {
+            this._value = userId;
+        }
+
         private UserRef(string userName)
         {
             this._value = userName;
@@ -28,17 +33,17 @@ namespace Meziantou.GitLab
             this._value = user.Id;
         }
 
-        private UserRef(long userId)
-        {
-            this._value = userId;
-        }
-
         public object Value
         {
             get
             {
                 return this._value;
             }
+        }
+
+        public bool Equals(Meziantou.GitLab.UserRef obj)
+        {
+            return object.Equals(this.Value, obj.Value);
         }
 
         public override bool Equals(object? obj)
@@ -51,11 +56,6 @@ namespace Meziantou.GitLab
             {
                 return false;
             }
-        }
-
-        public bool Equals(Meziantou.GitLab.UserRef obj)
-        {
-            return object.Equals(this.Value, obj.Value);
         }
 
         public static Meziantou.GitLab.UserRef FromUser(UserSafe user)
@@ -88,11 +88,6 @@ namespace Meziantou.GitLab
             return this.Value.ToString();
         }
 
-        public static implicit operator Meziantou.GitLab.UserRef(long userId)
-        {
-            return Meziantou.GitLab.UserRef.FromUserId(userId);
-        }
-
         public static implicit operator Meziantou.GitLab.UserRef(string userName)
         {
             return Meziantou.GitLab.UserRef.FromUserName(userName);
@@ -101,6 +96,47 @@ namespace Meziantou.GitLab
         public static implicit operator Meziantou.GitLab.UserRef(UserSafe user)
         {
             return Meziantou.GitLab.UserRef.FromUser(user);
+        }
+
+        public static implicit operator Meziantou.GitLab.UserRef?(UserSafe? user)
+        {
+            if (object.ReferenceEquals(user, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.UserRef.FromUser(user);
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.UserRef?(long? userId)
+        {
+            if (userId.HasValue)
+            {
+                return Meziantou.GitLab.UserRef.FromUserId(userId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static implicit operator Meziantou.GitLab.UserRef(long userId)
+        {
+            return Meziantou.GitLab.UserRef.FromUserId(userId);
+        }
+
+        public static implicit operator Meziantou.GitLab.UserRef?(string? userName)
+        {
+            if (object.ReferenceEquals(userName, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.UserRef.FromUserName(userName);
+            }
         }
 
         public static bool operator !=(Meziantou.GitLab.UserRef a, Meziantou.GitLab.UserRef b)

@@ -46,21 +46,6 @@ namespace Meziantou.GitLabClient.Generator
 
         private string ClrFullTypeName => ToTypeReference(typeof(IEnumerable<>)).ClrFullTypeName;
 
-        private string ShortTypeName
-        {
-            get
-            {
-                var type = ClrFullTypeName;
-                var index = type.LastIndexOf('.');
-                if (index >= 0)
-                {
-                    return type[(index + 1)..];
-                }
-
-                return type;
-            }
-        }
-
         public bool IsValueType
         {
             get
@@ -69,6 +54,9 @@ namespace Meziantou.GitLabClient.Generator
                     return Type.IsValueType;
 
                 if (IsParameterEntity)
+                    return true;
+
+                if (Equals(ModelRef.PathWithNamespace))
                     return true;
 
                 if (Equals(GitObjectId))

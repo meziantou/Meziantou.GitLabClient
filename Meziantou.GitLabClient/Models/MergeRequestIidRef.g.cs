@@ -83,9 +83,33 @@ namespace Meziantou.GitLab
             return Meziantou.GitLab.MergeRequestIidRef.FromMergeRequestIid(mergeRequestIid);
         }
 
+        public static implicit operator Meziantou.GitLab.MergeRequestIidRef?(long? mergeRequestIid)
+        {
+            if (mergeRequestIid.HasValue)
+            {
+                return Meziantou.GitLab.MergeRequestIidRef.FromMergeRequestIid(mergeRequestIid.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static implicit operator Meziantou.GitLab.MergeRequestIidRef(MergeRequest mergeRequest)
         {
             return Meziantou.GitLab.MergeRequestIidRef.FromMergeRequest(mergeRequest);
+        }
+
+        public static implicit operator Meziantou.GitLab.MergeRequestIidRef?(MergeRequest? mergeRequest)
+        {
+            if (object.ReferenceEquals(mergeRequest, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.MergeRequestIidRef.FromMergeRequest(mergeRequest);
+            }
         }
 
         public static bool operator !=(Meziantou.GitLab.MergeRequestIidRef a, Meziantou.GitLab.MergeRequestIidRef b)

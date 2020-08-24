@@ -83,9 +83,33 @@ namespace Meziantou.GitLab
             return Meziantou.GitLab.SshKeyRef.FromSshKeyId(sshKeyId);
         }
 
+        public static implicit operator Meziantou.GitLab.SshKeyRef?(long? sshKeyId)
+        {
+            if (sshKeyId.HasValue)
+            {
+                return Meziantou.GitLab.SshKeyRef.FromSshKeyId(sshKeyId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static implicit operator Meziantou.GitLab.SshKeyRef(SshKey sskKey)
         {
             return Meziantou.GitLab.SshKeyRef.FromSskKey(sskKey);
+        }
+
+        public static implicit operator Meziantou.GitLab.SshKeyRef?(SshKey? sskKey)
+        {
+            if (object.ReferenceEquals(sskKey, null))
+            {
+                return null;
+            }
+            else
+            {
+                return Meziantou.GitLab.SshKeyRef.FromSskKey(sskKey);
+            }
         }
 
         public static bool operator !=(Meziantou.GitLab.SshKeyRef a, Meziantou.GitLab.SshKeyRef b)

@@ -1146,6 +1146,44 @@ namespace Meziantou.GitLabClient.Generator
                     },
                 });
 
+                // Add implicit converter nullable
+                var nullableImplicitConverter = type.AddMember(new OperatorDeclaration
+                {
+                    Modifiers = Modifiers.Public | Modifiers.Static | Modifiers.Implicit,
+                    ReturnType = new TypeReference(type).MakeNullable(),
+                    Arguments =
+                    {
+                        new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef).MakeNullable(), entityRef.Name),
+                    },
+                });
+
+                if (entityRef.ModelRef.IsValueType)
+                {
+                    nullableImplicitConverter.Statements.Add(
+                        new ConditionStatement
+                        {
+                            Condition = new MemberReferenceExpression(new ArgumentReferenceExpression(entityRef.Name), "HasValue"),
+                            TrueStatements = new ReturnStatement(
+                                new MethodInvokeExpression(
+                                    new MemberReferenceExpression(type, fromMethod.Name),
+                                    new MemberReferenceExpression(new ArgumentReferenceExpression(entityRef.Name), "Value"))),
+                            FalseStatements = new ReturnStatement(LiteralExpression.Null()),
+                        });
+                }
+                else
+                {
+                    nullableImplicitConverter.Statements.Add(
+                        new ConditionStatement
+                        {
+                            Condition = new MethodInvokeExpression(
+                                new MemberReferenceExpression(typeof(object), nameof(object.ReferenceEquals)),
+                                new ArgumentReferenceExpression(entityRef.Name),
+                                LiteralExpression.Null()),
+                            TrueStatements = new ReturnStatement(LiteralExpression.Null()),
+                            FalseStatements = new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(type, fromMethod.Name), new ArgumentReferenceExpression(entityRef.Name))),
+                        });
+                }
+
                 Expression GetAssignExpression()
                 {
                     Expression value = new ArgumentReferenceExpression(entityRef.Name);
