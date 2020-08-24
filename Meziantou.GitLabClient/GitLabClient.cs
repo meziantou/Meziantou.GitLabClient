@@ -187,7 +187,7 @@ namespace Meziantou.GitLab
                 lastUrl: lastLink);
         }
 
-        public virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
+        public virtual async Task<T> PutJsonAsync<T>(string url, object? data, RequestOptions? options, CancellationToken cancellationToken = default)
             where T : GitLabObject
         {
             using var request = new HttpRequestMessage();
@@ -223,7 +223,7 @@ namespace Meziantou.GitLab
             return result;
         }
 
-        public virtual async Task PostJsonAsync(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
+        public virtual async Task PostJsonAsync(string url, object? data, RequestOptions? options, CancellationToken cancellationToken = default)
         {
             using var request = new HttpRequestMessage();
             using var content = new JsonContent(data, JsonSerialization.Options);

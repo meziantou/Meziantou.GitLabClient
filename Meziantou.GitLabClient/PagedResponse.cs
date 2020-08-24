@@ -5,7 +5,7 @@ using Meziantou.GitLab.Core;
 
 namespace Meziantou.GitLab
 {
-    // TODO add page size/page index
+    // TODO add page size / page index / keyset
     public sealed class PagedResponse<T> : IAsyncEnumerable<T>
         where T : GitLabObject
     {
