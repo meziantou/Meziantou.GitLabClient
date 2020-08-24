@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLab
 {
-    public partial interface IGitLabClient : IRawGitLabClient, IDisposable
+    public partial interface IGitLabClient : IDisposable
     {
     }
 }

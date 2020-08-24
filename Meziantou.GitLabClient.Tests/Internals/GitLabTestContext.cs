@@ -26,20 +26,20 @@ namespace Meziantou.GitLab.Tests
         {
             TestContext = testOutput;
 
-            _loggingHandler = new LoggingHandler(this)
+            _loggingHandler = new LoggingHandler
             {
                 InnerHandler = handler ?? new HttpClientHandler(),
             };
 
             _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
-            AdminClient = CreateClient(DockerContainer.AdminUserToken);
+            AdminClient = CreateClient(DockerContainer.Credentials.AdminUserToken);
         }
 
         public Random Random { get; } = new Random();
         public TestGitLabClient AdminClient { get; }
         public TestContext TestContext { get; }
 
-        public async Task<TestGitLabClient> CreateNewUserAsync()
+        public async Task<IGitLabClient> CreateNewUserAsync()
         {
             var username = "user_" + DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture) + "_" + Guid.NewGuid().ToString("N");
             var email = username + "@dummy.com";
@@ -79,7 +79,7 @@ namespace Meziantou.GitLab.Tests
         {
             var client = new TestGitLabClient(this, _httpClient, DockerContainer.GitLabUrl, token)
             {
-                ProfileToken = DockerContainer.ProfileToken,
+                ProfileToken = DockerContainer.Credentials.ProfileToken,
             };
             _clients.Add(client);
             return client;
@@ -98,6 +98,7 @@ namespace Meziantou.GitLab.Tests
             {
                 GitLabObjectAssertions.DoesNotContainUnmappedProperties(errorMessages, o);
                 GitLabObjectAssertions.DoesContainOnlyUtcDates(errorMessages, o);
+                GitLabObjectAssertions.DoesContainOnlyAbsoluteUri(errorMessages, o);
             });
 
             if (errorMessages.Count > 0)
@@ -108,20 +109,10 @@ namespace Meziantou.GitLab.Tests
 
         private sealed class LoggingHandler : DelegatingHandler
         {
-            private readonly GitLabTestContext _gitLabTestContext;
-
-            public LoggingHandler(GitLabTestContext gitLabTestContext)
-            {
-                _gitLabTestContext = gitLabTestContext;
-            }
-
             public IList<string> Logs { get; } = new SynchronizedList<string>();
 
             protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                // TODO remove
-                _gitLabTestContext.TestContext.WriteLine(request.RequestUri.ToString());
-
                 // Fix url: http://container_name/ => http://localhost:48624/
                 if (request.RequestUri.Port == 80 || request.RequestUri.Port == 443)
                 {

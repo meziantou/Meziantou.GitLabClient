@@ -89,11 +89,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("target_url")]
-        public string TargetUrl
+        public System.Uri TargetUrl
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("target_url");
+                return this.GetRequiredNonNullValue<System.Uri>("target_url");
             }
         }
 
@@ -134,4 +134,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

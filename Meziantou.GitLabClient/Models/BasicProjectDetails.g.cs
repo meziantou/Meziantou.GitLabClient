@@ -17,11 +17,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
-        public string? AvatarUrl
+        public System.Uri? AvatarUrl
         {
             get
             {
-                return this.GetValueOrDefault<string?>("avatar_url", default(string?));
+                return this.GetValueOrDefault<System.Uri?>("avatar_url", default(System.Uri?));
             }
         }
 
@@ -44,11 +44,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("http_url_to_repo")]
-        public string HttpUrlToRepo
+        public System.Uri HttpUrlToRepo
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("http_url_to_repo");
+                return this.GetRequiredNonNullValue<System.Uri>("http_url_to_repo");
             }
         }
 
@@ -71,20 +71,21 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("readme_url")]
-        public string? ReadmeUrl
+        public System.Uri? ReadmeUrl
         {
             get
             {
-                return this.GetValueOrDefault<string?>("readme_url", default(string?));
+                return this.GetValueOrDefault<System.Uri?>("readme_url", default(System.Uri?));
             }
         }
 
+        [Meziantou.GitLab.SkipAbsoluteUriValidationAttribute]
         [Meziantou.GitLab.MappedPropertyAttribute("ssh_url_to_repo")]
-        public string SshUrlToRepo
+        public System.Uri? SshUrlToRepo
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("ssh_url_to_repo");
+                return this.GetValueOrDefault<System.Uri?>("ssh_url_to_repo", default(System.Uri?));
             }
         }
 
@@ -107,11 +108,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
-        public string WebUrl
+        public System.Uri? WebUrl
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("web_url");
+                return this.GetValueOrDefault<System.Uri?>("web_url", default(System.Uri?));
             }
         }
     }
@@ -127,4 +128,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

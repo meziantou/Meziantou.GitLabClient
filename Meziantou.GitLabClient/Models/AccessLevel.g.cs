@@ -23,7 +23,7 @@ namespace Meziantou.GitLab
         Owner = 50
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.AccessLevel? value)
         {
@@ -33,26 +33,26 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.AccessLevel value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.AccessLevel>[] s_AccessLevelmembers = Meziantou.GitLab.Serialization.EnumMember.CreateAccessLevelMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.AccessLevel>[] s_accessLevelMembers = Meziantou.GitLab.Serialization.EnumMember.CreateAccessLevelMembers();
 
         public static Meziantou.GitLab.AccessLevel AccessLevelFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_AccessLevelmembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_accessLevelMembers);
         }
 
         public static string ToString(Meziantou.GitLab.AccessLevel value)
@@ -110,4 +110,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

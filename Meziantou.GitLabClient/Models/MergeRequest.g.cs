@@ -243,11 +243,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
-        public string WebUrl
+        public System.Uri WebUrl
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("web_url");
+                return this.GetRequiredNonNullValue<System.Uri>("web_url");
             }
         }
 
@@ -297,4 +297,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

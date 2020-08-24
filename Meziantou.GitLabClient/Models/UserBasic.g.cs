@@ -26,11 +26,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
-        public string AvatarUrl
+        public System.Uri AvatarUrl
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("avatar_url");
+                return this.GetRequiredNonNullValue<System.Uri>("avatar_url");
             }
         }
 
@@ -44,11 +44,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
-        public string? WebUrl
+        public System.Uri WebUrl
         {
             get
             {
-                return this.GetValueOrDefault<string?>("web_url", default(string?));
+                return this.GetRequiredNonNullValue<System.Uri>("web_url");
             }
         }
     }
@@ -64,4 +64,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

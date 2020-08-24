@@ -1,19 +1,13 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
 {
-    // TODO improve performance
-    // TODO create overloads of WithValue for specific types
-    // TODO generate values for enum
     internal sealed partial class UrlBuilder
     {
-        [SuppressMessage("Usage", "MA0002:IEqualityComparer<string> is missing", Justification = "The default comparer is the one needed (Ordinal) and not providing it may be faster")]
-        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
+        private readonly List<KeyValuePair<string, string>> _parameters = new List<KeyValuePair<string, string>>();
 
         private UrlBuilder(string template)
         {
@@ -31,11 +25,11 @@ namespace Meziantou.GitLab
         {
             if (value is null)
             {
-                SetNullValue(key);
+                RemoveValues(key);
             }
             else
             {
-                _parameters[key] = value;
+                SetStringValue(key, value);
             }
         }
 
@@ -43,7 +37,7 @@ namespace Meziantou.GitLab
         {
             if (value is null)
             {
-                SetNullValue(key);
+                RemoveValues(key);
             }
             else
             {
@@ -53,14 +47,14 @@ namespace Meziantou.GitLab
 
         public void SetValue(string key, bool value)
         {
-            _parameters[key] = value ? "true" : "false";
+            SetStringValue(key, value ? "true" : "false");
         }
 
         public void SetValue(string key, int? value)
         {
             if (value is null)
             {
-                SetNullValue(key);
+                RemoveValues(key);
             }
             else
             {
@@ -70,14 +64,14 @@ namespace Meziantou.GitLab
 
         public void SetValue(string key, int value)
         {
-            _parameters[key] = value.ToString(CultureInfo.InvariantCulture);
+            SetStringValue(key, value.ToString(CultureInfo.InvariantCulture));
         }
 
         public void SetValue(string key, long? value)
         {
             if (value is null)
             {
-                SetNullValue(key);
+                RemoveValues(key);
             }
             else
             {
@@ -87,14 +81,14 @@ namespace Meziantou.GitLab
 
         public void SetValue(string key, long value)
         {
-            _parameters[key] = value.ToString(CultureInfo.InvariantCulture);
+            SetStringValue(key, value.ToString(CultureInfo.InvariantCulture));
         }
 
         public void SetValue(string key, DateTime? value)
         {
             if (value is null)
             {
-                SetNullValue(key);
+                RemoveValues(key);
             }
             else
             {
@@ -104,14 +98,14 @@ namespace Meziantou.GitLab
 
         public void SetValue(string key, DateTime value)
         {
-            _parameters[key] = value.ToString("o", CultureInfo.InvariantCulture);
+            SetStringValue(key, value.ToString("o", CultureInfo.InvariantCulture));
         }
 
         public void SetValue(string key, PathWithNamespace? value)
         {
             if (value is null)
             {
-                SetNullValue(key);
+                RemoveValues(key);
             }
             else
             {
@@ -121,12 +115,17 @@ namespace Meziantou.GitLab
 
         public void SetValue(string key, PathWithNamespace value)
         {
-            _parameters[key] = value.FullPath;
+            SetStringValue(key, value.FullPath);
         }
 
-        private void SetNullValue(string key)
+        private void RemoveValues(string key)
         {
-            _parameters.Remove(key);
+            _parameters.RemoveAll(item => item.Key == key);
+        }
+
+        private void SetStringValue(string key, string value)
+        {
+            _parameters.Add(new KeyValuePair<string, string>(key, value));
         }
 
         public string Build()

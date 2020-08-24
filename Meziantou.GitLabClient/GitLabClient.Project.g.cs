@@ -18,23 +18,28 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabProjectClient
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Project> CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> Get(Meziantou.GitLab.GetProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<Project?> GetByIdAsync(Meziantou.GitLab.GetSingleProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Project?> GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
     }
 
-    partial class GitLabClient : Meziantou.GitLab.IGitLabProjectClient
+    public partial class GitLabClient : Meziantou.GitLab.IGitLabProjectClient
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Project> Meziantou.GitLab.IGitLabProjectClient.CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -42,19 +47,22 @@ namespace Meziantou.GitLab
             return this.Project_CreateAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> Meziantou.GitLab.IGitLabProjectClient.Get(Meziantou.GitLab.GetProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Project_Get(request, requestOptions);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<Project?> Meziantou.GitLab.IGitLabProjectClient.GetByIdAsync(Meziantou.GitLab.GetSingleProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<Project?> Meziantou.GitLab.IGitLabProjectClient.GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
             return this.Project_GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> Meziantou.GitLab.IGitLabProjectClient.GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
@@ -69,6 +77,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<Project> Project_CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -199,6 +208,7 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<Project>(url, body, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
         private Meziantou.GitLab.PagedResponse<Project> Project_Get(Meziantou.GitLab.GetProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -220,21 +230,23 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<Project?> Project_GetByIdAsync(Meziantou.GitLab.GetSingleProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<Project?> Project_GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:id");
-            urlBuilder.SetValue("id", request.Id.ValueAsString);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id");
+            urlBuilder.SetValue("project_id", request.ProjectId.ValueAsString);
             string url = urlBuilder.Build();
             return this.GetAsync<Project>(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         /// <param name="requestOptions">Options of the request</param>
         private Meziantou.GitLab.PagedResponse<Project> Project_GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/projects");
-            urlBuilder.SetValue("user", request.User.ValueAsString);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/projects");
+            urlBuilder.SetValue("user_id", request.UserId.ValueAsString);
             urlBuilder.SetValue("archived", request.Archived);
             urlBuilder.SetValue("visibility", request.Visibility);
             urlBuilder.SetValue("search", request.Search);
@@ -255,6 +267,7 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<Project> Get(this Meziantou.GitLab.IGitLabProjectClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -262,18 +275,20 @@ namespace Meziantou.GitLab
             return client.Get(request, requestOptions);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Project?> GetByIdAsync(this Meziantou.GitLab.IGitLabProjectClient client, ProjectIdOrPathRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Project?> GetByIdAsync(this Meziantou.GitLab.IGitLabProjectClient client, ProjectIdOrPathRef projectId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetSingleProjectRequest request = new Meziantou.GitLab.GetSingleProjectRequest(id);
+            Meziantou.GitLab.GetByIdProjectRequest request = new Meziantou.GitLab.GetByIdProjectRequest(projectId);
             return client.GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectClient client, UserRef user, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectClient client, UserRef userId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(user);
+            Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
             return client.GetByUser(request, requestOptions);
         }
     }
@@ -487,7 +502,7 @@ namespace Meziantou.GitLab
 
         private bool? _statistics;
 
-        private UserRef _user;
+        private UserRef _userId;
 
         private ProjectVisibility? _visibility;
 
@@ -497,9 +512,9 @@ namespace Meziantou.GitLab
 
         private bool? _withMergeRequestsEnabled;
 
-        public GetByUserProjectRequest(UserRef user)
+        public GetByUserProjectRequest(UserRef userId)
         {
-            this._user = user;
+            this._userId = userId;
         }
 
         public bool? Archived
@@ -610,15 +625,15 @@ namespace Meziantou.GitLab
             }
         }
 
-        public UserRef User
+        public UserRef UserId
         {
             get
             {
-                return this._user;
+                return this._userId;
             }
             set
             {
-                this._user = value;
+                this._userId = value;
             }
         }
 
@@ -671,24 +686,24 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetSingleProjectRequest
+    public partial class GetByIdProjectRequest
     {
-        private ProjectIdOrPathRef _id;
+        private ProjectIdOrPathRef _projectId;
 
-        public GetSingleProjectRequest(ProjectIdOrPathRef id)
+        public GetByIdProjectRequest(ProjectIdOrPathRef projectId)
         {
-            this._id = id;
+            this._projectId = projectId;
         }
 
-        public ProjectIdOrPathRef Id
+        public ProjectIdOrPathRef ProjectId
         {
             get
             {
-                return this._id;
+                return this._projectId;
             }
             set
             {
-                this._id = value;
+                this._projectId = value;
             }
         }
     }
@@ -1036,4 +1051,3 @@ namespace Meziantou.GitLab
         }
     }
 }
-#nullable disable

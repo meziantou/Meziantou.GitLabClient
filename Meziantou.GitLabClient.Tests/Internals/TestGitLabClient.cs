@@ -20,7 +20,7 @@ namespace Meziantou.GitLab.Tests
         public string ProfileToken { get; set; }
 
         public TestGitLabClient(GitLabTestContext context, HttpClient client, Uri serverUri, string token)
-            : base(client, serverUri, token)
+            : base(client, httpClientOwned: false, serverUri, new PersonalAccessTokenAuthenticator(token))
         {
             Context = context;
         }

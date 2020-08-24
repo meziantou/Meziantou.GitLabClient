@@ -19,7 +19,7 @@ namespace Meziantou.GitLab
         FastForward
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.MergeMethod? value)
         {
@@ -29,26 +29,26 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.MergeMethod value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeMethod>[] s_MergeMethodmembers = Meziantou.GitLab.Serialization.EnumMember.CreateMergeMethodMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeMethod>[] s_mergeMethodMembers = Meziantou.GitLab.Serialization.EnumMember.CreateMergeMethodMembers();
 
         public static Meziantou.GitLab.MergeMethod MergeMethodFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_MergeMethodmembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_mergeMethodMembers);
         }
 
         public static string ToString(Meziantou.GitLab.MergeMethod value)
@@ -94,4 +94,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

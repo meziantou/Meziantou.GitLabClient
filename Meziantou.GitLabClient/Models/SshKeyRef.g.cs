@@ -9,7 +9,7 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectInt64ReferenceJsonConverter))]
-    public readonly partial struct SshKeyRef : Meziantou.GitLab.IGitLabObjectReference<long>
+    public readonly partial struct SshKeyRef : Meziantou.GitLab.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.SshKeyRef>
     {
         private readonly long _value;
 
@@ -36,6 +36,23 @@ namespace Meziantou.GitLab
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            if ((obj is Meziantou.GitLab.SshKeyRef))
+            {
+                return this.Equals(((Meziantou.GitLab.SshKeyRef)obj));
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Equals(Meziantou.GitLab.SshKeyRef obj)
+        {
+            return object.Equals(this.Value, obj.Value);
+        }
+
         public static Meziantou.GitLab.SshKeyRef FromSshKeyId(long sshKeyId)
         {
             return new Meziantou.GitLab.SshKeyRef(sshKeyId);
@@ -51,9 +68,14 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.SshKeyRef(sskKey);
         }
 
+        public override int GetHashCode()
+        {
+            return System.HashCode.Combine(this.Value);
+        }
+
         public override string ToString()
         {
-            return this.Value.ToString();
+            return this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public static implicit operator Meziantou.GitLab.SshKeyRef(long sshKeyId)
@@ -65,6 +87,15 @@ namespace Meziantou.GitLab
         {
             return Meziantou.GitLab.SshKeyRef.FromSskKey(sskKey);
         }
+
+        public static bool operator !=(Meziantou.GitLab.SshKeyRef a, Meziantou.GitLab.SshKeyRef b)
+        {
+            return (!(a == b));
+        }
+
+        public static bool operator ==(Meziantou.GitLab.SshKeyRef a, Meziantou.GitLab.SshKeyRef b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.SshKeyRef>.Default.Equals(a, b);
+        }
     }
 }
-#nullable disable

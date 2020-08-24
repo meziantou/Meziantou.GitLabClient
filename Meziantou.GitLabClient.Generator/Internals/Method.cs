@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -6,8 +7,11 @@ namespace Meziantou.GitLabClient.Generator
     {
         public Method(string name, string urlTemplate)
         {
+            if (!urlTemplate.StartsWith('/'))
+                throw new ArgumentException("Template must start with a '/'", nameof(urlTemplate));
+
             Name = name;
-            UrlTemplate = urlTemplate;
+            UrlTemplate = urlTemplate[1..];
         }
 
         public MethodGroup MethodGroup { get; set; }

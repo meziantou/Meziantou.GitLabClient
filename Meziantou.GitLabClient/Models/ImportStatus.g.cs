@@ -23,7 +23,7 @@ namespace Meziantou.GitLab
         Finished
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.ImportStatus? value)
         {
@@ -33,26 +33,26 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.ImportStatus value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.ImportStatus>[] s_ImportStatusmembers = Meziantou.GitLab.Serialization.EnumMember.CreateImportStatusMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.ImportStatus>[] s_importStatusMembers = Meziantou.GitLab.Serialization.EnumMember.CreateImportStatusMembers();
 
         public static Meziantou.GitLab.ImportStatus ImportStatusFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_ImportStatusmembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_importStatusMembers);
         }
 
         public static string ToString(Meziantou.GitLab.ImportStatus value)
@@ -110,4 +110,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

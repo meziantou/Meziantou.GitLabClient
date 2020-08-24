@@ -7,6 +7,8 @@ namespace Meziantou.GitLabClient.Generator
     internal sealed class ModelRef : IEquatable<ModelRef>
     {
         public static ModelRef Object { get; } = new ModelRef(typeof(object));
+        public static ModelRef Uri { get; } = new ModelRef(typeof(Uri));
+        public static ModelRef NullableUri { get; } = new ModelRef(typeof(Uri)).MakeNullable();
         public static ModelRef String { get; } = new ModelRef(typeof(string));
         public static ModelRef NullableString { get; } = new ModelRef(typeof(string)).MakeNullable();
         public static ModelRef StringCollection { get; } = new ModelRef(typeof(string)).MakeCollection();
@@ -28,6 +30,7 @@ namespace Meziantou.GitLabClient.Generator
 
         public ModelRef MakeNullable() => new ModelRef(this) { IsNullable = true };
         public ModelRef MakeCollection() => new ModelRef(this) { IsCollection = true };
+        public ModelRef MakeCollectionNullable() => new ModelRef(this) { IsCollection = true, IsCollectionNullable = true };
 
         public Type Type { get; }
         public Model Model { get; }
@@ -36,13 +39,14 @@ namespace Meziantou.GitLabClient.Generator
 
         public bool IsNullable { get; private set; }
         public bool IsCollection { get; private set; }
+        public bool IsCollectionNullable { get; private set; }
 
         public bool IsParameterEntity => ParameterEntity != null;
         public bool IsModel => Model != null;
 
-        public string ClrFullTypeName => ToTypeReference().ClrFullTypeName;
+        private string ClrFullTypeName => ToTypeReference(typeof(IEnumerable<>)).ClrFullTypeName;
 
-        public string ShortTypeName
+        private string ShortTypeName
         {
             get
             {
@@ -108,19 +112,21 @@ namespace Meziantou.GitLabClient.Generator
         public static implicit operator ModelRef(EntityBuilder model) => model.Value;
         public static implicit operator ModelRef(ParameterEntity model) => new ModelRef(model);
 
-        public static implicit operator TypeReference(ModelRef modelRef)
-        {
-            if (modelRef == null)
-                return null;
-
-            return modelRef.ToTypeReference();
-        }
-
         public static bool operator ==(ModelRef left, ModelRef right) => EqualityComparer<ModelRef>.Default.Equals(left, right);
 
         public static bool operator !=(ModelRef left, ModelRef right) => !(left == right);
 
-        public TypeReference ToTypeReference()
+        public TypeReference ToPropertyTypeReference()
+        {
+            return ToTypeReference(new TypeReference(typeof(IReadOnlyList<>)));
+        }
+
+        public TypeReference ToArgumentTypeReference()
+        {
+            return ToTypeReference(new TypeReference(typeof(IEnumerable<>)));
+        }
+
+        private TypeReference ToTypeReference(TypeReference collectionType)
         {
             TypeReference typeRef;
             if (Type != null)
@@ -145,6 +151,15 @@ namespace Meziantou.GitLabClient.Generator
                 typeRef = typeRef.MakeNullable();
             }
 
+            if (IsCollection)
+            {
+                typeRef = collectionType.MakeGeneric(typeRef);
+                if (IsCollectionNullable)
+                {
+                    typeRef = typeRef.MakeNullable();
+                }
+            }
+
             return typeRef;
         }
 
@@ -152,7 +167,6 @@ namespace Meziantou.GitLabClient.Generator
         {
             return ClrFullTypeName;
         }
-
 
         public override bool Equals(object obj)
         {

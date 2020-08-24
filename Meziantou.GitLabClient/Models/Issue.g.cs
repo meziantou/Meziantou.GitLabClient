@@ -36,11 +36,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("closed_by")]
-        public UserBasic ClosedBy
+        public UserBasic? ClosedBy
         {
             get
             {
-                return this.GetRequiredNonNullValue<UserBasic>("closed_by");
+                return this.GetValueOrDefault<UserBasic?>("closed_by", default(UserBasic?));
             }
         }
 
@@ -99,11 +99,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
-        public string WebUrl
+        public System.Uri WebUrl
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("web_url");
+                return this.GetRequiredNonNullValue<System.Uri>("web_url");
             }
         }
 
@@ -144,4 +144,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

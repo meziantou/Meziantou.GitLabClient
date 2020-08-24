@@ -35,7 +35,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
         [Meziantou.GitLab.MappedPropertyAttribute("expires_at")]
         public System.DateTime? ExpiresAt
         {
@@ -136,4 +135,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

@@ -17,20 +17,20 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("emoji")]
-        public string Emoji
+        public string? Emoji
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("emoji");
+                return this.GetValueOrDefault<string?>("emoji", default(string?));
             }
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("message")]
-        public string Message
+        public string? Message
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("message");
+                return this.GetValueOrDefault<string?>("message", default(string?));
             }
         }
 
@@ -55,4 +55,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

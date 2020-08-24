@@ -80,11 +80,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("email")]
-        public string Email
+        public string? Email
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("email");
+                return this.GetValueOrDefault<string?>("email", default(string?));
             }
         }
 
@@ -98,11 +98,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("identities")]
-        public System.Collections.Generic.IReadOnlyList<Identity> Identities
+        public System.Collections.Generic.IReadOnlyList<Identity>? Identities
         {
             get
             {
-                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<Identity>>("identities");
+                return this.GetValueOrDefault<System.Collections.Generic.IReadOnlyList<Identity>?>("identities", default(System.Collections.Generic.IReadOnlyList<Identity>?));
             }
         }
 
@@ -115,7 +115,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
+        [Meziantou.GitLab.SkipUtcDateValidationAttribute]
         [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime? LastActivityOn
         {
@@ -162,11 +162,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.MappedPropertyAttribute("private_profile")]
-        public object PrivateProfile
+        public bool? PrivateProfile
         {
             get
             {
-                return this.GetRequiredNonNullValue<object>("private_profile");
+                return this.GetValueOrDefault<bool?>("private_profile", default(bool?));
             }
         }
 
@@ -224,12 +224,13 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.SkipAbsoluteUriValidationAttribute]
         [Meziantou.GitLab.MappedPropertyAttribute("website_url")]
-        public string? WebsiteUrl
+        public System.Uri? WebsiteUrl
         {
             get
             {
-                return this.GetValueOrDefault<string?>("website_url", default(string?));
+                return this.GetValueOrDefault<System.Uri?>("website_url", default(System.Uri?));
             }
         }
     }
@@ -245,4 +246,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

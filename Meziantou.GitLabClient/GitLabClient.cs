@@ -21,29 +21,7 @@ namespace Meziantou.GitLab
 
         public IAuthenticator? Authenticator { get; set; }
 
-        public IRawGitLabClient RawClient => this;
-
-        public GitLabClient(Uri serverUri)
-            : this(new HttpClient(), httpClientOwned: true, serverUri, authenticator: null)
-        {
-        }
-
-        public GitLabClient(Uri serverUri, string personalAccessToken)
-            : this(new HttpClient(), httpClientOwned: true, serverUri, new PersonalAccessTokenAuthenticator(personalAccessToken))
-        {
-        }
-
-        public GitLabClient(HttpClient httpClient)
-            : this(httpClient, httpClientOwned: false, serverUri: null, authenticator: null)
-        {
-        }
-
-        public GitLabClient(HttpClient httpClient, Uri serverUri, string personalAccessToken)
-            : this(httpClient, httpClientOwned: true, serverUri, new PersonalAccessTokenAuthenticator(personalAccessToken))
-        {
-        }
-
-        private GitLabClient(HttpClient httpClient, bool httpClientOwned, Uri? serverUri, IAuthenticator? authenticator)
+        protected GitLabClient(HttpClient httpClient, bool httpClientOwned, Uri? serverUri, IAuthenticator? authenticator)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _httpClientOwned = httpClientOwned;
@@ -52,6 +30,26 @@ namespace Meziantou.GitLab
                 ServerUri = new Uri(serverUri, "api/v4/");
             }
             Authenticator = authenticator;
+        }
+
+        public static IGitLabClient Create(Uri serverUri)
+        {
+            return new GitLabClient(new HttpClient(), httpClientOwned: true, serverUri, authenticator: null);
+        }
+
+        public static IGitLabClient Create(Uri serverUri, string personalAccessToken)
+        {
+            return new GitLabClient(new HttpClient(), httpClientOwned: true, serverUri, new PersonalAccessTokenAuthenticator(personalAccessToken));
+        }
+
+        public static IGitLabClient Create(HttpClient httpClient)
+        {
+            return new GitLabClient(httpClient, httpClientOwned: false, serverUri: null, authenticator: null);
+        }
+
+        public static IGitLabClient Create(HttpClient httpClient, Uri serverUri, string personalAccessToken)
+        {
+            return new GitLabClient(httpClient, httpClientOwned: true, serverUri, new PersonalAccessTokenAuthenticator(personalAccessToken));
         }
 
         private async Task<HttpResponse> SendAsync(HttpRequestMessage message, RequestOptions? options, CancellationToken cancellationToken)
@@ -112,7 +110,11 @@ namespace Meziantou.GitLab
 
             using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
             await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
-            return await response.ToCollectionAsync<T>(cancellationToken).ConfigureAwait(false);
+            var result = await response.ToCollectionAsync<T>(cancellationToken).ConfigureAwait(false);
+            if (result is null)
+                throw new GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, $"The response cannot be converted to '{typeof(T)}' because the body is null or empty");
+
+            return result;
         }
 
         public virtual async Task<GitLabPageResponse<T>> GetPagedCollectionAsync<T>(string url, RequestOptions? options, CancellationToken cancellationToken = default)
@@ -169,6 +171,8 @@ namespace Meziantou.GitLab
             var totalPages = headers.GetHeaderValue("X-Total-Pages", -1);
 
             var data = await response.ToCollectionAsync<T>(cancellationToken).ConfigureAwait(false);
+            if (data is null)
+                throw new GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, $"The response cannot be converted to '{typeof(T)}' collection because the body is null or empty");
 
             return new GitLabPageResponse<T>(
                 client: this,
@@ -183,7 +187,7 @@ namespace Meziantou.GitLab
                 lastUrl: lastLink);
         }
 
-        public virtual async Task<T?> PutJsonAsync<T>(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
+        public virtual async Task<T> PutJsonAsync<T>(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
             where T : GitLabObject
         {
             using var request = new HttpRequestMessage();
@@ -194,10 +198,14 @@ namespace Meziantou.GitLab
 
             using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
             await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
-            return await response.ToObjectAsync<T>(cancellationToken).ConfigureAwait(false);
+            var result = await response.ToObjectAsync<T>(cancellationToken).ConfigureAwait(false);
+            if (result is null)
+                throw new GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, $"The response cannot be converted to '{typeof(T)}' because the body is null or empty");
+
+            return result;
         }
 
-        public virtual async Task<T?> PostJsonAsync<T>(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
+        public virtual async Task<T> PostJsonAsync<T>(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
             where T : GitLabObject
         {
             using var request = new HttpRequestMessage();
@@ -208,7 +216,11 @@ namespace Meziantou.GitLab
 
             using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
             await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
-            return await response.ToObjectAsync<T>(cancellationToken).ConfigureAwait(false);
+            var result = await response.ToObjectAsync<T>(cancellationToken).ConfigureAwait(false);
+            if (result is null)
+                throw new GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, $"The response cannot be converted to '{typeof(T)}' because the body is null or empty");
+
+            return result;
         }
 
         public virtual async Task PostJsonAsync(string url, object data, RequestOptions? options, CancellationToken cancellationToken = default)
@@ -258,6 +270,8 @@ namespace Meziantou.GitLab
 
             public HttpStatusCode StatusCode => ResponseMessage.StatusCode;
             public HttpResponseHeaders ResponseHeaders => ResponseMessage.Headers;
+            public HttpMethod RequestMethod => ResponseMessage.RequestMessage.Method;
+            public Uri RequestUri => ResponseMessage.RequestMessage.RequestUri;
 
             public async Task EnsureStatusCodeAsync(CancellationToken cancellationToken)
             {
@@ -279,14 +293,13 @@ namespace Meziantou.GitLab
                 }
             }
 
-            public Task<T> ToObjectAsync<T>(CancellationToken cancellationToken)
+            public Task<T?> ToObjectAsync<T>(CancellationToken cancellationToken)
                 where T : GitLabObject
             {
                 return DeserializeAsync<T>(cancellationToken);
             }
 
-            // TODO validate the collection is actually readonly
-            public Task<IReadOnlyList<T>> ToCollectionAsync<T>(CancellationToken cancellationToken)
+            public Task<IReadOnlyList<T>?> ToCollectionAsync<T>(CancellationToken cancellationToken)
                 where T : GitLabObject
             {
                 return DeserializeAsync<IReadOnlyList<T>>(cancellationToken);
@@ -303,8 +316,8 @@ namespace Meziantou.GitLab
                 ResponseMessage.Dispose();
             }
 
-            // TODO T could be null
-            private async Task<T> DeserializeAsync<T>(CancellationToken cancellationToken)
+            private async Task<T?> DeserializeAsync<T>(CancellationToken cancellationToken)
+                where T : class // TODO remove class constraint when updating to next roslyn version
             {
                 if (!IsJsonResponse(ResponseMessage))
                     throw new InvalidOperationException($"Content type must be application/json but is {ResponseMessage.Content.Headers.ContentType?.MediaType}");

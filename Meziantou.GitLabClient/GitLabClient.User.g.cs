@@ -18,68 +18,84 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabUserClient
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<SshKey> AddSSHKeyAsync(Meziantou.GitLab.AddSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<SshKey> AddSSHKeyToCurrentUserAsync(Meziantou.GitLab.AddSSHKeyToCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(Meziantou.GitLab.CreateImpersonationTokenUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<User> CreateUserAsync(Meziantou.GitLab.CreateUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task DeleteSSHKeyAsync(Meziantou.GitLab.DeleteSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task DeleteSSHKeyFromCurrentUserAsync(Meziantou.GitLab.DeleteSSHKeyFromCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<UserBasic> GetAll(Meziantou.GitLab.GetAllUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<User?> GetByIdAsync(Meziantou.GitLab.GetByIdUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<User?> GetCurrentUserAsync(Meziantou.GitLab.GetCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<User?> GetCurrentUserAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetCurrentUserSSHKeysAsync(Meziantou.GitLab.GetCurrentUserSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<SshKey?> GetCurrentUserSSHKeyAsync(Meziantou.GitLab.GetCurrentUserSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<UserStatus?> GetCurrentUserStatusAsync(Meziantou.GitLab.GetCurrentUserStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetCurrentUserSSHKeysAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#user-status" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<SshKey?> GetSSHKeyAsync(Meziantou.GitLab.GetSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<UserStatus?> GetCurrentUserStatusAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSSHKeysAsync(Meziantou.GitLab.GetSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<UserStatus?> GetStatusAsync(Meziantou.GitLab.GetStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<UserStatus> SetCurrentUserStatusAsync(Meziantou.GitLab.SetCurrentUserStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
-    partial class GitLabClient : Meziantou.GitLab.IGitLabUserClient
+    public partial class GitLabClient : Meziantou.GitLab.IGitLabUserClient
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<SshKey> Meziantou.GitLab.IGitLabUserClient.AddSSHKeyAsync(Meziantou.GitLab.AddSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -87,6 +103,7 @@ namespace Meziantou.GitLab
             return this.User_AddSSHKeyAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<SshKey> Meziantou.GitLab.IGitLabUserClient.AddSSHKeyToCurrentUserAsync(Meziantou.GitLab.AddSSHKeyToCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -94,6 +111,7 @@ namespace Meziantou.GitLab
             return this.User_AddSSHKeyToCurrentUserAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<ImpersonationToken> Meziantou.GitLab.IGitLabUserClient.CreateImpersonationTokenAsync(Meziantou.GitLab.CreateImpersonationTokenUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -101,6 +119,7 @@ namespace Meziantou.GitLab
             return this.User_CreateImpersonationTokenAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<User> Meziantou.GitLab.IGitLabUserClient.CreateUserAsync(Meziantou.GitLab.CreateUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -108,6 +127,7 @@ namespace Meziantou.GitLab
             return this.User_CreateUserAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task Meziantou.GitLab.IGitLabUserClient.DeleteSSHKeyAsync(Meziantou.GitLab.DeleteSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -115,6 +135,7 @@ namespace Meziantou.GitLab
             return this.User_DeleteSSHKeyAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task Meziantou.GitLab.IGitLabUserClient.DeleteSSHKeyFromCurrentUserAsync(Meziantou.GitLab.DeleteSSHKeyFromCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -122,12 +143,14 @@ namespace Meziantou.GitLab
             return this.User_DeleteSSHKeyFromCurrentUserAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<UserBasic> Meziantou.GitLab.IGitLabUserClient.GetAll(Meziantou.GitLab.GetAllUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.User_GetAll(request, requestOptions);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<User?> Meziantou.GitLab.IGitLabUserClient.GetByIdAsync(Meziantou.GitLab.GetByIdUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -135,34 +158,39 @@ namespace Meziantou.GitLab
             return this.User_GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<User?> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserAsync(Meziantou.GitLab.GetCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<User?> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserAsync(Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.User_GetCurrentUserAsync(request, requestOptions, cancellationToken);
+            return this.User_GetCurrentUserAsync(requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserSSHKeysAsync(Meziantou.GitLab.GetCurrentUserSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<SshKey?> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserSSHKeyAsync(Meziantou.GitLab.GetCurrentUserSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.User_GetCurrentUserSSHKeysAsync(request, requestOptions, cancellationToken);
+            return this.User_GetCurrentUserSSHKeyAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<UserStatus?> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserStatusAsync(Meziantou.GitLab.GetCurrentUserStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserSSHKeysAsync(Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.User_GetCurrentUserStatusAsync(request, requestOptions, cancellationToken);
+            return this.User_GetCurrentUserSSHKeysAsync(requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#user-status" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<SshKey?> Meziantou.GitLab.IGitLabUserClient.GetSSHKeyAsync(Meziantou.GitLab.GetSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<UserStatus?> Meziantou.GitLab.IGitLabUserClient.GetCurrentUserStatusAsync(Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.User_GetSSHKeyAsync(request, requestOptions, cancellationToken);
+            return this.User_GetCurrentUserStatusAsync(requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> Meziantou.GitLab.IGitLabUserClient.GetSSHKeysAsync(Meziantou.GitLab.GetSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -170,6 +198,7 @@ namespace Meziantou.GitLab
             return this.User_GetSSHKeysAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<UserStatus?> Meziantou.GitLab.IGitLabUserClient.GetStatusAsync(Meziantou.GitLab.GetStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -177,6 +206,7 @@ namespace Meziantou.GitLab
             return this.User_GetStatusAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<UserStatus> Meziantou.GitLab.IGitLabUserClient.SetCurrentUserStatusAsync(Meziantou.GitLab.SetCurrentUserStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -192,12 +222,13 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<SshKey> User_AddSSHKeyAsync(Meziantou.GitLab.AddSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys");
-            urlBuilder.SetValue("user", request.User.ValueAsString);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/keys");
+            urlBuilder.SetValue("user_id", request.UserId.ValueAsString);
             string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             body.Add("title", request.Title);
@@ -205,6 +236,7 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<SshKey>(url, body, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<SshKey> User_AddSSHKeyToCurrentUserAsync(Meziantou.GitLab.AddSSHKeyToCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -217,12 +249,13 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<SshKey>(url, body, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<ImpersonationToken> User_CreateImpersonationTokenAsync(Meziantou.GitLab.CreateImpersonationTokenUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/impersonation_tokens");
-            urlBuilder.SetValue("user", request.User.ValueAsString);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/impersonation_tokens");
+            urlBuilder.SetValue("user_id", request.UserId.ValueAsString);
             string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             body.Add("name", request.Name);
@@ -239,6 +272,7 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<ImpersonationToken>(url, body, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<User> User_CreateUserAsync(Meziantou.GitLab.CreateUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -272,29 +306,30 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<User>(url, body, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task User_DeleteSSHKeyAsync(Meziantou.GitLab.DeleteSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys/:key");
-            urlBuilder.SetValue("key", request.Key.Value);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/keys/:key_id");
+            urlBuilder.SetValue("user_id", request.UserId.ValueAsString);
+            urlBuilder.SetValue("key_id", request.KeyId.Value);
             string url = urlBuilder.Build();
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            body.Add("id", request.Id);
             return this.DeleteAsync(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task User_DeleteSSHKeyFromCurrentUserAsync(Meziantou.GitLab.DeleteSSHKeyFromCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:key_id");
+            urlBuilder.SetValue("key_id", request.KeyId.Value);
             string url = urlBuilder.Build();
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            body.Add("id", request.Id);
             return this.DeleteAsync(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         private Meziantou.GitLab.PagedResponse<UserBasic> User_GetAll(Meziantou.GitLab.GetAllUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -306,78 +341,86 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.PagedResponse<UserBasic>(this, url, requestOptions);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<User?> User_GetByIdAsync(Meziantou.GitLab.GetByIdUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:id");
-            urlBuilder.SetValue("id", request.Id);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id");
+            urlBuilder.SetValue("user_id", request.UserId);
             string url = urlBuilder.Build();
             return this.GetAsync<User>(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<User?> User_GetCurrentUserAsync(Meziantou.GitLab.GetCurrentUserUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<User?> User_GetCurrentUserAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user");
             string url = urlBuilder.Build();
             return this.GetAsync<User>(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> User_GetCurrentUserSSHKeysAsync(Meziantou.GitLab.GetCurrentUserSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<SshKey?> User_GetCurrentUserSSHKeyAsync(Meziantou.GitLab.GetCurrentUserSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:key_id");
+            urlBuilder.SetValue("key_id", request.KeyId.Value);
+            string url = urlBuilder.Build();
+            return this.GetAsync<SshKey>(url, requestOptions, cancellationToken);
+        }
+
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> User_GetCurrentUserSSHKeysAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys");
             string url = urlBuilder.Build();
             return this.GetCollectionAsync<SshKey>(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#user-status" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<UserStatus?> User_GetCurrentUserStatusAsync(Meziantou.GitLab.GetCurrentUserStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<UserStatus?> User_GetCurrentUserStatusAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
             string url = urlBuilder.Build();
             return this.GetAsync<UserStatus>(url, requestOptions, cancellationToken);
         }
 
-        /// <param name="requestOptions">Options of the request</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<SshKey?> User_GetSSHKeyAsync(Meziantou.GitLab.GetSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/keys/:id");
-            urlBuilder.SetValue("id", request.Id.Value);
-            string url = urlBuilder.Build();
-            return this.GetAsync<SshKey>(url, requestOptions, cancellationToken);
-        }
-
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> User_GetSSHKeysAsync(Meziantou.GitLab.GetSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/keys");
-            urlBuilder.SetValue("user", request.User.ValueAsString);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/keys");
+            urlBuilder.SetValue("user_id", request.UserId.ValueAsString);
             string url = urlBuilder.Build();
             return this.GetCollectionAsync<SshKey>(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<UserStatus?> User_GetStatusAsync(Meziantou.GitLab.GetStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user/status");
-            urlBuilder.SetValue("user", request.User.ValueAsString);
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/status");
+            urlBuilder.SetValue("user_id", request.UserId.ValueAsString);
             string url = urlBuilder.Build();
             return this.GetAsync<UserStatus>(url, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<UserStatus> User_SetCurrentUserStatusAsync(Meziantou.GitLab.SetCurrentUserStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/status");
+            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("user/status");
             string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Emoji != null))
@@ -396,6 +439,7 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<UserBasic> GetAll(this Meziantou.GitLab.IGitLabUserClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -403,88 +447,61 @@ namespace Meziantou.GitLab
             return client.GetAll(request, requestOptions);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<User?> GetByIdAsync(this Meziantou.GitLab.IGitLabUserClient client, long id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<User?> GetByIdAsync(this Meziantou.GitLab.IGitLabUserClient client, long userId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetByIdUserRequest request = new Meziantou.GitLab.GetByIdUserRequest(id);
+            Meziantou.GitLab.GetByIdUserRequest request = new Meziantou.GitLab.GetByIdUserRequest(userId);
             return client.GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<User?> GetCurrentUserAsync(this Meziantou.GitLab.IGitLabUserClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<SshKey?> GetCurrentUserSSHKeyAsync(this Meziantou.GitLab.IGitLabUserClient client, SshKeyRef keyId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetCurrentUserUserRequest request = new Meziantou.GitLab.GetCurrentUserUserRequest();
-            return client.GetCurrentUserAsync(request, requestOptions, cancellationToken);
+            Meziantou.GitLab.GetCurrentUserSSHKeyUserRequest request = new Meziantou.GitLab.GetCurrentUserSSHKeyUserRequest(keyId);
+            return client.GetCurrentUserSSHKeyAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetCurrentUserSSHKeysAsync(this Meziantou.GitLab.IGitLabUserClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSSHKeysAsync(this Meziantou.GitLab.IGitLabUserClient client, UserRef userId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetCurrentUserSSHKeysUserRequest request = new Meziantou.GitLab.GetCurrentUserSSHKeysUserRequest();
-            return client.GetCurrentUserSSHKeysAsync(request, requestOptions, cancellationToken);
-        }
-
-        /// <param name="requestOptions">Options of the request</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<UserStatus?> GetCurrentUserStatusAsync(this Meziantou.GitLab.IGitLabUserClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.GetCurrentUserStatusUserRequest request = new Meziantou.GitLab.GetCurrentUserStatusUserRequest();
-            return client.GetCurrentUserStatusAsync(request, requestOptions, cancellationToken);
-        }
-
-        /// <param name="requestOptions">Options of the request</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<SshKey?> GetSSHKeyAsync(this Meziantou.GitLab.IGitLabUserClient client, SshKeyRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.GetSSHKeyUserRequest request = new Meziantou.GitLab.GetSSHKeyUserRequest(id);
-            return client.GetSSHKeyAsync(request, requestOptions, cancellationToken);
-        }
-
-        /// <param name="requestOptions">Options of the request</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSSHKeysAsync(this Meziantou.GitLab.IGitLabUserClient client, UserRef user, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            Meziantou.GitLab.GetSSHKeysUserRequest request = new Meziantou.GitLab.GetSSHKeysUserRequest(user);
+            Meziantou.GitLab.GetSSHKeysUserRequest request = new Meziantou.GitLab.GetSSHKeysUserRequest(userId);
             return client.GetSSHKeysAsync(request, requestOptions, cancellationToken);
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<UserStatus?> GetStatusAsync(this Meziantou.GitLab.IGitLabUserClient client, UserRef user, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<UserStatus?> GetStatusAsync(this Meziantou.GitLab.IGitLabUserClient client, UserRef userId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetStatusUserRequest request = new Meziantou.GitLab.GetStatusUserRequest(user);
+            Meziantou.GitLab.GetStatusUserRequest request = new Meziantou.GitLab.GetStatusUserRequest(userId);
             return client.GetStatusAsync(request, requestOptions, cancellationToken);
-        }
-    }
-
-    public partial class GetCurrentUserUserRequest
-    {
-        public GetCurrentUserUserRequest()
-        {
         }
     }
 
     public partial class GetByIdUserRequest
     {
-        private long _id;
+        private long _userId;
 
-        public GetByIdUserRequest(long id)
+        public GetByIdUserRequest(long userId)
         {
-            this._id = id;
+            this._userId = userId;
         }
 
-        public long Id
+        public long UserId
         {
             get
             {
-                return this._id;
+                return this._userId;
             }
             set
             {
-                this._id = value;
+                this._userId = value;
             }
         }
     }
@@ -538,31 +555,24 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetCurrentUserStatusUserRequest
-    {
-        public GetCurrentUserStatusUserRequest()
-        {
-        }
-    }
-
     public partial class GetStatusUserRequest
     {
-        private UserRef _user;
+        private UserRef _userId;
 
-        public GetStatusUserRequest(UserRef user)
+        public GetStatusUserRequest(UserRef userId)
         {
-            this._user = user;
+            this._userId = userId;
         }
 
-        public UserRef User
+        public UserRef UserId
         {
             get
             {
-                return this._user;
+                return this._userId;
             }
             set
             {
-                this._user = value;
+                this._userId = value;
             }
         }
     }
@@ -602,53 +612,46 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetCurrentUserSSHKeysUserRequest
-    {
-        public GetCurrentUserSSHKeysUserRequest()
-        {
-        }
-    }
-
     public partial class GetSSHKeysUserRequest
     {
-        private UserRef _user;
+        private UserRef _userId;
 
-        public GetSSHKeysUserRequest(UserRef user)
+        public GetSSHKeysUserRequest(UserRef userId)
         {
-            this._user = user;
+            this._userId = userId;
         }
 
-        public UserRef User
+        public UserRef UserId
         {
             get
             {
-                return this._user;
+                return this._userId;
             }
             set
             {
-                this._user = value;
+                this._userId = value;
             }
         }
     }
 
-    public partial class GetSSHKeyUserRequest
+    public partial class GetCurrentUserSSHKeyUserRequest
     {
-        private SshKeyRef _id;
+        private SshKeyRef _keyId;
 
-        public GetSSHKeyUserRequest(SshKeyRef id)
+        public GetCurrentUserSSHKeyUserRequest(SshKeyRef keyId)
         {
-            this._id = id;
+            this._keyId = keyId;
         }
 
-        public SshKeyRef Id
+        public SshKeyRef KeyId
         {
             get
             {
-                return this._id;
+                return this._keyId;
             }
             set
             {
-                this._id = value;
+                this._keyId = value;
             }
         }
     }
@@ -696,11 +699,11 @@ namespace Meziantou.GitLab
 
         private string _title;
 
-        private UserRef _user;
+        private UserRef _userId;
 
-        public AddSSHKeyUserRequest(UserRef user, string title, string key)
+        public AddSSHKeyUserRequest(UserRef userId, string title, string key)
         {
-            this._user = user;
+            this._userId = userId;
             this._title = title;
             this._key = key;
         }
@@ -729,74 +732,74 @@ namespace Meziantou.GitLab
             }
         }
 
-        public UserRef User
+        public UserRef UserId
         {
             get
             {
-                return this._user;
+                return this._userId;
             }
             set
             {
-                this._user = value;
+                this._userId = value;
             }
         }
     }
 
     public partial class DeleteSSHKeyFromCurrentUserUserRequest
     {
-        private SshKeyRef _id;
+        private SshKeyRef _keyId;
 
-        public DeleteSSHKeyFromCurrentUserUserRequest(SshKeyRef id)
+        public DeleteSSHKeyFromCurrentUserUserRequest(SshKeyRef keyId)
         {
-            this._id = id;
+            this._keyId = keyId;
         }
 
-        public SshKeyRef Id
+        public SshKeyRef KeyId
         {
             get
             {
-                return this._id;
+                return this._keyId;
             }
             set
             {
-                this._id = value;
+                this._keyId = value;
             }
         }
     }
 
     public partial class DeleteSSHKeyUserRequest
     {
-        private UserRef _id;
+        private SshKeyRef _keyId;
 
-        private SshKeyRef _key;
+        private UserRef _userId;
 
-        public DeleteSSHKeyUserRequest(UserRef id, SshKeyRef key)
+        public DeleteSSHKeyUserRequest(UserRef userId, SshKeyRef keyId)
         {
-            this._id = id;
-            this._key = key;
+            this._userId = userId;
+            this._keyId = keyId;
         }
 
-        public UserRef Id
+        public SshKeyRef KeyId
         {
             get
             {
-                return this._id;
+                return this._keyId;
             }
             set
             {
-                this._id = value;
+                this._keyId = value;
             }
         }
 
-        public SshKeyRef Key
+        public UserRef UserId
         {
             get
             {
-                return this._key;
+                return this._userId;
             }
             set
             {
-                this._key = value;
+                this._userId = value;
             }
         }
     }
@@ -917,11 +920,11 @@ namespace Meziantou.GitLab
 
         private System.Collections.Generic.IEnumerable<string>? _scopes;
 
-        private UserRef _user;
+        private UserRef _userId;
 
-        public CreateImpersonationTokenUserRequest(UserRef user, string name)
+        public CreateImpersonationTokenUserRequest(UserRef userId, string name)
         {
-            this._user = user;
+            this._userId = userId;
             this._name = name;
         }
 
@@ -961,17 +964,16 @@ namespace Meziantou.GitLab
             }
         }
 
-        public UserRef User
+        public UserRef UserId
         {
             get
             {
-                return this._user;
+                return this._userId;
             }
             set
             {
-                this._user = value;
+                this._userId = value;
             }
         }
     }
 }
-#nullable disable

@@ -13,6 +13,9 @@ namespace Meziantou.GitLab.Tests
             using var client = await context.CreateNewUserAsync();
 
             var project = await client.Project.CreateAsync(new CreateProjectRequest { Name = "test" });
+            Assert.IsNotNull(project.WebUrl);
+            Assert.IsNotNull(project.SshUrlToRepo);
+            Assert.IsNotNull(project.HttpUrlToRepo);
 
             var projects = await client.Project.Get().ToListAsync();
 

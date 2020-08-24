@@ -9,7 +9,7 @@ namespace Meziantou.GitLab
     [SuppressMessage("Design", "CA1032:Implement standard exception constructors", Justification = "Ensure the properties are set")]
     public class GitLabException : Exception
     {
-        public GitLabException(HttpMethod httpMethod, Uri requestUri, HttpStatusCode httpStatusCode, GitLabError error)
+        public GitLabException(HttpMethod httpMethod, Uri requestUri, HttpStatusCode httpStatusCode, GitLabError? error)
             : base(GetMessage(error))
         {
             HttpMethod = httpMethod;
@@ -31,8 +31,11 @@ namespace Meziantou.GitLab
         public HttpStatusCode HttpStatusCode { get; }
         public GitLabError? ErrorObject { get; }
 
-        private static string? GetMessage(GitLabError error)
+        private static string? GetMessage(GitLabError? error)
         {
+            if (error == null)
+                return null;
+
             if (error.ErrorDescription != null)
                 return error.ErrorDescription;
 
@@ -58,7 +61,7 @@ namespace Meziantou.GitLab
                 return sb.ToString();
             }
 
-            return null;
+            return error._jsonObject.ToString();
         }
     }
 }

@@ -25,6 +25,12 @@ namespace Meziantou.GitLabClient.Generator
             return result.MakeCollection();
         }
 
+        public ModelRef MakeCollectionNullable()
+        {
+            ModelRef result = Value;
+            return result.MakeCollectionNullable();
+        }
+
         public ModelRef MakeNullable()
         {
             ModelRef result = Value;

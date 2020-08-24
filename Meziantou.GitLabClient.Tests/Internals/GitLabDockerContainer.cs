@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Html.Dom;
@@ -26,19 +28,22 @@ namespace Meziantou.GitLab.Tests
 
         public Uri GitLabUrl => new Uri("http://localhost:" + HttpPort.ToStringInvariant());
 
-        public string AdminUserToken { get; private set; }
-        public string ProfileToken { get; private set; }
-        public string Cookies { get; private set; }
+        public GitLabCredential Credentials { get; set; }
 
         public async Task Setup()
         {
             await SpawnDockerContainer().ConfigureAwait(false);
-            await GenerateAdminTokenAsync().ConfigureAwait(false);
+            await LoadCredentials();
+            if (Credentials == null)
+            {
+                await GenerateAdminTokenAsync().ConfigureAwait(false);
+                await PersistCredentials();
+            }
         }
 
         private async Task SpawnDockerContainer()
         {
-            // Check if the Azure Pipeline container is accessible?
+            // Check if the container is accessible?
             try
             {
                 using var httpClient = new HttpClient();
@@ -117,6 +122,8 @@ namespace Meziantou.GitLab.Tests
 
         private async Task GenerateAdminTokenAsync()
         {
+            var credentials = new GitLabCredential();
+
             var conf = Configuration.Default
               .WithDefaultLoader(new LoaderOptions
               {
@@ -161,18 +168,54 @@ namespace Meziantou.GitLab.Tests
 
                 result = await form.SubmitAsync();
 
-                AdminUserToken = result.GetElementById("created-personal-access-token").GetAttribute("value");
+                credentials.AdminUserToken = result.GetElementById("created-personal-access-token").GetAttribute("value");
             }
 
             // Get X-Profile-Token
             result = await context.OpenAsync(GitLabUrl + "/admin/requests_profiles");
             var codeElements = result.QuerySelectorAll("code").ToList();
             var tokenElement = codeElements.Single(n => n.TextContent.StartsWith("X-Profile-Token:", StringComparison.Ordinal));
-            ProfileToken = tokenElement.TextContent["X-Profile-Token:".Length..].Trim();
+            credentials.ProfileToken = tokenElement.TextContent["X-Profile-Token:".Length..].Trim();
 
             // Get admin login cookie
             //result.Cookie:  experimentation_subject_id=XXX; _gitlab_session=XXXX; known_sign_in=XXXX
-            Cookies = result.Cookie.Split(';').Select(part => part.Trim()).Single(part => part.StartsWith("_gitlab_session=", StringComparison.Ordinal))["_gitlab_session=".Length..];
+            credentials.Cookies = result.Cookie.Split(';').Select(part => part.Trim()).Single(part => part.StartsWith("_gitlab_session=", StringComparison.Ordinal))["_gitlab_session=".Length..];
+
+            Credentials = credentials;
+        }
+
+        private async Task PersistCredentials()
+        {
+            var path = GetCredentialsFilePath();
+            IOUtilities.PathCreateDirectory(path);
+            var json = JsonSerializer.Serialize(Credentials);
+            await File.WriteAllTextAsync(path, json);
+        }
+
+        private async Task LoadCredentials()
+        {
+            var file = GetCredentialsFilePath();
+            if (File.Exists(file))
+            {
+                var json = await File.ReadAllTextAsync(file);
+                var credentials = JsonSerializer.Deserialize<GitLabCredential>(json);
+
+                using var client = GitLabClient.Create(GitLabUrl, credentials.AdminUserToken);
+
+                try
+                {
+                    var user = await client.User.GetCurrentUserAsync();
+                    Credentials = credentials;
+                }
+                catch (GitLabException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                }
+            }
+        }
+
+        private static FullPath GetCredentialsFilePath()
+        {
+            return FullPath.FromPath(Path.GetTempPath(), "Meziantou.GitLabClient", "credentials.json");
         }
     }
 }

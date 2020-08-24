@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AngleSharp.Diffing;
 using AngleSharp.Html.Parser;
+using Meziantou.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
@@ -15,11 +16,31 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title"));
+            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title\n\nIssue #1"));
 
             // Assert
-            // data-sourcepos="1:1-1:7"
-            AssertHtml("<h1>title</h1>", result.Html);
+            AssertHtml("<h1>title</h1><p>Issue #1</p>", result.Html);
+        }
+
+        [TestMethod]
+        public async Task RenderMarkdown_ProjectSpecific()
+        {
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+
+            var project = await client.Project.CreateAsync(new CreateProjectRequest { Name = "test" });
+            var issue = await client.Issue.CreateAsync(new CreateIssueRequest(project, "my issue"));
+
+            // Act
+            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title\n\nIssue #" + issue.Iid.ToStringInvariant())
+            {
+                Gfm = true,
+                Project = project.PathWithNamespace,
+            });
+
+            // Assert
+            StringAssert.Contains(issue.WebUrl.ToString(), "test/-/issues/1");
+            StringAssert.Contains(result.Html, issue.WebUrl.ToString());
         }
 
         private static void AssertHtml(string expected, string actual)

@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         Done
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.TodoState? value)
         {
@@ -27,22 +27,22 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.TodoState value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.TodoState>[] s_TodoStatemembers = Meziantou.GitLab.Serialization.EnumMember.CreateTodoStateMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.TodoState>[] s_todoStateMembers = Meziantou.GitLab.Serialization.EnumMember.CreateTodoStateMembers();
 
         public static string ToString(Meziantou.GitLab.TodoState value)
         {
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab.Serialization
 
         public static Meziantou.GitLab.TodoState TodoStateFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_TodoStatemembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_todoStateMembers);
         }
 
         private static Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.TodoState>[] CreateTodoStateMembers()
@@ -86,4 +86,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

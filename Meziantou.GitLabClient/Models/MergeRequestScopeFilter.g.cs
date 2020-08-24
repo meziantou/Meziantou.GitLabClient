@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         All
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.MergeRequestScopeFilter? value)
         {
@@ -27,26 +27,26 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.MergeRequestScopeFilter value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeRequestScopeFilter>[] s_MergeRequestScopeFiltermembers = Meziantou.GitLab.Serialization.EnumMember.CreateMergeRequestScopeFilterMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeRequestScopeFilter>[] s_mergeRequestScopeFilterMembers = Meziantou.GitLab.Serialization.EnumMember.CreateMergeRequestScopeFilterMembers();
 
         public static Meziantou.GitLab.MergeRequestScopeFilter MergeRequestScopeFilterFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_MergeRequestScopeFiltermembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_mergeRequestScopeFilterMembers);
         }
 
         public static string ToString(Meziantou.GitLab.MergeRequestScopeFilter value)
@@ -86,4 +86,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

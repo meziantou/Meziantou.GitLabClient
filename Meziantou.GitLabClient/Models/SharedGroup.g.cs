@@ -55,4 +55,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

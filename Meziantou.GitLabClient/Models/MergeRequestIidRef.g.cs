@@ -9,7 +9,7 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectInt64ReferenceJsonConverter))]
-    public readonly partial struct MergeRequestIidRef : Meziantou.GitLab.IGitLabObjectReference<long>
+    public readonly partial struct MergeRequestIidRef : Meziantou.GitLab.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.MergeRequestIidRef>
     {
         private readonly long _value;
 
@@ -36,6 +36,23 @@ namespace Meziantou.GitLab
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            if ((obj is Meziantou.GitLab.MergeRequestIidRef))
+            {
+                return this.Equals(((Meziantou.GitLab.MergeRequestIidRef)obj));
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Equals(Meziantou.GitLab.MergeRequestIidRef obj)
+        {
+            return object.Equals(this.Value, obj.Value);
+        }
+
         public static Meziantou.GitLab.MergeRequestIidRef FromMergeRequest(MergeRequest mergeRequest)
         {
             if ((mergeRequest == null))
@@ -51,9 +68,14 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.MergeRequestIidRef(mergeRequestIid);
         }
 
+        public override int GetHashCode()
+        {
+            return System.HashCode.Combine(this.Value);
+        }
+
         public override string ToString()
         {
-            return this.Value.ToString();
+            return this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public static implicit operator Meziantou.GitLab.MergeRequestIidRef(long mergeRequestIid)
@@ -65,6 +87,15 @@ namespace Meziantou.GitLab
         {
             return Meziantou.GitLab.MergeRequestIidRef.FromMergeRequest(mergeRequest);
         }
+
+        public static bool operator !=(Meziantou.GitLab.MergeRequestIidRef a, Meziantou.GitLab.MergeRequestIidRef b)
+        {
+            return (!(a == b));
+        }
+
+        public static bool operator ==(Meziantou.GitLab.MergeRequestIidRef a, Meziantou.GitLab.MergeRequestIidRef b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.MergeRequestIidRef>.Default.Equals(a, b);
+        }
     }
 }
-#nullable disable

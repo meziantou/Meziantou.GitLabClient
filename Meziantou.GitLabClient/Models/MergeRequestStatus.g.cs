@@ -19,7 +19,7 @@ namespace Meziantou.GitLab
         CannotBeMerged
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.MergeRequestStatus? value)
         {
@@ -29,26 +29,26 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.MergeRequestStatus value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeRequestStatus>[] s_MergeRequestStatusmembers = Meziantou.GitLab.Serialization.EnumMember.CreateMergeRequestStatusMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.MergeRequestStatus>[] s_mergeRequestStatusMembers = Meziantou.GitLab.Serialization.EnumMember.CreateMergeRequestStatusMembers();
 
         public static Meziantou.GitLab.MergeRequestStatus MergeRequestStatusFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_MergeRequestStatusmembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_mergeRequestStatusMembers);
         }
 
         public static string ToString(Meziantou.GitLab.MergeRequestStatus value)
@@ -94,4 +94,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

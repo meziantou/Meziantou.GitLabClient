@@ -36,6 +36,34 @@ namespace Meziantou.GitLab.Tests
             }
         }
 
+        public static void DoesContainOnlyAbsoluteUri(ISet<string> errorMessages, object o)
+        {
+            foreach (var obj in GetObjects(o))
+            {
+                var properties = TypeDescriptor.GetProperties(o);
+                foreach (PropertyDescriptor property in properties)
+                {
+                    if (property.Attributes.OfType<SkipAbsoluteUriValidationAttribute>().Any())
+                        continue;
+
+                    try
+                    {
+                        var propertyValue = property.GetValue(o);
+                        if (propertyValue is Uri uri)
+                        {
+                            if (!uri.IsAbsoluteUri)
+                            {
+                                errorMessages.Add(FormattableString.Invariant($"The value of '{o.GetType().Name}.{property.Name}' is not an absolute URI ({uri})"));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
         public static void DoesNotContainUnmappedProperties(ISet<string> errorMessages, object o)
         {
             foreach (var obj in GetObjects(o))
@@ -43,7 +71,8 @@ namespace Meziantou.GitLab.Tests
                 var properties = TypeDescriptor.GetProperties(o);
                 foreach (PropertyDescriptor property in properties)
                 {
-                    if (!property.Attributes.OfType<MappedPropertyAttribute>().Any())
+                    var attribute = property.Attributes.OfType<MappedPropertyAttribute>().FirstOrDefault();
+                    if (attribute == null)
                         continue;
 
                     try
@@ -52,7 +81,7 @@ namespace Meziantou.GitLab.Tests
                     }
                     catch
                     {
-                        errorMessages.Add($"Property '{o.GetType().Name}.{property.Name}' is required but is not set");
+                        errorMessages.Add($"Property '{o.GetType().Name}.{attribute.Name}' is required but is not set");
                     }
                 }
             }

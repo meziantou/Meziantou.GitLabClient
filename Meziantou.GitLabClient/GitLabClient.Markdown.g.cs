@@ -18,13 +18,15 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabMarkdownClient
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<RenderedMarkdown> RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
-    partial class GitLabClient : Meziantou.GitLab.IGitLabMarkdownClient
+    public partial class GitLabClient : Meziantou.GitLab.IGitLabMarkdownClient
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<RenderedMarkdown> Meziantou.GitLab.IGitLabMarkdownClient.RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -40,6 +42,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<RenderedMarkdown> Markdown_RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -66,7 +69,7 @@ namespace Meziantou.GitLab
     {
         private bool? _gfm;
 
-        private string? _project;
+        private Meziantou.GitLab.PathWithNamespace? _project;
 
         private string _text;
 
@@ -87,7 +90,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public string? Project
+        public Meziantou.GitLab.PathWithNamespace? Project
         {
             get
             {
@@ -112,4 +115,3 @@ namespace Meziantou.GitLab
         }
     }
 }
-#nullable disable

@@ -16,7 +16,6 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.SkipUtcDateValidationAttribute("Does not contain time nor timezone (e.g. 2018-01-01)")]
         [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime LastActivityOn
         {
@@ -47,4 +46,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

@@ -9,14 +9,9 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectObjectReferenceJsonConverter))]
-    public readonly partial struct UserRef : Meziantou.GitLab.IGitLabObjectReference<object>
+    public readonly partial struct UserRef : Meziantou.GitLab.IGitLabObjectReference<object>, System.IEquatable<Meziantou.GitLab.UserRef>
     {
         private readonly object _value;
-
-        private UserRef(long userId)
-        {
-            this._value = userId;
-        }
 
         private UserRef(string userName)
         {
@@ -33,12 +28,34 @@ namespace Meziantou.GitLab
             this._value = user.Id;
         }
 
+        private UserRef(long userId)
+        {
+            this._value = userId;
+        }
+
         public object Value
         {
             get
             {
                 return this._value;
             }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if ((obj is Meziantou.GitLab.UserRef))
+            {
+                return this.Equals(((Meziantou.GitLab.UserRef)obj));
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Equals(Meziantou.GitLab.UserRef obj)
+        {
+            return object.Equals(this.Value, obj.Value);
         }
 
         public static Meziantou.GitLab.UserRef FromUser(UserSafe user)
@@ -61,6 +78,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.UserRef(userName);
         }
 
+        public override int GetHashCode()
+        {
+            return System.HashCode.Combine(this.Value);
+        }
+
         public override string? ToString()
         {
             return this.Value.ToString();
@@ -80,6 +102,15 @@ namespace Meziantou.GitLab
         {
             return Meziantou.GitLab.UserRef.FromUser(user);
         }
+
+        public static bool operator !=(Meziantou.GitLab.UserRef a, Meziantou.GitLab.UserRef b)
+        {
+            return (!(a == b));
+        }
+
+        public static bool operator ==(Meziantou.GitLab.UserRef a, Meziantou.GitLab.UserRef b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.UserRef>.Default.Equals(a, b);
+        }
     }
 }
-#nullable disable

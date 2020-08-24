@@ -19,7 +19,7 @@ namespace Meziantou.GitLab
         Public
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.ProjectVisibility? value)
         {
@@ -29,26 +29,26 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.ProjectVisibility value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.ProjectVisibility>[] s_ProjectVisibilitymembers = Meziantou.GitLab.Serialization.EnumMember.CreateProjectVisibilityMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.ProjectVisibility>[] s_projectVisibilityMembers = Meziantou.GitLab.Serialization.EnumMember.CreateProjectVisibilityMembers();
 
         public static Meziantou.GitLab.ProjectVisibility ProjectVisibilityFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_ProjectVisibilitymembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_projectVisibilityMembers);
         }
 
         public static string ToString(Meziantou.GitLab.ProjectVisibility value)
@@ -94,4 +94,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

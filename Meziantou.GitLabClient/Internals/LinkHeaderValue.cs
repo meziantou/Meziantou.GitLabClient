@@ -24,7 +24,7 @@ namespace Meziantou.GitLab
                 return false;
             }
 
-            // TODO replace with an actual parser
+            // TODO replace with an actual parser for performance/readability
             var match = Regex.Match(value, "^\\s*<(?<url>[^>]*)>\\s*;\\s*rel\\s*=\\s*\"(?<rel>[^\"]*)\"\\s*$", RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
             if (match.Success)
             {

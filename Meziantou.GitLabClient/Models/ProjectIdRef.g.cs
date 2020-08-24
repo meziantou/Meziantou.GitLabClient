@@ -9,7 +9,7 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectInt64ReferenceJsonConverter))]
-    public readonly partial struct ProjectIdRef : Meziantou.GitLab.IGitLabObjectReference<long>
+    public readonly partial struct ProjectIdRef : Meziantou.GitLab.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.ProjectIdRef>
     {
         private readonly long _value;
 
@@ -36,6 +36,23 @@ namespace Meziantou.GitLab
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            if ((obj is Meziantou.GitLab.ProjectIdRef))
+            {
+                return this.Equals(((Meziantou.GitLab.ProjectIdRef)obj));
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Equals(Meziantou.GitLab.ProjectIdRef obj)
+        {
+            return object.Equals(this.Value, obj.Value);
+        }
+
         public static Meziantou.GitLab.ProjectIdRef FromProject(ProjectIdentity project)
         {
             if ((project == null))
@@ -51,9 +68,14 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.ProjectIdRef(projectId);
         }
 
+        public override int GetHashCode()
+        {
+            return System.HashCode.Combine(this.Value);
+        }
+
         public override string ToString()
         {
-            return this.Value.ToString();
+            return this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public static implicit operator Meziantou.GitLab.ProjectIdRef(long projectId)
@@ -65,6 +87,15 @@ namespace Meziantou.GitLab
         {
             return Meziantou.GitLab.ProjectIdRef.FromProject(project);
         }
+
+        public static bool operator !=(Meziantou.GitLab.ProjectIdRef a, Meziantou.GitLab.ProjectIdRef b)
+        {
+            return (!(a == b));
+        }
+
+        public static bool operator ==(Meziantou.GitLab.ProjectIdRef a, Meziantou.GitLab.ProjectIdRef b)
+        {
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ProjectIdRef>.Default.Equals(a, b);
+        }
     }
 }
-#nullable disable

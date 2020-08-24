@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         Blocked
     }
 
-    partial class UrlBuilder
+    internal partial class UrlBuilder
     {
         public void SetValue(string key, Meziantou.GitLab.UserState? value)
         {
@@ -27,22 +27,22 @@ namespace Meziantou.GitLab
             }
             else
             {
-                this.SetNullValue(key);
+                this.RemoveValues(key);
             }
         }
 
         public void SetValue(string key, Meziantou.GitLab.UserState value)
         {
-            this._parameters[key] = Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }
 
 namespace Meziantou.GitLab.Serialization
 {
-    partial class EnumMember
+    internal partial class EnumMember
     {
-        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UserState>[] s_UserStatemembers = Meziantou.GitLab.Serialization.EnumMember.CreateUserStateMembers();
+        private static readonly Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UserState>[] s_userStateMembers = Meziantou.GitLab.Serialization.EnumMember.CreateUserStateMembers();
 
         public static string ToString(Meziantou.GitLab.UserState value)
         {
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab.Serialization
 
         public static Meziantou.GitLab.UserState UserStateFromString(string value)
         {
-            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_UserStatemembers);
+            return Meziantou.GitLab.Serialization.EnumMember.FromString(value, Meziantou.GitLab.Serialization.EnumMember.s_userStateMembers);
         }
 
         private static Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UserState>[] CreateUserStateMembers()
@@ -86,4 +86,3 @@ namespace Meziantou.GitLab.Serialization
         }
     }
 }
-#nullable disable

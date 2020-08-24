@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -22,24 +23,27 @@ namespace Meziantou.GitLabClient.Generator
 
         internal static class WellKnownTypes
         {
+            public static TypeReference GitLabExceptionTypeReference { get; } = new TypeReference(RootNamespace + ".GitLabException");
             public static TypeReference UrlBuilderTypeReference { get; } = new TypeReference(RootNamespace + ".UrlBuilder");
             public static TypeReference PageOptionsTypeReference { get; } = new TypeReference(RootNamespace + ".PageOptions");
             public static TypeReference SkipUtcDateValidationAttributeTypeReference { get; } = new TypeReference(RootNamespace + ".SkipUtcDateValidationAttribute");
+            public static TypeReference SkipAbsoluteUriValidationAttribute { get; } = new TypeReference(RootNamespace + ".SkipAbsoluteUriValidationAttribute");
             public static TypeReference MappedPropertyAttributeTypeReference { get; } = new TypeReference(RootNamespace + ".MappedPropertyAttribute");
             public static TypeReference IGitLabObjectReferenceTypeReference { get; } = new TypeReference(RootNamespace + ".IGitLabObjectReference");
             public static TypeReference GitLabObjectInt64ReferenceJsonConverterTypeReference { get; } = new TypeReference(SerializationNamespace + ".GitLabObjectInt64ReferenceJsonConverter");
             public static TypeReference GitLabObjectStringReferenceJsonConverterTypeReference { get; } = new TypeReference(SerializationNamespace + ".GitLabObjectStringReferenceJsonConverter");
             public static TypeReference GitLabObjectObjectReferenceJsonConverterTypeReference { get; } = new TypeReference(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverter");
+
+            public static TypeReference ArgumentCollectionTypeReference { get; } = new TypeReference(typeof(IEnumerable<>));
+            public static TypeReference PropertyCollectionTypeReference { get; } = new TypeReference(typeof(IReadOnlyList<>));
         }
 
         private readonly List<CompilationUnit> _units = new List<CompilationUnit>();
 
-        internal Project Project { get; set; } = new Project();
-
         public void Generate()
         {
-            CreateModel();
-            GenerateCode();
+            var project = GitLabModels.GitLabModelBuilder.Create();
+            GenerateCode(project);
             WriteFiles();
         }
 
@@ -88,26 +92,26 @@ namespace Meziantou.GitLabClient.Generator
             return unit;
         }
 
-        private void GenerateCode()
+        private void GenerateCode(Project project)
         {
             // Generate types
-            foreach (var model in Project.Models.OfType<Enumeration>().OrderBy(m => m.Name))
+            foreach (var model in project.Models.OfType<Enumeration>().OrderBy(m => m.Name))
             {
                 GenerateEnumeration(model);
             }
 
-            foreach (var model in Project.Models.OfType<Entity>().OrderBy(m => m.Name))
+            foreach (var model in project.Models.OfType<Entity>().OrderBy(m => m.Name))
             {
                 GenerateEntity(model);
             }
 
-            foreach (var entity in Project.ParameterEntities.OrderBy(p => p.Name))
+            foreach (var entity in project.ParameterEntities.OrderBy(p => p.Name))
             {
                 GenerateParameterEntities(entity);
             }
 
             // Generate methods
-            foreach (var methodGroup in Project.MethodGroups)
+            foreach (var methodGroup in project.MethodGroups)
             {
                 var groupUnit = CreateUnit("GitLabClient." + methodGroup.Name + ".cs");
                 var groupNs = groupUnit.AddNamespace(RootNamespace);
@@ -117,7 +121,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 var groupClientClass = groupNs.AddType(new ClassDeclaration("GitLabClient")
                 {
-                    Modifiers = Modifiers.Partial,
+                    Modifiers = Modifiers.Partial | Modifiers.Public,
                     Implements = { groupClientInterface },
                 });
 
@@ -152,7 +156,6 @@ namespace Meziantou.GitLabClient.Generator
                     GenerateMandatoryParameterExtensions(clientExtensionsClass, method, groupClientInterface, requestType);
                 }
 
-                //TODO GenerateFileExtensionMethod(groupClientClass, clientExtensionsClass);
                 if (clientExtensionsClass.Members.Count == 0)
                 {
                     groupNs.Types.Remove(clientExtensionsClass);
@@ -187,6 +190,11 @@ namespace Meziantou.GitLabClient.Generator
                     if (documentation.Returns != null)
                     {
                         xmlCommentable.XmlComments.AddReturn(documentation.Returns);
+                    }
+
+                    if (documentation.HelpLink != null)
+                    {
+                        xmlCommentable.XmlComments.Add(new XmlComment(new XElement("seealso", new XAttribute("href", documentation.HelpLink))));
                     }
                 }
             }
@@ -262,7 +270,8 @@ namespace Meziantou.GitLabClient.Generator
                     }
                     else
                     {
-                        m.Statements.Add(urlBuilder.CreateInvokeMethodExpression("SetValue", param.Name, CreatePropertyReference().CreateMemberReferenceExpression(propertyName)));
+                        var propertyReference = CreatePropertyReference().CreateMemberReferenceExpression(propertyName);
+                        m.Statements.Add(urlBuilder.CreateInvokeMethodExpression("SetValue", param.Name, propertyReference));
                     }
                 }
                 else
@@ -283,11 +292,11 @@ namespace Meziantou.GitLabClient.Generator
             switch (method.MethodType)
             {
                 case MethodType.Get:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType }, url, requestOptionsArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, url, requestOptionsArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.GetCollection:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetCollectionAsync", new TypeReference[] { method.ReturnType }, url, requestOptionsArgument, cancellationTokenArgument)));
+                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetCollectionAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, url, requestOptionsArgument, cancellationTokenArgument)));
                     break;
 
                 case MethodType.GetPaged:
@@ -295,16 +304,6 @@ namespace Meziantou.GitLabClient.Generator
                     break;
 
                 case MethodType.Put:
-                    var putArgs = new List<Expression>
-                    {
-                        url,
-                        (Expression)bodyArgument ?? new LiteralExpression(value: null),
-                        requestOptionsArgument,
-                        cancellationTokenArgument!,
-                    };
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PutJsonAsync", new TypeReference[] { method.ReturnType }, putArgs.ToArray())));
-                    break;
-
                 case MethodType.Post:
                     var postArgs = new List<Expression>
                     {
@@ -315,11 +314,11 @@ namespace Meziantou.GitLabClient.Generator
                     };
                     if (method.ReturnType != null)
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", new TypeReference[] { method.ReturnType }, postArgs.ToArray())));
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression(method.MethodType + "JsonAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, postArgs.ToArray())));
                     }
                     else
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("PostJsonAsync", postArgs.ToArray())));
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression(method.MethodType + "JsonAsync", postArgs.ToArray())));
                     }
                     break;
 
@@ -340,7 +339,7 @@ namespace Meziantou.GitLabClient.Generator
 
             if (method.MethodType == MethodType.GetPaged)
             {
-                m.ReturnType = new TypeReference("Meziantou.GitLab.PagedResponse").MakeGeneric(method.ReturnType);
+                m.ReturnType = new TypeReference("Meziantou.GitLab.PagedResponse").MakeGeneric(method.ReturnType.ToPropertyTypeReference());
             }
             else
             {
@@ -348,17 +347,19 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     if (method.MethodType == MethodType.GetCollection || method.ReturnType.IsCollection)
                     {
-                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(new TypeReference(typeof(IReadOnlyList<>)).MakeGeneric(method.ReturnType));
+                        m.ReturnType = new TypeReference(typeof(Task<>))
+                            .MakeGeneric(new TypeReference(typeof(IReadOnlyList<>))
+                                .MakeGeneric(method.ReturnType.ToPropertyTypeReference()));
                     }
                     else
                     {
                         if (method.MethodType == MethodType.Get)
                         {
-                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToTypeReference().MakeNullable());
+                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference().MakeNullable());
                         }
                         else
                         {
-                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToTypeReference());
+                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference());
                         }
                     }
                 }
@@ -368,9 +369,16 @@ namespace Meziantou.GitLabClient.Generator
                 }
             }
 
-            requestDataArgument = m.AddArgument(new MethodArgumentDeclaration(requestType, "request"));
+            if (requestType != null)
+            {
+                requestDataArgument = m.AddArgument(new MethodArgumentDeclaration(requestType, "request"));
+            }
+            else
+            {
+                requestDataArgument = null;
+            }
 
-            requestOptionsArgument = m.AddArgument(new MethodArgumentDeclaration(ModelRef.RequestOptions.ToTypeReference().MakeNullable(), "requestOptions") { DefaultValue = new DefaultValueExpression(ModelRef.RequestOptions) });
+            requestOptionsArgument = m.AddArgument(new MethodArgumentDeclaration(ModelRef.RequestOptions.ToArgumentTypeReference().MakeNullable(), "requestOptions") { DefaultValue = new DefaultValueExpression(ModelRef.RequestOptions.ToArgumentTypeReference()) });
             AddDocumentationComments(requestOptionsArgument, new Documentation()
             {
                 Summary = "Options of the request",
@@ -390,8 +398,11 @@ namespace Meziantou.GitLabClient.Generator
             }
         }
 
-        private static ClassDeclaration CreateMethodArgumentType(NamespaceDeclaration namespaceDeclaration, Method method)
+        private static TypeReference CreateMethodArgumentType(NamespaceDeclaration namespaceDeclaration, Method method)
         {
+            if (method.Parameters.Count == 0)
+                return null;
+
             var name = (method.RequestTypeName ?? (method.Name + method.MethodGroup.Name)) + "Request";
             var type = namespaceDeclaration.AddType(new ClassDeclaration(name));
             type.Modifiers = Modifiers.Public | Modifiers.Partial;
@@ -464,6 +475,9 @@ namespace Meziantou.GitLabClient.Generator
 
         private static void GenerateMandatoryParameterExtensions(ClassDeclaration extensionClass, Method method, TypeReference interfaceReference, TypeReference requestType)
         {
+            if (requestType == null)
+                return;
+
             if (!new[] { MethodType.Get, MethodType.GetCollection, MethodType.GetPaged }.Contains(method.MethodType))
                 return;
 
@@ -595,7 +609,7 @@ namespace Meziantou.GitLabClient.Generator
             var type = ns.AddType(new ClassDeclaration(entity.Name));
             AddDocumentationComments(type, entity.Documentation);
             type.Modifiers = Modifiers.Public | Modifiers.Partial;
-            type.BaseType = entity.BaseType ?? ModelRef.GitLabObject;
+            type.BaseType = (entity.BaseType ?? ModelRef.GitLabObject).ToPropertyTypeReference();
 
             GenerateJsonConverter();
 
@@ -620,20 +634,20 @@ namespace Meziantou.GitLabClient.Generator
                     Modifiers = Modifiers.Public,
                 });
 
-                if (prop.Type.IsNullable)
+                if ((!prop.Type.IsCollection && prop.Type.IsNullable) || (prop.Type.IsCollection && prop.Type.IsCollectionNullable))
                 {
                     propertyMember.Getter = new StatementCollection
                     {
                         new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetValueOrDefault",
-                        new TypeReference[]
-                        {
-                            GetPropertyTypeRef(prop.Type),
-                        },
-                        new Expression[]
-                        {
-                            prop.Name,
-                            new DefaultValueExpression(GetPropertyTypeRef(prop.Type)),
-                        })),
+                            new TypeReference[]
+                            {
+                                GetPropertyTypeRef(prop.Type),
+                            },
+                            new Expression[]
+                            {
+                                prop.Name,
+                                new DefaultValueExpression(GetPropertyTypeRef(prop.Type)),
+                            })),
                     };
                 }
                 else
@@ -654,9 +668,14 @@ namespace Meziantou.GitLabClient.Generator
 
                 AddDocumentationComments(propertyMember, prop.Documentation);
 
-                if (prop.Type == ModelRef.Date || prop.Type == ModelRef.NullableDate)
+                if (prop.Options.HasFlag(PropertyOptions.IsNotUTCDate))
                 {
-                    propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipUtcDateValidationAttributeTypeReference) { Arguments = { new CustomAttributeArgument("Does not contain time nor timezone (e.g. 2018-01-01)") } });
+                    propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipUtcDateValidationAttributeTypeReference));
+                }
+
+                if (prop.Options.HasFlag(PropertyOptions.CanBeAbsoluteOrRelativeUri))
+                {
+                    propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipAbsoluteUriValidationAttribute));
                 }
 
                 propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.MappedPropertyAttributeTypeReference) { Arguments = { new CustomAttributeArgument(prop.Name) } });
@@ -804,7 +823,7 @@ namespace Meziantou.GitLabClient.Generator
             var enumType = ns.AddType(new EnumerationDeclaration(enumeration.Name));
             AddDocumentationComments(enumType, enumeration.Documentation);
             enumType.Modifiers = Modifiers.Public;
-            enumType.BaseType = enumeration.BaseType;
+            enumType.BaseType = enumeration.BaseType?.ToPropertyTypeReference();
 
             if (enumeration.IsFlags)
             {
@@ -868,7 +887,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 // EnumMembers
                 var enumMember = serializationNamespace.AddType(new ClassDeclaration("EnumMember"));
-                enumMember.Modifiers = Modifiers.Partial;
+                enumMember.Modifiers = Modifiers.Partial | Modifiers.Internal;
 
                 var enumMemberType = new TypeReference("Meziantou.GitLab.Serialization.EnumMember").MakeGeneric(enumType);
                 var arrayType = enumMemberType.Clone();
@@ -891,7 +910,7 @@ namespace Meziantou.GitLabClient.Generator
                 }
                 initArray.Statements.Add(new ReturnStatement(result));
 
-                var membersField = enumMember.AddMember(new FieldDeclaration("s_" + enumeration.Name + "members", arrayType));
+                var membersField = enumMember.AddMember(new FieldDeclaration("s" + ToFieldName(enumeration.Name) + "Members", arrayType));
                 membersField.Modifiers = Modifiers.Private | Modifiers.Static | Modifiers.ReadOnly;
                 membersField.InitExpression = new MethodInvokeExpression(new MemberReferenceExpression(new TypeReferenceExpression(enumMember), initArray));
 
@@ -961,7 +980,7 @@ namespace Meziantou.GitLabClient.Generator
             void GenerateUrlBuilder()
             {
                 var urlBuilder = ns.AddType(new ClassDeclaration("UrlBuilder"));
-                urlBuilder.Modifiers = Modifiers.Partial;
+                urlBuilder.Modifiers = Modifiers.Partial | Modifiers.Internal;
 
                 // nullable
                 {
@@ -981,7 +1000,7 @@ namespace Meziantou.GitLabClient.Generator
                             },
                             FalseStatements = new StatementCollection()
                             {
-                                new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "SetNullValue"), keyArg),
+                                new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "RemoveValues"), keyArg),
                             },
                         },
                     };
@@ -994,17 +1013,12 @@ namespace Meziantou.GitLabClient.Generator
                     var valueArg = setValue.AddArgument("value", new TypeReference(enumType));
                     setValue.Modifiers = Modifiers.Public;
                     setValue.Statements = new StatementCollection();
-                    // _parameters[key] = value;
-                    var parameterReference =
-                        new ArrayIndexerExpression(
-                            new MemberReferenceExpression(new ThisExpression(), "_parameters"),
-                            keyArg);
 
                     var stringValue = new MethodInvokeExpression(
                         new MemberReferenceExpression(new TypeReference(SerializationNamespace + ".EnumMember"), "ToString"),
                         valueArg);
 
-                    setValue.Statements.Add(new AssignStatement(parameterReference, stringValue));
+                    setValue.Statements.Add(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "SetStringValue"), keyArg, stringValue));
                 }
             }
         }
@@ -1016,7 +1030,7 @@ namespace Meziantou.GitLabClient.Generator
             var type = ns.AddType(new StructDeclaration(entity.Name));
             type.Modifiers = Modifiers.Public | Modifiers.ReadOnly | Modifiers.Partial;
 
-            type.Implements.Add(WellKnownTypes.IGitLabObjectReferenceTypeReference.MakeGeneric(entity.FinalType));
+            type.Implements.Add(WellKnownTypes.IGitLabObjectReferenceTypeReference.MakeGeneric(entity.FinalType.ToArgumentTypeReference()));
             var converterType = entity.FinalType == ModelRef.NumberId ? WellKnownTypes.GitLabObjectInt64ReferenceJsonConverterTypeReference :
                                 entity.FinalType == ModelRef.String ? WellKnownTypes.GitLabObjectStringReferenceJsonConverterTypeReference :
                                 entity.FinalType == ModelRef.Object ? WellKnownTypes.GitLabObjectObjectReferenceJsonConverterTypeReference :
@@ -1113,13 +1127,101 @@ namespace Meziantou.GitLabClient.Generator
 
             // ToString
             var toString = type.AddMember(new MethodDeclaration("ToString"));
-            toString.ReturnType = typeof(string);
             toString.Modifiers = Modifiers.Public | Modifiers.Override;
-            toString.Statements = new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(valueProperty, "ToString")));
+
+            toString.ReturnType = typeof(string);
+
+            if (entity.FinalType == ModelRef.NumberId)
+            {
+                toString.Statements = new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(valueProperty, "ToString"), new MemberReferenceExpression(typeof(CultureInfo), "InvariantCulture")));
+            }
+            else if (entity.FinalType == ModelRef.String)
+            {
+                toString.Statements = new ReturnStatement(valueProperty);
+            }
+            else
+            {
+                toString.Statements = new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(valueProperty, "ToString")));
+            }
 
             if (entity.FinalType == ModelRef.Object)
             {
                 toString.ReturnType = toString.ReturnType.MakeNullable();
+            }
+
+            // Equals, GetHashCode, ==, !=
+            type.Implements.Add(new TypeReference(typeof(IEquatable<>)).MakeGeneric(type));
+            GenerateEqualMethod();
+            GenerateEqualTypedMethod();
+            GenerateEqualityOperator();
+            GenerateGetHashCode();
+
+            void GenerateEqualMethod()
+            {
+                var equal = type.AddMember(new MethodDeclaration(nameof(object.Equals)));
+                equal.Modifiers = Modifiers.Public | Modifiers.Override;
+                equal.ReturnType = typeof(bool);
+                var objArg = equal.AddArgument("obj", new TypeReference(typeof(object)).MakeNullable());
+                equal.Statements = new StatementCollection()
+                {
+                    new ConditionStatement
+                    {
+                        Condition = new IsInstanceOfTypeExpression(objArg, type),
+                        TrueStatements = new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("Equals", new CastExpression(objArg, type))),
+                        FalseStatements = new ReturnStatement(LiteralExpression.False()),
+                    },
+                };
+            }
+
+            void GenerateEqualTypedMethod()
+            {
+                var equal = type.AddMember(new MethodDeclaration(nameof(object.Equals)));
+                equal.Modifiers = Modifiers.Public;
+                equal.ReturnType = typeof(bool);
+                var objArg = equal.AddArgument("obj", new TypeReference(type));
+
+                Expression returnExpression = new MethodInvokeExpression(
+                    new MemberReferenceExpression(typeof(object), "Equals"),
+                    valueProperty,
+                    new MemberReferenceExpression(objArg, valueProperty));
+
+                equal.Statements = new ReturnStatement(returnExpression);
+            }
+
+            void GenerateGetHashCode()
+            {
+                var equal = type.AddMember(new MethodDeclaration(nameof(object.GetHashCode)));
+                equal.Modifiers = Modifiers.Public | Modifiers.Override;
+                equal.ReturnType = typeof(int);
+
+                var statements = new StatementCollection
+                {
+                    new ReturnStatement(
+                        new MethodInvokeExpression(
+                            new MemberReferenceExpression(new TypeReferenceExpression(typeof(HashCode)), nameof(HashCode.Combine)),
+                            valueProperty)),
+                };
+
+                equal.Statements = statements;
+            }
+
+            void GenerateEqualityOperator()
+            {
+                var equal = type.AddMember(new OperatorDeclaration("=="));
+                equal.Modifiers = Modifiers.Public | Modifiers.Static;
+                equal.ReturnType = typeof(bool);
+                equal.Arguments.Add(new MethodArgumentDeclaration(new TypeReference(type), "a"));
+                equal.Arguments.Add(new MethodArgumentDeclaration(new TypeReference(type), "b"));
+                equal.Statements.Add(new ReturnStatement(new TypeReferenceExpression(new TypeReference(typeof(EqualityComparer<>)).MakeGeneric(type)).CreateMemberReferenceExpression("Default").CreateInvokeMethodExpression("Equals",
+                    new ArgumentReferenceExpression("a"),
+                    new ArgumentReferenceExpression("b"))));
+
+                var notEqual = type.AddMember(new OperatorDeclaration("!="));
+                notEqual.Modifiers = Modifiers.Public | Modifiers.Static;
+                notEqual.ReturnType = typeof(bool);
+                notEqual.Arguments.Add(new MethodArgumentDeclaration(new TypeReference(type), "a"));
+                notEqual.Arguments.Add(new MethodArgumentDeclaration(new TypeReference(type), "b"));
+                notEqual.Statements.Add(new ReturnStatement(new UnaryExpression(UnaryOperator.Not, new BinaryExpression(BinaryOperator.Equals, new ArgumentReferenceExpression("a"), new ArgumentReferenceExpression("b")))));
             }
         }
 
@@ -1154,30 +1256,24 @@ namespace Meziantou.GitLabClient.Generator
 
             return method.MethodType switch
             {
-                MethodType.Get or MethodType.GetPaged => ParameterLocation.Url,
-                MethodType.Put or MethodType.Post or MethodType.Delete => ParameterLocation.Body,
+                MethodType.Get => ParameterLocation.Url,
+                MethodType.GetPaged => ParameterLocation.Url,
+                MethodType.Put => ParameterLocation.Body,
+                MethodType.Post => ParameterLocation.Body,
+                MethodType.Delete => ParameterLocation.Body,
                 _ => throw new ArgumentOutOfRangeException(nameof(method)),
             };
         }
 
         private static TypeReference GetPropertyTypeRef(ModelRef modelRef)
         {
-            var typeRef = (TypeReference)modelRef;
-            if (modelRef.IsCollection)
-            {
-                typeRef = new TypeReference(typeof(IReadOnlyList<>)).MakeGeneric(typeRef);
-            }
-
+            var typeRef = modelRef.ToPropertyTypeReference();
             return typeRef;
         }
 
         private static TypeReference GetArgumentTypeRef(MethodParameter param)
         {
-            var typeRef = (TypeReference)param.Type;
-            if (param.Type.IsCollection)
-            {
-                typeRef = new TypeReference(typeof(IEnumerable<>)).MakeGeneric(typeRef);
-            }
+            var typeRef = param.Type.ToArgumentTypeReference();
 
             if (!param.IsRequired)
             {
