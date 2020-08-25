@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Meziantou.GitLabClient.Generator": {
+      "commandName": "Project"
+    },
+    "coverage": {
+      "commandName": "Project",
+      "commandLineArgs": "coverage"
+    }
+  }
+}
