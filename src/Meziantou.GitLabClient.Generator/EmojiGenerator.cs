@@ -8,13 +8,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Meziantou.Framework;
 using Meziantou.Framework.CodeDom;
 
 namespace Meziantou.GitLabClient.Generator
 {
     internal static class EmojiGenerator
     {
-        public static async Task Generate()
+        public static async Task Generate(FullPath rootDirectory)
         {
             var unit = new CompilationUnit();
             var ns = unit.AddNamespace("Meziantou.GitLab");
@@ -39,7 +40,7 @@ namespace Meziantou.GitLabClient.Generator
                 field.XmlComments.AddSummary($"Emoji {kvp.Value.Name} '{kvp.Value.Moji}' (U+{kvp.Value.Unicode}) in category {kvp.Value.Category}");
             }
 
-            using (var tw = new StreamWriter("../../../../Meziantou.GitLabClient/Emoji.cs"))
+            using (var tw = new StreamWriter(rootDirectory / "Emoji.cs"))
             {
                 new CSharpCodeGenerator().Write(tw, unit);
             }

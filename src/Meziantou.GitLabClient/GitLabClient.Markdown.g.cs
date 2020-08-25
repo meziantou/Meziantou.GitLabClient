@@ -69,6 +69,20 @@ namespace Meziantou.GitLab
         }
     }
 
+    public static partial class GitLabClientExtensions
+    {
+        /// <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<RenderedMarkdown> RenderMarkdownAsync(this Meziantou.GitLab.IGitLabMarkdownClient client, string text, bool? gfm = default(bool?), Meziantou.GitLab.PathWithNamespace? project = default(Meziantou.GitLab.PathWithNamespace?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.RenderMarkdownMarkdownRequest request = new Meziantou.GitLab.RenderMarkdownMarkdownRequest(text);
+            request.Gfm = gfm;
+            request.Project = project;
+            return client.RenderMarkdownAsync(request, requestOptions, cancellationToken);
+        }
+    }
+
     public partial class RenderMarkdownMarkdownRequest
     {
         private bool? _gfm;

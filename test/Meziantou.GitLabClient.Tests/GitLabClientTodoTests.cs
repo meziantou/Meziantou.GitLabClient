@@ -25,7 +25,7 @@ namespace Meziantou.GitLab.Tests
             });
 
             // Add an issue with a mention to me
-            var issue = await client.Issues.CreateAsync(new CreateIssueRequest(project, title: context.GetRandomString()) { Description = $"Test @{currentUser.Username}" });
+            var issue = await client.Issues.CreateAsync(project, title: context.GetRandomString(), description: $"Test @{currentUser.Username}");
 
             // Should have 1 todo
             todos = await client.Todos.GetTodos().ToListAsync();

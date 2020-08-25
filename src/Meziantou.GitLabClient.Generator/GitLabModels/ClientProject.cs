@@ -38,7 +38,7 @@
                 .AddOptionalParameter("with_merge_requests_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("wiki_checksum_failed", ModelRef.Boolean)
                 .AddOptionalParameter("repository_checksum_failed", ModelRef.Boolean)
-                .AddOptionalParameter("min_access_level", Enumerations.AccessLevel)
+                .AddOptionalParameter("min_access_level", Enumerations.AccessLevel, version: 2)
                 ;
 
             group.AddMethod("GetById", MethodType.Get, "/projects/:project_id", "https://docs.gitlab.com/ee/api/projects.html#get-single-project")

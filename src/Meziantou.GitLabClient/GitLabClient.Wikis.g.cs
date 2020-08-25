@@ -207,6 +207,25 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<WikiPage> CreateWikiPageAsync(this Meziantou.GitLab.IGitLabWikisClient client, ProjectIdOrPathRef projectId, string title, string content, WikiPageFormat? format = default(WikiPageFormat?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.CreateWikiPageWikiRequest request = new Meziantou.GitLab.CreateWikiPageWikiRequest(projectId, title, content);
+            request.Format = format;
+            return client.CreateWikiPageAsync(request, requestOptions, cancellationToken);
+        }
+
+        /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#delete-a-wiki-page" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task DeleteWikiPageAsync(this Meziantou.GitLab.IGitLabWikisClient client, ProjectIdOrPathRef projectId, string slug, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.DeleteWikiPageWikiRequest request = new Meziantou.GitLab.DeleteWikiPageWikiRequest(projectId, slug);
+            return client.DeleteWikiPageAsync(request, requestOptions, cancellationToken);
+        }
+
         /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#get-a-wiki-page" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
@@ -223,6 +242,18 @@ namespace Meziantou.GitLab
         {
             Meziantou.GitLab.GetWikiPagesWikiRequest request = new Meziantou.GitLab.GetWikiPagesWikiRequest(projectId);
             return client.GetWikiPagesAsync(request, requestOptions, cancellationToken);
+        }
+
+        /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#edit-an-existing-wiki-page" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<WikiPage> UpdateWikiPageAsync(this Meziantou.GitLab.IGitLabWikisClient client, ProjectIdOrPathRef projectId, string slug, string? title = default(string?), string? content = default(string?), WikiPageFormat? format = default(WikiPageFormat?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UpdateWikiPageWikiRequest request = new Meziantou.GitLab.UpdateWikiPageWikiRequest(projectId, slug);
+            request.Title = title;
+            request.Content = content;
+            request.Format = format;
+            return client.UpdateWikiPageAsync(request, requestOptions, cancellationToken);
         }
     }
 

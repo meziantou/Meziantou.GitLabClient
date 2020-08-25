@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30404.54
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meziantou.GitLabClient", "Meziantou.GitLabClient\Meziantou.GitLabClient.csproj", "{9E0919D1-286B-466B-917D-5E0D2AFD2537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meziantou.GitLabClient", "src\Meziantou.GitLabClient\Meziantou.GitLabClient.csproj", "{9E0919D1-286B-466B-917D-5E0D2AFD2537}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meziantou.GitLabClient.Tests", "Meziantou.GitLabClient.Tests\Meziantou.GitLabClient.Tests.csproj", "{1FD904E4-556E-44D6-BD6A-C04AF0EE977A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meziantou.GitLabClient.Tests", "test\Meziantou.GitLabClient.Tests\Meziantou.GitLabClient.Tests.csproj", "{1FD904E4-556E-44D6-BD6A-C04AF0EE977A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meziantou.GitLabClient.Generator", "Meziantou.GitLabClient.Generator\Meziantou.GitLabClient.Generator.csproj", "{19307E2B-D5D7-46EA-9597-C539FEE983BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meziantou.GitLabClient.Generator", "src\Meziantou.GitLabClient.Generator\Meziantou.GitLabClient.Generator.csproj", "{19307E2B-D5D7-46EA-9597-C539FEE983BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0115BE16-2ED1-4C1F-9C86-A70BA5C70D2B}"
 	ProjectSection(SolutionItems) = preProject

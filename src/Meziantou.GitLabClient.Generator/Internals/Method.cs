@@ -23,20 +23,25 @@ namespace Meziantou.GitLabClient.Generator
         public IList<MethodParameter> Parameters { get; set; } = new List<MethodParameter>();
         public Documentation Documentation { get; set; }
 
-        public Method AddRequiredParameter(string name, ModelRef type)
+        public Method AddRequiredParameter(string name, ModelRef type, int version = 1)
         {
             var parameter = new MethodParameter(name, type)
             {
                 IsRequired = true,
+                Version = version,
             };
 
             Parameters.Add(parameter);
             return this;
         }
 
-        public Method AddOptionalParameter(string name, ModelRef type)
+        public Method AddOptionalParameter(string name, ModelRef type, int version = 1)
         {
-            var parameter = new MethodParameter(name, type);
+            var parameter = new MethodParameter(name, type)
+            {
+                Version = version,
+            };
+
             Parameters.Add(parameter);
             return this;
         }

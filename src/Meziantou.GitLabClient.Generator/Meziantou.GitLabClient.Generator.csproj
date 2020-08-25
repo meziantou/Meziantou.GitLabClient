@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.14.0" />
     <PackageReference Include="Humanizer.Core" Version="2.8.26" />
     <PackageReference Include="Meziantou.Framework" Version="2.20.5" />
     <PackageReference Include="Meziantou.Framework.CodeDom" Version="3.2.9" />

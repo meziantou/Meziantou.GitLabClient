@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Meziantou.GitLabClient\Meziantou.GitLabClient.csproj" />
+    <ProjectReference Include="..\..\src\Meziantou.GitLabClient\Meziantou.GitLabClient.csproj" />
   </ItemGroup>
 
 </Project>

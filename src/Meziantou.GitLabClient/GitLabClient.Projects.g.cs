@@ -275,11 +275,57 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<Project> CreateAsync(this Meziantou.GitLab.IGitLabProjectsClient client, string? name = default(string?), string? path = default(string?), long? namespaceId = default(long?), string? defaultBranch = default(string?), string? description = default(string?), bool? issuesEnabled = default(bool?), bool? mergeRequestsEnabled = default(bool?), bool? jobsEnabled = default(bool?), bool? wikiEnabled = default(bool?), bool? snippetsEnabled = default(bool?), bool? resolveOutdatedDiffDiscussions = default(bool?), bool? containerRegistryEnabled = default(bool?), bool? sharedRunnersEnabled = default(bool?), bool? publicJobs = default(bool?), bool? onlyAllowMergeIfPipelineSucceeds = default(bool?), bool? onlyAllowMergeIfAllDiscussionsAreResolved = default(bool?), bool? requestAccessEnabled = default(bool?), bool? lfsEnabled = default(bool?), bool? printingMergeRequestLinkEnabled = default(bool?), MergeMethod? mergeMethod = default(MergeMethod?), ProjectVisibility? visibility = default(ProjectVisibility?), System.Collections.Generic.IEnumerable<string>? tagList = default(System.Collections.Generic.IEnumerable<string>?), string? ciConfigPath = default(string?), int? approvalsBeforeMerge = default(int?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.CreateProjectRequest request = new Meziantou.GitLab.CreateProjectRequest();
+            request.Name = name;
+            request.Path = path;
+            request.NamespaceId = namespaceId;
+            request.DefaultBranch = defaultBranch;
+            request.Description = description;
+            request.IssuesEnabled = issuesEnabled;
+            request.MergeRequestsEnabled = mergeRequestsEnabled;
+            request.JobsEnabled = jobsEnabled;
+            request.WikiEnabled = wikiEnabled;
+            request.SnippetsEnabled = snippetsEnabled;
+            request.ResolveOutdatedDiffDiscussions = resolveOutdatedDiffDiscussions;
+            request.ContainerRegistryEnabled = containerRegistryEnabled;
+            request.SharedRunnersEnabled = sharedRunnersEnabled;
+            request.PublicJobs = publicJobs;
+            request.OnlyAllowMergeIfPipelineSucceeds = onlyAllowMergeIfPipelineSucceeds;
+            request.OnlyAllowMergeIfAllDiscussionsAreResolved = onlyAllowMergeIfAllDiscussionsAreResolved;
+            request.RequestAccessEnabled = requestAccessEnabled;
+            request.LfsEnabled = lfsEnabled;
+            request.PrintingMergeRequestLinkEnabled = printingMergeRequestLinkEnabled;
+            request.MergeMethod = mergeMethod;
+            request.Visibility = visibility;
+            request.TagList = tagList;
+            request.CiConfigPath = ciConfigPath;
+            request.ApprovalsBeforeMerge = approvalsBeforeMerge;
+            return client.CreateAsync(request, requestOptions, cancellationToken);
+        }
+
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> Get(this Meziantou.GitLab.IGitLabProjectsClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> Get(this Meziantou.GitLab.IGitLabProjectsClient client, bool? archived = default(bool?), ProjectVisibility? visibility = default(ProjectVisibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetProjectRequest request = new Meziantou.GitLab.GetProjectRequest();
+            request.Archived = archived;
+            request.Visibility = visibility;
+            request.Search = search;
+            request.Simple = simple;
+            request.Owned = owned;
+            request.Membership = membership;
+            request.Starred = starred;
+            request.Statistics = statistics;
+            request.WithIssuesEnabled = withIssuesEnabled;
+            request.WithMergeRequestsEnabled = withMergeRequestsEnabled;
+            request.WikiChecksumFailed = wikiChecksumFailed;
+            request.RepositoryChecksumFailed = repositoryChecksumFailed;
+            request.MinAccessLevel = minAccessLevel;
             return client.Get(request, requestOptions);
         }
 
@@ -294,9 +340,42 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived, ProjectVisibility? visibility, string? search, bool? simple, bool? owned, bool? membership, bool? starred, bool? statistics, bool? withIssuesEnabled, bool? withMergeRequestsEnabled, bool? wikiChecksumFailed, bool? repositoryChecksumFailed, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
+            request.Archived = archived;
+            request.Visibility = visibility;
+            request.Search = search;
+            request.Simple = simple;
+            request.Owned = owned;
+            request.Membership = membership;
+            request.Starred = starred;
+            request.Statistics = statistics;
+            request.WithIssuesEnabled = withIssuesEnabled;
+            request.WithMergeRequestsEnabled = withMergeRequestsEnabled;
+            request.WikiChecksumFailed = wikiChecksumFailed;
+            request.RepositoryChecksumFailed = repositoryChecksumFailed;
+            return client.GetByUser(request, requestOptions);
+        }
+
+        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        /// <param name="requestOptions">Options of the request</param>
+        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived = default(bool?), ProjectVisibility? visibility = default(ProjectVisibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
+            request.Archived = archived;
+            request.Visibility = visibility;
+            request.Search = search;
+            request.Simple = simple;
+            request.Owned = owned;
+            request.Membership = membership;
+            request.Starred = starred;
+            request.Statistics = statistics;
+            request.WithIssuesEnabled = withIssuesEnabled;
+            request.WithMergeRequestsEnabled = withMergeRequestsEnabled;
+            request.WikiChecksumFailed = wikiChecksumFailed;
+            request.RepositoryChecksumFailed = repositoryChecksumFailed;
+            request.MinAccessLevel = minAccessLevel;
             return client.GetByUser(request, requestOptions);
         }
     }

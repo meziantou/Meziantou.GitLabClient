@@ -165,6 +165,36 @@ namespace Meziantou.GitLab
         }
     }
 
+    public static partial class GitLabClientExtensions
+    {
+        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<FileCreated> CreateFileAsync(this Meziantou.GitLab.IGitLabRepositoriesClient client, ProjectIdOrPathRef projectId, string filePath, string branch, string content, string commitMessage, string? startBranch = default(string?), string? encoding = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.CreateFileRepositoryRequest request = new Meziantou.GitLab.CreateFileRepositoryRequest(projectId, filePath, branch, content, commitMessage);
+            request.StartBranch = startBranch;
+            request.Encoding = encoding;
+            request.AuthorEmail = authorEmail;
+            request.AuthorName = authorName;
+            return client.CreateFileAsync(request, requestOptions, cancellationToken);
+        }
+
+        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this Meziantou.GitLab.IGitLabRepositoriesClient client, ProjectIdOrPathRef projectId, string filePath, string branch, string content, string commitMessage, string? startBranch = default(string?), string? encoding = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.GitObjectId? lastCommitId = default(Meziantou.GitLab.GitObjectId?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UpdateFileRepositoryRequest request = new Meziantou.GitLab.UpdateFileRepositoryRequest(projectId, filePath, branch, content, commitMessage);
+            request.StartBranch = startBranch;
+            request.Encoding = encoding;
+            request.AuthorEmail = authorEmail;
+            request.AuthorName = authorName;
+            request.LastCommitId = lastCommitId;
+            return client.UpdateFileAsync(request, requestOptions, cancellationToken);
+        }
+    }
+
     public partial class CreateFileRepositoryRequest
     {
         private string? _authorEmail;

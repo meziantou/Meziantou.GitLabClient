@@ -74,6 +74,20 @@ namespace Meziantou.GitLab
         }
     }
 
+    public static partial class GitLabClientExtensions
+    {
+        /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<Issue> CreateAsync(this Meziantou.GitLab.IGitLabIssuesClient client, ProjectIdOrPathRef projectId, string title, string? description = default(string?), bool? confidential = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.CreateIssueRequest request = new Meziantou.GitLab.CreateIssueRequest(projectId, title);
+            request.Description = description;
+            request.Confidential = confidential;
+            return client.CreateAsync(request, requestOptions, cancellationToken);
+        }
+    }
+
     public partial class CreateIssueRequest
     {
         private bool? _confidential;

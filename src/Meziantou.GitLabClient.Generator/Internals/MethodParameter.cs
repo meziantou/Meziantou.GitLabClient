@@ -16,5 +16,10 @@ namespace Meziantou.GitLabClient.Generator
         public ParameterLocation Location { get; set; }
         public bool IsRequired { get; set; }
         public Documentation Documentation { get; set; }
+
+        /// <summary>
+        /// Used to avoid breaking change when adding new parameters (create overloads instead of changing existing methods)
+        /// </summary>
+        public int Version { get; set; }
     }
 }
