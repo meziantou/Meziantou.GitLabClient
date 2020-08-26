@@ -268,7 +268,21 @@ namespace Meziantou.GitLabClient.Generator
             if (method.Parameters.Count == 0)
                 return null;
 
-            var name = (method.RequestTypeName ?? (method.Name + method.MethodGroup.Name.Singularize())) + "Request";
+            var groupName = method.MethodGroup.Name.Singularize();
+            string name;
+            if (method.RequestTypeName != null)
+            {
+                name = method.RequestTypeName + "Request";
+            }
+            else if (method.Name.Contains(groupName, StringComparison.Ordinal))
+            {
+                name = method.Name + "Request";
+            }
+            else
+            {
+                name = method.Name + groupName + "Request";
+            }
+
             var type = namespaceDeclaration.AddType(new ClassDeclaration(name));
             type.Modifiers = Modifiers.Public | Modifiers.Partial;
 
@@ -371,7 +385,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     // Argument
                     var paramArgument = new MethodArgumentDeclaration(GetArgumentTypeRef(param), ToArgumentName(param.Name));
-                    if(!param.IsRequired && version == lastVersion)
+                    if (!param.IsRequired && version == lastVersion)
                     {
                         paramArgument.DefaultValue = new DefaultValueExpression(paramArgument.Type);
                     }

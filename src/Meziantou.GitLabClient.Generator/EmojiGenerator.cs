@@ -15,7 +15,7 @@ namespace Meziantou.GitLabClient.Generator
 {
     internal static class EmojiGenerator
     {
-        public static async Task Generate(FullPath rootDirectory)
+        public static async Task GenerateAsync(FullPath rootDirectory)
         {
             var unit = new CompilationUnit();
             var ns = unit.AddNamespace("Meziantou.GitLab");
@@ -27,6 +27,8 @@ namespace Meziantou.GitLabClient.Generator
             using var result = await httpClient.GetAsync("https://raw.githubusercontent.com/jonathanwiesel/gemojione/master/config/index.json").ConfigureAwait(false);
             var str = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
             var emojis = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Emoji>>(str);
+            if (emojis == null)
+                throw new Exception("Emojis is null");
 
             var named = new HashSet<string>(StringComparer.Ordinal);
             foreach (var kvp in emojis.OrderBy(entry => entry.Value.Moji).ThenBy(entry => entry.Key))

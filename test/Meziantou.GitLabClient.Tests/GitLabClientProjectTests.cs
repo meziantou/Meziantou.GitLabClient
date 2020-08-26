@@ -17,7 +17,7 @@ namespace Meziantou.GitLab.Tests
             Assert.IsNotNull(project.SshUrlToRepo);
             Assert.IsNotNull(project.HttpUrlToRepo);
 
-            var projects = await client.Projects.Get().ToListAsync();
+            var projects = await client.Projects.GetAll().ToListAsync();
 
             var projectById_project = await client.Projects.GetByIdAsync(project);
             var projectById_pathWithNamespace = await client.Projects.GetByIdAsync(project.PathWithNamespace);

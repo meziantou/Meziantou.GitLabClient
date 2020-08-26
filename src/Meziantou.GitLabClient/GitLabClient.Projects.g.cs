@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Project> Get(Meziantou.GitLab.GetProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<Project> GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         /// <param name="requestOptions">Options of the request</param>
@@ -49,9 +49,9 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Project> Meziantou.GitLab.IGitLabProjectsClient.Get(Meziantou.GitLab.GetProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<Project> Meziantou.GitLab.IGitLabProjectsClient.GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
-            return this.Projects_Get(request, requestOptions);
+            return this.Projects_GetAll(request, requestOptions);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
@@ -210,7 +210,7 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<Project> Projects_Get(Meziantou.GitLab.GetProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<Project> Projects_GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
             urlBuilder.SetValue("archived", request.Archived);
@@ -310,9 +310,9 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> Get(this Meziantou.GitLab.IGitLabProjectsClient client, bool? archived = default(bool?), ProjectVisibility? visibility = default(ProjectVisibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetAll(this Meziantou.GitLab.IGitLabProjectsClient client, bool? archived = default(bool?), ProjectVisibility? visibility = default(ProjectVisibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetProjectRequest request = new Meziantou.GitLab.GetProjectRequest();
+            Meziantou.GitLab.GetAllProjectRequest request = new Meziantou.GitLab.GetAllProjectRequest();
             request.Archived = archived;
             request.Visibility = visibility;
             request.Search = search;
@@ -326,7 +326,7 @@ namespace Meziantou.GitLab
             request.WikiChecksumFailed = wikiChecksumFailed;
             request.RepositoryChecksumFailed = repositoryChecksumFailed;
             request.MinAccessLevel = minAccessLevel;
-            return client.Get(request, requestOptions);
+            return client.GetAll(request, requestOptions);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
@@ -380,7 +380,7 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetProjectRequest
+    public partial class GetAllProjectRequest
     {
         private bool? _archived;
 
@@ -408,7 +408,7 @@ namespace Meziantou.GitLab
 
         private bool? _withMergeRequestsEnabled;
 
-        public GetProjectRequest()
+        public GetAllProjectRequest()
         {
         }
 

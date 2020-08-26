@@ -12,7 +12,7 @@ namespace Meziantou.GitLab.Tests
     public class PagedResponseTests : GitLabTest
     {
         [TestMethod]
-        public async Task FillProperties()
+        public async Task FillPropertiesAsync()
         {
             using var handler = new MockHandler();
             handler.AddResponse("GET http://localhost:3000/", new HttpResponseMessage(HttpStatusCode.OK)

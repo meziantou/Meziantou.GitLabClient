@@ -3,9 +3,9 @@
     "Meziantou.GitLabClient.Generator": {
       "commandName": "Project"
     },
-    "coverage": {
+    "documentation": {
       "commandName": "Project",
-      "commandLineArgs": "coverage"
+      "commandLineArgs": "documentation"
     }
   }
 }

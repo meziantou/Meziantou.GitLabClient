@@ -61,7 +61,7 @@ namespace Meziantou.GitLab.Tests
             // Act
             var emoji = Emoji.EmojiThumbsup;
             var message = context.GetRandomString();
-            var status = await client.Users.SetCurrentUserStatusAsync(new SetCurrentUserStatusUserRequest { Emoji = emoji, Message = message });
+            var status = await client.Users.SetCurrentUserStatusAsync(new SetCurrentUserStatusRequest { Emoji = emoji, Message = message });
 
             // Assert
             Assert.AreEqual(emoji, status.Emoji);
@@ -112,7 +112,7 @@ namespace Meziantou.GitLab.Tests
             var user = await client.Users.GetCurrentUserAsync();
 
             // Create Key
-            var model = new AddSSHKeyToCurrentUserUserRequest(title: context.GetRandomString(), key: generatedKey.PublicKey);
+            var model = new AddSSHKeyToCurrentUserRequest(title: context.GetRandomString(), key: generatedKey.PublicKey);
             var expectedKey = model.Key;
 
             {
@@ -143,7 +143,7 @@ namespace Meziantou.GitLab.Tests
 
             // Delete key
             {
-                await client.Users.DeleteSSHKeyFromCurrentUserAsync(new DeleteSSHKeyFromCurrentUserUserRequest(keyId));
+                await client.Users.DeleteSSHKeyFromCurrentUserAsync(new DeleteSSHKeyFromCurrentUserRequest(keyId));
             }
 
             // Get key (new key must not be present)

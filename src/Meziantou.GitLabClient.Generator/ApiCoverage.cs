@@ -14,11 +14,11 @@ namespace Meziantou.GitLabClient.Generator
 {
     internal static class ApiCoverage
     {
-        public static async Task<string> GetMarkdown()
+        public static async Task<string> GetMarkdownAsync()
         {
             var project = GitLabModelBuilder.Create();
 
-            var resources = await LoadResources();
+            var resources = await LoadResourcesAsync();
 
             var sb = new StringBuilder();
             foreach (var resource in resources)
@@ -35,7 +35,7 @@ namespace Meziantou.GitLabClient.Generator
             return sb.ToString();
         }
 
-        private static async Task<IList<MethodGroup>> LoadResources()
+        private static async Task<IList<MethodGroup>> LoadResourcesAsync()
         {
             var result = new SynchronizedList<MethodGroup>();
 
@@ -154,27 +154,20 @@ namespace Meziantou.GitLabClient.Generator
 
             static string GetUrlForComparison(string url)
             {
-                // Remove /:test/
+                // Remove parameters /:test/
                 return Regex.Replace(url, "(?!/):[a-z_-]+", ":", RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1));
             }
 
             static string GetMethod(MethodType type)
             {
-                switch (type)
+                return type switch
                 {
-                    case MethodType.Get:
-                    case MethodType.GetCollection:
-                    case MethodType.GetPaged:
-                        return "GET";
-                    case MethodType.Put:
-                        return "PUT";
-                    case MethodType.Post:
-                        return "POST";
-                    case MethodType.Delete:
-                        return "DELETE";
-                    default:
-                        throw new System.Exception("Type not supported");
-                }
+                    MethodType.Get or MethodType.GetCollection or MethodType.GetPaged => "GET",
+                    MethodType.Put => "PUT",
+                    MethodType.Post => "POST",
+                    MethodType.Delete => "DELETE",
+                    _ => throw new Exception("Type not supported"),
+                };
             }
         }
 

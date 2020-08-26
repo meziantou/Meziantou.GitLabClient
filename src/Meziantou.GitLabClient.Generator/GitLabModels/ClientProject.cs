@@ -6,7 +6,7 @@
         {
             var group = project.AddMethodGroup("Projects");
 
-            group.AddMethod("Get", MethodType.GetPaged, "/projects", "https://docs.gitlab.com/ee/api/projects.html#list-all-projects")
+            group.AddMethod("GetAll", MethodType.GetPaged, "/projects", "https://docs.gitlab.com/ee/api/projects.html#list-all-projects")
                 .WithReturnType(Entities.Project)
                 .AddOptionalParameter("archived", ModelRef.Boolean)
                 .AddOptionalParameter("visibility", Enumerations.ProjectVisibility)

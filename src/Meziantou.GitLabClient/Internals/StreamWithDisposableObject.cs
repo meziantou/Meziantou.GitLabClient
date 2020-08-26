@@ -63,12 +63,12 @@ namespace Meziantou.GitLab
             base.Dispose(disposing);
         }
 
-        public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object? state)
+        public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state)
         {
             return _stream.BeginRead(buffer, offset, count, callback, state);
         }
 
-        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object? state)
+        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state)
         {
             return _stream.BeginWrite(buffer, offset, count, callback, state);
         }
@@ -132,17 +132,18 @@ namespace Meziantou.GitLab
             set => _stream.ReadTimeout = value;
         }
 
+#if NET5_0
         public override void CopyTo(Stream destination, int bufferSize)
         {
             _stream.CopyTo(destination, bufferSize);
         }
-
+        
         [SuppressMessage("Usage", "CA2215:Dispose methods should call base class dispose", Justification = "We just wrap the type")]
         public override ValueTask DisposeAsync()
         {
             return _stream.DisposeAsync();
         }
-
+        
         public override int Read(Span<byte> buffer)
         {
             return _stream.Read(buffer);
@@ -162,5 +163,9 @@ namespace Meziantou.GitLab
         {
             return _stream.WriteAsync(buffer, cancellationToken);
         }
+#elif NETSTANDARD2_0
+#else
+#error Platform not supported
+#endif
     }
 }

@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Features>strict</Features>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -18,7 +18,7 @@
 
   <!-- disable the nullable warnings when compiling for target that haven't annotation -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net461' OR '$(TargetFramework)' == 'netcoreapp2.1'">
-    <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
+    <NoWarn>$(NoWarn);8600;8601;8602;8603;8604;8619</NoWarn>
   </PropertyGroup>
 
   <!-- Analyzers -->
@@ -32,6 +32,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.7.54" />
   </ItemGroup>
 
   <!-- sourcelink: https://www.meziantou.net/2018/07/09/how-to-debug-nuget-packages-using-sourcelink -->

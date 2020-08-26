@@ -34,7 +34,7 @@ namespace Meziantou.GitLab.Core
         }
 
         // Internal for testing purpose
-        internal protected bool TryGetValue<T>(string name, [MaybeNull] out T result)
+        internal protected bool TryGetValue<T>(string name, out T? result)
         {
             if (TryGetValue(name, typeof(T), out var r))
             {
@@ -46,14 +46,12 @@ namespace Meziantou.GitLab.Core
             return false;
         }
 
-        [return: MaybeNull]
-        protected T GetValueOrDefault<T>(string name)
+        protected T? GetValueOrDefault<T>(string name)
         {
             return GetValueOrDefault(name, default(T));
         }
 
-        [return: MaybeNull]
-        protected T GetValueOrDefault<T>(string name, [AllowNull] T defaultValue)
+        protected T? GetValueOrDefault<T>(string name, T? defaultValue)
         {
             if (TryGetValue<T>(name, out var result))
                 return result;

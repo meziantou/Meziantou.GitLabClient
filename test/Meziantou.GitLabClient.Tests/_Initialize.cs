@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Meziantou.GitLab.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,12 +13,14 @@ namespace Meziantou.GitLab.Tests
     public class Initialize
     {
         [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext context)
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "Signature expected by MSTest")]
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Signature expected by MSTest")]
+        public static async Task AssemblyInitialize(TestContext context)
         {
             JsonSerialization.Options.WriteIndented = true;
 
             var container = new GitLabDockerContainer();
-            container.Setup().Wait(context.CancellationTokenSource.Token);
+            await container.SetupAsync();
 
             GitLabTestContext.DockerContainer = container;
         }

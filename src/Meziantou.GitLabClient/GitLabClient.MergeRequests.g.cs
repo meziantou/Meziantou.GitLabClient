@@ -21,24 +21,24 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<MergeRequest?> GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<MergeRequest?> GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(Meziantou.GitLab.GetMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabMergeRequestsClient
@@ -46,14 +46,14 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
             return this.MergeRequests_CreateMergeRequestAsync(request, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.MergeRequests_GetGroupMergeRequests(request, requestOptions);
         }
@@ -61,21 +61,21 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<MergeRequest?> Meziantou.GitLab.IGitLabMergeRequestsClient.GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<MergeRequest?> Meziantou.GitLab.IGitLabMergeRequestsClient.GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
             return this.MergeRequests_GetMergeRequestAsync(request, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.GetMergeRequests(Meziantou.GitLab.GetMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.MergeRequests_GetMergeRequests(request, requestOptions);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<MergeRequest> Meziantou.GitLab.IGitLabMergeRequestsClient.GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.MergeRequests_GetProjectMergeRequests(request, requestOptions);
         }
@@ -91,7 +91,7 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<MergeRequest> MergeRequests_CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<MergeRequest> MergeRequests_CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/merge_requests");
             if (request.ProjectId.HasValue)
@@ -156,10 +156,14 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("groups/:group_id/merge_requests");
-            urlBuilder.SetValue("group_id", request.GroupId);
+            if (request.GroupId.HasValue)
+            {
+                urlBuilder.SetValue("group_id", request.GroupId.Value.ValueAsString);
+            }
+
             urlBuilder.SetValue("state", request.State);
             urlBuilder.SetValue("scope", request.Scope);
             if (request.AssigneeId.HasValue)
@@ -190,7 +194,7 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<MergeRequest?> MergeRequests_GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<MergeRequest?> MergeRequests_GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/merge_requests/:merge_request_iid");
             if (request.ProjectId.HasValue)
@@ -209,7 +213,7 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetMergeRequests(Meziantou.GitLab.GetMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("merge_requests");
             urlBuilder.SetValue("state", request.State);
@@ -241,7 +245,7 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/merge_requests");
             if (request.ProjectId.HasValue)
@@ -285,7 +289,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef projectId, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserRef? assigneeId = default(UserRef?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.CreateMergeRequestMergeRequestRequest request = new Meziantou.GitLab.CreateMergeRequestMergeRequestRequest(projectId, sourceBranch, targetBranch, title);
+            Meziantou.GitLab.CreateMergeRequestRequest request = new Meziantou.GitLab.CreateMergeRequestRequest(projectId, sourceBranch, targetBranch, title);
             request.Description = description;
             request.AssigneeId = assigneeId;
             request.TargetProjectId = targetProjectId;
@@ -298,9 +302,9 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, long groupId, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, GroupIdOrPathRef groupId, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetGroupMergeRequestsMergeRequestRequest request = new Meziantou.GitLab.GetGroupMergeRequestsMergeRequestRequest(groupId);
+            Meziantou.GitLab.GetGroupMergeRequestsRequest request = new Meziantou.GitLab.GetGroupMergeRequestsRequest(groupId);
             request.State = state;
             request.Scope = scope;
             request.AssigneeId = assigneeId;
@@ -324,7 +328,7 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<MergeRequest?> GetMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef projectId, MergeRequestIidRef mergeRequestIid, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetMergeRequestMergeRequestRequest request = new Meziantou.GitLab.GetMergeRequestMergeRequestRequest(projectId, mergeRequestIid);
+            Meziantou.GitLab.GetMergeRequestRequest request = new Meziantou.GitLab.GetMergeRequestRequest(projectId, mergeRequestIid);
             return client.GetMergeRequestAsync(request, requestOptions, cancellationToken);
         }
 
@@ -332,7 +336,7 @@ namespace Meziantou.GitLab
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetMergeRequestsMergeRequestRequest request = new Meziantou.GitLab.GetMergeRequestsMergeRequestRequest();
+            Meziantou.GitLab.GetMergeRequestsRequest request = new Meziantou.GitLab.GetMergeRequestsRequest();
             request.State = state;
             request.Scope = scope;
             request.AssigneeId = assigneeId;
@@ -355,7 +359,7 @@ namespace Meziantou.GitLab
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef projectId, System.Collections.Generic.IEnumerable<long>? iids = default(System.Collections.Generic.IEnumerable<long>?), MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetProjectMergeRequestsMergeRequestRequest request = new Meziantou.GitLab.GetProjectMergeRequestsMergeRequestRequest(projectId);
+            Meziantou.GitLab.GetProjectMergeRequestsRequest request = new Meziantou.GitLab.GetProjectMergeRequestsRequest(projectId);
             request.Iids = iids;
             request.State = state;
             request.Scope = scope;
@@ -376,7 +380,7 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetMergeRequestsMergeRequestRequest
+    public partial class GetMergeRequestsRequest
     {
         private UserRef? _assigneeId;
 
@@ -408,7 +412,7 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        public GetMergeRequestsMergeRequestRequest()
+        public GetMergeRequestsRequest()
         {
         }
 
@@ -593,7 +597,7 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetGroupMergeRequestsMergeRequestRequest
+    public partial class GetGroupMergeRequestsRequest
     {
         private UserRef? _assigneeId;
 
@@ -603,7 +607,7 @@ namespace Meziantou.GitLab
 
         private System.DateTimeOffset? _createdBefore;
 
-        private long? _groupId;
+        private GroupIdOrPathRef? _groupId;
 
         private System.Collections.Generic.IEnumerable<string>? _labels;
 
@@ -627,12 +631,12 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        public GetGroupMergeRequestsMergeRequestRequest(long? groupId)
+        public GetGroupMergeRequestsRequest(GroupIdOrPathRef? groupId)
         {
             this._groupId = groupId;
         }
 
-        public GetGroupMergeRequestsMergeRequestRequest()
+        public GetGroupMergeRequestsRequest()
         {
         }
 
@@ -684,7 +688,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public long? GroupId
+        public GroupIdOrPathRef? GroupId
         {
             get
             {
@@ -829,7 +833,7 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetProjectMergeRequestsMergeRequestRequest
+    public partial class GetProjectMergeRequestsRequest
     {
         private UserRef? _assigneeId;
 
@@ -865,12 +869,12 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        public GetProjectMergeRequestsMergeRequestRequest(ProjectIdOrPathRef? projectId)
+        public GetProjectMergeRequestsRequest(ProjectIdOrPathRef? projectId)
         {
             this._projectId = projectId;
         }
 
-        public GetProjectMergeRequestsMergeRequestRequest()
+        public GetProjectMergeRequestsRequest()
         {
         }
 
@@ -1079,19 +1083,19 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class GetMergeRequestMergeRequestRequest
+    public partial class GetMergeRequestRequest
     {
         private MergeRequestIidRef? _mergeRequestIid;
 
         private ProjectIdOrPathRef? _projectId;
 
-        public GetMergeRequestMergeRequestRequest(ProjectIdOrPathRef? projectId, MergeRequestIidRef? mergeRequestIid)
+        public GetMergeRequestRequest(ProjectIdOrPathRef? projectId, MergeRequestIidRef? mergeRequestIid)
         {
             this._projectId = projectId;
             this._mergeRequestIid = mergeRequestIid;
         }
 
-        public GetMergeRequestMergeRequestRequest()
+        public GetMergeRequestRequest()
         {
         }
 
@@ -1120,7 +1124,7 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class CreateMergeRequestMergeRequestRequest
+    public partial class CreateMergeRequestRequest
     {
         private bool? _allowCollaboration;
 
@@ -1144,7 +1148,7 @@ namespace Meziantou.GitLab
 
         private string? _title;
 
-        public CreateMergeRequestMergeRequestRequest(ProjectIdOrPathRef? projectId, string? sourceBranch, string? targetBranch, string? title)
+        public CreateMergeRequestRequest(ProjectIdOrPathRef? projectId, string? sourceBranch, string? targetBranch, string? title)
         {
             this._projectId = projectId;
             this._sourceBranch = sourceBranch;
@@ -1152,7 +1156,7 @@ namespace Meziantou.GitLab
             this._title = title;
         }
 
-        public CreateMergeRequestMergeRequestRequest()
+        public CreateMergeRequestRequest()
         {
         }
 

@@ -88,7 +88,7 @@ namespace Meziantou.GitLab.Tests
             // Mark as done
             todos = await client.Todos.GetTodos().ToListAsync();
             var todo = todos.Single();
-            await client.Todos.MarkTodoAsDoneAsync(new MarkTodoAsDoneTodoRequest(todo));
+            await client.Todos.MarkTodoAsDoneAsync(new MarkTodoAsDoneRequest(todo));
             todos = await client.Todos.GetTodos().ToListAsync();
             Assert.AreEqual(0, todos.Count);
         }

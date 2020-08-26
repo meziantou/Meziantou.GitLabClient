@@ -2,41 +2,8 @@ namespace Meziantou.GitLab
 {
     public static partial class Emoji
     {
-        /// <summary>Emoji baseball '⚾' (U+26BE) in category activity</summary>
-        public const string EmojiBaseball = "baseball";
-
-        /// <summary>Emoji curly loop '➰' (U+27B0) in category symbols</summary>
-        public const string EmojiCurlyLoop = "curly_loop";
-
-        /// <summary>Emoji heavy division sign '➗' (U+2797) in category symbols</summary>
-        public const string EmojiHeavyDivisionSign = "heavy_division_sign";
-
-        /// <summary>Emoji heavy minus sign '➖' (U+2796) in category symbols</summary>
-        public const string EmojiHeavyMinusSign = "heavy_minus_sign";
-
-        /// <summary>Emoji heavy plus sign '➕' (U+2795) in category symbols</summary>
-        public const string EmojiHeavyPlusSign = "heavy_plus_sign";
-
-        /// <summary>Emoji double curly loop '➿' (U+27BF) in category symbols</summary>
-        public const string EmojiLoop = "loop";
-
-        /// <summary>Emoji double vertical bar '⏸' (U+23F8) in category symbols</summary>
-        public const string EmojiPauseButton = "pause_button";
-
-        /// <summary>Emoji black circle for record '⏺' (U+23FA) in category symbols</summary>
-        public const string EmojiRecordButton = "record_button";
-
-        /// <summary>Emoji soccer ball '⚽' (U+26BD) in category activity</summary>
-        public const string EmojiSoccer = "soccer";
-
-        /// <summary>Emoji black square for stop '⏹' (U+23F9) in category symbols</summary>
-        public const string EmojiStopButton = "stop_button";
-
         /// <summary>Emoji wavy dash '〰' (U+3030) in category symbols</summary>
         public const string EmojiWavyDash = "wavy_dash";
-
-        /// <summary>Emoji part alternation mark '〽' (U+303D) in category symbols</summary>
-        public const string EmojiPartAlternationMark = "part_alternation_mark";
 
         /// <summary>Emoji double exclamation mark '‼' (U+203C) in category symbols</summary>
         public const string EmojiBangbang = "bangbang";
@@ -44,23 +11,62 @@ namespace Meziantou.GitLab
         /// <summary>Emoji exclamation question mark '⁉' (U+2049) in category symbols</summary>
         public const string EmojiInterrobang = "interrobang";
 
-        /// <summary>Emoji number sign '#⃣' (U+0023-20E3) in category symbols</summary>
-        public const string EmojiHash = "hash";
-
-        /// <summary>Emoji pound symbol '#️⃣' (U+0023) in category symbols</summary>
-        public const string EmojiPoundSymbol = "pound_symbol";
-
         /// <summary>Emoji keycap asterisk '*⃣' (U+002A-20E3) in category symbols</summary>
         public const string EmojiAsterisk = "asterisk";
 
         /// <summary>Emoji asterisk '*️⃣' (U+002A) in category symbols</summary>
         public const string EmojiAsteriskSymbol = "asterisk_symbol";
 
-        /// <summary>Emoji black large square '⬛' (U+2B1B) in category symbols</summary>
-        public const string EmojiBlackLargeSquare = "black_large_square";
+        /// <summary>Emoji number sign '#⃣' (U+0023-20E3) in category symbols</summary>
+        public const string EmojiHash = "hash";
 
-        /// <summary>Emoji white large square '⬜' (U+2B1C) in category symbols</summary>
-        public const string EmojiWhiteLargeSquare = "white_large_square";
+        /// <summary>Emoji pound symbol '#️⃣' (U+0023) in category symbols</summary>
+        public const string EmojiPoundSymbol = "pound_symbol";
+
+        /// <summary>Emoji part alternation mark '〽' (U+303D) in category symbols</summary>
+        public const string EmojiPartAlternationMark = "part_alternation_mark";
+
+        /// <summary>Emoji copyright sign '©' (U+00A9) in category symbols</summary>
+        public const string EmojiCopyright = "copyright";
+
+        /// <summary>Emoji registered sign '®' (U+00AE) in category symbols</summary>
+        public const string EmojiRegistered = "registered";
+
+        /// <summary>Emoji left right arrow '↔' (U+2194) in category symbols</summary>
+        public const string EmojiLeftRightArrow = "left_right_arrow";
+
+        /// <summary>Emoji up down arrow '↕' (U+2195) in category symbols</summary>
+        public const string EmojiArrowUpDown = "arrow_up_down";
+
+        /// <summary>Emoji north west arrow '↖' (U+2196) in category symbols</summary>
+        public const string EmojiArrowUpperLeft = "arrow_upper_left";
+
+        /// <summary>Emoji north east arrow '↗' (U+2197) in category symbols</summary>
+        public const string EmojiArrowUpperRight = "arrow_upper_right";
+
+        /// <summary>Emoji south east arrow '↘' (U+2198) in category symbols</summary>
+        public const string EmojiArrowLowerRight = "arrow_lower_right";
+
+        /// <summary>Emoji south west arrow '↙' (U+2199) in category symbols</summary>
+        public const string EmojiArrowLowerLeft = "arrow_lower_left";
+
+        /// <summary>Emoji leftwards arrow with hook '↩' (U+21A9) in category symbols</summary>
+        public const string EmojiLeftwardsArrowWithHook = "leftwards_arrow_with_hook";
+
+        /// <summary>Emoji rightwards arrow with hook '↪' (U+21AA) in category symbols</summary>
+        public const string EmojiArrowRightHook = "arrow_right_hook";
+
+        /// <summary>Emoji watch '⌚' (U+231A) in category objects</summary>
+        public const string EmojiWatch = "watch";
+
+        /// <summary>Emoji hourglass '⌛' (U+231B) in category objects</summary>
+        public const string EmojiHourglass = "hourglass";
+
+        /// <summary>Emoji keyboard '⌨' (U+2328) in category objects</summary>
+        public const string EmojiKeyboard = "keyboard";
+
+        /// <summary>Emoji eject symbol '⏏' (U+23CF) in category symbols</summary>
+        public const string EmojiEject = "eject";
 
         /// <summary>Emoji black right-pointing double triangle '⏩' (U+23E9) in category symbols</summary>
         public const string EmojiFastForward = "fast_forward";
@@ -95,29 +101,14 @@ namespace Meziantou.GitLab
         /// <summary>Emoji hourglass with flowing sand '⏳' (U+23F3) in category objects</summary>
         public const string EmojiHourglassFlowingSand = "hourglass_flowing_sand";
 
-        /// <summary>Emoji watch '⌚' (U+231A) in category objects</summary>
-        public const string EmojiWatch = "watch";
+        /// <summary>Emoji double vertical bar '⏸' (U+23F8) in category symbols</summary>
+        public const string EmojiPauseButton = "pause_button";
 
-        /// <summary>Emoji hourglass '⌛' (U+231B) in category objects</summary>
-        public const string EmojiHourglass = "hourglass";
+        /// <summary>Emoji black square for stop '⏹' (U+23F9) in category symbols</summary>
+        public const string EmojiStopButton = "stop_button";
 
-        /// <summary>Emoji keyboard '⌨' (U+2328) in category objects</summary>
-        public const string EmojiKeyboard = "keyboard";
-
-        /// <summary>Emoji arrow pointing rightwards then curving downwards '⤵' (U+2935) in category symbols</summary>
-        public const string EmojiArrowHeadingDown = "arrow_heading_down";
-
-        /// <summary>Emoji arrow pointing rightwards then curving upwards '⤴' (U+2934) in category symbols</summary>
-        public const string EmojiArrowHeadingUp = "arrow_heading_up";
-
-        /// <summary>Emoji leftwards black arrow '⬅' (U+2B05) in category symbols</summary>
-        public const string EmojiArrowLeft = "arrow_left";
-
-        /// <summary>Emoji upwards black arrow '⬆' (U+2B06) in category symbols</summary>
-        public const string EmojiArrowUp = "arrow_up";
-
-        /// <summary>Emoji downwards black arrow '⬇' (U+2B07) in category symbols</summary>
-        public const string EmojiArrowDown = "arrow_down";
+        /// <summary>Emoji black circle for record '⏺' (U+23FA) in category symbols</summary>
+        public const string EmojiRecordButton = "record_button";
 
         /// <summary>Emoji black small square '▪' (U+25AA) in category symbols</summary>
         public const string EmojiBlackSmallSquare = "black_small_square";
@@ -131,56 +122,17 @@ namespace Meziantou.GitLab
         /// <summary>Emoji black left-pointing triangle '◀' (U+25C0) in category symbols</summary>
         public const string EmojiArrowBackward = "arrow_backward";
 
-        /// <summary>Emoji white up pointing index '☝' (U+261D) in category people</summary>
-        public const string EmojiPointUp = "point_up";
+        /// <summary>Emoji white medium square '◻' (U+25FB) in category symbols</summary>
+        public const string EmojiWhiteMediumSquare = "white_medium_square";
 
-        /// <summary>Emoji white up pointing index tone 1 '☝🏻' (U+261D-1F3FB) in category people</summary>
-        public const string EmojiPointUpTone1 = "point_up_tone1";
+        /// <summary>Emoji black medium square '◼' (U+25FC) in category symbols</summary>
+        public const string EmojiBlackMediumSquare = "black_medium_square";
 
-        /// <summary>Emoji white up pointing index tone 2 '☝🏼' (U+261D-1F3FC) in category people</summary>
-        public const string EmojiPointUpTone2 = "point_up_tone2";
+        /// <summary>Emoji white medium small square '◽' (U+25FD) in category symbols</summary>
+        public const string EmojiWhiteMediumSmallSquare = "white_medium_small_square";
 
-        /// <summary>Emoji white up pointing index tone 3 '☝🏽' (U+261D-1F3FD) in category people</summary>
-        public const string EmojiPointUpTone3 = "point_up_tone3";
-
-        /// <summary>Emoji white up pointing index tone 4 '☝🏾' (U+261D-1F3FE) in category people</summary>
-        public const string EmojiPointUpTone4 = "point_up_tone4";
-
-        /// <summary>Emoji white up pointing index tone 5 '☝🏿' (U+261D-1F3FF) in category people</summary>
-        public const string EmojiPointUpTone5 = "point_up_tone5";
-
-        /// <summary>Emoji north east arrow '↗' (U+2197) in category symbols</summary>
-        public const string EmojiArrowUpperRight = "arrow_upper_right";
-
-        /// <summary>Emoji rightwards arrow with hook '↪' (U+21AA) in category symbols</summary>
-        public const string EmojiArrowRightHook = "arrow_right_hook";
-
-        /// <summary>Emoji black rightwards arrow '➡' (U+27A1) in category symbols</summary>
-        public const string EmojiArrowRight = "arrow_right";
-
-        /// <summary>Emoji south east arrow '↘' (U+2198) in category symbols</summary>
-        public const string EmojiArrowLowerRight = "arrow_lower_right";
-
-        /// <summary>Emoji south west arrow '↙' (U+2199) in category symbols</summary>
-        public const string EmojiArrowLowerLeft = "arrow_lower_left";
-
-        /// <summary>Emoji leftwards arrow with hook '↩' (U+21A9) in category symbols</summary>
-        public const string EmojiLeftwardsArrowWithHook = "leftwards_arrow_with_hook";
-
-        /// <summary>Emoji north west arrow '↖' (U+2196) in category symbols</summary>
-        public const string EmojiArrowUpperLeft = "arrow_upper_left";
-
-        /// <summary>Emoji left right arrow '↔' (U+2194) in category symbols</summary>
-        public const string EmojiLeftRightArrow = "left_right_arrow";
-
-        /// <summary>Emoji up down arrow '↕' (U+2195) in category symbols</summary>
-        public const string EmojiArrowUpDown = "arrow_up_down";
-
-        /// <summary>Emoji copyright sign '©' (U+00A9) in category symbols</summary>
-        public const string EmojiCopyright = "copyright";
-
-        /// <summary>Emoji registered sign '®' (U+00AE) in category symbols</summary>
-        public const string EmojiRegistered = "registered";
+        /// <summary>Emoji black medium small square '◾' (U+25FE) in category symbols</summary>
+        public const string EmojiBlackMediumSmallSquare = "black_medium_small_square";
 
         /// <summary>Emoji black sun with rays '☀' (U+2600) in category nature</summary>
         public const string EmojiSunny = "sunny";
@@ -211,6 +163,33 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji ballot box with check '☑' (U+2611) in category symbols</summary>
         public const string EmojiBallotBoxWithCheck = "ballot_box_with_check";
+
+        /// <summary>Emoji umbrella with rain drops '☔' (U+2614) in category nature</summary>
+        public const string EmojiUmbrella = "umbrella";
+
+        /// <summary>Emoji hot beverage '☕' (U+2615) in category food</summary>
+        public const string EmojiCoffee = "coffee";
+
+        /// <summary>Emoji shamrock '☘' (U+2618) in category nature</summary>
+        public const string EmojiShamrock = "shamrock";
+
+        /// <summary>Emoji white up pointing index '☝' (U+261D) in category people</summary>
+        public const string EmojiPointUp = "point_up";
+
+        /// <summary>Emoji white up pointing index tone 1 '☝🏻' (U+261D-1F3FB) in category people</summary>
+        public const string EmojiPointUpTone1 = "point_up_tone1";
+
+        /// <summary>Emoji white up pointing index tone 2 '☝🏼' (U+261D-1F3FC) in category people</summary>
+        public const string EmojiPointUpTone2 = "point_up_tone2";
+
+        /// <summary>Emoji white up pointing index tone 3 '☝🏽' (U+261D-1F3FD) in category people</summary>
+        public const string EmojiPointUpTone3 = "point_up_tone3";
+
+        /// <summary>Emoji white up pointing index tone 4 '☝🏾' (U+261D-1F3FE) in category people</summary>
+        public const string EmojiPointUpTone4 = "point_up_tone4";
+
+        /// <summary>Emoji white up pointing index tone 5 '☝🏿' (U+261D-1F3FF) in category people</summary>
+        public const string EmojiPointUpTone5 = "point_up_tone5";
 
         /// <summary>Emoji skull and crossbones '☠' (U+2620) in category objects</summary>
         public const string EmojiSkullCrossbones = "skull_crossbones";
@@ -305,182 +284,8 @@ namespace Meziantou.GitLab
         /// <summary>Emoji hot springs '♨' (U+2668) in category symbols</summary>
         public const string EmojiHotsprings = "hotsprings";
 
-        /// <summary>Emoji black scissors '✂' (U+2702) in category objects</summary>
-        public const string EmojiScissors = "scissors";
-
-        /// <summary>Emoji airplane '✈' (U+2708) in category travel</summary>
-        public const string EmojiAirplane = "airplane";
-
-        /// <summary>Emoji envelope '✉' (U+2709) in category objects</summary>
-        public const string EmojiEnvelope = "envelope";
-
-        /// <summary>Emoji victory hand '✌' (U+270C) in category people</summary>
-        public const string EmojiV = "v";
-
-        /// <summary>Emoji victory hand tone 1 '✌🏻' (U+270C-1F3FB) in category people</summary>
-        public const string EmojiVTone1 = "v_tone1";
-
-        /// <summary>Emoji victory hand tone 2 '✌🏼' (U+270C-1F3FC) in category people</summary>
-        public const string EmojiVTone2 = "v_tone2";
-
-        /// <summary>Emoji victory hand tone 3 '✌🏽' (U+270C-1F3FD) in category people</summary>
-        public const string EmojiVTone3 = "v_tone3";
-
-        /// <summary>Emoji victory hand tone 4 '✌🏾' (U+270C-1F3FE) in category people</summary>
-        public const string EmojiVTone4 = "v_tone4";
-
-        /// <summary>Emoji victory hand tone 5 '✌🏿' (U+270C-1F3FF) in category people</summary>
-        public const string EmojiVTone5 = "v_tone5";
-
-        /// <summary>Emoji writing hand '✍' (U+270D) in category people</summary>
-        public const string EmojiWritingHand = "writing_hand";
-
-        /// <summary>Emoji writing hand tone 1 '✍🏻' (U+270D-1F3FB) in category people</summary>
-        public const string EmojiWritingHandTone1 = "writing_hand_tone1";
-
-        /// <summary>Emoji writing hand tone 2 '✍🏼' (U+270D-1F3FC) in category people</summary>
-        public const string EmojiWritingHandTone2 = "writing_hand_tone2";
-
-        /// <summary>Emoji writing hand tone 3 '✍🏽' (U+270D-1F3FD) in category people</summary>
-        public const string EmojiWritingHandTone3 = "writing_hand_tone3";
-
-        /// <summary>Emoji writing hand tone 4 '✍🏾' (U+270D-1F3FE) in category people</summary>
-        public const string EmojiWritingHandTone4 = "writing_hand_tone4";
-
-        /// <summary>Emoji writing hand tone 5 '✍🏿' (U+270D-1F3FF) in category people</summary>
-        public const string EmojiWritingHandTone5 = "writing_hand_tone5";
-
-        /// <summary>Emoji pencil '✏' (U+270F) in category objects</summary>
-        public const string EmojiPencil2 = "pencil2";
-
-        /// <summary>Emoji black nib '✒' (U+2712) in category objects</summary>
-        public const string EmojiBlackNib = "black_nib";
-
-        /// <summary>Emoji heavy check mark '✔' (U+2714) in category symbols</summary>
-        public const string EmojiHeavyCheckMark = "heavy_check_mark";
-
-        /// <summary>Emoji heavy multiplication x '✖' (U+2716) in category symbols</summary>
-        public const string EmojiHeavyMultiplicationX = "heavy_multiplication_x";
-
-        /// <summary>Emoji latin cross '✝' (U+271D) in category symbols</summary>
-        public const string EmojiCross = "cross";
-
-        /// <summary>Emoji star of david '✡' (U+2721) in category symbols</summary>
-        public const string EmojiStarOfDavid = "star_of_david";
-
-        /// <summary>Emoji eight spoked asterisk '✳' (U+2733) in category symbols</summary>
-        public const string EmojiEightSpokedAsterisk = "eight_spoked_asterisk";
-
-        /// <summary>Emoji eight pointed black star '✴' (U+2734) in category symbols</summary>
-        public const string EmojiEightPointedBlackStar = "eight_pointed_black_star";
-
-        /// <summary>Emoji snowflake '❄' (U+2744) in category nature</summary>
-        public const string EmojiSnowflake = "snowflake";
-
-        /// <summary>Emoji sparkle '❇' (U+2747) in category symbols</summary>
-        public const string EmojiSparkle = "sparkle";
-
-        /// <summary>Emoji negative squared cross mark '❎' (U+274E) in category symbols</summary>
-        public const string EmojiNegativeSquaredCrossMark = "negative_squared_cross_mark";
-
-        /// <summary>Emoji black question mark ornament '❓' (U+2753) in category symbols</summary>
-        public const string EmojiQuestion = "question";
-
-        /// <summary>Emoji white question mark ornament '❔' (U+2754) in category symbols</summary>
-        public const string EmojiGreyQuestion = "grey_question";
-
-        /// <summary>Emoji white exclamation mark ornament '❕' (U+2755) in category symbols</summary>
-        public const string EmojiGreyExclamation = "grey_exclamation";
-
-        /// <summary>Emoji heavy exclamation mark symbol '❗' (U+2757) in category symbols</summary>
-        public const string EmojiExclamation = "exclamation";
-
-        /// <summary>Emoji heavy heart exclamation mark ornament '❣' (U+2763) in category symbols</summary>
-        public const string EmojiHeartExclamation = "heart_exclamation";
-
-        /// <summary>Emoji heavy heart exclamation '❣️' (U+2763) in category symbols</summary>
-        public const string EmojiHeavyHeartExclamation = "heavy_heart_exclamation";
-
-        /// <summary>Emoji heavy black heart '❤' (U+2764) in category symbols</summary>
-        public const string EmojiHeart = "heart";
-
-        /// <summary>Emoji white heavy check mark '✅' (U+2705) in category symbols</summary>
-        public const string EmojiWhiteCheckMark = "white_check_mark";
-
-        /// <summary>Emoji raised fist '✊' (U+270A) in category people</summary>
-        public const string EmojiFist = "fist";
-
-        /// <summary>Emoji raised fist tone 1 '✊🏻' (U+270A-1F3FB) in category people</summary>
-        public const string EmojiFistTone1 = "fist_tone1";
-
-        /// <summary>Emoji raised fist tone 2 '✊🏼' (U+270A-1F3FC) in category people</summary>
-        public const string EmojiFistTone2 = "fist_tone2";
-
-        /// <summary>Emoji raised fist tone 3 '✊🏽' (U+270A-1F3FD) in category people</summary>
-        public const string EmojiFistTone3 = "fist_tone3";
-
-        /// <summary>Emoji raised fist tone 4 '✊🏾' (U+270A-1F3FE) in category people</summary>
-        public const string EmojiFistTone4 = "fist_tone4";
-
-        /// <summary>Emoji raised fist tone 5 '✊🏿' (U+270A-1F3FF) in category people</summary>
-        public const string EmojiFistTone5 = "fist_tone5";
-
-        /// <summary>Emoji raised hand '✋' (U+270B) in category people</summary>
-        public const string EmojiRaisedHand = "raised_hand";
-
-        /// <summary>Emoji raised hand tone 1 '✋🏻' (U+270B-1F3FB) in category people</summary>
-        public const string EmojiRaisedHandTone1 = "raised_hand_tone1";
-
-        /// <summary>Emoji raised hand tone 2 '✋🏼' (U+270B-1F3FC) in category people</summary>
-        public const string EmojiRaisedHandTone2 = "raised_hand_tone2";
-
-        /// <summary>Emoji raised hand tone 3 '✋🏽' (U+270B-1F3FD) in category people</summary>
-        public const string EmojiRaisedHandTone3 = "raised_hand_tone3";
-
-        /// <summary>Emoji raised hand tone 4 '✋🏾' (U+270B-1F3FE) in category people</summary>
-        public const string EmojiRaisedHandTone4 = "raised_hand_tone4";
-
-        /// <summary>Emoji raised hand tone 5 '✋🏿' (U+270B-1F3FF) in category people</summary>
-        public const string EmojiRaisedHandTone5 = "raised_hand_tone5";
-
-        /// <summary>Emoji sparkles '✨' (U+2728) in category nature</summary>
-        public const string EmojiSparkles = "sparkles";
-
-        /// <summary>Emoji cross mark '❌' (U+274C) in category symbols</summary>
-        public const string EmojiX = "x";
-
-        /// <summary>Emoji umbrella with rain drops '☔' (U+2614) in category nature</summary>
-        public const string EmojiUmbrella = "umbrella";
-
-        /// <summary>Emoji hot beverage '☕' (U+2615) in category food</summary>
-        public const string EmojiCoffee = "coffee";
-
         /// <summary>Emoji black universal recycling symbol '♻' (U+267B) in category symbols</summary>
         public const string EmojiRecycle = "recycle";
-
-        /// <summary>Emoji eject symbol '⏏' (U+23CF) in category symbols</summary>
-        public const string EmojiEject = "eject";
-
-        /// <summary>Emoji white medium square '◻' (U+25FB) in category symbols</summary>
-        public const string EmojiWhiteMediumSquare = "white_medium_square";
-
-        /// <summary>Emoji black medium square '◼' (U+25FC) in category symbols</summary>
-        public const string EmojiBlackMediumSquare = "black_medium_square";
-
-        /// <summary>Emoji white medium small square '◽' (U+25FD) in category symbols</summary>
-        public const string EmojiWhiteMediumSmallSquare = "white_medium_small_square";
-
-        /// <summary>Emoji black medium small square '◾' (U+25FE) in category symbols</summary>
-        public const string EmojiBlackMediumSmallSquare = "black_medium_small_square";
-
-        /// <summary>Emoji warning sign '⚠' (U+26A0) in category symbols</summary>
-        public const string EmojiWarning = "warning";
-
-        /// <summary>Emoji high voltage sign '⚡' (U+26A1) in category nature</summary>
-        public const string EmojiZap = "zap";
-
-        /// <summary>Emoji shamrock '☘' (U+2618) in category nature</summary>
-        public const string EmojiShamrock = "shamrock";
 
         /// <summary>Emoji infinity '♾️' (U+267E) in category symbols</summary>
         public const string EmojiInfinity = "infinity";
@@ -521,6 +326,12 @@ namespace Meziantou.GitLab
         /// <summary>Emoji fleur-de-lis '⚜' (U+269C) in category symbols</summary>
         public const string EmojiFleurDeLis1 = "fleur-de-lis";
 
+        /// <summary>Emoji warning sign '⚠' (U+26A0) in category symbols</summary>
+        public const string EmojiWarning = "warning";
+
+        /// <summary>Emoji high voltage sign '⚡' (U+26A1) in category nature</summary>
+        public const string EmojiZap = "zap";
+
         /// <summary>Emoji medium white circle '⚪' (U+26AA) in category symbols</summary>
         public const string EmojiWhiteCircle = "white_circle";
 
@@ -532,6 +343,12 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji funeral urn '⚱' (U+26B1) in category objects</summary>
         public const string EmojiUrn = "urn";
+
+        /// <summary>Emoji soccer ball '⚽' (U+26BD) in category activity</summary>
+        public const string EmojiSoccer = "soccer";
+
+        /// <summary>Emoji baseball '⚾' (U+26BE) in category activity</summary>
+        public const string EmojiBaseball = "baseball";
 
         /// <summary>Emoji snowman without snow '⛄' (U+26C4) in category nature</summary>
         public const string EmojiSnowman = "snowman";
@@ -596,12 +413,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji person with ball '⛹' (U+26F9) in category activity</summary>
         public const string EmojiBasketballPlayer = "basketball_player";
 
-        /// <summary>Emoji tent '⛺' (U+26FA) in category travel</summary>
-        public const string EmojiTent = "tent";
-
-        /// <summary>Emoji fuel pump '⛽' (U+26FD) in category travel</summary>
-        public const string EmojiFuelpump = "fuelpump";
-
         /// <summary>Emoji woman bouncing ball '⛹️‍♀️' (U+26f9-2640) in category activity</summary>
         public const string EmojiBasketballWoman = "basketball_woman";
 
@@ -656,131 +467,11 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man bouncing ball: dark skin tone '⛹🏿‍♂️' (U+26F9-1F3FF-2642) in category activity</summary>
         public const string EmojiManBouncingBallTone5 = "man_bouncing_ball_tone5";
 
-        /// <summary>Emoji white medium star '⭐' (U+2B50) in category nature</summary>
-        public const string EmojiStar = "star";
+        /// <summary>Emoji tent '⛺' (U+26FA) in category travel</summary>
+        public const string EmojiTent = "tent";
 
-        /// <summary>Emoji heavy large circle '⭕' (U+2B55) in category symbols</summary>
-        public const string EmojiO = "o";
-
-        /// <summary>Emoji digit zero '0️⃣' (U+0030) in category symbols</summary>
-        public const string EmojiDigitZero = "digit_zero";
-
-        /// <summary>Emoji keycap digit zero '0️⃣' (U+0030-20E3) in category symbols</summary>
-        public const string EmojiZero = "zero";
-
-        /// <summary>Emoji digit one '1️⃣' (U+0031) in category symbols</summary>
-        public const string EmojiDigitOne = "digit_one";
-
-        /// <summary>Emoji keycap digit one '1️⃣' (U+0031-20E3) in category symbols</summary>
-        public const string EmojiOne = "one";
-
-        /// <summary>Emoji digit two '2️⃣' (U+0032) in category symbols</summary>
-        public const string EmojiDigitTwo = "digit_two";
-
-        /// <summary>Emoji keycap digit two '2️⃣' (U+0032-20E3) in category symbols</summary>
-        public const string EmojiTwo = "two";
-
-        /// <summary>Emoji digit three '3️⃣' (U+0033) in category symbols</summary>
-        public const string EmojiDigitThree = "digit_three";
-
-        /// <summary>Emoji keycap digit three '3️⃣' (U+0033-20E3) in category symbols</summary>
-        public const string EmojiThree = "three";
-
-        /// <summary>Emoji digit four '4️⃣' (U+0034) in category symbols</summary>
-        public const string EmojiDigitFour = "digit_four";
-
-        /// <summary>Emoji keycap digit four '4️⃣' (U+0034-20E3) in category symbols</summary>
-        public const string EmojiFour = "four";
-
-        /// <summary>Emoji digit five '5️⃣' (U+0035) in category symbols</summary>
-        public const string EmojiDigitFive = "digit_five";
-
-        /// <summary>Emoji keycap digit five '5️⃣' (U+0035-20E3) in category symbols</summary>
-        public const string EmojiFive = "five";
-
-        /// <summary>Emoji digit six '6️⃣' (U+0036) in category symbols</summary>
-        public const string EmojiDigitSix = "digit_six";
-
-        /// <summary>Emoji keycap digit six '6️⃣' (U+0036-20E3) in category symbols</summary>
-        public const string EmojiSix = "six";
-
-        /// <summary>Emoji digit seven '7️⃣' (U+0037) in category symbols</summary>
-        public const string EmojiDigitSeven = "digit_seven";
-
-        /// <summary>Emoji keycap digit seven '7️⃣' (U+0037-20E3) in category symbols</summary>
-        public const string EmojiSeven = "seven";
-
-        /// <summary>Emoji digit eight '8️⃣' (U+0038) in category symbols</summary>
-        public const string EmojiDigitEight = "digit_eight";
-
-        /// <summary>Emoji keycap digit eight '8️⃣' (U+0038-20E3) in category symbols</summary>
-        public const string EmojiEight = "eight";
-
-        /// <summary>Emoji digit nine '9️⃣' (U+0039) in category symbols</summary>
-        public const string EmojiDigitNine = "digit_nine";
-
-        /// <summary>Emoji keycap digit nine '9️⃣' (U+0039-20E3) in category symbols</summary>
-        public const string EmojiNine = "nine";
-
-        /// <summary>Emoji information source 'ℹ' (U+2139) in category symbols</summary>
-        public const string EmojiInformationSource = "information_source";
-
-        /// <summary>Emoji circled latin capital letter m 'Ⓜ' (U+24C2) in category symbols</summary>
-        public const string EmojiM = "m";
-
-        /// <summary>Emoji trade mark sign '™' (U+2122) in category symbols</summary>
-        public const string EmojiTm = "tm";
-
-        /// <summary>Emoji mahjong tile red dragon '🀄' (U+1F004) in category symbols</summary>
-        public const string EmojiMahjong = "mahjong";
-
-        /// <summary>Emoji playing card black joker '🃏' (U+1F0CF) in category symbols</summary>
-        public const string EmojiBlackJoker = "black_joker";
-
-        /// <summary>Emoji negative squared latin capital letter a '🅰' (U+1F170) in category symbols</summary>
-        public const string EmojiA = "a";
-
-        /// <summary>Emoji negative squared latin capital letter b '🅱' (U+1F171) in category symbols</summary>
-        public const string EmojiB = "b";
-
-        /// <summary>Emoji negative squared latin capital letter o '🅾' (U+1F17E) in category symbols</summary>
-        public const string EmojiO2 = "o2";
-
-        /// <summary>Emoji negative squared latin capital letter p '🅿' (U+1F17F) in category symbols</summary>
-        public const string EmojiParking = "parking";
-
-        /// <summary>Emoji negative squared ab '🆎' (U+1F18E) in category symbols</summary>
-        public const string EmojiAb = "ab";
-
-        /// <summary>Emoji squared cl '🆑' (U+1F191) in category symbols</summary>
-        public const string EmojiCl = "cl";
-
-        /// <summary>Emoji squared cool '🆒' (U+1F192) in category symbols</summary>
-        public const string EmojiCool = "cool";
-
-        /// <summary>Emoji squared free '🆓' (U+1F193) in category symbols</summary>
-        public const string EmojiFree = "free";
-
-        /// <summary>Emoji squared id '🆔' (U+1F194) in category symbols</summary>
-        public const string EmojiId = "id";
-
-        /// <summary>Emoji squared new '🆕' (U+1F195) in category symbols</summary>
-        public const string EmojiNew = "new";
-
-        /// <summary>Emoji squared ng '🆖' (U+1F196) in category symbols</summary>
-        public const string EmojiNg = "ng";
-
-        /// <summary>Emoji squared ok '🆗' (U+1F197) in category symbols</summary>
-        public const string EmojiOk = "ok";
-
-        /// <summary>Emoji squared sos '🆘' (U+1F198) in category symbols</summary>
-        public const string EmojiSos = "sos";
-
-        /// <summary>Emoji squared up with exclamation mark '🆙' (U+1F199) in category symbols</summary>
-        public const string EmojiUp = "up";
-
-        /// <summary>Emoji squared vs '🆚' (U+1F19A) in category symbols</summary>
-        public const string EmojiVs = "vs";
+        /// <summary>Emoji fuel pump '⛽' (U+26FD) in category travel</summary>
+        public const string EmojiFuelpump = "fuelpump";
 
         /// <summary>Emoji regional indicator symbol letter a '🇦' (U+1F1E6) in category regional</summary>
         public const string EmojiRegionalIndicatorA = "regional_indicator_a";
@@ -1634,50 +1325,200 @@ namespace Meziantou.GitLab
         /// <summary>Emoji zimbabwe '🇿🇼' (U+1F1FF-1F1FC) in category flags</summary>
         public const string EmojiFlagZw = "flag_zw";
 
-        /// <summary>Emoji squared katakana koko '🈁' (U+1F201) in category symbols</summary>
-        public const string EmojiKoko = "koko";
+        /// <summary>Emoji black scissors '✂' (U+2702) in category objects</summary>
+        public const string EmojiScissors = "scissors";
 
-        /// <summary>Emoji squared katakana sa '🈂' (U+1F202) in category symbols</summary>
-        public const string EmojiSa = "sa";
+        /// <summary>Emoji white heavy check mark '✅' (U+2705) in category symbols</summary>
+        public const string EmojiWhiteCheckMark = "white_check_mark";
 
-        /// <summary>Emoji squared cjk unified ideograph-7121 '🈚' (U+1F21A) in category symbols</summary>
-        public const string EmojiU7121 = "u7121";
+        /// <summary>Emoji airplane '✈' (U+2708) in category travel</summary>
+        public const string EmojiAirplane = "airplane";
 
-        /// <summary>Emoji squared cjk unified ideograph-6307 '🈯' (U+1F22F) in category symbols</summary>
-        public const string EmojiU6307 = "u6307";
+        /// <summary>Emoji envelope '✉' (U+2709) in category objects</summary>
+        public const string EmojiEnvelope = "envelope";
 
-        /// <summary>Emoji squared cjk unified ideograph-7981 '🈲' (U+1F232) in category symbols</summary>
-        public const string EmojiU7981 = "u7981";
+        /// <summary>Emoji raised fist '✊' (U+270A) in category people</summary>
+        public const string EmojiFist = "fist";
 
-        /// <summary>Emoji squared cjk unified ideograph-7a7a '🈳' (U+1F233) in category symbols</summary>
-        public const string EmojiU7a7a = "u7a7a";
+        /// <summary>Emoji raised fist tone 1 '✊🏻' (U+270A-1F3FB) in category people</summary>
+        public const string EmojiFistTone1 = "fist_tone1";
 
-        /// <summary>Emoji squared cjk unified ideograph-5408 '🈴' (U+1F234) in category symbols</summary>
-        public const string EmojiU5408 = "u5408";
+        /// <summary>Emoji raised fist tone 2 '✊🏼' (U+270A-1F3FC) in category people</summary>
+        public const string EmojiFistTone2 = "fist_tone2";
 
-        /// <summary>Emoji squared cjk unified ideograph-6e80 '🈵' (U+1F235) in category symbols</summary>
-        public const string EmojiU6e80 = "u6e80";
+        /// <summary>Emoji raised fist tone 3 '✊🏽' (U+270A-1F3FD) in category people</summary>
+        public const string EmojiFistTone3 = "fist_tone3";
 
-        /// <summary>Emoji squared cjk unified ideograph-6709 '🈶' (U+1F236) in category symbols</summary>
-        public const string EmojiU6709 = "u6709";
+        /// <summary>Emoji raised fist tone 4 '✊🏾' (U+270A-1F3FE) in category people</summary>
+        public const string EmojiFistTone4 = "fist_tone4";
 
-        /// <summary>Emoji squared cjk unified ideograph-6708 '🈷' (U+1F237) in category symbols</summary>
-        public const string EmojiU6708 = "u6708";
+        /// <summary>Emoji raised fist tone 5 '✊🏿' (U+270A-1F3FF) in category people</summary>
+        public const string EmojiFistTone5 = "fist_tone5";
 
-        /// <summary>Emoji squared cjk unified ideograph-7533 '🈸' (U+1F238) in category symbols</summary>
-        public const string EmojiU7533 = "u7533";
+        /// <summary>Emoji raised hand '✋' (U+270B) in category people</summary>
+        public const string EmojiRaisedHand = "raised_hand";
 
-        /// <summary>Emoji squared cjk unified ideograph-5272 '🈹' (U+1F239) in category symbols</summary>
-        public const string EmojiU5272 = "u5272";
+        /// <summary>Emoji raised hand tone 1 '✋🏻' (U+270B-1F3FB) in category people</summary>
+        public const string EmojiRaisedHandTone1 = "raised_hand_tone1";
 
-        /// <summary>Emoji squared cjk unified ideograph-55b6 '🈺' (U+1F23A) in category symbols</summary>
-        public const string EmojiU55b6 = "u55b6";
+        /// <summary>Emoji raised hand tone 2 '✋🏼' (U+270B-1F3FC) in category people</summary>
+        public const string EmojiRaisedHandTone2 = "raised_hand_tone2";
 
-        /// <summary>Emoji circled ideograph advantage '🉐' (U+1F250) in category symbols</summary>
-        public const string EmojiIdeographAdvantage = "ideograph_advantage";
+        /// <summary>Emoji raised hand tone 3 '✋🏽' (U+270B-1F3FD) in category people</summary>
+        public const string EmojiRaisedHandTone3 = "raised_hand_tone3";
 
-        /// <summary>Emoji circled ideograph accept '🉑' (U+1F251) in category symbols</summary>
-        public const string EmojiAccept = "accept";
+        /// <summary>Emoji raised hand tone 4 '✋🏾' (U+270B-1F3FE) in category people</summary>
+        public const string EmojiRaisedHandTone4 = "raised_hand_tone4";
+
+        /// <summary>Emoji raised hand tone 5 '✋🏿' (U+270B-1F3FF) in category people</summary>
+        public const string EmojiRaisedHandTone5 = "raised_hand_tone5";
+
+        /// <summary>Emoji victory hand '✌' (U+270C) in category people</summary>
+        public const string EmojiV = "v";
+
+        /// <summary>Emoji victory hand tone 1 '✌🏻' (U+270C-1F3FB) in category people</summary>
+        public const string EmojiVTone1 = "v_tone1";
+
+        /// <summary>Emoji victory hand tone 2 '✌🏼' (U+270C-1F3FC) in category people</summary>
+        public const string EmojiVTone2 = "v_tone2";
+
+        /// <summary>Emoji victory hand tone 3 '✌🏽' (U+270C-1F3FD) in category people</summary>
+        public const string EmojiVTone3 = "v_tone3";
+
+        /// <summary>Emoji victory hand tone 4 '✌🏾' (U+270C-1F3FE) in category people</summary>
+        public const string EmojiVTone4 = "v_tone4";
+
+        /// <summary>Emoji victory hand tone 5 '✌🏿' (U+270C-1F3FF) in category people</summary>
+        public const string EmojiVTone5 = "v_tone5";
+
+        /// <summary>Emoji writing hand '✍' (U+270D) in category people</summary>
+        public const string EmojiWritingHand = "writing_hand";
+
+        /// <summary>Emoji writing hand tone 1 '✍🏻' (U+270D-1F3FB) in category people</summary>
+        public const string EmojiWritingHandTone1 = "writing_hand_tone1";
+
+        /// <summary>Emoji writing hand tone 2 '✍🏼' (U+270D-1F3FC) in category people</summary>
+        public const string EmojiWritingHandTone2 = "writing_hand_tone2";
+
+        /// <summary>Emoji writing hand tone 3 '✍🏽' (U+270D-1F3FD) in category people</summary>
+        public const string EmojiWritingHandTone3 = "writing_hand_tone3";
+
+        /// <summary>Emoji writing hand tone 4 '✍🏾' (U+270D-1F3FE) in category people</summary>
+        public const string EmojiWritingHandTone4 = "writing_hand_tone4";
+
+        /// <summary>Emoji writing hand tone 5 '✍🏿' (U+270D-1F3FF) in category people</summary>
+        public const string EmojiWritingHandTone5 = "writing_hand_tone5";
+
+        /// <summary>Emoji pencil '✏' (U+270F) in category objects</summary>
+        public const string EmojiPencil2 = "pencil2";
+
+        /// <summary>Emoji black nib '✒' (U+2712) in category objects</summary>
+        public const string EmojiBlackNib = "black_nib";
+
+        /// <summary>Emoji heavy check mark '✔' (U+2714) in category symbols</summary>
+        public const string EmojiHeavyCheckMark = "heavy_check_mark";
+
+        /// <summary>Emoji heavy multiplication x '✖' (U+2716) in category symbols</summary>
+        public const string EmojiHeavyMultiplicationX = "heavy_multiplication_x";
+
+        /// <summary>Emoji latin cross '✝' (U+271D) in category symbols</summary>
+        public const string EmojiCross = "cross";
+
+        /// <summary>Emoji star of david '✡' (U+2721) in category symbols</summary>
+        public const string EmojiStarOfDavid = "star_of_david";
+
+        /// <summary>Emoji sparkles '✨' (U+2728) in category nature</summary>
+        public const string EmojiSparkles = "sparkles";
+
+        /// <summary>Emoji eight spoked asterisk '✳' (U+2733) in category symbols</summary>
+        public const string EmojiEightSpokedAsterisk = "eight_spoked_asterisk";
+
+        /// <summary>Emoji eight pointed black star '✴' (U+2734) in category symbols</summary>
+        public const string EmojiEightPointedBlackStar = "eight_pointed_black_star";
+
+        /// <summary>Emoji snowflake '❄' (U+2744) in category nature</summary>
+        public const string EmojiSnowflake = "snowflake";
+
+        /// <summary>Emoji sparkle '❇' (U+2747) in category symbols</summary>
+        public const string EmojiSparkle = "sparkle";
+
+        /// <summary>Emoji cross mark '❌' (U+274C) in category symbols</summary>
+        public const string EmojiX = "x";
+
+        /// <summary>Emoji negative squared cross mark '❎' (U+274E) in category symbols</summary>
+        public const string EmojiNegativeSquaredCrossMark = "negative_squared_cross_mark";
+
+        /// <summary>Emoji black question mark ornament '❓' (U+2753) in category symbols</summary>
+        public const string EmojiQuestion = "question";
+
+        /// <summary>Emoji white question mark ornament '❔' (U+2754) in category symbols</summary>
+        public const string EmojiGreyQuestion = "grey_question";
+
+        /// <summary>Emoji white exclamation mark ornament '❕' (U+2755) in category symbols</summary>
+        public const string EmojiGreyExclamation = "grey_exclamation";
+
+        /// <summary>Emoji heavy exclamation mark symbol '❗' (U+2757) in category symbols</summary>
+        public const string EmojiExclamation = "exclamation";
+
+        /// <summary>Emoji heavy heart exclamation mark ornament '❣' (U+2763) in category symbols</summary>
+        public const string EmojiHeartExclamation = "heart_exclamation";
+
+        /// <summary>Emoji heavy heart exclamation '❣️' (U+2763) in category symbols</summary>
+        public const string EmojiHeavyHeartExclamation = "heavy_heart_exclamation";
+
+        /// <summary>Emoji heavy black heart '❤' (U+2764) in category symbols</summary>
+        public const string EmojiHeart = "heart";
+
+        /// <summary>Emoji heavy plus sign '➕' (U+2795) in category symbols</summary>
+        public const string EmojiHeavyPlusSign = "heavy_plus_sign";
+
+        /// <summary>Emoji heavy minus sign '➖' (U+2796) in category symbols</summary>
+        public const string EmojiHeavyMinusSign = "heavy_minus_sign";
+
+        /// <summary>Emoji heavy division sign '➗' (U+2797) in category symbols</summary>
+        public const string EmojiHeavyDivisionSign = "heavy_division_sign";
+
+        /// <summary>Emoji black rightwards arrow '➡' (U+27A1) in category symbols</summary>
+        public const string EmojiArrowRight = "arrow_right";
+
+        /// <summary>Emoji curly loop '➰' (U+27B0) in category symbols</summary>
+        public const string EmojiCurlyLoop = "curly_loop";
+
+        /// <summary>Emoji double curly loop '➿' (U+27BF) in category symbols</summary>
+        public const string EmojiLoop = "loop";
+
+        /// <summary>Emoji arrow pointing rightwards then curving upwards '⤴' (U+2934) in category symbols</summary>
+        public const string EmojiArrowHeadingUp = "arrow_heading_up";
+
+        /// <summary>Emoji arrow pointing rightwards then curving downwards '⤵' (U+2935) in category symbols</summary>
+        public const string EmojiArrowHeadingDown = "arrow_heading_down";
+
+        /// <summary>Emoji leftwards black arrow '⬅' (U+2B05) in category symbols</summary>
+        public const string EmojiArrowLeft = "arrow_left";
+
+        /// <summary>Emoji upwards black arrow '⬆' (U+2B06) in category symbols</summary>
+        public const string EmojiArrowUp = "arrow_up";
+
+        /// <summary>Emoji downwards black arrow '⬇' (U+2B07) in category symbols</summary>
+        public const string EmojiArrowDown = "arrow_down";
+
+        /// <summary>Emoji black large square '⬛' (U+2B1B) in category symbols</summary>
+        public const string EmojiBlackLargeSquare = "black_large_square";
+
+        /// <summary>Emoji white large square '⬜' (U+2B1C) in category symbols</summary>
+        public const string EmojiWhiteLargeSquare = "white_large_square";
+
+        /// <summary>Emoji white medium star '⭐' (U+2B50) in category nature</summary>
+        public const string EmojiStar = "star";
+
+        /// <summary>Emoji heavy large circle '⭕' (U+2B55) in category symbols</summary>
+        public const string EmojiO = "o";
+
+        /// <summary>Emoji mahjong tile red dragon '🀄' (U+1F004) in category symbols</summary>
+        public const string EmojiMahjong = "mahjong";
+
+        /// <summary>Emoji playing card black joker '🃏' (U+1F0CF) in category symbols</summary>
+        public const string EmojiBlackJoker = "black_joker";
 
         /// <summary>Emoji cyclone '🌀' (U+1F300) in category symbols</summary>
         public const string EmojiCyclone = "cyclone";
@@ -2708,20 +2549,20 @@ namespace Meziantou.GitLab
         /// <summary>Emoji gay_pride_flag '🏳🌈' (U+1F3F3-1F308) in category extras</summary>
         public const string EmojiGayPrideFlag = "gay_pride_flag";
 
-        /// <summary>Emoji waving black flag '🏴' (U+1F3F4) in category objects</summary>
-        public const string EmojiFlagBlack = "flag_black";
-
-        /// <summary>Emoji pirate flag '🏴‍☠️' (U+1F3F4-2620) in category flags</summary>
-        public const string EmojiPirateFlag = "pirate_flag";
-
         /// <summary>Emoji England '🏴󠁧󠁢󠁥󠁮󠁧󠁿' (U+1F3F4-E0067-E0062-E0065-E006E-E0067-E007F) in category flags</summary>
         public const string EmojiEngland = "england";
+
+        /// <summary>Emoji waving black flag '🏴' (U+1F3F4) in category objects</summary>
+        public const string EmojiFlagBlack = "flag_black";
 
         /// <summary>Emoji Scotland '🏴󠁧󠁢󠁳󠁣󠁴󠁿' (U+1F3F4-E0067-E0062-E0073-E0063-E0074-E007F) in category flags</summary>
         public const string EmojiScotland = "scotland";
 
         /// <summary>Emoji Wales '🏴󠁧󠁢󠁷󠁬󠁳󠁿' (U+1F3F4-E0067-E0062-E0077-E006C-E0073-E007F) in category flags</summary>
         public const string EmojiWales = "wales";
+
+        /// <summary>Emoji pirate flag '🏴‍☠️' (U+1F3F4-2620) in category flags</summary>
+        public const string EmojiPirateFlag = "pirate_flag";
 
         /// <summary>Emoji rosette '🏵' (U+1F3F5) in category activity</summary>
         public const string EmojiRosette = "rosette";
@@ -3296,6 +3137,12 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man '👨' (U+1F468) in category people</summary>
         public const string EmojiMan = "man";
 
+        /// <summary>Emoji man health worker '👨‍⚕️' (U+1F468-2695) in category people</summary>
+        public const string EmojiManHealthWorker = "man_health_worker";
+
+        /// <summary>Emoji man judge '👨‍⚖️' (U+1F468-2696) in category people</summary>
+        public const string EmojiManJudge = "man_judge";
+
         /// <summary>Emoji man pilot '👨‍✈️' (U+1F468-2708) in category people</summary>
         public const string EmojiManPilot = "man_pilot";
 
@@ -3304,12 +3151,6 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji kiss (man,man) '👨‍❤️‍💋‍👨' (U+1F468-2764-1F48B-1F468) in category people</summary>
         public const string EmojiKissMm = "kiss_mm";
-
-        /// <summary>Emoji man health worker '👨‍⚕️' (U+1F468-2695) in category people</summary>
-        public const string EmojiManHealthWorker = "man_health_worker";
-
-        /// <summary>Emoji man judge '👨‍⚖️' (U+1F468-2696) in category people</summary>
-        public const string EmojiManJudge = "man_judge";
 
         /// <summary>Emoji man farmer '👨‍🌾' (U+1F468-1F33E) in category people</summary>
         public const string EmojiManFarmer = "man_farmer";
@@ -3335,14 +3176,14 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man tone 1 '👨🏻' (U+1F468-1F3FB) in category people</summary>
         public const string EmojiManTone1 = "man_tone1";
 
-        /// <summary>Emoji man pilot: light skin tone '👨🏻‍✈️' (U+1F468-1F3FB-2708) in category people</summary>
-        public const string EmojiManPilotTone1 = "man_pilot_tone1";
-
         /// <summary>Emoji man health worker: light skin tone '👨🏻‍⚕️' (U+1F468-1F3FB-2695) in category people</summary>
         public const string EmojiManHealthWorkerTone1 = "man_health_worker_tone1";
 
         /// <summary>Emoji man judge: light skin tone '👨🏻‍⚖️' (U+1F468-1F3FB-2696) in category people</summary>
         public const string EmojiManJudgeTone1 = "man_judge_tone1";
+
+        /// <summary>Emoji man pilot: light skin tone '👨🏻‍✈️' (U+1F468-1F3FB-2708) in category people</summary>
+        public const string EmojiManPilotTone1 = "man_pilot_tone1";
 
         /// <summary>Emoji man farmer: light skin tone '👨🏻‍🌾' (U+1F468-1F3FB-1F33E) in category people</summary>
         public const string EmojiManFarmerTone1 = "man_farmer_tone1";
@@ -3377,12 +3218,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man scientist: light skin tone '👨🏻‍🔬' (U+1F468-1F3FB-1F52C) in category people</summary>
         public const string EmojiManScientistTone1 = "man_scientist_tone1";
 
-        /// <summary>Emoji man astronaut: light skin tone '👨🏻‍🚀' (U+1F468-1F3FB-1F680) in category people</summary>
-        public const string EmojiManAstronautTone1 = "man_astronaut_tone1";
-
-        /// <summary>Emoji man firefighter: light skin tone '👨🏻‍🚒' (U+1F468-1F3FB-1F692) in category people</summary>
-        public const string EmojiManFirefighterTone1 = "man_firefighter_tone1";
-
         /// <summary>Emoji man, red haired: light skin tone '👨🏻‍🦰' (U+1F468-1F3FB-1F9B0) in category people</summary>
         public const string EmojiManRedHairedTone1 = "man_red_haired_tone1";
 
@@ -3395,17 +3230,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man, white haired: light skin tone '👨🏻‍🦳' (U+1F468-1F3FB-1F9B3) in category people</summary>
         public const string EmojiManWhiteHairedTone1 = "man_white_haired_tone1";
 
+        /// <summary>Emoji man astronaut: light skin tone '👨🏻‍🚀' (U+1F468-1F3FB-1F680) in category people</summary>
+        public const string EmojiManAstronautTone1 = "man_astronaut_tone1";
+
+        /// <summary>Emoji man firefighter: light skin tone '👨🏻‍🚒' (U+1F468-1F3FB-1F692) in category people</summary>
+        public const string EmojiManFirefighterTone1 = "man_firefighter_tone1";
+
         /// <summary>Emoji man tone 2 '👨🏼' (U+1F468-1F3FC) in category people</summary>
         public const string EmojiManTone2 = "man_tone2";
-
-        /// <summary>Emoji man pilot: medium-light skin tone '👨🏼‍✈️' (U+1F468-1F3FC-2708) in category people</summary>
-        public const string EmojiManPilotTone2 = "man_pilot_tone2";
 
         /// <summary>Emoji man health worker: medium-light skin tone '👨🏼‍⚕️' (U+1F468-1F3FC-2695) in category people</summary>
         public const string EmojiManHealthWorkerTone2 = "man_health_worker_tone2";
 
         /// <summary>Emoji man judge: medium-light skin tone '👨🏼‍⚖️' (U+1F468-1F3FC-2696) in category people</summary>
         public const string EmojiManJudgeTone2 = "man_judge_tone2";
+
+        /// <summary>Emoji man pilot: medium-light skin tone '👨🏼‍✈️' (U+1F468-1F3FC-2708) in category people</summary>
+        public const string EmojiManPilotTone2 = "man_pilot_tone2";
 
         /// <summary>Emoji man farmer: medium-light skin tone '👨🏼‍🌾' (U+1F468-1F3FC-1F33E) in category people</summary>
         public const string EmojiManFarmerTone2 = "man_farmer_tone2";
@@ -3440,12 +3281,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man scientist: medium-light skin tone '👨🏼‍🔬' (U+1F468-1F3FC-1F52C) in category people</summary>
         public const string EmojiManScientistTone2 = "man_scientist_tone2";
 
-        /// <summary>Emoji man astronaut: medium-light skin tone '👨🏼‍🚀' (U+1F468-1F3FC-1F680) in category people</summary>
-        public const string EmojiManAstronautTone2 = "man_astronaut_tone2";
-
-        /// <summary>Emoji man firefighter: medium-light skin tone '👨🏼‍🚒' (U+1F468-1F3FC-1F692) in category people</summary>
-        public const string EmojiManFirefighterTone2 = "man_firefighter_tone2";
-
         /// <summary>Emoji man, red haired: medium-light skin tone '👨🏼‍🦰' (U+1F468-1F3FC-1F9B0) in category people</summary>
         public const string EmojiManRedHairedTone2 = "man_red_haired_tone2";
 
@@ -3458,17 +3293,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man, white haired: medium-light skin tone '👨🏼‍🦳' (U+1F468-1F3FC-1F9B3) in category people</summary>
         public const string EmojiManWhiteHairedTone2 = "man_white_haired_tone2";
 
+        /// <summary>Emoji man astronaut: medium-light skin tone '👨🏼‍🚀' (U+1F468-1F3FC-1F680) in category people</summary>
+        public const string EmojiManAstronautTone2 = "man_astronaut_tone2";
+
+        /// <summary>Emoji man firefighter: medium-light skin tone '👨🏼‍🚒' (U+1F468-1F3FC-1F692) in category people</summary>
+        public const string EmojiManFirefighterTone2 = "man_firefighter_tone2";
+
         /// <summary>Emoji man tone 3 '👨🏽' (U+1F468-1F3FD) in category people</summary>
         public const string EmojiManTone3 = "man_tone3";
-
-        /// <summary>Emoji man pilot: medium skin tone '👨🏽‍✈️' (U+1F468-1F3FD-2708) in category people</summary>
-        public const string EmojiManPilotTone3 = "man_pilot_tone3";
 
         /// <summary>Emoji man health worker: medium skin tone '👨🏽‍⚕️' (U+1F468-1F3FD-2695) in category people</summary>
         public const string EmojiManHealthWorkerTone3 = "man_health_worker_tone3";
 
         /// <summary>Emoji man judge: medium skin tone '👨🏽‍⚖️' (U+1F468-1F3FD-2696) in category people</summary>
         public const string EmojiManJudgeTone3 = "man_judge_tone3";
+
+        /// <summary>Emoji man pilot: medium skin tone '👨🏽‍✈️' (U+1F468-1F3FD-2708) in category people</summary>
+        public const string EmojiManPilotTone3 = "man_pilot_tone3";
 
         /// <summary>Emoji man farmer: medium skin tone '👨🏽‍🌾' (U+1F468-1F3FD-1F33E) in category people</summary>
         public const string EmojiManFarmerTone3 = "man_farmer_tone3";
@@ -3503,12 +3344,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man scientist: medium skin tone '👨🏽‍🔬' (U+1F468-1F3FD-1F52C) in category people</summary>
         public const string EmojiManScientistTone3 = "man_scientist_tone3";
 
-        /// <summary>Emoji man astronaut: medium skin tone '👨🏽‍🚀' (U+1F468-1F3FD-1F680) in category people</summary>
-        public const string EmojiManAstronautTone3 = "man_astronaut_tone3";
-
-        /// <summary>Emoji man firefighter: medium skin tone '👨🏽‍🚒' (U+1F468-1F3FD-1F692) in category people</summary>
-        public const string EmojiManFirefighterTone3 = "man_firefighter_tone3";
-
         /// <summary>Emoji man, red haired: medium skin tone '👨🏽‍🦰' (U+1F468-1F3FD-1F9B0) in category people</summary>
         public const string EmojiManRedHairedTone3 = "man_red_haired_tone3";
 
@@ -3521,17 +3356,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man, white haired: medium skin tone '👨🏽‍🦳' (U+1F468-1F3FD-1F9B3) in category people</summary>
         public const string EmojiManWhiteHairedTone3 = "man_white_haired_tone3";
 
+        /// <summary>Emoji man astronaut: medium skin tone '👨🏽‍🚀' (U+1F468-1F3FD-1F680) in category people</summary>
+        public const string EmojiManAstronautTone3 = "man_astronaut_tone3";
+
+        /// <summary>Emoji man firefighter: medium skin tone '👨🏽‍🚒' (U+1F468-1F3FD-1F692) in category people</summary>
+        public const string EmojiManFirefighterTone3 = "man_firefighter_tone3";
+
         /// <summary>Emoji man tone 4 '👨🏾' (U+1F468-1F3FE) in category people</summary>
         public const string EmojiManTone4 = "man_tone4";
-
-        /// <summary>Emoji man pilot: medium-dark skin tone '👨🏾‍✈️' (U+1F468-1F3FE-2708) in category people</summary>
-        public const string EmojiManPilotTone4 = "man_pilot_tone4";
 
         /// <summary>Emoji man health worker: medium-dark skin tone '👨🏾‍⚕️' (U+1F468-1F3FE-2695) in category people</summary>
         public const string EmojiManHealthWorkerTone4 = "man_health_worker_tone4";
 
         /// <summary>Emoji man judge: medium-dark skin tone '👨🏾‍⚖️' (U+1F468-1F3FE-2696) in category people</summary>
         public const string EmojiManJudgeTone4 = "man_judge_tone4";
+
+        /// <summary>Emoji man pilot: medium-dark skin tone '👨🏾‍✈️' (U+1F468-1F3FE-2708) in category people</summary>
+        public const string EmojiManPilotTone4 = "man_pilot_tone4";
 
         /// <summary>Emoji man farmer: medium-dark skin tone '👨🏾‍🌾' (U+1F468-1F3FE-1F33E) in category people</summary>
         public const string EmojiManFarmerTone4 = "man_farmer_tone4";
@@ -3566,12 +3407,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man scientist: medium-dark skin tone '👨🏾‍🔬' (U+1F468-1F3FE-1F52C) in category people</summary>
         public const string EmojiManScientistTone4 = "man_scientist_tone4";
 
-        /// <summary>Emoji man astronaut: medium-dark skin tone '👨🏾‍🚀' (U+1F468-1F3FE-1F680) in category people</summary>
-        public const string EmojiManAstronautTone4 = "man_astronaut_tone4";
-
-        /// <summary>Emoji man firefighter: medium-dark skin tone '👨🏾‍🚒' (U+1F468-1F3FE-1F692) in category people</summary>
-        public const string EmojiManFirefighterTone4 = "man_firefighter_tone4";
-
         /// <summary>Emoji man, red haired: medium-dark skin tone '👨🏾‍🦰' (U+1F468-1F3FE-1F9B0) in category people</summary>
         public const string EmojiManRedHairedTone4 = "man_red_haired_tone4";
 
@@ -3584,17 +3419,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man, white haired: medium-dark skin tone '👨🏾‍🦳' (U+1F468-1F3FE-1F9B3) in category people</summary>
         public const string EmojiManWhiteHairedTone4 = "man_white_haired_tone4";
 
+        /// <summary>Emoji man astronaut: medium-dark skin tone '👨🏾‍🚀' (U+1F468-1F3FE-1F680) in category people</summary>
+        public const string EmojiManAstronautTone4 = "man_astronaut_tone4";
+
+        /// <summary>Emoji man firefighter: medium-dark skin tone '👨🏾‍🚒' (U+1F468-1F3FE-1F692) in category people</summary>
+        public const string EmojiManFirefighterTone4 = "man_firefighter_tone4";
+
         /// <summary>Emoji man tone 5 '👨🏿' (U+1F468-1F3FF) in category people</summary>
         public const string EmojiManTone5 = "man_tone5";
-
-        /// <summary>Emoji man pilot: dark skin tone '👨🏿‍✈️' (U+1F468-1F3FF-2708) in category people</summary>
-        public const string EmojiManPilotTone5 = "man_pilot_tone5";
 
         /// <summary>Emoji man health worker: dark skin tone '👨🏿‍⚕️' (U+1F468-1F3FF-2695) in category people</summary>
         public const string EmojiManHealthWorkerTone5 = "man_health_worker_tone5";
 
         /// <summary>Emoji man judge: dark skin tone '👨🏿‍⚖️' (U+1F468-1F3FF-2696) in category people</summary>
         public const string EmojiManJudgeTone5 = "man_judge_tone5";
+
+        /// <summary>Emoji man pilot: dark skin tone '👨🏿‍✈️' (U+1F468-1F3FF-2708) in category people</summary>
+        public const string EmojiManPilotTone5 = "man_pilot_tone5";
 
         /// <summary>Emoji man farmer: dark skin tone '👨🏿‍🌾' (U+1F468-1F3FF-1F33E) in category people</summary>
         public const string EmojiManFarmerTone5 = "man_farmer_tone5";
@@ -3629,12 +3470,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man scientist: dark skin tone '👨🏿‍🔬' (U+1F468-1F3FF-1F52C) in category people</summary>
         public const string EmojiManScientistTone5 = "man_scientist_tone5";
 
-        /// <summary>Emoji man astronaut: dark skin tone '👨🏿‍🚀' (U+1F468-1F3FF-1F680) in category people</summary>
-        public const string EmojiManAstronautTone5 = "man_astronaut_tone5";
-
-        /// <summary>Emoji man firefighter: dark skin tone '👨🏿‍🚒' (U+1F468-1F3FF-1F692) in category people</summary>
-        public const string EmojiManFirefighterTone5 = "man_firefighter_tone5";
-
         /// <summary>Emoji man, red haired: dark skin tone '👨🏿‍🦰' (U+1F468-1F3FF-1F9B0) in category people</summary>
         public const string EmojiManRedHairedTone5 = "man_red_haired_tone5";
 
@@ -3646,6 +3481,12 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji man, white haired: dark skin tone '👨🏿‍🦳' (U+1F468-1F3FF-1F9B3) in category people</summary>
         public const string EmojiManWhiteHairedTone5 = "man_white_haired_tone5";
+
+        /// <summary>Emoji man astronaut: dark skin tone '👨🏿‍🚀' (U+1F468-1F3FF-1F680) in category people</summary>
+        public const string EmojiManAstronautTone5 = "man_astronaut_tone5";
+
+        /// <summary>Emoji man firefighter: dark skin tone '👨🏿‍🚒' (U+1F468-1F3FF-1F692) in category people</summary>
+        public const string EmojiManFirefighterTone5 = "man_firefighter_tone5";
 
         /// <summary>Emoji family: man, boy '👨‍👦' (U+1F468-1F466) in category people</summary>
         public const string EmojiFamilyManBoy = "family_man_boy";
@@ -3704,12 +3545,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man scientist '👨‍🔬' (U+1F468-1F52C) in category people</summary>
         public const string EmojiManScientist = "man_scientist";
 
-        /// <summary>Emoji man astronaut '👨‍🚀' (U+1F468-1F680) in category people</summary>
-        public const string EmojiManAstronaut = "man_astronaut";
-
-        /// <summary>Emoji man firefighter '👨‍🚒' (U+1F468-1F692) in category people</summary>
-        public const string EmojiManFirefighter = "man_firefighter";
-
         /// <summary>Emoji man, red haired '👨‍🦰' (U+1F468-1F9B0) in category people</summary>
         public const string EmojiManRedHaired = "man_red_haired";
 
@@ -3722,8 +3557,20 @@ namespace Meziantou.GitLab
         /// <summary>Emoji man, white haired '👨‍🦳' (U+1F468-1F9B3) in category people</summary>
         public const string EmojiManWhiteHaired = "man_white_haired";
 
+        /// <summary>Emoji man astronaut '👨‍🚀' (U+1F468-1F680) in category people</summary>
+        public const string EmojiManAstronaut = "man_astronaut";
+
+        /// <summary>Emoji man firefighter '👨‍🚒' (U+1F468-1F692) in category people</summary>
+        public const string EmojiManFirefighter = "man_firefighter";
+
         /// <summary>Emoji woman '👩' (U+1F469) in category people</summary>
         public const string EmojiWoman = "woman";
+
+        /// <summary>Emoji woman health worker '👩‍⚕️' (U+1F469-2695) in category people</summary>
+        public const string EmojiWomanHealthWorker = "woman_health_worker";
+
+        /// <summary>Emoji woman judge '👩‍⚖️' (U+1F469-2696) in category people</summary>
+        public const string EmojiWomanJudge = "woman_judge";
 
         /// <summary>Emoji woman pilot '👩‍✈️' (U+1F469-2708) in category people</summary>
         public const string EmojiWomanPilot = "woman_pilot";
@@ -3739,12 +3586,6 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji kiss (woman,woman) '👩‍❤️‍💋‍👩' (U+1F469-2764-1F48B-1F469) in category people</summary>
         public const string EmojiKissWw = "kiss_ww";
-
-        /// <summary>Emoji woman health worker '👩‍⚕️' (U+1F469-2695) in category people</summary>
-        public const string EmojiWomanHealthWorker = "woman_health_worker";
-
-        /// <summary>Emoji woman judge '👩‍⚖️' (U+1F469-2696) in category people</summary>
-        public const string EmojiWomanJudge = "woman_judge";
 
         /// <summary>Emoji woman farmer '👩‍🌾' (U+1F469-1F33E) in category people</summary>
         public const string EmojiWomanFarmer = "woman_farmer";
@@ -3770,14 +3611,14 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman tone 1 '👩🏻' (U+1F469-1F3FB) in category people</summary>
         public const string EmojiWomanTone1 = "woman_tone1";
 
-        /// <summary>Emoji woman pilot: light skin tone '👩🏻‍✈️' (U+1F469-1F3FB-2708) in category people</summary>
-        public const string EmojiWomanPilotTone1 = "woman_pilot_tone1";
-
         /// <summary>Emoji woman health worker: light skin tone '👩🏻‍⚕️' (U+1F469-1F3FB-2695) in category people</summary>
         public const string EmojiWomanHealthWorkerTone1 = "woman_health_worker_tone1";
 
         /// <summary>Emoji woman judge: light skin tone '👩🏻‍⚖️' (U+1F469-1F3FB-2696) in category people</summary>
         public const string EmojiWomanJudgeTone1 = "woman_judge_tone1";
+
+        /// <summary>Emoji woman pilot: light skin tone '👩🏻‍✈️' (U+1F469-1F3FB-2708) in category people</summary>
+        public const string EmojiWomanPilotTone1 = "woman_pilot_tone1";
 
         /// <summary>Emoji woman farmer: light skin tone '👩🏻‍🌾' (U+1F469-1F3FB-1F33E) in category people</summary>
         public const string EmojiWomanFarmerTone1 = "woman_farmer_tone1";
@@ -3812,12 +3653,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman scientist: light skin tone '👩🏻‍🔬' (U+1F469-1F3FB-1F52C) in category people</summary>
         public const string EmojiWomanScientistTone1 = "woman_scientist_tone1";
 
-        /// <summary>Emoji woman astronaut: light skin tone '👩🏻‍🚀' (U+1F469-1F3FB-1F680) in category people</summary>
-        public const string EmojiWomanAstronautTone1 = "woman_astronaut_tone1";
-
-        /// <summary>Emoji woman firefighter: light skin tone '👩🏻‍🚒' (U+1F469-1F3FB-1F692) in category people</summary>
-        public const string EmojiWomanFirefighterTone1 = "woman_firefighter_tone1";
-
         /// <summary>Emoji woman, red haired: light skin tone '👩🏻‍🦰' (U+1F469-1F3FB-1F9B0) in category people</summary>
         public const string EmojiWomanRedHairedTone1 = "woman_red_haired_tone1";
 
@@ -3830,17 +3665,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman, white haired: light skin tone '👩🏻‍🦳' (U+1F469-1F3FB-1F9B3) in category people</summary>
         public const string EmojiWomanWhiteHairedTone1 = "woman_white_haired_tone1";
 
+        /// <summary>Emoji woman astronaut: light skin tone '👩🏻‍🚀' (U+1F469-1F3FB-1F680) in category people</summary>
+        public const string EmojiWomanAstronautTone1 = "woman_astronaut_tone1";
+
+        /// <summary>Emoji woman firefighter: light skin tone '👩🏻‍🚒' (U+1F469-1F3FB-1F692) in category people</summary>
+        public const string EmojiWomanFirefighterTone1 = "woman_firefighter_tone1";
+
         /// <summary>Emoji woman tone 2 '👩🏼' (U+1F469-1F3FC) in category people</summary>
         public const string EmojiWomanTone2 = "woman_tone2";
-
-        /// <summary>Emoji woman pilot: medium-light skin tone '👩🏼‍✈️' (U+1F469-1F3FC-2708) in category people</summary>
-        public const string EmojiWomanPilotTone2 = "woman_pilot_tone2";
 
         /// <summary>Emoji woman health worker: medium-light skin tone '👩🏼‍⚕️' (U+1F469-1F3FC-2695) in category people</summary>
         public const string EmojiWomanHealthWorkerTone2 = "woman_health_worker_tone2";
 
         /// <summary>Emoji woman judge: medium-light skin tone '👩🏼‍⚖️' (U+1F469-1F3FC-2696) in category people</summary>
         public const string EmojiWomanJudgeTone2 = "woman_judge_tone2";
+
+        /// <summary>Emoji woman pilot: medium-light skin tone '👩🏼‍✈️' (U+1F469-1F3FC-2708) in category people</summary>
+        public const string EmojiWomanPilotTone2 = "woman_pilot_tone2";
 
         /// <summary>Emoji woman farmer: medium-light skin tone '👩🏼‍🌾' (U+1F469-1F3FC-1F33E) in category people</summary>
         public const string EmojiWomanFarmerTone2 = "woman_farmer_tone2";
@@ -3875,12 +3716,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman scientist: medium-light skin tone '👩🏼‍🔬' (U+1F469-1F3FC-1F52C) in category people</summary>
         public const string EmojiWomanScientistTone2 = "woman_scientist_tone2";
 
-        /// <summary>Emoji woman astronaut: medium-light skin tone '👩🏼‍🚀' (U+1F469-1F3FC-1F680) in category people</summary>
-        public const string EmojiWomanAstronautTone2 = "woman_astronaut_tone2";
-
-        /// <summary>Emoji woman firefighter: medium-light skin tone '👩🏼‍🚒' (U+1F469-1F3FC-1F692) in category people</summary>
-        public const string EmojiWomanFirefighterTone2 = "woman_firefighter_tone2";
-
         /// <summary>Emoji woman, red haired: medium-light skin tone '👩🏼‍🦰' (U+1F469-1F3FC-1F9B0) in category people</summary>
         public const string EmojiWomanRedHairedTone2 = "woman_red_haired_tone2";
 
@@ -3893,17 +3728,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman, white haired: medium-light skin tone '👩🏼‍🦳' (U+1F469-1F3FC-1F9B3) in category people</summary>
         public const string EmojiWomanWhiteHairedTone2 = "woman_white_haired_tone2";
 
+        /// <summary>Emoji woman astronaut: medium-light skin tone '👩🏼‍🚀' (U+1F469-1F3FC-1F680) in category people</summary>
+        public const string EmojiWomanAstronautTone2 = "woman_astronaut_tone2";
+
+        /// <summary>Emoji woman firefighter: medium-light skin tone '👩🏼‍🚒' (U+1F469-1F3FC-1F692) in category people</summary>
+        public const string EmojiWomanFirefighterTone2 = "woman_firefighter_tone2";
+
         /// <summary>Emoji woman tone 3 '👩🏽' (U+1F469-1F3FD) in category people</summary>
         public const string EmojiWomanTone3 = "woman_tone3";
-
-        /// <summary>Emoji woman pilot: medium skin tone '👩🏽‍✈️' (U+1F469-1F3FD-2708) in category people</summary>
-        public const string EmojiWomanPilotTone3 = "woman_pilot_tone3";
 
         /// <summary>Emoji woman health worker: medium skin tone '👩🏽‍⚕️' (U+1F469-1F3FD-2695) in category people</summary>
         public const string EmojiWomanHealthWorkerTone3 = "woman_health_worker_tone3";
 
         /// <summary>Emoji woman judge: medium skin tone '👩🏽‍⚖️' (U+1F469-1F3FD-2696) in category people</summary>
         public const string EmojiWomanJudgeTone3 = "woman_judge_tone3";
+
+        /// <summary>Emoji woman pilot: medium skin tone '👩🏽‍✈️' (U+1F469-1F3FD-2708) in category people</summary>
+        public const string EmojiWomanPilotTone3 = "woman_pilot_tone3";
 
         /// <summary>Emoji woman farmer: medium skin tone '👩🏽‍🌾' (U+1F469-1F3FD-1F33E) in category people</summary>
         public const string EmojiWomanFarmerTone3 = "woman_farmer_tone3";
@@ -3938,12 +3779,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman scientist: medium skin tone '👩🏽‍🔬' (U+1F469-1F3FD-1F52C) in category people</summary>
         public const string EmojiWomanScientistTone3 = "woman_scientist_tone3";
 
-        /// <summary>Emoji woman astronaut: medium skin tone '👩🏽‍🚀' (U+1F469-1F3FD-1F680) in category people</summary>
-        public const string EmojiWomanAstronautTone3 = "woman_astronaut_tone3";
-
-        /// <summary>Emoji woman firefighter: medium skin tone '👩🏽‍🚒' (U+1F469-1F3FD-1F692) in category people</summary>
-        public const string EmojiWomanFirefighterTone3 = "woman_firefighter_tone3";
-
         /// <summary>Emoji woman, red haired: medium skin tone '👩🏽‍🦰' (U+1F469-1F3FD-1F9B0) in category people</summary>
         public const string EmojiWomanRedHairedTone3 = "woman_red_haired_tone3";
 
@@ -3956,17 +3791,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman, white haired: medium skin tone '👩🏽‍🦳' (U+1F469-1F3FD-1F9B3) in category people</summary>
         public const string EmojiWomanWhiteHairedTone3 = "woman_white_haired_tone3";
 
+        /// <summary>Emoji woman astronaut: medium skin tone '👩🏽‍🚀' (U+1F469-1F3FD-1F680) in category people</summary>
+        public const string EmojiWomanAstronautTone3 = "woman_astronaut_tone3";
+
+        /// <summary>Emoji woman firefighter: medium skin tone '👩🏽‍🚒' (U+1F469-1F3FD-1F692) in category people</summary>
+        public const string EmojiWomanFirefighterTone3 = "woman_firefighter_tone3";
+
         /// <summary>Emoji woman tone 4 '👩🏾' (U+1F469-1F3FE) in category people</summary>
         public const string EmojiWomanTone4 = "woman_tone4";
-
-        /// <summary>Emoji woman pilot: medium-dark skin tone '👩🏾‍✈️' (U+1F469-1F3FE-2708) in category people</summary>
-        public const string EmojiWomanPilotTone4 = "woman_pilot_tone4";
 
         /// <summary>Emoji woman health worker: medium-dark skin tone '👩🏾‍⚕️' (U+1F469-1F3FE-2695) in category people</summary>
         public const string EmojiWomanHealthWorkerTone4 = "woman_health_worker_tone4";
 
         /// <summary>Emoji woman judge: medium-dark skin tone '👩🏾‍⚖️' (U+1F469-1F3FE-2696) in category people</summary>
         public const string EmojiWomanJudgeTone4 = "woman_judge_tone4";
+
+        /// <summary>Emoji woman pilot: medium-dark skin tone '👩🏾‍✈️' (U+1F469-1F3FE-2708) in category people</summary>
+        public const string EmojiWomanPilotTone4 = "woman_pilot_tone4";
 
         /// <summary>Emoji woman farmer: medium-dark skin tone '👩🏾‍🌾' (U+1F469-1F3FE-1F33E) in category people</summary>
         public const string EmojiWomanFarmerTone4 = "woman_farmer_tone4";
@@ -4001,12 +3842,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman scientist: medium-dark skin tone '👩🏾‍🔬' (U+1F469-1F3FE-1F52C) in category people</summary>
         public const string EmojiWomanScientistTone4 = "woman_scientist_tone4";
 
-        /// <summary>Emoji woman astronaut: medium-dark skin tone '👩🏾‍🚀' (U+1F469-1F3FE-1F680) in category people</summary>
-        public const string EmojiWomanAstronautTone4 = "woman_astronaut_tone4";
-
-        /// <summary>Emoji woman firefighter: medium-dark skin tone '👩🏾‍🚒' (U+1F469-1F3FE-1F692) in category people</summary>
-        public const string EmojiWomanFirefighterTone4 = "woman_firefighter_tone4";
-
         /// <summary>Emoji woman, red haired: medium-dark skin tone '👩🏾‍🦰' (U+1F469-1F3FE-1F9B0) in category people</summary>
         public const string EmojiWomanRedHairedTone4 = "woman_red_haired_tone4";
 
@@ -4019,17 +3854,23 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman, white haired: medium-dark skin tone '👩🏾‍🦳' (U+1F469-1F3FE-1F9B3) in category people</summary>
         public const string EmojiWomanWhiteHairedTone4 = "woman_white_haired_tone4";
 
+        /// <summary>Emoji woman astronaut: medium-dark skin tone '👩🏾‍🚀' (U+1F469-1F3FE-1F680) in category people</summary>
+        public const string EmojiWomanAstronautTone4 = "woman_astronaut_tone4";
+
+        /// <summary>Emoji woman firefighter: medium-dark skin tone '👩🏾‍🚒' (U+1F469-1F3FE-1F692) in category people</summary>
+        public const string EmojiWomanFirefighterTone4 = "woman_firefighter_tone4";
+
         /// <summary>Emoji woman tone 5 '👩🏿' (U+1F469-1F3FF) in category people</summary>
         public const string EmojiWomanTone5 = "woman_tone5";
-
-        /// <summary>Emoji woman pilot: dark skin tone '👩🏿‍✈️' (U+1F469-1F3FF-2708) in category people</summary>
-        public const string EmojiWomanPilotTone5 = "woman_pilot_tone5";
 
         /// <summary>Emoji woman health worker: dark skin tone '👩🏿‍⚕️' (U+1F469-1F3FF-2695) in category people</summary>
         public const string EmojiWomanHealthWorkerTone5 = "woman_health_worker_tone5";
 
         /// <summary>Emoji woman judge: dark skin tone '👩🏿‍⚖️' (U+1F469-1F3FF-2696) in category people</summary>
         public const string EmojiWomanJudgeTone5 = "woman_judge_tone5";
+
+        /// <summary>Emoji woman pilot: dark skin tone '👩🏿‍✈️' (U+1F469-1F3FF-2708) in category people</summary>
+        public const string EmojiWomanPilotTone5 = "woman_pilot_tone5";
 
         /// <summary>Emoji woman farmer: dark skin tone '👩🏿‍🌾' (U+1F469-1F3FF-1F33E) in category people</summary>
         public const string EmojiWomanFarmerTone5 = "woman_farmer_tone5";
@@ -4064,12 +3905,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman scientist: dark skin tone '👩🏿‍🔬' (U+1F469-1F3FF-1F52C) in category people</summary>
         public const string EmojiWomanScientistTone5 = "woman_scientist_tone5";
 
-        /// <summary>Emoji woman astronaut: dark skin tone '👩🏿‍🚀' (U+1F469-1F3FF-1F680) in category people</summary>
-        public const string EmojiWomanAstronautTone5 = "woman_astronaut_tone5";
-
-        /// <summary>Emoji woman firefighter: dark skin tone '👩🏿‍🚒' (U+1F469-1F3FF-1F692) in category people</summary>
-        public const string EmojiWomanFirefighterTone5 = "woman_firefighter_tone5";
-
         /// <summary>Emoji woman, red haired: dark skin tone '👩🏿‍🦰' (U+1F469-1F3FF-1F9B0) in category people</summary>
         public const string EmojiWomanRedHairedTone5 = "woman_red_haired_tone5";
 
@@ -4081,6 +3916,12 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji woman, white haired: dark skin tone '👩🏿‍🦳' (U+1F469-1F3FF-1F9B3) in category people</summary>
         public const string EmojiWomanWhiteHairedTone5 = "woman_white_haired_tone5";
+
+        /// <summary>Emoji woman astronaut: dark skin tone '👩🏿‍🚀' (U+1F469-1F3FF-1F680) in category people</summary>
+        public const string EmojiWomanAstronautTone5 = "woman_astronaut_tone5";
+
+        /// <summary>Emoji woman firefighter: dark skin tone '👩🏿‍🚒' (U+1F469-1F3FF-1F692) in category people</summary>
+        public const string EmojiWomanFirefighterTone5 = "woman_firefighter_tone5";
 
         /// <summary>Emoji family: woman, boy '👩‍👦' (U+1F469-1F466) in category people</summary>
         public const string EmojiFamilyWomanBoy = "family_woman_boy";
@@ -4124,12 +3965,6 @@ namespace Meziantou.GitLab
         /// <summary>Emoji woman scientist '👩‍🔬' (U+1F469-1F52C) in category people</summary>
         public const string EmojiWomanScientist = "woman_scientist";
 
-        /// <summary>Emoji woman astronaut '👩‍🚀' (U+1F469-1F680) in category people</summary>
-        public const string EmojiWomanAstronaut = "woman_astronaut";
-
-        /// <summary>Emoji woman firefighter '👩‍🚒' (U+1F469-1F692) in category people</summary>
-        public const string EmojiWomanFirefighter = "woman_firefighter";
-
         /// <summary>Emoji woman, red haired '👩‍🦰' (U+1F469-1F9B0) in category people</summary>
         public const string EmojiWomanRedHaired = "woman_red_haired";
 
@@ -4141,6 +3976,12 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji woman, white haired '👩‍🦳' (U+1F469-1F9B3) in category people</summary>
         public const string EmojiWomanWhiteHaired = "woman_white_haired";
+
+        /// <summary>Emoji woman astronaut '👩‍🚀' (U+1F469-1F680) in category people</summary>
+        public const string EmojiWomanAstronaut = "woman_astronaut";
+
+        /// <summary>Emoji woman firefighter '👩‍🚒' (U+1F469-1F692) in category people</summary>
+        public const string EmojiWomanFirefighter = "woman_firefighter";
 
         /// <summary>Emoji family '👪' (U+1F46A) in category people</summary>
         public const string EmojiFamily = "family";
@@ -4244,11 +4085,11 @@ namespace Meziantou.GitLab
         /// <summary>Emoji person with blond hair '👱' (U+1F471) in category people</summary>
         public const string EmojiPersonWithBlondHair = "person_with_blond_hair";
 
-        /// <summary>Emoji blond-haired woman '👱‍♀️' (U+1f471-2640) in category people</summary>
-        public const string EmojiBlondeWoman = "blonde_woman";
-
         /// <summary>Emoji blond-haired woman '👱‍♀️' (U+1F471-2640) in category people</summary>
         public const string EmojiBlondHairedWoman = "blond-haired_woman";
+
+        /// <summary>Emoji blond-haired woman '👱‍♀️' (U+1f471-2640) in category people</summary>
+        public const string EmojiBlondeWoman = "blonde_woman";
 
         /// <summary>Emoji blond-haired man '👱‍♂️' (U+1F471-2642) in category people</summary>
         public const string EmojiBlondHairedMan = "blond-haired_man";
@@ -5719,1131 +5560,6 @@ namespace Meziantou.GitLab
 
         /// <summary>Emoji moyai '🗿' (U+1F5FF) in category objects</summary>
         public const string EmojiMoyai = "moyai";
-
-        /// <summary>Emoji grinning face '😀' (U+1F600) in category people</summary>
-        public const string EmojiGrinning = "grinning";
-
-        /// <summary>Emoji grinning face with smiling eyes '😁' (U+1F601) in category people</summary>
-        public const string EmojiGrin = "grin";
-
-        /// <summary>Emoji face with tears of joy '😂' (U+1F602) in category people</summary>
-        public const string EmojiJoy = "joy";
-
-        /// <summary>Emoji smiling face with open mouth '😃' (U+1F603) in category people</summary>
-        public const string EmojiSmiley = "smiley";
-
-        /// <summary>Emoji smiling face with open mouth and smiling eyes '😄' (U+1F604) in category people</summary>
-        public const string EmojiSmile = "smile";
-
-        /// <summary>Emoji smiling face with open mouth and cold sweat '😅' (U+1F605) in category people</summary>
-        public const string EmojiSweatSmile = "sweat_smile";
-
-        /// <summary>Emoji smiling face with open mouth and tightly-closed ey '😆' (U+1F606) in category people</summary>
-        public const string EmojiLaughing = "laughing";
-
-        /// <summary>Emoji smiling face with halo '😇' (U+1F607) in category people</summary>
-        public const string EmojiInnocent = "innocent";
-
-        /// <summary>Emoji smiling face with horns '😈' (U+1F608) in category people</summary>
-        public const string EmojiSmilingImp = "smiling_imp";
-
-        /// <summary>Emoji winking face '😉' (U+1F609) in category people</summary>
-        public const string EmojiWink = "wink";
-
-        /// <summary>Emoji smiling face with smiling eyes '😊' (U+1F60A) in category people</summary>
-        public const string EmojiBlush = "blush";
-
-        /// <summary>Emoji face savouring delicious food '😋' (U+1F60B) in category people</summary>
-        public const string EmojiYum = "yum";
-
-        /// <summary>Emoji relieved face '😌' (U+1F60C) in category people</summary>
-        public const string EmojiRelieved = "relieved";
-
-        /// <summary>Emoji smiling face with heart-shaped eyes '😍' (U+1F60D) in category people</summary>
-        public const string EmojiHeartEyes = "heart_eyes";
-
-        /// <summary>Emoji smiling face with sunglasses '😎' (U+1F60E) in category people</summary>
-        public const string EmojiSunglasses = "sunglasses";
-
-        /// <summary>Emoji smirking face '😏' (U+1F60F) in category people</summary>
-        public const string EmojiSmirk = "smirk";
-
-        /// <summary>Emoji neutral face '😐' (U+1F610) in category people</summary>
-        public const string EmojiNeutralFace = "neutral_face";
-
-        /// <summary>Emoji expressionless face '😑' (U+1F611) in category people</summary>
-        public const string EmojiExpressionless = "expressionless";
-
-        /// <summary>Emoji unamused face '😒' (U+1F612) in category people</summary>
-        public const string EmojiUnamused = "unamused";
-
-        /// <summary>Emoji face with cold sweat '😓' (U+1F613) in category people</summary>
-        public const string EmojiSweat = "sweat";
-
-        /// <summary>Emoji pensive face '😔' (U+1F614) in category people</summary>
-        public const string EmojiPensive = "pensive";
-
-        /// <summary>Emoji confused face '😕' (U+1F615) in category people</summary>
-        public const string EmojiConfused = "confused";
-
-        /// <summary>Emoji confounded face '😖' (U+1F616) in category people</summary>
-        public const string EmojiConfounded = "confounded";
-
-        /// <summary>Emoji kissing face '😗' (U+1F617) in category people</summary>
-        public const string EmojiKissing = "kissing";
-
-        /// <summary>Emoji face throwing a kiss '😘' (U+1F618) in category people</summary>
-        public const string EmojiKissingHeart = "kissing_heart";
-
-        /// <summary>Emoji kissing face with smiling eyes '😙' (U+1F619) in category people</summary>
-        public const string EmojiKissingSmilingEyes = "kissing_smiling_eyes";
-
-        /// <summary>Emoji kissing face with closed eyes '😚' (U+1F61A) in category people</summary>
-        public const string EmojiKissingClosedEyes = "kissing_closed_eyes";
-
-        /// <summary>Emoji face with stuck-out tongue '😛' (U+1F61B) in category people</summary>
-        public const string EmojiStuckOutTongue = "stuck_out_tongue";
-
-        /// <summary>Emoji face with stuck-out tongue and winking eye '😜' (U+1F61C) in category people</summary>
-        public const string EmojiStuckOutTongueWinkingEye = "stuck_out_tongue_winking_eye";
-
-        /// <summary>Emoji face with stuck-out tongue and tightly-closed eyes '😝' (U+1F61D) in category people</summary>
-        public const string EmojiStuckOutTongueClosedEyes = "stuck_out_tongue_closed_eyes";
-
-        /// <summary>Emoji disappointed face '😞' (U+1F61E) in category people</summary>
-        public const string EmojiDisappointed = "disappointed";
-
-        /// <summary>Emoji worried face '😟' (U+1F61F) in category people</summary>
-        public const string EmojiWorried = "worried";
-
-        /// <summary>Emoji angry face '😠' (U+1F620) in category people</summary>
-        public const string EmojiAngry = "angry";
-
-        /// <summary>Emoji pouting face '😡' (U+1F621) in category people</summary>
-        public const string EmojiRage = "rage";
-
-        /// <summary>Emoji crying face '😢' (U+1F622) in category people</summary>
-        public const string EmojiCry = "cry";
-
-        /// <summary>Emoji persevering face '😣' (U+1F623) in category people</summary>
-        public const string EmojiPersevere = "persevere";
-
-        /// <summary>Emoji face with look of triumph '😤' (U+1F624) in category people</summary>
-        public const string EmojiTriumph = "triumph";
-
-        /// <summary>Emoji disappointed but relieved face '😥' (U+1F625) in category people</summary>
-        public const string EmojiDisappointedRelieved = "disappointed_relieved";
-
-        /// <summary>Emoji frowning face with open mouth '😦' (U+1F626) in category people</summary>
-        public const string EmojiFrowning = "frowning";
-
-        /// <summary>Emoji anguished face '😧' (U+1F627) in category people</summary>
-        public const string EmojiAnguished = "anguished";
-
-        /// <summary>Emoji fearful face '😨' (U+1F628) in category people</summary>
-        public const string EmojiFearful = "fearful";
-
-        /// <summary>Emoji weary face '😩' (U+1F629) in category people</summary>
-        public const string EmojiWeary = "weary";
-
-        /// <summary>Emoji sleepy face '😪' (U+1F62A) in category people</summary>
-        public const string EmojiSleepy = "sleepy";
-
-        /// <summary>Emoji tired face '😫' (U+1F62B) in category people</summary>
-        public const string EmojiTiredFace = "tired_face";
-
-        /// <summary>Emoji grimacing face '😬' (U+1F62C) in category people</summary>
-        public const string EmojiGrimacing = "grimacing";
-
-        /// <summary>Emoji loudly crying face '😭' (U+1F62D) in category people</summary>
-        public const string EmojiSob = "sob";
-
-        /// <summary>Emoji face with open mouth '😮' (U+1F62E) in category people</summary>
-        public const string EmojiOpenMouth = "open_mouth";
-
-        /// <summary>Emoji hushed face '😯' (U+1F62F) in category people</summary>
-        public const string EmojiHushed = "hushed";
-
-        /// <summary>Emoji face with open mouth and cold sweat '😰' (U+1F630) in category people</summary>
-        public const string EmojiColdSweat = "cold_sweat";
-
-        /// <summary>Emoji face screaming in fear '😱' (U+1F631) in category people</summary>
-        public const string EmojiScream = "scream";
-
-        /// <summary>Emoji astonished face '😲' (U+1F632) in category people</summary>
-        public const string EmojiAstonished = "astonished";
-
-        /// <summary>Emoji flushed face '😳' (U+1F633) in category people</summary>
-        public const string EmojiFlushed = "flushed";
-
-        /// <summary>Emoji sleeping face '😴' (U+1F634) in category people</summary>
-        public const string EmojiSleeping = "sleeping";
-
-        /// <summary>Emoji dizzy face '😵' (U+1F635) in category people</summary>
-        public const string EmojiDizzyFace = "dizzy_face";
-
-        /// <summary>Emoji face without mouth '😶' (U+1F636) in category people</summary>
-        public const string EmojiNoMouth = "no_mouth";
-
-        /// <summary>Emoji face with medical mask '😷' (U+1F637) in category people</summary>
-        public const string EmojiMask = "mask";
-
-        /// <summary>Emoji grinning cat face with smiling eyes '😸' (U+1F638) in category people</summary>
-        public const string EmojiSmileCat = "smile_cat";
-
-        /// <summary>Emoji cat face with tears of joy '😹' (U+1F639) in category people</summary>
-        public const string EmojiJoyCat = "joy_cat";
-
-        /// <summary>Emoji smiling cat face with open mouth '😺' (U+1F63A) in category people</summary>
-        public const string EmojiSmileyCat = "smiley_cat";
-
-        /// <summary>Emoji smiling cat face with heart-shaped eyes '😻' (U+1F63B) in category people</summary>
-        public const string EmojiHeartEyesCat = "heart_eyes_cat";
-
-        /// <summary>Emoji cat face with wry smile '😼' (U+1F63C) in category people</summary>
-        public const string EmojiSmirkCat = "smirk_cat";
-
-        /// <summary>Emoji kissing cat face with closed eyes '😽' (U+1F63D) in category people</summary>
-        public const string EmojiKissingCat = "kissing_cat";
-
-        /// <summary>Emoji pouting cat face '😾' (U+1F63E) in category people</summary>
-        public const string EmojiPoutingCat = "pouting_cat";
-
-        /// <summary>Emoji crying cat face '😿' (U+1F63F) in category people</summary>
-        public const string EmojiCryingCatFace = "crying_cat_face";
-
-        /// <summary>Emoji weary cat face '🙀' (U+1F640) in category people</summary>
-        public const string EmojiScreamCat = "scream_cat";
-
-        /// <summary>Emoji slightly frowning face '🙁' (U+1F641) in category people</summary>
-        public const string EmojiSlightFrown = "slight_frown";
-
-        /// <summary>Emoji slightly smiling face '🙂' (U+1F642) in category people</summary>
-        public const string EmojiSlightSmile = "slight_smile";
-
-        /// <summary>Emoji upside-down face '🙃' (U+1F643) in category people</summary>
-        public const string EmojiUpsideDown = "upside_down";
-
-        /// <summary>Emoji face with rolling eyes '🙄' (U+1F644) in category people</summary>
-        public const string EmojiRollingEyes = "rolling_eyes";
-
-        /// <summary>Emoji face with no good gesture '🙅' (U+1F645) in category people</summary>
-        public const string EmojiNoGood = "no_good";
-
-        /// <summary>Emoji woman gesturing NO '🙅‍♀️' (U+1F645-2640) in category people</summary>
-        public const string EmojiWomanGesturingNo = "woman_gesturing_no";
-
-        /// <summary>Emoji man gesturing NO '🙅‍♂️' (U+1F645-2642) in category people</summary>
-        public const string EmojiManGesturingNo = "man_gesturing_no";
-
-        /// <summary>Emoji man gesturing NO '🙅‍♂️' (U+1f645-2642) in category people</summary>
-        public const string EmojiNoGoodMan = "no_good_man";
-
-        /// <summary>Emoji face with no good gesture tone 1 '🙅🏻' (U+1F645-1F3FB) in category people</summary>
-        public const string EmojiNoGoodTone1 = "no_good_tone1";
-
-        /// <summary>Emoji woman gesturing NO: light skin tone '🙅🏻‍♀️' (U+1F645-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanGesturingNoTone1 = "woman_gesturing_no_tone1";
-
-        /// <summary>Emoji man gesturing NO: light skin tone '🙅🏻‍♂️' (U+1F645-1F3FB-2642) in category people</summary>
-        public const string EmojiManGesturingNoTone1 = "man_gesturing_no_tone1";
-
-        /// <summary>Emoji face with no good gesture tone 2 '🙅🏼' (U+1F645-1F3FC) in category people</summary>
-        public const string EmojiNoGoodTone2 = "no_good_tone2";
-
-        /// <summary>Emoji woman gesturing NO: medium-light skin tone '🙅🏼‍♀️' (U+1F645-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanGesturingNoTone2 = "woman_gesturing_no_tone2";
-
-        /// <summary>Emoji man gesturing NO: medium-light skin tone '🙅🏼‍♂️' (U+1F645-1F3FC-2642) in category people</summary>
-        public const string EmojiManGesturingNoTone2 = "man_gesturing_no_tone2";
-
-        /// <summary>Emoji face with no good gesture tone 3 '🙅🏽' (U+1F645-1F3FD) in category people</summary>
-        public const string EmojiNoGoodTone3 = "no_good_tone3";
-
-        /// <summary>Emoji woman gesturing NO: medium skin tone '🙅🏽‍♀️' (U+1F645-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanGesturingNoTone3 = "woman_gesturing_no_tone3";
-
-        /// <summary>Emoji man gesturing NO: medium skin tone '🙅🏽‍♂️' (U+1F645-1F3FD-2642) in category people</summary>
-        public const string EmojiManGesturingNoTone3 = "man_gesturing_no_tone3";
-
-        /// <summary>Emoji face with no good gesture tone 4 '🙅🏾' (U+1F645-1F3FE) in category people</summary>
-        public const string EmojiNoGoodTone4 = "no_good_tone4";
-
-        /// <summary>Emoji woman gesturing NO: medium-dark skin tone '🙅🏾‍♀️' (U+1F645-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanGesturingNoTone4 = "woman_gesturing_no_tone4";
-
-        /// <summary>Emoji man gesturing NO: medium-dark skin tone '🙅🏾‍♂️' (U+1F645-1F3FE-2642) in category people</summary>
-        public const string EmojiManGesturingNoTone4 = "man_gesturing_no_tone4";
-
-        /// <summary>Emoji face with no good gesture tone 5 '🙅🏿' (U+1F645-1F3FF) in category people</summary>
-        public const string EmojiNoGoodTone5 = "no_good_tone5";
-
-        /// <summary>Emoji woman gesturing NO: dark skin tone '🙅🏿‍♀️' (U+1F645-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanGesturingNoTone5 = "woman_gesturing_no_tone5";
-
-        /// <summary>Emoji man gesturing NO: dark skin tone '🙅🏿‍♂️' (U+1F645-1F3FF-2642) in category people</summary>
-        public const string EmojiManGesturingNoTone5 = "man_gesturing_no_tone5";
-
-        /// <summary>Emoji face with ok gesture '🙆' (U+1F646) in category people</summary>
-        public const string EmojiOkWoman = "ok_woman";
-
-        /// <summary>Emoji woman gesturing OK '🙆‍♀️' (U+1F646-2640) in category people</summary>
-        public const string EmojiWomanGesturingOk = "woman_gesturing_ok";
-
-        /// <summary>Emoji man gesturing OK '🙆‍♂️' (U+1F646-2642) in category people</summary>
-        public const string EmojiManGesturingOk = "man_gesturing_ok";
-
-        /// <summary>Emoji man gesturing OK '🙆‍♂️' (U+1f646-2642) in category people</summary>
-        public const string EmojiOkMan = "ok_man";
-
-        /// <summary>Emoji face with ok gesture tone1 '🙆🏻' (U+1F646-1F3FB) in category people</summary>
-        public const string EmojiOkWomanTone1 = "ok_woman_tone1";
-
-        /// <summary>Emoji woman gesturing OK: light skin tone '🙆🏻‍♀️' (U+1F646-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanGesturingOkTone1 = "woman_gesturing_ok_tone1";
-
-        /// <summary>Emoji man gesturing OK: light skin tone '🙆🏻‍♂️' (U+1F646-1F3FB-2642) in category people</summary>
-        public const string EmojiManGesturingOkTone1 = "man_gesturing_ok_tone1";
-
-        /// <summary>Emoji face with ok gesture tone2 '🙆🏼' (U+1F646-1F3FC) in category people</summary>
-        public const string EmojiOkWomanTone2 = "ok_woman_tone2";
-
-        /// <summary>Emoji woman gesturing OK: medium-light skin tone '🙆🏼‍♀️' (U+1F646-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanGesturingOkTone2 = "woman_gesturing_ok_tone2";
-
-        /// <summary>Emoji man gesturing OK: medium-light skin tone '🙆🏼‍♂️' (U+1F646-1F3FC-2642) in category people</summary>
-        public const string EmojiManGesturingOkTone2 = "man_gesturing_ok_tone2";
-
-        /// <summary>Emoji face with ok gesture tone3 '🙆🏽' (U+1F646-1F3FD) in category people</summary>
-        public const string EmojiOkWomanTone3 = "ok_woman_tone3";
-
-        /// <summary>Emoji woman gesturing OK: medium skin tone '🙆🏽‍♀️' (U+1F646-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanGesturingOkTone3 = "woman_gesturing_ok_tone3";
-
-        /// <summary>Emoji man gesturing OK: medium skin tone '🙆🏽‍♂️' (U+1F646-1F3FD-2642) in category people</summary>
-        public const string EmojiManGesturingOkTone3 = "man_gesturing_ok_tone3";
-
-        /// <summary>Emoji face with ok gesture tone4 '🙆🏾' (U+1F646-1F3FE) in category people</summary>
-        public const string EmojiOkWomanTone4 = "ok_woman_tone4";
-
-        /// <summary>Emoji woman gesturing OK: medium-dark skin tone '🙆🏾‍♀️' (U+1F646-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanGesturingOkTone4 = "woman_gesturing_ok_tone4";
-
-        /// <summary>Emoji man gesturing OK: medium-dark skin tone '🙆🏾‍♂️' (U+1F646-1F3FE-2642) in category people</summary>
-        public const string EmojiManGesturingOkTone4 = "man_gesturing_ok_tone4";
-
-        /// <summary>Emoji face with ok gesture tone5 '🙆🏿' (U+1F646-1F3FF) in category people</summary>
-        public const string EmojiOkWomanTone5 = "ok_woman_tone5";
-
-        /// <summary>Emoji woman gesturing OK: dark skin tone '🙆🏿‍♀️' (U+1F646-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanGesturingOkTone5 = "woman_gesturing_ok_tone5";
-
-        /// <summary>Emoji man gesturing OK: dark skin tone '🙆🏿‍♂️' (U+1F646-1F3FF-2642) in category people</summary>
-        public const string EmojiManGesturingOkTone5 = "man_gesturing_ok_tone5";
-
-        /// <summary>Emoji person bowing deeply '🙇' (U+1F647) in category people</summary>
-        public const string EmojiBow = "bow";
-
-        /// <summary>Emoji woman bowing '🙇‍♀️' (U+1f647-2640) in category people</summary>
-        public const string EmojiBowingWoman = "bowing_woman";
-
-        /// <summary>Emoji woman bowing '🙇‍♀️' (U+1F647-2640) in category people</summary>
-        public const string EmojiWomanBowing = "woman_bowing";
-
-        /// <summary>Emoji man bowing '🙇‍♂️' (U+1F647-2642) in category people</summary>
-        public const string EmojiManBowing = "man_bowing";
-
-        /// <summary>Emoji person bowing deeply tone 1 '🙇🏻' (U+1F647-1F3FB) in category people</summary>
-        public const string EmojiBowTone1 = "bow_tone1";
-
-        /// <summary>Emoji woman bowing: light skin tone '🙇🏻‍♀️' (U+1F647-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanBowingTone1 = "woman_bowing_tone1";
-
-        /// <summary>Emoji man bowing: light skin tone '🙇🏻‍♂️' (U+1F647-1F3FB-2642) in category people</summary>
-        public const string EmojiManBowingTone1 = "man_bowing_tone1";
-
-        /// <summary>Emoji person bowing deeply tone 2 '🙇🏼' (U+1F647-1F3FC) in category people</summary>
-        public const string EmojiBowTone2 = "bow_tone2";
-
-        /// <summary>Emoji woman bowing: medium-light skin tone '🙇🏼‍♀️' (U+1F647-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanBowingTone2 = "woman_bowing_tone2";
-
-        /// <summary>Emoji man bowing: medium-light skin tone '🙇🏼‍♂️' (U+1F647-1F3FC-2642) in category people</summary>
-        public const string EmojiManBowingTone2 = "man_bowing_tone2";
-
-        /// <summary>Emoji person bowing deeply tone 3 '🙇🏽' (U+1F647-1F3FD) in category people</summary>
-        public const string EmojiBowTone3 = "bow_tone3";
-
-        /// <summary>Emoji woman bowing: medium skin tone '🙇🏽‍♀️' (U+1F647-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanBowingTone3 = "woman_bowing_tone3";
-
-        /// <summary>Emoji man bowing: medium skin tone '🙇🏽‍♂️' (U+1F647-1F3FD-2642) in category people</summary>
-        public const string EmojiManBowingTone3 = "man_bowing_tone3";
-
-        /// <summary>Emoji person bowing deeply tone 4 '🙇🏾' (U+1F647-1F3FE) in category people</summary>
-        public const string EmojiBowTone4 = "bow_tone4";
-
-        /// <summary>Emoji woman bowing: medium-dark skin tone '🙇🏾‍♀️' (U+1F647-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanBowingTone4 = "woman_bowing_tone4";
-
-        /// <summary>Emoji man bowing: medium-dark skin tone '🙇🏾‍♂️' (U+1F647-1F3FE-2642) in category people</summary>
-        public const string EmojiManBowingTone4 = "man_bowing_tone4";
-
-        /// <summary>Emoji person bowing deeply tone 5 '🙇🏿' (U+1F647-1F3FF) in category people</summary>
-        public const string EmojiBowTone5 = "bow_tone5";
-
-        /// <summary>Emoji woman bowing: dark skin tone '🙇🏿‍♀️' (U+1F647-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanBowingTone5 = "woman_bowing_tone5";
-
-        /// <summary>Emoji man bowing: dark skin tone '🙇🏿‍♂️' (U+1F647-1F3FF-2642) in category people</summary>
-        public const string EmojiManBowingTone5 = "man_bowing_tone5";
-
-        /// <summary>Emoji see-no-evil monkey '🙈' (U+1F648) in category nature</summary>
-        public const string EmojiSeeNoEvil = "see_no_evil";
-
-        /// <summary>Emoji hear-no-evil monkey '🙉' (U+1F649) in category nature</summary>
-        public const string EmojiHearNoEvil = "hear_no_evil";
-
-        /// <summary>Emoji speak-no-evil monkey '🙊' (U+1F64A) in category nature</summary>
-        public const string EmojiSpeakNoEvil = "speak_no_evil";
-
-        /// <summary>Emoji happy person raising one hand '🙋' (U+1F64B) in category people</summary>
-        public const string EmojiRaisingHand = "raising_hand";
-
-        /// <summary>Emoji woman raising hand '🙋‍♀️' (U+1F64B-2640) in category people</summary>
-        public const string EmojiWomanRaisingHand = "woman_raising_hand";
-
-        /// <summary>Emoji man raising hand '🙋‍♂️' (U+1F64B-2642) in category people</summary>
-        public const string EmojiManRaisingHand = "man_raising_hand";
-
-        /// <summary>Emoji man raising hand '🙋‍♂️' (U+1f64b-2642) in category people</summary>
-        public const string EmojiRaisingHandMan = "raising_hand_man";
-
-        /// <summary>Emoji happy person raising one hand tone1 '🙋🏻' (U+1F64B-1F3FB) in category people</summary>
-        public const string EmojiRaisingHandTone1 = "raising_hand_tone1";
-
-        /// <summary>Emoji woman raising hand: light skin tone '🙋🏻‍♀️' (U+1F64B-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanRaisingHandTone1 = "woman_raising_hand_tone1";
-
-        /// <summary>Emoji man raising hand: light skin tone '🙋🏻‍♂️' (U+1F64B-1F3FB-2642) in category people</summary>
-        public const string EmojiManRaisingHandTone1 = "man_raising_hand_tone1";
-
-        /// <summary>Emoji happy person raising one hand tone2 '🙋🏼' (U+1F64B-1F3FC) in category people</summary>
-        public const string EmojiRaisingHandTone2 = "raising_hand_tone2";
-
-        /// <summary>Emoji woman raising hand: medium-light skin tone '🙋🏼‍♀️' (U+1F64B-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanRaisingHandTone2 = "woman_raising_hand_tone2";
-
-        /// <summary>Emoji man raising hand: medium-light skin tone '🙋🏼‍♂️' (U+1F64B-1F3FC-2642) in category people</summary>
-        public const string EmojiManRaisingHandTone2 = "man_raising_hand_tone2";
-
-        /// <summary>Emoji happy person raising one hand tone3 '🙋🏽' (U+1F64B-1F3FD) in category people</summary>
-        public const string EmojiRaisingHandTone3 = "raising_hand_tone3";
-
-        /// <summary>Emoji woman raising hand: medium skin tone '🙋🏽‍♀️' (U+1F64B-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanRaisingHandTone3 = "woman_raising_hand_tone3";
-
-        /// <summary>Emoji man raising hand: medium skin tone '🙋🏽‍♂️' (U+1F64B-1F3FD-2642) in category people</summary>
-        public const string EmojiManRaisingHandTone3 = "man_raising_hand_tone3";
-
-        /// <summary>Emoji happy person raising one hand tone4 '🙋🏾' (U+1F64B-1F3FE) in category people</summary>
-        public const string EmojiRaisingHandTone4 = "raising_hand_tone4";
-
-        /// <summary>Emoji woman raising hand: medium-dark skin tone '🙋🏾‍♀️' (U+1F64B-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanRaisingHandTone4 = "woman_raising_hand_tone4";
-
-        /// <summary>Emoji man raising hand: medium-dark skin tone '🙋🏾‍♂️' (U+1F64B-1F3FE-2642) in category people</summary>
-        public const string EmojiManRaisingHandTone4 = "man_raising_hand_tone4";
-
-        /// <summary>Emoji happy person raising one hand tone5 '🙋🏿' (U+1F64B-1F3FF) in category people</summary>
-        public const string EmojiRaisingHandTone5 = "raising_hand_tone5";
-
-        /// <summary>Emoji woman raising hand: dark skin tone '🙋🏿‍♀️' (U+1F64B-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanRaisingHandTone5 = "woman_raising_hand_tone5";
-
-        /// <summary>Emoji man raising hand: dark skin tone '🙋🏿‍♂️' (U+1F64B-1F3FF-2642) in category people</summary>
-        public const string EmojiManRaisingHandTone5 = "man_raising_hand_tone5";
-
-        /// <summary>Emoji person raising both hands in celebration '🙌' (U+1F64C) in category people</summary>
-        public const string EmojiRaisedHands = "raised_hands";
-
-        /// <summary>Emoji person raising both hands in celebration tone 1 '🙌🏻' (U+1F64C-1F3FB) in category people</summary>
-        public const string EmojiRaisedHandsTone1 = "raised_hands_tone1";
-
-        /// <summary>Emoji person raising both hands in celebration tone 2 '🙌🏼' (U+1F64C-1F3FC) in category people</summary>
-        public const string EmojiRaisedHandsTone2 = "raised_hands_tone2";
-
-        /// <summary>Emoji person raising both hands in celebration tone 3 '🙌🏽' (U+1F64C-1F3FD) in category people</summary>
-        public const string EmojiRaisedHandsTone3 = "raised_hands_tone3";
-
-        /// <summary>Emoji person raising both hands in celebration tone 4 '🙌🏾' (U+1F64C-1F3FE) in category people</summary>
-        public const string EmojiRaisedHandsTone4 = "raised_hands_tone4";
-
-        /// <summary>Emoji person raising both hands in celebration tone 5 '🙌🏿' (U+1F64C-1F3FF) in category people</summary>
-        public const string EmojiRaisedHandsTone5 = "raised_hands_tone5";
-
-        /// <summary>Emoji person frowning '🙍' (U+1F64D) in category people</summary>
-        public const string EmojiPersonFrowning = "person_frowning";
-
-        /// <summary>Emoji woman frowning '🙍‍♀️' (U+1F64D-2640) in category people</summary>
-        public const string EmojiWomanFrowning = "woman_frowning";
-
-        /// <summary>Emoji man frowning '🙍‍♂️' (U+1f64d-2642) in category people</summary>
-        public const string EmojiFrowningMan = "frowning_man";
-
-        /// <summary>Emoji man frowning '🙍‍♂️' (U+1F64D-2642) in category people</summary>
-        public const string EmojiManFrowning = "man_frowning";
-
-        /// <summary>Emoji person frowning tone 1 '🙍🏻' (U+1F64D-1F3FB) in category people</summary>
-        public const string EmojiPersonFrowningTone1 = "person_frowning_tone1";
-
-        /// <summary>Emoji woman frowning: light skin tone '🙍🏻‍♀️' (U+1F64D-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanFrowningTone1 = "woman_frowning_tone1";
-
-        /// <summary>Emoji man frowning: light skin tone '🙍🏻‍♂️' (U+1F64D-1F3FB-2642) in category people</summary>
-        public const string EmojiManFrowningTone1 = "man_frowning_tone1";
-
-        /// <summary>Emoji person frowning tone 2 '🙍🏼' (U+1F64D-1F3FC) in category people</summary>
-        public const string EmojiPersonFrowningTone2 = "person_frowning_tone2";
-
-        /// <summary>Emoji woman frowning: medium-light skin tone '🙍🏼‍♀️' (U+1F64D-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanFrowningTone2 = "woman_frowning_tone2";
-
-        /// <summary>Emoji man frowning: medium-light skin tone '🙍🏼‍♂️' (U+1F64D-1F3FC-2642) in category people</summary>
-        public const string EmojiManFrowningTone2 = "man_frowning_tone2";
-
-        /// <summary>Emoji person frowning tone 3 '🙍🏽' (U+1F64D-1F3FD) in category people</summary>
-        public const string EmojiPersonFrowningTone3 = "person_frowning_tone3";
-
-        /// <summary>Emoji woman frowning: medium skin tone '🙍🏽‍♀️' (U+1F64D-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanFrowningTone3 = "woman_frowning_tone3";
-
-        /// <summary>Emoji man frowning: medium skin tone '🙍🏽‍♂️' (U+1F64D-1F3FD-2642) in category people</summary>
-        public const string EmojiManFrowningTone3 = "man_frowning_tone3";
-
-        /// <summary>Emoji person frowning tone 4 '🙍🏾' (U+1F64D-1F3FE) in category people</summary>
-        public const string EmojiPersonFrowningTone4 = "person_frowning_tone4";
-
-        /// <summary>Emoji woman frowning: medium-dark skin tone '🙍🏾‍♀️' (U+1F64D-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanFrowningTone4 = "woman_frowning_tone4";
-
-        /// <summary>Emoji man frowning: medium-dark skin tone '🙍🏾‍♂️' (U+1F64D-1F3FE-2642) in category people</summary>
-        public const string EmojiManFrowningTone4 = "man_frowning_tone4";
-
-        /// <summary>Emoji person frowning tone 5 '🙍🏿' (U+1F64D-1F3FF) in category people</summary>
-        public const string EmojiPersonFrowningTone5 = "person_frowning_tone5";
-
-        /// <summary>Emoji woman frowning: dark skin tone '🙍🏿‍♀️' (U+1F64D-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanFrowningTone5 = "woman_frowning_tone5";
-
-        /// <summary>Emoji man frowning: dark skin tone '🙍🏿‍♂️' (U+1F64D-1F3FF-2642) in category people</summary>
-        public const string EmojiManFrowningTone5 = "man_frowning_tone5";
-
-        /// <summary>Emoji person with pouting face '🙎' (U+1F64E) in category people</summary>
-        public const string EmojiPersonWithPoutingFace = "person_with_pouting_face";
-
-        /// <summary>Emoji woman pouting '🙎‍♀️' (U+1F64E-2640) in category people</summary>
-        public const string EmojiWomanPouting = "woman_pouting";
-
-        /// <summary>Emoji man pouting '🙎‍♂️' (U+1F64E-2642) in category people</summary>
-        public const string EmojiManPouting = "man_pouting";
-
-        /// <summary>Emoji man pouting '🙎‍♂️' (U+1f64e-2642) in category people</summary>
-        public const string EmojiPoutingMan = "pouting_man";
-
-        /// <summary>Emoji person with pouting face tone1 '🙎🏻' (U+1F64E-1F3FB) in category people</summary>
-        public const string EmojiPersonWithPoutingFaceTone1 = "person_with_pouting_face_tone1";
-
-        /// <summary>Emoji woman pouting: light skin tone '🙎🏻‍♀️' (U+1F64E-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanPoutingTone1 = "woman_pouting_tone1";
-
-        /// <summary>Emoji man pouting: light skin tone '🙎🏻‍♂️' (U+1F64E-1F3FB-2642) in category people</summary>
-        public const string EmojiManPoutingTone1 = "man_pouting_tone1";
-
-        /// <summary>Emoji person with pouting face tone2 '🙎🏼' (U+1F64E-1F3FC) in category people</summary>
-        public const string EmojiPersonWithPoutingFaceTone2 = "person_with_pouting_face_tone2";
-
-        /// <summary>Emoji woman pouting: medium-light skin tone '🙎🏼‍♀️' (U+1F64E-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanPoutingTone2 = "woman_pouting_tone2";
-
-        /// <summary>Emoji man pouting: medium-light skin tone '🙎🏼‍♂️' (U+1F64E-1F3FC-2642) in category people</summary>
-        public const string EmojiManPoutingTone2 = "man_pouting_tone2";
-
-        /// <summary>Emoji person with pouting face tone3 '🙎🏽' (U+1F64E-1F3FD) in category people</summary>
-        public const string EmojiPersonWithPoutingFaceTone3 = "person_with_pouting_face_tone3";
-
-        /// <summary>Emoji woman pouting: medium skin tone '🙎🏽‍♀️' (U+1F64E-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanPoutingTone3 = "woman_pouting_tone3";
-
-        /// <summary>Emoji man pouting: medium skin tone '🙎🏽‍♂️' (U+1F64E-1F3FD-2642) in category people</summary>
-        public const string EmojiManPoutingTone3 = "man_pouting_tone3";
-
-        /// <summary>Emoji person with pouting face tone4 '🙎🏾' (U+1F64E-1F3FE) in category people</summary>
-        public const string EmojiPersonWithPoutingFaceTone4 = "person_with_pouting_face_tone4";
-
-        /// <summary>Emoji woman pouting: medium-dark skin tone '🙎🏾‍♀️' (U+1F64E-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanPoutingTone4 = "woman_pouting_tone4";
-
-        /// <summary>Emoji man pouting: medium-dark skin tone '🙎🏾‍♂️' (U+1F64E-1F3FE-2642) in category people</summary>
-        public const string EmojiManPoutingTone4 = "man_pouting_tone4";
-
-        /// <summary>Emoji person with pouting face tone5 '🙎🏿' (U+1F64E-1F3FF) in category people</summary>
-        public const string EmojiPersonWithPoutingFaceTone5 = "person_with_pouting_face_tone5";
-
-        /// <summary>Emoji woman pouting: dark skin tone '🙎🏿‍♀️' (U+1F64E-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanPoutingTone5 = "woman_pouting_tone5";
-
-        /// <summary>Emoji man pouting: dark skin tone '🙎🏿‍♂️' (U+1F64E-1F3FF-2642) in category people</summary>
-        public const string EmojiManPoutingTone5 = "man_pouting_tone5";
-
-        /// <summary>Emoji person with folded hands '🙏' (U+1F64F) in category people</summary>
-        public const string EmojiPray = "pray";
-
-        /// <summary>Emoji person with folded hands tone 1 '🙏🏻' (U+1F64F-1F3FB) in category people</summary>
-        public const string EmojiPrayTone1 = "pray_tone1";
-
-        /// <summary>Emoji person with folded hands tone 2 '🙏🏼' (U+1F64F-1F3FC) in category people</summary>
-        public const string EmojiPrayTone2 = "pray_tone2";
-
-        /// <summary>Emoji person with folded hands tone 3 '🙏🏽' (U+1F64F-1F3FD) in category people</summary>
-        public const string EmojiPrayTone3 = "pray_tone3";
-
-        /// <summary>Emoji person with folded hands tone 4 '🙏🏾' (U+1F64F-1F3FE) in category people</summary>
-        public const string EmojiPrayTone4 = "pray_tone4";
-
-        /// <summary>Emoji person with folded hands tone 5 '🙏🏿' (U+1F64F-1F3FF) in category people</summary>
-        public const string EmojiPrayTone5 = "pray_tone5";
-
-        /// <summary>Emoji rocket '🚀' (U+1F680) in category travel</summary>
-        public const string EmojiRocket = "rocket";
-
-        /// <summary>Emoji helicopter '🚁' (U+1F681) in category travel</summary>
-        public const string EmojiHelicopter = "helicopter";
-
-        /// <summary>Emoji steam locomotive '🚂' (U+1F682) in category travel</summary>
-        public const string EmojiSteamLocomotive = "steam_locomotive";
-
-        /// <summary>Emoji railway car '🚃' (U+1F683) in category travel</summary>
-        public const string EmojiRailwayCar = "railway_car";
-
-        /// <summary>Emoji high-speed train '🚄' (U+1F684) in category travel</summary>
-        public const string EmojiBullettrainSide = "bullettrain_side";
-
-        /// <summary>Emoji high-speed train with bullet nose '🚅' (U+1F685) in category travel</summary>
-        public const string EmojiBullettrainFront = "bullettrain_front";
-
-        /// <summary>Emoji train '🚆' (U+1F686) in category travel</summary>
-        public const string EmojiTrain2 = "train2";
-
-        /// <summary>Emoji metro '🚇' (U+1F687) in category travel</summary>
-        public const string EmojiMetro = "metro";
-
-        /// <summary>Emoji light rail '🚈' (U+1F688) in category travel</summary>
-        public const string EmojiLightRail = "light_rail";
-
-        /// <summary>Emoji station '🚉' (U+1F689) in category travel</summary>
-        public const string EmojiStation = "station";
-
-        /// <summary>Emoji tram '🚊' (U+1F68A) in category travel</summary>
-        public const string EmojiTram = "tram";
-
-        /// <summary>Emoji Tram Car '🚋' (U+1F68B) in category travel</summary>
-        public const string EmojiTrain = "train";
-
-        /// <summary>Emoji bus '🚌' (U+1F68C) in category travel</summary>
-        public const string EmojiBus = "bus";
-
-        /// <summary>Emoji oncoming bus '🚍' (U+1F68D) in category travel</summary>
-        public const string EmojiOncomingBus = "oncoming_bus";
-
-        /// <summary>Emoji trolleybus '🚎' (U+1F68E) in category travel</summary>
-        public const string EmojiTrolleybus = "trolleybus";
-
-        /// <summary>Emoji bus stop '🚏' (U+1F68F) in category travel</summary>
-        public const string EmojiBusstop = "busstop";
-
-        /// <summary>Emoji minibus '🚐' (U+1F690) in category travel</summary>
-        public const string EmojiMinibus = "minibus";
-
-        /// <summary>Emoji ambulance '🚑' (U+1F691) in category travel</summary>
-        public const string EmojiAmbulance = "ambulance";
-
-        /// <summary>Emoji fire engine '🚒' (U+1F692) in category travel</summary>
-        public const string EmojiFireEngine = "fire_engine";
-
-        /// <summary>Emoji police car '🚓' (U+1F693) in category travel</summary>
-        public const string EmojiPoliceCar = "police_car";
-
-        /// <summary>Emoji oncoming police car '🚔' (U+1F694) in category travel</summary>
-        public const string EmojiOncomingPoliceCar = "oncoming_police_car";
-
-        /// <summary>Emoji taxi '🚕' (U+1F695) in category travel</summary>
-        public const string EmojiTaxi = "taxi";
-
-        /// <summary>Emoji oncoming taxi '🚖' (U+1F696) in category travel</summary>
-        public const string EmojiOncomingTaxi = "oncoming_taxi";
-
-        /// <summary>Emoji automobile '🚗' (U+1F697) in category travel</summary>
-        public const string EmojiRedCar = "red_car";
-
-        /// <summary>Emoji oncoming automobile '🚘' (U+1F698) in category travel</summary>
-        public const string EmojiOncomingAutomobile = "oncoming_automobile";
-
-        /// <summary>Emoji recreational vehicle '🚙' (U+1F699) in category travel</summary>
-        public const string EmojiBlueCar = "blue_car";
-
-        /// <summary>Emoji delivery truck '🚚' (U+1F69A) in category travel</summary>
-        public const string EmojiTruck = "truck";
-
-        /// <summary>Emoji articulated lorry '🚛' (U+1F69B) in category travel</summary>
-        public const string EmojiArticulatedLorry = "articulated_lorry";
-
-        /// <summary>Emoji tractor '🚜' (U+1F69C) in category travel</summary>
-        public const string EmojiTractor = "tractor";
-
-        /// <summary>Emoji monorail '🚝' (U+1F69D) in category travel</summary>
-        public const string EmojiMonorail = "monorail";
-
-        /// <summary>Emoji mountain railway '🚞' (U+1F69E) in category travel</summary>
-        public const string EmojiMountainRailway = "mountain_railway";
-
-        /// <summary>Emoji suspension railway '🚟' (U+1F69F) in category travel</summary>
-        public const string EmojiSuspensionRailway = "suspension_railway";
-
-        /// <summary>Emoji mountain cableway '🚠' (U+1F6A0) in category travel</summary>
-        public const string EmojiMountainCableway = "mountain_cableway";
-
-        /// <summary>Emoji aerial tramway '🚡' (U+1F6A1) in category travel</summary>
-        public const string EmojiAerialTramway = "aerial_tramway";
-
-        /// <summary>Emoji ship '🚢' (U+1F6A2) in category travel</summary>
-        public const string EmojiShip = "ship";
-
-        /// <summary>Emoji rowboat '🚣' (U+1F6A3) in category activity</summary>
-        public const string EmojiRowboat = "rowboat";
-
-        /// <summary>Emoji woman rowing boat '🚣‍♀️' (U+1f6a3-2640) in category activity</summary>
-        public const string EmojiRowingWoman = "rowing_woman";
-
-        /// <summary>Emoji woman rowing boat '🚣‍♀️' (U+1F6A3-2640) in category activity</summary>
-        public const string EmojiWomanRowingBoat = "woman_rowing_boat";
-
-        /// <summary>Emoji man rowing boat '🚣‍♂️' (U+1F6A3-2642) in category activity</summary>
-        public const string EmojiManRowingBoat = "man_rowing_boat";
-
-        /// <summary>Emoji rowboat tone 1 '🚣🏻' (U+1F6A3-1F3FB) in category activity</summary>
-        public const string EmojiRowboatTone1 = "rowboat_tone1";
-
-        /// <summary>Emoji woman rowing boat: light skin tone '🚣🏻‍♀️' (U+1F6A3-1F3FB-2640) in category activity</summary>
-        public const string EmojiWomanRowingBoatTone1 = "woman_rowing_boat_tone1";
-
-        /// <summary>Emoji man rowing boat: light skin tone '🚣🏻‍♂️' (U+1F6A3-1F3FB-2642) in category activity</summary>
-        public const string EmojiManRowingBoatTone1 = "man_rowing_boat_tone1";
-
-        /// <summary>Emoji rowboat tone 2 '🚣🏼' (U+1F6A3-1F3FC) in category activity</summary>
-        public const string EmojiRowboatTone2 = "rowboat_tone2";
-
-        /// <summary>Emoji woman rowing boat: medium-light skin tone '🚣🏼‍♀️' (U+1F6A3-1F3FC-2640) in category activity</summary>
-        public const string EmojiWomanRowingBoatTone2 = "woman_rowing_boat_tone2";
-
-        /// <summary>Emoji man rowing boat: medium-light skin tone '🚣🏼‍♂️' (U+1F6A3-1F3FC-2642) in category activity</summary>
-        public const string EmojiManRowingBoatTone2 = "man_rowing_boat_tone2";
-
-        /// <summary>Emoji rowboat tone 3 '🚣🏽' (U+1F6A3-1F3FD) in category activity</summary>
-        public const string EmojiRowboatTone3 = "rowboat_tone3";
-
-        /// <summary>Emoji woman rowing boat: medium skin tone '🚣🏽‍♀️' (U+1F6A3-1F3FD-2640) in category activity</summary>
-        public const string EmojiWomanRowingBoatTone3 = "woman_rowing_boat_tone3";
-
-        /// <summary>Emoji man rowing boat: medium skin tone '🚣🏽‍♂️' (U+1F6A3-1F3FD-2642) in category activity</summary>
-        public const string EmojiManRowingBoatTone3 = "man_rowing_boat_tone3";
-
-        /// <summary>Emoji rowboat tone 4 '🚣🏾' (U+1F6A3-1F3FE) in category activity</summary>
-        public const string EmojiRowboatTone4 = "rowboat_tone4";
-
-        /// <summary>Emoji woman rowing boat: medium-dark skin tone '🚣🏾‍♀️' (U+1F6A3-1F3FE-2640) in category activity</summary>
-        public const string EmojiWomanRowingBoatTone4 = "woman_rowing_boat_tone4";
-
-        /// <summary>Emoji man rowing boat: medium-dark skin tone '🚣🏾‍♂️' (U+1F6A3-1F3FE-2642) in category activity</summary>
-        public const string EmojiManRowingBoatTone4 = "man_rowing_boat_tone4";
-
-        /// <summary>Emoji rowboat tone 5 '🚣🏿' (U+1F6A3-1F3FF) in category activity</summary>
-        public const string EmojiRowboatTone5 = "rowboat_tone5";
-
-        /// <summary>Emoji woman rowing boat: dark skin tone '🚣🏿‍♀️' (U+1F6A3-1F3FF-2640) in category activity</summary>
-        public const string EmojiWomanRowingBoatTone5 = "woman_rowing_boat_tone5";
-
-        /// <summary>Emoji man rowing boat: dark skin tone '🚣🏿‍♂️' (U+1F6A3-1F3FF-2642) in category activity</summary>
-        public const string EmojiManRowingBoatTone5 = "man_rowing_boat_tone5";
-
-        /// <summary>Emoji speedboat '🚤' (U+1F6A4) in category travel</summary>
-        public const string EmojiSpeedboat = "speedboat";
-
-        /// <summary>Emoji horizontal traffic light '🚥' (U+1F6A5) in category travel</summary>
-        public const string EmojiTrafficLight = "traffic_light";
-
-        /// <summary>Emoji vertical traffic light '🚦' (U+1F6A6) in category travel</summary>
-        public const string EmojiVerticalTrafficLight = "vertical_traffic_light";
-
-        /// <summary>Emoji construction sign '🚧' (U+1F6A7) in category travel</summary>
-        public const string EmojiConstruction = "construction";
-
-        /// <summary>Emoji police cars revolving light '🚨' (U+1F6A8) in category travel</summary>
-        public const string EmojiRotatingLight = "rotating_light";
-
-        /// <summary>Emoji triangular flag on post '🚩' (U+1F6A9) in category objects</summary>
-        public const string EmojiTriangularFlagOnPost = "triangular_flag_on_post";
-
-        /// <summary>Emoji door '🚪' (U+1F6AA) in category objects</summary>
-        public const string EmojiDoor = "door";
-
-        /// <summary>Emoji no entry sign '🚫' (U+1F6AB) in category symbols</summary>
-        public const string EmojiNoEntrySign = "no_entry_sign";
-
-        /// <summary>Emoji smoking symbol '🚬' (U+1F6AC) in category objects</summary>
-        public const string EmojiSmoking = "smoking";
-
-        /// <summary>Emoji no smoking symbol '🚭' (U+1F6AD) in category symbols</summary>
-        public const string EmojiNoSmoking = "no_smoking";
-
-        /// <summary>Emoji put litter in its place symbol '🚮' (U+1F6AE) in category symbols</summary>
-        public const string EmojiPutLitterInItsPlace = "put_litter_in_its_place";
-
-        /// <summary>Emoji do not litter symbol '🚯' (U+1F6AF) in category symbols</summary>
-        public const string EmojiDoNotLitter = "do_not_litter";
-
-        /// <summary>Emoji potable water symbol '🚰' (U+1F6B0) in category symbols</summary>
-        public const string EmojiPotableWater = "potable_water";
-
-        /// <summary>Emoji non-potable water symbol '🚱' (U+1F6B1) in category symbols</summary>
-        public const string EmojiNonPotableWater = "non-potable_water";
-
-        /// <summary>Emoji bicycle '🚲' (U+1F6B2) in category travel</summary>
-        public const string EmojiBike = "bike";
-
-        /// <summary>Emoji no bicycles '🚳' (U+1F6B3) in category symbols</summary>
-        public const string EmojiNoBicycles = "no_bicycles";
-
-        /// <summary>Emoji bicyclist '🚴' (U+1F6B4) in category activity</summary>
-        public const string EmojiBicyclist = "bicyclist";
-
-        /// <summary>Emoji woman biking '🚴‍♀️' (U+1f6b4-2640) in category activity</summary>
-        public const string EmojiBikingWoman = "biking_woman";
-
-        /// <summary>Emoji woman biking '🚴‍♀️' (U+1F6B4-2640) in category activity</summary>
-        public const string EmojiWomanBiking = "woman_biking";
-
-        /// <summary>Emoji man biking '🚴‍♂️' (U+1F6B4-2642) in category activity</summary>
-        public const string EmojiManBiking = "man_biking";
-
-        /// <summary>Emoji bicyclist tone 1 '🚴🏻' (U+1F6B4-1F3FB) in category activity</summary>
-        public const string EmojiBicyclistTone1 = "bicyclist_tone1";
-
-        /// <summary>Emoji woman biking: light skin tone '🚴🏻‍♀️' (U+1F6B4-1F3FB-2640) in category activity</summary>
-        public const string EmojiWomanBikingTone1 = "woman_biking_tone1";
-
-        /// <summary>Emoji man biking: light skin tone '🚴🏻‍♂️' (U+1F6B4-1F3FB-2642) in category activity</summary>
-        public const string EmojiManBikingTone1 = "man_biking_tone1";
-
-        /// <summary>Emoji bicyclist tone 2 '🚴🏼' (U+1F6B4-1F3FC) in category activity</summary>
-        public const string EmojiBicyclistTone2 = "bicyclist_tone2";
-
-        /// <summary>Emoji woman biking: medium-light skin tone '🚴🏼‍♀️' (U+1F6B4-1F3FC-2640) in category activity</summary>
-        public const string EmojiWomanBikingTone2 = "woman_biking_tone2";
-
-        /// <summary>Emoji man biking: medium-light skin tone '🚴🏼‍♂️' (U+1F6B4-1F3FC-2642) in category activity</summary>
-        public const string EmojiManBikingTone2 = "man_biking_tone2";
-
-        /// <summary>Emoji bicyclist tone 3 '🚴🏽' (U+1F6B4-1F3FD) in category activity</summary>
-        public const string EmojiBicyclistTone3 = "bicyclist_tone3";
-
-        /// <summary>Emoji woman biking: medium skin tone '🚴🏽‍♀️' (U+1F6B4-1F3FD-2640) in category activity</summary>
-        public const string EmojiWomanBikingTone3 = "woman_biking_tone3";
-
-        /// <summary>Emoji man biking: medium skin tone '🚴🏽‍♂️' (U+1F6B4-1F3FD-2642) in category activity</summary>
-        public const string EmojiManBikingTone3 = "man_biking_tone3";
-
-        /// <summary>Emoji bicyclist tone 4 '🚴🏾' (U+1F6B4-1F3FE) in category activity</summary>
-        public const string EmojiBicyclistTone4 = "bicyclist_tone4";
-
-        /// <summary>Emoji woman biking: medium-dark skin tone '🚴🏾‍♀️' (U+1F6B4-1F3FE-2640) in category activity</summary>
-        public const string EmojiWomanBikingTone4 = "woman_biking_tone4";
-
-        /// <summary>Emoji man biking: medium-dark skin tone '🚴🏾‍♂️' (U+1F6B4-1F3FE-2642) in category activity</summary>
-        public const string EmojiManBikingTone4 = "man_biking_tone4";
-
-        /// <summary>Emoji bicyclist tone 5 '🚴🏿' (U+1F6B4-1F3FF) in category activity</summary>
-        public const string EmojiBicyclistTone5 = "bicyclist_tone5";
-
-        /// <summary>Emoji woman biking: dark skin tone '🚴🏿‍♀️' (U+1F6B4-1F3FF-2640) in category activity</summary>
-        public const string EmojiWomanBikingTone5 = "woman_biking_tone5";
-
-        /// <summary>Emoji man biking: dark skin tone '🚴🏿‍♂️' (U+1F6B4-1F3FF-2642) in category activity</summary>
-        public const string EmojiManBikingTone5 = "man_biking_tone5";
-
-        /// <summary>Emoji mountain bicyclist '🚵' (U+1F6B5) in category activity</summary>
-        public const string EmojiMountainBicyclist = "mountain_bicyclist";
-
-        /// <summary>Emoji woman mountain biking '🚵‍♀️' (U+1f6b5-2640) in category activity</summary>
-        public const string EmojiMountainBikingWoman = "mountain_biking_woman";
-
-        /// <summary>Emoji woman mountain biking '🚵‍♀️' (U+1F6B5-2640) in category activity</summary>
-        public const string EmojiWomanMountainBiking = "woman_mountain_biking";
-
-        /// <summary>Emoji man mountain biking '🚵‍♂️' (U+1F6B5-2642) in category activity</summary>
-        public const string EmojiManMountainBiking = "man_mountain_biking";
-
-        /// <summary>Emoji mountain bicyclist tone 1 '🚵🏻' (U+1F6B5-1F3FB) in category activity</summary>
-        public const string EmojiMountainBicyclistTone1 = "mountain_bicyclist_tone1";
-
-        /// <summary>Emoji woman mountain biking: light skin tone '🚵🏻‍♀️' (U+1F6B5-1F3FB-2640) in category activity</summary>
-        public const string EmojiWomanMountainBikingTone1 = "woman_mountain_biking_tone1";
-
-        /// <summary>Emoji man mountain biking: light skin tone '🚵🏻‍♂️' (U+1F6B5-1F3FB-2642) in category activity</summary>
-        public const string EmojiManMountainBikingTone1 = "man_mountain_biking_tone1";
-
-        /// <summary>Emoji mountain bicyclist tone 2 '🚵🏼' (U+1F6B5-1F3FC) in category activity</summary>
-        public const string EmojiMountainBicyclistTone2 = "mountain_bicyclist_tone2";
-
-        /// <summary>Emoji woman mountain biking: medium-light skin tone '🚵🏼‍♀️' (U+1F6B5-1F3FC-2640) in category activity</summary>
-        public const string EmojiWomanMountainBikingTone2 = "woman_mountain_biking_tone2";
-
-        /// <summary>Emoji man mountain biking: medium-light skin tone '🚵🏼‍♂️' (U+1F6B5-1F3FC-2642) in category activity</summary>
-        public const string EmojiManMountainBikingTone2 = "man_mountain_biking_tone2";
-
-        /// <summary>Emoji mountain bicyclist tone 3 '🚵🏽' (U+1F6B5-1F3FD) in category activity</summary>
-        public const string EmojiMountainBicyclistTone3 = "mountain_bicyclist_tone3";
-
-        /// <summary>Emoji woman mountain biking: medium skin tone '🚵🏽‍♀️' (U+1F6B5-1F3FD-2640) in category activity</summary>
-        public const string EmojiWomanMountainBikingTone3 = "woman_mountain_biking_tone3";
-
-        /// <summary>Emoji man mountain biking: medium skin tone '🚵🏽‍♂️' (U+1F6B5-1F3FD-2642) in category activity</summary>
-        public const string EmojiManMountainBikingTone3 = "man_mountain_biking_tone3";
-
-        /// <summary>Emoji mountain bicyclist tone 4 '🚵🏾' (U+1F6B5-1F3FE) in category activity</summary>
-        public const string EmojiMountainBicyclistTone4 = "mountain_bicyclist_tone4";
-
-        /// <summary>Emoji woman mountain biking: medium-dark skin tone '🚵🏾‍♀️' (U+1F6B5-1F3FE-2640) in category activity</summary>
-        public const string EmojiWomanMountainBikingTone4 = "woman_mountain_biking_tone4";
-
-        /// <summary>Emoji man mountain biking: medium-dark skin tone '🚵🏾‍♂️' (U+1F6B5-1F3FE-2642) in category activity</summary>
-        public const string EmojiManMountainBikingTone4 = "man_mountain_biking_tone4";
-
-        /// <summary>Emoji mountain bicyclist tone 5 '🚵🏿' (U+1F6B5-1F3FF) in category activity</summary>
-        public const string EmojiMountainBicyclistTone5 = "mountain_bicyclist_tone5";
-
-        /// <summary>Emoji woman mountain biking: dark skin tone '🚵🏿‍♀️' (U+1F6B5-1F3FF-2640) in category activity</summary>
-        public const string EmojiWomanMountainBikingTone5 = "woman_mountain_biking_tone5";
-
-        /// <summary>Emoji man mountain biking: dark skin tone '🚵🏿‍♂️' (U+1F6B5-1F3FF-2642) in category activity</summary>
-        public const string EmojiManMountainBikingTone5 = "man_mountain_biking_tone5";
-
-        /// <summary>Emoji pedestrian '🚶' (U+1F6B6) in category people</summary>
-        public const string EmojiWalking = "walking";
-
-        /// <summary>Emoji woman walking '🚶‍♀️' (U+1f6b6-2640) in category people</summary>
-        public const string EmojiWalkingWoman = "walking_woman";
-
-        /// <summary>Emoji woman walking '🚶‍♀️' (U+1F6B6-2640) in category people</summary>
-        public const string EmojiWomanWalking = "woman_walking";
-
-        /// <summary>Emoji man walking '🚶‍♂️' (U+1F6B6-2642) in category people</summary>
-        public const string EmojiManWalking = "man_walking";
-
-        /// <summary>Emoji pedestrian tone 1 '🚶🏻' (U+1F6B6-1F3FB) in category people</summary>
-        public const string EmojiWalkingTone1 = "walking_tone1";
-
-        /// <summary>Emoji woman walking: light skin tone '🚶🏻‍♀️' (U+1F6B6-1F3FB-2640) in category people</summary>
-        public const string EmojiWomanWalkingTone1 = "woman_walking_tone1";
-
-        /// <summary>Emoji man walking: light skin tone '🚶🏻‍♂️' (U+1F6B6-1F3FB-2642) in category people</summary>
-        public const string EmojiManWalkingTone1 = "man_walking_tone1";
-
-        /// <summary>Emoji pedestrian tone 2 '🚶🏼' (U+1F6B6-1F3FC) in category people</summary>
-        public const string EmojiWalkingTone2 = "walking_tone2";
-
-        /// <summary>Emoji woman walking: medium-light skin tone '🚶🏼‍♀️' (U+1F6B6-1F3FC-2640) in category people</summary>
-        public const string EmojiWomanWalkingTone2 = "woman_walking_tone2";
-
-        /// <summary>Emoji man walking: medium-light skin tone '🚶🏼‍♂️' (U+1F6B6-1F3FC-2642) in category people</summary>
-        public const string EmojiManWalkingTone2 = "man_walking_tone2";
-
-        /// <summary>Emoji pedestrian tone 3 '🚶🏽' (U+1F6B6-1F3FD) in category people</summary>
-        public const string EmojiWalkingTone3 = "walking_tone3";
-
-        /// <summary>Emoji woman walking: medium skin tone '🚶🏽‍♀️' (U+1F6B6-1F3FD-2640) in category people</summary>
-        public const string EmojiWomanWalkingTone3 = "woman_walking_tone3";
-
-        /// <summary>Emoji man walking: medium skin tone '🚶🏽‍♂️' (U+1F6B6-1F3FD-2642) in category people</summary>
-        public const string EmojiManWalkingTone3 = "man_walking_tone3";
-
-        /// <summary>Emoji pedestrian tone 4 '🚶🏾' (U+1F6B6-1F3FE) in category people</summary>
-        public const string EmojiWalkingTone4 = "walking_tone4";
-
-        /// <summary>Emoji woman walking: medium-dark skin tone '🚶🏾‍♀️' (U+1F6B6-1F3FE-2640) in category people</summary>
-        public const string EmojiWomanWalkingTone4 = "woman_walking_tone4";
-
-        /// <summary>Emoji man walking: medium-dark skin tone '🚶🏾‍♂️' (U+1F6B6-1F3FE-2642) in category people</summary>
-        public const string EmojiManWalkingTone4 = "man_walking_tone4";
-
-        /// <summary>Emoji pedestrian tone 5 '🚶🏿' (U+1F6B6-1F3FF) in category people</summary>
-        public const string EmojiWalkingTone5 = "walking_tone5";
-
-        /// <summary>Emoji woman walking: dark skin tone '🚶🏿‍♀️' (U+1F6B6-1F3FF-2640) in category people</summary>
-        public const string EmojiWomanWalkingTone5 = "woman_walking_tone5";
-
-        /// <summary>Emoji man walking: dark skin tone '🚶🏿‍♂️' (U+1F6B6-1F3FF-2642) in category people</summary>
-        public const string EmojiManWalkingTone5 = "man_walking_tone5";
-
-        /// <summary>Emoji no pedestrians '🚷' (U+1F6B7) in category symbols</summary>
-        public const string EmojiNoPedestrians = "no_pedestrians";
-
-        /// <summary>Emoji children crossing '🚸' (U+1F6B8) in category symbols</summary>
-        public const string EmojiChildrenCrossing = "children_crossing";
-
-        /// <summary>Emoji mens symbol '🚹' (U+1F6B9) in category symbols</summary>
-        public const string EmojiMens = "mens";
-
-        /// <summary>Emoji womens symbol '🚺' (U+1F6BA) in category symbols</summary>
-        public const string EmojiWomens = "womens";
-
-        /// <summary>Emoji restroom '🚻' (U+1F6BB) in category symbols</summary>
-        public const string EmojiRestroom = "restroom";
-
-        /// <summary>Emoji baby symbol '🚼' (U+1F6BC) in category symbols</summary>
-        public const string EmojiBabySymbol = "baby_symbol";
-
-        /// <summary>Emoji toilet '🚽' (U+1F6BD) in category objects</summary>
-        public const string EmojiToilet = "toilet";
-
-        /// <summary>Emoji water closet '🚾' (U+1F6BE) in category symbols</summary>
-        public const string EmojiWc = "wc";
-
-        /// <summary>Emoji shower '🚿' (U+1F6BF) in category objects</summary>
-        public const string EmojiShower = "shower";
-
-        /// <summary>Emoji bath '🛀' (U+1F6C0) in category activity</summary>
-        public const string EmojiBath = "bath";
-
-        /// <summary>Emoji bath tone 1 '🛀🏻' (U+1F6C0-1F3FB) in category activity</summary>
-        public const string EmojiBathTone1 = "bath_tone1";
-
-        /// <summary>Emoji bath tone 2 '🛀🏼' (U+1F6C0-1F3FC) in category activity</summary>
-        public const string EmojiBathTone2 = "bath_tone2";
-
-        /// <summary>Emoji bath tone 3 '🛀🏽' (U+1F6C0-1F3FD) in category activity</summary>
-        public const string EmojiBathTone3 = "bath_tone3";
-
-        /// <summary>Emoji bath tone 4 '🛀🏾' (U+1F6C0-1F3FE) in category activity</summary>
-        public const string EmojiBathTone4 = "bath_tone4";
-
-        /// <summary>Emoji bath tone 5 '🛀🏿' (U+1F6C0-1F3FF) in category activity</summary>
-        public const string EmojiBathTone5 = "bath_tone5";
-
-        /// <summary>Emoji bathtub '🛁' (U+1F6C1) in category objects</summary>
-        public const string EmojiBathtub = "bathtub";
-
-        /// <summary>Emoji passport control '🛂' (U+1F6C2) in category symbols</summary>
-        public const string EmojiPassportControl = "passport_control";
-
-        /// <summary>Emoji customs '🛃' (U+1F6C3) in category symbols</summary>
-        public const string EmojiCustoms = "customs";
-
-        /// <summary>Emoji baggage claim '🛄' (U+1F6C4) in category symbols</summary>
-        public const string EmojiBaggageClaim = "baggage_claim";
-
-        /// <summary>Emoji left luggage '🛅' (U+1F6C5) in category symbols</summary>
-        public const string EmojiLeftLuggage = "left_luggage";
-
-        /// <summary>Emoji couch and lamp '🛋' (U+1F6CB) in category objects</summary>
-        public const string EmojiCouch = "couch";
-
-        /// <summary>Emoji sleeping accommodation '🛌' (U+1F6CC) in category objects</summary>
-        public const string EmojiSleepingAccommodation = "sleeping_accommodation";
-
-        /// <summary>Emoji person in bed: light skin tone '🛌🏻' (U+1F6CC-1F3FB) in category objects</summary>
-        public const string EmojiPersonInBedTone1 = "person_in_bed_tone1";
-
-        /// <summary>Emoji person in bed: medium-light skin tone '🛌🏼' (U+1F6CC-1F3FC) in category objects</summary>
-        public const string EmojiPersonInBedTone2 = "person_in_bed_tone2";
-
-        /// <summary>Emoji person in bed: medium skin tone '🛌🏽' (U+1F6CC-1F3FD) in category objects</summary>
-        public const string EmojiPersonInBedTone3 = "person_in_bed_tone3";
-
-        /// <summary>Emoji person in bed: medium-dark skin tone '🛌🏾' (U+1F6CC-1F3FE) in category objects</summary>
-        public const string EmojiPersonInBedTone4 = "person_in_bed_tone4";
-
-        /// <summary>Emoji person in bed: dark skin tone '🛌🏿' (U+1F6CC-1F3FF) in category objects</summary>
-        public const string EmojiPersonInBedTone5 = "person_in_bed_tone5";
-
-        /// <summary>Emoji shopping bags '🛍' (U+1F6CD) in category objects</summary>
-        public const string EmojiShoppingBags = "shopping_bags";
-
-        /// <summary>Emoji bellhop bell '🛎' (U+1F6CE) in category objects</summary>
-        public const string EmojiBellhop = "bellhop";
-
-        /// <summary>Emoji bed '🛏' (U+1F6CF) in category objects</summary>
-        public const string EmojiBed = "bed";
-
-        /// <summary>Emoji place of worship '🛐' (U+1F6D0) in category symbols</summary>
-        public const string EmojiPlaceOfWorship = "place_of_worship";
-
-        /// <summary>Emoji octagonal sign '🛑' (U+1F6D1) in category symbols</summary>
-        public const string EmojiOctagonalSign = "octagonal_sign";
-
-        /// <summary>Emoji shopping trolley '🛒' (U+1F6D2) in category objects</summary>
-        public const string EmojiShoppingCart = "shopping_cart";
-
-        /// <summary>Emoji hammer and wrench '🛠' (U+1F6E0) in category objects</summary>
-        public const string EmojiTools = "tools";
-
-        /// <summary>Emoji shield '🛡' (U+1F6E1) in category objects</summary>
-        public const string EmojiShield = "shield";
-
-        /// <summary>Emoji oil drum '🛢' (U+1F6E2) in category objects</summary>
-        public const string EmojiOil = "oil";
-
-        /// <summary>Emoji motorway '🛣' (U+1F6E3) in category travel</summary>
-        public const string EmojiMotorway = "motorway";
-
-        /// <summary>Emoji railway track '🛤' (U+1F6E4) in category travel</summary>
-        public const string EmojiRailwayTrack = "railway_track";
-
-        /// <summary>Emoji motorboat '🛥' (U+1F6E5) in category travel</summary>
-        public const string EmojiMotorboat = "motorboat";
-
-        /// <summary>Emoji small airplane '🛩' (U+1F6E9) in category travel</summary>
-        public const string EmojiAirplaneSmall = "airplane_small";
-
-        /// <summary>Emoji airplane departure '🛫' (U+1F6EB) in category travel</summary>
-        public const string EmojiAirplaneDeparture = "airplane_departure";
-
-        /// <summary>Emoji airplane arriving '🛬' (U+1F6EC) in category travel</summary>
-        public const string EmojiAirplaneArriving = "airplane_arriving";
-
-        /// <summary>Emoji satellite '🛰' (U+1F6F0) in category travel</summary>
-        public const string EmojiSatelliteOrbital = "satellite_orbital";
-
-        /// <summary>Emoji passenger ship '🛳' (U+1F6F3) in category travel</summary>
-        public const string EmojiCruiseShip = "cruise_ship";
-
-        /// <summary>Emoji scooter '🛴' (U+1F6F4) in category travel</summary>
-        public const string EmojiScooter = "scooter";
-
-        /// <summary>Emoji motor scooter '🛵' (U+1F6F5) in category travel</summary>
-        public const string EmojiMotorScooter = "motor_scooter";
-
-        /// <summary>Emoji canoe '🛶' (U+1F6F6) in category travel</summary>
-        public const string EmojiCanoe = "canoe";
-
-        /// <summary>Emoji sled '🛷' (U+1F6F7) in category activity</summary>
-        public const string EmojiSled = "sled";
-
-        /// <summary>Emoji flying saucer '🛸' (U+1F6F8) in category travel</summary>
-        public const string EmojiFlyingSaucer = "flying_saucer";
-
-        /// <summary>Emoji skateboard '🛹' (U+1F6F9) in category activity</summary>
-        public const string EmojiSkateboard = "skateboard";
 
         /// <summary>Emoji zipper-mouth face '🤐' (U+1F910) in category people</summary>
         public const string EmojiZipperMouth = "zipper_mouth";
@@ -8591,10 +7307,1294 @@ namespace Meziantou.GitLab
         /// <summary>Emoji nazar amulet '🧿' (U+1F9FF) in category objects</summary>
         public const string EmojiNazarAmulet = "nazar_amulet";
 
+        /// <summary>Emoji grinning face '😀' (U+1F600) in category people</summary>
+        public const string EmojiGrinning = "grinning";
+
+        /// <summary>Emoji grinning face with smiling eyes '😁' (U+1F601) in category people</summary>
+        public const string EmojiGrin = "grin";
+
+        /// <summary>Emoji face with tears of joy '😂' (U+1F602) in category people</summary>
+        public const string EmojiJoy = "joy";
+
+        /// <summary>Emoji smiling face with open mouth '😃' (U+1F603) in category people</summary>
+        public const string EmojiSmiley = "smiley";
+
+        /// <summary>Emoji smiling face with open mouth and smiling eyes '😄' (U+1F604) in category people</summary>
+        public const string EmojiSmile = "smile";
+
+        /// <summary>Emoji smiling face with open mouth and cold sweat '😅' (U+1F605) in category people</summary>
+        public const string EmojiSweatSmile = "sweat_smile";
+
+        /// <summary>Emoji smiling face with open mouth and tightly-closed ey '😆' (U+1F606) in category people</summary>
+        public const string EmojiLaughing = "laughing";
+
+        /// <summary>Emoji smiling face with halo '😇' (U+1F607) in category people</summary>
+        public const string EmojiInnocent = "innocent";
+
+        /// <summary>Emoji smiling face with horns '😈' (U+1F608) in category people</summary>
+        public const string EmojiSmilingImp = "smiling_imp";
+
+        /// <summary>Emoji winking face '😉' (U+1F609) in category people</summary>
+        public const string EmojiWink = "wink";
+
+        /// <summary>Emoji smiling face with smiling eyes '😊' (U+1F60A) in category people</summary>
+        public const string EmojiBlush = "blush";
+
+        /// <summary>Emoji face savouring delicious food '😋' (U+1F60B) in category people</summary>
+        public const string EmojiYum = "yum";
+
+        /// <summary>Emoji relieved face '😌' (U+1F60C) in category people</summary>
+        public const string EmojiRelieved = "relieved";
+
+        /// <summary>Emoji smiling face with heart-shaped eyes '😍' (U+1F60D) in category people</summary>
+        public const string EmojiHeartEyes = "heart_eyes";
+
+        /// <summary>Emoji smiling face with sunglasses '😎' (U+1F60E) in category people</summary>
+        public const string EmojiSunglasses = "sunglasses";
+
+        /// <summary>Emoji smirking face '😏' (U+1F60F) in category people</summary>
+        public const string EmojiSmirk = "smirk";
+
+        /// <summary>Emoji neutral face '😐' (U+1F610) in category people</summary>
+        public const string EmojiNeutralFace = "neutral_face";
+
+        /// <summary>Emoji expressionless face '😑' (U+1F611) in category people</summary>
+        public const string EmojiExpressionless = "expressionless";
+
+        /// <summary>Emoji unamused face '😒' (U+1F612) in category people</summary>
+        public const string EmojiUnamused = "unamused";
+
+        /// <summary>Emoji face with cold sweat '😓' (U+1F613) in category people</summary>
+        public const string EmojiSweat = "sweat";
+
+        /// <summary>Emoji pensive face '😔' (U+1F614) in category people</summary>
+        public const string EmojiPensive = "pensive";
+
+        /// <summary>Emoji confused face '😕' (U+1F615) in category people</summary>
+        public const string EmojiConfused = "confused";
+
+        /// <summary>Emoji confounded face '😖' (U+1F616) in category people</summary>
+        public const string EmojiConfounded = "confounded";
+
+        /// <summary>Emoji kissing face '😗' (U+1F617) in category people</summary>
+        public const string EmojiKissing = "kissing";
+
+        /// <summary>Emoji face throwing a kiss '😘' (U+1F618) in category people</summary>
+        public const string EmojiKissingHeart = "kissing_heart";
+
+        /// <summary>Emoji kissing face with smiling eyes '😙' (U+1F619) in category people</summary>
+        public const string EmojiKissingSmilingEyes = "kissing_smiling_eyes";
+
+        /// <summary>Emoji kissing face with closed eyes '😚' (U+1F61A) in category people</summary>
+        public const string EmojiKissingClosedEyes = "kissing_closed_eyes";
+
+        /// <summary>Emoji face with stuck-out tongue '😛' (U+1F61B) in category people</summary>
+        public const string EmojiStuckOutTongue = "stuck_out_tongue";
+
+        /// <summary>Emoji face with stuck-out tongue and winking eye '😜' (U+1F61C) in category people</summary>
+        public const string EmojiStuckOutTongueWinkingEye = "stuck_out_tongue_winking_eye";
+
+        /// <summary>Emoji face with stuck-out tongue and tightly-closed eyes '😝' (U+1F61D) in category people</summary>
+        public const string EmojiStuckOutTongueClosedEyes = "stuck_out_tongue_closed_eyes";
+
+        /// <summary>Emoji disappointed face '😞' (U+1F61E) in category people</summary>
+        public const string EmojiDisappointed = "disappointed";
+
+        /// <summary>Emoji worried face '😟' (U+1F61F) in category people</summary>
+        public const string EmojiWorried = "worried";
+
+        /// <summary>Emoji angry face '😠' (U+1F620) in category people</summary>
+        public const string EmojiAngry = "angry";
+
+        /// <summary>Emoji pouting face '😡' (U+1F621) in category people</summary>
+        public const string EmojiRage = "rage";
+
+        /// <summary>Emoji crying face '😢' (U+1F622) in category people</summary>
+        public const string EmojiCry = "cry";
+
+        /// <summary>Emoji persevering face '😣' (U+1F623) in category people</summary>
+        public const string EmojiPersevere = "persevere";
+
+        /// <summary>Emoji face with look of triumph '😤' (U+1F624) in category people</summary>
+        public const string EmojiTriumph = "triumph";
+
+        /// <summary>Emoji disappointed but relieved face '😥' (U+1F625) in category people</summary>
+        public const string EmojiDisappointedRelieved = "disappointed_relieved";
+
+        /// <summary>Emoji frowning face with open mouth '😦' (U+1F626) in category people</summary>
+        public const string EmojiFrowning = "frowning";
+
+        /// <summary>Emoji anguished face '😧' (U+1F627) in category people</summary>
+        public const string EmojiAnguished = "anguished";
+
+        /// <summary>Emoji fearful face '😨' (U+1F628) in category people</summary>
+        public const string EmojiFearful = "fearful";
+
+        /// <summary>Emoji weary face '😩' (U+1F629) in category people</summary>
+        public const string EmojiWeary = "weary";
+
+        /// <summary>Emoji sleepy face '😪' (U+1F62A) in category people</summary>
+        public const string EmojiSleepy = "sleepy";
+
+        /// <summary>Emoji tired face '😫' (U+1F62B) in category people</summary>
+        public const string EmojiTiredFace = "tired_face";
+
+        /// <summary>Emoji grimacing face '😬' (U+1F62C) in category people</summary>
+        public const string EmojiGrimacing = "grimacing";
+
+        /// <summary>Emoji loudly crying face '😭' (U+1F62D) in category people</summary>
+        public const string EmojiSob = "sob";
+
+        /// <summary>Emoji face with open mouth '😮' (U+1F62E) in category people</summary>
+        public const string EmojiOpenMouth = "open_mouth";
+
+        /// <summary>Emoji hushed face '😯' (U+1F62F) in category people</summary>
+        public const string EmojiHushed = "hushed";
+
+        /// <summary>Emoji face with open mouth and cold sweat '😰' (U+1F630) in category people</summary>
+        public const string EmojiColdSweat = "cold_sweat";
+
+        /// <summary>Emoji face screaming in fear '😱' (U+1F631) in category people</summary>
+        public const string EmojiScream = "scream";
+
+        /// <summary>Emoji astonished face '😲' (U+1F632) in category people</summary>
+        public const string EmojiAstonished = "astonished";
+
+        /// <summary>Emoji flushed face '😳' (U+1F633) in category people</summary>
+        public const string EmojiFlushed = "flushed";
+
+        /// <summary>Emoji sleeping face '😴' (U+1F634) in category people</summary>
+        public const string EmojiSleeping = "sleeping";
+
+        /// <summary>Emoji dizzy face '😵' (U+1F635) in category people</summary>
+        public const string EmojiDizzyFace = "dizzy_face";
+
+        /// <summary>Emoji face without mouth '😶' (U+1F636) in category people</summary>
+        public const string EmojiNoMouth = "no_mouth";
+
+        /// <summary>Emoji face with medical mask '😷' (U+1F637) in category people</summary>
+        public const string EmojiMask = "mask";
+
+        /// <summary>Emoji grinning cat face with smiling eyes '😸' (U+1F638) in category people</summary>
+        public const string EmojiSmileCat = "smile_cat";
+
+        /// <summary>Emoji cat face with tears of joy '😹' (U+1F639) in category people</summary>
+        public const string EmojiJoyCat = "joy_cat";
+
+        /// <summary>Emoji smiling cat face with open mouth '😺' (U+1F63A) in category people</summary>
+        public const string EmojiSmileyCat = "smiley_cat";
+
+        /// <summary>Emoji smiling cat face with heart-shaped eyes '😻' (U+1F63B) in category people</summary>
+        public const string EmojiHeartEyesCat = "heart_eyes_cat";
+
+        /// <summary>Emoji cat face with wry smile '😼' (U+1F63C) in category people</summary>
+        public const string EmojiSmirkCat = "smirk_cat";
+
+        /// <summary>Emoji kissing cat face with closed eyes '😽' (U+1F63D) in category people</summary>
+        public const string EmojiKissingCat = "kissing_cat";
+
+        /// <summary>Emoji pouting cat face '😾' (U+1F63E) in category people</summary>
+        public const string EmojiPoutingCat = "pouting_cat";
+
+        /// <summary>Emoji crying cat face '😿' (U+1F63F) in category people</summary>
+        public const string EmojiCryingCatFace = "crying_cat_face";
+
+        /// <summary>Emoji weary cat face '🙀' (U+1F640) in category people</summary>
+        public const string EmojiScreamCat = "scream_cat";
+
+        /// <summary>Emoji slightly frowning face '🙁' (U+1F641) in category people</summary>
+        public const string EmojiSlightFrown = "slight_frown";
+
+        /// <summary>Emoji slightly smiling face '🙂' (U+1F642) in category people</summary>
+        public const string EmojiSlightSmile = "slight_smile";
+
+        /// <summary>Emoji upside-down face '🙃' (U+1F643) in category people</summary>
+        public const string EmojiUpsideDown = "upside_down";
+
+        /// <summary>Emoji face with rolling eyes '🙄' (U+1F644) in category people</summary>
+        public const string EmojiRollingEyes = "rolling_eyes";
+
+        /// <summary>Emoji face with no good gesture '🙅' (U+1F645) in category people</summary>
+        public const string EmojiNoGood = "no_good";
+
+        /// <summary>Emoji woman gesturing NO '🙅‍♀️' (U+1F645-2640) in category people</summary>
+        public const string EmojiWomanGesturingNo = "woman_gesturing_no";
+
+        /// <summary>Emoji man gesturing NO '🙅‍♂️' (U+1F645-2642) in category people</summary>
+        public const string EmojiManGesturingNo = "man_gesturing_no";
+
+        /// <summary>Emoji man gesturing NO '🙅‍♂️' (U+1f645-2642) in category people</summary>
+        public const string EmojiNoGoodMan = "no_good_man";
+
+        /// <summary>Emoji face with no good gesture tone 1 '🙅🏻' (U+1F645-1F3FB) in category people</summary>
+        public const string EmojiNoGoodTone1 = "no_good_tone1";
+
+        /// <summary>Emoji woman gesturing NO: light skin tone '🙅🏻‍♀️' (U+1F645-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanGesturingNoTone1 = "woman_gesturing_no_tone1";
+
+        /// <summary>Emoji man gesturing NO: light skin tone '🙅🏻‍♂️' (U+1F645-1F3FB-2642) in category people</summary>
+        public const string EmojiManGesturingNoTone1 = "man_gesturing_no_tone1";
+
+        /// <summary>Emoji face with no good gesture tone 2 '🙅🏼' (U+1F645-1F3FC) in category people</summary>
+        public const string EmojiNoGoodTone2 = "no_good_tone2";
+
+        /// <summary>Emoji woman gesturing NO: medium-light skin tone '🙅🏼‍♀️' (U+1F645-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanGesturingNoTone2 = "woman_gesturing_no_tone2";
+
+        /// <summary>Emoji man gesturing NO: medium-light skin tone '🙅🏼‍♂️' (U+1F645-1F3FC-2642) in category people</summary>
+        public const string EmojiManGesturingNoTone2 = "man_gesturing_no_tone2";
+
+        /// <summary>Emoji face with no good gesture tone 3 '🙅🏽' (U+1F645-1F3FD) in category people</summary>
+        public const string EmojiNoGoodTone3 = "no_good_tone3";
+
+        /// <summary>Emoji woman gesturing NO: medium skin tone '🙅🏽‍♀️' (U+1F645-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanGesturingNoTone3 = "woman_gesturing_no_tone3";
+
+        /// <summary>Emoji man gesturing NO: medium skin tone '🙅🏽‍♂️' (U+1F645-1F3FD-2642) in category people</summary>
+        public const string EmojiManGesturingNoTone3 = "man_gesturing_no_tone3";
+
+        /// <summary>Emoji face with no good gesture tone 4 '🙅🏾' (U+1F645-1F3FE) in category people</summary>
+        public const string EmojiNoGoodTone4 = "no_good_tone4";
+
+        /// <summary>Emoji woman gesturing NO: medium-dark skin tone '🙅🏾‍♀️' (U+1F645-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanGesturingNoTone4 = "woman_gesturing_no_tone4";
+
+        /// <summary>Emoji man gesturing NO: medium-dark skin tone '🙅🏾‍♂️' (U+1F645-1F3FE-2642) in category people</summary>
+        public const string EmojiManGesturingNoTone4 = "man_gesturing_no_tone4";
+
+        /// <summary>Emoji face with no good gesture tone 5 '🙅🏿' (U+1F645-1F3FF) in category people</summary>
+        public const string EmojiNoGoodTone5 = "no_good_tone5";
+
+        /// <summary>Emoji woman gesturing NO: dark skin tone '🙅🏿‍♀️' (U+1F645-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanGesturingNoTone5 = "woman_gesturing_no_tone5";
+
+        /// <summary>Emoji man gesturing NO: dark skin tone '🙅🏿‍♂️' (U+1F645-1F3FF-2642) in category people</summary>
+        public const string EmojiManGesturingNoTone5 = "man_gesturing_no_tone5";
+
+        /// <summary>Emoji face with ok gesture '🙆' (U+1F646) in category people</summary>
+        public const string EmojiOkWoman = "ok_woman";
+
+        /// <summary>Emoji woman gesturing OK '🙆‍♀️' (U+1F646-2640) in category people</summary>
+        public const string EmojiWomanGesturingOk = "woman_gesturing_ok";
+
+        /// <summary>Emoji man gesturing OK '🙆‍♂️' (U+1F646-2642) in category people</summary>
+        public const string EmojiManGesturingOk = "man_gesturing_ok";
+
+        /// <summary>Emoji man gesturing OK '🙆‍♂️' (U+1f646-2642) in category people</summary>
+        public const string EmojiOkMan = "ok_man";
+
+        /// <summary>Emoji face with ok gesture tone1 '🙆🏻' (U+1F646-1F3FB) in category people</summary>
+        public const string EmojiOkWomanTone1 = "ok_woman_tone1";
+
+        /// <summary>Emoji woman gesturing OK: light skin tone '🙆🏻‍♀️' (U+1F646-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanGesturingOkTone1 = "woman_gesturing_ok_tone1";
+
+        /// <summary>Emoji man gesturing OK: light skin tone '🙆🏻‍♂️' (U+1F646-1F3FB-2642) in category people</summary>
+        public const string EmojiManGesturingOkTone1 = "man_gesturing_ok_tone1";
+
+        /// <summary>Emoji face with ok gesture tone2 '🙆🏼' (U+1F646-1F3FC) in category people</summary>
+        public const string EmojiOkWomanTone2 = "ok_woman_tone2";
+
+        /// <summary>Emoji woman gesturing OK: medium-light skin tone '🙆🏼‍♀️' (U+1F646-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanGesturingOkTone2 = "woman_gesturing_ok_tone2";
+
+        /// <summary>Emoji man gesturing OK: medium-light skin tone '🙆🏼‍♂️' (U+1F646-1F3FC-2642) in category people</summary>
+        public const string EmojiManGesturingOkTone2 = "man_gesturing_ok_tone2";
+
+        /// <summary>Emoji face with ok gesture tone3 '🙆🏽' (U+1F646-1F3FD) in category people</summary>
+        public const string EmojiOkWomanTone3 = "ok_woman_tone3";
+
+        /// <summary>Emoji woman gesturing OK: medium skin tone '🙆🏽‍♀️' (U+1F646-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanGesturingOkTone3 = "woman_gesturing_ok_tone3";
+
+        /// <summary>Emoji man gesturing OK: medium skin tone '🙆🏽‍♂️' (U+1F646-1F3FD-2642) in category people</summary>
+        public const string EmojiManGesturingOkTone3 = "man_gesturing_ok_tone3";
+
+        /// <summary>Emoji face with ok gesture tone4 '🙆🏾' (U+1F646-1F3FE) in category people</summary>
+        public const string EmojiOkWomanTone4 = "ok_woman_tone4";
+
+        /// <summary>Emoji woman gesturing OK: medium-dark skin tone '🙆🏾‍♀️' (U+1F646-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanGesturingOkTone4 = "woman_gesturing_ok_tone4";
+
+        /// <summary>Emoji man gesturing OK: medium-dark skin tone '🙆🏾‍♂️' (U+1F646-1F3FE-2642) in category people</summary>
+        public const string EmojiManGesturingOkTone4 = "man_gesturing_ok_tone4";
+
+        /// <summary>Emoji face with ok gesture tone5 '🙆🏿' (U+1F646-1F3FF) in category people</summary>
+        public const string EmojiOkWomanTone5 = "ok_woman_tone5";
+
+        /// <summary>Emoji woman gesturing OK: dark skin tone '🙆🏿‍♀️' (U+1F646-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanGesturingOkTone5 = "woman_gesturing_ok_tone5";
+
+        /// <summary>Emoji man gesturing OK: dark skin tone '🙆🏿‍♂️' (U+1F646-1F3FF-2642) in category people</summary>
+        public const string EmojiManGesturingOkTone5 = "man_gesturing_ok_tone5";
+
+        /// <summary>Emoji person bowing deeply '🙇' (U+1F647) in category people</summary>
+        public const string EmojiBow = "bow";
+
+        /// <summary>Emoji woman bowing '🙇‍♀️' (U+1f647-2640) in category people</summary>
+        public const string EmojiBowingWoman = "bowing_woman";
+
+        /// <summary>Emoji woman bowing '🙇‍♀️' (U+1F647-2640) in category people</summary>
+        public const string EmojiWomanBowing = "woman_bowing";
+
+        /// <summary>Emoji man bowing '🙇‍♂️' (U+1F647-2642) in category people</summary>
+        public const string EmojiManBowing = "man_bowing";
+
+        /// <summary>Emoji person bowing deeply tone 1 '🙇🏻' (U+1F647-1F3FB) in category people</summary>
+        public const string EmojiBowTone1 = "bow_tone1";
+
+        /// <summary>Emoji woman bowing: light skin tone '🙇🏻‍♀️' (U+1F647-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanBowingTone1 = "woman_bowing_tone1";
+
+        /// <summary>Emoji man bowing: light skin tone '🙇🏻‍♂️' (U+1F647-1F3FB-2642) in category people</summary>
+        public const string EmojiManBowingTone1 = "man_bowing_tone1";
+
+        /// <summary>Emoji person bowing deeply tone 2 '🙇🏼' (U+1F647-1F3FC) in category people</summary>
+        public const string EmojiBowTone2 = "bow_tone2";
+
+        /// <summary>Emoji woman bowing: medium-light skin tone '🙇🏼‍♀️' (U+1F647-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanBowingTone2 = "woman_bowing_tone2";
+
+        /// <summary>Emoji man bowing: medium-light skin tone '🙇🏼‍♂️' (U+1F647-1F3FC-2642) in category people</summary>
+        public const string EmojiManBowingTone2 = "man_bowing_tone2";
+
+        /// <summary>Emoji person bowing deeply tone 3 '🙇🏽' (U+1F647-1F3FD) in category people</summary>
+        public const string EmojiBowTone3 = "bow_tone3";
+
+        /// <summary>Emoji woman bowing: medium skin tone '🙇🏽‍♀️' (U+1F647-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanBowingTone3 = "woman_bowing_tone3";
+
+        /// <summary>Emoji man bowing: medium skin tone '🙇🏽‍♂️' (U+1F647-1F3FD-2642) in category people</summary>
+        public const string EmojiManBowingTone3 = "man_bowing_tone3";
+
+        /// <summary>Emoji person bowing deeply tone 4 '🙇🏾' (U+1F647-1F3FE) in category people</summary>
+        public const string EmojiBowTone4 = "bow_tone4";
+
+        /// <summary>Emoji woman bowing: medium-dark skin tone '🙇🏾‍♀️' (U+1F647-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanBowingTone4 = "woman_bowing_tone4";
+
+        /// <summary>Emoji man bowing: medium-dark skin tone '🙇🏾‍♂️' (U+1F647-1F3FE-2642) in category people</summary>
+        public const string EmojiManBowingTone4 = "man_bowing_tone4";
+
+        /// <summary>Emoji person bowing deeply tone 5 '🙇🏿' (U+1F647-1F3FF) in category people</summary>
+        public const string EmojiBowTone5 = "bow_tone5";
+
+        /// <summary>Emoji woman bowing: dark skin tone '🙇🏿‍♀️' (U+1F647-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanBowingTone5 = "woman_bowing_tone5";
+
+        /// <summary>Emoji man bowing: dark skin tone '🙇🏿‍♂️' (U+1F647-1F3FF-2642) in category people</summary>
+        public const string EmojiManBowingTone5 = "man_bowing_tone5";
+
+        /// <summary>Emoji see-no-evil monkey '🙈' (U+1F648) in category nature</summary>
+        public const string EmojiSeeNoEvil = "see_no_evil";
+
+        /// <summary>Emoji hear-no-evil monkey '🙉' (U+1F649) in category nature</summary>
+        public const string EmojiHearNoEvil = "hear_no_evil";
+
+        /// <summary>Emoji speak-no-evil monkey '🙊' (U+1F64A) in category nature</summary>
+        public const string EmojiSpeakNoEvil = "speak_no_evil";
+
+        /// <summary>Emoji happy person raising one hand '🙋' (U+1F64B) in category people</summary>
+        public const string EmojiRaisingHand = "raising_hand";
+
+        /// <summary>Emoji woman raising hand '🙋‍♀️' (U+1F64B-2640) in category people</summary>
+        public const string EmojiWomanRaisingHand = "woman_raising_hand";
+
+        /// <summary>Emoji man raising hand '🙋‍♂️' (U+1F64B-2642) in category people</summary>
+        public const string EmojiManRaisingHand = "man_raising_hand";
+
+        /// <summary>Emoji man raising hand '🙋‍♂️' (U+1f64b-2642) in category people</summary>
+        public const string EmojiRaisingHandMan = "raising_hand_man";
+
+        /// <summary>Emoji happy person raising one hand tone1 '🙋🏻' (U+1F64B-1F3FB) in category people</summary>
+        public const string EmojiRaisingHandTone1 = "raising_hand_tone1";
+
+        /// <summary>Emoji woman raising hand: light skin tone '🙋🏻‍♀️' (U+1F64B-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanRaisingHandTone1 = "woman_raising_hand_tone1";
+
+        /// <summary>Emoji man raising hand: light skin tone '🙋🏻‍♂️' (U+1F64B-1F3FB-2642) in category people</summary>
+        public const string EmojiManRaisingHandTone1 = "man_raising_hand_tone1";
+
+        /// <summary>Emoji happy person raising one hand tone2 '🙋🏼' (U+1F64B-1F3FC) in category people</summary>
+        public const string EmojiRaisingHandTone2 = "raising_hand_tone2";
+
+        /// <summary>Emoji woman raising hand: medium-light skin tone '🙋🏼‍♀️' (U+1F64B-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanRaisingHandTone2 = "woman_raising_hand_tone2";
+
+        /// <summary>Emoji man raising hand: medium-light skin tone '🙋🏼‍♂️' (U+1F64B-1F3FC-2642) in category people</summary>
+        public const string EmojiManRaisingHandTone2 = "man_raising_hand_tone2";
+
+        /// <summary>Emoji happy person raising one hand tone3 '🙋🏽' (U+1F64B-1F3FD) in category people</summary>
+        public const string EmojiRaisingHandTone3 = "raising_hand_tone3";
+
+        /// <summary>Emoji woman raising hand: medium skin tone '🙋🏽‍♀️' (U+1F64B-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanRaisingHandTone3 = "woman_raising_hand_tone3";
+
+        /// <summary>Emoji man raising hand: medium skin tone '🙋🏽‍♂️' (U+1F64B-1F3FD-2642) in category people</summary>
+        public const string EmojiManRaisingHandTone3 = "man_raising_hand_tone3";
+
+        /// <summary>Emoji happy person raising one hand tone4 '🙋🏾' (U+1F64B-1F3FE) in category people</summary>
+        public const string EmojiRaisingHandTone4 = "raising_hand_tone4";
+
+        /// <summary>Emoji woman raising hand: medium-dark skin tone '🙋🏾‍♀️' (U+1F64B-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanRaisingHandTone4 = "woman_raising_hand_tone4";
+
+        /// <summary>Emoji man raising hand: medium-dark skin tone '🙋🏾‍♂️' (U+1F64B-1F3FE-2642) in category people</summary>
+        public const string EmojiManRaisingHandTone4 = "man_raising_hand_tone4";
+
+        /// <summary>Emoji happy person raising one hand tone5 '🙋🏿' (U+1F64B-1F3FF) in category people</summary>
+        public const string EmojiRaisingHandTone5 = "raising_hand_tone5";
+
+        /// <summary>Emoji woman raising hand: dark skin tone '🙋🏿‍♀️' (U+1F64B-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanRaisingHandTone5 = "woman_raising_hand_tone5";
+
+        /// <summary>Emoji man raising hand: dark skin tone '🙋🏿‍♂️' (U+1F64B-1F3FF-2642) in category people</summary>
+        public const string EmojiManRaisingHandTone5 = "man_raising_hand_tone5";
+
+        /// <summary>Emoji person raising both hands in celebration '🙌' (U+1F64C) in category people</summary>
+        public const string EmojiRaisedHands = "raised_hands";
+
+        /// <summary>Emoji person raising both hands in celebration tone 1 '🙌🏻' (U+1F64C-1F3FB) in category people</summary>
+        public const string EmojiRaisedHandsTone1 = "raised_hands_tone1";
+
+        /// <summary>Emoji person raising both hands in celebration tone 2 '🙌🏼' (U+1F64C-1F3FC) in category people</summary>
+        public const string EmojiRaisedHandsTone2 = "raised_hands_tone2";
+
+        /// <summary>Emoji person raising both hands in celebration tone 3 '🙌🏽' (U+1F64C-1F3FD) in category people</summary>
+        public const string EmojiRaisedHandsTone3 = "raised_hands_tone3";
+
+        /// <summary>Emoji person raising both hands in celebration tone 4 '🙌🏾' (U+1F64C-1F3FE) in category people</summary>
+        public const string EmojiRaisedHandsTone4 = "raised_hands_tone4";
+
+        /// <summary>Emoji person raising both hands in celebration tone 5 '🙌🏿' (U+1F64C-1F3FF) in category people</summary>
+        public const string EmojiRaisedHandsTone5 = "raised_hands_tone5";
+
+        /// <summary>Emoji person frowning '🙍' (U+1F64D) in category people</summary>
+        public const string EmojiPersonFrowning = "person_frowning";
+
+        /// <summary>Emoji woman frowning '🙍‍♀️' (U+1F64D-2640) in category people</summary>
+        public const string EmojiWomanFrowning = "woman_frowning";
+
+        /// <summary>Emoji man frowning '🙍‍♂️' (U+1f64d-2642) in category people</summary>
+        public const string EmojiFrowningMan = "frowning_man";
+
+        /// <summary>Emoji man frowning '🙍‍♂️' (U+1F64D-2642) in category people</summary>
+        public const string EmojiManFrowning = "man_frowning";
+
+        /// <summary>Emoji person frowning tone 1 '🙍🏻' (U+1F64D-1F3FB) in category people</summary>
+        public const string EmojiPersonFrowningTone1 = "person_frowning_tone1";
+
+        /// <summary>Emoji woman frowning: light skin tone '🙍🏻‍♀️' (U+1F64D-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanFrowningTone1 = "woman_frowning_tone1";
+
+        /// <summary>Emoji man frowning: light skin tone '🙍🏻‍♂️' (U+1F64D-1F3FB-2642) in category people</summary>
+        public const string EmojiManFrowningTone1 = "man_frowning_tone1";
+
+        /// <summary>Emoji person frowning tone 2 '🙍🏼' (U+1F64D-1F3FC) in category people</summary>
+        public const string EmojiPersonFrowningTone2 = "person_frowning_tone2";
+
+        /// <summary>Emoji woman frowning: medium-light skin tone '🙍🏼‍♀️' (U+1F64D-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanFrowningTone2 = "woman_frowning_tone2";
+
+        /// <summary>Emoji man frowning: medium-light skin tone '🙍🏼‍♂️' (U+1F64D-1F3FC-2642) in category people</summary>
+        public const string EmojiManFrowningTone2 = "man_frowning_tone2";
+
+        /// <summary>Emoji person frowning tone 3 '🙍🏽' (U+1F64D-1F3FD) in category people</summary>
+        public const string EmojiPersonFrowningTone3 = "person_frowning_tone3";
+
+        /// <summary>Emoji woman frowning: medium skin tone '🙍🏽‍♀️' (U+1F64D-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanFrowningTone3 = "woman_frowning_tone3";
+
+        /// <summary>Emoji man frowning: medium skin tone '🙍🏽‍♂️' (U+1F64D-1F3FD-2642) in category people</summary>
+        public const string EmojiManFrowningTone3 = "man_frowning_tone3";
+
+        /// <summary>Emoji person frowning tone 4 '🙍🏾' (U+1F64D-1F3FE) in category people</summary>
+        public const string EmojiPersonFrowningTone4 = "person_frowning_tone4";
+
+        /// <summary>Emoji woman frowning: medium-dark skin tone '🙍🏾‍♀️' (U+1F64D-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanFrowningTone4 = "woman_frowning_tone4";
+
+        /// <summary>Emoji man frowning: medium-dark skin tone '🙍🏾‍♂️' (U+1F64D-1F3FE-2642) in category people</summary>
+        public const string EmojiManFrowningTone4 = "man_frowning_tone4";
+
+        /// <summary>Emoji person frowning tone 5 '🙍🏿' (U+1F64D-1F3FF) in category people</summary>
+        public const string EmojiPersonFrowningTone5 = "person_frowning_tone5";
+
+        /// <summary>Emoji woman frowning: dark skin tone '🙍🏿‍♀️' (U+1F64D-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanFrowningTone5 = "woman_frowning_tone5";
+
+        /// <summary>Emoji man frowning: dark skin tone '🙍🏿‍♂️' (U+1F64D-1F3FF-2642) in category people</summary>
+        public const string EmojiManFrowningTone5 = "man_frowning_tone5";
+
+        /// <summary>Emoji person with pouting face '🙎' (U+1F64E) in category people</summary>
+        public const string EmojiPersonWithPoutingFace = "person_with_pouting_face";
+
+        /// <summary>Emoji woman pouting '🙎‍♀️' (U+1F64E-2640) in category people</summary>
+        public const string EmojiWomanPouting = "woman_pouting";
+
+        /// <summary>Emoji man pouting '🙎‍♂️' (U+1F64E-2642) in category people</summary>
+        public const string EmojiManPouting = "man_pouting";
+
+        /// <summary>Emoji man pouting '🙎‍♂️' (U+1f64e-2642) in category people</summary>
+        public const string EmojiPoutingMan = "pouting_man";
+
+        /// <summary>Emoji person with pouting face tone1 '🙎🏻' (U+1F64E-1F3FB) in category people</summary>
+        public const string EmojiPersonWithPoutingFaceTone1 = "person_with_pouting_face_tone1";
+
+        /// <summary>Emoji woman pouting: light skin tone '🙎🏻‍♀️' (U+1F64E-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanPoutingTone1 = "woman_pouting_tone1";
+
+        /// <summary>Emoji man pouting: light skin tone '🙎🏻‍♂️' (U+1F64E-1F3FB-2642) in category people</summary>
+        public const string EmojiManPoutingTone1 = "man_pouting_tone1";
+
+        /// <summary>Emoji person with pouting face tone2 '🙎🏼' (U+1F64E-1F3FC) in category people</summary>
+        public const string EmojiPersonWithPoutingFaceTone2 = "person_with_pouting_face_tone2";
+
+        /// <summary>Emoji woman pouting: medium-light skin tone '🙎🏼‍♀️' (U+1F64E-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanPoutingTone2 = "woman_pouting_tone2";
+
+        /// <summary>Emoji man pouting: medium-light skin tone '🙎🏼‍♂️' (U+1F64E-1F3FC-2642) in category people</summary>
+        public const string EmojiManPoutingTone2 = "man_pouting_tone2";
+
+        /// <summary>Emoji person with pouting face tone3 '🙎🏽' (U+1F64E-1F3FD) in category people</summary>
+        public const string EmojiPersonWithPoutingFaceTone3 = "person_with_pouting_face_tone3";
+
+        /// <summary>Emoji woman pouting: medium skin tone '🙎🏽‍♀️' (U+1F64E-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanPoutingTone3 = "woman_pouting_tone3";
+
+        /// <summary>Emoji man pouting: medium skin tone '🙎🏽‍♂️' (U+1F64E-1F3FD-2642) in category people</summary>
+        public const string EmojiManPoutingTone3 = "man_pouting_tone3";
+
+        /// <summary>Emoji person with pouting face tone4 '🙎🏾' (U+1F64E-1F3FE) in category people</summary>
+        public const string EmojiPersonWithPoutingFaceTone4 = "person_with_pouting_face_tone4";
+
+        /// <summary>Emoji woman pouting: medium-dark skin tone '🙎🏾‍♀️' (U+1F64E-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanPoutingTone4 = "woman_pouting_tone4";
+
+        /// <summary>Emoji man pouting: medium-dark skin tone '🙎🏾‍♂️' (U+1F64E-1F3FE-2642) in category people</summary>
+        public const string EmojiManPoutingTone4 = "man_pouting_tone4";
+
+        /// <summary>Emoji person with pouting face tone5 '🙎🏿' (U+1F64E-1F3FF) in category people</summary>
+        public const string EmojiPersonWithPoutingFaceTone5 = "person_with_pouting_face_tone5";
+
+        /// <summary>Emoji woman pouting: dark skin tone '🙎🏿‍♀️' (U+1F64E-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanPoutingTone5 = "woman_pouting_tone5";
+
+        /// <summary>Emoji man pouting: dark skin tone '🙎🏿‍♂️' (U+1F64E-1F3FF-2642) in category people</summary>
+        public const string EmojiManPoutingTone5 = "man_pouting_tone5";
+
+        /// <summary>Emoji person with folded hands '🙏' (U+1F64F) in category people</summary>
+        public const string EmojiPray = "pray";
+
+        /// <summary>Emoji person with folded hands tone 1 '🙏🏻' (U+1F64F-1F3FB) in category people</summary>
+        public const string EmojiPrayTone1 = "pray_tone1";
+
+        /// <summary>Emoji person with folded hands tone 2 '🙏🏼' (U+1F64F-1F3FC) in category people</summary>
+        public const string EmojiPrayTone2 = "pray_tone2";
+
+        /// <summary>Emoji person with folded hands tone 3 '🙏🏽' (U+1F64F-1F3FD) in category people</summary>
+        public const string EmojiPrayTone3 = "pray_tone3";
+
+        /// <summary>Emoji person with folded hands tone 4 '🙏🏾' (U+1F64F-1F3FE) in category people</summary>
+        public const string EmojiPrayTone4 = "pray_tone4";
+
+        /// <summary>Emoji person with folded hands tone 5 '🙏🏿' (U+1F64F-1F3FF) in category people</summary>
+        public const string EmojiPrayTone5 = "pray_tone5";
+
+        /// <summary>Emoji rocket '🚀' (U+1F680) in category travel</summary>
+        public const string EmojiRocket = "rocket";
+
+        /// <summary>Emoji helicopter '🚁' (U+1F681) in category travel</summary>
+        public const string EmojiHelicopter = "helicopter";
+
+        /// <summary>Emoji steam locomotive '🚂' (U+1F682) in category travel</summary>
+        public const string EmojiSteamLocomotive = "steam_locomotive";
+
+        /// <summary>Emoji railway car '🚃' (U+1F683) in category travel</summary>
+        public const string EmojiRailwayCar = "railway_car";
+
+        /// <summary>Emoji high-speed train '🚄' (U+1F684) in category travel</summary>
+        public const string EmojiBullettrainSide = "bullettrain_side";
+
+        /// <summary>Emoji high-speed train with bullet nose '🚅' (U+1F685) in category travel</summary>
+        public const string EmojiBullettrainFront = "bullettrain_front";
+
+        /// <summary>Emoji train '🚆' (U+1F686) in category travel</summary>
+        public const string EmojiTrain2 = "train2";
+
+        /// <summary>Emoji metro '🚇' (U+1F687) in category travel</summary>
+        public const string EmojiMetro = "metro";
+
+        /// <summary>Emoji light rail '🚈' (U+1F688) in category travel</summary>
+        public const string EmojiLightRail = "light_rail";
+
+        /// <summary>Emoji station '🚉' (U+1F689) in category travel</summary>
+        public const string EmojiStation = "station";
+
+        /// <summary>Emoji tram '🚊' (U+1F68A) in category travel</summary>
+        public const string EmojiTram = "tram";
+
+        /// <summary>Emoji Tram Car '🚋' (U+1F68B) in category travel</summary>
+        public const string EmojiTrain = "train";
+
+        /// <summary>Emoji bus '🚌' (U+1F68C) in category travel</summary>
+        public const string EmojiBus = "bus";
+
+        /// <summary>Emoji oncoming bus '🚍' (U+1F68D) in category travel</summary>
+        public const string EmojiOncomingBus = "oncoming_bus";
+
+        /// <summary>Emoji trolleybus '🚎' (U+1F68E) in category travel</summary>
+        public const string EmojiTrolleybus = "trolleybus";
+
+        /// <summary>Emoji bus stop '🚏' (U+1F68F) in category travel</summary>
+        public const string EmojiBusstop = "busstop";
+
+        /// <summary>Emoji minibus '🚐' (U+1F690) in category travel</summary>
+        public const string EmojiMinibus = "minibus";
+
+        /// <summary>Emoji ambulance '🚑' (U+1F691) in category travel</summary>
+        public const string EmojiAmbulance = "ambulance";
+
+        /// <summary>Emoji fire engine '🚒' (U+1F692) in category travel</summary>
+        public const string EmojiFireEngine = "fire_engine";
+
+        /// <summary>Emoji police car '🚓' (U+1F693) in category travel</summary>
+        public const string EmojiPoliceCar = "police_car";
+
+        /// <summary>Emoji oncoming police car '🚔' (U+1F694) in category travel</summary>
+        public const string EmojiOncomingPoliceCar = "oncoming_police_car";
+
+        /// <summary>Emoji taxi '🚕' (U+1F695) in category travel</summary>
+        public const string EmojiTaxi = "taxi";
+
+        /// <summary>Emoji oncoming taxi '🚖' (U+1F696) in category travel</summary>
+        public const string EmojiOncomingTaxi = "oncoming_taxi";
+
+        /// <summary>Emoji automobile '🚗' (U+1F697) in category travel</summary>
+        public const string EmojiRedCar = "red_car";
+
+        /// <summary>Emoji oncoming automobile '🚘' (U+1F698) in category travel</summary>
+        public const string EmojiOncomingAutomobile = "oncoming_automobile";
+
+        /// <summary>Emoji recreational vehicle '🚙' (U+1F699) in category travel</summary>
+        public const string EmojiBlueCar = "blue_car";
+
+        /// <summary>Emoji delivery truck '🚚' (U+1F69A) in category travel</summary>
+        public const string EmojiTruck = "truck";
+
+        /// <summary>Emoji articulated lorry '🚛' (U+1F69B) in category travel</summary>
+        public const string EmojiArticulatedLorry = "articulated_lorry";
+
+        /// <summary>Emoji tractor '🚜' (U+1F69C) in category travel</summary>
+        public const string EmojiTractor = "tractor";
+
+        /// <summary>Emoji monorail '🚝' (U+1F69D) in category travel</summary>
+        public const string EmojiMonorail = "monorail";
+
+        /// <summary>Emoji mountain railway '🚞' (U+1F69E) in category travel</summary>
+        public const string EmojiMountainRailway = "mountain_railway";
+
+        /// <summary>Emoji suspension railway '🚟' (U+1F69F) in category travel</summary>
+        public const string EmojiSuspensionRailway = "suspension_railway";
+
+        /// <summary>Emoji mountain cableway '🚠' (U+1F6A0) in category travel</summary>
+        public const string EmojiMountainCableway = "mountain_cableway";
+
+        /// <summary>Emoji aerial tramway '🚡' (U+1F6A1) in category travel</summary>
+        public const string EmojiAerialTramway = "aerial_tramway";
+
+        /// <summary>Emoji ship '🚢' (U+1F6A2) in category travel</summary>
+        public const string EmojiShip = "ship";
+
+        /// <summary>Emoji rowboat '🚣' (U+1F6A3) in category activity</summary>
+        public const string EmojiRowboat = "rowboat";
+
+        /// <summary>Emoji woman rowing boat '🚣‍♀️' (U+1f6a3-2640) in category activity</summary>
+        public const string EmojiRowingWoman = "rowing_woman";
+
+        /// <summary>Emoji woman rowing boat '🚣‍♀️' (U+1F6A3-2640) in category activity</summary>
+        public const string EmojiWomanRowingBoat = "woman_rowing_boat";
+
+        /// <summary>Emoji man rowing boat '🚣‍♂️' (U+1F6A3-2642) in category activity</summary>
+        public const string EmojiManRowingBoat = "man_rowing_boat";
+
+        /// <summary>Emoji rowboat tone 1 '🚣🏻' (U+1F6A3-1F3FB) in category activity</summary>
+        public const string EmojiRowboatTone1 = "rowboat_tone1";
+
+        /// <summary>Emoji woman rowing boat: light skin tone '🚣🏻‍♀️' (U+1F6A3-1F3FB-2640) in category activity</summary>
+        public const string EmojiWomanRowingBoatTone1 = "woman_rowing_boat_tone1";
+
+        /// <summary>Emoji man rowing boat: light skin tone '🚣🏻‍♂️' (U+1F6A3-1F3FB-2642) in category activity</summary>
+        public const string EmojiManRowingBoatTone1 = "man_rowing_boat_tone1";
+
+        /// <summary>Emoji rowboat tone 2 '🚣🏼' (U+1F6A3-1F3FC) in category activity</summary>
+        public const string EmojiRowboatTone2 = "rowboat_tone2";
+
+        /// <summary>Emoji woman rowing boat: medium-light skin tone '🚣🏼‍♀️' (U+1F6A3-1F3FC-2640) in category activity</summary>
+        public const string EmojiWomanRowingBoatTone2 = "woman_rowing_boat_tone2";
+
+        /// <summary>Emoji man rowing boat: medium-light skin tone '🚣🏼‍♂️' (U+1F6A3-1F3FC-2642) in category activity</summary>
+        public const string EmojiManRowingBoatTone2 = "man_rowing_boat_tone2";
+
+        /// <summary>Emoji rowboat tone 3 '🚣🏽' (U+1F6A3-1F3FD) in category activity</summary>
+        public const string EmojiRowboatTone3 = "rowboat_tone3";
+
+        /// <summary>Emoji woman rowing boat: medium skin tone '🚣🏽‍♀️' (U+1F6A3-1F3FD-2640) in category activity</summary>
+        public const string EmojiWomanRowingBoatTone3 = "woman_rowing_boat_tone3";
+
+        /// <summary>Emoji man rowing boat: medium skin tone '🚣🏽‍♂️' (U+1F6A3-1F3FD-2642) in category activity</summary>
+        public const string EmojiManRowingBoatTone3 = "man_rowing_boat_tone3";
+
+        /// <summary>Emoji rowboat tone 4 '🚣🏾' (U+1F6A3-1F3FE) in category activity</summary>
+        public const string EmojiRowboatTone4 = "rowboat_tone4";
+
+        /// <summary>Emoji woman rowing boat: medium-dark skin tone '🚣🏾‍♀️' (U+1F6A3-1F3FE-2640) in category activity</summary>
+        public const string EmojiWomanRowingBoatTone4 = "woman_rowing_boat_tone4";
+
+        /// <summary>Emoji man rowing boat: medium-dark skin tone '🚣🏾‍♂️' (U+1F6A3-1F3FE-2642) in category activity</summary>
+        public const string EmojiManRowingBoatTone4 = "man_rowing_boat_tone4";
+
+        /// <summary>Emoji rowboat tone 5 '🚣🏿' (U+1F6A3-1F3FF) in category activity</summary>
+        public const string EmojiRowboatTone5 = "rowboat_tone5";
+
+        /// <summary>Emoji woman rowing boat: dark skin tone '🚣🏿‍♀️' (U+1F6A3-1F3FF-2640) in category activity</summary>
+        public const string EmojiWomanRowingBoatTone5 = "woman_rowing_boat_tone5";
+
+        /// <summary>Emoji man rowing boat: dark skin tone '🚣🏿‍♂️' (U+1F6A3-1F3FF-2642) in category activity</summary>
+        public const string EmojiManRowingBoatTone5 = "man_rowing_boat_tone5";
+
+        /// <summary>Emoji speedboat '🚤' (U+1F6A4) in category travel</summary>
+        public const string EmojiSpeedboat = "speedboat";
+
+        /// <summary>Emoji horizontal traffic light '🚥' (U+1F6A5) in category travel</summary>
+        public const string EmojiTrafficLight = "traffic_light";
+
+        /// <summary>Emoji vertical traffic light '🚦' (U+1F6A6) in category travel</summary>
+        public const string EmojiVerticalTrafficLight = "vertical_traffic_light";
+
+        /// <summary>Emoji construction sign '🚧' (U+1F6A7) in category travel</summary>
+        public const string EmojiConstruction = "construction";
+
+        /// <summary>Emoji police cars revolving light '🚨' (U+1F6A8) in category travel</summary>
+        public const string EmojiRotatingLight = "rotating_light";
+
+        /// <summary>Emoji triangular flag on post '🚩' (U+1F6A9) in category objects</summary>
+        public const string EmojiTriangularFlagOnPost = "triangular_flag_on_post";
+
+        /// <summary>Emoji door '🚪' (U+1F6AA) in category objects</summary>
+        public const string EmojiDoor = "door";
+
+        /// <summary>Emoji no entry sign '🚫' (U+1F6AB) in category symbols</summary>
+        public const string EmojiNoEntrySign = "no_entry_sign";
+
+        /// <summary>Emoji smoking symbol '🚬' (U+1F6AC) in category objects</summary>
+        public const string EmojiSmoking = "smoking";
+
+        /// <summary>Emoji no smoking symbol '🚭' (U+1F6AD) in category symbols</summary>
+        public const string EmojiNoSmoking = "no_smoking";
+
+        /// <summary>Emoji put litter in its place symbol '🚮' (U+1F6AE) in category symbols</summary>
+        public const string EmojiPutLitterInItsPlace = "put_litter_in_its_place";
+
+        /// <summary>Emoji do not litter symbol '🚯' (U+1F6AF) in category symbols</summary>
+        public const string EmojiDoNotLitter = "do_not_litter";
+
+        /// <summary>Emoji potable water symbol '🚰' (U+1F6B0) in category symbols</summary>
+        public const string EmojiPotableWater = "potable_water";
+
+        /// <summary>Emoji non-potable water symbol '🚱' (U+1F6B1) in category symbols</summary>
+        public const string EmojiNonPotableWater = "non-potable_water";
+
+        /// <summary>Emoji bicycle '🚲' (U+1F6B2) in category travel</summary>
+        public const string EmojiBike = "bike";
+
+        /// <summary>Emoji no bicycles '🚳' (U+1F6B3) in category symbols</summary>
+        public const string EmojiNoBicycles = "no_bicycles";
+
+        /// <summary>Emoji bicyclist '🚴' (U+1F6B4) in category activity</summary>
+        public const string EmojiBicyclist = "bicyclist";
+
+        /// <summary>Emoji woman biking '🚴‍♀️' (U+1f6b4-2640) in category activity</summary>
+        public const string EmojiBikingWoman = "biking_woman";
+
+        /// <summary>Emoji woman biking '🚴‍♀️' (U+1F6B4-2640) in category activity</summary>
+        public const string EmojiWomanBiking = "woman_biking";
+
+        /// <summary>Emoji man biking '🚴‍♂️' (U+1F6B4-2642) in category activity</summary>
+        public const string EmojiManBiking = "man_biking";
+
+        /// <summary>Emoji bicyclist tone 1 '🚴🏻' (U+1F6B4-1F3FB) in category activity</summary>
+        public const string EmojiBicyclistTone1 = "bicyclist_tone1";
+
+        /// <summary>Emoji woman biking: light skin tone '🚴🏻‍♀️' (U+1F6B4-1F3FB-2640) in category activity</summary>
+        public const string EmojiWomanBikingTone1 = "woman_biking_tone1";
+
+        /// <summary>Emoji man biking: light skin tone '🚴🏻‍♂️' (U+1F6B4-1F3FB-2642) in category activity</summary>
+        public const string EmojiManBikingTone1 = "man_biking_tone1";
+
+        /// <summary>Emoji bicyclist tone 2 '🚴🏼' (U+1F6B4-1F3FC) in category activity</summary>
+        public const string EmojiBicyclistTone2 = "bicyclist_tone2";
+
+        /// <summary>Emoji woman biking: medium-light skin tone '🚴🏼‍♀️' (U+1F6B4-1F3FC-2640) in category activity</summary>
+        public const string EmojiWomanBikingTone2 = "woman_biking_tone2";
+
+        /// <summary>Emoji man biking: medium-light skin tone '🚴🏼‍♂️' (U+1F6B4-1F3FC-2642) in category activity</summary>
+        public const string EmojiManBikingTone2 = "man_biking_tone2";
+
+        /// <summary>Emoji bicyclist tone 3 '🚴🏽' (U+1F6B4-1F3FD) in category activity</summary>
+        public const string EmojiBicyclistTone3 = "bicyclist_tone3";
+
+        /// <summary>Emoji woman biking: medium skin tone '🚴🏽‍♀️' (U+1F6B4-1F3FD-2640) in category activity</summary>
+        public const string EmojiWomanBikingTone3 = "woman_biking_tone3";
+
+        /// <summary>Emoji man biking: medium skin tone '🚴🏽‍♂️' (U+1F6B4-1F3FD-2642) in category activity</summary>
+        public const string EmojiManBikingTone3 = "man_biking_tone3";
+
+        /// <summary>Emoji bicyclist tone 4 '🚴🏾' (U+1F6B4-1F3FE) in category activity</summary>
+        public const string EmojiBicyclistTone4 = "bicyclist_tone4";
+
+        /// <summary>Emoji woman biking: medium-dark skin tone '🚴🏾‍♀️' (U+1F6B4-1F3FE-2640) in category activity</summary>
+        public const string EmojiWomanBikingTone4 = "woman_biking_tone4";
+
+        /// <summary>Emoji man biking: medium-dark skin tone '🚴🏾‍♂️' (U+1F6B4-1F3FE-2642) in category activity</summary>
+        public const string EmojiManBikingTone4 = "man_biking_tone4";
+
+        /// <summary>Emoji bicyclist tone 5 '🚴🏿' (U+1F6B4-1F3FF) in category activity</summary>
+        public const string EmojiBicyclistTone5 = "bicyclist_tone5";
+
+        /// <summary>Emoji woman biking: dark skin tone '🚴🏿‍♀️' (U+1F6B4-1F3FF-2640) in category activity</summary>
+        public const string EmojiWomanBikingTone5 = "woman_biking_tone5";
+
+        /// <summary>Emoji man biking: dark skin tone '🚴🏿‍♂️' (U+1F6B4-1F3FF-2642) in category activity</summary>
+        public const string EmojiManBikingTone5 = "man_biking_tone5";
+
+        /// <summary>Emoji mountain bicyclist '🚵' (U+1F6B5) in category activity</summary>
+        public const string EmojiMountainBicyclist = "mountain_bicyclist";
+
+        /// <summary>Emoji woman mountain biking '🚵‍♀️' (U+1f6b5-2640) in category activity</summary>
+        public const string EmojiMountainBikingWoman = "mountain_biking_woman";
+
+        /// <summary>Emoji woman mountain biking '🚵‍♀️' (U+1F6B5-2640) in category activity</summary>
+        public const string EmojiWomanMountainBiking = "woman_mountain_biking";
+
+        /// <summary>Emoji man mountain biking '🚵‍♂️' (U+1F6B5-2642) in category activity</summary>
+        public const string EmojiManMountainBiking = "man_mountain_biking";
+
+        /// <summary>Emoji mountain bicyclist tone 1 '🚵🏻' (U+1F6B5-1F3FB) in category activity</summary>
+        public const string EmojiMountainBicyclistTone1 = "mountain_bicyclist_tone1";
+
+        /// <summary>Emoji woman mountain biking: light skin tone '🚵🏻‍♀️' (U+1F6B5-1F3FB-2640) in category activity</summary>
+        public const string EmojiWomanMountainBikingTone1 = "woman_mountain_biking_tone1";
+
+        /// <summary>Emoji man mountain biking: light skin tone '🚵🏻‍♂️' (U+1F6B5-1F3FB-2642) in category activity</summary>
+        public const string EmojiManMountainBikingTone1 = "man_mountain_biking_tone1";
+
+        /// <summary>Emoji mountain bicyclist tone 2 '🚵🏼' (U+1F6B5-1F3FC) in category activity</summary>
+        public const string EmojiMountainBicyclistTone2 = "mountain_bicyclist_tone2";
+
+        /// <summary>Emoji woman mountain biking: medium-light skin tone '🚵🏼‍♀️' (U+1F6B5-1F3FC-2640) in category activity</summary>
+        public const string EmojiWomanMountainBikingTone2 = "woman_mountain_biking_tone2";
+
+        /// <summary>Emoji man mountain biking: medium-light skin tone '🚵🏼‍♂️' (U+1F6B5-1F3FC-2642) in category activity</summary>
+        public const string EmojiManMountainBikingTone2 = "man_mountain_biking_tone2";
+
+        /// <summary>Emoji mountain bicyclist tone 3 '🚵🏽' (U+1F6B5-1F3FD) in category activity</summary>
+        public const string EmojiMountainBicyclistTone3 = "mountain_bicyclist_tone3";
+
+        /// <summary>Emoji woman mountain biking: medium skin tone '🚵🏽‍♀️' (U+1F6B5-1F3FD-2640) in category activity</summary>
+        public const string EmojiWomanMountainBikingTone3 = "woman_mountain_biking_tone3";
+
+        /// <summary>Emoji man mountain biking: medium skin tone '🚵🏽‍♂️' (U+1F6B5-1F3FD-2642) in category activity</summary>
+        public const string EmojiManMountainBikingTone3 = "man_mountain_biking_tone3";
+
+        /// <summary>Emoji mountain bicyclist tone 4 '🚵🏾' (U+1F6B5-1F3FE) in category activity</summary>
+        public const string EmojiMountainBicyclistTone4 = "mountain_bicyclist_tone4";
+
+        /// <summary>Emoji woman mountain biking: medium-dark skin tone '🚵🏾‍♀️' (U+1F6B5-1F3FE-2640) in category activity</summary>
+        public const string EmojiWomanMountainBikingTone4 = "woman_mountain_biking_tone4";
+
+        /// <summary>Emoji man mountain biking: medium-dark skin tone '🚵🏾‍♂️' (U+1F6B5-1F3FE-2642) in category activity</summary>
+        public const string EmojiManMountainBikingTone4 = "man_mountain_biking_tone4";
+
+        /// <summary>Emoji mountain bicyclist tone 5 '🚵🏿' (U+1F6B5-1F3FF) in category activity</summary>
+        public const string EmojiMountainBicyclistTone5 = "mountain_bicyclist_tone5";
+
+        /// <summary>Emoji woman mountain biking: dark skin tone '🚵🏿‍♀️' (U+1F6B5-1F3FF-2640) in category activity</summary>
+        public const string EmojiWomanMountainBikingTone5 = "woman_mountain_biking_tone5";
+
+        /// <summary>Emoji man mountain biking: dark skin tone '🚵🏿‍♂️' (U+1F6B5-1F3FF-2642) in category activity</summary>
+        public const string EmojiManMountainBikingTone5 = "man_mountain_biking_tone5";
+
+        /// <summary>Emoji pedestrian '🚶' (U+1F6B6) in category people</summary>
+        public const string EmojiWalking = "walking";
+
+        /// <summary>Emoji woman walking '🚶‍♀️' (U+1f6b6-2640) in category people</summary>
+        public const string EmojiWalkingWoman = "walking_woman";
+
+        /// <summary>Emoji woman walking '🚶‍♀️' (U+1F6B6-2640) in category people</summary>
+        public const string EmojiWomanWalking = "woman_walking";
+
+        /// <summary>Emoji man walking '🚶‍♂️' (U+1F6B6-2642) in category people</summary>
+        public const string EmojiManWalking = "man_walking";
+
+        /// <summary>Emoji pedestrian tone 1 '🚶🏻' (U+1F6B6-1F3FB) in category people</summary>
+        public const string EmojiWalkingTone1 = "walking_tone1";
+
+        /// <summary>Emoji woman walking: light skin tone '🚶🏻‍♀️' (U+1F6B6-1F3FB-2640) in category people</summary>
+        public const string EmojiWomanWalkingTone1 = "woman_walking_tone1";
+
+        /// <summary>Emoji man walking: light skin tone '🚶🏻‍♂️' (U+1F6B6-1F3FB-2642) in category people</summary>
+        public const string EmojiManWalkingTone1 = "man_walking_tone1";
+
+        /// <summary>Emoji pedestrian tone 2 '🚶🏼' (U+1F6B6-1F3FC) in category people</summary>
+        public const string EmojiWalkingTone2 = "walking_tone2";
+
+        /// <summary>Emoji woman walking: medium-light skin tone '🚶🏼‍♀️' (U+1F6B6-1F3FC-2640) in category people</summary>
+        public const string EmojiWomanWalkingTone2 = "woman_walking_tone2";
+
+        /// <summary>Emoji man walking: medium-light skin tone '🚶🏼‍♂️' (U+1F6B6-1F3FC-2642) in category people</summary>
+        public const string EmojiManWalkingTone2 = "man_walking_tone2";
+
+        /// <summary>Emoji pedestrian tone 3 '🚶🏽' (U+1F6B6-1F3FD) in category people</summary>
+        public const string EmojiWalkingTone3 = "walking_tone3";
+
+        /// <summary>Emoji woman walking: medium skin tone '🚶🏽‍♀️' (U+1F6B6-1F3FD-2640) in category people</summary>
+        public const string EmojiWomanWalkingTone3 = "woman_walking_tone3";
+
+        /// <summary>Emoji man walking: medium skin tone '🚶🏽‍♂️' (U+1F6B6-1F3FD-2642) in category people</summary>
+        public const string EmojiManWalkingTone3 = "man_walking_tone3";
+
+        /// <summary>Emoji pedestrian tone 4 '🚶🏾' (U+1F6B6-1F3FE) in category people</summary>
+        public const string EmojiWalkingTone4 = "walking_tone4";
+
+        /// <summary>Emoji woman walking: medium-dark skin tone '🚶🏾‍♀️' (U+1F6B6-1F3FE-2640) in category people</summary>
+        public const string EmojiWomanWalkingTone4 = "woman_walking_tone4";
+
+        /// <summary>Emoji man walking: medium-dark skin tone '🚶🏾‍♂️' (U+1F6B6-1F3FE-2642) in category people</summary>
+        public const string EmojiManWalkingTone4 = "man_walking_tone4";
+
+        /// <summary>Emoji pedestrian tone 5 '🚶🏿' (U+1F6B6-1F3FF) in category people</summary>
+        public const string EmojiWalkingTone5 = "walking_tone5";
+
+        /// <summary>Emoji woman walking: dark skin tone '🚶🏿‍♀️' (U+1F6B6-1F3FF-2640) in category people</summary>
+        public const string EmojiWomanWalkingTone5 = "woman_walking_tone5";
+
+        /// <summary>Emoji man walking: dark skin tone '🚶🏿‍♂️' (U+1F6B6-1F3FF-2642) in category people</summary>
+        public const string EmojiManWalkingTone5 = "man_walking_tone5";
+
+        /// <summary>Emoji no pedestrians '🚷' (U+1F6B7) in category symbols</summary>
+        public const string EmojiNoPedestrians = "no_pedestrians";
+
+        /// <summary>Emoji children crossing '🚸' (U+1F6B8) in category symbols</summary>
+        public const string EmojiChildrenCrossing = "children_crossing";
+
+        /// <summary>Emoji mens symbol '🚹' (U+1F6B9) in category symbols</summary>
+        public const string EmojiMens = "mens";
+
+        /// <summary>Emoji womens symbol '🚺' (U+1F6BA) in category symbols</summary>
+        public const string EmojiWomens = "womens";
+
+        /// <summary>Emoji restroom '🚻' (U+1F6BB) in category symbols</summary>
+        public const string EmojiRestroom = "restroom";
+
+        /// <summary>Emoji baby symbol '🚼' (U+1F6BC) in category symbols</summary>
+        public const string EmojiBabySymbol = "baby_symbol";
+
+        /// <summary>Emoji toilet '🚽' (U+1F6BD) in category objects</summary>
+        public const string EmojiToilet = "toilet";
+
+        /// <summary>Emoji water closet '🚾' (U+1F6BE) in category symbols</summary>
+        public const string EmojiWc = "wc";
+
+        /// <summary>Emoji shower '🚿' (U+1F6BF) in category objects</summary>
+        public const string EmojiShower = "shower";
+
+        /// <summary>Emoji bath '🛀' (U+1F6C0) in category activity</summary>
+        public const string EmojiBath = "bath";
+
+        /// <summary>Emoji bath tone 1 '🛀🏻' (U+1F6C0-1F3FB) in category activity</summary>
+        public const string EmojiBathTone1 = "bath_tone1";
+
+        /// <summary>Emoji bath tone 2 '🛀🏼' (U+1F6C0-1F3FC) in category activity</summary>
+        public const string EmojiBathTone2 = "bath_tone2";
+
+        /// <summary>Emoji bath tone 3 '🛀🏽' (U+1F6C0-1F3FD) in category activity</summary>
+        public const string EmojiBathTone3 = "bath_tone3";
+
+        /// <summary>Emoji bath tone 4 '🛀🏾' (U+1F6C0-1F3FE) in category activity</summary>
+        public const string EmojiBathTone4 = "bath_tone4";
+
+        /// <summary>Emoji bath tone 5 '🛀🏿' (U+1F6C0-1F3FF) in category activity</summary>
+        public const string EmojiBathTone5 = "bath_tone5";
+
+        /// <summary>Emoji bathtub '🛁' (U+1F6C1) in category objects</summary>
+        public const string EmojiBathtub = "bathtub";
+
+        /// <summary>Emoji passport control '🛂' (U+1F6C2) in category symbols</summary>
+        public const string EmojiPassportControl = "passport_control";
+
+        /// <summary>Emoji customs '🛃' (U+1F6C3) in category symbols</summary>
+        public const string EmojiCustoms = "customs";
+
+        /// <summary>Emoji baggage claim '🛄' (U+1F6C4) in category symbols</summary>
+        public const string EmojiBaggageClaim = "baggage_claim";
+
+        /// <summary>Emoji left luggage '🛅' (U+1F6C5) in category symbols</summary>
+        public const string EmojiLeftLuggage = "left_luggage";
+
+        /// <summary>Emoji couch and lamp '🛋' (U+1F6CB) in category objects</summary>
+        public const string EmojiCouch = "couch";
+
+        /// <summary>Emoji sleeping accommodation '🛌' (U+1F6CC) in category objects</summary>
+        public const string EmojiSleepingAccommodation = "sleeping_accommodation";
+
+        /// <summary>Emoji person in bed: light skin tone '🛌🏻' (U+1F6CC-1F3FB) in category objects</summary>
+        public const string EmojiPersonInBedTone1 = "person_in_bed_tone1";
+
+        /// <summary>Emoji person in bed: medium-light skin tone '🛌🏼' (U+1F6CC-1F3FC) in category objects</summary>
+        public const string EmojiPersonInBedTone2 = "person_in_bed_tone2";
+
+        /// <summary>Emoji person in bed: medium skin tone '🛌🏽' (U+1F6CC-1F3FD) in category objects</summary>
+        public const string EmojiPersonInBedTone3 = "person_in_bed_tone3";
+
+        /// <summary>Emoji person in bed: medium-dark skin tone '🛌🏾' (U+1F6CC-1F3FE) in category objects</summary>
+        public const string EmojiPersonInBedTone4 = "person_in_bed_tone4";
+
+        /// <summary>Emoji person in bed: dark skin tone '🛌🏿' (U+1F6CC-1F3FF) in category objects</summary>
+        public const string EmojiPersonInBedTone5 = "person_in_bed_tone5";
+
+        /// <summary>Emoji shopping bags '🛍' (U+1F6CD) in category objects</summary>
+        public const string EmojiShoppingBags = "shopping_bags";
+
+        /// <summary>Emoji bellhop bell '🛎' (U+1F6CE) in category objects</summary>
+        public const string EmojiBellhop = "bellhop";
+
+        /// <summary>Emoji bed '🛏' (U+1F6CF) in category objects</summary>
+        public const string EmojiBed = "bed";
+
+        /// <summary>Emoji place of worship '🛐' (U+1F6D0) in category symbols</summary>
+        public const string EmojiPlaceOfWorship = "place_of_worship";
+
+        /// <summary>Emoji octagonal sign '🛑' (U+1F6D1) in category symbols</summary>
+        public const string EmojiOctagonalSign = "octagonal_sign";
+
+        /// <summary>Emoji shopping trolley '🛒' (U+1F6D2) in category objects</summary>
+        public const string EmojiShoppingCart = "shopping_cart";
+
+        /// <summary>Emoji hammer and wrench '🛠' (U+1F6E0) in category objects</summary>
+        public const string EmojiTools = "tools";
+
+        /// <summary>Emoji shield '🛡' (U+1F6E1) in category objects</summary>
+        public const string EmojiShield = "shield";
+
+        /// <summary>Emoji oil drum '🛢' (U+1F6E2) in category objects</summary>
+        public const string EmojiOil = "oil";
+
+        /// <summary>Emoji motorway '🛣' (U+1F6E3) in category travel</summary>
+        public const string EmojiMotorway = "motorway";
+
+        /// <summary>Emoji railway track '🛤' (U+1F6E4) in category travel</summary>
+        public const string EmojiRailwayTrack = "railway_track";
+
+        /// <summary>Emoji motorboat '🛥' (U+1F6E5) in category travel</summary>
+        public const string EmojiMotorboat = "motorboat";
+
+        /// <summary>Emoji small airplane '🛩' (U+1F6E9) in category travel</summary>
+        public const string EmojiAirplaneSmall = "airplane_small";
+
+        /// <summary>Emoji airplane departure '🛫' (U+1F6EB) in category travel</summary>
+        public const string EmojiAirplaneDeparture = "airplane_departure";
+
+        /// <summary>Emoji airplane arriving '🛬' (U+1F6EC) in category travel</summary>
+        public const string EmojiAirplaneArriving = "airplane_arriving";
+
+        /// <summary>Emoji satellite '🛰' (U+1F6F0) in category travel</summary>
+        public const string EmojiSatelliteOrbital = "satellite_orbital";
+
+        /// <summary>Emoji passenger ship '🛳' (U+1F6F3) in category travel</summary>
+        public const string EmojiCruiseShip = "cruise_ship";
+
+        /// <summary>Emoji scooter '🛴' (U+1F6F4) in category travel</summary>
+        public const string EmojiScooter = "scooter";
+
+        /// <summary>Emoji motor scooter '🛵' (U+1F6F5) in category travel</summary>
+        public const string EmojiMotorScooter = "motor_scooter";
+
+        /// <summary>Emoji canoe '🛶' (U+1F6F6) in category travel</summary>
+        public const string EmojiCanoe = "canoe";
+
+        /// <summary>Emoji sled '🛷' (U+1F6F7) in category activity</summary>
+        public const string EmojiSled = "sled";
+
+        /// <summary>Emoji flying saucer '🛸' (U+1F6F8) in category travel</summary>
+        public const string EmojiFlyingSaucer = "flying_saucer";
+
+        /// <summary>Emoji skateboard '🛹' (U+1F6F9) in category activity</summary>
+        public const string EmojiSkateboard = "skateboard";
+
+        /// <summary>Emoji digit zero '0️⃣' (U+0030) in category symbols</summary>
+        public const string EmojiDigitZero = "digit_zero";
+
+        /// <summary>Emoji keycap digit zero '0️⃣' (U+0030-20E3) in category symbols</summary>
+        public const string EmojiZero = "zero";
+
+        /// <summary>Emoji digit one '1️⃣' (U+0031) in category symbols</summary>
+        public const string EmojiDigitOne = "digit_one";
+
+        /// <summary>Emoji keycap digit one '1️⃣' (U+0031-20E3) in category symbols</summary>
+        public const string EmojiOne = "one";
+
+        /// <summary>Emoji digit two '2️⃣' (U+0032) in category symbols</summary>
+        public const string EmojiDigitTwo = "digit_two";
+
+        /// <summary>Emoji keycap digit two '2️⃣' (U+0032-20E3) in category symbols</summary>
+        public const string EmojiTwo = "two";
+
+        /// <summary>Emoji digit three '3️⃣' (U+0033) in category symbols</summary>
+        public const string EmojiDigitThree = "digit_three";
+
+        /// <summary>Emoji keycap digit three '3️⃣' (U+0033-20E3) in category symbols</summary>
+        public const string EmojiThree = "three";
+
+        /// <summary>Emoji digit four '4️⃣' (U+0034) in category symbols</summary>
+        public const string EmojiDigitFour = "digit_four";
+
+        /// <summary>Emoji keycap digit four '4️⃣' (U+0034-20E3) in category symbols</summary>
+        public const string EmojiFour = "four";
+
+        /// <summary>Emoji digit five '5️⃣' (U+0035) in category symbols</summary>
+        public const string EmojiDigitFive = "digit_five";
+
+        /// <summary>Emoji keycap digit five '5️⃣' (U+0035-20E3) in category symbols</summary>
+        public const string EmojiFive = "five";
+
+        /// <summary>Emoji digit six '6️⃣' (U+0036) in category symbols</summary>
+        public const string EmojiDigitSix = "digit_six";
+
+        /// <summary>Emoji keycap digit six '6️⃣' (U+0036-20E3) in category symbols</summary>
+        public const string EmojiSix = "six";
+
+        /// <summary>Emoji digit seven '7️⃣' (U+0037) in category symbols</summary>
+        public const string EmojiDigitSeven = "digit_seven";
+
+        /// <summary>Emoji keycap digit seven '7️⃣' (U+0037-20E3) in category symbols</summary>
+        public const string EmojiSeven = "seven";
+
+        /// <summary>Emoji digit eight '8️⃣' (U+0038) in category symbols</summary>
+        public const string EmojiDigitEight = "digit_eight";
+
+        /// <summary>Emoji keycap digit eight '8️⃣' (U+0038-20E3) in category symbols</summary>
+        public const string EmojiEight = "eight";
+
+        /// <summary>Emoji digit nine '9️⃣' (U+0039) in category symbols</summary>
+        public const string EmojiDigitNine = "digit_nine";
+
+        /// <summary>Emoji keycap digit nine '9️⃣' (U+0039-20E3) in category symbols</summary>
+        public const string EmojiNine = "nine";
+
+        /// <summary>Emoji negative squared latin capital letter a '🅰' (U+1F170) in category symbols</summary>
+        public const string EmojiA = "a";
+
+        /// <summary>Emoji negative squared ab '🆎' (U+1F18E) in category symbols</summary>
+        public const string EmojiAb = "ab";
+
+        /// <summary>Emoji negative squared latin capital letter b '🅱' (U+1F171) in category symbols</summary>
+        public const string EmojiB = "b";
+
+        /// <summary>Emoji squared cl '🆑' (U+1F191) in category symbols</summary>
+        public const string EmojiCl = "cl";
+
+        /// <summary>Emoji squared cool '🆒' (U+1F192) in category symbols</summary>
+        public const string EmojiCool = "cool";
+
+        /// <summary>Emoji squared free '🆓' (U+1F193) in category symbols</summary>
+        public const string EmojiFree = "free";
+
+        /// <summary>Emoji information source 'ℹ' (U+2139) in category symbols</summary>
+        public const string EmojiInformationSource = "information_source";
+
+        /// <summary>Emoji squared id '🆔' (U+1F194) in category symbols</summary>
+        public const string EmojiId = "id";
+
+        /// <summary>Emoji circled latin capital letter m 'Ⓜ' (U+24C2) in category symbols</summary>
+        public const string EmojiM = "m";
+
+        /// <summary>Emoji squared new '🆕' (U+1F195) in category symbols</summary>
+        public const string EmojiNew = "new";
+
+        /// <summary>Emoji squared ng '🆖' (U+1F196) in category symbols</summary>
+        public const string EmojiNg = "ng";
+
+        /// <summary>Emoji negative squared latin capital letter o '🅾' (U+1F17E) in category symbols</summary>
+        public const string EmojiO2 = "o2";
+
+        /// <summary>Emoji squared ok '🆗' (U+1F197) in category symbols</summary>
+        public const string EmojiOk = "ok";
+
+        /// <summary>Emoji negative squared latin capital letter p '🅿' (U+1F17F) in category symbols</summary>
+        public const string EmojiParking = "parking";
+
+        /// <summary>Emoji squared sos '🆘' (U+1F198) in category symbols</summary>
+        public const string EmojiSos = "sos";
+
+        /// <summary>Emoji trade mark sign '™' (U+2122) in category symbols</summary>
+        public const string EmojiTm = "tm";
+
+        /// <summary>Emoji squared up with exclamation mark '🆙' (U+1F199) in category symbols</summary>
+        public const string EmojiUp = "up";
+
+        /// <summary>Emoji squared vs '🆚' (U+1F19A) in category symbols</summary>
+        public const string EmojiVs = "vs";
+
+        /// <summary>Emoji squared katakana koko '🈁' (U+1F201) in category symbols</summary>
+        public const string EmojiKoko = "koko";
+
+        /// <summary>Emoji squared katakana sa '🈂' (U+1F202) in category symbols</summary>
+        public const string EmojiSa = "sa";
+
+        /// <summary>Emoji squared cjk unified ideograph-5272 '🈹' (U+1F239) in category symbols</summary>
+        public const string EmojiU5272 = "u5272";
+
+        /// <summary>Emoji circled ideograph accept '🉑' (U+1F251) in category symbols</summary>
+        public const string EmojiAccept = "accept";
+
+        /// <summary>Emoji squared cjk unified ideograph-5408 '🈴' (U+1F234) in category symbols</summary>
+        public const string EmojiU5408 = "u5408";
+
+        /// <summary>Emoji squared cjk unified ideograph-55b6 '🈺' (U+1F23A) in category symbols</summary>
+        public const string EmojiU55b6 = "u55b6";
+
+        /// <summary>Emoji circled ideograph advantage '🉐' (U+1F250) in category symbols</summary>
+        public const string EmojiIdeographAdvantage = "ideograph_advantage";
+
+        /// <summary>Emoji squared cjk unified ideograph-6307 '🈯' (U+1F22F) in category symbols</summary>
+        public const string EmojiU6307 = "u6307";
+
+        /// <summary>Emoji squared cjk unified ideograph-6708 '🈷' (U+1F237) in category symbols</summary>
+        public const string EmojiU6708 = "u6708";
+
+        /// <summary>Emoji squared cjk unified ideograph-6709 '🈶' (U+1F236) in category symbols</summary>
+        public const string EmojiU6709 = "u6709";
+
+        /// <summary>Emoji squared cjk unified ideograph-6e80 '🈵' (U+1F235) in category symbols</summary>
+        public const string EmojiU6e80 = "u6e80";
+
+        /// <summary>Emoji squared cjk unified ideograph-7121 '🈚' (U+1F21A) in category symbols</summary>
+        public const string EmojiU7121 = "u7121";
+
+        /// <summary>Emoji squared cjk unified ideograph-7533 '🈸' (U+1F238) in category symbols</summary>
+        public const string EmojiU7533 = "u7533";
+
         /// <summary>Emoji circled ideograph congratulation '㊗' (U+3297) in category symbols</summary>
         public const string EmojiCongratulations = "congratulations";
 
+        /// <summary>Emoji squared cjk unified ideograph-7981 '🈲' (U+1F232) in category symbols</summary>
+        public const string EmojiU7981 = "u7981";
+
         /// <summary>Emoji circled ideograph secret '㊙' (U+3299) in category symbols</summary>
         public const string EmojiSecret = "secret";
+
+        /// <summary>Emoji squared cjk unified ideograph-7a7a '🈳' (U+1F233) in category symbols</summary>
+        public const string EmojiU7a7a = "u7a7a";
     }
 }

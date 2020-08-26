@@ -20,7 +20,7 @@ namespace Meziantou.GitLab
     {
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Todo> GetTodos(Meziantou.GitLab.GetTodosTodoRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<Todo> GetTodos(Meziantou.GitLab.GetTodosRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-todos-as-done" />
         /// <param name="requestOptions">Options of the request</param>
@@ -30,14 +30,14 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneTodoRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabTodosClient
     {
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Todo> Meziantou.GitLab.IGitLabTodosClient.GetTodos(Meziantou.GitLab.GetTodosTodoRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<Todo> Meziantou.GitLab.IGitLabTodosClient.GetTodos(Meziantou.GitLab.GetTodosRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Todos_GetTodos(request, requestOptions);
         }
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<Todo> Meziantou.GitLab.IGitLabTodosClient.MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneTodoRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<Todo> Meziantou.GitLab.IGitLabTodosClient.MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
             return this.Todos_MarkTodoAsDoneAsync(request, requestOptions, cancellationToken);
         }
@@ -68,7 +68,7 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<Todo> Todos_GetTodos(Meziantou.GitLab.GetTodosTodoRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<Todo> Todos_GetTodos(Meziantou.GitLab.GetTodosRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos");
             urlBuilder.SetValue("action", request.Action);
@@ -89,7 +89,7 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<Todo> Todos_MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneTodoRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private System.Threading.Tasks.Task<Todo> Todos_MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos/:todo_id/mark_as_done");
             if (request.TodoId.HasValue)
@@ -108,7 +108,7 @@ namespace Meziantou.GitLab
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<Todo> GetTodos(this Meziantou.GitLab.IGitLabTodosClient client, TodoAction? action = default(TodoAction?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetTodosTodoRequest request = new Meziantou.GitLab.GetTodosTodoRequest();
+            Meziantou.GitLab.GetTodosRequest request = new Meziantou.GitLab.GetTodosRequest();
             request.Action = action;
             return client.GetTodos(request, requestOptions);
         }
@@ -118,16 +118,16 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(this Meziantou.GitLab.IGitLabTodosClient client, TodoRef todoId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.MarkTodoAsDoneTodoRequest request = new Meziantou.GitLab.MarkTodoAsDoneTodoRequest(todoId);
+            Meziantou.GitLab.MarkTodoAsDoneRequest request = new Meziantou.GitLab.MarkTodoAsDoneRequest(todoId);
             return client.MarkTodoAsDoneAsync(request, requestOptions, cancellationToken);
         }
     }
 
-    public partial class GetTodosTodoRequest
+    public partial class GetTodosRequest
     {
         private TodoAction? _action;
 
-        public GetTodosTodoRequest()
+        public GetTodosRequest()
         {
         }
 
@@ -144,16 +144,16 @@ namespace Meziantou.GitLab
         }
     }
 
-    public partial class MarkTodoAsDoneTodoRequest
+    public partial class MarkTodoAsDoneRequest
     {
         private TodoRef? _todoId;
 
-        public MarkTodoAsDoneTodoRequest(TodoRef? todoId)
+        public MarkTodoAsDoneRequest(TodoRef? todoId)
         {
             this._todoId = todoId;
         }
 
-        public MarkTodoAsDoneTodoRequest()
+        public MarkTodoAsDoneRequest()
         {
         }
 

@@ -27,7 +27,7 @@
 
             group.AddMethod("GetGroupMergeRequests", MethodType.GetPaged, "/groups/:group_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests")
                 .WithReturnType(Entities.MergeRequest)
-                .AddRequiredParameter("group_id", ModelRef.NumberId) // TODO group id or path with namespace
+                .AddRequiredParameter("group_id", EntityRefs.GroupIdOrPathRef)
                 .AddOptionalParameter("state", Enumerations.MergeRequestState)
                 .AddOptionalParameter("scope", Enumerations.MergeRequestScopeFilter)
                 .AddOptionalParameter("assignee_id", EntityRefs.UserRef)

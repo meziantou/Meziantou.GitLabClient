@@ -16,7 +16,7 @@ namespace Meziantou.GitLab.Tests
                 Name = context.GetRandomString(),
                 WikiEnabled = true,
             });
-            var page = await client.Wikis.CreateWikiPageAsync(new CreateWikiPageWikiRequest(project, "title", "content")
+            var page = await client.Wikis.CreateWikiPageAsync(new CreateWikiPageRequest(project, "title", "content")
             {
                 Format = WikiPageFormat.Asciidoc,
             });
@@ -33,7 +33,7 @@ namespace Meziantou.GitLab.Tests
             var pages = await client.Wikis.GetWikiPagesAsync(project);
             Assert.AreEqual(1, pages.Count);
 
-            page = await client.Wikis.UpdateWikiPageAsync(new UpdateWikiPageWikiRequest(project, page.Slug)
+            page = await client.Wikis.UpdateWikiPageAsync(new UpdateWikiPageRequest(project, page.Slug)
             {
                 Title = "title",
                 Content = "content2",
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab.Tests
             Assert.AreEqual("content2", page.Content);
             Assert.AreEqual(WikiPageFormat.Rdoc, page.Format);
 
-            await client.Wikis.DeleteWikiPageAsync(new DeleteWikiPageWikiRequest(project, page.Slug));
+            await client.Wikis.DeleteWikiPageAsync(new DeleteWikiPageRequest(project, page.Slug));
 
             pages = await client.Wikis.GetWikiPagesAsync(project);
             Assert.AreEqual(0, pages.Count);

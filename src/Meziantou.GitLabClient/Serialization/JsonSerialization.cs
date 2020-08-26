@@ -19,8 +19,7 @@ namespace Meziantou.GitLab.Serialization
             },
         };
 
-        [return: MaybeNull]
-        public static T ToObject<T>(JsonElement element)
+        public static T? ToObject<T>(JsonElement element)
         {
             var bufferWriter = new ArrayBufferWriter<byte>();
             using (var writer = new Utf8JsonWriter(bufferWriter))
@@ -42,16 +41,14 @@ namespace Meziantou.GitLab.Serialization
             return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, Options);
         }
 
-        [return: MaybeNull]
-        public static T ToObject<T>(JsonDocument document)
+        public static T? ToObject<T>(JsonDocument document)
         {
             return ToObject<T>(document.RootElement);
         }
 
-        // TODO T could be null
-        public static ValueTask<T> DeserializeAsync<T>(Stream stream, CancellationToken cancellationToken)
+        public static ValueTask<T?> DeserializeAsync<T>(Stream stream, CancellationToken cancellationToken)
         {
-            return JsonSerializer.DeserializeAsync<T>(stream, Options, cancellationToken);
+            return JsonSerializer.DeserializeAsync<T?>(stream, Options, cancellationToken);
         }
     }
 }

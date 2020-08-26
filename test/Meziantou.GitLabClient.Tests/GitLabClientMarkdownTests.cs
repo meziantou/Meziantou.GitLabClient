@@ -16,7 +16,7 @@ namespace Meziantou.GitLab.Tests
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
             // Act
-            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title\n\nIssue #1"));
+            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownRequest("# title\n\nIssue #1"));
 
             // Assert
             AssertHtml("<h1>title</h1><p>Issue #1</p>", result.Html);
@@ -32,7 +32,7 @@ namespace Meziantou.GitLab.Tests
             var issue = await client.Issues.CreateAsync(new CreateIssueRequest(project, "my issue"));
 
             // Act
-            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownMarkdownRequest("# title\n\nIssue #" + issue.Iid.ToStringInvariant())
+            var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownRequest("# title\n\nIssue #" + issue.Iid.ToStringInvariant())
             {
                 Gfm = true,
                 Project = project.PathWithNamespace,

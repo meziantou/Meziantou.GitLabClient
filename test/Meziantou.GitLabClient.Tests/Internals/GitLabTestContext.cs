@@ -46,7 +46,7 @@ namespace Meziantou.GitLab.Tests
             var password = "Pa$$w0rd";
             var client = AdminClient;
 
-            var user = await client.Users.CreateUserAsync(new CreateUserUserRequest(email, username, username)
+            var user = await client.Users.CreateUserAsync(new CreateUserRequest(email, username, username)
             {
                 Password = password,
                 Admin = false,
@@ -128,7 +128,7 @@ namespace Meziantou.GitLab.Tests
                 {
                     LogHeaders(request.Content.Headers, sb);
 
-                    var requestBody = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var requestBody = await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     sb.AppendLine().AppendLine(requestBody);
                 }
 
@@ -142,7 +142,7 @@ namespace Meziantou.GitLab.Tests
                     if (response.Content != null)
                     {
                         LogHeaders(response.Content.Headers, sb);
-                        var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                         if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
                         {
                             sb.AppendLine().AppendLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented));

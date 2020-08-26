@@ -73,7 +73,7 @@ namespace Meziantou.GitLab
                 }
             }
 
-            if (ServerUri != null && !message.RequestUri.IsAbsoluteUri)
+            if (ServerUri != null && message.RequestUri != null && !message.RequestUri.IsAbsoluteUri)
             {
                 message.RequestUri = new Uri(ServerUri, message.RequestUri);
             }
@@ -270,26 +270,23 @@ namespace Meziantou.GitLab
 
             public HttpStatusCode StatusCode => ResponseMessage.StatusCode;
             public HttpResponseHeaders ResponseHeaders => ResponseMessage.Headers;
-            public HttpMethod RequestMethod => ResponseMessage.RequestMessage.Method;
-            public Uri RequestUri => ResponseMessage.RequestMessage.RequestUri;
+            public HttpMethod? RequestMethod => ResponseMessage.RequestMessage?.Method;
+            public Uri? RequestUri => ResponseMessage.RequestMessage?.RequestUri;
 
             public async Task EnsureStatusCodeAsync(CancellationToken cancellationToken)
             {
-                // TODO throw more specific exception (Unauthorized, Forbidden, NotFound, ValidationException, etc.)
                 if (ResponseMessage.IsSuccessStatusCode)
                     return;
 
                 if (IsJsonResponse(ResponseMessage))
                 {
                     var error = await DeserializeAsync<GitLabError>(cancellationToken).ConfigureAwait(false);
-                    var request = ResponseMessage.RequestMessage;
-                    throw new GitLabException(request.Method, request.RequestUri, ResponseMessage.StatusCode, error);
+                    throw new GitLabException(RequestMethod, RequestUri, StatusCode, error);
                 }
                 else
                 {
-                    var error = await ResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var request = ResponseMessage.RequestMessage;
-                    throw new GitLabException(request.Method, request.RequestUri, ResponseMessage.StatusCode, error);
+                    var error = await ResponseMessage.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    throw new GitLabException(RequestMethod, RequestUri, StatusCode, error);
                 }
             }
 
@@ -317,12 +314,11 @@ namespace Meziantou.GitLab
             }
 
             private async Task<T?> DeserializeAsync<T>(CancellationToken cancellationToken)
-                where T : class // TODO remove class constraint when updating to next roslyn version
             {
                 if (!IsJsonResponse(ResponseMessage))
                     throw new InvalidOperationException($"Content type must be application/json but is {ResponseMessage.Content.Headers.ContentType?.MediaType}");
 
-                using var s = await ResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                using var s = await ResponseMessage.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
                 return await JsonSerialization.DeserializeAsync<T>(s, cancellationToken).ConfigureAwait(false);
             }
 

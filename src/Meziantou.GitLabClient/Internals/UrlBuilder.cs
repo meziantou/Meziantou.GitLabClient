@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLab
@@ -145,7 +144,7 @@ namespace Meziantou.GitLab
             }
             else
             {
-                SetStringValue(key, string.Join(',', value));
+                SetStringValue(key, string.Join(",", value));
             }
         }
 
@@ -158,7 +157,7 @@ namespace Meziantou.GitLab
             else
             {
                 // TODO optimize with a string builder?
-                SetStringValue(key, string.Join(',', value.Select(v => v.ToString(CultureInfo.InvariantCulture))));
+                SetStringValue(key, string.Join(",", value.Select(v => v.ToString(CultureInfo.InvariantCulture))));
             }
         }
 

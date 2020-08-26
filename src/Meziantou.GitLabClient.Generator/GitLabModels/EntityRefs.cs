@@ -4,6 +4,7 @@
     {
         public static ParameterEntity ProjectIdRef { get; private set; }
         public static ParameterEntity ProjectIdOrPathRef { get; private set; }
+        public static ParameterEntity GroupIdOrPathRef { get; private set; }
         public static ParameterEntity SshKeyRef { get; private set; }
         public static ParameterEntity UserRef { get; private set; }
         public static ParameterEntity MergeRequestIdRef { get; private set; }
@@ -19,6 +20,11 @@
             ProjectIdOrPathRef = project.AddParameterEntity("ProjectIdOrPathRef",
                 ParameterEntityRef.Create("projectId", ModelRef.NumberId),
                 ParameterEntityRef.Create("project", Entities.ProjectIdentity),
+                ParameterEntityRef.Create("projectPathWithNamespace", ModelRef.PathWithNamespace)
+            );
+            
+            GroupIdOrPathRef = project.AddParameterEntity("GroupIdOrPathRef",
+                ParameterEntityRef.Create("groupId", ModelRef.NumberId),
                 ParameterEntityRef.Create("projectPathWithNamespace", ModelRef.PathWithNamespace)
             );
 

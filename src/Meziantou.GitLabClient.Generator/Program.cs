@@ -12,7 +12,7 @@ namespace Meziantou.GitLabClient.Generator
         {
             if (args.Contains("documentation"))
             {
-                var markdown = await ApiCoverage.GetMarkdown();
+                var markdown = await ApiCoverage.GetMarkdownAsync();
                 if (args.Length == 2)
                 {
                     var outputPath = args[1];
@@ -34,7 +34,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 await Task.WhenAll(
                     Task.Run(() => new GitLabClientGenerator().Generate(directory)),
-                    Task.Run(() => EmojiGenerator.Generate(directory))
+                    Task.Run(() => EmojiGenerator.GenerateAsync(directory))
                     );
             }
         }

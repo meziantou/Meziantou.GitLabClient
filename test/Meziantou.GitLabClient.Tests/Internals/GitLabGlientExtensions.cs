@@ -25,7 +25,7 @@ namespace Meziantou.GitLab.Tests
             }
 
             // Create merge request
-            var mergeRequest = await client.MergeRequests.CreateMergeRequestAsync(new CreateMergeRequestMergeRequestRequest(project, branchName, "master", title: context.GetRandomString())
+            var mergeRequest = await client.MergeRequests.CreateMergeRequestAsync(new CreateMergeRequestRequest(project, branchName, "master", title: context.GetRandomString())
             {
                 AssigneeId = assignee,
             });
@@ -33,7 +33,7 @@ namespace Meziantou.GitLab.Tests
             return mergeRequest;
         }
 
-        public static async Task<MergeRequest> WaitForStatusReady(this IGitLabClient client, MergeRequest mergeRequest)
+        public static async Task<MergeRequest> WaitForStatusReadyAsync(this IGitLabClient client, MergeRequest mergeRequest)
         {
             while (mergeRequest.MergeStatus == MergeRequestStatus.Checking)
             {

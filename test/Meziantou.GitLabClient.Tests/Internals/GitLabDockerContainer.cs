@@ -30,18 +30,18 @@ namespace Meziantou.GitLab.Tests
 
         public GitLabCredential Credentials { get; set; }
 
-        public async Task Setup()
+        public async Task SetupAsync()
         {
-            await SpawnDockerContainer().ConfigureAwait(false);
-            await LoadCredentials();
+            await SpawnDockerContainerAsync().ConfigureAwait(false);
+            await LoadCredentialsAsync();
             if (Credentials == null)
             {
                 await GenerateAdminTokenAsync().ConfigureAwait(false);
-                await PersistCredentials();
+                await PersistCredentialsAsync();
             }
         }
 
-        private async Task SpawnDockerContainer()
+        private async Task SpawnDockerContainerAsync()
         {
             // Check if the container is accessible?
             try
@@ -184,7 +184,7 @@ namespace Meziantou.GitLab.Tests
             Credentials = credentials;
         }
 
-        private async Task PersistCredentials()
+        private async Task PersistCredentialsAsync()
         {
             var path = GetCredentialsFilePath();
             IOUtilities.PathCreateDirectory(path);
@@ -192,7 +192,7 @@ namespace Meziantou.GitLab.Tests
             await File.WriteAllTextAsync(path, json);
         }
 
-        private async Task LoadCredentials()
+        private async Task LoadCredentialsAsync()
         {
             var file = GetCredentialsFilePath();
             if (File.Exists(file))

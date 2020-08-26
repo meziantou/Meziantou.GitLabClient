@@ -10,7 +10,7 @@ pr:
 variables:
   BuildConfiguration: Release
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  DOTNET_VERSION: '3.1.x'
+  DOTNET_VERSION: '5.0.100-preview.8.20417.9'
 
 stages:
 - stage: build

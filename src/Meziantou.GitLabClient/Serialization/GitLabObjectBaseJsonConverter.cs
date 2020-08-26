@@ -9,7 +9,6 @@ namespace Meziantou.GitLab.Serialization
     internal abstract class GitLabObjectBaseJsonConverter<T> : JsonConverter<T>
         where T : GitLabObject
     {
-        [return: MaybeNull]
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.Null)
