@@ -1,0 +1,50 @@
+﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal static partial class Enumerations
+    {
+        public static ModelRef [Model] { get; private set; }
+
+        public static void Create[Model](Project project)
+        {
+            MergeRequestView = project.AddStringEnumeration("[Model]")
+                .AddMembers("default", "simple");
+        }
+    }
+
+    internal static partial class Entities
+    {
+        public static EntityBuilder [Model] { get; private set; }
+
+        public static void Create[Model]()
+        {
+            [Model].Configure(entity => entity
+                .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
+            );
+        }
+    }
+
+    internal static class EntityRefs
+    {
+        public static ParameterEntity [Model] { get; private set; }
+
+        public static void Create[Model](Project project)
+        {
+            [Model] = project.AddParameterEntity("[Model]",
+                ParameterEntityRef.Create("projectId", ModelRef.NumberId)
+            );
+        }
+    }
+
+    internal sealed class Client[Model] : IGitLabClientDescriptor
+    {
+        public void Create(Project project)
+        {
+            var group = project.AddMethodGroup("[Model]");
+
+            group.AddMethod("Create", MethodType.Post, "/", "https://docs.gitlab.com/ee/api/")
+                .WithReturnType(Entities.Issue)
+                .AddRequiredParameter("project_id", EntityRefs.ProjectIdOrPathRef)
+                ;
+        }
+    }
+}

@@ -1,10 +1,10 @@
 # [.gitignore (templates)](https://docs.gitlab.com/ee/api/templates/gitignores.html)
-- [ ] [List .gitignore templates](https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates) `GET /templates/gitignores`
-- [ ] [Single .gitignore template](https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template) `GET /templates/gitignores/:key`
+- [x] [List .gitignore templates](https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates) `GET /templates/gitignores`
+- [x] [Single .gitignore template](https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template) `GET /templates/gitignores/:key`
 
 # [.gitlab-ci.yml (templates)](https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html)
-- [ ] [List GitLab CI YAML templates](https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates) `GET /templates/gitlab_ci_ymls`
-- [ ] [Single GitLab CI YAML template](https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template) `GET /templates/gitlab_ci_ymls/:key`
+- [x] [List GitLab CI YAML templates](https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates) `GET /templates/gitlab_ci_ymls`
+- [x] [Single GitLab CI YAML template](https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template) `GET /templates/gitlab_ci_ymls/:key`
 
 # [Access requests](https://docs.gitlab.com/ee/api/access_requests.html)
 - [ ] [Approve an access request](https://docs.gitlab.com/ee/api/access_requests.html#approve-an-access-request) `PUT /groups/:id/access_requests/:user_id/approve`
@@ -201,8 +201,8 @@
 - [ ] [Resolve a merge request thread](https://docs.gitlab.com/ee/api/discussions.html#resolve-a-merge-request-thread) `PUT /projects/:id/merge_requests/:merge_request_iid/discussions/:discussion_id`
 
 # [Dockerfile (templates)](https://docs.gitlab.com/ee/api/templates/dockerfiles.html)
-- [ ] [List Dockerfile templates](https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates) `GET /templates/dockerfiles`
-- [ ] [Single Dockerfile template](https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template) `GET /templates/dockerfiles/:key`
+- [x] [List Dockerfile templates](https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates) `GET /templates/dockerfiles`
+- [x] [Single Dockerfile template](https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template) `GET /templates/dockerfiles/:key`
 
 # [Environments](https://docs.gitlab.com/ee/api/environments.html)
 - [ ] [Create a new environment](https://docs.gitlab.com/ee/api/environments.html#create-a-new-environment) `POST /projects/:id/environments`
@@ -400,8 +400,8 @@
 - [ ] [Retrieve information about the current license](https://docs.gitlab.com/ee/api/license.html#retrieve-information-about-the-current-license) `GET /license`
 
 # [Licenses (templates)](https://docs.gitlab.com/ee/api/templates/licenses.html)
-- [ ] [List license templates](https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates) `GET /templates/licenses`
-- [ ] [Single license template](https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template) `GET /templates/licenses/:key`
+- [x] [List license templates](https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates) `GET /templates/licenses`
+- [x] [Single license template](https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template) `GET /templates/licenses/:key`
 
 # [Links (epic)](https://docs.gitlab.com/ee/api/epic_links.html)
 - [ ] [Assign a child epic](https://docs.gitlab.com/ee/api/epic_links.html#assign-a-child-epic) `POST /groups/:id/epics/:epic_iid/epics`

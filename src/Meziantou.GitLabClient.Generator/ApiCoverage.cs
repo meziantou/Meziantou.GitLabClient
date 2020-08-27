@@ -122,7 +122,7 @@ namespace Meziantou.GitLabClient.Generator
                         if (template.StartsWith("curl ", StringComparison.Ordinal))
                         {
                             parsedTemplate = ParseCurlCommand(template);
-                            if(parsedTemplate == "POST /projects/5/deploy_keys/13/enable")
+                            if (parsedTemplate == "POST /projects/5/deploy_keys/13/enable")
                             {
                                 parsedTemplate = "POST /projects/:id/deploy_keys/:key_id/enable";
                             }
@@ -134,6 +134,11 @@ namespace Meziantou.GitLabClient.Generator
                         var urlParts = parsedTemplate.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (urlParts.Length != 2)
                             throw new Exception();
+
+                        if (urlParts[0].StartsWith("/api/v4/", StringComparison.Ordinal))
+                        {
+                            urlParts[0] = urlParts[0]["/api/v4".Length..];
+                        }
 
                         var method = new Method
                         {
