@@ -71,11 +71,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("import_status")]
-        public ImportStatus ImportStatus
+        public ProjectImportStatus ImportStatus
         {
             get
             {
-                return this.GetRequiredNonNullValue<ImportStatus>("import_status");
+                return this.GetRequiredNonNullValue<ProjectImportStatus>("import_status");
             }
         }
 
@@ -107,11 +107,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("_links")]
-        public ProjectLink Links
+        public ProjectLinks Links
         {
             get
             {
-                return this.GetRequiredNonNullValue<ProjectLink>("_links");
+                return this.GetRequiredNonNullValue<ProjectLinks>("_links");
             }
         }
 
@@ -287,11 +287,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("visibility")]
-        public ProjectVisibility Visibility
+        public Visibility Visibility
         {
             get
             {
-                return this.GetRequiredNonNullValue<ProjectVisibility>("visibility");
+                return this.GetRequiredNonNullValue<Visibility>("visibility");
             }
         }
 

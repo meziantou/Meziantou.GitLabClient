@@ -4,15 +4,19 @@ namespace Meziantou.GitLabClient.Generator
 {
     internal sealed class EntityBuilder
     {
-        private readonly Action<Entity> _configure;
+        private Action<Entity> _configure;
 
-        public EntityBuilder(string name, Action<Entity> configure)
+        public EntityBuilder(string name)
         {
             Value = new Entity(name);
-            _configure = configure;
         }
 
         public Entity Value { get; }
+
+        public void Configure(Action<Entity> configure)
+        {
+            _configure = configure;
+        }
 
         public void Build()
         {

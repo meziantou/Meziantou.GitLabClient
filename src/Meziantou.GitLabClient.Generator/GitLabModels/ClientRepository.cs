@@ -1,5 +1,25 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal static partial class Entities
+    {
+        public static EntityBuilder FileCreated { get; private set; }
+        public static EntityBuilder FileUpdated { get; private set; }
+
+        public static void CreateRepository()
+        {
+            FileCreated.Configure(entity => entity
+                .AddProperty("file_path", ModelRef.String)
+                .AddProperty("branch", ModelRef.String)
+            );
+
+            FileUpdated.Configure(entity => entity
+                .AddProperty("file_path", ModelRef.String)
+                .AddProperty("branch", ModelRef.String)
+            );
+        }
+    }
+
+
     internal sealed class ClientRepository : IGitLabClientDescriptor
     {
         public void Create(Project project)

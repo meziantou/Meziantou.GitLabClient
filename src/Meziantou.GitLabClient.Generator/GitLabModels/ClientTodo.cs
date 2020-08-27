@@ -1,5 +1,44 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal static partial class Enumerations
+    {
+        public static ModelRef TodoAction { get; private set; }
+        public static ModelRef TodoState { get; private set; }
+        public static ModelRef TodoType { get; private set; }
+
+        public static void CreateTodo(Project project)
+        {
+            TodoAction = project.AddStringEnumeration("TodoAction")
+                .AddMembers("assigned", "mentioned", "build_failed", "marked", "approval_required", "unmergeable", "directly_addressed");
+
+            TodoState = project.AddStringEnumeration("TodoState")
+                .AddMembers("pending", "done");
+
+            TodoType = project.AddStringEnumeration("TodoTargetType")
+                .AddMembers("Issue", "MergeRequest", "Commit");
+        }
+    }
+
+    internal static partial class Entities
+    {
+        public static EntityBuilder Todo { get; private set; }
+
+        public static void CreateTodo()
+        {
+            Todo.Configure(entity => entity
+                .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
+                .AddProperty("action_name", Enumerations.TodoAction)
+                .AddProperty("author", Entities.UserBasic)
+                .AddProperty("project", BasicProjectDetails)
+                .AddProperty("target_type", Enumerations.TodoType)
+                .AddProperty("target_url", ModelRef.Uri)
+                .AddProperty("body", ModelRef.String)
+                .AddProperty("state", Enumerations.TodoState)
+                .AddProperty("created_at", ModelRef.DateTime)
+            );
+        }
+    }
+
     internal sealed class ClientTodo : IGitLabClientDescriptor
     {
         public void Create(Project project)

@@ -9,10 +9,25 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
         public static Project Create()
         {
             var project = new Project();
-            Enumerations.Create(project);
-            Entities.Create(project);
-            EntityRefs.Create(project);
 
+            // Create Enumerations
+            typeof(Enumerations).GetMethods()
+                .Where(m => m.IsPublic && m.IsStatic && m.GetParameters().Length == 1)
+                .ForEach(m => m.Invoke(null, new object[] { project }));
+
+            // Entities
+            Entities.PreCreate();
+            typeof(Entities).GetMethods()
+                .Where(m => m.IsPublic && m.IsStatic && m.GetParameters().Length == 0)
+                .ForEach(m => m.Invoke(null, Array.Empty<object>()));
+            Entities.PostCreate(project);
+
+            // Create Entity refs
+            typeof(EntityRefs).GetMethods()
+               .Where(m => m.IsPublic && m.IsStatic && m.GetParameters().Length == 1)
+               .ForEach(m => m.Invoke(null, new object[] { project }));
+
+            // Create Methods
             typeof(GitLabModelBuilder).Assembly.GetTypes()
                 .Where(t => typeof(IGitLabClientDescriptor).IsAssignableFrom(t) && t.IsClass)
                 .ForEach(t =>

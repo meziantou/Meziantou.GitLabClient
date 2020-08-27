@@ -2,13 +2,13 @@
 {
     internal static class EntityRefs
     {
+        public static ParameterEntity GroupIdOrPathRef { get; private set; }
+        public static ParameterEntity MergeRequestIdRef { get; private set; }
         public static ParameterEntity ProjectIdRef { get; private set; }
         public static ParameterEntity ProjectIdOrPathRef { get; private set; }
-        public static ParameterEntity GroupIdOrPathRef { get; private set; }
         public static ParameterEntity SshKeyRef { get; private set; }
-        public static ParameterEntity UserRef { get; private set; }
-        public static ParameterEntity MergeRequestIdRef { get; private set; }
         public static ParameterEntity TodoIdRef { get; private set; }
+        public static ParameterEntity UserRef { get; private set; }
 
         public static void Create(Project project)
         {

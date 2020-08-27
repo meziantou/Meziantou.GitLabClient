@@ -49,7 +49,7 @@ namespace Meziantou.GitLab.Tests
             {
                 Name = context.GetRandomString(),
                 IssuesEnabled = true,
-                Visibility = ProjectVisibility.Public,
+                Visibility = Visibility.Public,
             });
 
             // Create a merge request

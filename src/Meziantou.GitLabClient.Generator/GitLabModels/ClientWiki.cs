@@ -1,5 +1,32 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal static partial class Enumerations
+    {
+        public static ModelRef WikiPageFormat { get; private set; }
+
+        public static void CreateWiki(Project project)
+        {
+
+            WikiPageFormat = project.AddStringEnumeration("WikiPageFormat")
+                .AddMembers("markdown", "rdoc", "asciidoc");
+        }
+    }
+
+    internal static partial class Entities
+    {
+        public static EntityBuilder WikiPage { get; private set; }
+
+        public static void CreateWiki()
+        {
+            WikiPage.Configure(entity => entity
+                .AddProperty("slug", ModelRef.String, PropertyOptions.IsKey)
+                .AddProperty("title", ModelRef.String)
+                .AddProperty("content", ModelRef.NullableString)
+                .AddProperty("format", Enumerations.WikiPageFormat)
+            );
+        }
+    }
+
     internal sealed class ClientWiki : IGitLabClientDescriptor
     {
         public void Create(Project project)

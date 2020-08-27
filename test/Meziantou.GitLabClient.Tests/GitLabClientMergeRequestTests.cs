@@ -17,7 +17,7 @@ namespace Meziantou.GitLab.Tests
             {
                 Name = context.GetRandomString(),
                 MergeRequestsEnabled = true,
-                Visibility = ProjectVisibility.Public,
+                Visibility = Visibility.Public,
             });
 
             var mergeRequest = await context.CreateMergeRequestAsync(client, project, assignedToMe: true);
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab.Tests
             {
                 Name = context.GetRandomString(),
                 MergeRequestsEnabled = true,
-                Visibility = ProjectVisibility.Public,
+                Visibility = Visibility.Public,
             });
 
             var mergeRequest1 = await context.CreateMergeRequestAsync(client, project.PathWithNamespace, assignedToMe: true);
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab.Tests
             {
                 Name = context.GetRandomString(),
                 MergeRequestsEnabled = true,
-                Visibility = ProjectVisibility.Public,
+                Visibility = Visibility.Public,
             });
 
             var mergeRequest = await context.CreateMergeRequestAsync(client, project, hasConflict: true);
