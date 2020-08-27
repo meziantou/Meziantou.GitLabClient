@@ -21,10 +21,10 @@ namespace Meziantou.GitLabClient.Generator
             var resources = await LoadResourcesAsync();
 
             var sb = new StringBuilder();
-            foreach (var resource in resources)
+            foreach (var resource in resources.OrderBy(r => r.DisplayName))
             {
                 sb.Append("# [").Append(resource.DisplayName).Append("](").Append(resource.DocumentationUrl).Append(')').AppendLine();
-                foreach (var method in resource.Methods)
+                foreach (var method in resource.Methods.OrderBy(m => m.DisplayName))
                 {
                     var isImplemented = IsImplemented(method, project) ? 'x' : ' ';
                     sb.Append("- [").Append(isImplemented).Append("] [").Append(method.DisplayName).Append("](").Append(method.DocumentationUrl).Append(") `").Append(method.HttpMethod).Append(' ').Append(method.UrlTemplate).Append('`').AppendLine();
@@ -57,10 +57,38 @@ namespace Meziantou.GitLabClient.Generator
                 result.Add(group);
 
                 var d = await context.OpenAsync(url);
-                var mainContent = d.QuerySelector("[itemprop=mainContentOfPage]");
+                var mainContent = d.QuerySelector("[itemprop='mainContentOfPage']");
                 var headers = mainContent.QuerySelectorAll("h1, h2, h3");
                 foreach (var header in headers)
                 {
+                    var documentationUrl = $"{d.Url}#{header.Id}";
+                    if (documentationUrl == "https://docs.gitlab.com/ee/api/deploy_keys.html#adding-deploy-keys-to-multiple-projects" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/groups.html#new-subgroup" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/pages_domains.html#adding-certificate" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/pages_domains.html#enabling-lets-encrypt-integration-for-pages-custom-domains" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/pages_domains.html#removing-certificate" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/project_level_variables.html#the-filter-parameter" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/protected_branches.html#example-with-user--group-level-access-starter" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-blobs" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-blobs-starter-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-commits" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-issues-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-issues-2" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-merge_requests-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-merge_requests-2" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-milestones-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-milestones-2" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-notes" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-projects-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-users-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-users-2" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-wiki_blobs-starter-1" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-wiki_blobs" ||
+                        documentationUrl == "https://docs.gitlab.com/ee/api/search.html#scope-commits-starter-1")
+                    {
+                        continue;
+                    }
+
                     var element = header.NextElementSibling;
                     string urlTemplate = null;
                     while (element != null)
@@ -90,22 +118,27 @@ namespace Meziantou.GitLabClient.Generator
                         if (string.IsNullOrEmpty(template))
                             continue;
 
-                        // TODO improve that case 
-                        // curl --request POST --header "PRIVATE-TOKEN: <your_access_token>" "https://gitlab.example.com/api/v4/projects/5/deploy_keys/13/enable"
+                        var parsedTemplate = template;
                         if (template.StartsWith("curl ", StringComparison.Ordinal))
+                        {
+                            parsedTemplate = ParseCurlCommand(template);
+                            if(parsedTemplate == "POST /projects/5/deploy_keys/13/enable")
+                            {
+                                parsedTemplate = "POST /projects/:id/deploy_keys/:key_id/enable";
+                            }
+                        }
+
+                        if (!StartsWithHttpVerb(parsedTemplate))
                             continue;
 
-                        if (!StartsWithHttpVerb(template))
-                            continue;
-
-                        var urlParts = template.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        var urlParts = parsedTemplate.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (urlParts.Length != 2)
                             throw new Exception();
 
                         var method = new Method
                         {
                             DisplayName = Trim(header.TextContent),
-                            DocumentationUrl = $"{d.Url}#{header.Id}",
+                            DocumentationUrl = documentationUrl,
                             HttpMethod = urlParts[0],
                             UrlTemplate = RemoveQueryString(urlParts[1]),
                         };
@@ -120,6 +153,28 @@ namespace Meziantou.GitLabClient.Generator
             });
 
             return result;
+        }
+
+        private static string ParseCurlCommand(string value)
+        {
+            // curl --request POST --header "PRIVATE-TOKEN: <your_access_token>" "https://gitlab.example.com/api/v4/projects/5/deploy_keys/13/enable"
+            var parts = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            const string UrlPrefix = "https://gitlab.example.com/api/v4";
+            var url = parts[^1].Trim('"');
+            if (url.StartsWith(UrlPrefix, StringComparison.Ordinal))
+            {
+                url = url[UrlPrefix.Length..];
+            }
+
+            var method = "GET";
+            var indexOfMethod = parts.IndexOf("--request");
+            if (indexOfMethod >= 0)
+            {
+                method = parts[indexOfMethod + 1];
+            }
+
+            return method + ' ' + url;
         }
 
         private static bool StartsWithHttpVerb(string url)

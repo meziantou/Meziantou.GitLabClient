@@ -13,16 +13,15 @@ namespace Meziantou.GitLabClient.Generator
             if (args.Contains("documentation"))
             {
                 var markdown = await ApiCoverage.GetMarkdownAsync();
-                if (args.Length == 2)
+                var outputFile = FullPath.FromPath("../../../../../docs/coverage.md");
+                if (args.Length > 1)
                 {
-                    var outputPath = args[1];
-                    IOUtilities.PathCreateDirectory(outputPath);
-                    await File.WriteAllTextAsync(outputPath, markdown);
+                    outputFile = FullPath.FromPath(args[1]);
                 }
-                else
-                {
-                    Console.WriteLine(markdown);
-                }
+
+                Console.WriteLine("Generating file " + outputFile);
+                IOUtilities.PathCreateDirectory(outputFile);
+                await File.WriteAllTextAsync(outputFile, markdown);
             }
             else
             {
@@ -32,6 +31,7 @@ namespace Meziantou.GitLabClient.Generator
                     directory = FullPath.FromPath(args[0]);
                 }
 
+                Console.WriteLine("Generating files to " + directory);
                 await Task.WhenAll(
                     Task.Run(() => new GitLabClientGenerator().Generate(directory)),
                     Task.Run(() => EmojiGenerator.GenerateAsync(directory))
