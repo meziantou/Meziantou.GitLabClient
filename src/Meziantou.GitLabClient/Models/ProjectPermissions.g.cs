@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("group_access")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("group_access")]
         public GroupAccess GroupAccess
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("project_access")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("project_access")]
         public ProjectAccess ProjectAccess
         {
             get

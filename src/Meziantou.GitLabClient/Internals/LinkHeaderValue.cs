@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
-namespace Meziantou.GitLab
+namespace Meziantou.GitLab.Internals
 {
     // http://www.rfc-editor.org/rfc/rfc5988.txt
     internal sealed class LinkHeaderValue

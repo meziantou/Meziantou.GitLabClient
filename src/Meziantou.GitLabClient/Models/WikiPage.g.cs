@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("content")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("content")]
         public string? Content
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("format")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("format")]
         public WikiPageFormat Format
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("slug")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("slug")]
         public string Slug
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("title")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("title")]
         public string Title
         {
             get

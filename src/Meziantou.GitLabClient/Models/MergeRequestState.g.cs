@@ -20,26 +20,6 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "merged")]
         Merged
     }
-
-    internal partial class UrlBuilder
-    {
-        public void SetValue(string key, Meziantou.GitLab.MergeRequestState? value)
-        {
-            if (value.HasValue)
-            {
-                this.SetValue(key, value.GetValueOrDefault());
-            }
-            else
-            {
-                this.RemoveValues(key);
-            }
-        }
-
-        public void SetValue(string key, Meziantou.GitLab.MergeRequestState value)
-        {
-            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
-        }
-    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -99,6 +79,17 @@ namespace Meziantou.GitLab.Serialization
         protected override string ToString(Meziantou.GitLab.MergeRequestState value)
         {
             return Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
+}
+
+namespace Meziantou.GitLab.Internals
+{
+    internal partial struct UrlBuilder
+    {
+        public void AppendParameter(Meziantou.GitLab.MergeRequestState value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }

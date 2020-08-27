@@ -82,8 +82,8 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<Project> Projects_CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
-            string url = urlBuilder.Build();
+            string url;
+            url = "projects";
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Name != null))
             {
@@ -210,65 +210,268 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         /// <param name="requestOptions">Options of the request</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Project> Projects_GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects");
-            urlBuilder.SetValue("archived", request.Archived);
-            urlBuilder.SetValue("visibility", request.Visibility);
-            urlBuilder.SetValue("search", request.Search);
-            urlBuilder.SetValue("simple", request.Simple);
-            urlBuilder.SetValue("owned", request.Owned);
-            urlBuilder.SetValue("membership", request.Membership);
-            urlBuilder.SetValue("starred", request.Starred);
-            urlBuilder.SetValue("statistics", request.Statistics);
-            urlBuilder.SetValue("with_issues_enabled", request.WithIssuesEnabled);
-            urlBuilder.SetValue("with_merge_requests_enabled", request.WithMergeRequestsEnabled);
-            urlBuilder.SetValue("wiki_checksum_failed", request.WikiChecksumFailed);
-            urlBuilder.SetValue("repository_checksum_failed", request.RepositoryChecksumFailed);
-            urlBuilder.SetValue("min_access_level", request.MinAccessLevel);
-            string url = urlBuilder.Build();
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
+            {
+                urlBuilder.Append("projects");
+                char separator = '?';
+                if (request.Archived.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("archived=");
+                    urlBuilder.AppendParameter(request.Archived.GetValueOrDefault());
+                }
+
+                if (request.Visibility.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("visibility=");
+                    urlBuilder.AppendParameter(request.Visibility.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.Search, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("search=");
+                    urlBuilder.AppendParameter(request.Search);
+                }
+
+                if (request.Simple.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("simple=");
+                    urlBuilder.AppendParameter(request.Simple.GetValueOrDefault());
+                }
+
+                if (request.Owned.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("owned=");
+                    urlBuilder.AppendParameter(request.Owned.GetValueOrDefault());
+                }
+
+                if (request.Membership.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("membership=");
+                    urlBuilder.AppendParameter(request.Membership.GetValueOrDefault());
+                }
+
+                if (request.Starred.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("starred=");
+                    urlBuilder.AppendParameter(request.Starred.GetValueOrDefault());
+                }
+
+                if (request.Statistics.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("statistics=");
+                    urlBuilder.AppendParameter(request.Statistics.GetValueOrDefault());
+                }
+
+                if (request.WithIssuesEnabled.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("with_issues_enabled=");
+                    urlBuilder.AppendParameter(request.WithIssuesEnabled.GetValueOrDefault());
+                }
+
+                if (request.WithMergeRequestsEnabled.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("with_merge_requests_enabled=");
+                    urlBuilder.AppendParameter(request.WithMergeRequestsEnabled.GetValueOrDefault());
+                }
+
+                if (request.WikiChecksumFailed.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("wiki_checksum_failed=");
+                    urlBuilder.AppendParameter(request.WikiChecksumFailed.GetValueOrDefault());
+                }
+
+                if (request.RepositoryChecksumFailed.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("repository_checksum_failed=");
+                    urlBuilder.AppendParameter(request.RepositoryChecksumFailed.GetValueOrDefault());
+                }
+
+                if (request.MinAccessLevel.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("min_access_level=");
+                    urlBuilder.AppendParameter(request.MinAccessLevel.GetValueOrDefault());
+                }
+
+                url = urlBuilder.ToString();
+            }
+
             return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<Project?> Projects_GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            string url = urlBuilder.Build();
             return this.GetAsync<Project>(url, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         /// <param name="requestOptions">Options of the request</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Project> Projects_GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("users/:user_id/projects");
-            if (request.UserId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("user_id", request.UserId.Value.ValueAsString);
+                urlBuilder.Append("users/");
+                if (request.UserId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.UserId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/projects");
+                char separator = '?';
+                if (request.Archived.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("archived=");
+                    urlBuilder.AppendParameter(request.Archived.GetValueOrDefault());
+                }
+
+                if (request.Visibility.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("visibility=");
+                    urlBuilder.AppendParameter(request.Visibility.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.Search, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("search=");
+                    urlBuilder.AppendParameter(request.Search);
+                }
+
+                if (request.Simple.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("simple=");
+                    urlBuilder.AppendParameter(request.Simple.GetValueOrDefault());
+                }
+
+                if (request.Owned.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("owned=");
+                    urlBuilder.AppendParameter(request.Owned.GetValueOrDefault());
+                }
+
+                if (request.Membership.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("membership=");
+                    urlBuilder.AppendParameter(request.Membership.GetValueOrDefault());
+                }
+
+                if (request.Starred.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("starred=");
+                    urlBuilder.AppendParameter(request.Starred.GetValueOrDefault());
+                }
+
+                if (request.Statistics.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("statistics=");
+                    urlBuilder.AppendParameter(request.Statistics.GetValueOrDefault());
+                }
+
+                if (request.WithIssuesEnabled.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("with_issues_enabled=");
+                    urlBuilder.AppendParameter(request.WithIssuesEnabled.GetValueOrDefault());
+                }
+
+                if (request.WithMergeRequestsEnabled.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("with_merge_requests_enabled=");
+                    urlBuilder.AppendParameter(request.WithMergeRequestsEnabled.GetValueOrDefault());
+                }
+
+                if (request.WikiChecksumFailed.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("wiki_checksum_failed=");
+                    urlBuilder.AppendParameter(request.WikiChecksumFailed.GetValueOrDefault());
+                }
+
+                if (request.RepositoryChecksumFailed.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("repository_checksum_failed=");
+                    urlBuilder.AppendParameter(request.RepositoryChecksumFailed.GetValueOrDefault());
+                }
+
+                if (request.MinAccessLevel.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("min_access_level=");
+                    urlBuilder.AppendParameter(request.MinAccessLevel.GetValueOrDefault());
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("archived", request.Archived);
-            urlBuilder.SetValue("visibility", request.Visibility);
-            urlBuilder.SetValue("search", request.Search);
-            urlBuilder.SetValue("simple", request.Simple);
-            urlBuilder.SetValue("owned", request.Owned);
-            urlBuilder.SetValue("membership", request.Membership);
-            urlBuilder.SetValue("starred", request.Starred);
-            urlBuilder.SetValue("statistics", request.Statistics);
-            urlBuilder.SetValue("with_issues_enabled", request.WithIssuesEnabled);
-            urlBuilder.SetValue("with_merge_requests_enabled", request.WithMergeRequestsEnabled);
-            urlBuilder.SetValue("wiki_checksum_failed", request.WikiChecksumFailed);
-            urlBuilder.SetValue("repository_checksum_failed", request.RepositoryChecksumFailed);
-            urlBuilder.SetValue("min_access_level", request.MinAccessLevel);
-            string url = urlBuilder.Build();
             return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
         }
     }

@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("html")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("html")]
         public string Html
         {
             get

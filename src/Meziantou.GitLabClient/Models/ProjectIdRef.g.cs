@@ -9,7 +9,7 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectInt64ReferenceJsonConverter))]
-    public readonly partial struct ProjectIdRef : Meziantou.GitLab.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.ProjectIdRef>
+    public readonly partial struct ProjectIdRef : Meziantou.GitLab.Internals.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.ProjectIdRef>
     {
         private readonly long _value;
 

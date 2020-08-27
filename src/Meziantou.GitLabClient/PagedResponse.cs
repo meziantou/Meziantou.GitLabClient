@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +8,6 @@ using Meziantou.GitLab.Core;
 
 namespace Meziantou.GitLab
 {
-    // TODO add page size / page index / keyset
     public sealed class PagedResponse<T> : IAsyncEnumerable<T>
         where T : GitLabObject
     {
@@ -47,34 +47,49 @@ namespace Meziantou.GitLab
             return this;
         }
 
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Rule doesn't understand disposable ref struct")]
         private string BuildUrl()
         {
-            string parameters;
+            using var sb = new Internals.UrlBuilder();
+            sb.Append(_initialUrl);
+
+            char separator;
             if (_initialUrl.Contains('?', StringComparison.Ordinal))
             {
-                parameters = "&";
+                separator = '&';
             }
             else
             {
-                parameters = "?";
+                separator = '?';
             }
 
             if (_keyset != false && _pageIndex <= FirstPageIndex)
             {
-                parameters += "keyset=true&";
+                sb.Append(separator);
+                separator = '&';
+
+                sb.Append("keyset=true&");
             }
 
             if (_pageIndex > FirstPageIndex)
             {
-                parameters += "page=" + _pageIndex.ToString(CultureInfo.InvariantCulture) + "&";
+                sb.Append(separator);
+                separator = '&';
+
+                sb.Append("page=");
+                sb.AppendParameter(_pageIndex);
             }
 
             if (_pageSize.HasValue)
             {
-                parameters += "per_page=" + _pageSize.GetValueOrDefault().ToString(CultureInfo.InvariantCulture) + "&";
+                sb.Append(separator);
+                separator = '&';
+
+                sb.Append("per_page=");
+                sb.AppendParameter(_pageSize.GetValueOrDefault());
             }
 
-            return _initialUrl + parameters[..^1];
+            return sb.ToString();
         }
 
         public async IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
@@ -91,12 +106,16 @@ namespace Meziantou.GitLab
 
         public async Task<IReadOnlyList<T>> ToListAsync(CancellationToken cancellationToken = default)
         {
-            // TODO optimize with TotalItems header if possible
-            var list = new List<T>();
-            await foreach (var item in this.WithCancellation(cancellationToken).ConfigureAwait(false))
+            var page = await Client.GetPagedCollectionAsync<T>(BuildUrl(), _options, cancellationToken).ConfigureAwait(false);
+
+            var list = new List<T>(page.TotalItems);
+            do
             {
-                list.Add(item);
-            }
+                foreach (var item in page.Data)
+                {
+                    list.Add(item);
+                }
+            } while ((page = await page.GetNextPageAsync(_options, cancellationToken).ConfigureAwait(false)) != null);
 
             return list;
         }

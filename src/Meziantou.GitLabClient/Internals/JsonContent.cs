@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Meziantou.GitLab
+namespace Meziantou.GitLab.Internals
 {
     internal sealed class JsonContent : HttpContent
     {

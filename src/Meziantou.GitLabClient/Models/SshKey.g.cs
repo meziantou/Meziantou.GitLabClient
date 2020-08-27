@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("key")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("key")]
         public string Key
         {
             get
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("title")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("title")]
         public string Title
         {
             get

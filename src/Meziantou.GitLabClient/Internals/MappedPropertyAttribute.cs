@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Meziantou.GitLab
+namespace Meziantou.GitLab.Internals
 {
     [AttributeUsage(AttributeTargets.Property)]
     internal sealed class MappedPropertyAttribute : Attribute

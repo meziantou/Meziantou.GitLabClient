@@ -45,15 +45,22 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<Issue> Issues_CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/issues");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/issues");
+                url = urlBuilder.ToString();
             }
 
-            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Title != null))
             {

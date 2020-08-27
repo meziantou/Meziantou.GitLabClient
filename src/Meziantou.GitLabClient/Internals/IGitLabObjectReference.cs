@@ -1,4 +1,4 @@
-﻿namespace Meziantou.GitLab
+﻿namespace Meziantou.GitLab.Internals
 {
     internal interface IGitLabObjectReference<T>
     {

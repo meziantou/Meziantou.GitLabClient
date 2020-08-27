@@ -38,7 +38,7 @@ namespace Meziantou.GitLab.Tests
             var project2 = await client.Projects.CreateAsync(name: context.GetRandomString());
             var project3 = await client.Projects.CreateAsync(name: context.GetRandomString());
 
-            var result = await client.Projects.GetByUser(project1.Owner).ConfigurePageOptions(pageSize: 2).EnableKeysetPagination(false).ToListAsync();
+            var result = await client.Projects.GetByUser(project1.Owner).ConfigurePageOptions(pageSize: 2).EnableKeysetPagination(enabled: false).ToListAsync();
             Assert.AreEqual(3, result.Count);
         }
 
@@ -51,7 +51,7 @@ namespace Meziantou.GitLab.Tests
             var project2 = await client.Projects.CreateAsync(name: context.GetRandomString());
             var project3 = await client.Projects.CreateAsync(name: context.GetRandomString());
 
-            var result = await client.Projects.GetByUser(project1.Owner).ConfigurePageOptions(pageSize: 1).EnableKeysetPagination(true).ToListAsync();
+            var result = await client.Projects.GetByUser(project1.Owner).ConfigurePageOptions(pageSize: 1).EnableKeysetPagination(enabled: true).ToListAsync();
             Assert.AreEqual(3, result.Count);
         }
 

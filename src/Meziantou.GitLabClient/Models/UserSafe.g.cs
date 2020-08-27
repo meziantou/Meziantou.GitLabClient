@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("name")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("username")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("username")]
         public string Username
         {
             get

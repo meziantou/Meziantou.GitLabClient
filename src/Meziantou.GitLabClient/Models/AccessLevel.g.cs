@@ -22,26 +22,6 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "owner")]
         Owner = 50
     }
-
-    internal partial class UrlBuilder
-    {
-        public void SetValue(string key, Meziantou.GitLab.AccessLevel? value)
-        {
-            if (value.HasValue)
-            {
-                this.SetValue(key, value.GetValueOrDefault());
-            }
-            else
-            {
-                this.RemoveValues(key);
-            }
-        }
-
-        public void SetValue(string key, Meziantou.GitLab.AccessLevel value)
-        {
-            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
-        }
-    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -107,6 +87,17 @@ namespace Meziantou.GitLab.Serialization
         protected override string ToString(Meziantou.GitLab.AccessLevel value)
         {
             return Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
+}
+
+namespace Meziantou.GitLab.Internals
+{
+    internal partial struct UrlBuilder
+    {
+        public void AppendParameter(Meziantou.GitLab.AccessLevel value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }

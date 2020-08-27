@@ -18,26 +18,6 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "cannot_be_merged")]
         CannotBeMerged
     }
-
-    internal partial class UrlBuilder
-    {
-        public void SetValue(string key, Meziantou.GitLab.MergeRequestStatus? value)
-        {
-            if (value.HasValue)
-            {
-                this.SetValue(key, value.GetValueOrDefault());
-            }
-            else
-            {
-                this.RemoveValues(key);
-            }
-        }
-
-        public void SetValue(string key, Meziantou.GitLab.MergeRequestStatus value)
-        {
-            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
-        }
-    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -91,6 +71,17 @@ namespace Meziantou.GitLab.Serialization
         protected override string ToString(Meziantou.GitLab.MergeRequestStatus value)
         {
             return Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
+}
+
+namespace Meziantou.GitLab.Internals
+{
+    internal partial struct UrlBuilder
+    {
+        public void AppendParameter(Meziantou.GitLab.MergeRequestStatus value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }

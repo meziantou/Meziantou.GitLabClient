@@ -16,26 +16,6 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "desc")]
         Descending
     }
-
-    internal partial class UrlBuilder
-    {
-        public void SetValue(string key, Meziantou.GitLab.OrderByDirection? value)
-        {
-            if (value.HasValue)
-            {
-                this.SetValue(key, value.GetValueOrDefault());
-            }
-            else
-            {
-                this.RemoveValues(key);
-            }
-        }
-
-        public void SetValue(string key, Meziantou.GitLab.OrderByDirection value)
-        {
-            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
-        }
-    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -83,6 +63,17 @@ namespace Meziantou.GitLab.Serialization
         protected override string ToString(Meziantou.GitLab.OrderByDirection value)
         {
             return Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
+}
+
+namespace Meziantou.GitLab.Internals
+{
+    internal partial struct UrlBuilder
+    {
+        public void AppendParameter(Meziantou.GitLab.OrderByDirection value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }

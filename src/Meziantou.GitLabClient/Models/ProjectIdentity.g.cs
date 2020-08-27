@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("description")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("description")]
         public string? Description
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("name")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("name_with_namespace")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("name_with_namespace")]
         public string NameWithNamespace
         {
             get
@@ -62,7 +62,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("path")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("path")]
         public string Path
         {
             get
@@ -71,7 +71,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("path_with_namespace")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("path_with_namespace")]
         public Meziantou.GitLab.PathWithNamespace PathWithNamespace
         {
             get

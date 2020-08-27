@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("access_level")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("access_level")]
         public AccessLevel AccessLevel
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("notification_level")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("notification_level")]
         public string NotificationLevel
         {
             get

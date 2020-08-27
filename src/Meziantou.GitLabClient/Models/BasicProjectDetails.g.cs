@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("avatar_url")]
         public System.Uri? AvatarUrl
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("default_branch")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("default_branch")]
         public string? DefaultBranch
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("forks_count")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("forks_count")]
         public int ForksCount
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("http_url_to_repo")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("http_url_to_repo")]
         public System.Uri HttpUrlToRepo
         {
             get
@@ -52,7 +52,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("last_activity_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_at")]
         public System.DateTimeOffset LastActivityAt
         {
             get
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("namespace")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("namespace")]
         public NamespaceBasic Namespace
         {
             get
@@ -70,7 +70,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("readme_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("readme_url")]
         public System.Uri? ReadmeUrl
         {
             get
@@ -79,8 +79,8 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.SkipAbsoluteUriValidationAttribute]
-        [Meziantou.GitLab.MappedPropertyAttribute("ssh_url_to_repo")]
+        [Meziantou.GitLab.Internals.SkipAbsoluteUriValidationAttribute]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("ssh_url_to_repo")]
         public System.Uri? SshUrlToRepo
         {
             get
@@ -89,7 +89,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("star_count")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("star_count")]
         public int StarCount
         {
             get
@@ -98,7 +98,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("tag_list")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("tag_list")]
         public System.Collections.Generic.IReadOnlyList<string> TagList
         {
             get
@@ -107,7 +107,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
         public System.Uri? WebUrl
         {
             get

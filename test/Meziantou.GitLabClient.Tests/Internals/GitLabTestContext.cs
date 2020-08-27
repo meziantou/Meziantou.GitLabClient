@@ -120,6 +120,7 @@ namespace Meziantou.GitLab.Tests
                     request.RequestUri = builder.Uri;
                 }
 
+                var stopwatch = ValueStopwatch.StartNew();
                 var sb = new StringBuilder();
                 sb.Append(request.Method).Append(' ').Append(request.RequestUri).AppendLine();
                 LogHeaders(request.Headers, sb);
@@ -157,6 +158,7 @@ namespace Meziantou.GitLab.Tests
                 }
                 finally
                 {
+                    sb.Append("Executed in ").Append(stopwatch.GetElapsedTime()).AppendLine();
                     Logs.Add(sb.ToString());
                 }
             }

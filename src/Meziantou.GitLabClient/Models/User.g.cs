@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("bio")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("bio")]
         public string? Bio
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("can_create_group")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("can_create_group")]
         public bool? CanCreateGroup
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("can_create_project")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("can_create_project")]
         public bool? CanCreateProject
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("color_scheme_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("color_scheme_id")]
         public long? ColorSchemeId
         {
             get
@@ -52,7 +52,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("confirmed_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("confirmed_at")]
         public System.DateTimeOffset? ConfirmedAt
         {
             get
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -70,7 +70,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("current_sign_in_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("current_sign_in_at")]
         public System.DateTimeOffset? CurrentSignInAt
         {
             get
@@ -79,7 +79,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("email")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("email")]
         public string? Email
         {
             get
@@ -88,7 +88,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("external")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("external")]
         public bool? External
         {
             get
@@ -97,7 +97,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("identities")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("identities")]
         public System.Collections.Generic.IReadOnlyList<Identity>? Identities
         {
             get
@@ -106,7 +106,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("is_admin")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("is_admin")]
         public bool? IsAdmin
         {
             get
@@ -115,8 +115,8 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.SkipUtcDateValidationAttribute]
-        [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
+        [Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime? LastActivityOn
         {
             get
@@ -125,7 +125,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("last_sign_in_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_sign_in_at")]
         public System.DateTimeOffset? LastSignInAt
         {
             get
@@ -134,7 +134,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("linkedin")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("linkedin")]
         public string? Linkedin
         {
             get
@@ -143,7 +143,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("location")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("location")]
         public string? Location
         {
             get
@@ -152,7 +152,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("organization")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("organization")]
         public string? Organization
         {
             get
@@ -161,7 +161,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("private_profile")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("private_profile")]
         public bool? PrivateProfile
         {
             get
@@ -170,7 +170,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("projects_limit")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("projects_limit")]
         public int? ProjectsLimit
         {
             get
@@ -179,7 +179,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("shared_runners_minutes_limit")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("shared_runners_minutes_limit")]
         public int? SharedRunnersMinutesLimit
         {
             get
@@ -188,7 +188,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("skype")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("skype")]
         public string? Skype
         {
             get
@@ -197,7 +197,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("theme_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("theme_id")]
         public long? ThemeId
         {
             get
@@ -206,7 +206,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("twitter")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("twitter")]
         public string? Twitter
         {
             get
@@ -215,7 +215,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("two_factor_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("two_factor_enabled")]
         public bool? TwoFactorEnabled
         {
             get
@@ -224,8 +224,8 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.SkipAbsoluteUriValidationAttribute]
-        [Meziantou.GitLab.MappedPropertyAttribute("website_url")]
+        [Meziantou.GitLab.Internals.SkipAbsoluteUriValidationAttribute]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("website_url")]
         public System.Uri? WebsiteUrl
         {
             get

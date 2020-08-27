@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("assignee")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("assignee")]
         public UserBasic? Assignee
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("author")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("description")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("description")]
         public string? Description
         {
             get
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("downvotes")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("downvotes")]
         public int Downvotes
         {
             get
@@ -62,7 +62,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("force_remove_source_branch")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("force_remove_source_branch")]
         public bool? ForceRemoveSourceBranch
         {
             get
@@ -71,7 +71,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -80,7 +80,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("iid")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("iid")]
         public long Iid
         {
             get
@@ -89,7 +89,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("labels")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("labels")]
         public System.Collections.Generic.IReadOnlyList<string> Labels
         {
             get
@@ -98,7 +98,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("merge_commit_sha")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("merge_commit_sha")]
         public Meziantou.GitLab.GitObjectId? MergeCommitSha
         {
             get
@@ -107,7 +107,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("merge_status")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("merge_status")]
         public MergeRequestStatus MergeStatus
         {
             get
@@ -116,7 +116,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("merge_when_pipeline_succeeds")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("merge_when_pipeline_succeeds")]
         public bool MergeWhenPipelineSucceeds
         {
             get
@@ -125,7 +125,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("project_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("project_id")]
         public long ProjectId
         {
             get
@@ -134,7 +134,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("sha")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("sha")]
         public Meziantou.GitLab.GitObjectId Sha
         {
             get
@@ -143,7 +143,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("should_remove_source_branch")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("should_remove_source_branch")]
         public bool? ShouldRemoveSourceBranch
         {
             get
@@ -152,7 +152,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("source_branch")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("source_branch")]
         public string SourceBranch
         {
             get
@@ -161,7 +161,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("source_project_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("source_project_id")]
         public long SourceProjectId
         {
             get
@@ -170,7 +170,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("squash")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("squash")]
         public bool Squash
         {
             get
@@ -179,7 +179,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("state")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("state")]
         public MergeRequestState State
         {
             get
@@ -188,7 +188,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("target_branch")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("target_branch")]
         public string TargetBranch
         {
             get
@@ -197,7 +197,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("target_project_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("target_project_id")]
         public long TargetProjectId
         {
             get
@@ -206,7 +206,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("title")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("title")]
         public string Title
         {
             get
@@ -215,7 +215,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("updated_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("updated_at")]
         public System.DateTimeOffset UpdatedAt
         {
             get
@@ -224,7 +224,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("upvotes")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("upvotes")]
         public int Upvotes
         {
             get
@@ -233,7 +233,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("user_notes_count")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("user_notes_count")]
         public int UserNotesCount
         {
             get
@@ -242,7 +242,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
         public System.Uri WebUrl
         {
             get
@@ -251,7 +251,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("work_in_progress")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("work_in_progress")]
         public bool WorkInProgress
         {
             get

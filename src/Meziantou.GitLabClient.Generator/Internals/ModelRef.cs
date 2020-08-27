@@ -56,7 +56,10 @@ namespace Meziantou.GitLabClient.Generator
                 if (IsParameterEntity)
                     return true;
 
-                if (Equals(ModelRef.PathWithNamespace))
+                if (Model is Enumeration)
+                    return true;
+
+                if (Equals(PathWithNamespace))
                     return true;
 
                 if (Equals(GitObjectId))

@@ -58,16 +58,27 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<FileCreated> Repositories_CreateFileAsync(Meziantou.GitLab.CreateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/repository/files/:file_path");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/repository/files/");
+                if ((!object.ReferenceEquals(request.FilePath, null)))
+                {
+                    urlBuilder.AppendParameter(request.FilePath);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("file_path", request.FilePath);
-            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Branch != null))
             {
@@ -110,16 +121,27 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<FileUpdated> Repositories_UpdateFileAsync(Meziantou.GitLab.UpdateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/repository/files/:file_path");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/repository/files/");
+                if ((!object.ReferenceEquals(request.FilePath, null)))
+                {
+                    urlBuilder.AppendParameter(request.FilePath);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("file_path", request.FilePath);
-            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Branch != null))
             {

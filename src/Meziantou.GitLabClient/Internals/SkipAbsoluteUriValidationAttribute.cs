@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Meziantou.GitLab
+namespace Meziantou.GitLab.Internals
 {
     /// <summary>
     /// Only used by tests

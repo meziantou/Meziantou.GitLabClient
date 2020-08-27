@@ -2,7 +2,7 @@
 
 namespace Meziantou.GitLab.Tests
 {
-    public static class GitLabGlientExtensions
+    public static class GitLabClientExtensions
     {
         public static async Task<MergeRequest> CreateMergeRequestAsync(this GitLabTestContext context, IGitLabClient client, ProjectIdOrPathRef project,
             bool assignedToMe = false,

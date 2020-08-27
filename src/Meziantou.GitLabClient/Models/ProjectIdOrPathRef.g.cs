@@ -9,7 +9,7 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectObjectReferenceJsonConverter))]
-    public readonly partial struct ProjectIdOrPathRef : Meziantou.GitLab.IGitLabObjectReference<object>, System.IEquatable<Meziantou.GitLab.ProjectIdOrPathRef>
+    public readonly partial struct ProjectIdOrPathRef : Meziantou.GitLab.Internals.IGitLabObjectReference<object>, System.IEquatable<Meziantou.GitLab.ProjectIdOrPathRef>
     {
         private readonly object _value;
 

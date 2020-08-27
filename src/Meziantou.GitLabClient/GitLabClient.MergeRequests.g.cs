@@ -91,15 +91,22 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<MergeRequest> MergeRequests_CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/merge_requests");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/merge_requests");
+                url = urlBuilder.ToString();
             }
 
-            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.SourceBranch != null))
             {
@@ -156,128 +163,456 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("groups/:group_id/merge_requests");
-            if (request.GroupId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("group_id", request.GroupId.Value.ValueAsString);
+                urlBuilder.Append("groups/");
+                if (request.GroupId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.GroupId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/merge_requests");
+                char separator = '?';
+                if (request.State.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("state=");
+                    urlBuilder.AppendParameter(request.State.GetValueOrDefault());
+                }
+
+                if (request.Scope.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("scope=");
+                    urlBuilder.AppendParameter(request.Scope.GetValueOrDefault());
+                }
+
+                if (request.AssigneeId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("assignee_id=");
+                    urlBuilder.AppendParameter(request.AssigneeId.GetValueOrDefault().ValueAsString);
+                }
+
+                if (request.AuthorId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("author_id=");
+                    urlBuilder.AppendParameter(request.AuthorId.GetValueOrDefault().ValueAsString);
+                }
+
+                if ((!object.ReferenceEquals(request.Milestone, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("milestone=");
+                    urlBuilder.AppendParameter(request.Milestone);
+                }
+
+                if (request.View.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("view=");
+                    urlBuilder.AppendParameter(request.View.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.Labels, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("labels=");
+                    urlBuilder.AppendParameter(request.Labels);
+                }
+
+                if (request.CreatedAfter.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("created_after=");
+                    urlBuilder.AppendParameter(request.CreatedAfter.GetValueOrDefault());
+                }
+
+                if (request.CreatedBefore.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("created_before=");
+                    urlBuilder.AppendParameter(request.CreatedBefore.GetValueOrDefault());
+                }
+
+                if (request.UpdatedAfter.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("updated_after=");
+                    urlBuilder.AppendParameter(request.UpdatedAfter.GetValueOrDefault());
+                }
+
+                if (request.UpdatedBefore.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("updated_before=");
+                    urlBuilder.AppendParameter(request.UpdatedBefore.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.MyReactionEmoji, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("my_reaction_emoji=");
+                    urlBuilder.AppendParameter(request.MyReactionEmoji);
+                }
+
+                if ((!object.ReferenceEquals(request.SourceBranch, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("source_branch=");
+                    urlBuilder.AppendParameter(request.SourceBranch);
+                }
+
+                if ((!object.ReferenceEquals(request.TargetBranch, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("target_branch=");
+                    urlBuilder.AppendParameter(request.TargetBranch);
+                }
+
+                if ((!object.ReferenceEquals(request.Search, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("search=");
+                    urlBuilder.AppendParameter(request.Search);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("state", request.State);
-            urlBuilder.SetValue("scope", request.Scope);
-            if (request.AssigneeId.HasValue)
-            {
-                urlBuilder.SetValue("assignee_id", request.AssigneeId.Value.ValueAsString);
-            }
-
-            if (request.AuthorId.HasValue)
-            {
-                urlBuilder.SetValue("author_id", request.AuthorId.Value.ValueAsString);
-            }
-
-            urlBuilder.SetValue("milestone", request.Milestone);
-            urlBuilder.SetValue("view", request.View);
-            urlBuilder.SetValue("labels", request.Labels);
-            urlBuilder.SetValue("created_after", request.CreatedAfter);
-            urlBuilder.SetValue("created_before", request.CreatedBefore);
-            urlBuilder.SetValue("updated_after", request.UpdatedAfter);
-            urlBuilder.SetValue("updated_before", request.UpdatedBefore);
-            urlBuilder.SetValue("my_reaction_emoji", request.MyReactionEmoji);
-            urlBuilder.SetValue("source_branch", request.SourceBranch);
-            urlBuilder.SetValue("target_branch", request.TargetBranch);
-            urlBuilder.SetValue("search", request.Search);
-            string url = urlBuilder.Build();
             return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<MergeRequest?> MergeRequests_GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/merge_requests/:merge_request_iid");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/merge_requests/");
+                if (request.MergeRequestIid.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.MergeRequestIid.GetValueOrDefault().Value);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            if (request.MergeRequestIid.HasValue)
-            {
-                urlBuilder.SetValue("merge_request_iid", request.MergeRequestIid.Value.Value);
-            }
-
-            string url = urlBuilder.Build();
             return this.GetAsync<MergeRequest>(url, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("merge_requests");
-            urlBuilder.SetValue("state", request.State);
-            urlBuilder.SetValue("scope", request.Scope);
-            if (request.AssigneeId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("assignee_id", request.AssigneeId.Value.ValueAsString);
+                urlBuilder.Append("merge_requests");
+                char separator = '?';
+                if (request.State.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("state=");
+                    urlBuilder.AppendParameter(request.State.GetValueOrDefault());
+                }
+
+                if (request.Scope.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("scope=");
+                    urlBuilder.AppendParameter(request.Scope.GetValueOrDefault());
+                }
+
+                if (request.AssigneeId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("assignee_id=");
+                    urlBuilder.AppendParameter(request.AssigneeId.GetValueOrDefault().ValueAsString);
+                }
+
+                if (request.AuthorId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("author_id=");
+                    urlBuilder.AppendParameter(request.AuthorId.GetValueOrDefault().ValueAsString);
+                }
+
+                if ((!object.ReferenceEquals(request.Milestone, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("milestone=");
+                    urlBuilder.AppendParameter(request.Milestone);
+                }
+
+                if (request.View.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("view=");
+                    urlBuilder.AppendParameter(request.View.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.Labels, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("labels=");
+                    urlBuilder.AppendParameter(request.Labels);
+                }
+
+                if (request.CreatedAfter.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("created_after=");
+                    urlBuilder.AppendParameter(request.CreatedAfter.GetValueOrDefault());
+                }
+
+                if (request.CreatedBefore.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("created_before=");
+                    urlBuilder.AppendParameter(request.CreatedBefore.GetValueOrDefault());
+                }
+
+                if (request.UpdatedAfter.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("updated_after=");
+                    urlBuilder.AppendParameter(request.UpdatedAfter.GetValueOrDefault());
+                }
+
+                if (request.UpdatedBefore.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("updated_before=");
+                    urlBuilder.AppendParameter(request.UpdatedBefore.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.MyReactionEmoji, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("my_reaction_emoji=");
+                    urlBuilder.AppendParameter(request.MyReactionEmoji);
+                }
+
+                if ((!object.ReferenceEquals(request.SourceBranch, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("source_branch=");
+                    urlBuilder.AppendParameter(request.SourceBranch);
+                }
+
+                if ((!object.ReferenceEquals(request.TargetBranch, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("target_branch=");
+                    urlBuilder.AppendParameter(request.TargetBranch);
+                }
+
+                if ((!object.ReferenceEquals(request.Search, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("search=");
+                    urlBuilder.AppendParameter(request.Search);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            if (request.AuthorId.HasValue)
-            {
-                urlBuilder.SetValue("author_id", request.AuthorId.Value.ValueAsString);
-            }
-
-            urlBuilder.SetValue("milestone", request.Milestone);
-            urlBuilder.SetValue("view", request.View);
-            urlBuilder.SetValue("labels", request.Labels);
-            urlBuilder.SetValue("created_after", request.CreatedAfter);
-            urlBuilder.SetValue("created_before", request.CreatedBefore);
-            urlBuilder.SetValue("updated_after", request.UpdatedAfter);
-            urlBuilder.SetValue("updated_before", request.UpdatedBefore);
-            urlBuilder.SetValue("my_reaction_emoji", request.MyReactionEmoji);
-            urlBuilder.SetValue("source_branch", request.SourceBranch);
-            urlBuilder.SetValue("target_branch", request.TargetBranch);
-            urlBuilder.SetValue("search", request.Search);
-            string url = urlBuilder.Build();
             return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         /// <param name="requestOptions">Options of the request</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/merge_requests");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/merge_requests");
+                char separator = '?';
+                if ((!object.ReferenceEquals(request.Iids, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("iids=");
+                    urlBuilder.AppendParameter(request.Iids);
+                }
+
+                if (request.State.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("state=");
+                    urlBuilder.AppendParameter(request.State.GetValueOrDefault());
+                }
+
+                if (request.Scope.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("scope=");
+                    urlBuilder.AppendParameter(request.Scope.GetValueOrDefault());
+                }
+
+                if (request.AssigneeId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("assignee_id=");
+                    urlBuilder.AppendParameter(request.AssigneeId.GetValueOrDefault().ValueAsString);
+                }
+
+                if (request.AuthorId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("author_id=");
+                    urlBuilder.AppendParameter(request.AuthorId.GetValueOrDefault().ValueAsString);
+                }
+
+                if ((!object.ReferenceEquals(request.Milestone, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("milestone=");
+                    urlBuilder.AppendParameter(request.Milestone);
+                }
+
+                if (request.View.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("view=");
+                    urlBuilder.AppendParameter(request.View.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.Labels, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("labels=");
+                    urlBuilder.AppendParameter(request.Labels);
+                }
+
+                if (request.CreatedAfter.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("created_after=");
+                    urlBuilder.AppendParameter(request.CreatedAfter.GetValueOrDefault());
+                }
+
+                if (request.CreatedBefore.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("created_before=");
+                    urlBuilder.AppendParameter(request.CreatedBefore.GetValueOrDefault());
+                }
+
+                if (request.UpdatedAfter.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("updated_after=");
+                    urlBuilder.AppendParameter(request.UpdatedAfter.GetValueOrDefault());
+                }
+
+                if (request.UpdatedBefore.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("updated_before=");
+                    urlBuilder.AppendParameter(request.UpdatedBefore.GetValueOrDefault());
+                }
+
+                if ((!object.ReferenceEquals(request.MyReactionEmoji, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("my_reaction_emoji=");
+                    urlBuilder.AppendParameter(request.MyReactionEmoji);
+                }
+
+                if ((!object.ReferenceEquals(request.SourceBranch, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("source_branch=");
+                    urlBuilder.AppendParameter(request.SourceBranch);
+                }
+
+                if ((!object.ReferenceEquals(request.TargetBranch, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("target_branch=");
+                    urlBuilder.AppendParameter(request.TargetBranch);
+                }
+
+                if ((!object.ReferenceEquals(request.Search, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("search=");
+                    urlBuilder.AppendParameter(request.Search);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("iids", request.Iids);
-            urlBuilder.SetValue("state", request.State);
-            urlBuilder.SetValue("scope", request.Scope);
-            if (request.AssigneeId.HasValue)
-            {
-                urlBuilder.SetValue("assignee_id", request.AssigneeId.Value.ValueAsString);
-            }
-
-            if (request.AuthorId.HasValue)
-            {
-                urlBuilder.SetValue("author_id", request.AuthorId.Value.ValueAsString);
-            }
-
-            urlBuilder.SetValue("milestone", request.Milestone);
-            urlBuilder.SetValue("view", request.View);
-            urlBuilder.SetValue("labels", request.Labels);
-            urlBuilder.SetValue("created_after", request.CreatedAfter);
-            urlBuilder.SetValue("created_before", request.CreatedBefore);
-            urlBuilder.SetValue("updated_after", request.UpdatedAfter);
-            urlBuilder.SetValue("updated_before", request.UpdatedBefore);
-            urlBuilder.SetValue("my_reaction_emoji", request.MyReactionEmoji);
-            urlBuilder.SetValue("source_branch", request.SourceBranch);
-            urlBuilder.SetValue("target_branch", request.TargetBranch);
-            urlBuilder.SetValue("search", request.Search);
-            string url = urlBuilder.Build();
             return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
         }
     }

@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("last_activity_on")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime LastActivityOn
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("username")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("username")]
         public string Username
         {
             get

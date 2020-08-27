@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("events")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("events")]
         public string Events
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("issues")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("issues")]
         public string Issues
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("labels")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("labels")]
         public string Labels
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("members")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("members")]
         public string Members
         {
             get
@@ -52,7 +52,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("merge_requests")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("merge_requests")]
         public string MergeRequests
         {
             get
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("repo_branches")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("repo_branches")]
         public string RepoBranches
         {
             get
@@ -70,7 +70,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("self")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("self")]
         public string Self
         {
             get

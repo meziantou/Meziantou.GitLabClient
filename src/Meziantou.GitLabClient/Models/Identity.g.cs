@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("extern_uid")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("extern_uid")]
         public string ExternUid
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("provider")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("provider")]
         public string Provider
         {
             get

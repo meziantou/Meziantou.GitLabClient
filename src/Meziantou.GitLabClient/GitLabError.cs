@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Meziantou.GitLab.Core;
+using Meziantou.GitLab.Internals;
 using Meziantou.GitLab.Serialization;
 
 namespace Meziantou.GitLab

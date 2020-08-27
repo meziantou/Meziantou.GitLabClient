@@ -5,7 +5,7 @@ namespace Meziantou.GitLab
 {
     public partial struct UserRef
     {
-        public string? ValueAsString
+        public string ValueAsString
         {
             get
             {

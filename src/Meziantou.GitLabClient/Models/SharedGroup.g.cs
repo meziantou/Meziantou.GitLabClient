@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("group_access_level")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("group_access_level")]
         public AccessLevel GroupAccessLevel
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("group_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("group_id")]
         public long GroupId
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("group_name")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("group_name")]
         public string GroupName
         {
             get

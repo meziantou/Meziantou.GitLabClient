@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("avatar_path")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("avatar_path")]
         public string? AvatarPath
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("avatar_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("avatar_url")]
         public System.Uri AvatarUrl
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("state")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("state")]
         public UserState State
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
         public System.Uri WebUrl
         {
             get

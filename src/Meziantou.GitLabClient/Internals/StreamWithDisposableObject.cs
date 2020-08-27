@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Meziantou.GitLab
+namespace Meziantou.GitLab.Internals
 {
     internal sealed class StreamWithDisposableObject : Stream
     {
@@ -137,13 +137,13 @@ namespace Meziantou.GitLab
         {
             _stream.CopyTo(destination, bufferSize);
         }
-        
+
         [SuppressMessage("Usage", "CA2215:Dispose methods should call base class dispose", Justification = "We just wrap the type")]
         public override ValueTask DisposeAsync()
         {
             return _stream.DisposeAsync();
         }
-        
+
         public override int Read(Span<byte> buffer)
         {
             return _stream.Read(buffer);

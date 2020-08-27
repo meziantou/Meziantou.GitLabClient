@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("revision")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("revision")]
         public string Revision
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("version")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("version")]
         public string Version
         {
             get

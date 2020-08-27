@@ -68,11 +68,25 @@ namespace Meziantou.GitLab
 
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         /// <param name="requestOptions">Options of the request</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Todo> Todos_GetTodos(Meziantou.GitLab.GetTodosRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos");
-            urlBuilder.SetValue("action", request.Action);
-            string url = urlBuilder.Build();
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
+            {
+                urlBuilder.Append("todos");
+                char separator = '?';
+                if (request.Action.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("action=");
+                    urlBuilder.AppendParameter(request.Action.GetValueOrDefault());
+                }
+
+                url = urlBuilder.ToString();
+            }
+
             return new Meziantou.GitLab.PagedResponse<Todo>(this, url, requestOptions);
         }
 
@@ -81,23 +95,30 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task Todos_MarkAllTodosAsDoneAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos/mark_as_done");
-            string url = urlBuilder.Build();
+            string url;
+            url = "todos/mark_as_done";
             return this.PostJsonAsync(url, null, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<Todo> Todos_MarkTodoAsDoneAsync(Meziantou.GitLab.MarkTodoAsDoneRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("todos/:todo_id/mark_as_done");
-            if (request.TodoId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("todo_id", request.TodoId.Value.Value);
+                urlBuilder.Append("todos/");
+                if (request.TodoId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.TodoId.GetValueOrDefault().Value);
+                }
+
+                urlBuilder.Append("/mark_as_done");
+                url = urlBuilder.ToString();
             }
 
-            string url = urlBuilder.Build();
             return this.PostJsonAsync<Todo>(url, null, requestOptions, cancellationToken);
         }
     }

@@ -97,15 +97,22 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<WikiPage> Wikis_CreateWikiPageAsync(Meziantou.GitLab.CreateWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/wikis");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/wikis");
+                url = urlBuilder.ToString();
             }
 
-            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Title != null))
             {
@@ -128,63 +135,103 @@ namespace Meziantou.GitLab
         /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#delete-a-wiki-page" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task Wikis_DeleteWikiPageAsync(Meziantou.GitLab.DeleteWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/wikis/:slug");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/wikis/");
+                if ((!object.ReferenceEquals(request.Slug, null)))
+                {
+                    urlBuilder.AppendParameter(request.Slug);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("slug", request.Slug);
-            string url = urlBuilder.Build();
             return this.DeleteAsync(url, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#get-a-wiki-page" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<WikiPage?> Wikis_GetWikiPageAsync(Meziantou.GitLab.GetWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/wikis/:slug");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/wikis/");
+                if ((!object.ReferenceEquals(request.Slug, null)))
+                {
+                    urlBuilder.AppendParameter(request.Slug);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("slug", request.Slug);
-            string url = urlBuilder.Build();
             return this.GetAsync<WikiPage>(url, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<WikiPage>> Wikis_GetWikiPagesAsync(Meziantou.GitLab.GetWikiPagesRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/wikis");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/wikis");
+                url = urlBuilder.ToString();
             }
 
-            string url = urlBuilder.Build();
             return this.GetCollectionAsync<WikiPage>(url, requestOptions, cancellationToken);
         }
 
         /// <seealso href="https://docs.gitlab.com/ee/api/wikis.html#edit-an-existing-wiki-page" />
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private System.Threading.Tasks.Task<WikiPage> Wikis_UpdateWikiPageAsync(Meziantou.GitLab.UpdateWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("projects/:project_id/wikis/:slug");
-            if (request.ProjectId.HasValue)
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
-                urlBuilder.SetValue("project_id", request.ProjectId.Value.ValueAsString);
+                urlBuilder.Append("projects/");
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/wikis/");
+                if ((!object.ReferenceEquals(request.Slug, null)))
+                {
+                    urlBuilder.AppendParameter(request.Slug);
+                }
+
+                url = urlBuilder.ToString();
             }
 
-            urlBuilder.SetValue("slug", request.Slug);
-            string url = urlBuilder.Build();
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Title != null))
             {

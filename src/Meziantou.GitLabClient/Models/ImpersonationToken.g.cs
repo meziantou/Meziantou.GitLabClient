@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("active")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("active")]
         public bool Active
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("expires_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("expires_at")]
         public System.DateTime? ExpiresAt
         {
             get
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("impersonation")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("impersonation")]
         public bool Impersonation
         {
             get
@@ -62,7 +62,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("name")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -71,7 +71,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("revoked")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("revoked")]
         public bool Revoked
         {
             get
@@ -80,7 +80,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("scopes")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("scopes")]
         public System.Collections.Generic.IReadOnlyList<string> Scopes
         {
             get
@@ -89,7 +89,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("token")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("token")]
         public string Token
         {
             get

@@ -47,8 +47,8 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<RenderedMarkdown> Markdown_RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("markdown");
-            string url = urlBuilder.Build();
+            string url;
+            url = "markdown";
             System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
             if ((request.Text != null))
             {

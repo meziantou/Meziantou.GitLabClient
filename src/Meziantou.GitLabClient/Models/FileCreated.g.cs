@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("branch")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("branch")]
         public string Branch
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("file_path")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("file_path")]
         public string FilePath
         {
             get

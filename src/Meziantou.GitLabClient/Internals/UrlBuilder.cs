@@ -1,208 +1,299 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿// From https://github.com/dotnet/runtime/blob/f1f6b3c01566c72b882cae42d5452942eb0d0e69/src/libraries/Common/src/System/Text/ValueStringBuilder.cs
+#pragma warning disable IDE0032
+#pragma warning disable IDE0057
+#pragma warning disable MA0071
 
-namespace Meziantou.GitLab
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+#nullable enable
+using System;
+using System.Buffers;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace Meziantou.GitLab.Internals
 {
-    internal sealed partial class UrlBuilder
+    internal ref partial struct UrlBuilder
     {
-        private readonly List<KeyValuePair<string, string>> _parameters = new List<KeyValuePair<string, string>>();
+        private char[]? _arrayToReturnToPool;
+        private Span<char> _chars;
+        private int _pos;
 
-        private UrlBuilder(string template)
+        public UrlBuilder(Span<char> initialBuffer)
         {
-            Template = template;
+            _arrayToReturnToPool = null;
+            _chars = initialBuffer;
+            _pos = 0;
         }
 
-        public static UrlBuilder Get(string template)
+        public UrlBuilder(int initialCapacity)
         {
-            return new UrlBuilder(template);
+            _arrayToReturnToPool = ArrayPool<char>.Shared.Rent(initialCapacity);
+            _chars = _arrayToReturnToPool;
+            _pos = 0;
         }
 
-        public string Template { get; }
-
-        public void SetValue(string key, string? value)
+        public int Length
         {
-            if (value is null)
+            get => _pos;
+            set
             {
-                RemoveValues(key);
+                Debug.Assert(value >= 0);
+                Debug.Assert(value <= _chars.Length);
+                _pos = value;
+            }
+        }
+
+        public int Capacity => _chars.Length;
+
+        public void EnsureCapacity(int capacity)
+        {
+            if (capacity > _chars.Length)
+                Grow(capacity - _pos);
+        }
+
+        /// <summary>
+        /// Get a pinnable reference to the builder.
+        /// Does not ensure there is a null char after <see cref="Length"/>
+        /// This overload is pattern matched in the C# 7.3+ compiler so you can omit
+        /// the explicit method call, and write eg "fixed (char* c = builder)"
+        /// </summary>
+        public ref char GetPinnableReference()
+        {
+            return ref MemoryMarshal.GetReference(_chars);
+        }
+
+        /// <summary>
+        /// Get a pinnable reference to the builder.
+        /// </summary>
+        /// <param name="terminate">Ensures that the builder has a null char after <see cref="Length"/></param>
+        public ref char GetPinnableReference(bool terminate)
+        {
+            if (terminate)
+            {
+                EnsureCapacity(Length + 1);
+                _chars[Length] = '\0';
+            }
+            return ref MemoryMarshal.GetReference(_chars);
+        }
+
+        public ref char this[int index]
+        {
+            get
+            {
+                Debug.Assert(index < _pos);
+                return ref _chars[index];
+            }
+        }
+
+        public override string ToString()
+        {
+            var s = _chars.Slice(0, _pos).ToString();
+            Dispose();
+            return s;
+        }
+
+        /// <summary>Returns the underlying storage of the builder.</summary>
+        public Span<char> RawChars => _chars;
+
+        /// <summary>
+        /// Returns a span around the contents of the builder.
+        /// </summary>
+        /// <param name="terminate">Ensures that the builder has a null char after <see cref="Length"/></param>
+        public ReadOnlySpan<char> AsSpan(bool terminate)
+        {
+            if (terminate)
+            {
+                EnsureCapacity(Length + 1);
+                _chars[Length] = '\0';
+            }
+            return _chars.Slice(0, _pos);
+        }
+
+        public ReadOnlySpan<char> AsSpan() => _chars.Slice(0, _pos);
+        public ReadOnlySpan<char> AsSpan(int start) => _chars.Slice(start, _pos - start);
+        public ReadOnlySpan<char> AsSpan(int start, int length) => _chars.Slice(start, length);
+
+        public bool TryCopyTo(Span<char> destination, out int charsWritten)
+        {
+            if (_chars.Slice(0, _pos).TryCopyTo(destination))
+            {
+                charsWritten = _pos;
+                Dispose();
+                return true;
             }
             else
             {
-                SetStringValue(key, value);
+                charsWritten = 0;
+                Dispose();
+                return false;
             }
         }
 
-        public void SetValue(string key, bool? value)
+        public void Insert(int index, char value, int count)
         {
-            if (value is null)
+            if (_pos > _chars.Length - count)
             {
-                RemoveValues(key);
+                Grow(count);
+            }
+
+            var remaining = _pos - index;
+            _chars.Slice(index, remaining).CopyTo(_chars.Slice(index + count));
+            _chars.Slice(index, count).Fill(value);
+            _pos += count;
+        }
+
+        public void Insert(int index, string? s)
+        {
+            if (s == null)
+            {
+                return;
+            }
+
+            var count = s.Length;
+
+            if (_pos > _chars.Length - count)
+            {
+                Grow(count);
+            }
+
+            var remaining = _pos - index;
+            _chars.Slice(index, remaining).CopyTo(_chars.Slice(index + count));
+            s.AsSpan().CopyTo(_chars.Slice(index));
+            _pos += count;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Append(char c)
+        {
+            var pos = _pos;
+            if ((uint)pos < (uint)_chars.Length)
+            {
+                _chars[pos] = c;
+                _pos = pos + 1;
             }
             else
             {
-                SetValue(key, value.GetValueOrDefault());
+                GrowAndAppend(c);
             }
         }
 
-        public void SetValue(string key, bool value)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Append(string? s)
         {
-            SetStringValue(key, value ? "true" : "false");
-        }
-
-        public void SetValue(string key, int? value)
-        {
-            if (value is null)
+            if (s == null)
             {
-                RemoveValues(key);
+                return;
+            }
+
+            var pos = _pos;
+            if (s.Length == 1 && (uint)pos < (uint)_chars.Length) // very common case, e.g. appending strings from NumberFormatInfo like separators, percent symbols, etc.
+            {
+                _chars[pos] = s[0];
+                _pos = pos + 1;
             }
             else
             {
-                SetValue(key, value.GetValueOrDefault());
+                AppendSlow(s);
             }
         }
 
-        public void SetValue(string key, int value)
+        private void AppendSlow(string s)
         {
-            SetStringValue(key, value.ToString(CultureInfo.InvariantCulture));
-        }
-
-        public void SetValue(string key, long? value)
-        {
-            if (value is null)
+            var pos = _pos;
+            if (pos > _chars.Length - s.Length)
             {
-                RemoveValues(key);
+                Grow(s.Length);
             }
-            else
+
+            s.AsSpan().CopyTo(_chars.Slice(pos));
+            _pos += s.Length;
+        }
+
+        public void Append(char c, int count)
+        {
+            if (_pos > _chars.Length - count)
             {
-                SetValue(key, value.GetValueOrDefault());
+                Grow(count);
+            }
+
+            var dst = _chars.Slice(_pos, count);
+            for (var i = 0; i < dst.Length; i++)
+            {
+                dst[i] = c;
+            }
+            _pos += count;
+        }
+
+        public void Append(ReadOnlySpan<char> value)
+        {
+            var pos = _pos;
+            if (pos > _chars.Length - value.Length)
+            {
+                Grow(value.Length);
+            }
+
+            value.CopyTo(_chars.Slice(_pos));
+            _pos += value.Length;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Span<char> AppendSpan(int length)
+        {
+            var origPos = _pos;
+            if (origPos > _chars.Length - length)
+            {
+                Grow(length);
+            }
+
+            _pos = origPos + length;
+            return _chars.Slice(origPos, length);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void GrowAndAppend(char c)
+        {
+            Grow(1);
+            Append(c);
+        }
+
+        /// <summary>
+        /// Resize the internal buffer either by doubling current buffer size or
+        /// by adding <paramref name="additionalCapacityBeyondPos"/> to
+        /// <see cref="_pos"/> whichever is greater.
+        /// </summary>
+        /// <param name="additionalCapacityBeyondPos">
+        /// Number of chars requested beyond current position.
+        /// </param>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void Grow(int additionalCapacityBeyondPos)
+        {
+            Debug.Assert(additionalCapacityBeyondPos > 0);
+            Debug.Assert(_pos > _chars.Length - additionalCapacityBeyondPos, "Grow called incorrectly, no resize is needed.");
+
+            var poolArray = ArrayPool<char>.Shared.Rent(Math.Max(_pos + additionalCapacityBeyondPos, _chars.Length * 2));
+
+            _chars.Slice(0, _pos).CopyTo(poolArray);
+
+            var toReturn = _arrayToReturnToPool;
+            _chars = _arrayToReturnToPool = poolArray;
+            if (toReturn != null)
+            {
+                ArrayPool<char>.Shared.Return(toReturn);
             }
         }
 
-        public void SetValue(string key, long value)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Dispose()
         {
-            SetStringValue(key, value.ToString(CultureInfo.InvariantCulture));
-        }
-
-        public void SetValue(string key, DateTime? value)
-        {
-            if (value is null)
+            var toReturn = _arrayToReturnToPool;
+            this = default; // for safety, to avoid using pooled array if this instance is erroneously appended to again
+            if (toReturn != null)
             {
-                RemoveValues(key);
+                ArrayPool<char>.Shared.Return(toReturn);
             }
-            else
-            {
-                SetValue(key, value.GetValueOrDefault());
-            }
-        }
-
-        public void SetValue(string key, DateTime value)
-        {
-            SetStringValue(key, value.ToString("o", CultureInfo.InvariantCulture));
-        }
-
-        public void SetValue(string key, DateTimeOffset? value)
-        {
-            if (value is null)
-            {
-                RemoveValues(key);
-            }
-            else
-            {
-                SetValue(key, value.GetValueOrDefault());
-            }
-        }
-
-        public void SetValue(string key, DateTimeOffset value)
-        {
-            SetStringValue(key, value.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
-        }
-
-        public void SetValue(string key, PathWithNamespace? value)
-        {
-            if (value is null)
-            {
-                RemoveValues(key);
-            }
-            else
-            {
-                SetValue(key, value.GetValueOrDefault());
-            }
-        }
-
-        public void SetValue(string key, PathWithNamespace value)
-        {
-            SetStringValue(key, value.FullPath);
-        }
-
-        public void SetValue(string key, IEnumerable<string>? value)
-        {
-            if (value is null)
-            {
-                RemoveValues(key);
-            }
-            else
-            {
-                SetStringValue(key, string.Join(",", value));
-            }
-        }
-
-        public void SetValue(string key, IEnumerable<long>? value)
-        {
-            if (value is null)
-            {
-                RemoveValues(key);
-            }
-            else
-            {
-                // TODO optimize with a string builder?
-                SetStringValue(key, string.Join(",", value.Select(v => v.ToString(CultureInfo.InvariantCulture))));
-            }
-        }
-
-        private void RemoveValues(string key)
-        {
-            _parameters.RemoveAll(item => item.Key == key);
-        }
-
-        private void SetStringValue(string key, string value)
-        {
-            _parameters.Add(new KeyValuePair<string, string>(key, value));
-        }
-
-        public string Build()
-        {
-            var url = Template;
-            foreach (var parameter in _parameters)
-            {
-                var parameterValue = parameter.Value;
-                var newUrl = Regex.Replace(
-                    url,
-                    "(?<=^|/)(:" + Regex.Escape(parameter.Key) + ")(?=\\?|#|/|$)",
-                    Uri.EscapeDataString(parameterValue),
-                    RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture,
-                    TimeSpan.FromSeconds(1));
-
-                if (newUrl != url)
-                {
-                    url = newUrl;
-                }
-                else
-                {
-                    // Append to query string
-                    if (url.Contains('?', StringComparison.Ordinal))
-                    {
-                        url += "&" + Uri.EscapeDataString(parameter.Key) + "=" + Uri.EscapeDataString(parameterValue);
-                    }
-                    else
-                    {
-                        url += "?" + Uri.EscapeDataString(parameter.Key) + "=" + Uri.EscapeDataString(parameterValue);
-                    }
-                }
-            }
-
-            return url;
         }
     }
 }

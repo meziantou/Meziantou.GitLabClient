@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("emoji")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("emoji")]
         public string? Emoji
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("message")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("message")]
         public string? Message
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("message_html")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("message_html")]
         public string MessageHtml
         {
             get

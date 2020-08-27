@@ -1,4 +1,5 @@
 ﻿using Meziantou.GitLab.Core;
+using Meziantou.GitLab.Internals;
 
 namespace Meziantou.GitLab
 {

@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("author")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("closed_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("closed_at")]
         public System.DateTimeOffset? ClosedAt
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("closed_by")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("closed_by")]
         public UserBasic? ClosedBy
         {
             get
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -62,7 +62,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("iid")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("iid")]
         public long Iid
         {
             get
@@ -71,7 +71,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("project_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("project_id")]
         public long ProjectId
         {
             get
@@ -80,7 +80,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("title")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("title")]
         public string Title
         {
             get
@@ -89,7 +89,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("updated_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("updated_at")]
         public System.DateTimeOffset UpdatedAt
         {
             get
@@ -98,7 +98,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("web_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
         public System.Uri WebUrl
         {
             get

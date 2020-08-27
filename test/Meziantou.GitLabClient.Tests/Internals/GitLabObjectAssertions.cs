@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Meziantou.GitLab.Core;
+using Meziantou.GitLab.Internals;
 
 namespace Meziantou.GitLab.Tests
 {

@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("action_name")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("action_name")]
         public TodoAction ActionName
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("author")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("author")]
         public UserBasic Author
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("body")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("body")]
         public string Body
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("created_at")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("created_at")]
         public System.DateTimeOffset CreatedAt
         {
             get
@@ -52,7 +52,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("project")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("project")]
         public BasicProjectDetails Project
         {
             get
@@ -70,7 +70,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("state")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("state")]
         public TodoState State
         {
             get
@@ -79,7 +79,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("target_type")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("target_type")]
         public TodoTargetType TargetType
         {
             get
@@ -88,7 +88,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("target_url")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("target_url")]
         public System.Uri TargetUrl
         {
             get

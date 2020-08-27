@@ -26,26 +26,6 @@ namespace Meziantou.GitLab
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "directly_addressed")]
         DirectlyAddressed
     }
-
-    internal partial class UrlBuilder
-    {
-        public void SetValue(string key, Meziantou.GitLab.TodoAction? value)
-        {
-            if (value.HasValue)
-            {
-                this.SetValue(key, value.GetValueOrDefault());
-            }
-            else
-            {
-                this.RemoveValues(key);
-            }
-        }
-
-        public void SetValue(string key, Meziantou.GitLab.TodoAction value)
-        {
-            this.SetStringValue(key, Meziantou.GitLab.Serialization.EnumMember.ToString(value));
-        }
-    }
 }
 
 namespace Meziantou.GitLab.Serialization
@@ -123,6 +103,17 @@ namespace Meziantou.GitLab.Serialization
         protected override string ToString(Meziantou.GitLab.TodoAction value)
         {
             return Meziantou.GitLab.Serialization.EnumMember.ToString(value);
+        }
+    }
+}
+
+namespace Meziantou.GitLab.Internals
+{
+    internal partial struct UrlBuilder
+    {
+        public void AppendParameter(Meziantou.GitLab.TodoAction value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
     }
 }

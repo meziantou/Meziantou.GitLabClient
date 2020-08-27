@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.GitLab.Core;
+using Meziantou.GitLab.Internals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests

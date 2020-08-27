@@ -17,7 +17,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("full_path")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("full_path")]
         public string FullPath
         {
             get
@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("id")]
         public long Id
         {
             get
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("kind")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("kind")]
         public string Kind
         {
             get
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("name")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("name")]
         public string Name
         {
             get
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("parent_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("parent_id")]
         public long? ParentId
         {
             get
@@ -62,7 +62,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("path")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("path")]
         public string Path
         {
             get

@@ -45,7 +45,7 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     enumerationMember.CustomAttributes.Add(new CustomAttribute(typeof(EnumMemberAttribute))
                     {
-                        Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), member.SerializationName ?? member.Name) },
+                        Arguments = { new CustomAttributeArgument(nameof(EnumMemberAttribute.Value), member.FinalSerializationName) },
                     });
                 }
 
@@ -81,7 +81,7 @@ namespace Meziantou.GitLabClient.Generator
                     Arguments = { new CustomAttributeArgument(new TypeOfExpression(converterType)) },
                 });
 
-                GenerateEnumerationUrlBuilder(ns, enumType);
+                GenerateEnumerationUrlBuilder(enumeration, unit, enumType);
             }
         }
 
@@ -116,7 +116,7 @@ namespace Meziantou.GitLabClient.Generator
                     new ArrayIndexerExpression(result, i),
                     new NewObjectExpression(enumMemberType,
                         new MemberReferenceExpression(new TypeReferenceExpression(enumType), ToPropertyName(enumerationMember.Name)),
-                        model.SerializationName ?? model.Name)));
+                        model.FinalSerializationName)));
             }
             initArray.Statements.Add(new ReturnStatement(result));
 
@@ -152,7 +152,7 @@ namespace Meziantou.GitLabClient.Generator
                 toString.Statements.Add(new ConditionStatement()
                 {
                     Condition = new BinaryExpression(BinaryOperator.Equals, toStringArg, new MemberReferenceExpression(new TypeReferenceExpression(enumType), ToPropertyName(member.Name))),
-                    TrueStatements = new ReturnStatement(model.SerializationName ?? model.Name),
+                    TrueStatements = new ReturnStatement(model.FinalSerializationName),
                 });
             }
 
@@ -191,48 +191,30 @@ namespace Meziantou.GitLabClient.Generator
             return converterType;
         }
 
-        private static void GenerateEnumerationUrlBuilder(NamespaceDeclaration ns, TypeReference enumType)
+        private static void GenerateEnumerationUrlBuilder(Enumeration enumeration, CompilationUnit unit, TypeReference enumType)
         {
-            var urlBuilder = ns.AddType(new ClassDeclaration("UrlBuilder"));
+            var ns = unit.AddNamespace(InternalsNamespace);
+            var urlBuilder = ns.AddType(new StructDeclaration("UrlBuilder"));
             urlBuilder.Modifiers = Modifiers.Partial | Modifiers.Internal;
-
-            // nullable
-            {
-                var setValueNullable = urlBuilder.AddMember(new MethodDeclaration("SetValue"));
-                var keyArg = setValueNullable.AddArgument("key", typeof(string));
-                var valueArg = setValueNullable.AddArgument("value", enumType.MakeNullable());
-                setValueNullable.Modifiers = Modifiers.Public;
-                setValueNullable.Statements = new StatementCollection()
-                    {
-                        new ConditionStatement
-                        {
-                            Condition = new MemberReferenceExpression(valueArg, "HasValue"),
-                            TrueStatements = new StatementCollection()
-                            {
-                                new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "SetValue"), keyArg,
-                                    new MethodInvokeExpression(new MemberReferenceExpression(valueArg, "GetValueOrDefault"))),
-                            },
-                            FalseStatements = new StatementCollection()
-                            {
-                                new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "RemoveValues"), keyArg),
-                            },
-                        },
-                    };
-            }
 
             // not nullable
             {
-                var setValue = urlBuilder.AddMember(new MethodDeclaration("SetValue"));
-                var keyArg = setValue.AddArgument("key", typeof(string));
-                var valueArg = setValue.AddArgument("value", enumType);
-                setValue.Modifiers = Modifiers.Public;
-                setValue.Statements = new StatementCollection();
+                var method = urlBuilder.AddMember(new MethodDeclaration("AppendParameter"));
+                var valueArg = method.AddArgument("value", enumType);
+                method.Modifiers = Modifiers.Public;
+                method.Statements = new StatementCollection();
 
                 var stringValue = new MethodInvokeExpression(
                     new MemberReferenceExpression(new TypeReference(SerializationNamespace + ".EnumMember"), "ToString"),
                     valueArg);
 
-                setValue.Statements.Add(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "SetStringValue"), keyArg, stringValue));
+                // Could be Append (without escaping) if all names are valid in URL
+                var methodName = "AppendParameter";
+                if (enumeration.Members.All(m => m.FinalSerializationName == Uri.EscapeDataString(m.FinalSerializationName)))
+                {
+                    methodName = "Append";
+                }
+                method.Statements.Add(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), methodName), stringValue));
             }
         }
     }

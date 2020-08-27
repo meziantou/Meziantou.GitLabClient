@@ -47,8 +47,8 @@ namespace Meziantou.GitLab
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<ServerVersion?> Version_GetAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.UrlBuilder urlBuilder = Meziantou.GitLab.UrlBuilder.Get("version");
-            string url = urlBuilder.Build();
+            string url;
+            url = "version";
             return this.GetAsync<ServerVersion>(url, requestOptions, cancellationToken);
         }
     }

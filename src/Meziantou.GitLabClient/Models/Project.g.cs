@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("approvals_before_merge")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("approvals_before_merge")]
         public int? ApprovalsBeforeMerge
         {
             get
@@ -25,7 +25,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("archived")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("archived")]
         public bool Archived
         {
             get
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("ci_config_path")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("ci_config_path")]
         public string? CiConfigPath
         {
             get
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("container_registry_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("container_registry_enabled")]
         public bool ContainerRegistryEnabled
         {
             get
@@ -52,7 +52,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("creator_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("creator_id")]
         public long CreatorId
         {
             get
@@ -61,7 +61,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("forked_from_project")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("forked_from_project")]
         public BasicProjectDetails? ForkedFromProject
         {
             get
@@ -70,7 +70,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("import_status")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("import_status")]
         public ImportStatus ImportStatus
         {
             get
@@ -79,7 +79,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("issues_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("issues_enabled")]
         public bool IssuesEnabled
         {
             get
@@ -88,7 +88,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("jobs_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("jobs_enabled")]
         public bool JobsEnabled
         {
             get
@@ -97,7 +97,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("lfs_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("lfs_enabled")]
         public bool LfsEnabled
         {
             get
@@ -106,7 +106,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("_links")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("_links")]
         public ProjectLink Links
         {
             get
@@ -115,7 +115,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("merge_method")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("merge_method")]
         public MergeMethod MergeMethod
         {
             get
@@ -124,7 +124,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("merge_requests_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("merge_requests_enabled")]
         public bool MergeRequestsEnabled
         {
             get
@@ -133,7 +133,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("mirror")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("mirror")]
         public bool? Mirror
         {
             get
@@ -142,7 +142,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("mirror_overwrites_diverged_branches")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("mirror_overwrites_diverged_branches")]
         public bool? MirrorOverwritesDivergedBranches
         {
             get
@@ -151,7 +151,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("mirror_trigger_builds")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("mirror_trigger_builds")]
         public bool? MirrorTriggerBuilds
         {
             get
@@ -160,7 +160,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("mirror_user_id")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("mirror_user_id")]
         public long? MirrorUserId
         {
             get
@@ -169,7 +169,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("only_allow_merge_if_all_discussions_are_resolved")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("only_allow_merge_if_all_discussions_are_resolved")]
         public bool OnlyAllowMergeIfAllDiscussionsAreResolved
         {
             get
@@ -178,7 +178,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("only_allow_merge_if_pipeline_succeeds")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("only_allow_merge_if_pipeline_succeeds")]
         public bool OnlyAllowMergeIfPipelineSucceeds
         {
             get
@@ -187,7 +187,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("only_mirror_protected_branches")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("only_mirror_protected_branches")]
         public bool? OnlyMirrorProtectedBranches
         {
             get
@@ -196,7 +196,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("open_issues_count")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("open_issues_count")]
         public int? OpenIssuesCount
         {
             get
@@ -205,7 +205,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("owner")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("owner")]
         public UserBasic Owner
         {
             get
@@ -214,7 +214,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("permissions")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("permissions")]
         public ProjectPermissions? Permissions
         {
             get
@@ -223,7 +223,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("printing_merge_request_link_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("printing_merge_request_link_enabled")]
         public bool PrintingMergeRequestLinkEnabled
         {
             get
@@ -232,7 +232,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("public_jobs")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("public_jobs")]
         public bool PublicJobs
         {
             get
@@ -241,7 +241,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("request_access_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("request_access_enabled")]
         public bool RequestAccessEnabled
         {
             get
@@ -250,7 +250,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("resolve_outdated_diff_discussions")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("resolve_outdated_diff_discussions")]
         public bool? ResolveOutdatedDiffDiscussions
         {
             get
@@ -259,7 +259,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("shared_runners_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("shared_runners_enabled")]
         public bool SharedRunnersEnabled
         {
             get
@@ -268,7 +268,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("shared_with_groups")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("shared_with_groups")]
         public System.Collections.Generic.IReadOnlyList<SharedGroup> SharedWithGroups
         {
             get
@@ -277,7 +277,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("snippets_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("snippets_enabled")]
         public bool SnippetsEnabled
         {
             get
@@ -286,7 +286,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("visibility")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("visibility")]
         public ProjectVisibility Visibility
         {
             get
@@ -295,7 +295,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.MappedPropertyAttribute("wiki_enabled")]
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("wiki_enabled")]
         public bool WikiEnabled
         {
             get
