@@ -22,7 +22,7 @@
                 ParameterEntityRef.Create("project", Entities.ProjectIdentity),
                 ParameterEntityRef.Create("projectPathWithNamespace", ModelRef.PathWithNamespace)
             );
-            
+
             GroupIdOrPathRef = project.AddParameterEntity("GroupIdOrPathRef",
                 ParameterEntityRef.Create("groupId", ModelRef.NumberId),
                 ParameterEntityRef.Create("projectPathWithNamespace", ModelRef.PathWithNamespace)

@@ -38,7 +38,7 @@ namespace Meziantou.GitLab.Core
         {
             if (TryGetValue(name, typeof(T), out var r))
             {
-                result = (T)r;
+                result = (T?)r;
                 return true;
             }
 

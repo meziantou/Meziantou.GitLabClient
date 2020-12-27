@@ -1,6 +1,7 @@
 ﻿#if NETSTANDARD2_0
 #pragma warning disable IDE0007
 #pragma warning disable IDE0032
+#pragma warning disable CA2201
 #pragma warning disable CA2208
 #pragma warning disable MA0003
 #pragma warning disable MA0012

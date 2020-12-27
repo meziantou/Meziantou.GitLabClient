@@ -1,5 +1,6 @@
 ﻿#if NETSTANDARD2_0
 #pragma warning disable MA0048 
+#pragma warning disable CA1019 // Define accessors for attribute arguments
 #define INTERNAL_NULLABLE_ATTRIBUTES
 
 // Licensed to the .NET Foundation under one or more agreements.

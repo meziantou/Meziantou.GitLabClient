@@ -223,6 +223,7 @@ dotnet_diagnostic.CA1308.severity = none
 dotnet_diagnostic.CA1707.severity = none
 dotnet_diagnostic.CA2234.severity = none
 dotnet_diagnostic.MA0006.severity = none
+dotnet_diagnostic.MA0038.severity = none
 dotnet_diagnostic.MA0051.severity = none
 
 [*.g.cs]

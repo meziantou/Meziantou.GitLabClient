@@ -215,7 +215,7 @@ namespace Meziantou.GitLab.Tests
 
         private static FullPath GetCredentialsFilePath()
         {
-            return FullPath.FromPath(Path.GetTempPath(), "Meziantou.GitLabClient", "credentials.json");
+            return FullPath.GetTempPath() / "Meziantou.GitLabClient" / "credentials.json";
         }
     }
 }

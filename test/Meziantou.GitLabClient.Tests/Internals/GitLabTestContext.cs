@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,7 +37,6 @@ namespace Meziantou.GitLab.Tests
             AdminClient = CreateClient(DockerContainer.Credentials.AdminUserToken);
         }
 
-        public Random Random { get; } = new Random();
         public TestGitLabClient AdminClient { get; }
         public TestContext TestContext { get; }
 
@@ -61,18 +62,20 @@ namespace Meziantou.GitLab.Tests
             return CreateClient(token.Token);
         }
 
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "By design")]
         public string GetRandomEmojiName()
         {
             var fields = typeof(Emoji).GetFields();
-            var index = Random.Next(0, fields.Length);
+            var index = RandomNumberGenerator.GetInt32(0, fields.Length);
             return (string)fields[index].GetValue(null);
         }
 
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "By design")]
         public string GetRandomString()
         {
             Span<byte> buffer = stackalloc byte[16];
-            Random.NextBytes(buffer);
-            return "GitLabClientTests_" + ((ReadOnlySpan<byte>)buffer).ToHexa(HexaOptions.LowerCase);
+            RandomNumberGenerator.Fill(buffer);
+            return "GitLabClientTests_" + Convert.ToHexString(buffer);
         }
 
         private TestGitLabClient CreateClient(string token)

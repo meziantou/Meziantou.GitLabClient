@@ -1,11 +1,13 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Meziantou.Framework;
@@ -28,12 +30,15 @@ namespace Meziantou.GitLabClient.Generator
             var str = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
             var emojis = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Emoji>>(str);
             if (emojis == null)
-                throw new Exception("Emojis is null");
+                throw new InvalidOperationException("Emojis is null");
 
             var named = new HashSet<string>(StringComparer.Ordinal);
             foreach (var kvp in emojis.OrderBy(entry => entry.Value.Moji).ThenBy(entry => entry.Key))
             {
-                var constant = new FieldDeclaration("Emoji" + GetName(kvp.Key), typeof(string), Modifiers.Public | Modifiers.Const)
+                Debug.Assert(!string.IsNullOrEmpty(kvp.Value.Name));
+
+                var name = kvp.Key.StartsWith("flag_", StringComparison.Ordinal) ? kvp.Key : kvp.Value.Name;
+                var constant = new FieldDeclaration("Emoji" + GetName(name), typeof(string), Modifiers.Public | Modifiers.Const)
                 {
                     InitExpression = new LiteralExpression(kvp.Key),
                 };
@@ -42,7 +47,7 @@ namespace Meziantou.GitLabClient.Generator
                 field.XmlComments.AddSummary($"Emoji {kvp.Value.Name} '{kvp.Value.Moji}' (U+{kvp.Value.Unicode}) in category {kvp.Value.Category}");
             }
 
-            using (var tw = new StreamWriter(rootDirectory / "Emoji.cs"))
+            using (var tw = new StreamWriter(rootDirectory / "Emoji.cs", append: false, Encoding.UTF8))
             {
                 new CSharpCodeGenerator().Write(tw, unit);
             }
@@ -51,7 +56,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 for (var i = 0; i < 1000; i++)
                 {
-                    var name = value.Split(new[] { '_', '-' }, StringSplitOptions.RemoveEmptyEntries)
+                    var name = value
+                        .Replace("’", "", StringComparison.Ordinal)
+                        .Replace("'", "", StringComparison.Ordinal)
+                        .Split(new[] { '_', '-', ' ', ':', ',', '(', ')' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => char.ToUpperInvariant(s[0]) + s[1..])
                         .Aggregate(string.Empty, (s1, s2) => s1 + s2)
                         + (i == 0 ? "" : i.ToString(CultureInfo.InvariantCulture));
@@ -60,7 +68,7 @@ namespace Meziantou.GitLabClient.Generator
                         return name;
                 }
 
-                throw new Exception("Cannot generate name");
+                throw new InvalidOperationException($"Cannot generate name for '{value}'");
             }
         }
 

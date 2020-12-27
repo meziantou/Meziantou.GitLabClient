@@ -209,7 +209,7 @@ namespace Meziantou.GitLabClient.Generator
             var equal = type.AddMember(new MethodDeclaration(nameof(object.Equals)));
             equal.Modifiers = Modifiers.Public;
             equal.ReturnType = typeof(bool);
-            var objArg = equal.AddArgument("obj", new TypeReference(type));
+            var objArg = equal.AddArgument("other", new TypeReference(type));
 
             Expression returnExpression = new MethodInvokeExpression(
                 new MemberReferenceExpression(typeof(object), "Equals"),

@@ -216,7 +216,7 @@ namespace Meziantou.GitLabClient.Generator
             var equal = type.AddMember(new MethodDeclaration(nameof(object.Equals)));
             equal.Modifiers = Modifiers.Public | Modifiers.Virtual;
             equal.ReturnType = typeof(bool);
-            var objArg = equal.AddArgument("obj", new TypeReference(type).MakeNullable());
+            var objArg = equal.AddArgument("other", new TypeReference(type).MakeNullable());
 
             Expression returnExpression = new UnaryExpression(
                 UnaryOperator.Not,

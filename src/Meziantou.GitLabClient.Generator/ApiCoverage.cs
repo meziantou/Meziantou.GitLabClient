@@ -44,7 +44,7 @@ namespace Meziantou.GitLabClient.Generator
             var document = await context.OpenAsync("https://docs.gitlab.com/ee/api/api_resources.html");
 
             var resources = document.QuerySelectorAll("#Resources a").Cast<IHtmlAnchorElement>();
-            await resources.ForEachAsync(degreeOfParallelism: 32, async anchor =>
+            await resources.ParallelForEachAsync(degreeOfParallelism: 32, async anchor =>
             {
                 var name = Trim(anchor.TextContent);
                 var url = anchor.Href;
@@ -133,7 +133,7 @@ namespace Meziantou.GitLabClient.Generator
 
                         var urlParts = parsedTemplate.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (urlParts.Length != 2)
-                            throw new Exception();
+                            throw new InvalidOperationException($"Template is invalid '{template}'");
 
                         if (urlParts[0].StartsWith("/api/v4/", StringComparison.Ordinal))
                         {
@@ -226,7 +226,7 @@ namespace Meziantou.GitLabClient.Generator
                     MethodType.Put => "PUT",
                     MethodType.Post => "POST",
                     MethodType.Delete => "DELETE",
-                    _ => throw new Exception("Type not supported"),
+                    _ => throw new InvalidOperationException($"Type '{type}' not supported"),
                 };
             }
         }
