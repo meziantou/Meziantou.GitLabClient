@@ -15,6 +15,7 @@ namespace Meziantou.GitLab.Tests
         {
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
+
             // Act
             var result = await client.Markdown.RenderMarkdownAsync(new RenderMarkdownRequest("# title\n\nIssue #1"));
 
