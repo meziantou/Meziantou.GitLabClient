@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabVersionClient
     {
         /// <summary>
+        ///   <para>URL: <c>GET /version</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/version.html" />
         ///   </para>
@@ -31,6 +32,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabVersionClient
     {
         /// <summary>
+        ///   <para>URL: <c>GET /version</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/version.html" />
         ///   </para>
@@ -51,6 +53,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /version</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/version.html" />
         ///   </para>

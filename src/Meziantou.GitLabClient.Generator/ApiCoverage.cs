@@ -32,6 +32,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 sb.AppendLine();
             }
+
             return sb.ToString();
         }
 

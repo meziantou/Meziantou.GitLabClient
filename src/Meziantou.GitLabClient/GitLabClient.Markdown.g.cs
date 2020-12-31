@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabMarkdownClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /markdown</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         ///   </para>
@@ -31,6 +32,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabMarkdownClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /markdown</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         ///   </para>
@@ -51,6 +53,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /markdown</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         ///   </para>
@@ -84,6 +87,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /markdown</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document" />
         ///   </para>

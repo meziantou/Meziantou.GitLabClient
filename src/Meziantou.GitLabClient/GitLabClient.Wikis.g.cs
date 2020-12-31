@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabWikisClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page" />
         ///   </para>
@@ -28,6 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<WikiPage> CreateWikiPageAsync(Meziantou.GitLab.CreateWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#delete-a-wiki-page" />
         ///   </para>
@@ -37,6 +39,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task DeleteWikiPageAsync(Meziantou.GitLab.DeleteWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#get-a-wiki-page" />
         ///   </para>
@@ -46,6 +49,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<WikiPage?> GetWikiPageAsync(Meziantou.GitLab.GetWikiPageRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages" />
         ///   </para>
@@ -55,6 +59,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<WikiPage>> GetWikiPagesAsync(Meziantou.GitLab.GetWikiPagesRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#edit-an-existing-wiki-page" />
         ///   </para>
@@ -67,6 +72,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabWikisClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page" />
         ///   </para>
@@ -79,6 +85,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#delete-a-wiki-page" />
         ///   </para>
@@ -91,6 +98,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#get-a-wiki-page" />
         ///   </para>
@@ -103,6 +111,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages" />
         ///   </para>
@@ -115,6 +124,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#edit-an-existing-wiki-page" />
         ///   </para>
@@ -135,6 +145,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page" />
         ///   </para>
@@ -177,6 +188,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#delete-a-wiki-page" />
         ///   </para>
@@ -208,6 +220,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#get-a-wiki-page" />
         ///   </para>
@@ -239,6 +252,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages" />
         ///   </para>
@@ -265,6 +279,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#edit-an-existing-wiki-page" />
         ///   </para>
@@ -315,6 +330,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page" />
         ///   </para>
@@ -329,6 +345,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#delete-a-wiki-page" />
         ///   </para>
@@ -342,6 +359,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#get-a-wiki-page" />
         ///   </para>
@@ -355,6 +373,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/wikis</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#list-wiki-pages" />
         ///   </para>
@@ -368,6 +387,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/wikis/:slug</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/wikis.html#edit-an-existing-wiki-page" />
         ///   </para>

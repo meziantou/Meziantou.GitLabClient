@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabTodosClient
     {
         /// <summary>
+        ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         ///   </para>
@@ -27,6 +28,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<Todo> GetTodos(Meziantou.GitLab.GetTodosRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-todos-as-done" />
         ///   </para>
@@ -36,6 +38,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task MarkAllTodosAsDoneAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/:todo_id/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         ///   </para>
@@ -48,6 +51,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabTodosClient
     {
         /// <summary>
+        ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         ///   </para>
@@ -59,6 +63,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-todos-as-done" />
         ///   </para>
@@ -71,6 +76,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/:todo_id/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         ///   </para>
@@ -91,6 +97,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         ///   </para>
@@ -119,6 +126,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-todos-as-done" />
         ///   </para>
@@ -133,6 +141,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/:todo_id/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         ///   </para>
@@ -162,6 +171,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-todos" />
         ///   </para>
@@ -175,6 +185,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /todos/:todo_id/mark_as_done</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-a-todo-as-done" />
         ///   </para>

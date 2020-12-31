@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabTemplatesClient
     {
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
         ///   </para>
@@ -28,6 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Template?> GetDockerfileByKeyAsync(Meziantou.GitLab.GetDockerfileByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
         ///   </para>
@@ -36,6 +38,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
         ///   </para>
@@ -45,6 +48,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Template?> GetGitIgnoreByKeyAsync(Meziantou.GitLab.GetGitIgnoreByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
         ///   </para>
@@ -53,6 +57,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
         ///   </para>
@@ -62,6 +67,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Template?> GetGitLabCiYmlByKeyAsync(Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
         ///   </para>
@@ -70,6 +76,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
         ///   </para>
@@ -79,6 +86,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Template?> GetLicenseByKeyAsync(Meziantou.GitLab.GetLicenseByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
         ///   </para>
@@ -90,6 +98,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabTemplatesClient
     {
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
         ///   </para>
@@ -102,6 +111,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
         ///   </para>
@@ -113,6 +123,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
         ///   </para>
@@ -125,6 +136,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
         ///   </para>
@@ -136,6 +148,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
         ///   </para>
@@ -148,6 +161,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
         ///   </para>
@@ -159,6 +173,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
         ///   </para>
@@ -171,6 +186,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
         ///   </para>
@@ -190,6 +206,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
         ///   </para>
@@ -215,6 +232,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
         ///   </para>
@@ -228,6 +246,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
         ///   </para>
@@ -253,6 +272,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
         ///   </para>
@@ -266,6 +286,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
         ///   </para>
@@ -291,6 +312,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
         ///   </para>
@@ -304,6 +326,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
         ///   </para>
@@ -346,6 +369,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
         ///   </para>
@@ -377,6 +401,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
         ///   </para>
@@ -390,6 +415,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
         ///   </para>
@@ -403,6 +429,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
         ///   </para>
@@ -416,6 +443,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
         ///   </para>
@@ -431,6 +459,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/licenses</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
         ///   </para>

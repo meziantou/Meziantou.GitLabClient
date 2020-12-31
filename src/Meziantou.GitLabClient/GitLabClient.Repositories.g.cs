@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabRepositoriesClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
         ///   </para>
@@ -28,6 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<FileCreated> CreateFileAsync(Meziantou.GitLab.CreateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
         ///   </para>
@@ -40,6 +42,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabRepositoriesClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
         ///   </para>
@@ -52,6 +55,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
         ///   </para>
@@ -72,6 +76,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
         ///   </para>
@@ -139,6 +144,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
         ///   </para>
@@ -214,6 +220,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
         ///   </para>
@@ -231,6 +238,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /projects/:project_id/repository/files/:file_path</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
         ///   </para>
