@@ -22,7 +22,7 @@ namespace Meziantou.GitLab.Tests
 
         private readonly HttpClient _httpClient;
         private readonly LoggingHandler _loggingHandler;
-        private readonly List<TestGitLabClient> _clients = new List<TestGitLabClient>();
+        private readonly List<TestGitLabClient> _clients = new();
 
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {

@@ -26,5 +26,12 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             var enumeration = new EntityBuilder(name, configure);
             return enumeration;
         }
+
+        private static ParameterEntityBuilder CreateParameterEntity(Action<ParameterEntity> configure, [CallerFilePath] string filePath = null)
+        {
+            var name = Path.GetFileNameWithoutExtension(filePath);
+            var value = new ParameterEntityBuilder(name, configure);
+            return value;
+        }
     }
 }

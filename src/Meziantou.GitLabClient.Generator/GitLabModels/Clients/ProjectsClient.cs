@@ -1,12 +1,10 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
-    internal sealed class ClientProject : IGitLabClientDescriptor
+    internal sealed class ProjectsClient : GitLabClientBuilder
     {
-        public void Create(Project project)
+        protected override void Create(MethodGroup methodGroup)
         {
-            var group = project.AddMethodGroup("Projects");
-
-            group.AddMethod("GetAll", MethodType.GetPaged, "/projects", "https://docs.gitlab.com/ee/api/projects.html#list-all-projects")
+            methodGroup.AddMethod("GetAll", MethodType.GetPaged, "/projects", "https://docs.gitlab.com/ee/api/projects.html#list-all-projects")
                 .WithReturnType(Models.Project)
                 .AddOptionalParameter("archived", ModelRef.Boolean)
                 .AddOptionalParameter("visibility", Models.Visibility)
@@ -23,9 +21,9 @@
                 .AddOptionalParameter("min_access_level", Models.AccessLevel)
                 ;
 
-            group.AddMethod("GetByUser", MethodType.GetPaged, "/users/:user_id/projects", "https://docs.gitlab.com/ee/api/projects.html#list-user-projects")
+            methodGroup.AddMethod("GetByUser", MethodType.GetPaged, "/users/:user_id/projects", "https://docs.gitlab.com/ee/api/projects.html#list-user-projects")
                 .WithReturnType(Models.Project)
-                .AddRequiredParameter("user_id", EntityRefs.UserRef)
+                .AddRequiredParameter("user_id", Models.UserRef)
                 .AddOptionalParameter("archived", ModelRef.Boolean)
                 .AddOptionalParameter("visibility", Models.Visibility)
                 .AddOptionalParameter("search", ModelRef.String)
@@ -41,12 +39,12 @@
                 .AddOptionalParameter("min_access_level", Models.AccessLevel, version: 2)
                 ;
 
-            group.AddMethod("GetById", MethodType.Get, "/projects/:project_id", "https://docs.gitlab.com/ee/api/projects.html#get-single-project")
+            methodGroup.AddMethod("GetById", MethodType.Get, "/projects/:project_id", "https://docs.gitlab.com/ee/api/projects.html#get-single-project")
                 .WithReturnType(Models.Project)
-                .AddRequiredParameter("project_id", EntityRefs.ProjectIdOrPathRef)
+                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
                 ;
 
-            group.AddMethod("Create", MethodType.Post, "/projects", "https://docs.gitlab.com/ee/api/projects.html#create-project")
+            methodGroup.AddMethod("Create", MethodType.Post, "/projects", "https://docs.gitlab.com/ee/api/projects.html#create-project")
                 .WithReturnType(Models.Project)
                 .AddOptionalParameter("name", ModelRef.String)
                 .AddOptionalParameter("path", ModelRef.String)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Meziantou.Framework;
 
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
@@ -11,33 +10,52 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             var project = new Project();
 
             // Create Enumerations
-            (from prop in typeof(Models).GetProperties()
-             where prop.PropertyType == typeof(ModelRef)
-             let value = (ModelRef)prop.GetValue(null)
-             where value?.Model is Enumeration
-             select value.Model).ForEach(model => project.AddModel(model));
-            // TODO validate enum name matches property name
+            foreach (var (prop, enumeration) in from prop in typeof(Models).GetProperties()
+                                                where prop.PropertyType == typeof(ModelRef)
+                                                let value = (ModelRef)prop.GetValue(null)
+                                                where value?.Model is Enumeration
+                                                select (prop, value.Model))
+            {
+                if (prop.Name != enumeration.Name)
+                    throw new InvalidOperationException($"The enumeration '{enumeration.Name}' does not match the property name '{prop.Name}'");
+
+                project.AddModel(enumeration);
+            }
 
             // Entities
-            (from prop in typeof(Models).GetProperties()
-             where prop.PropertyType.IsAssignableTo(typeof(EntityBuilder))
-             let value = (EntityBuilder)prop.GetValue(null)
-             select value).ForEach(model => { model.Build(); project.AddModel(model.Value); });
-            // TODO validate entity matches property name
+            foreach (var (prop, entity) in from prop in typeof(Models).GetProperties()
+                                           where prop.PropertyType.IsAssignableTo(typeof(EntityBuilder))
+                                           let value = (EntityBuilder)prop.GetValue(null)
+                                           select (prop, value))
+            {
+                entity.Build();
+                if (prop.Name != entity.Value.Name)
+                    throw new InvalidOperationException($"The entity '{entity.Value.Name}' does not match the property name '{prop.Name}'");
+
+                project.AddModel(entity.Value);
+            }
 
             // Create Entity refs
-            typeof(EntityRefs).GetMethods()
-               .Where(m => m.IsPublic && m.IsStatic && m.GetParameters().Length == 1)
-               .ForEach(m => m.Invoke(null, new object[] { project }));
+            foreach (var (prop, parameterEntityRef) in from prop in typeof(Models).GetProperties()
+                                                       where prop.PropertyType.IsAssignableTo(typeof(ParameterEntityBuilder))
+                                                       let value = (ParameterEntityBuilder)prop.GetValue(null)
+                                                       select (prop, value))
+            {
+                parameterEntityRef.Build();
+                if (prop.Name != parameterEntityRef.Value.Name)
+                    throw new InvalidOperationException($"The parameter entity '{parameterEntityRef.Value.Name}' does not match the property name '{prop.Name}'");
+
+                project.AddParameterEntity(parameterEntityRef.Value);
+            }
 
             // Create Methods
-            typeof(GitLabModelBuilder).Assembly.GetTypes()
-                .Where(t => typeof(IGitLabClientDescriptor).IsAssignableFrom(t) && t.IsClass)
-                .ForEach(t =>
-                {
-                    var instance = (IGitLabClientDescriptor)Activator.CreateInstance(t);
-                    instance.Create(project);
-                });
+            foreach (var type in from type in typeof(GitLabClientBuilder).Assembly.GetTypes()
+                                 where !type.IsAbstract && type.IsAssignableTo(typeof(GitLabClientBuilder))
+                                 select type)
+            {
+                var instance = (GitLabClientBuilder)Activator.CreateInstance(type);
+                instance.Create(project);
+            }
 
             return project;
         }

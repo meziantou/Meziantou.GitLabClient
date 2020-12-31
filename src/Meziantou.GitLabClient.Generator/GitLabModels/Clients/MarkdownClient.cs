@@ -1,12 +1,10 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
-    internal sealed class ClientMarkdown : IGitLabClientDescriptor
+    internal sealed class MarkdownClient : GitLabClientBuilder
     {
-        public void Create(Project project)
+        protected override void Create(MethodGroup methodGroup)
         {
-            var group = project.AddMethodGroup("Markdown");
-
-            group.AddMethod("RenderMarkdown", MethodType.Post, "/markdown", "https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document")
+            methodGroup.AddMethod("RenderMarkdown", MethodType.Post, "/markdown", "https://docs.gitlab.com/ee/api/markdown.html#render-an-arbitrary-markdown-document")
                 .WithReturnType(Models.RenderMarkdownResult)
                 .AddRequiredParameter("text", ModelRef.String)
                 .AddOptionalParameter("gfm", ModelRef.Boolean)

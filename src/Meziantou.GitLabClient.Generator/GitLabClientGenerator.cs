@@ -17,22 +17,22 @@ namespace Meziantou.GitLabClient.Generator
 
         internal static class WellKnownTypes
         {
-            public static TypeReference GitLabExceptionTypeReference { get; } = new TypeReference(RootNamespace + ".GitLabException");
-            public static TypeReference UrlBuilderTypeReference { get; } = new TypeReference(InternalsNamespace + ".UrlBuilder");
-            public static TypeReference PageOptionsTypeReference { get; } = new TypeReference(RootNamespace + ".PageOptions");
-            public static TypeReference SkipUtcDateValidationAttributeTypeReference { get; } = new TypeReference(InternalsNamespace + ".SkipUtcDateValidationAttribute");
-            public static TypeReference SkipAbsoluteUriValidationAttribute { get; } = new TypeReference(InternalsNamespace + ".SkipAbsoluteUriValidationAttribute");
-            public static TypeReference MappedPropertyAttributeTypeReference { get; } = new TypeReference(InternalsNamespace + ".MappedPropertyAttribute");
-            public static TypeReference IGitLabObjectReferenceTypeReference { get; } = new TypeReference(InternalsNamespace + ".IGitLabObjectReference");
-            public static TypeReference GitLabObjectInt64ReferenceJsonConverterTypeReference { get; } = new TypeReference(SerializationNamespace + ".GitLabObjectInt64ReferenceJsonConverter");
-            public static TypeReference GitLabObjectStringReferenceJsonConverterTypeReference { get; } = new TypeReference(SerializationNamespace + ".GitLabObjectStringReferenceJsonConverter");
-            public static TypeReference GitLabObjectObjectReferenceJsonConverterTypeReference { get; } = new TypeReference(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverter");
+            public static TypeReference GitLabExceptionTypeReference { get; } = new(RootNamespace + ".GitLabException");
+            public static TypeReference UrlBuilderTypeReference { get; } = new(InternalsNamespace + ".UrlBuilder");
+            public static TypeReference PageOptionsTypeReference { get; } = new(RootNamespace + ".PageOptions");
+            public static TypeReference SkipUtcDateValidationAttributeTypeReference { get; } = new(InternalsNamespace + ".SkipUtcDateValidationAttribute");
+            public static TypeReference SkipAbsoluteUriValidationAttribute { get; } = new(InternalsNamespace + ".SkipAbsoluteUriValidationAttribute");
+            public static TypeReference MappedPropertyAttributeTypeReference { get; } = new(InternalsNamespace + ".MappedPropertyAttribute");
+            public static TypeReference IGitLabObjectReferenceTypeReference { get; } = new(InternalsNamespace + ".IGitLabObjectReference");
+            public static TypeReference GitLabObjectInt64ReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectInt64ReferenceJsonConverter");
+            public static TypeReference GitLabObjectStringReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectStringReferenceJsonConverter");
+            public static TypeReference GitLabObjectObjectReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverter");
 
-            public static TypeReference ArgumentCollectionTypeReference { get; } = new TypeReference(typeof(IEnumerable<>));
-            public static TypeReference PropertyCollectionTypeReference { get; } = new TypeReference(typeof(IReadOnlyList<>));
+            public static TypeReference ArgumentCollectionTypeReference { get; } = new(typeof(IEnumerable<>));
+            public static TypeReference PropertyCollectionTypeReference { get; } = new(typeof(IReadOnlyList<>));
         }
 
-        private readonly List<CompilationUnit> _units = new List<CompilationUnit>();
+        private readonly List<CompilationUnit> _units = new();
 
         public void Generate(FullPath rootDirectory)
         {

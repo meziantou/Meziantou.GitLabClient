@@ -247,3 +247,6 @@ dotnet_diagnostic.MA0003.severity = none
 dotnet_diagnostic.MA0007.severity = none
 dotnet_diagnostic.MA0048.severity = none
 dotnet_diagnostic.MA0071.severity = none
+
+[src/Meziantou.GitLabClient.Generator/GitLabModels/*/*.cs]
+dotnet_diagnostic.IDE0040.severity = none

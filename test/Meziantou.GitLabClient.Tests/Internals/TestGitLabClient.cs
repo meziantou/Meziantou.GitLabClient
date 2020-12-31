@@ -11,7 +11,7 @@ namespace Meziantou.GitLab.Tests
 {
     public class TestGitLabClient : GitLabClient
     {
-        private static readonly AsyncReaderWriterLock s_readerWriterLockSlim = new AsyncReaderWriterLock();
+        private static readonly AsyncReaderWriterLock s_readerWriterLockSlim = new();
 
         public IList<object> Objects { get; } = new List<object>();
 
