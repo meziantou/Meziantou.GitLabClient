@@ -52,6 +52,9 @@ namespace Meziantou.GitLabClient.Generator
             return this;
         }
 
+        /// <summary>
+        /// Set the name of the generated "Request" class. Use it to override the default name when 2 methods would conflict.
+        /// </summary>
         public Method WithRequestTypeName(string requestTypeName)
         {
             RequestTypeName = requestTypeName;
