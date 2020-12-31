@@ -18,12 +18,20 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabRepositoriesClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<FileCreated> CreateFileAsync(Meziantou.GitLab.CreateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(Meziantou.GitLab.UpdateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
@@ -31,7 +39,11 @@ namespace Meziantou.GitLab
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabRepositoriesClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<FileCreated> Meziantou.GitLab.IGitLabRepositoriesClient.CreateFileAsync(Meziantou.GitLab.CreateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -39,7 +51,11 @@ namespace Meziantou.GitLab
             return this.Repositories_CreateFileAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<FileUpdated> Meziantou.GitLab.IGitLabRepositoriesClient.UpdateFileAsync(Meziantou.GitLab.UpdateFileRepositoryRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -55,7 +71,11 @@ namespace Meziantou.GitLab
             }
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -118,7 +138,11 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<FileCreated>(url, body, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -189,7 +213,11 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<FileCreated> CreateFileAsync(this Meziantou.GitLab.IGitLabRepositoriesClient client, ProjectIdOrPathRef projectId, string filePath, string branch, string content, string commitMessage, string? startBranch = default(string?), string? encoding = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -202,7 +230,11 @@ namespace Meziantou.GitLab
             return client.CreateFileAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this Meziantou.GitLab.IGitLabRepositoriesClient client, ProjectIdOrPathRef projectId, string filePath, string branch, string content, string commitMessage, string? startBranch = default(string?), string? encoding = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.GitObjectId? lastCommitId = default(Meziantou.GitLab.GitObjectId?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
