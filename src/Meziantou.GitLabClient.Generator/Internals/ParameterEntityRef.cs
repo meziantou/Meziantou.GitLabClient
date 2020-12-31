@@ -25,10 +25,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 var keys = entity.Properties.Where(e => e.IsKey).ToList();
                 if (keys.Count == 0)
-                    throw new ArgumentException("Entity has no key property", nameof(model));
+                    throw new ArgumentException($"Entity '{entity.Name}' has no key property", nameof(model));
 
                 if (keys.Count > 1)
-                    throw new ArgumentException("Entity has multiple key properties", nameof(model));
+                    throw new ArgumentException($"Entity '{entity.Name}' has multiple key properties", nameof(model));
 
                 return new ParameterEntityRef(name, model, keys[0].Type, keys[0].Name);
             }
@@ -42,10 +42,10 @@ namespace Meziantou.GitLabClient.Generator
             {
                 var properties = entity.Properties.Where(e => e.Name == propertyName).ToList();
                 if (properties.Count == 0)
-                    throw new ArgumentException($"Entity has no property named '{propertyName}'", nameof(model));
+                    throw new ArgumentException($"Entity '{entity.Name}' has no property named '{propertyName}'", nameof(model));
 
                 if (properties.Count > 1)
-                    throw new ArgumentException($"Entity has multiple properties named '{propertyName}'", nameof(model));
+                    throw new ArgumentException($"Entity '{entity.Name}' has multiple properties named '{propertyName}'", nameof(model));
 
                 return new ParameterEntityRef(name, model, properties[0].Type, properties[0].Name);
             }

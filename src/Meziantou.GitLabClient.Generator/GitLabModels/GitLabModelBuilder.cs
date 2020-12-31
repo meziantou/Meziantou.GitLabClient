@@ -11,16 +11,19 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             var project = new Project();
 
             // Create Enumerations
-            typeof(Enumerations).GetMethods()
-                .Where(m => m.IsPublic && m.IsStatic && m.GetParameters().Length == 1)
-                .ForEach(m => m.Invoke(null, new object[] { project }));
+            (from prop in typeof(Models).GetProperties()
+             where prop.PropertyType == typeof(ModelRef)
+             let value = (ModelRef)prop.GetValue(null)
+             where value?.Model is Enumeration
+             select value.Model).ForEach(model => project.AddModel(model));
+            // TODO validate enum name matches property name
 
             // Entities
-            Entities.PreCreate();
-            typeof(Entities).GetMethods()
-                .Where(m => m.IsPublic && m.IsStatic && m.GetParameters().Length == 0)
-                .ForEach(m => m.Invoke(null, Array.Empty<object>()));
-            Entities.PostCreate(project);
+            (from prop in typeof(Models).GetProperties()
+             where prop.PropertyType.IsAssignableTo(typeof(EntityBuilder))
+             let value = (EntityBuilder)prop.GetValue(null)
+             select value).ForEach(model => { model.Build(); project.AddModel(model.Value); });
+            // TODO validate entity matches property name
 
             // Create Entity refs
             typeof(EntityRefs).GetMethods()

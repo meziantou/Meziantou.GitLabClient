@@ -58,9 +58,5 @@ namespace Meziantou.GitLabClient.Generator
             MethodGroups.Add(group);
             return group;
         }
-
-        public Enumeration AddEnumeration(string name) => AddModel(new Enumeration(name));
-
-        public Enumeration AddStringEnumeration(string name) => AddModel(new Enumeration(name) { SerializeAsString = true });
     }
 }
