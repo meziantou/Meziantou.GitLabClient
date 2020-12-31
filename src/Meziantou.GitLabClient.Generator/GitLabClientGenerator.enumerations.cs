@@ -55,6 +55,9 @@ namespace Meziantou.GitLabClient.Generator
 
             if (enumeration.GenerateAllMember)
             {
+                if (!enumeration.IsFlags)
+                    throw new InvalidOperationException($"Cannot generate 'All' member for non-flags enumeration '{enumeration.Name}'");
+
                 Expression initExpression = null;
                 foreach (var member in enumType.Members)
                 {
