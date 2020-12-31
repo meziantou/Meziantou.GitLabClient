@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabIssuesClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
@@ -31,6 +32,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabIssuesClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
@@ -51,6 +53,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
@@ -96,6 +99,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>

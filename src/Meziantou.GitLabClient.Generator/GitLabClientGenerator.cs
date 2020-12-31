@@ -94,16 +94,16 @@ namespace Meziantou.GitLabClient.Generator
             GenerateClients(project);
         }
 
-        private static void AddDocumentationComments(CodeObject commentable, Documentation documentation)
+        private static void AddDocumentationComments(CodeObject commentable, Documentation documentation, Method method)
         {
             if (documentation != null)
             {
                 if (commentable is MethodArgumentDeclaration arg)
                 {
-                    var method = arg.GetSelfOrParentOfType<MethodDeclaration>();
+                    var declaringMethod = arg.GetSelfOrParentOfType<MethodDeclaration>();
                     if (documentation.Summary != null)
                     {
-                        method.XmlComments.AddParam(arg.Name, documentation.Summary);
+                        declaringMethod.XmlComments.AddParam(arg.Name, documentation.Summary);
                     }
                 }
                 else if (commentable is IXmlCommentable xmlCommentable)
@@ -124,6 +124,17 @@ namespace Meziantou.GitLabClient.Generator
                         xmlCommentable.XmlComments.AddReturn(documentation.Returns);
                     }
 
+                    if (method?.UrlTemplate != null)
+                    {
+                        var methodType = method.MethodType switch
+                        {
+                            MethodType.GetCollection or MethodType.GetPaged => MethodType.Get,
+                            _ => method.MethodType,
+                        };
+                        var urlTempate = methodType.ToString().ToUpperInvariant() + " /" + method.UrlTemplate;
+                        summary.Add(new XElement("para", "URL: ", new XElement("c", urlTempate)));
+                    }
+
                     if (documentation.HelpLink != null)
                     {
                         summary.Add(new XElement("para", new XElement("seealso", new XAttribute("href", documentation.HelpLink))));
@@ -135,6 +146,16 @@ namespace Meziantou.GitLabClient.Generator
                     }
                 }
             }
+        }
+
+        private static void AddDocumentationComments(CodeObject commentable, Method method)
+        {
+            AddDocumentationComments(commentable, method.Documentation, method);
+        }
+
+        private static void AddDocumentationComments(CodeObject commentable, Documentation documentation)
+        {
+            AddDocumentationComments(commentable, documentation, method: null);
         }
 
         //private static void GenerateExtensionMethod(ClassDeclaration extensionClass, Method method, MethodParameter methodParameter)

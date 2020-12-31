@@ -151,7 +151,10 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     if (segment[0] == ':')
                     {
-                        var param = parameters.Single(p => p.Name == segment[1..]);
+                        var param = parameters.SingleOrDefault(p => p.Name == segment[1..]);
+                        if (param == null)
+                            throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
+
                         AddParameter(param, separator: null);
                         parameters.Remove(param);
                     }
@@ -323,7 +326,7 @@ namespace Meziantou.GitLabClient.Generator
 
         private static void GenerateMethodSignature(Method method, MethodDeclaration m, TypeReference requestType, out MethodArgumentDeclaration requestDataArgument, out MethodArgumentDeclaration requestOptionsArgument, out MethodArgumentDeclaration cancellationTokenArgument)
         {
-            AddDocumentationComments(m, method.Documentation);
+            AddDocumentationComments(m, method);
 
             if (method.MethodType == MethodType.GetPaged)
             {

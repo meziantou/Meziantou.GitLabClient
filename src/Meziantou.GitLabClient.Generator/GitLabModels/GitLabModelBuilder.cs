@@ -57,7 +57,32 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 instance.Create(project);
             }
 
+            Validate(project);
             return project;
+        }
+
+        private static void Validate(Project project)
+        {
+            // Validate parameter entities are used
+            ValidateParameterEntitiesAreUsed(project);
+
+            static void ValidateParameterEntitiesAreUsed(Project project)
+            {
+                var all = project.ParameterEntities.ToList();
+                foreach (var method in project.MethodGroups.SelectMany(g => g.Methods))
+                {
+                    foreach (var parameter in method.Parameters)
+                    {
+                        if (parameter.Type.ParameterEntity != null)
+                        {
+                            all.Remove(parameter.Type.ParameterEntity);
+                        }
+                    }
+                }
+
+                if (all.Count > 0)
+                    throw new InvalidOperationException($"Parameter entity '{all[0].Name}' is not used");
+            }
         }
     }
 }

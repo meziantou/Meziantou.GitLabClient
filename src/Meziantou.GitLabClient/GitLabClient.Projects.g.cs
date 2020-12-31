@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabProjectsClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         ///   </para>
@@ -28,6 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Project> CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         ///   </para>
@@ -36,6 +38,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<Project> GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -45,6 +48,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Project?> GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         ///   </para>
@@ -56,6 +60,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabProjectsClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         ///   </para>
@@ -68,6 +73,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         ///   </para>
@@ -79,6 +85,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -91,6 +98,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         ///   </para>
@@ -110,6 +118,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         ///   </para>
@@ -245,6 +254,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         ///   </para>
@@ -369,6 +379,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -394,6 +405,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         ///   </para>
@@ -527,6 +539,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
         ///   </para>
@@ -564,6 +577,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
         ///   </para>
@@ -589,6 +603,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -602,6 +617,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         ///   </para>
@@ -626,6 +642,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/projects</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
         ///   </para>

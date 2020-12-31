@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabUsersClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         ///   </para>
@@ -28,6 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<SshKey> AddSSHKeyAsync(Meziantou.GitLab.AddSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>POST /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         ///   </para>
@@ -37,6 +39,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<SshKey> AddSSHKeyToCurrentUserAsync(Meziantou.GitLab.AddSSHKeyToCurrentUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/impersonation_tokens</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         ///   </para>
@@ -46,6 +49,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(Meziantou.GitLab.CreateImpersonationTokenUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>POST /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         ///   </para>
@@ -55,6 +59,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<User> CreateUserAsync(Meziantou.GitLab.CreateUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /users/:user_id/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         ///   </para>
@@ -64,6 +69,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task DeleteSSHKeyAsync(Meziantou.GitLab.DeleteSSHKeyUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         ///   </para>
@@ -73,6 +79,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task DeleteSSHKeyFromCurrentUserAsync(Meziantou.GitLab.DeleteSSHKeyFromCurrentUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         ///   </para>
@@ -81,6 +88,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<UserBasic> GetAll(Meziantou.GitLab.GetAllUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         ///   </para>
@@ -90,6 +98,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<User?> GetByIdAsync(Meziantou.GitLab.GetByIdUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /user</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users" />
         ///   </para>
@@ -99,6 +108,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<User?> GetCurrentUserAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         ///   </para>
@@ -108,6 +118,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<SshKey?> GetCurrentUserSSHKeyAsync(Meziantou.GitLab.GetCurrentUserSSHKeyRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys" />
         ///   </para>
@@ -117,6 +128,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetCurrentUserSSHKeysAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-status" />
         ///   </para>
@@ -126,6 +138,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<UserStatus?> GetCurrentUserStatusAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         ///   </para>
@@ -135,6 +148,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSSHKeysAsync(Meziantou.GitLab.GetSSHKeysUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         ///   </para>
@@ -144,6 +158,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<UserStatus?> GetStatusAsync(Meziantou.GitLab.GetStatusUserRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>PUT /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         ///   </para>
@@ -156,6 +171,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabUsersClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         ///   </para>
@@ -168,6 +184,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         ///   </para>
@@ -180,6 +197,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/impersonation_tokens</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         ///   </para>
@@ -192,6 +210,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         ///   </para>
@@ -204,6 +223,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /users/:user_id/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         ///   </para>
@@ -216,6 +236,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         ///   </para>
@@ -228,6 +249,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         ///   </para>
@@ -239,6 +261,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         ///   </para>
@@ -251,6 +274,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users" />
         ///   </para>
@@ -263,6 +287,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         ///   </para>
@@ -275,6 +300,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys" />
         ///   </para>
@@ -287,6 +313,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-status" />
         ///   </para>
@@ -299,6 +326,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         ///   </para>
@@ -311,6 +339,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         ///   </para>
@@ -323,6 +352,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         ///   </para>
@@ -343,6 +373,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         ///   </para>
@@ -380,6 +411,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         ///   </para>
@@ -405,6 +437,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/impersonation_tokens</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         ///   </para>
@@ -447,6 +480,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         ///   </para>
@@ -497,6 +531,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /users/:user_id/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         ///   </para>
@@ -528,6 +563,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         ///   </para>
@@ -553,6 +589,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         ///   </para>
@@ -597,6 +634,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         ///   </para>
@@ -622,6 +660,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users" />
         ///   </para>
@@ -636,6 +675,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         ///   </para>
@@ -661,6 +701,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys" />
         ///   </para>
@@ -675,6 +716,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-status" />
         ///   </para>
@@ -689,6 +731,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         ///   </para>
@@ -715,6 +758,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         ///   </para>
@@ -741,6 +785,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         ///   </para>
@@ -769,6 +814,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user" />
         ///   </para>
@@ -782,6 +828,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /user/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#add-ssh-key" />
         ///   </para>
@@ -795,6 +842,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users/:user_id/impersonation_tokens</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token" />
         ///   </para>
@@ -810,6 +858,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#user-creation" />
         ///   </para>
@@ -827,6 +876,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /users/:user_id/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user" />
         ///   </para>
@@ -840,6 +890,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>DELETE /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user" />
         ///   </para>
@@ -853,6 +904,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#for-normal-users" />
         ///   </para>
@@ -868,6 +920,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-user" />
         ///   </para>
@@ -881,6 +934,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /user/keys/:key_id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#single-ssh-key" />
         ///   </para>
@@ -894,6 +948,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/keys</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user" />
         ///   </para>
@@ -907,6 +962,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /users/:user_id/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user" />
         ///   </para>
@@ -920,6 +976,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>PUT /user/status</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/users.html#set-user-status" />
         ///   </para>

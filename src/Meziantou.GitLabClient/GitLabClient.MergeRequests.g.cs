@@ -19,6 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabMergeRequestsClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -28,6 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -36,6 +38,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -45,6 +48,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<MergeRequest?> GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         ///   </para>
@@ -53,6 +57,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
@@ -64,6 +69,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabMergeRequestsClient
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -76,6 +82,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -87,6 +94,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -99,6 +107,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         ///   </para>
@@ -110,6 +119,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
@@ -129,6 +139,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -206,6 +217,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -352,6 +364,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -383,6 +396,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         ///   </para>
@@ -523,6 +537,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
@@ -680,6 +695,7 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
+        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -700,6 +716,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -727,6 +744,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -740,6 +758,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests" />
         ///   </para>
@@ -767,6 +786,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
