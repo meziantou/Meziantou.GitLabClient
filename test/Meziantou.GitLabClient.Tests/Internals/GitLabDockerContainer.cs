@@ -26,7 +26,7 @@ namespace Meziantou.GitLab.Tests
         public string AdminUserName { get; } = "root";
         public string AdminPassword { get; } = "Pa$$w0rd";
 
-        public Uri GitLabUrl => new Uri("http://localhost:" + HttpPort.ToStringInvariant());
+        public Uri GitLabUrl => new("http://localhost:" + HttpPort.ToStringInvariant());
 
         public GitLabCredential Credentials { get; set; }
 

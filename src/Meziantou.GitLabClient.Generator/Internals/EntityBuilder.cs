@@ -6,11 +6,6 @@ namespace Meziantou.GitLabClient.Generator
     {
         private readonly Action<Entity> _configure;
 
-        public EntityBuilder(string name)
-        {
-            Value = new Entity(name);
-        }
-
         public EntityBuilder(string name, Action<Entity> configure)
         {
             Value = new Entity(name);

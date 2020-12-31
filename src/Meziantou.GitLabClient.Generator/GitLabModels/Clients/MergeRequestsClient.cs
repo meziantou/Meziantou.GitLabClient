@@ -1,17 +1,15 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
-    internal sealed class ClientMergeRequest : IGitLabClientDescriptor
+    internal sealed class MergeRequestsClient : GitLabClientBuilder
     {
-        public void Create(Project project)
+        protected override void Create(MethodGroup methodGroup)
         {
-            var group = project.AddMethodGroup("MergeRequests");
-
-            group.AddMethod("GetMergeRequests", MethodType.GetPaged, "/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests")
+            methodGroup.AddMethod("GetMergeRequests", MethodType.GetPaged, "/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-merge-requests")
                 .WithReturnType(Models.MergeRequest)
                 .AddOptionalParameter("state", Models.MergeRequestState)
                 .AddOptionalParameter("scope", Models.MergeRequestScopeFilter)
-                .AddOptionalParameter("assignee_id", EntityRefs.UserRef)
-                .AddOptionalParameter("author_id", EntityRefs.UserRef)
+                .AddOptionalParameter("assignee_id", Models.UserRef)
+                .AddOptionalParameter("author_id", Models.UserRef)
                 .AddOptionalParameter("milestone", ModelRef.String)
                 .AddOptionalParameter("view", Models.MergeRequestView)
                 .AddOptionalParameter("labels", ModelRef.StringCollection)
@@ -25,13 +23,13 @@
                 .AddOptionalParameter("search", ModelRef.String)
                 ;
 
-            group.AddMethod("GetGroupMergeRequests", MethodType.GetPaged, "/groups/:group_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests")
+            methodGroup.AddMethod("GetGroupMergeRequests", MethodType.GetPaged, "/groups/:group_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests")
                 .WithReturnType(Models.MergeRequest)
-                .AddRequiredParameter("group_id", EntityRefs.GroupIdOrPathRef)
+                .AddRequiredParameter("group_id", Models.GroupIdOrPathRef)
                 .AddOptionalParameter("state", Models.MergeRequestState)
                 .AddOptionalParameter("scope", Models.MergeRequestScopeFilter)
-                .AddOptionalParameter("assignee_id", EntityRefs.UserRef)
-                .AddOptionalParameter("author_id", EntityRefs.UserRef)
+                .AddOptionalParameter("assignee_id", Models.UserRef)
+                .AddOptionalParameter("author_id", Models.UserRef)
                 .AddOptionalParameter("milestone", ModelRef.String)
                 .AddOptionalParameter("view", Models.MergeRequestView)
                 .AddOptionalParameter("labels", ModelRef.StringCollection)
@@ -45,14 +43,14 @@
                 .AddOptionalParameter("search", ModelRef.String)
                 ;
 
-            group.AddMethod("GetProjectMergeRequests", MethodType.GetPaged, "/projects/:project_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests")
+            methodGroup.AddMethod("GetProjectMergeRequests", MethodType.GetPaged, "/projects/:project_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests")
                 .WithReturnType(Models.MergeRequest)
-                .AddRequiredParameter("project_id", EntityRefs.ProjectIdOrPathRef)
+                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
                 .AddOptionalParameter("iids", ModelRef.NumberId.MakeCollection())
                 .AddOptionalParameter("state", Models.MergeRequestState)
                 .AddOptionalParameter("scope", Models.MergeRequestScopeFilter)
-                .AddOptionalParameter("assignee_id", EntityRefs.UserRef)
-                .AddOptionalParameter("author_id", EntityRefs.UserRef)
+                .AddOptionalParameter("assignee_id", Models.UserRef)
+                .AddOptionalParameter("author_id", Models.UserRef)
                 .AddOptionalParameter("milestone", ModelRef.String)
                 .AddOptionalParameter("view", Models.MergeRequestView)
                 .AddOptionalParameter("labels", ModelRef.StringCollection)
@@ -66,21 +64,21 @@
                 .AddOptionalParameter("search", ModelRef.String)
                 ;
 
-            group.AddMethod("GetMergeRequest", MethodType.Get, "/projects/:project_id/merge_requests/:merge_request_iid", "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr")
+            methodGroup.AddMethod("GetMergeRequest", MethodType.Get, "/projects/:project_id/merge_requests/:merge_request_iid", "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr")
                 .WithReturnType(Models.MergeRequest)
-                .AddRequiredParameter("project_id", EntityRefs.ProjectIdOrPathRef)
-                .AddRequiredParameter("merge_request_iid", EntityRefs.MergeRequestIdRef)
+                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
+                .AddRequiredParameter("merge_request_iid", Models.MergeRequestIidRef)
                 ;
 
-            group.AddMethod("CreateMergeRequest", MethodType.Post, "/projects/:project_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#create-mr")
+            methodGroup.AddMethod("CreateMergeRequest", MethodType.Post, "/projects/:project_id/merge_requests", "https://docs.gitlab.com/ee/api/merge_requests.html#create-mr")
                 .WithReturnType(Models.MergeRequest)
-                .AddRequiredParameter("project_id", EntityRefs.ProjectIdOrPathRef)
+                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
                 .AddRequiredParameter("source_branch", ModelRef.String)
                 .AddRequiredParameter("target_branch", ModelRef.String)
                 .AddRequiredParameter("title", ModelRef.String)
                 .AddOptionalParameter("description", ModelRef.String)
-                .AddOptionalParameter("assignee_id", EntityRefs.UserRef)
-                .AddOptionalParameter("target_project_id", EntityRefs.ProjectIdRef)
+                .AddOptionalParameter("assignee_id", Models.UserRef)
+                .AddOptionalParameter("target_project_id", Models.ProjectIdRef)
                 .AddOptionalParameter("remove_source_branch", ModelRef.Boolean)
                 .AddOptionalParameter("allow_collaboration", ModelRef.Boolean)
                 .AddOptionalParameter("allow_maintainer_to_push", ModelRef.Boolean)

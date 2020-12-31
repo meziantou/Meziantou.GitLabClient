@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -18,26 +17,6 @@ namespace Meziantou.GitLabClient.Generator
         public ParameterEntity AddParameterEntity(ParameterEntity parameterEntity)
         {
             ParameterEntities.Add(parameterEntity);
-            return parameterEntity;
-        }
-
-        public ParameterEntity AddParameterEntity(string name, params ParameterEntityRef[] refs)
-        {
-            var finalType = ModelRef.Object;
-            var types = refs.Select(r => r.FinalPropertyModelRef).Distinct().ToList();
-            if (types.Count == 1)
-            {
-                finalType = types[0];
-            }
-
-            var parameterEntity = new ParameterEntity(name, finalType);
-            ParameterEntities.Add(parameterEntity);
-
-            foreach (var entityRef in refs)
-            {
-                parameterEntity.Refs.Add(entityRef);
-            }
-
             return parameterEntity;
         }
 

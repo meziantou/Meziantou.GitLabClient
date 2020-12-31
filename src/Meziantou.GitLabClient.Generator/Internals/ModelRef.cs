@@ -28,9 +28,9 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef NumberId { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableNumberId { get; } = new ModelRef(typeof(long)).MakeNullable();
 
-        public ModelRef MakeNullable() => new ModelRef(this) { IsNullable = true };
-        public ModelRef MakeCollection() => new ModelRef(this) { IsCollection = true };
-        public ModelRef MakeCollectionNullable() => new ModelRef(this) { IsCollection = true, IsCollectionNullable = true };
+        public ModelRef MakeNullable() => new(this) { IsNullable = true };
+        public ModelRef MakeCollection() => new(this) { IsCollection = true };
+        public ModelRef MakeCollectionNullable() => new(this) { IsCollection = true, IsCollectionNullable = true };
 
         public Type Type { get; }
         public Model Model { get; }
@@ -99,9 +99,9 @@ namespace Meziantou.GitLabClient.Generator
             IsCollection = modelRef.IsCollection;
         }
 
-        public static implicit operator ModelRef(Model model) => new ModelRef(model);
+        public static implicit operator ModelRef(Model model) => new(model);
         public static implicit operator ModelRef(EntityBuilder model) => model.Value;
-        public static implicit operator ModelRef(ParameterEntity model) => new ModelRef(model);
+        public static implicit operator ModelRef(ParameterEntity model) => new(model);
 
         public static bool operator ==(ModelRef left, ModelRef right) => EqualityComparer<ModelRef>.Default.Equals(left, right);
 

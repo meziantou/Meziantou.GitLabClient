@@ -10,7 +10,7 @@ namespace Meziantou.GitLab.Internals
 {
     internal sealed class JsonContent : HttpContent
     {
-        private static readonly MediaTypeHeaderValue s_header = new MediaTypeHeaderValue("application/json") { CharSet = Encoding.UTF8.WebName };
+        private static readonly MediaTypeHeaderValue s_header = new("application/json") { CharSet = Encoding.UTF8.WebName };
 
         private readonly object? _content;
         private readonly JsonSerializerOptions? _settings;
