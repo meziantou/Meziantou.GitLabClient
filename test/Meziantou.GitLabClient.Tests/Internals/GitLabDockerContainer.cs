@@ -20,7 +20,7 @@ namespace Meziantou.GitLab.Tests
     {
         public const string ContainerName = "MeziantouGitLabClientTests";
         public const string ImageName = "gitlab/gitlab-ee";
-        public const string ImageTag = "13.2.4-ee.0"; // Keep in sync with azure-pipelines.yml
+        public const string ImageTag = "13.7.1-ee.0"; // Keep in sync with .github/workflows/ci.yml
 
         public int HttpPort { get; } = 48624;
         public string AdminUserName { get; } = "root";
