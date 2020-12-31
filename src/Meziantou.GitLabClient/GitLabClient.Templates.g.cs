@@ -18,46 +18,82 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabTemplatesClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> GetDockerfileByKeyAsync(Meziantou.GitLab.GetDockerfileByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> GetGitIgnoreByKeyAsync(Meziantou.GitLab.GetGitIgnoreByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> GetGitLabCiYmlByKeyAsync(Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> GetLicenseByKeyAsync(Meziantou.GitLab.GetLicenseByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> GetLicenses(Meziantou.GitLab.GetLicensesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabTemplatesClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> Meziantou.GitLab.IGitLabTemplatesClient.GetDockerfileByKeyAsync(Meziantou.GitLab.GetDockerfileByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -65,14 +101,22 @@ namespace Meziantou.GitLab
             return this.Templates_GetDockerfileByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Templates_GetDockerfiles(requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> Meziantou.GitLab.IGitLabTemplatesClient.GetGitIgnoreByKeyAsync(Meziantou.GitLab.GetGitIgnoreByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -80,14 +124,22 @@ namespace Meziantou.GitLab
             return this.Templates_GetGitIgnoreByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Templates_GetGitIgnores(requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> Meziantou.GitLab.IGitLabTemplatesClient.GetGitLabCiYmlByKeyAsync(Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -95,14 +147,22 @@ namespace Meziantou.GitLab
             return this.Templates_GetGitLabCiYmlByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Templates_GetGitLabCiYmls(requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Template?> Meziantou.GitLab.IGitLabTemplatesClient.GetLicenseByKeyAsync(Meziantou.GitLab.GetLicenseByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -110,7 +170,11 @@ namespace Meziantou.GitLab
             return this.Templates_GetLicenseByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetLicenses(Meziantou.GitLab.GetLicensesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
@@ -125,7 +189,11 @@ namespace Meziantou.GitLab
             }
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -146,7 +214,11 @@ namespace Meziantou.GitLab
             return this.GetAsync<Template>(url, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -155,7 +227,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -176,7 +252,11 @@ namespace Meziantou.GitLab
             return this.GetAsync<Template>(url, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -185,7 +265,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -206,7 +290,11 @@ namespace Meziantou.GitLab
             return this.GetAsync<Template>(url, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -215,7 +303,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -253,7 +345,11 @@ namespace Meziantou.GitLab
             return this.GetAsync<Template>(url, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetLicenses(Meziantou.GitLab.GetLicensesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
@@ -280,7 +376,11 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#single-dockerfile-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Template?> GetDockerfileByKeyAsync(this Meziantou.GitLab.IGitLabTemplatesClient client, string key, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -289,7 +389,11 @@ namespace Meziantou.GitLab
             return client.GetDockerfileByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Template?> GetGitIgnoreByKeyAsync(this Meziantou.GitLab.IGitLabTemplatesClient client, string key, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -298,7 +402,11 @@ namespace Meziantou.GitLab
             return client.GetGitIgnoreByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Template?> GetGitLabCiYmlByKeyAsync(this Meziantou.GitLab.IGitLabTemplatesClient client, string key, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -307,7 +415,11 @@ namespace Meziantou.GitLab
             return client.GetGitLabCiYmlByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#single-license-template" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Template?> GetLicenseByKeyAsync(this Meziantou.GitLab.IGitLabTemplatesClient client, string key, string? project = default(string?), string? fullname = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -318,7 +430,11 @@ namespace Meziantou.GitLab
             return client.GetLicenseByKeyAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/licenses.html#list-license-templates" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<TemplateBasic> GetLicenses(this Meziantou.GitLab.IGitLabTemplatesClient client, bool? popular = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {

@@ -18,7 +18,11 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabIssuesClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Issue> CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
@@ -26,7 +30,11 @@ namespace Meziantou.GitLab
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabIssuesClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Issue> Meziantou.GitLab.IGitLabIssuesClient.CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -42,7 +50,11 @@ namespace Meziantou.GitLab
             }
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -83,7 +95,11 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Issue> CreateAsync(this Meziantou.GitLab.IGitLabIssuesClient client, ProjectIdOrPathRef projectId, string title, string? description = default(string?), bool? confidential = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))

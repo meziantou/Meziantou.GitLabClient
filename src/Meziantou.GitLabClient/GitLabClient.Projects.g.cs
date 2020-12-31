@@ -18,28 +18,48 @@ namespace Meziantou.GitLab
 
     public partial interface IGitLabProjectsClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Project> CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Project?> GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabProjectsClient
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Project> Meziantou.GitLab.IGitLabProjectsClient.CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -47,14 +67,22 @@ namespace Meziantou.GitLab
             return this.Projects_CreateAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> Meziantou.GitLab.IGitLabProjectsClient.GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Projects_GetAll(request, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         System.Threading.Tasks.Task<Project?> Meziantou.GitLab.IGitLabProjectsClient.GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
@@ -62,7 +90,11 @@ namespace Meziantou.GitLab
             return this.Projects_GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> Meziantou.GitLab.IGitLabProjectsClient.GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
@@ -77,7 +109,11 @@ namespace Meziantou.GitLab
             }
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         private System.Threading.Tasks.Task<Project> Projects_CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -208,7 +244,11 @@ namespace Meziantou.GitLab
             return this.PostJsonAsync<Project>(url, body, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Project> Projects_GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
@@ -328,7 +368,11 @@ namespace Meziantou.GitLab
             return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -349,7 +393,11 @@ namespace Meziantou.GitLab
             return this.GetAsync<Project>(url, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Project> Projects_GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
@@ -478,7 +526,11 @@ namespace Meziantou.GitLab
 
     public static partial class GitLabClientExtensions
     {
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#create-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Project> CreateAsync(this Meziantou.GitLab.IGitLabProjectsClient client, string? name = default(string?), string? path = default(string?), long? namespaceId = default(long?), string? defaultBranch = default(string?), string? description = default(string?), bool? issuesEnabled = default(bool?), bool? mergeRequestsEnabled = default(bool?), bool? jobsEnabled = default(bool?), bool? wikiEnabled = default(bool?), bool? snippetsEnabled = default(bool?), bool? resolveOutdatedDiffDiscussions = default(bool?), bool? containerRegistryEnabled = default(bool?), bool? sharedRunnersEnabled = default(bool?), bool? publicJobs = default(bool?), bool? onlyAllowMergeIfPipelineSucceeds = default(bool?), bool? onlyAllowMergeIfAllDiscussionsAreResolved = default(bool?), bool? requestAccessEnabled = default(bool?), bool? lfsEnabled = default(bool?), bool? printingMergeRequestLinkEnabled = default(bool?), MergeMethod? mergeMethod = default(MergeMethod?), Visibility? visibility = default(Visibility?), System.Collections.Generic.IEnumerable<string>? tagList = default(System.Collections.Generic.IEnumerable<string>?), string? ciConfigPath = default(string?), int? approvalsBeforeMerge = default(int?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -511,7 +563,11 @@ namespace Meziantou.GitLab
             return client.CreateAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-all-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<Project> GetAll(this Meziantou.GitLab.IGitLabProjectsClient client, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -532,7 +588,11 @@ namespace Meziantou.GitLab
             return client.GetAll(request, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         public static System.Threading.Tasks.Task<Project?> GetByIdAsync(this Meziantou.GitLab.IGitLabProjectsClient client, ProjectIdOrPathRef projectId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -541,7 +601,11 @@ namespace Meziantou.GitLab
             return client.GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived, Visibility? visibility, string? search, bool? simple, bool? owned, bool? membership, bool? starred, bool? statistics, bool? withIssuesEnabled, bool? withMergeRequestsEnabled, bool? wikiChecksumFailed, bool? repositoryChecksumFailed, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
@@ -561,7 +625,11 @@ namespace Meziantou.GitLab
             return client.GetByUser(request, requestOptions);
         }
 
-        /// <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        /// <summary>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
+        ///   </para>
+        /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {

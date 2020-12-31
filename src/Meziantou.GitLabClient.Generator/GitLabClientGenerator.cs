@@ -108,9 +108,10 @@ namespace Meziantou.GitLabClient.Generator
                 }
                 else if (commentable is IXmlCommentable xmlCommentable)
                 {
+                    var summary = new XElement(XName.Get("summary"));
                     if (documentation.Summary != null)
                     {
-                        xmlCommentable.XmlComments.AddSummary(documentation.Summary);
+                        summary.Add(new XElement("para", documentation.Summary));
                     }
 
                     if (documentation.Remark != null)
@@ -125,7 +126,12 @@ namespace Meziantou.GitLabClient.Generator
 
                     if (documentation.HelpLink != null)
                     {
-                        xmlCommentable.XmlComments.Add(new XmlComment(new XElement("seealso", new XAttribute("href", documentation.HelpLink))));
+                        summary.Add(new XElement("para", new XElement("seealso", new XAttribute("href", documentation.HelpLink))));
+                    }
+
+                    if (summary.HasElements)
+                    {
+                        xmlCommentable.XmlComments.Add(summary);
                     }
                 }
             }
