@@ -80,9 +80,9 @@ namespace Meziantou.GitLabClient.Generator
                 {
                     Arguments = { new CustomAttributeArgument(new TypeOfExpression(converterType)) },
                 });
-
-                GenerateEnumerationUrlBuilder(enumeration, unit, enumType);
             }
+
+            GenerateEnumerationUrlBuilder(enumeration, unit, enumType);
         }
 
         private static TypeDeclaration GenerateEnumerationJsonConverter(CompilationUnit unit, EnumerationDeclaration enumType)
@@ -204,17 +204,25 @@ namespace Meziantou.GitLabClient.Generator
                 method.Modifiers = Modifiers.Public;
                 method.Statements = new StatementCollection();
 
-                var stringValue = new MethodInvokeExpression(
-                    new MemberReferenceExpression(new TypeReference(SerializationNamespace + ".EnumMember"), "ToString"),
-                    valueArg);
-
-                // Could be Append (without escaping) if all names are valid in URL
-                var methodName = "AppendParameter";
-                if (enumeration.Members.All(m => m.FinalSerializationName == Uri.EscapeDataString(m.FinalSerializationName)))
+                if (enumeration.SerializeAsString)
                 {
-                    methodName = "Append";
+                    var stringValue = new MethodInvokeExpression(
+                        new MemberReferenceExpression(new TypeReference(SerializationNamespace + ".EnumMember"), "ToString"),
+                        valueArg);
+
+                    // Could be Append (without escaping) if all names are valid in URL
+                    var methodName = "AppendParameter";
+                    if (enumeration.Members.All(m => m.FinalSerializationName == Uri.EscapeDataString(m.FinalSerializationName)))
+                    {
+                        methodName = "Append";
+                    }
+                    method.Statements.Add(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), methodName), stringValue));
                 }
-                method.Statements.Add(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), methodName), stringValue));
+                else
+                {
+                    method.Statements.Add(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "AppendParameter"),
+                        new CastExpression(valueArg, typeof(int))));
+                }
             }
         }
     }

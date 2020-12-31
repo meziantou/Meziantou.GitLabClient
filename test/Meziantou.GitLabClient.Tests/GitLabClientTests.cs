@@ -8,17 +8,6 @@ namespace Meziantou.GitLab.Tests
     public class GitLabClientTests : GitLabTest
     {
         [TestMethod]
-        public async Task CookieAuthenticator()
-        {
-            using var context = GetContext();
-            using var client = await context.CreateNewUserAsync();
-            ((TestGitLabClient)client).Authenticator = new CookieAuthenticator(GitLabTestContext.DockerContainer.Credentials.Cookies);
-            var user = await client.Users.GetCurrentUserAsync();
-
-            Assert.AreEqual("root", user.Username);
-        }
-
-        [TestMethod]
         public async Task OAuth2Authenticator()
         {
             using var context = GetContext();
