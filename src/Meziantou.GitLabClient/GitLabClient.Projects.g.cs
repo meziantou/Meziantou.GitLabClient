@@ -607,7 +607,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserIdOrUserNameRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
             request.Archived = archived;
@@ -871,7 +871,7 @@ namespace Meziantou.GitLab
 
         private bool? _statistics;
 
-        private UserRef? _userId;
+        private UserIdOrUserNameRef? _userId;
 
         private Visibility? _visibility;
 
@@ -880,7 +880,7 @@ namespace Meziantou.GitLab
         private bool? _withMergeRequestsEnabled;
 
         /// <param name="userId">The ID or username of the user.</param>
-        public GetByUserProjectRequest(UserRef? userId)
+        public GetByUserProjectRequest(UserIdOrUserNameRef? userId)
         {
             this._userId = userId;
         }
@@ -1012,7 +1012,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or username of the user.</para>
         /// </summary>
-        public UserRef? UserId
+        public UserIdOrUserNameRef? UserId
         {
             get
             {

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Meziantou.GitLabClient.Generator.Internals
 {
-    internal class GitLabDocumentationMethod
+    internal sealed class GitLabDocumentationMethod
     {
         public string Name { get; set; }
         public string DocumentationUrl { get; set; }

@@ -25,7 +25,7 @@
                 .AddProperty("only_allow_merge_if_pipeline_succeeds", ModelRef.Boolean)
                 .AddProperty("only_mirror_protected_branches", ModelRef.NullableBoolean)
                 .AddProperty("open_issues_count", ModelRef.NullableNumber)
-                .AddProperty("owner", Models.UserBasic)
+                .AddProperty("owner", Models.UserBasic.MakeNullable()) // The self monitoring project has no owner (https://docs.gitlab.com/ee/administration/monitoring/gitlab_self_monitoring_project/)
                 .AddProperty("permissions", ProjectPermissions.MakeNullable())
                 .AddProperty("printing_merge_request_link_enabled", ModelRef.Boolean)
                 .AddProperty("public_jobs", ModelRef.Boolean)

@@ -453,7 +453,7 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("users/");
                 if (request.UserId.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.UserId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.UserId.GetValueOrDefault().Value);
                 }
 
                 urlBuilder.Append("/impersonation_tokens");
@@ -821,7 +821,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<SshKey> AddSSHKeyAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserRef idOrUsername, string title, string key, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<SshKey> AddSSHKeyAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdOrUserNameRef idOrUsername, string title, string key, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.AddSSHKeyUserRequest request = new Meziantou.GitLab.AddSSHKeyUserRequest(idOrUsername, title, key);
             return client.AddSSHKeyAsync(request, requestOptions, cancellationToken);
@@ -849,7 +849,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserRef userId, string name, System.DateTime? expiresAt = default(System.DateTime?), System.Collections.Generic.IEnumerable<string>? scopes = default(System.Collections.Generic.IEnumerable<string>?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdRef userId, string name, System.DateTime? expiresAt = default(System.DateTime?), System.Collections.Generic.IEnumerable<string>? scopes = default(System.Collections.Generic.IEnumerable<string>?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreateImpersonationTokenUserRequest request = new Meziantou.GitLab.CreateImpersonationTokenUserRequest(userId, name);
             request.ExpiresAt = expiresAt;
@@ -883,7 +883,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task DeleteSSHKeyAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserRef idOrUsername, SshKeyRef keyId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task DeleteSSHKeyAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdOrUserNameRef idOrUsername, SshKeyRef keyId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.DeleteSSHKeyUserRequest request = new Meziantou.GitLab.DeleteSSHKeyUserRequest(idOrUsername, keyId);
             return client.DeleteSSHKeyAsync(request, requestOptions, cancellationToken);
@@ -955,7 +955,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSSHKeysAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserRef idOrUsername, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<SshKey>> GetSSHKeysAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdOrUserNameRef idOrUsername, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.GetSSHKeysUserRequest request = new Meziantou.GitLab.GetSSHKeysUserRequest(idOrUsername);
             return client.GetSSHKeysAsync(request, requestOptions, cancellationToken);
@@ -969,7 +969,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<UserStatus?> GetStatusAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserRef idOrUsername, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<UserStatus?> GetStatusAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdOrUserNameRef idOrUsername, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.GetStatusUserRequest request = new Meziantou.GitLab.GetStatusUserRequest(idOrUsername);
             return client.GetStatusAsync(request, requestOptions, cancellationToken);
@@ -1069,10 +1069,10 @@ namespace Meziantou.GitLab
 
     public partial class GetStatusUserRequest
     {
-        private UserRef? _idOrUsername;
+        private UserIdOrUserNameRef? _idOrUsername;
 
         /// <param name="idOrUsername">The ID or username of the user to get a status of</param>
-        public GetStatusUserRequest(UserRef? idOrUsername)
+        public GetStatusUserRequest(UserIdOrUserNameRef? idOrUsername)
         {
             this._idOrUsername = idOrUsername;
         }
@@ -1084,7 +1084,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or username of the user to get a status of</para>
         /// </summary>
-        public UserRef? IdOrUsername
+        public UserIdOrUserNameRef? IdOrUsername
         {
             get
             {
@@ -1140,10 +1140,10 @@ namespace Meziantou.GitLab
 
     public partial class GetSSHKeysUserRequest
     {
-        private UserRef? _idOrUsername;
+        private UserIdOrUserNameRef? _idOrUsername;
 
         /// <param name="idOrUsername">The ID or username of the user to get the SSH keys for.</param>
-        public GetSSHKeysUserRequest(UserRef? idOrUsername)
+        public GetSSHKeysUserRequest(UserIdOrUserNameRef? idOrUsername)
         {
             this._idOrUsername = idOrUsername;
         }
@@ -1155,7 +1155,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or username of the user to get the SSH keys for.</para>
         /// </summary>
-        public UserRef? IdOrUsername
+        public UserIdOrUserNameRef? IdOrUsername
         {
             get
             {
@@ -1237,13 +1237,13 @@ namespace Meziantou.GitLab
 
     public partial class AddSSHKeyUserRequest
     {
-        private UserRef? _idOrUsername;
+        private UserIdOrUserNameRef? _idOrUsername;
 
         private string? _key;
 
         private string? _title;
 
-        public AddSSHKeyUserRequest(UserRef? idOrUsername, string? title, string? key)
+        public AddSSHKeyUserRequest(UserIdOrUserNameRef? idOrUsername, string? title, string? key)
         {
             this._idOrUsername = idOrUsername;
             this._title = title;
@@ -1254,7 +1254,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        public UserRef? IdOrUsername
+        public UserIdOrUserNameRef? IdOrUsername
         {
             get
             {
@@ -1319,11 +1319,11 @@ namespace Meziantou.GitLab
 
     public partial class DeleteSSHKeyUserRequest
     {
-        private UserRef? _idOrUsername;
+        private UserIdOrUserNameRef? _idOrUsername;
 
         private SshKeyRef? _keyId;
 
-        public DeleteSSHKeyUserRequest(UserRef? idOrUsername, SshKeyRef? keyId)
+        public DeleteSSHKeyUserRequest(UserIdOrUserNameRef? idOrUsername, SshKeyRef? keyId)
         {
             this._idOrUsername = idOrUsername;
             this._keyId = keyId;
@@ -1333,7 +1333,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        public UserRef? IdOrUsername
+        public UserIdOrUserNameRef? IdOrUsername
         {
             get
             {
@@ -1478,11 +1478,11 @@ namespace Meziantou.GitLab
 
         private System.Collections.Generic.IEnumerable<string>? _scopes;
 
-        private UserRef? _userId;
+        private UserIdRef? _userId;
 
         /// <param name="userId">The ID of the user</param>
         /// <param name="name">The name of the impersonation token</param>
-        public CreateImpersonationTokenUserRequest(UserRef? userId, string? name)
+        public CreateImpersonationTokenUserRequest(UserIdRef? userId, string? name)
         {
             this._userId = userId;
             this._name = name;
@@ -1540,7 +1540,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID of the user</para>
         /// </summary>
-        public UserRef? UserId
+        public UserIdRef? UserId
         {
             get
             {

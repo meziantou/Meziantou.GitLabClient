@@ -1,6 +1,6 @@
 ﻿namespace Meziantou.GitLabClient.Generator.Internals
 {
-    internal class GitLabDocumentationMethodParameter
+    internal sealed class GitLabDocumentationMethodParameter
     {
         public string Name { get; set; }
         public string Type { get; set; }

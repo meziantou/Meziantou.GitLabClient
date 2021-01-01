@@ -702,7 +702,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserRef? assigneeId = default(UserRef?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserIdOrUserNameRef? assigneeId = default(UserIdOrUserNameRef?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreateMergeRequestRequest request = new Meziantou.GitLab.CreateMergeRequestRequest(id, sourceBranch, targetBranch, title);
             request.Description = description;
@@ -722,7 +722,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, GroupIdOrPathRef id, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, GroupIdOrPathRef id, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserIdOrUserNameRef? assigneeId = default(UserIdOrUserNameRef?), UserIdOrUserNameRef? authorId = default(UserIdOrUserNameRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetGroupMergeRequestsRequest request = new Meziantou.GitLab.GetGroupMergeRequestsRequest(id);
             request.State = state;
@@ -764,7 +764,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserIdOrUserNameRef? assigneeId = default(UserIdOrUserNameRef?), UserIdOrUserNameRef? authorId = default(UserIdOrUserNameRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetMergeRequestsRequest request = new Meziantou.GitLab.GetMergeRequestsRequest();
             request.State = state;
@@ -792,7 +792,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, System.Collections.Generic.IEnumerable<long>? iids = default(System.Collections.Generic.IEnumerable<long>?), MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, System.Collections.Generic.IEnumerable<long>? iids = default(System.Collections.Generic.IEnumerable<long>?), MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserIdOrUserNameRef? assigneeId = default(UserIdOrUserNameRef?), UserIdOrUserNameRef? authorId = default(UserIdOrUserNameRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetProjectMergeRequestsRequest request = new Meziantou.GitLab.GetProjectMergeRequestsRequest(id);
             request.Iids = iids;
@@ -817,9 +817,9 @@ namespace Meziantou.GitLab
 
     public partial class GetMergeRequestsRequest
     {
-        private UserRef? _assigneeId;
+        private UserIdOrUserNameRef? _assigneeId;
 
-        private UserRef? _authorId;
+        private UserIdOrUserNameRef? _authorId;
 
         private System.DateTimeOffset? _createdAfter;
 
@@ -854,7 +854,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee.</para>
         /// </summary>
-        public UserRef? AssigneeId
+        public UserIdOrUserNameRef? AssigneeId
         {
             get
             {
@@ -869,7 +869,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username. Combine with scope=all or scope=assigned_to_me.</para>
         /// </summary>
-        public UserRef? AuthorId
+        public UserIdOrUserNameRef? AuthorId
         {
             get
             {
@@ -1079,9 +1079,9 @@ namespace Meziantou.GitLab
 
     public partial class GetGroupMergeRequestsRequest
     {
-        private UserRef? _assigneeId;
+        private UserIdOrUserNameRef? _assigneeId;
 
-        private UserRef? _authorId;
+        private UserIdOrUserNameRef? _authorId;
 
         private System.DateTimeOffset? _createdAfter;
 
@@ -1124,7 +1124,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee. (Introduced in GitLab 9.5).</para>
         /// </summary>
-        public UserRef? AssigneeId
+        public UserIdOrUserNameRef? AssigneeId
         {
             get
             {
@@ -1139,7 +1139,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username. (Introduced in GitLab 9.5).</para>
         /// </summary>
-        public UserRef? AuthorId
+        public UserIdOrUserNameRef? AuthorId
         {
             get
             {
@@ -1364,9 +1364,9 @@ namespace Meziantou.GitLab
 
     public partial class GetProjectMergeRequestsRequest
     {
-        private UserRef? _assigneeId;
+        private UserIdOrUserNameRef? _assigneeId;
 
-        private UserRef? _authorId;
+        private UserIdOrUserNameRef? _authorId;
 
         private System.DateTimeOffset? _createdAfter;
 
@@ -1411,7 +1411,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee.</para>
         /// </summary>
-        public UserRef? AssigneeId
+        public UserIdOrUserNameRef? AssigneeId
         {
             get
             {
@@ -1426,7 +1426,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username.</para>
         /// </summary>
-        public UserRef? AuthorId
+        public UserIdOrUserNameRef? AuthorId
         {
             get
             {
@@ -1711,7 +1711,7 @@ namespace Meziantou.GitLab
 
         private bool? _allowMaintainerToPush;
 
-        private UserRef? _assigneeId;
+        private UserIdOrUserNameRef? _assigneeId;
 
         private string? _description;
 
@@ -1778,7 +1778,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Assignee user ID.</para>
         /// </summary>
-        public UserRef? AssigneeId
+        public UserIdOrUserNameRef? AssigneeId
         {
             get
             {

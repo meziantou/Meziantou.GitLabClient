@@ -23,7 +23,7 @@
 
             methodGroup.AddMethod("GetByUser", MethodType.GetPaged, "/users/:user_id/projects", "https://docs.gitlab.com/ee/api/projects.html#list-user-projects")
                 .WithReturnType(Models.Project)
-                .AddRequiredParameter("user_id", Models.UserRef)
+                .AddRequiredParameter("user_id", Models.UserIdOrUserNameRef)
                 .AddOptionalParameter("archived", ModelRef.Boolean)
                 .AddOptionalParameter("visibility", Models.Visibility)
                 .AddOptionalParameter("search", ModelRef.String)

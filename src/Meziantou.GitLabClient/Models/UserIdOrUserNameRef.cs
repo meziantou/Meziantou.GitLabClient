@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Meziantou.GitLab
 {
-    public partial struct UserRef
+    public partial struct UserIdOrUserNameRef
     {
         public string ValueAsString
         {

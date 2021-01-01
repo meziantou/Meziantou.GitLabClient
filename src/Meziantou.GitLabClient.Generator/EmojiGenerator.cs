@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Meziantou.Framework;
 using Meziantou.Framework.CodeDom;
+using Meziantou.GitLabClient.Generator.Internals;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -47,10 +46,7 @@ namespace Meziantou.GitLabClient.Generator
                 field.XmlComments.AddSummary($"Emoji {kvp.Value.Name} '{kvp.Value.Moji}' (U+{kvp.Value.Unicode}) in category {kvp.Value.Category}");
             }
 
-            using (var tw = new StreamWriter(rootDirectory / "Emoji.cs", append: false, Encoding.UTF8))
-            {
-                new CSharpCodeGenerator().Write(tw, unit);
-            }
+            unit.WriteUnit(rootDirectory / "Emoji.cs");
 
             string GetName(string value)
             {
