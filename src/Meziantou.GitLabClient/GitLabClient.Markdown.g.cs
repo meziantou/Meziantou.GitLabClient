@@ -111,6 +111,7 @@ namespace Meziantou.GitLab
 
         private string? _text;
 
+        /// <param name="text">The Markdown text to render</param>
         public RenderMarkdownRequest(string? text)
         {
             this._text = text;
@@ -120,6 +121,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>Render text using GitLab Flavored Markdown. Default is false</para>
+        /// </summary>
         public bool? Gfm
         {
             get
@@ -132,6 +136,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Use project as a context when creating references using GitLab Flavored Markdown. Authentication is required if a project is not public.</para>
+        /// </summary>
         public Meziantou.GitLab.PathWithNamespace? Project
         {
             get
@@ -144,6 +151,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The Markdown text to render</para>
+        /// </summary>
         public string? Text
         {
             get

@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /version</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html#version-api" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -34,7 +34,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /version</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html#version-api" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -55,7 +55,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /version</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html#version-api" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>

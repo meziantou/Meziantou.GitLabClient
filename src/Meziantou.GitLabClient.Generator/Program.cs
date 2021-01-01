@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using AngleSharp.Text;
 using Meziantou.Framework;
+using Meziantou.GitLabClient.Generator.GitLabModels;
+using Meziantou.GitLabClient.Generator.Internals;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -10,32 +11,26 @@ namespace Meziantou.GitLabClient.Generator
     {
         private static async Task Main(string[] args)
         {
-            if (args.Contains("documentation"))
-            {
-                var markdown = await ApiCoverage.GetMarkdownAsync();
-                var outputFile = FullPath.FromPath("../../../../../docs/coverage.md");
-                if (args.Length > 1)
-                {
-                    outputFile = FullPath.FromPath(args[1]);
-                }
+            var directory = FullPath.FromPath("../../../../Meziantou.GitLabClient");
+            var coverageOutputFile = FullPath.FromPath("../../../../../docs/coverage.md");
+            Console.WriteLine("Generating files to " + directory);
+            Console.WriteLine("Generating overage file to " + coverageOutputFile);
 
-                Console.WriteLine("Generating file " + outputFile);
-                IOUtilities.PathCreateDirectory(outputFile);
-                await File.WriteAllTextAsync(outputFile, markdown);
-            }
-            else
-            {
-                var directory = FullPath.FromPath("../../../../Meziantou.GitLabClient");
-                if (args.Length > 0)
-                {
-                    directory = FullPath.FromPath(args[0]);
-                }
+            var model = GitLabModelBuilder.Create();
+            var documentation = await GitLabDocumentationResource.LoadResourcesAsync();
+            model.Merge(documentation);
 
-                Console.WriteLine("Generating files to " + directory);
-                await Task.WhenAll(
-                    Task.Run(() => new GitLabClientGenerator().Generate(directory)),
-                    Task.Run(() => EmojiGenerator.GenerateAsync(directory))
-                    );
+            await Task.WhenAll(
+                Task.Run(() => EmojiGenerator.GenerateAsync(directory)),
+                Task.Run(() => new GitLabClientGenerator().Generate(directory, model)),
+                Task.Run(() => GenerateApiCoverage())
+                );
+
+            async Task GenerateApiCoverage()
+            {
+                var markdown = ApiCoverage.GetMarkdown(model, documentation);
+                IOUtilities.PathCreateDirectory(coverageOutputFile);
+                await File.WriteAllTextAsync(coverageOutputFile, markdown);
             }
         }
     }

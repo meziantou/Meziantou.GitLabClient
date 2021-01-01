@@ -40,7 +40,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-a-single-gitignore-template" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -50,7 +50,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-all-gitignore-templates" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -125,7 +125,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-a-single-gitignore-template" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -138,7 +138,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-all-gitignore-templates" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -248,7 +248,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-a-single-gitignore-template" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -274,7 +274,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-all-gitignore-templates" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -417,7 +417,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-a-single-gitignore-template" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -477,6 +477,7 @@ namespace Meziantou.GitLab
     {
         private string? _key;
 
+        /// <param name="key">The key of the .gitignore template</param>
         public GetGitIgnoreByKeyTemplateRequest(string? key)
         {
             this._key = key;
@@ -486,6 +487,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>The key of the .gitignore template</para>
+        /// </summary>
         public string? Key
         {
             get
@@ -503,6 +507,7 @@ namespace Meziantou.GitLab
     {
         private string? _key;
 
+        /// <param name="key">The key of the GitLab CI/CD YAML template</param>
         public GetGitLabCiYmlByKeyTemplateRequest(string? key)
         {
             this._key = key;
@@ -512,6 +517,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>The key of the GitLab CI/CD YAML template</para>
+        /// </summary>
         public string? Key
         {
             get
@@ -529,6 +537,7 @@ namespace Meziantou.GitLab
     {
         private string? _key;
 
+        /// <param name="key">The key of the Dockerfile template</param>
         public GetDockerfileByKeyTemplateRequest(string? key)
         {
             this._key = key;
@@ -538,6 +547,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>The key of the Dockerfile template</para>
+        /// </summary>
         public string? Key
         {
             get
@@ -559,6 +571,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>If passed, returns only popular licenses</para>
+        /// </summary>
         public bool? Popular
         {
             get
@@ -580,6 +595,7 @@ namespace Meziantou.GitLab
 
         private string? _project;
 
+        /// <param name="key">The key of the license template</param>
         public GetLicenseByKeyTemplateRequest(string? key)
         {
             this._key = key;
@@ -589,6 +605,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>The full-name of the copyright holder</para>
+        /// </summary>
         public string? Fullname
         {
             get
@@ -601,6 +620,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The key of the license template</para>
+        /// </summary>
         public string? Key
         {
             get
@@ -613,6 +635,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The copyrighted project name</para>
+        /// </summary>
         public string? Project
         {
             get

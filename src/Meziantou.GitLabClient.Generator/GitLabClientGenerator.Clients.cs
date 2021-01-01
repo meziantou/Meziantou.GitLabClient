@@ -429,6 +429,7 @@ namespace Meziantou.GitLabClient.Generator
                 property.Modifiers = Modifiers.Public;
                 property.Getter = new PropertyAccessorDeclaration(new ReturnStatement(field));
                 property.Setter = new PropertyAccessorDeclaration(new AssignStatement(field, new ArgumentReferenceExpression("value")));
+                AddDocumentationComments(property, param.Documentation);
 
                 // ctor required properties
                 if (param.IsRequired)
@@ -436,6 +437,7 @@ namespace Meziantou.GitLabClient.Generator
                     var argument = new MethodArgumentDeclaration(paramType, ToArgumentName(param.Name));
                     ctor.Arguments.Add(argument);
                     ctor.Statements.Add(new AssignStatement(field, argument));
+                    AddDocumentationComments(argument, param.Documentation);
                 }
             }
 

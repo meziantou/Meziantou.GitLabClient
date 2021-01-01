@@ -34,9 +34,8 @@ namespace Meziantou.GitLabClient.Generator
 
         private readonly List<CompilationUnit> _units = new();
 
-        public void Generate(FullPath rootDirectory)
+        public void Generate(FullPath rootDirectory, Project project)
         {
-            var project = GitLabModels.GitLabModelBuilder.Create();
             GenerateCode(project);
             WriteFiles(rootDirectory);
         }
@@ -100,7 +99,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 if (commentable is MethodArgumentDeclaration arg)
                 {
-                    var declaringMethod = arg.GetSelfOrParentOfType<MethodDeclaration>();
+                    var declaringMethod = (IXmlCommentable)arg.GetSelfOrParentOfType<MethodDeclaration>() ?? arg.GetSelfOrParentOfType<ConstructorDeclaration>();
                     if (documentation.Summary != null)
                     {
                         declaringMethod.XmlComments.AddParam(arg.Name, documentation.Summary);

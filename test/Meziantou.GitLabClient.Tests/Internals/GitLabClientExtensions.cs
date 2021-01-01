@@ -12,16 +12,16 @@ namespace Meziantou.GitLab.Tests
             var branchName = context.GetRandomString();
             var assignee = assignedToMe ? await client.Users.GetCurrentUserAsync() : null;
 
-            await client.Repositories.CreateFileAsync(new CreateFileRepositoryRequest(project, filePath, "master", content: context.GetRandomString(), commitMessage: context.GetRandomString()));
+            await client.RepositoryFiles.CreateFileAsync(new CreateFileRepositoryFileRequest(project, filePath, "master", content: context.GetRandomString(), commitMessage: context.GetRandomString()));
 
-            await client.Repositories.UpdateFileAsync(new UpdateFileRepositoryRequest(project, filePath, branchName, content: context.GetRandomString(), commitMessage: context.GetRandomString())
+            await client.RepositoryFiles.UpdateFileAsync(new UpdateFileRepositoryFileRequest(project, filePath, branchName, content: context.GetRandomString(), commitMessage: context.GetRandomString())
             {
                 StartBranch = "master",
             });
 
             if (hasConflict)
             {
-                await client.Repositories.UpdateFileAsync(new UpdateFileRepositoryRequest(project, filePath, "master", content: context.GetRandomString(), commitMessage: context.GetRandomString()));
+                await client.RepositoryFiles.UpdateFileAsync(new UpdateFileRepositoryFileRequest(project, filePath, "master", content: context.GetRandomString(), commitMessage: context.GetRandomString()));
             }
 
             // Create merge request

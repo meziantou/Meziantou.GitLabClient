@@ -1,12 +1,12 @@
 ﻿namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
-    internal sealed class RepositoriesClient : GitLabClientBuilder
+    internal sealed class RepositoryFilesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("CreateFile", MethodType.Post, "/projects/:project_id/repository/files/:file_path", "https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository")
+            methodGroup.AddMethod("CreateFile", MethodType.Post, "/projects/:id/repository/files/:file_path", "https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository")
                 .WithReturnType(Models.FileCreated)
-                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
+                .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
                 .AddRequiredParameter("file_path", ModelRef.String)
                 .AddRequiredParameter("branch", ModelRef.String)
                 .AddRequiredParameter("content", ModelRef.String)
@@ -16,9 +16,9 @@
                 .AddOptionalParameter("author_email", ModelRef.String)
                 .AddOptionalParameter("author_name", ModelRef.String)
                 ;
-            methodGroup.AddMethod("UpdateFile", MethodType.Put, "/projects/:project_id/repository/files/:file_path", "https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository")
+            methodGroup.AddMethod("UpdateFile", MethodType.Put, "/projects/:id/repository/files/:file_path", "https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository")
                 .WithReturnType(Models.FileUpdated)
-                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
+                .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
                 .AddRequiredParameter("file_path", ModelRef.String)
                 .AddRequiredParameter("branch", ModelRef.String)
                 .AddRequiredParameter("content", ModelRef.String)

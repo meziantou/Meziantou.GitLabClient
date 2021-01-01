@@ -16,7 +16,7 @@ namespace Meziantou.GitLab.Tests
                 Name = context.GetRandomString(),
                 WikiEnabled = true,
             });
-            var page = await client.Wikis.CreateWikiPageAsync(new CreateWikiPageRequest(project, "title", "content")
+            var page = await client.ProjectWikis.CreateWikiPageAsync(new CreateWikiPageProjectWikiRequest(project, "title", "content")
             {
                 Format = WikiPageFormat.Asciidoc,
             });
@@ -25,15 +25,15 @@ namespace Meziantou.GitLab.Tests
             Assert.AreEqual("content", page.Content);
             Assert.AreEqual(WikiPageFormat.Asciidoc, page.Format);
 
-            page = await client.Wikis.GetWikiPageAsync(project, page.Slug);
+            page = await client.ProjectWikis.GetWikiPageAsync(project, page.Slug);
             Assert.AreEqual("title", page.Title);
             Assert.AreEqual("content", page.Content);
             Assert.AreEqual(WikiPageFormat.Asciidoc, page.Format);
 
-            var pages = await client.Wikis.GetWikiPagesAsync(project);
+            var pages = await client.ProjectWikis.GetWikiPagesAsync(project);
             Assert.AreEqual(1, pages.Count);
 
-            page = await client.Wikis.UpdateWikiPageAsync(new UpdateWikiPageRequest(project, page.Slug)
+            page = await client.ProjectWikis.UpdateWikiPageAsync(new UpdateWikiPageProjectWikiRequest(project, page.Slug)
             {
                 Title = "title",
                 Content = "content2",
@@ -44,9 +44,9 @@ namespace Meziantou.GitLab.Tests
             Assert.AreEqual("content2", page.Content);
             Assert.AreEqual(WikiPageFormat.Rdoc, page.Format);
 
-            await client.Wikis.DeleteWikiPageAsync(new DeleteWikiPageRequest(project, page.Slug));
+            await client.ProjectWikis.DeleteWikiPageAsync(new DeleteWikiPageProjectWikiRequest(project, page.Slug));
 
-            pages = await client.Wikis.GetWikiPagesAsync(project);
+            pages = await client.ProjectWikis.GetWikiPagesAsync(project);
             Assert.AreEqual(0, pages.Count);
         }
     }

@@ -4,11 +4,11 @@
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("GetGitIgnores", MethodType.GetPaged, "/templates/gitignores", "https://docs.gitlab.com/ee/api/templates/gitignores.html#list-gitignore-templates")
+            methodGroup.AddMethod("GetGitIgnores", MethodType.GetPaged, "/templates/gitignores", "https://docs.gitlab.com/ee/api/templates/gitignores.html#get-all-gitignore-templates")
                 .WithReturnType(Models.TemplateBasic)
                 ;
 
-            methodGroup.AddMethod("GetGitIgnoreByKey", MethodType.Get, "/templates/gitignores/:key", "https://docs.gitlab.com/ee/api/templates/gitignores.html#single-gitignore-template")
+            methodGroup.AddMethod("GetGitIgnoreByKey", MethodType.Get, "/templates/gitignores/:key", "https://docs.gitlab.com/ee/api/templates/gitignores.html#get-a-single-gitignore-template")
                 .WithReturnType(Models.Template)
                 .AddRequiredParameter("key", ModelRef.String)
                 ;

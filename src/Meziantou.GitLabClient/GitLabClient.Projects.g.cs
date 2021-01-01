@@ -38,7 +38,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<Project> GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id</c></para>
+        ///   <para>URL: <c>GET /projects/:id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -85,7 +85,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id</c></para>
+        ///   <para>URL: <c>GET /projects/:id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -195,9 +195,9 @@ namespace Meziantou.GitLab
                 body.Add("shared_runners_enabled", request.SharedRunnersEnabled);
             }
 
-            if ((request.PublicJobs != null))
+            if ((request.PublicBuilds != null))
             {
-                body.Add("public_jobs", request.PublicJobs);
+                body.Add("public_builds", request.PublicBuilds);
             }
 
             if ((request.OnlyAllowMergeIfPipelineSucceeds != null))
@@ -379,7 +379,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id</c></para>
+        ///   <para>URL: <c>GET /projects/:id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
@@ -393,9 +393,9 @@ namespace Meziantou.GitLab
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
                 urlBuilder.Append("projects/");
-                if (request.ProjectId.HasValue)
+                if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 url = urlBuilder.ToString();
@@ -505,22 +505,6 @@ namespace Meziantou.GitLab
                     urlBuilder.AppendParameter(request.WithMergeRequestsEnabled.GetValueOrDefault());
                 }
 
-                if (request.WikiChecksumFailed.HasValue)
-                {
-                    urlBuilder.Append(separator);
-                    separator = '&';
-                    urlBuilder.Append("wiki_checksum_failed=");
-                    urlBuilder.AppendParameter(request.WikiChecksumFailed.GetValueOrDefault());
-                }
-
-                if (request.RepositoryChecksumFailed.HasValue)
-                {
-                    urlBuilder.Append(separator);
-                    separator = '&';
-                    urlBuilder.Append("repository_checksum_failed=");
-                    urlBuilder.AppendParameter(request.RepositoryChecksumFailed.GetValueOrDefault());
-                }
-
                 if (request.MinAccessLevel.HasValue)
                 {
                     urlBuilder.Append(separator);
@@ -546,7 +530,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Project> CreateAsync(this Meziantou.GitLab.IGitLabProjectsClient client, string? name = default(string?), string? path = default(string?), long? namespaceId = default(long?), string? defaultBranch = default(string?), string? description = default(string?), bool? issuesEnabled = default(bool?), bool? mergeRequestsEnabled = default(bool?), bool? jobsEnabled = default(bool?), bool? wikiEnabled = default(bool?), bool? snippetsEnabled = default(bool?), bool? resolveOutdatedDiffDiscussions = default(bool?), bool? containerRegistryEnabled = default(bool?), bool? sharedRunnersEnabled = default(bool?), bool? publicJobs = default(bool?), bool? onlyAllowMergeIfPipelineSucceeds = default(bool?), bool? onlyAllowMergeIfAllDiscussionsAreResolved = default(bool?), bool? requestAccessEnabled = default(bool?), bool? lfsEnabled = default(bool?), bool? printingMergeRequestLinkEnabled = default(bool?), MergeMethod? mergeMethod = default(MergeMethod?), Visibility? visibility = default(Visibility?), System.Collections.Generic.IEnumerable<string>? tagList = default(System.Collections.Generic.IEnumerable<string>?), string? ciConfigPath = default(string?), int? approvalsBeforeMerge = default(int?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Project> CreateAsync(this Meziantou.GitLab.IGitLabProjectsClient client, string? name = default(string?), string? path = default(string?), long? namespaceId = default(long?), string? defaultBranch = default(string?), string? description = default(string?), bool? issuesEnabled = default(bool?), bool? mergeRequestsEnabled = default(bool?), bool? jobsEnabled = default(bool?), bool? wikiEnabled = default(bool?), bool? snippetsEnabled = default(bool?), bool? resolveOutdatedDiffDiscussions = default(bool?), bool? containerRegistryEnabled = default(bool?), bool? sharedRunnersEnabled = default(bool?), bool? publicBuilds = default(bool?), bool? onlyAllowMergeIfPipelineSucceeds = default(bool?), bool? onlyAllowMergeIfAllDiscussionsAreResolved = default(bool?), bool? requestAccessEnabled = default(bool?), bool? lfsEnabled = default(bool?), bool? printingMergeRequestLinkEnabled = default(bool?), MergeMethod? mergeMethod = default(MergeMethod?), Visibility? visibility = default(Visibility?), System.Collections.Generic.IEnumerable<string>? tagList = default(System.Collections.Generic.IEnumerable<string>?), string? ciConfigPath = default(string?), int? approvalsBeforeMerge = default(int?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreateProjectRequest request = new Meziantou.GitLab.CreateProjectRequest();
             request.Name = name;
@@ -562,7 +546,7 @@ namespace Meziantou.GitLab
             request.ResolveOutdatedDiffDiscussions = resolveOutdatedDiffDiscussions;
             request.ContainerRegistryEnabled = containerRegistryEnabled;
             request.SharedRunnersEnabled = sharedRunnersEnabled;
-            request.PublicJobs = publicJobs;
+            request.PublicBuilds = publicBuilds;
             request.OnlyAllowMergeIfPipelineSucceeds = onlyAllowMergeIfPipelineSucceeds;
             request.OnlyAllowMergeIfAllDiscussionsAreResolved = onlyAllowMergeIfAllDiscussionsAreResolved;
             request.RequestAccessEnabled = requestAccessEnabled;
@@ -603,16 +587,16 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id</c></para>
+        ///   <para>URL: <c>GET /projects/:id</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#get-single-project" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Project?> GetByIdAsync(this Meziantou.GitLab.IGitLabProjectsClient client, ProjectIdOrPathRef projectId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Project?> GetByIdAsync(this Meziantou.GitLab.IGitLabProjectsClient client, ProjectIdOrPathRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetByIdProjectRequest request = new Meziantou.GitLab.GetByIdProjectRequest(projectId);
+            Meziantou.GitLab.GetByIdProjectRequest request = new Meziantou.GitLab.GetByIdProjectRequest(id);
             return client.GetByIdAsync(request, requestOptions, cancellationToken);
         }
 
@@ -623,7 +607,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived, Visibility? visibility, string? search, bool? simple, bool? owned, bool? membership, bool? starred, bool? statistics, bool? withIssuesEnabled, bool? withMergeRequestsEnabled, bool? wikiChecksumFailed, bool? repositoryChecksumFailed, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
             request.Archived = archived;
@@ -636,33 +620,6 @@ namespace Meziantou.GitLab
             request.Statistics = statistics;
             request.WithIssuesEnabled = withIssuesEnabled;
             request.WithMergeRequestsEnabled = withMergeRequestsEnabled;
-            request.WikiChecksumFailed = wikiChecksumFailed;
-            request.RepositoryChecksumFailed = repositoryChecksumFailed;
-            return client.GetByUser(request, requestOptions);
-        }
-
-        /// <summary>
-        ///   <para>URL: <c>GET /users/:user_id/projects</c></para>
-        ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#list-user-projects" />
-        ///   </para>
-        /// </summary>
-        /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
-        {
-            Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
-            request.Archived = archived;
-            request.Visibility = visibility;
-            request.Search = search;
-            request.Simple = simple;
-            request.Owned = owned;
-            request.Membership = membership;
-            request.Starred = starred;
-            request.Statistics = statistics;
-            request.WithIssuesEnabled = withIssuesEnabled;
-            request.WithMergeRequestsEnabled = withMergeRequestsEnabled;
-            request.WikiChecksumFailed = wikiChecksumFailed;
-            request.RepositoryChecksumFailed = repositoryChecksumFailed;
             request.MinAccessLevel = minAccessLevel;
             return client.GetByUser(request, requestOptions);
         }
@@ -700,6 +657,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>Limit by archived status.</para>
+        /// </summary>
         public bool? Archived
         {
             get
@@ -712,6 +672,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by projects that the current user is a member of.</para>
+        /// </summary>
         public bool? Membership
         {
             get
@@ -724,6 +687,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by current user minimal access level.</para>
+        /// </summary>
         public AccessLevel? MinAccessLevel
         {
             get
@@ -736,6 +702,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by projects explicitly owned by the current user.</para>
+        /// </summary>
         public bool? Owned
         {
             get
@@ -748,6 +717,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit projects where the repository checksum calculation has failed (Introduced in GitLab Premium 11.2).</para>
+        /// </summary>
         public bool? RepositoryChecksumFailed
         {
             get
@@ -760,6 +732,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return list of projects matching the search criteria.</para>
+        /// </summary>
         public string? Search
         {
             get
@@ -772,6 +747,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return only limited fields for each project. This is a no-op without authentication as then only simple fields are returned.</para>
+        /// </summary>
         public bool? Simple
         {
             get
@@ -784,6 +762,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by projects starred by the current user.</para>
+        /// </summary>
         public bool? Starred
         {
             get
@@ -796,6 +777,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Include project statistics.</para>
+        /// </summary>
         public bool? Statistics
         {
             get
@@ -808,6 +792,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by visibility public, internal, or private.</para>
+        /// </summary>
         public Visibility? Visibility
         {
             get
@@ -820,6 +807,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit projects where the wiki checksum calculation has failed (Introduced in GitLab Premium 11.2).</para>
+        /// </summary>
         public bool? WikiChecksumFailed
         {
             get
@@ -832,6 +822,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by enabled issues feature.</para>
+        /// </summary>
         public bool? WithIssuesEnabled
         {
             get
@@ -844,6 +837,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by enabled merge requests feature.</para>
+        /// </summary>
         public bool? WithMergeRequestsEnabled
         {
             get
@@ -867,8 +863,6 @@ namespace Meziantou.GitLab
 
         private bool? _owned;
 
-        private bool? _repositoryChecksumFailed;
-
         private string? _search;
 
         private bool? _simple;
@@ -881,12 +875,11 @@ namespace Meziantou.GitLab
 
         private Visibility? _visibility;
 
-        private bool? _wikiChecksumFailed;
-
         private bool? _withIssuesEnabled;
 
         private bool? _withMergeRequestsEnabled;
 
+        /// <param name="userId">The ID or username of the user.</param>
         public GetByUserProjectRequest(UserRef? userId)
         {
             this._userId = userId;
@@ -896,6 +889,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>Limit by archived status.</para>
+        /// </summary>
         public bool? Archived
         {
             get
@@ -908,6 +904,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by projects that the current user is a member of.</para>
+        /// </summary>
         public bool? Membership
         {
             get
@@ -920,6 +919,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by current user minimal access level.</para>
+        /// </summary>
         public AccessLevel? MinAccessLevel
         {
             get
@@ -932,6 +934,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by projects explicitly owned by the current user.</para>
+        /// </summary>
         public bool? Owned
         {
             get
@@ -944,18 +949,9 @@ namespace Meziantou.GitLab
             }
         }
 
-        public bool? RepositoryChecksumFailed
-        {
-            get
-            {
-                return this._repositoryChecksumFailed;
-            }
-            set
-            {
-                this._repositoryChecksumFailed = value;
-            }
-        }
-
+        /// <summary>
+        ///   <para>Return list of projects matching the search criteria.</para>
+        /// </summary>
         public string? Search
         {
             get
@@ -968,6 +964,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return only limited fields for each project. This is a no-op without authentication as then only simple fields are returned.</para>
+        /// </summary>
         public bool? Simple
         {
             get
@@ -980,6 +979,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by projects starred by the current user.</para>
+        /// </summary>
         public bool? Starred
         {
             get
@@ -992,6 +994,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Include project statistics.</para>
+        /// </summary>
         public bool? Statistics
         {
             get
@@ -1004,6 +1009,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The ID or username of the user.</para>
+        /// </summary>
         public UserRef? UserId
         {
             get
@@ -1016,6 +1024,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by visibility public, internal, or private.</para>
+        /// </summary>
         public Visibility? Visibility
         {
             get
@@ -1028,18 +1039,9 @@ namespace Meziantou.GitLab
             }
         }
 
-        public bool? WikiChecksumFailed
-        {
-            get
-            {
-                return this._wikiChecksumFailed;
-            }
-            set
-            {
-                this._wikiChecksumFailed = value;
-            }
-        }
-
+        /// <summary>
+        ///   <para>Limit by enabled issues feature.</para>
+        /// </summary>
         public bool? WithIssuesEnabled
         {
             get
@@ -1052,6 +1054,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Limit by enabled merge requests feature.</para>
+        /// </summary>
         public bool? WithMergeRequestsEnabled
         {
             get
@@ -1067,26 +1072,30 @@ namespace Meziantou.GitLab
 
     public partial class GetByIdProjectRequest
     {
-        private ProjectIdOrPathRef? _projectId;
+        private ProjectIdOrPathRef? _id;
 
-        public GetByIdProjectRequest(ProjectIdOrPathRef? projectId)
+        /// <param name="id">The ID or URL-encoded path of the project.</param>
+        public GetByIdProjectRequest(ProjectIdOrPathRef? id)
         {
-            this._projectId = projectId;
+            this._id = id;
         }
 
         public GetByIdProjectRequest()
         {
         }
 
-        public ProjectIdOrPathRef? ProjectId
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project.</para>
+        /// </summary>
+        public ProjectIdOrPathRef? Id
         {
             get
             {
-                return this._projectId;
+                return this._id;
             }
             set
             {
-                this._projectId = value;
+                this._id = value;
             }
         }
     }
@@ -1125,7 +1134,7 @@ namespace Meziantou.GitLab
 
         private bool? _printingMergeRequestLinkEnabled;
 
-        private bool? _publicJobs;
+        private bool? _publicBuilds;
 
         private bool? _requestAccessEnabled;
 
@@ -1145,6 +1154,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>How many approvers should approve merge requests by default.</para>
+        /// </summary>
         public int? ApprovalsBeforeMerge
         {
             get
@@ -1157,6 +1169,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The path to CI configuration file.</para>
+        /// </summary>
         public string? CiConfigPath
         {
             get
@@ -1169,6 +1184,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Enable container registry for this project.</para>
+        /// </summary>
         public bool? ContainerRegistryEnabled
         {
             get
@@ -1181,6 +1199,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>master by default.</para>
+        /// </summary>
         public string? DefaultBranch
         {
             get
@@ -1193,6 +1214,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Short project description.</para>
+        /// </summary>
         public string? Description
         {
             get
@@ -1205,6 +1229,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>(Deprecated) Enable issues for this project. Use issues_access_level instead.</para>
+        /// </summary>
         public bool? IssuesEnabled
         {
             get
@@ -1217,6 +1244,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>(Deprecated) Enable jobs for this project. Use builds_access_level instead.</para>
+        /// </summary>
         public bool? JobsEnabled
         {
             get
@@ -1229,6 +1259,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Enable LFS.</para>
+        /// </summary>
         public bool? LfsEnabled
         {
             get
@@ -1241,6 +1274,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Set the merge method used.</para>
+        /// </summary>
         public MergeMethod? MergeMethod
         {
             get
@@ -1253,6 +1289,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>(Deprecated) Enable merge requests for this project. Use merge_requests_access_level instead.</para>
+        /// </summary>
         public bool? MergeRequestsEnabled
         {
             get
@@ -1265,6 +1304,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The name of the new project. Equals path if not provided.</para>
+        /// </summary>
         public string? Name
         {
             get
@@ -1277,6 +1319,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Namespace for the new project (defaults to the current user’s namespace).</para>
+        /// </summary>
         public long? NamespaceId
         {
             get
@@ -1289,6 +1334,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Set whether merge requests can only be merged when all the discussions are resolved.</para>
+        /// </summary>
         public bool? OnlyAllowMergeIfAllDiscussionsAreResolved
         {
             get
@@ -1301,6 +1349,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Set whether merge requests can only be merged with successful jobs.</para>
+        /// </summary>
         public bool? OnlyAllowMergeIfPipelineSucceeds
         {
             get
@@ -1313,6 +1364,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).</para>
+        /// </summary>
         public string? Path
         {
             get
@@ -1325,6 +1379,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Show link to create/view merge request when pushing from the command line.</para>
+        /// </summary>
         public bool? PrintingMergeRequestLinkEnabled
         {
             get
@@ -1337,18 +1394,24 @@ namespace Meziantou.GitLab
             }
         }
 
-        public bool? PublicJobs
+        /// <summary>
+        ///   <para>If true, jobs can be viewed by non-project members.</para>
+        /// </summary>
+        public bool? PublicBuilds
         {
             get
             {
-                return this._publicJobs;
+                return this._publicBuilds;
             }
             set
             {
-                this._publicJobs = value;
+                this._publicBuilds = value;
             }
         }
 
+        /// <summary>
+        ///   <para>Allow users to request member access.</para>
+        /// </summary>
         public bool? RequestAccessEnabled
         {
             get
@@ -1361,6 +1424,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Automatically resolve merge request diffs discussions on lines changed with a push.</para>
+        /// </summary>
         public bool? ResolveOutdatedDiffDiscussions
         {
             get
@@ -1373,6 +1439,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Enable shared runners for this project.</para>
+        /// </summary>
         public bool? SharedRunnersEnabled
         {
             get
@@ -1385,6 +1454,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>(Deprecated) Enable snippets for this project. Use snippets_access_level instead.</para>
+        /// </summary>
         public bool? SnippetsEnabled
         {
             get
@@ -1397,6 +1469,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The list of tags for a project; put array of tags, that should be finally assigned to a project.</para>
+        /// </summary>
         public System.Collections.Generic.IEnumerable<string>? TagList
         {
             get
@@ -1409,6 +1484,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>See project visibility level.</para>
+        /// </summary>
         public Visibility? Visibility
         {
             get
@@ -1421,6 +1499,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>(Deprecated) Enable wiki for this project. Use wiki_access_level instead.</para>
+        /// </summary>
         public bool? WikiEnabled
         {
             get

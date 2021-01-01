@@ -7,7 +7,7 @@
             methodGroup.AddMethod("GetCurrentUser", MethodType.Get, "/user", "https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users")
                 .WithReturnType(Models.User);
 
-            methodGroup.AddMethod("GetById", MethodType.Get, "/users/:user_id", "https://docs.gitlab.com/ee/api/users.html#single-user")
+            methodGroup.AddMethod("GetById", MethodType.Get, "/users/:user_id", "https://docs.gitlab.com/ee/api/users.html#for-user")
                 .WithReturnType(Models.User)
                 .AddRequiredParameter("user_id", ModelRef.NumberId)
                 ;
@@ -23,9 +23,9 @@
                 .WithReturnType(Models.UserStatus)
                 ;
 
-            methodGroup.AddMethod("GetStatus", MethodType.Get, "/users/:user_id/status", "https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user")
+            methodGroup.AddMethod("GetStatus", MethodType.Get, "/users/:id_or_username/status", "https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user")
                 .WithReturnType(Models.UserStatus)
-                .AddRequiredParameter("user_id", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserRef)
                 ;
 
             methodGroup.AddMethod("SetCurrentUserStatus", MethodType.Put, "/user/status", "https://docs.gitlab.com/ee/api/users.html#set-user-status")
@@ -38,9 +38,9 @@
                 .WithReturnType(Models.SshKey)
                 ;
 
-            methodGroup.AddMethod("GetSSHKeys", MethodType.GetCollection, "/users/:user_id/keys", "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user")
+            methodGroup.AddMethod("GetSSHKeys", MethodType.GetCollection, "/users/:id_or_username/keys", "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user")
                 .WithReturnType(Models.SshKey)
-                .AddRequiredParameter("user_id", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserRef)
                 ;
 
             methodGroup.AddMethod("GetCurrentUserSSHKey", MethodType.Get, "/user/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#single-ssh-key")
@@ -54,9 +54,9 @@
                 .AddRequiredParameter("key", ModelRef.String)
                 ;
 
-            methodGroup.AddMethod("AddSSHKey", MethodType.Post, "/users/:user_id/keys", "https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user")
+            methodGroup.AddMethod("AddSSHKey", MethodType.Post, "/users/:id_or_username/keys", "https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user")
                 .WithReturnType(Models.SshKey)
-                .AddRequiredParameter("user_id", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserRef)
                 .AddRequiredParameter("title", ModelRef.String)
                 .AddRequiredParameter("key", ModelRef.String)
                 ;
@@ -65,8 +65,8 @@
                 .AddRequiredParameter("key_id", Models.SshKeyRef)
                 ;
 
-            methodGroup.AddMethod("DeleteSSHKey", MethodType.Delete, "/users/:user_id/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user")
-                .AddRequiredParameter("user_id", Models.UserRef)
+            methodGroup.AddMethod("DeleteSSHKey", MethodType.Delete, "/users/:id_or_username/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user")
+                .AddRequiredParameter("id_or_username", Models.UserRef)
                 .AddRequiredParameter("key_id", Models.SshKeyRef)
                 ;
 
@@ -83,7 +83,7 @@
 
             methodGroup.AddMethod("CreateImpersonationToken", MethodType.Post, "/users/:user_id/impersonation_tokens", "https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token")
                 .WithReturnType(Models.ImpersonationToken)
-                .AddRequiredParameter("user_id", Models.UserRef)
+                .AddRequiredParameter("user_id", Models.UserRef) // TODO test username is valid here
                 .AddRequiredParameter("name", ModelRef.String)
                 .AddOptionalParameter("expires_at", ModelRef.Date)
                 .AddOptionalParameter("scopes", ModelRef.StringCollection)

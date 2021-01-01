@@ -19,7 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabMergeRequestsClient
     {
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>POST /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -29,7 +29,7 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /groups/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -38,7 +38,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -57,7 +57,7 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<MergeRequest> GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
@@ -69,7 +69,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabMergeRequestsClient
     {
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>POST /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -82,7 +82,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /groups/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -94,7 +94,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -119,7 +119,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
@@ -139,7 +139,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>POST /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
@@ -153,9 +153,9 @@ namespace Meziantou.GitLab
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
                 urlBuilder.Append("projects/");
-                if (request.ProjectId.HasValue)
+                if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/merge_requests");
@@ -217,7 +217,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /groups/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
@@ -230,9 +230,9 @@ namespace Meziantou.GitLab
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
                 urlBuilder.Append("groups/");
-                if (request.GroupId.HasValue)
+                if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.GroupId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/merge_requests");
@@ -364,7 +364,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
@@ -378,9 +378,9 @@ namespace Meziantou.GitLab
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
                 urlBuilder.Append("projects/");
-                if (request.ProjectId.HasValue)
+                if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/merge_requests/");
@@ -537,7 +537,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
@@ -550,9 +550,9 @@ namespace Meziantou.GitLab
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
                 urlBuilder.Append("projects/");
-                if (request.ProjectId.HasValue)
+                if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/merge_requests");
@@ -695,16 +695,16 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>POST /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#create-mr" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef projectId, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserRef? assigneeId = default(UserRef?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserRef? assigneeId = default(UserRef?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.CreateMergeRequestRequest request = new Meziantou.GitLab.CreateMergeRequestRequest(projectId, sourceBranch, targetBranch, title);
+            Meziantou.GitLab.CreateMergeRequestRequest request = new Meziantou.GitLab.CreateMergeRequestRequest(id, sourceBranch, targetBranch, title);
             request.Description = description;
             request.AssigneeId = assigneeId;
             request.TargetProjectId = targetProjectId;
@@ -716,15 +716,15 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /groups/:group_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /groups/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-group-merge-requests" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, GroupIdOrPathRef groupId, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetGroupMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, GroupIdOrPathRef id, MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetGroupMergeRequestsRequest request = new Meziantou.GitLab.GetGroupMergeRequestsRequest(groupId);
+            Meziantou.GitLab.GetGroupMergeRequestsRequest request = new Meziantou.GitLab.GetGroupMergeRequestsRequest(id);
             request.State = state;
             request.Scope = scope;
             request.AssigneeId = assigneeId;
@@ -744,16 +744,16 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests/:merge_request_iid</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests/:merge_request_iid</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<MergeRequest?> GetMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef projectId, MergeRequestIidRef mergeRequestIid, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<MergeRequest?> GetMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, MergeRequestIidRef mergeRequestIid, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.GetMergeRequestRequest request = new Meziantou.GitLab.GetMergeRequestRequest(projectId, mergeRequestIid);
+            Meziantou.GitLab.GetMergeRequestRequest request = new Meziantou.GitLab.GetMergeRequestRequest(id, mergeRequestIid);
             return client.GetMergeRequestAsync(request, requestOptions, cancellationToken);
         }
 
@@ -786,15 +786,15 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>GET /projects/:project_id/merge_requests</c></para>
+        ///   <para>URL: <c>GET /projects/:id/merge_requests</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/merge_requests.html#list-project-merge-requests" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef projectId, System.Collections.Generic.IEnumerable<long>? iids = default(System.Collections.Generic.IEnumerable<long>?), MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<MergeRequest> GetProjectMergeRequests(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, System.Collections.Generic.IEnumerable<long>? iids = default(System.Collections.Generic.IEnumerable<long>?), MergeRequestState? state = default(MergeRequestState?), MergeRequestScopeFilter? scope = default(MergeRequestScopeFilter?), UserRef? assigneeId = default(UserRef?), UserRef? authorId = default(UserRef?), string? milestone = default(string?), MergeRequestView? view = default(MergeRequestView?), System.Collections.Generic.IEnumerable<string>? labels = default(System.Collections.Generic.IEnumerable<string>?), System.DateTimeOffset? createdAfter = default(System.DateTimeOffset?), System.DateTimeOffset? createdBefore = default(System.DateTimeOffset?), System.DateTimeOffset? updatedAfter = default(System.DateTimeOffset?), System.DateTimeOffset? updatedBefore = default(System.DateTimeOffset?), string? myReactionEmoji = default(string?), string? sourceBranch = default(string?), string? targetBranch = default(string?), string? search = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
-            Meziantou.GitLab.GetProjectMergeRequestsRequest request = new Meziantou.GitLab.GetProjectMergeRequestsRequest(projectId);
+            Meziantou.GitLab.GetProjectMergeRequestsRequest request = new Meziantou.GitLab.GetProjectMergeRequestsRequest(id);
             request.Iids = iids;
             request.State = state;
             request.Scope = scope;
@@ -851,6 +851,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee.</para>
+        /// </summary>
         public UserRef? AssigneeId
         {
             get
@@ -863,6 +866,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username. Combine with scope=all or scope=assigned_to_me.</para>
+        /// </summary>
         public UserRef? AuthorId
         {
             get
@@ -875,6 +881,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests created on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? CreatedAfter
         {
             get
@@ -887,6 +896,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests created on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? CreatedBefore
         {
             get
@@ -899,6 +911,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests matching a comma separated list of labels. None lists all merge requests with no labels. Any lists all merge requests with at least one label. No+Label (Deprecated) lists all merge requests with no labels. Predefined names are case-insensitive.</para>
+        /// </summary>
         public System.Collections.Generic.IEnumerable<string>? Labels
         {
             get
@@ -911,6 +926,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests for a specific milestone. None returns merge requests with no milestone. Any returns merge requests that have an assigned milestone.</para>
+        /// </summary>
         public string? Milestone
         {
             get
@@ -923,6 +941,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests reacted by the authenticated user by the given emoji. None returns issues not given a reaction. Any returns issues given at least one reaction.</para>
+        /// </summary>
         public string? MyReactionEmoji
         {
             get
@@ -935,6 +956,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests for the given scope: created_by_me, assigned_to_me or all. Defaults to created_by_me For versions before 11.0, use the now deprecated created-by-me or assigned-to-me scopes instead.</para>
+        /// </summary>
         public MergeRequestScopeFilter? Scope
         {
             get
@@ -947,6 +971,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Search merge requests against their title and description.</para>
+        /// </summary>
         public string? Search
         {
             get
@@ -959,6 +986,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests with the given source branch.</para>
+        /// </summary>
         public string? SourceBranch
         {
             get
@@ -971,6 +1001,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return all merge requests or just those that are opened, closed, locked, or merged.</para>
+        /// </summary>
         public MergeRequestState? State
         {
             get
@@ -983,6 +1016,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests with the given target branch.</para>
+        /// </summary>
         public string? TargetBranch
         {
             get
@@ -995,6 +1031,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests updated on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? UpdatedAfter
         {
             get
@@ -1007,6 +1046,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? UpdatedBefore
         {
             get
@@ -1019,6 +1061,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>If simple, returns the iid, URL, title, description, and basic state of merge request.</para>
+        /// </summary>
         public MergeRequestView? View
         {
             get
@@ -1042,7 +1087,7 @@ namespace Meziantou.GitLab
 
         private System.DateTimeOffset? _createdBefore;
 
-        private GroupIdOrPathRef? _groupId;
+        private GroupIdOrPathRef? _id;
 
         private System.Collections.Generic.IEnumerable<string>? _labels;
 
@@ -1066,15 +1111,19 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        public GetGroupMergeRequestsRequest(GroupIdOrPathRef? groupId)
+        /// <param name="id">The ID of a group.</param>
+        public GetGroupMergeRequestsRequest(GroupIdOrPathRef? id)
         {
-            this._groupId = groupId;
+            this._id = id;
         }
 
         public GetGroupMergeRequestsRequest()
         {
         }
 
+        /// <summary>
+        ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee. (Introduced in GitLab 9.5).</para>
+        /// </summary>
         public UserRef? AssigneeId
         {
             get
@@ -1087,6 +1136,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username. (Introduced in GitLab 9.5).</para>
+        /// </summary>
         public UserRef? AuthorId
         {
             get
@@ -1099,6 +1151,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests created on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
+        /// </summary>
         public System.DateTimeOffset? CreatedAfter
         {
             get
@@ -1111,6 +1166,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests created on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
+        /// </summary>
         public System.DateTimeOffset? CreatedBefore
         {
             get
@@ -1123,18 +1181,24 @@ namespace Meziantou.GitLab
             }
         }
 
-        public GroupIdOrPathRef? GroupId
+        /// <summary>
+        ///   <para>The ID of a group.</para>
+        /// </summary>
+        public GroupIdOrPathRef? Id
         {
             get
             {
-                return this._groupId;
+                return this._id;
             }
             set
             {
-                this._groupId = value;
+                this._id = value;
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests matching a comma separated list of labels. None lists all merge requests with no labels. Any lists all merge requests with at least one label. No+Label (Deprecated) lists all merge requests with no labels. Predefined names are case-insensitive.</para>
+        /// </summary>
         public System.Collections.Generic.IEnumerable<string>? Labels
         {
             get
@@ -1147,6 +1211,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests for a specific milestone. None returns merge requests with no milestone. Any returns merge requests that have an assigned milestone.</para>
+        /// </summary>
         public string? Milestone
         {
             get
@@ -1159,6 +1226,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests reacted by the authenticated user by the given emoji. None returns issues not given a reaction. Any returns issues given at least one reaction. (Introduced in GitLab 10.0).</para>
+        /// </summary>
         public string? MyReactionEmoji
         {
             get
@@ -1171,6 +1241,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests for the given scope: created_by_me, assigned_to_me or all.</para>
+        /// </summary>
         public MergeRequestScopeFilter? Scope
         {
             get
@@ -1183,6 +1256,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Search merge requests against their title and description.</para>
+        /// </summary>
         public string? Search
         {
             get
@@ -1195,6 +1271,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests with the given source branch.</para>
+        /// </summary>
         public string? SourceBranch
         {
             get
@@ -1207,6 +1286,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return all merge requests or just those that are opened, closed, locked, or merged.</para>
+        /// </summary>
         public MergeRequestState? State
         {
             get
@@ -1219,6 +1301,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests with the given target branch.</para>
+        /// </summary>
         public string? TargetBranch
         {
             get
@@ -1231,6 +1316,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests updated on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
+        /// </summary>
         public System.DateTimeOffset? UpdatedAfter
         {
             get
@@ -1243,6 +1331,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
+        /// </summary>
         public System.DateTimeOffset? UpdatedBefore
         {
             get
@@ -1255,6 +1346,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>If simple, returns the iid, URL, title, description, and basic state of merge request.</para>
+        /// </summary>
         public MergeRequestView? View
         {
             get
@@ -1278,6 +1372,8 @@ namespace Meziantou.GitLab
 
         private System.DateTimeOffset? _createdBefore;
 
+        private ProjectIdOrPathRef? _id;
+
         private System.Collections.Generic.IEnumerable<long>? _iids;
 
         private System.Collections.Generic.IEnumerable<string>? _labels;
@@ -1285,8 +1381,6 @@ namespace Meziantou.GitLab
         private string? _milestone;
 
         private string? _myReactionEmoji;
-
-        private ProjectIdOrPathRef? _projectId;
 
         private MergeRequestScopeFilter? _scope;
 
@@ -1304,15 +1398,19 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        public GetProjectMergeRequestsRequest(ProjectIdOrPathRef? projectId)
+        /// <param name="id">The ID of a project.</param>
+        public GetProjectMergeRequestsRequest(ProjectIdOrPathRef? id)
         {
-            this._projectId = projectId;
+            this._id = id;
         }
 
         public GetProjectMergeRequestsRequest()
         {
         }
 
+        /// <summary>
+        ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee.</para>
+        /// </summary>
         public UserRef? AssigneeId
         {
             get
@@ -1325,6 +1423,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username.</para>
+        /// </summary>
         public UserRef? AuthorId
         {
             get
@@ -1337,6 +1438,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests created on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? CreatedAfter
         {
             get
@@ -1349,6 +1453,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests created on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? CreatedBefore
         {
             get
@@ -1361,6 +1468,24 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The ID of a project.</para>
+        /// </summary>
+        public ProjectIdOrPathRef? Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>Return the request having the given iid.</para>
+        /// </summary>
         public System.Collections.Generic.IEnumerable<long>? Iids
         {
             get
@@ -1373,6 +1498,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests matching a comma separated list of labels. None lists all merge requests with no labels. Any lists all merge requests with at least one label. No+Label (Deprecated) lists all merge requests with no labels. Predefined names are case-insensitive.</para>
+        /// </summary>
         public System.Collections.Generic.IEnumerable<string>? Labels
         {
             get
@@ -1385,6 +1513,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests for a specific milestone. None returns merge requests with no milestone. Any returns merge requests that have an assigned milestone.</para>
+        /// </summary>
         public string? Milestone
         {
             get
@@ -1397,6 +1528,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests reacted by the authenticated user by the given emoji. None returns issues not given a reaction. Any returns issues given at least one reaction.</para>
+        /// </summary>
         public string? MyReactionEmoji
         {
             get
@@ -1409,18 +1543,9 @@ namespace Meziantou.GitLab
             }
         }
 
-        public ProjectIdOrPathRef? ProjectId
-        {
-            get
-            {
-                return this._projectId;
-            }
-            set
-            {
-                this._projectId = value;
-            }
-        }
-
+        /// <summary>
+        ///   <para>Return merge requests for the given scope: created_by_me, assigned_to_me, or all.</para>
+        /// </summary>
         public MergeRequestScopeFilter? Scope
         {
             get
@@ -1433,6 +1558,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Search merge requests against their title and description.</para>
+        /// </summary>
         public string? Search
         {
             get
@@ -1445,6 +1573,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests with the given source branch.</para>
+        /// </summary>
         public string? SourceBranch
         {
             get
@@ -1457,6 +1588,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return all merge requests or just those that are opened, closed, locked, or merged.</para>
+        /// </summary>
         public MergeRequestState? State
         {
             get
@@ -1469,6 +1603,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests with the given target branch.</para>
+        /// </summary>
         public string? TargetBranch
         {
             get
@@ -1481,6 +1618,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests updated on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? UpdatedAfter
         {
             get
@@ -1493,6 +1633,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Return merge requests updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
+        /// </summary>
         public System.DateTimeOffset? UpdatedBefore
         {
             get
@@ -1505,6 +1648,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>If simple, returns the iid, URL, title, description, and basic state of merge request.</para>
+        /// </summary>
         public MergeRequestView? View
         {
             get
@@ -1520,18 +1666,30 @@ namespace Meziantou.GitLab
 
     public partial class GetMergeRequestRequest
     {
+        private ProjectIdOrPathRef? _id;
+
         private MergeRequestIidRef? _mergeRequestIid;
 
-        private ProjectIdOrPathRef? _projectId;
-
-        public GetMergeRequestRequest(ProjectIdOrPathRef? projectId, MergeRequestIidRef? mergeRequestIid)
+        public GetMergeRequestRequest(ProjectIdOrPathRef? id, MergeRequestIidRef? mergeRequestIid)
         {
-            this._projectId = projectId;
+            this._id = id;
             this._mergeRequestIid = mergeRequestIid;
         }
 
         public GetMergeRequestRequest()
         {
+        }
+
+        public ProjectIdOrPathRef? Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
+            }
         }
 
         public MergeRequestIidRef? MergeRequestIid
@@ -1543,18 +1701,6 @@ namespace Meziantou.GitLab
             set
             {
                 this._mergeRequestIid = value;
-            }
-        }
-
-        public ProjectIdOrPathRef? ProjectId
-        {
-            get
-            {
-                return this._projectId;
-            }
-            set
-            {
-                this._projectId = value;
             }
         }
     }
@@ -1569,7 +1715,7 @@ namespace Meziantou.GitLab
 
         private string? _description;
 
-        private ProjectIdOrPathRef? _projectId;
+        private ProjectIdOrPathRef? _id;
 
         private bool? _removeSourceBranch;
 
@@ -1583,9 +1729,13 @@ namespace Meziantou.GitLab
 
         private string? _title;
 
-        public CreateMergeRequestRequest(ProjectIdOrPathRef? projectId, string? sourceBranch, string? targetBranch, string? title)
+        /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
+        /// <param name="sourceBranch">The source branch.</param>
+        /// <param name="targetBranch">The target branch.</param>
+        /// <param name="title">Title of MR.</param>
+        public CreateMergeRequestRequest(ProjectIdOrPathRef? id, string? sourceBranch, string? targetBranch, string? title)
         {
-            this._projectId = projectId;
+            this._id = id;
             this._sourceBranch = sourceBranch;
             this._targetBranch = targetBranch;
             this._title = title;
@@ -1595,6 +1745,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>Allow commits from members who can merge to the target branch.</para>
+        /// </summary>
         public bool? AllowCollaboration
         {
             get
@@ -1607,6 +1760,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Deprecated, see allow_collaboration.</para>
+        /// </summary>
         public bool? AllowMaintainerToPush
         {
             get
@@ -1619,6 +1775,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Assignee user ID.</para>
+        /// </summary>
         public UserRef? AssigneeId
         {
             get
@@ -1631,6 +1790,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Description of MR. Limited to 1,048,576 characters.</para>
+        /// </summary>
         public string? Description
         {
             get
@@ -1643,18 +1805,24 @@ namespace Meziantou.GitLab
             }
         }
 
-        public ProjectIdOrPathRef? ProjectId
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
+        /// </summary>
+        public ProjectIdOrPathRef? Id
         {
             get
             {
-                return this._projectId;
+                return this._id;
             }
             set
             {
-                this._projectId = value;
+                this._id = value;
             }
         }
 
+        /// <summary>
+        ///   <para>Flag indicating if a merge request should remove the source branch when merging.</para>
+        /// </summary>
         public bool? RemoveSourceBranch
         {
             get
@@ -1667,6 +1835,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The source branch.</para>
+        /// </summary>
         public string? SourceBranch
         {
             get
@@ -1679,6 +1850,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Squash commits into a single commit when merging.</para>
+        /// </summary>
         public bool? Squash
         {
             get
@@ -1691,6 +1865,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The target branch.</para>
+        /// </summary>
         public string? TargetBranch
         {
             get
@@ -1703,6 +1880,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The target project (numeric ID).</para>
+        /// </summary>
         public ProjectIdRef? TargetProjectId
         {
             get
@@ -1715,6 +1895,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>Title of MR.</para>
+        /// </summary>
         public string? Title
         {
             get
