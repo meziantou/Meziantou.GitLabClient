@@ -65,7 +65,9 @@ jobs:
       gitlab:
         image: ${{ matrix.gitlab }}
         ports:
-        - 48624:80
+        - 48624:48624
+        env:
+          GITLAB_OMNIBUS_CONFIG: "external_url 'http://localhost:48624/'"
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core

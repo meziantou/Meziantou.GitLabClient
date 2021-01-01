@@ -2865,11 +2865,11 @@
     - [ ] `id_before`
     - [x] `membership`
     - [x] `min_access_level`
-    - [ ] `order_by`
+    - [x] `order_by`
     - [x] `owned`
     - [x] `search`
     - [x] `simple`
-    - [ ] `sort`
+    - [x] `sort`
     - [x] `starred`
     - [x] `statistics`
     - [x] `user_id`
