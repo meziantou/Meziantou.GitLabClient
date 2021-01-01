@@ -35,6 +35,8 @@
                 .AddOptionalParameter("with_issues_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("with_merge_requests_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("min_access_level", Models.AccessLevel)
+                .AddOptionalParameter("order_by", ModelRef.String)
+                .AddOptionalParameter("sort", Models.OrderByDirection)
                 ;
 
             methodGroup.AddMethod("GetById", MethodType.Get, "/projects/:id", "https://docs.gitlab.com/ee/api/projects.html#get-single-project")

@@ -44,16 +44,18 @@ namespace Meziantou.GitLab.Tests
         private async Task SpawnDockerContainerAsync()
         {
             // Check if the container is accessible?
+            var isContinuousIntegration = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
             try
             {
                 using var httpClient = new HttpClient();
                 var result = await httpClient.GetStringAsync(GitLabUrl).ConfigureAwait(false);
-                Console.WriteLine(result);
-                return;
+                if (isContinuousIntegration) // When not on CI, we want to check the container is on the expected version
+                    return;
             }
             catch
             {
-                // Not on Azure Pipelines
+                if (isContinuousIntegration)
+                    throw new InvalidOperationException("The GitLab service is not accessible. Please check the CI configuration.");
             }
 
             // Spawn the container
@@ -62,6 +64,17 @@ namespace Meziantou.GitLab.Tests
             using var client = conf.CreateClient();
             var containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).ConfigureAwait(false);
             var container = containers.FirstOrDefault(c => c.Names.Contains("/" + ContainerName));
+            if (container != null)
+            {
+                var inspect = await client.Containers.InspectContainerAsync(container.ID);
+                var inspectImage = await client.Images.InspectImageAsync(ImageName + ":" + ImageTag);
+                if (inspect.Image != inspectImage.ID)
+                {
+                    await client.Containers.RemoveContainerAsync(container.ID, new ContainerRemoveParameters() { Force = true });
+                    container = null;
+                }
+            }
+
             if (container == null)
             {
                 // Download GitLab images
@@ -72,7 +85,7 @@ namespace Meziantou.GitLab.Tests
                 {
                     PortBindings = new Dictionary<string, IList<PortBinding>>(StringComparer.Ordinal)
                     {
-                        { "80/tcp", new List<PortBinding> { new PortBinding { HostIP = "127.0.0.1", HostPort = HttpPort.ToString(CultureInfo.InvariantCulture) } } },
+                        {  HttpPort.ToStringInvariant() + "/tcp", new List<PortBinding> { new PortBinding { HostPort = HttpPort.ToStringInvariant() } } },
                     },
                 };
 
@@ -83,6 +96,14 @@ namespace Meziantou.GitLab.Tests
                     Name = ContainerName,
                     Tty = false,
                     HostConfig = hostConfig,
+                    ExposedPorts = new Dictionary<string, EmptyStruct>(StringComparer.Ordinal)
+                    {
+                        { HttpPort.ToStringInvariant() + "/tcp", new EmptyStruct() },
+                    },
+                    Env = new List<string>
+                    {
+                        "GITLAB_OMNIBUS_CONFIG=external_url 'http://localhost:" + HttpPort.ToStringInvariant() + "/'",
+                    },
                 }).ConfigureAwait(false);
 
                 containers = await client.Containers.ListContainersAsync(new ContainersListParameters() { All = true }).ConfigureAwait(false);
@@ -99,23 +120,38 @@ namespace Meziantou.GitLab.Tests
                 }
             }
 
-            // Wait for the container to be ready
-            await WaitForContainerAsync();
-        }
-
-        private async Task WaitForContainerAsync()
-        {
-            using var httpClient = new HttpClient();
+            // Wait for the container to be ready.
             while (true)
             {
-                try
+                var status = await client.Containers.InspectContainerAsync(container.ID);
+                if (!status.State.Running)
+                    throw new InvalidOperationException($"Container '{status.ID}' is not running");
+
+                var healthState = status.State.Health.Status;
+                if (healthState == "starting" || healthState == "unhealthy") // unhealthy is valid as long as the container is running as it may indicate a slow creation
                 {
-                    using var response = await httpClient.GetAsync(GitLabUrl).ConfigureAwait(false);
-                    if (response.IsSuccessStatusCode)
-                        break;
+                    await Task.Delay(3000);
                 }
-                catch
+                else if (healthState == "healthy")
                 {
+                    // A healthy container doesn't mean the service is actually running.
+                    // GitLab has lots of configuration steps that are still running when the container is healthy.
+                    using var httpClient = new HttpClient();
+                    try
+                    {
+                        using var response = await httpClient.GetAsync(GitLabUrl).ConfigureAwait(false);
+                        if (response.IsSuccessStatusCode)
+                            break;
+                    }
+                    catch
+                    {
+                    }
+
+                    await Task.Delay(3000);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Container status '{healthState}' is not supported");
                 }
             }
         }

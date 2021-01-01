@@ -22,18 +22,20 @@ namespace Meziantou.GitLab.Tests
 
         private readonly HttpClient _httpClient;
         private readonly LoggingHandler _loggingHandler;
+        private readonly RetryHandler _retryHandler;
         private readonly List<TestGitLabClient> _clients = new();
 
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
         {
             TestContext = testOutput;
 
-            _loggingHandler = new LoggingHandler
+            _loggingHandler = new LoggingHandler()
             {
                 InnerHandler = handler ?? new HttpClientHandler(),
             };
 
-            _httpClient = new HttpClient(_loggingHandler, disposeHandler: true);
+            _retryHandler = new RetryHandler(_loggingHandler);
+            _httpClient = new HttpClient(_retryHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.Credentials.AdminUserToken);
         }
 
@@ -90,11 +92,13 @@ namespace Meziantou.GitLab.Tests
 
         public void Dispose()
         {
-            TestContext.WriteLine(string.Join("\n--------\n", _loggingHandler.Logs));
+            var separator = "\n" + new string('=', 120) + "\n";
+            TestContext.WriteLine(separator + string.Join(separator, _loggingHandler.Logs));
             var objects = _clients.SelectMany(c => c.Objects).ToList();
 
             _httpClient?.Dispose();
             _loggingHandler?.Dispose();
+            _retryHandler?.Dispose();
 
             var errorMessages = new HashSet<string>(StringComparer.Ordinal);
             objects.ForEach(o =>
@@ -112,17 +116,23 @@ namespace Meziantou.GitLab.Tests
 
         private sealed class LoggingHandler : DelegatingHandler
         {
+            public LoggingHandler()
+            {
+            }
+
+            public LoggingHandler(HttpMessageHandler innerHandler) : base(innerHandler)
+            {
+            }
+
             public IList<string> Logs { get; } = new SynchronizedList<string>();
+
+            protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                throw new NotSupportedException();
+            }
 
             protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                // Fix url: http://container_name/ => http://localhost:48624/
-                if (request.RequestUri.Port == 80 || request.RequestUri.Port == 443)
-                {
-                    var builder = new UriBuilder(request.RequestUri) { Host = "localhost", Port = DockerContainer.HttpPort };
-                    request.RequestUri = builder.Uri;
-                }
-
                 var stopwatch = ValueStopwatch.StartNew();
                 var sb = new StringBuilder();
                 sb.Append(request.Method).Append(' ').Append(request.RequestUri).AppendLine();
@@ -140,7 +150,7 @@ namespace Meziantou.GitLab.Tests
                 {
                     var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
-                    sb.AppendLine("--------");
+                    sb.AppendLine(new string('-', 60));
                     sb.Append((int)response.StatusCode).Append(' ').AppendLine(response.ReasonPhrase);
                     LogHeaders(response.Headers, sb);
                     if (response.Content != null)
@@ -174,13 +184,56 @@ namespace Meziantou.GitLab.Tests
                     {
                         if (!string.IsNullOrEmpty(headerValue) && string.Equals(header.Key, "Private-Token", StringComparison.OrdinalIgnoreCase))
                         {
-                            sb.Append(header.Key).Append(": ").AppendLine("********");
+                            // As it uses a local container and not an actual production instance, there is no need to hide the token
+                            // This could help when debugging an issue
+                            //sb.Append(header.Key).Append(": ").AppendLine("********");
+                            sb.Append(header.Key).Append(": ").AppendLine(headerValue);
                         }
                         else
                         {
                             sb.Append(header.Key).Append(": ").AppendLine(headerValue);
                         }
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// GitLab sometimes returns 502 after initializing the Docker container. Retrying may help reducing flaky tests.
+        /// </summary>
+        private sealed class RetryHandler : DelegatingHandler
+        {
+            public RetryHandler()
+            {
+            }
+
+            public RetryHandler(HttpMessageHandler innerHandler)
+                : base(innerHandler)
+            {
+            }
+
+            protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                throw new NotSupportedException();
+            }
+
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                var retries = 10;
+                while (true)
+                {
+                    try
+                    {
+                        var response = await base.SendAsync(request, cancellationToken);
+                        if (retries == 0 || (int)response.StatusCode < 500)
+                            return response;
+                    }
+                    catch (HttpRequestException) when (retries > 0)
+                    {
+                    }
+
+                    await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken).ConfigureAwait(false);
+                    retries--;
                 }
             }
         }

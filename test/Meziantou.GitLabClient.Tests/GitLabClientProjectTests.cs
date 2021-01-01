@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
@@ -18,6 +19,7 @@ namespace Meziantou.GitLab.Tests
             Assert.IsNotNull(project.HttpUrlToRepo);
 
             var projects = await client.Projects.GetAll().ToListAsync();
+            CollectionAssert.Contains(projects.ToList(), project);
 
             var projectById_project = await client.Projects.GetByIdAsync(project);
             var projectById_pathWithNamespace = await client.Projects.GetByIdAsync(project.PathWithNamespace);
@@ -25,6 +27,25 @@ namespace Meziantou.GitLab.Tests
             Assert.AreEqual("test", project.Name);
             Assert.AreEqual(project, projectById_project);
             Assert.AreEqual(project, projectById_pathWithNamespace);
+        }
+
+        [TestMethod]
+        public async Task GetProjects_Pagination()
+        {
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+            var user = await client.Users.GetCurrentUserAsync();
+            var project1 = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test1" });
+            var project2 = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test2" });
+            var project3 = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test3" });
+
+            var projects = await client.Projects.GetByUser(user, orderBy: "id", sort: OrderByDirection.Ascending)
+                .ConfigurePageOptions(pageSize: 1, startPageIndex: 2)
+                .ToListAsync();
+
+            Assert.AreEqual(project2, projects[0]);
+            Assert.AreEqual(project3, projects[1]);
+            Assert.AreEqual(2, projects.Count);
         }
     }
 }
