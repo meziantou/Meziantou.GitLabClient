@@ -55,7 +55,7 @@ namespace Meziantou.GitLabClient.Generator
                     if (documentationMethod == null)
                         throw new InvalidOperationException($"Cannot find method '{modelMethod.UrlTemplate}'");
 
-                    if(modelMethod.Documentation?.HelpLink != documentationMethod.DocumentationUrl)
+                    if (modelMethod.Documentation?.HelpLink != documentationMethod.DocumentationUrl)
                         throw new InvalidOperationException($"Method '{modelMethod.MethodGroup.Name}/{modelMethod.Name}' should have url '{documentationMethod.DocumentationUrl}'");
 
                     if (modelMethod.Documentation?.Summary == null)
@@ -66,13 +66,16 @@ namespace Meziantou.GitLabClient.Generator
 
                     foreach (var modelParameter in modelMethod.Parameters)
                     {
-                        // TODO fix GitLab documentation
+                        // TODO fix GitLab documentation to avoid this case
                         if (documentationMethod.Parameters.Count == 0)
                             continue; // GitLab is so inconsistent in the documentation that sometimes we cannot find the params...
 
                         var documentationParameter = documentationMethod.Parameters.FirstOrDefault(p => p.Name == modelParameter.Name);
                         if (documentationParameter == null)
                             throw new InvalidOperationException($"Cannot find parameter '{modelParameter.Name}' for the method '{modelMethod.MethodGroup.Name}/{modelMethod.Name}'. Available parameters: {string.Join(", ", documentationMethod.Parameters.Select(p => p.Name))}");
+
+                        if (documentationParameter.Type.Contains('/', StringComparison.Ordinal) && !modelParameter.Type.IsParameterEntity)
+                            throw new InvalidOperationException($"Parameter '{modelParameter.Name}' for the method '{modelMethod.MethodGroup.Name}/{modelMethod.Name}' should be a parameter entity because the expected type can be of any of the following data types '{documentationParameter.Type}'");
 
                         if (modelParameter.Documentation?.Summary == null)
                         {
