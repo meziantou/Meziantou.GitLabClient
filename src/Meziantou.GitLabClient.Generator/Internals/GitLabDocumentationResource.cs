@@ -14,19 +14,19 @@ using Meziantou.Framework.Collections;
 
 namespace Meziantou.GitLabClient.Generator.Internals
 {
-    internal class GitLabDocumentationResource
+    internal sealed class GitLabDocumentationResource
     {
         public string Name { get; set; }
         public string DocumentationUrl { get; set; }
         public IList<GitLabDocumentationMethod> Methods { get; } = new List<GitLabDocumentationMethod>();
 
-        public static async Task<IReadOnlyCollection<GitLabDocumentationResource>> LoadResourcesAsync()
+        public static async Task<IReadOnlyCollection<GitLabDocumentationResource>> LoadResourcesAsync(bool noCache)
         {
             var result = new SynchronizedList<GitLabDocumentationResource>();
 
             var configuration = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(configuration);
-            var document = await GetDocumentAsync(context, "https://docs.gitlab.com/ee/api/api_resources.html");
+            var document = await GetDocumentAsync(context, "https://docs.gitlab.com/ee/api/api_resources.html", noCache);
 
             var resources = document.QuerySelector(".global-nav-link.active").ParentElement.NextElementSibling.QuerySelectorAll("a").Cast<IHtmlAnchorElement>().ToList();
             if (resources.Count == 0)
@@ -35,7 +35,7 @@ namespace Meziantou.GitLabClient.Generator.Internals
             await resources.ForEachAsync(async anchor =>
             {
                 var url = anchor.Href;
-                var d = await GetDocumentAsync(context, url);
+                var d = await GetDocumentAsync(context, url, noCache);
 
                 var name = Trim(d.QuerySelector("h1.article-title").TextContent)[0..^4]; // Remove API suffix
                 name = name switch
@@ -254,22 +254,20 @@ namespace Meziantou.GitLabClient.Generator.Internals
             return false;
         }
 
-        private static async Task<IDocument> GetDocumentAsync(IBrowsingContext context, string url)
+        private static async Task<IDocument> GetDocumentAsync(IBrowsingContext context, string url, bool noCache)
         {
             var path = FullPath.GetTempPath() / "gitlab-gen" / "cache" / Convert.ToBase64String(Encoding.UTF8.GetBytes(url));
-            if (File.Exists(path))
+            if (!noCache && File.Exists(path))
             {
                 var text = await File.ReadAllTextAsync(path);
                 using IResponse response = VirtualResponse.Create(response => response.Address(url).Content(text));
                 return await context.OpenAsync(response);
             }
-            else
-            {
-                var document = await context.OpenAsync(url);
-                IOUtilities.PathCreateDirectory(path);
-                await File.WriteAllTextAsync(path, document.ToHtml());
-                return document;
-            }
+
+            var document = await context.OpenAsync(url);
+            IOUtilities.PathCreateDirectory(path);
+            await File.WriteAllTextAsync(path, document.ToHtml());
+            return document;
         }
     }
 }

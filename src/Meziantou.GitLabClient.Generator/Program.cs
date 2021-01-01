@@ -17,7 +17,7 @@ namespace Meziantou.GitLabClient.Generator
             Console.WriteLine("Generating overage file to " + coverageOutputFile);
 
             var model = GitLabModelBuilder.Create();
-            var documentation = await GitLabDocumentationResource.LoadResourcesAsync();
+            var documentation = await GitLabDocumentationResource.LoadResourcesAsync(noCache: args.ContainsIgnoreCase("/nocache"));
             model.Merge(documentation);
 
             await Task.WhenAll(

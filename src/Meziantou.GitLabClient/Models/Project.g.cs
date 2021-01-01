@@ -206,11 +206,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("owner")]
-        public UserBasic Owner
+        public UserBasic? Owner
         {
             get
             {
-                return this.GetRequiredNonNullValue<UserBasic>("owner");
+                return this.GetValueOrDefault<UserBasic?>("owner", default(UserBasic?));
             }
         }
 

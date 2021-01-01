@@ -25,7 +25,7 @@
 
             methodGroup.AddMethod("GetStatus", MethodType.Get, "/users/:id_or_username/status", "https://docs.gitlab.com/ee/api/users.html#get-the-status-of-a-user")
                 .WithReturnType(Models.UserStatus)
-                .AddRequiredParameter("id_or_username", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserIdOrUserNameRef)
                 ;
 
             methodGroup.AddMethod("SetCurrentUserStatus", MethodType.Put, "/user/status", "https://docs.gitlab.com/ee/api/users.html#set-user-status")
@@ -40,7 +40,7 @@
 
             methodGroup.AddMethod("GetSSHKeys", MethodType.GetCollection, "/users/:id_or_username/keys", "https://docs.gitlab.com/ee/api/users.html#list-ssh-keys-for-user")
                 .WithReturnType(Models.SshKey)
-                .AddRequiredParameter("id_or_username", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserIdOrUserNameRef)
                 ;
 
             methodGroup.AddMethod("GetCurrentUserSSHKey", MethodType.Get, "/user/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#single-ssh-key")
@@ -56,7 +56,7 @@
 
             methodGroup.AddMethod("AddSSHKey", MethodType.Post, "/users/:id_or_username/keys", "https://docs.gitlab.com/ee/api/users.html#add-ssh-key-for-user")
                 .WithReturnType(Models.SshKey)
-                .AddRequiredParameter("id_or_username", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserIdOrUserNameRef)
                 .AddRequiredParameter("title", ModelRef.String)
                 .AddRequiredParameter("key", ModelRef.String)
                 ;
@@ -66,7 +66,7 @@
                 ;
 
             methodGroup.AddMethod("DeleteSSHKey", MethodType.Delete, "/users/:id_or_username/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user")
-                .AddRequiredParameter("id_or_username", Models.UserRef)
+                .AddRequiredParameter("id_or_username", Models.UserIdOrUserNameRef)
                 .AddRequiredParameter("key_id", Models.SshKeyRef)
                 ;
 
@@ -83,7 +83,7 @@
 
             methodGroup.AddMethod("CreateImpersonationToken", MethodType.Post, "/users/:user_id/impersonation_tokens", "https://docs.gitlab.com/ee/api/users.html#create-an-impersonation-token")
                 .WithReturnType(Models.ImpersonationToken)
-                .AddRequiredParameter("user_id", Models.UserRef) // TODO test username is valid here
+                .AddRequiredParameter("user_id", Models.UserIdRef)
                 .AddRequiredParameter("name", ModelRef.String)
                 .AddOptionalParameter("expires_at", ModelRef.Date)
                 .AddOptionalParameter("scopes", ModelRef.StringCollection)

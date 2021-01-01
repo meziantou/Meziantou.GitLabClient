@@ -68,7 +68,7 @@ namespace Meziantou.GitLab
                 sb.Append(separator);
                 separator = '&';
 
-                sb.Append("keyset=true&");
+                sb.Append("keyset=true");
             }
 
             if (_pageIndex > FirstPageIndex)

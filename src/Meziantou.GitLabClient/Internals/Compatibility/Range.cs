@@ -1,11 +1,5 @@
 ﻿#if NETSTANDARD2_0
-#pragma warning disable CA1305
-#pragma warning disable IDE0007
-#pragma warning disable IDE0038
-#pragma warning disable MA0008
-#pragma warning disable MA0011
-#pragma warning disable MA0048
-#pragma warning disable MA0071
+#pragma warning disable
 using System.Runtime.CompilerServices;
 
 namespace System

@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml.Linq;
 using Meziantou.Framework;
 using Meziantou.Framework.CodeDom;
+using Meziantou.GitLabClient.Generator.Internals;
 
 namespace Meziantou.GitLabClient.Generator
 {
@@ -49,9 +50,7 @@ namespace Meziantou.GitLabClient.Generator
                 var relativePath = (string)unit.Data["FileName"];
                 new DefaultFormatterVisitor().Visit(unit);
                 var destinationFile = rootDirectory / relativePath;
-                using var tw = new StreamWriter(destinationFile, append: false, Encoding.UTF8);
-                new CSharpCodeGenerator().Write(tw, unit);
-
+                unit.WriteUnit(destinationFile);
                 existingFiles.Remove(destinationFile);
             }
 

@@ -3,9 +3,9 @@
     "Meziantou.GitLabClient.Generator": {
       "commandName": "Project"
     },
-    "documentation": {
+    "Meziantou.GitLabClient.Generator - nocache": {
       "commandName": "Project",
-      "commandLineArgs": "documentation"
+      "commandLineArgs": "/nocache"
     }
   }
 }
