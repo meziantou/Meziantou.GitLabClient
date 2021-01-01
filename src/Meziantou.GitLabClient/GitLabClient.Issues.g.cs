@@ -19,7 +19,7 @@ namespace Meziantou.GitLab
     public partial interface IGitLabIssuesClient
     {
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
+        ///   <para>URL: <c>POST /projects/:id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
@@ -32,7 +32,7 @@ namespace Meziantou.GitLab
     public partial class GitLabClient : Meziantou.GitLab.IGitLabIssuesClient
     {
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
+        ///   <para>URL: <c>POST /projects/:id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
+        ///   <para>URL: <c>POST /projects/:id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
@@ -67,9 +67,9 @@ namespace Meziantou.GitLab
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
             {
                 urlBuilder.Append("projects/");
-                if (request.ProjectId.HasValue)
+                if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().ValueAsString);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/issues");
@@ -99,16 +99,16 @@ namespace Meziantou.GitLab
     public static partial class GitLabClientExtensions
     {
         /// <summary>
-        ///   <para>URL: <c>POST /projects/:project_id/issues</c></para>
+        ///   <para>URL: <c>POST /projects/:id/issues</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/issues.html#new-issue" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Issue> CreateAsync(this Meziantou.GitLab.IGitLabIssuesClient client, ProjectIdOrPathRef projectId, string title, string? description = default(string?), bool? confidential = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Issue> CreateAsync(this Meziantou.GitLab.IGitLabIssuesClient client, ProjectIdOrPathRef id, string title, string? description = default(string?), bool? confidential = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Meziantou.GitLab.CreateIssueRequest request = new Meziantou.GitLab.CreateIssueRequest(projectId, title);
+            Meziantou.GitLab.CreateIssueRequest request = new Meziantou.GitLab.CreateIssueRequest(id, title);
             request.Description = description;
             request.Confidential = confidential;
             return client.CreateAsync(request, requestOptions, cancellationToken);
@@ -121,13 +121,15 @@ namespace Meziantou.GitLab
 
         private string? _description;
 
-        private ProjectIdOrPathRef? _projectId;
+        private ProjectIdOrPathRef? _id;
 
         private string? _title;
 
-        public CreateIssueRequest(ProjectIdOrPathRef? projectId, string? title)
+        /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
+        /// <param name="title">The title of an issue</param>
+        public CreateIssueRequest(ProjectIdOrPathRef? id, string? title)
         {
-            this._projectId = projectId;
+            this._id = id;
             this._title = title;
         }
 
@@ -135,6 +137,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>Set an issue to be confidential. Default is false.</para>
+        /// </summary>
         public bool? Confidential
         {
             get
@@ -147,6 +152,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The description of an issue. Limited to 1,048,576 characters.</para>
+        /// </summary>
         public string? Description
         {
             get
@@ -159,18 +167,24 @@ namespace Meziantou.GitLab
             }
         }
 
-        public ProjectIdOrPathRef? ProjectId
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
+        /// </summary>
+        public ProjectIdOrPathRef? Id
         {
             get
             {
-                return this._projectId;
+                return this._id;
             }
             set
             {
-                this._projectId = value;
+                this._id = value;
             }
         }
 
+        /// <summary>
+        ///   <para>The title of an issue</para>
+        /// </summary>
         public string? Title
         {
             get

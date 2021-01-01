@@ -4,7 +4,7 @@
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("Get", MethodType.Get, "/version", "https://docs.gitlab.com/ee/api/version.html")
+            methodGroup.AddMethod("Get", MethodType.Get, "/version", "https://docs.gitlab.com/ee/api/version.html#version-api")
                 .WithReturnType(Models.ServerVersion)
                 ;
         }

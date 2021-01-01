@@ -34,14 +34,12 @@
                 .AddOptionalParameter("statistics", ModelRef.Boolean)
                 .AddOptionalParameter("with_issues_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("with_merge_requests_enabled", ModelRef.Boolean)
-                .AddOptionalParameter("wiki_checksum_failed", ModelRef.Boolean)
-                .AddOptionalParameter("repository_checksum_failed", ModelRef.Boolean)
-                .AddOptionalParameter("min_access_level", Models.AccessLevel, version: 2)
+                .AddOptionalParameter("min_access_level", Models.AccessLevel)
                 ;
 
-            methodGroup.AddMethod("GetById", MethodType.Get, "/projects/:project_id", "https://docs.gitlab.com/ee/api/projects.html#get-single-project")
+            methodGroup.AddMethod("GetById", MethodType.Get, "/projects/:id", "https://docs.gitlab.com/ee/api/projects.html#get-single-project")
                 .WithReturnType(Models.Project)
-                .AddRequiredParameter("project_id", Models.ProjectIdOrPathRef)
+                .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
                 ;
 
             methodGroup.AddMethod("Create", MethodType.Post, "/projects", "https://docs.gitlab.com/ee/api/projects.html#create-project")
@@ -59,7 +57,7 @@
                 .AddOptionalParameter("resolve_outdated_diff_discussions", ModelRef.Boolean)
                 .AddOptionalParameter("container_registry_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("shared_runners_enabled", ModelRef.Boolean)
-                .AddOptionalParameter("public_jobs", ModelRef.Boolean)
+                .AddOptionalParameter("public_builds", ModelRef.Boolean)
                 .AddOptionalParameter("only_allow_merge_if_pipeline_succeeds", ModelRef.Boolean)
                 .AddOptionalParameter("only_allow_merge_if_all_discussions_are_resolved", ModelRef.Boolean)
                 .AddOptionalParameter("request_access_enabled", ModelRef.Boolean)
