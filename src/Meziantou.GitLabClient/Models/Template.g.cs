@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.TemplateJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Name={Name}")]
     public partial class Template : Meziantou.GitLab.Core.GitLabObject
     {
         internal Template(System.Text.Json.JsonElement obj)
@@ -33,6 +32,11 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<string>("name");
             }
+        }
+
+        public override string ToString()
+        {
+            return ((("Template { " + "Name = ") + this.Name) + " }");
         }
     }
 }

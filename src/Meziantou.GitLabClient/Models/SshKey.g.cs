@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.SshKeyJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Title={Title}, Id={Id}")]
     public partial class SshKey : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.SshKey>
     {
         internal SshKey(System.Text.Json.JsonElement obj)
@@ -66,6 +65,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return (((((("SshKey { " + "Id = ") + this.Id) + ", ") + "Title = ") + this.Title) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.SshKey? a, Meziantou.GitLab.SshKey? b)

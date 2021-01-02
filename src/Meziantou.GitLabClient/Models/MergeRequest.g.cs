@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.MergeRequestJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Title={Title}, Id={Id}")]
     public partial class MergeRequest : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.MergeRequest>
     {
         internal MergeRequest(System.Text.Json.JsonElement obj)
@@ -242,6 +241,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
         public System.Uri WebUrl
         {
@@ -273,6 +273,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return (((((("MergeRequest { " + "Id = ") + this.Id) + ", ") + "Title = ") + this.Title) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.MergeRequest? a, Meziantou.GitLab.MergeRequest? b)

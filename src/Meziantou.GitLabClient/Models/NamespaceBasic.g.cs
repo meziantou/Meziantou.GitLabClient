@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.NamespaceBasicJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} FullPath={FullPath}, Id={Id}")]
     public partial class NamespaceBasic : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.NamespaceBasic>
     {
         internal NamespaceBasic(System.Text.Json.JsonElement obj)
@@ -84,6 +83,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return (((((("NamespaceBasic { " + "Id = ") + this.Id) + ", ") + "FullPath = ") + this.FullPath) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.NamespaceBasic? a, Meziantou.GitLab.NamespaceBasic? b)

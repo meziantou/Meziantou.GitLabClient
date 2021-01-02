@@ -40,6 +40,11 @@ namespace Meziantou.GitLab
             return System.HashCode.Combine(this.Html);
         }
 
+        public override string ToString()
+        {
+            return ((("RenderMarkdownResult { " + "Html = ") + this.Html) + " }");
+        }
+
         public static bool operator !=(Meziantou.GitLab.RenderMarkdownResult? a, Meziantou.GitLab.RenderMarkdownResult? b)
         {
             return (!(a == b));

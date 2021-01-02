@@ -303,6 +303,11 @@ namespace Meziantou.GitLab
                 return this.GetRequiredNonNullValue<bool>("wiki_enabled");
             }
         }
+
+        public override string ToString()
+        {
+            return (((((("Project { " + "Id = ") + this.Id) + ", ") + "PathWithNamespace = ") + this.PathWithNamespace) + " }");
+        }
     }
 }
 

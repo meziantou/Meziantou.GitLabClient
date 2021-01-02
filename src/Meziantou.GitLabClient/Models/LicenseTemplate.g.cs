@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.LicenseTemplateJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Name={Name}, Key={Key}")]
     public partial class LicenseTemplate : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.LicenseTemplate>
     {
         internal LicenseTemplate(System.Text.Json.JsonElement obj)
@@ -53,6 +52,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("html_url")]
         public System.Uri HtmlUrl
         {
@@ -107,6 +107,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("source_url")]
         public System.Uri SourceUrl
         {
@@ -129,6 +130,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Key);
+        }
+
+        public override string ToString()
+        {
+            return (((((("LicenseTemplate { " + "Key = ") + this.Key) + ", ") + "Name = ") + this.Name) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.LicenseTemplate? a, Meziantou.GitLab.LicenseTemplate? b)

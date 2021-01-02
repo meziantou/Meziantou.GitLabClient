@@ -49,6 +49,11 @@ namespace Meziantou.GitLab
             return System.HashCode.Combine(this.Version, this.Revision);
         }
 
+        public override string ToString()
+        {
+            return (((((("ServerVersion { " + "Version = ") + this.Version) + ", ") + "Revision = ") + this.Revision) + " }");
+        }
+
         public static bool operator !=(Meziantou.GitLab.ServerVersion? a, Meziantou.GitLab.ServerVersion? b)
         {
             return (!(a == b));

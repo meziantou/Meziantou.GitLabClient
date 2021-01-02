@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Meziantou.GitLab.Tests.Models
 {
     [TestClass]
-    public class UserTests
+    public partial class EntityTests
     {
         [TestMethod]
         [SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Needed for the test")]
@@ -36,8 +36,8 @@ namespace Meziantou.GitLab.Tests.Models
 
         public static IEnumerable<object[]> User_Equals_Value()
         {
-            var user1 = JsonDocument.Parse(@"{ ""id"": 1 }").RootElement;
-            var user2 = JsonDocument.Parse(@"{ ""id"": 2 }").RootElement;
+            var user1 = JsonDocument.Parse(@"{ ""id"": 1, ""username"": ""test1"" }").RootElement;
+            var user2 = JsonDocument.Parse(@"{ ""id"": 2, ""username"": ""test2"" }").RootElement;
 
             yield return new object[] { new User(user1), null, false };
             yield return new object[] { new User(user1), new User(user2), false };

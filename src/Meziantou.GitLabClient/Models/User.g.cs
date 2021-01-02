@@ -115,6 +115,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value may not be an UTC DateTime</remarks>
         [Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime? LastActivityOn
@@ -224,6 +225,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value may be an absolute or a relative URI</remarks>
         [Meziantou.GitLab.Internals.SkipAbsoluteUriValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("website_url")]
         public System.Uri? WebsiteUrl
@@ -232,6 +234,11 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Uri?>("website_url", default(System.Uri?));
             }
+        }
+
+        public override string ToString()
+        {
+            return (((((("User { " + "Id = ") + this.Id) + ", ") + "Username = ") + this.Username) + " }");
         }
     }
 }

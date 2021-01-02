@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.TemplateBasicJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Name={Name}, Key={Key}")]
     public partial class TemplateBasic : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.TemplateBasic>
     {
         internal TemplateBasic(System.Text.Json.JsonElement obj)
@@ -48,6 +47,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Key);
+        }
+
+        public override string ToString()
+        {
+            return (((((("TemplateBasic { " + "Key = ") + this.Key) + ", ") + "Name = ") + this.Name) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.TemplateBasic? a, Meziantou.GitLab.TemplateBasic? b)
