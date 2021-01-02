@@ -155,7 +155,16 @@ namespace Meziantou.GitLabClient.Generator
                         if (param == null)
                             throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
 
-                        AddParameter(param, separator: null);
+                        AddParameter(param, separator: null, encoded: true);
+                        parameters.Remove(param);
+                    }
+                    else if (segment[0] == '*')
+                    {
+                        var param = parameters.SingleOrDefault(p => p.Name == segment[1..]);
+                        if (param == null)
+                            throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
+
+                        AddParameter(param, separator: null, encoded: false);
                         parameters.Remove(param);
                     }
                     else
@@ -171,14 +180,16 @@ namespace Meziantou.GitLabClient.Generator
 
                     foreach (var param in parameters)
                     {
-                        AddParameter(param, separator);
+                        AddParameter(param, separator, encoded: true);
                     }
                 }
 
                 statements.Add(new AssignStatement(urlVariable, urlBuilder.CreateInvokeMethodExpression("ToString")));
 
-                void AddParameter(MethodParameter param, VariableDeclarationStatement separator)
+                void AddParameter(MethodParameter param, VariableDeclarationStatement separator, bool encoded)
                 {
+                    var appendParameterMethodName = encoded ? "AppendParameter" : "AppendRawParameter";
+
                     void AddSeparator(StatementCollection statements)
                     {
                         if (separator != null)
@@ -192,8 +203,6 @@ namespace Meziantou.GitLabClient.Generator
                     if (param.Type.IsParameterEntity)
                     {
                         var propertyName = param.Type.ParameterEntity.FinalType == ModelRef.Object ? "ValueAsString" : "Value";
-                        //if (param.Type.IsNullable || !param.IsRequired)
-                        //{
                         var hasValueCondition = new ConditionStatement
                         {
                             Condition = CreatePropertyReference().CreateMemberReferenceExpression(nameof(Nullable<int>.HasValue)),
@@ -203,16 +212,10 @@ namespace Meziantou.GitLabClient.Generator
                         AddSeparator(hasValueCondition.TrueStatements);
                         hasValueCondition.TrueStatements.Add(urlBuilder
                                 .CreateInvokeMethodExpression(
-                                    "AppendParameter",
+                                    appendParameterMethodName,
                                     CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault").CreateMemberReferenceExpression(propertyName)));
 
                         statements.Add(hasValueCondition);
-                        //}
-                        //else
-                        //{
-                        //    var propertyReference = CreatePropertyReference().CreateMemberReferenceExpression(propertyName);
-                        //    m.Statements.Add(urlBuilder.CreateInvokeMethodExpression("SetValue", param.Name, propertyReference));
-                        //}
                     }
                     else
                     {
@@ -232,7 +235,7 @@ namespace Meziantou.GitLabClient.Generator
 
                         Expression value = isValueType ? CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault") : CreatePropertyReference();
                         var appendMethod = new MethodInvokeExpression(
-                            new MemberReferenceExpression(urlBuilder, "AppendParameter"),
+                            new MemberReferenceExpression(urlBuilder, appendParameterMethodName),
                                 value);
 
                         hasValueCondition.TrueStatements.Add(appendMethod);
@@ -254,7 +257,14 @@ namespace Meziantou.GitLabClient.Generator
             switch (method.MethodType)
             {
                 case MethodType.Get:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, urlVariable, requestOptionsArgument, cancellationTokenArgument)));
+                    if (method.ReturnType == ModelRef.Stream)
+                    {
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetStreamAsync", urlVariable, requestOptionsArgument, cancellationTokenArgument)));
+                    }
+                    else
+                    {
+                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, urlVariable, requestOptionsArgument, cancellationTokenArgument)));
+                    }
                     break;
 
                 case MethodType.GetCollection:
@@ -342,16 +352,20 @@ namespace Meziantou.GitLabClient.Generator
                             .MakeGeneric(new TypeReference(typeof(IReadOnlyList<>))
                                 .MakeGeneric(method.ReturnType.ToPropertyTypeReference()));
                     }
-                    else
+                    else if (method.MethodType == MethodType.Get)
                     {
-                        if (method.MethodType == MethodType.Get)
+                        if (method.ReturnType == ModelRef.Stream)
                         {
-                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference().MakeNullable());
+                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(WellKnownTypes.HttpResponseStreamTypeReference.MakeNullable());
                         }
                         else
                         {
-                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference());
+                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference().MakeNullable());
                         }
+                    }
+                    else
+                    {
+                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference());
                     }
                 }
                 else
@@ -465,19 +479,12 @@ namespace Meziantou.GitLabClient.Generator
                 Expression CreateArgumentReference() => new ArgumentReferenceExpression("request").CreateMemberReferenceExpression(ToPropertyName(arg.Name));
 
                 var assign = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, CreateArgumentReference());
-                //if (!arg.IsRequired)
-                //{
                 var condition = new ConditionStatement
                 {
                     Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
                     TrueStatements = assign,
                 };
                 methodDeclaration.Statements.Add(condition);
-                //}
-                //else
-                //{
-                //    methodDeclaration.Statements.Add(assign);
-                //}
             }
 
             return variable;

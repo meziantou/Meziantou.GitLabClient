@@ -139,10 +139,10 @@ namespace Meziantou.GitLabClient.Generator
 
             // Generate EntityDisplayName (DebuggerDisplay, ToString)
             var displayProperties = entity.AllProperties.Where(p => p.IsDisplayName).ToList();
-            var AllKeyProperties = entity.AllProperties.Where(p => p.IsKey).ToList();
-            if (displayProperties.Count > 0 || AllKeyProperties.Count > 0)
+            var allKeyProperties = entity.AllProperties.Where(p => p.IsKey).ToList();
+            if (displayProperties.Count > 0 || allKeyProperties.Count > 0)
             {
-                GenerateToString(type, displayProperties, AllKeyProperties);
+                GenerateToString(type, displayProperties, allKeyProperties);
             }
 
             GenerateEntityAsMethods(type, children);

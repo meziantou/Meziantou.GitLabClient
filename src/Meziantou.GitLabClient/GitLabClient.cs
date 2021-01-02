@@ -242,6 +242,22 @@ namespace Meziantou.GitLab
             await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
         }
 
+        public virtual async Task<HttpResponseStream?> GetStreamAsync(string url, RequestOptions? options, CancellationToken cancellationToken = default)
+        {
+            using var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.RelativeOrAbsolute),
+            };
+
+            using var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return default;
+
+            await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+            return await response.ToStreamAsync().ConfigureAwait(false);
+        }
+
         public void Dispose()
         {
             Dispose(disposing: true);
@@ -302,10 +318,10 @@ namespace Meziantou.GitLab
                 return DeserializeAsync<IReadOnlyList<T>>(cancellationToken);
             }
 
-            public async Task<Stream> ToStreamAsync()
+            public async Task<HttpResponseStream> ToStreamAsync()
             {
                 var stream = await ResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                return new StreamWithDisposableObject(stream, this);
+                return new HttpResponseStream(stream, ResponseMessage);
             }
 
             public void Dispose()

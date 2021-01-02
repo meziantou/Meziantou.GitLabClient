@@ -1637,24 +1637,24 @@
 - [ ] [Delete artifacts](https://docs.gitlab.com/ee/api/job_artifacts.html#delete-artifacts) `DELETE /projects/:id/jobs/:job_id/artifacts`
     - [ ] `id`
     - [ ] `job_id`
-- [ ] [Download a single artifact file by job ID](https://docs.gitlab.com/ee/api/job_artifacts.html#download-a-single-artifact-file-by-job-id) `GET /projects/:id/jobs/:job_id/artifacts/*artifact_path`
-    - [ ] `id`
-    - [ ] `job_id`
-    - [ ] `artifact_path`
-- [ ] [Download a single artifact file from specific tag or branch](https://docs.gitlab.com/ee/api/job_artifacts.html#download-a-single-artifact-file-from-specific-tag-or-branch) `GET /projects/:id/jobs/artifacts/:ref_name/raw/*artifact_path`
-    - [ ] `id`
-    - [ ] `ref_name`
-    - [ ] `artifact_path`
-    - [ ] `job`
-- [ ] [Download the artifacts archive](https://docs.gitlab.com/ee/api/job_artifacts.html#download-the-artifacts-archive) `GET /projects/:id/jobs/artifacts/:ref_name/download`
-    - [ ] `id`
-    - [ ] `ref_name`
-    - [ ] `job`
-    - [ ] `job_token`
-- [ ] [Get job artifacts](https://docs.gitlab.com/ee/api/job_artifacts.html#get-job-artifacts) `GET /projects/:id/jobs/:job_id/artifacts`
-    - [ ] `id`
-    - [ ] `job_id`
-    - [ ] `job_token`
+- [x] [Download a single artifact file by job ID](https://docs.gitlab.com/ee/api/job_artifacts.html#download-a-single-artifact-file-by-job-id) `GET /projects/:id/jobs/:job_id/artifacts/*artifact_path`
+    - [x] `id`
+    - [x] `job_id`
+    - [x] `artifact_path`
+- [x] [Download a single artifact file from specific tag or branch](https://docs.gitlab.com/ee/api/job_artifacts.html#download-a-single-artifact-file-from-specific-tag-or-branch) `GET /projects/:id/jobs/artifacts/:ref_name/raw/*artifact_path`
+    - [x] `id`
+    - [x] `ref_name`
+    - [x] `artifact_path`
+    - [x] `job`
+- [x] [Download the artifacts archive](https://docs.gitlab.com/ee/api/job_artifacts.html#download-the-artifacts-archive) `GET /projects/:id/jobs/artifacts/:ref_name/download`
+    - [x] `id`
+    - [x] `ref_name`
+    - [x] `job`
+    - [x] `job_token`
+- [x] [Get job artifacts](https://docs.gitlab.com/ee/api/job_artifacts.html#get-job-artifacts) `GET /projects/:id/jobs/:job_id/artifacts`
+    - [x] `id`
+    - [x] `job_id`
+    - [x] `job_token`
 - [ ] [Keep artifacts](https://docs.gitlab.com/ee/api/job_artifacts.html#keep-artifacts) `POST /projects/:id/jobs/:job_id/artifacts/keep`
     - [ ] `id`
     - [ ] `job_id`

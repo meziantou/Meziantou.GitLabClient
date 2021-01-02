@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Meziantou.Framework.CodeDom;
 
 namespace Meziantou.GitLabClient.Generator
@@ -27,6 +28,8 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef PathWithNamespace { get; } = new ModelRef("Meziantou.GitLab.PathWithNamespace");
         public static ModelRef NumberId { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableNumberId { get; } = new ModelRef(typeof(long)).MakeNullable();
+
+        public static ModelRef Stream { get; } = new ModelRef(typeof(Stream));
 
         public ModelRef MakeNullable() => new(this) { IsNullable = true };
         public ModelRef MakeCollection() => new(this) { IsCollection = true };
