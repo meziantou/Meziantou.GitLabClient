@@ -6,6 +6,11 @@ namespace Meziantou.GitLab.Internals
 {
     internal ref partial struct UrlBuilder
     {
+        public void AppendRawParameter(string value)
+        {
+            Append(value);
+        }
+
         public void AppendParameter(string value)
         {
             Append(Uri.EscapeDataString(value));

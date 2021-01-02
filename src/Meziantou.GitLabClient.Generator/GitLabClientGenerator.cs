@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Meziantou.Framework;
 using Meziantou.Framework.CodeDom;
@@ -21,6 +20,7 @@ namespace Meziantou.GitLabClient.Generator
             public static TypeReference GitLabExceptionTypeReference { get; } = new(RootNamespace + ".GitLabException");
             public static TypeReference UrlBuilderTypeReference { get; } = new(InternalsNamespace + ".UrlBuilder");
             public static TypeReference PageOptionsTypeReference { get; } = new(RootNamespace + ".PageOptions");
+            public static TypeReference HttpResponseStreamTypeReference { get; } = new(RootNamespace + ".HttpResponseStream");
             public static TypeReference SkipUtcDateValidationAttributeTypeReference { get; } = new(InternalsNamespace + ".SkipUtcDateValidationAttribute");
             public static TypeReference SkipAbsoluteUriValidationAttribute { get; } = new(InternalsNamespace + ".SkipAbsoluteUriValidationAttribute");
             public static TypeReference MappedPropertyAttributeTypeReference { get; } = new(InternalsNamespace + ".MappedPropertyAttribute");
@@ -268,6 +268,9 @@ namespace Meziantou.GitLabClient.Generator
             }
 
             if (method.UrlTemplate.Contains($":{parameter.Name}/", StringComparison.Ordinal) || method.UrlTemplate.EndsWith($":{parameter.Name}", StringComparison.Ordinal))
+                return ParameterLocation.Url;
+
+            if (method.UrlTemplate.EndsWith($"*{parameter.Name}", StringComparison.Ordinal))
                 return ParameterLocation.Url;
 
             return method.MethodType switch

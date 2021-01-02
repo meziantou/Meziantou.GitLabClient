@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Meziantou.GitLab.Internals
+namespace Meziantou.GitLab
 {
-    internal sealed class StreamWithDisposableObject : Stream
+    public sealed class HttpResponseStream : Stream
     {
         private readonly Stream _stream;
-        private readonly IDisposable _disposable;
+        private readonly HttpResponseMessage _message;
 
-        public StreamWithDisposableObject(Stream stream, IDisposable disposable)
+        internal HttpResponseStream(Stream stream, HttpResponseMessage httpResponseMessage)
         {
             _stream = stream;
-            _disposable = disposable;
+            _message = httpResponseMessage;
         }
+
+        public string? FileName => _message.Content.Headers.ContentDisposition?.FileName;
+        public MediaTypeHeaderValue? ContentType => _message.Content.Headers.ContentType;
 
         public override bool CanRead => _stream.CanRead;
 
@@ -58,7 +63,7 @@ namespace Meziantou.GitLab.Internals
 
         protected override void Dispose(bool disposing)
         {
-            _disposable.Dispose();
+            _message.Dispose();
             _stream.Dispose();
             base.Dispose(disposing);
         }
