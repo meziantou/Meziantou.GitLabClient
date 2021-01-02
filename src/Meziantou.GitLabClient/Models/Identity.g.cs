@@ -49,6 +49,11 @@ namespace Meziantou.GitLab
             return System.HashCode.Combine(this.Provider, this.ExternUid);
         }
 
+        public override string ToString()
+        {
+            return (((((("Identity { " + "Provider = ") + this.Provider) + ", ") + "ExternUid = ") + this.ExternUid) + " }");
+        }
+
         public static bool operator !=(Meziantou.GitLab.Identity? a, Meziantou.GitLab.Identity? b)
         {
             return (!(a == b));

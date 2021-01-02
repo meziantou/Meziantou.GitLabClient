@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,17 +16,17 @@ namespace Meziantou.GitLabClient.Generator
                 var children = new List<Entity>();
                 if (model.BaseType == null)
                 {
-                    FindChildren(children, project.Models.OfType<Entity>(), model);
+                    FindDescendantEntities(children, project.Models.OfType<Entity>(), model);
                 }
 
                 GenerateEntity(model, children);
 
-                static void FindChildren(List<Entity> children, IEnumerable<Entity> entities, Entity entity)
+                static void FindDescendantEntities(List<Entity> children, IEnumerable<Entity> entities, Entity entity)
                 {
                     foreach (var e in entities.Where(e => e.BaseType != null && e.BaseType.IsModel && e.BaseType.Model == entity))
                     {
                         children.Add(e);
-                        FindChildren(children, entities, e);
+                        FindDescendantEntities(children, entities, e);
                     }
                 }
             }
@@ -103,18 +102,30 @@ namespace Meziantou.GitLabClient.Generator
                 if (prop.Options.HasFlag(PropertyOptions.IsNotUTCDate))
                 {
                     propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipUtcDateValidationAttributeTypeReference));
+                    propertyMember.XmlComments.Add(new System.Xml.Linq.XElement("remarks", "The value may not be an UTC DateTime"));
                 }
 
-                if (prop.Options.HasFlag(PropertyOptions.CanBeAbsoluteOrRelativeUri))
+                if (prop.Type == ModelRef.Uri && prop.Type == ModelRef.NullableUri)
                 {
-                    propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipAbsoluteUriValidationAttribute));
+                    if (prop.Options.HasFlag(PropertyOptions.CanBeAbsoluteOrRelativeUri))
+                    {
+                        propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipAbsoluteUriValidationAttribute));
+                        propertyMember.XmlComments.Add(new System.Xml.Linq.XElement("remarks", "The value may be an absolute or a relative URI"));
+                    }
+                    else
+                    {
+                        propertyMember.XmlComments.Add(new System.Xml.Linq.XElement("remarks", "The value is an absolute URI"));
+                    }
+                }
+                else if (prop.Options.HasFlag(PropertyOptions.CanBeAbsoluteOrRelativeUri))
+                {
+                    throw new InvalidOperationException("CanBeAbsoluteOrRelativeUri must be used with Uri types only");
                 }
 
                 propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.MappedPropertyAttributeTypeReference) { Arguments = { new CustomAttributeArgument(prop.Name) } });
             }
 
             // Generate Equals members (Equals, GetHashCode, ==, !=, IEquatable<T>)
-            var displayProperty = entity.Properties.FirstOrDefault(p => p.IsDisplayName);
             var keyProperties = entity.Properties.Where(p => p.IsKey).ToList();
             if (keyProperties.Count > 0)
             {
@@ -127,9 +138,11 @@ namespace Meziantou.GitLabClient.Generator
             }
 
             // Generate EntityDisplayName (DebuggerDisplay, ToString)
-            if (displayProperty != null)
+            var displayProperties = entity.AllProperties.Where(p => p.IsDisplayName).ToList();
+            var AllKeyProperties = entity.AllProperties.Where(p => p.IsKey).ToList();
+            if (displayProperties.Count > 0 || AllKeyProperties.Count > 0)
             {
-                GenerateEntityDebuggerDisplay(type, displayProperty, keyProperties);
+                GenerateToString(type, displayProperties, AllKeyProperties);
             }
 
             GenerateEntityAsMethods(type, children);
@@ -147,9 +160,9 @@ namespace Meziantou.GitLabClient.Generator
             createInstanceMethod.ReturnType = type;
             var objArg = createInstanceMethod.AddArgument("jsonElement", typeof(JsonElement));
             createInstanceMethod.Statements = new StatementCollection
-                {
-                    new ReturnStatement(new NewObjectExpression(type, objArg)),
-                };
+            {
+                new ReturnStatement(new NewObjectExpression(type, objArg)),
+            };
 
             type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
             {
@@ -157,17 +170,35 @@ namespace Meziantou.GitLabClient.Generator
             });
         }
 
-        private static void GenerateEntityDebuggerDisplay(ClassDeclaration type, EntityProperty displayProperty, List<EntityProperty> keyProperties)
+        private static void GenerateToString(ClassDeclaration type, List<EntityProperty> displayProperty, List<EntityProperty> keyProperties)
         {
-            var properties = new[] { displayProperty }.Concat(keyProperties).Where(p => p != null);
+            var properties = keyProperties.Concat(displayProperty);
 
-            type.CustomAttributes.Add(new CustomAttribute(typeof(DebuggerDisplayAttribute))
+            // ToString
+            var toStringMethod = type.AddMember(new MethodDeclaration("ToString"));
+            toStringMethod.ReturnType = typeof(string);
+            toStringMethod.Modifiers = Modifiers.Public | Modifiers.Override;
+
+            Expression concatExpression = new LiteralExpression(type.Name + " { ");
+            var first = true;
+            foreach (var property in properties)
             {
-                Arguments =
-                    {
-                        new CustomAttributeArgument(new LiteralExpression("{GetType().Name,nq} " + string.Join(", ", properties.Select(v=>$"{ToPropertyName(v.Name)}={{{ToPropertyName(v.Name)}}}")))),
-                    },
-            });
+                if (!first)
+                {
+                    concatExpression = new BinaryExpression(BinaryOperator.Add, concatExpression, new LiteralExpression(", "));
+                }
+
+                concatExpression = new BinaryExpression(BinaryOperator.Add, concatExpression, new LiteralExpression(ToPropertyName(property.Name) + " = "));
+                concatExpression = new BinaryExpression(BinaryOperator.Add, concatExpression, new MemberReferenceExpression(new ThisExpression(), ToPropertyName(property.Name)));
+                first = false;
+            }
+
+            concatExpression = new BinaryExpression(BinaryOperator.Add, concatExpression, new LiteralExpression(" }"));
+
+            toStringMethod.Statements = new StatementCollection
+            {
+                new ReturnStatement(concatExpression),
+            };
         }
 
         private static void GenerateEntityEqualityOperators(ClassDeclaration type)

@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.ProjectIdentityJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} PathWithNamespace={PathWithNamespace}, Id={Id}")]
     public partial class ProjectIdentity : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.ProjectIdentity>
     {
         internal ProjectIdentity(System.Text.Json.JsonElement obj)
@@ -103,6 +102,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return (((((("ProjectIdentity { " + "Id = ") + this.Id) + ", ") + "PathWithNamespace = ") + this.PathWithNamespace) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.ProjectIdentity? a, Meziantou.GitLab.ProjectIdentity? b)

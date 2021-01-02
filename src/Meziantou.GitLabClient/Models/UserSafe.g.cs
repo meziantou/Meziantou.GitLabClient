@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.UserSafeJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Username={Username}, Id={Id}")]
     public partial class UserSafe : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.UserSafe>
     {
         internal UserSafe(System.Text.Json.JsonElement obj)
@@ -67,6 +66,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return (((((("UserSafe { " + "Id = ") + this.Id) + ", ") + "Username = ") + this.Username) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.UserSafe? a, Meziantou.GitLab.UserSafe? b)

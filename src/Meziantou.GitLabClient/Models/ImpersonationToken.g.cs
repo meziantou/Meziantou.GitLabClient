@@ -9,7 +9,6 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.ImpersonationTokenJsonConverter))]
-    [System.Diagnostics.DebuggerDisplayAttribute("{GetType().Name,nq} Name={Name}, Id={Id}")]
     public partial class ImpersonationToken : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.ImpersonationToken>
     {
         internal ImpersonationToken(System.Text.Json.JsonElement obj)
@@ -111,6 +110,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return (((((("ImpersonationToken { " + "Id = ") + this.Id) + ", ") + "Name = ") + this.Name) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.ImpersonationToken? a, Meziantou.GitLab.ImpersonationToken? b)

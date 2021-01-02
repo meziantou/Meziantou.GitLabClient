@@ -67,6 +67,11 @@ namespace Meziantou.GitLab
             return System.HashCode.Combine(this.Slug);
         }
 
+        public override string ToString()
+        {
+            return ((("WikiPage { " + "Slug = ") + this.Slug) + " }");
+        }
+
         public static bool operator !=(Meziantou.GitLab.WikiPage? a, Meziantou.GitLab.WikiPage? b)
         {
             return (!(a == b));

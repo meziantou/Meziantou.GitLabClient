@@ -28,5 +28,24 @@ namespace Meziantou.GitLabClient.Generator
             BaseType = baseType;
             return this;
         }
+
+        public IEnumerable<EntityProperty> AllProperties
+        {
+            get
+            {
+                if (BaseType?.Model is Entity baseEntity)
+                {
+                    foreach (var property in baseEntity.AllProperties)
+                    {
+                        yield return property;
+                    }
+                }
+
+                foreach (var property in Properties)
+                {
+                    yield return property;
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("avatar_url")]
         public System.Uri? AvatarUrl
         {
@@ -43,6 +44,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("http_url_to_repo")]
         public System.Uri HttpUrlToRepo
         {
@@ -70,6 +72,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("readme_url")]
         public System.Uri? ReadmeUrl
         {
@@ -79,6 +82,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value may be an absolute or a relative URI</remarks>
         [Meziantou.GitLab.Internals.SkipAbsoluteUriValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("ssh_url_to_repo")]
         public System.Uri? SshUrlToRepo
@@ -107,6 +111,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
         public System.Uri? WebUrl
         {
@@ -114,6 +119,11 @@ namespace Meziantou.GitLab
             {
                 return this.GetValueOrDefault<System.Uri?>("web_url", default(System.Uri?));
             }
+        }
+
+        public override string ToString()
+        {
+            return (((((("BasicProjectDetails { " + "Id = ") + this.Id) + ", ") + "PathWithNamespace = ") + this.PathWithNamespace) + " }");
         }
     }
 }

@@ -88,6 +88,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value is an absolute URI</remarks>
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("target_url")]
         public System.Uri TargetUrl
         {
@@ -110,6 +111,11 @@ namespace Meziantou.GitLab
         public override int GetHashCode()
         {
             return System.HashCode.Combine(this.Id);
+        }
+
+        public override string ToString()
+        {
+            return ((("Todo { " + "Id = ") + this.Id) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.Todo? a, Meziantou.GitLab.Todo? b)
