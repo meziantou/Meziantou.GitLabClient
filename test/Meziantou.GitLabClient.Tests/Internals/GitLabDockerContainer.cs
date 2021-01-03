@@ -188,6 +188,7 @@ namespace Meziantou.GitLab.Tests
                 var form = result.Forms["new_user"];
                 ((IHtmlInputElement)form["user[login]"]).Value = AdminUserName;
                 ((IHtmlInputElement)form["user[password]"]).Value = AdminPassword;
+                ((IHtmlInputElement)form["user[remember_me]"]).IsChecked = true;
                 result = await form.SubmitAsync();
             }
 
@@ -240,7 +241,22 @@ namespace Meziantou.GitLab.Tests
 
                 try
                 {
+                    // Validate token
                     var user = await client.Users.GetCurrentUserAsync();
+
+                    using var httpClient = new HttpClient()
+                    {
+                        BaseAddress = GitLabUrl,
+                        DefaultRequestHeaders =
+                        {
+                            { "Cookie", "_gitlab_session=" + credentials.Cookies },
+                        },
+                    };
+                    var response = await httpClient.GetAsync("/");
+                    if (response.RequestMessage.RequestUri.PathAndQuery == "/users/sign_in")
+                        return;
+
+                    // Validate cookie
                     Credentials = credentials;
                 }
                 catch (GitLabException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.Unauthorized)

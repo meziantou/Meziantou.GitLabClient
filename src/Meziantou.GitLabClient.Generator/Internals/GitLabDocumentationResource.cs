@@ -177,13 +177,12 @@ namespace Meziantou.GitLabClient.Generator.Internals
                         if (urlParts.Length != 2)
                             throw new InvalidOperationException($"Template is invalid '{template}'");
 
-                        // TODO fix GitLab documentation
+                        // TODO-GitLab fix GitLab documentation
                         if (urlParts[1].StartsWith("/api/v4/", StringComparison.Ordinal))
                         {
                             urlParts[1] = urlParts[1]["/api/v4".Length..];
                         }
 
-                        // TODO extract summary
                         var method = new GitLabDocumentationMethod
                         {
                             Name = Trim(header.TextContent),

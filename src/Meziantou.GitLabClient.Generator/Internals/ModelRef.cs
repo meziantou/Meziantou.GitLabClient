@@ -27,7 +27,7 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef NullableGitObjectId { get; } = new ModelRef("Meziantou.GitLab.GitObjectId").MakeNullable();
         public static ModelRef PathWithNamespace { get; } = new ModelRef("Meziantou.GitLab.PathWithNamespace");
         public static ModelRef TextOrBinaryData { get; } = new ModelRef("Meziantou.GitLab.TextOrBinaryData");
-        public static ModelRef BinaryData { get; } = new ModelRef("Meziantou.GitLab.BinaryData");
+        public static ModelRef FileUpload { get; } = new ModelRef("Meziantou.GitLab.FileUpload");
         public static ModelRef NumberId { get; } = new ModelRef(typeof(long));
         public static ModelRef NullableNumberId { get; } = new ModelRef(typeof(long)).MakeNullable();
         public static ModelRef File { get; } = new ModelRef("Meziantou.GitLab.HttpResponseStream");

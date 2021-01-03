@@ -25,12 +25,14 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value may be an absolute or a relative URI</remarks>
+        [Meziantou.GitLab.Internals.SkipAbsoluteUriValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("full_path")]
-        public string FullPath
+        public System.Uri FullPath
         {
             get
             {
-                return this.GetRequiredNonNullValue<string>("full_path");
+                return this.GetRequiredNonNullValue<System.Uri>("full_path");
             }
         }
 
