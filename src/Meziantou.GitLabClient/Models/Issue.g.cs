@@ -114,18 +114,18 @@ namespace Meziantou.GitLab
 
         public virtual bool Equals(Meziantou.GitLab.Issue? other)
         {
-            return ((!object.ReferenceEquals(other, null)) && (this.Id == other.Id));
+            return (((!object.ReferenceEquals(other, null)) && (this.Iid == other.Iid)) && (this.ProjectId == other.ProjectId));
         }
 
         public override int GetHashCode()
         {
-            return System.HashCode.Combine(this.Id);
+            return System.HashCode.Combine(this.Iid, this.ProjectId);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Design", "MA0075:Do not use implicit culture-sensitive ToString", Justification = "Valid in ToString")]
         public override string ToString()
         {
-            return (((((("Issue { " + "Id = ") + this.Id) + ", ") + "Title = ") + this.Title) + " }");
+            return ((((((((("Issue { " + "Iid = ") + this.Iid) + ", ") + "ProjectId = ") + this.ProjectId) + ", ") + "Title = ") + this.Title) + " }");
         }
 
         public static bool operator !=(Meziantou.GitLab.Issue? a, Meziantou.GitLab.Issue? b)

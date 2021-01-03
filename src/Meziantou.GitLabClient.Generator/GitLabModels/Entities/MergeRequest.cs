@@ -3,14 +3,14 @@
     partial class Models
     {
         public static EntityBuilder MergeRequest { get; } = CreateEntity(entity => entity
-                .AddProperty("id", ModelRef.NumberId, PropertyOptions.IsKey)
-                .AddProperty("iid", ModelRef.NumberId)
+                .AddProperty("id", ModelRef.NumberId)
+                .AddProperty("iid", ModelRef.NumberId, PropertyOptions.IsKey)
+                .AddProperty("project_id", ModelRef.NumberId, PropertyOptions.IsKey)
                 .AddProperty("author", Models.UserBasic)
                 .AddProperty("assignee", Models.UserBasic.MakeNullable())
                 .AddProperty("title", ModelRef.String, PropertyOptions.IsDisplayName)
                 .AddProperty("description", ModelRef.NullableString)
                 .AddProperty("state", Models.MergeRequestState)
-                .AddProperty("project_id", ModelRef.NumberId)
                 .AddProperty("source_project_id", ModelRef.NumberId)
                 .AddProperty("target_project_id", ModelRef.NumberId)
                 .AddProperty("web_url", ModelRef.Uri)
