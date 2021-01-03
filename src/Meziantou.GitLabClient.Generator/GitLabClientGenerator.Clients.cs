@@ -588,9 +588,11 @@ namespace Meziantou.GitLabClient.Generator
             else
             {
                 // JsonContent
-                var variable = new VariableDeclarationStatement(typeof(Dictionary<string, object>), "body");
+                var dictionaryType = WellKnownTypes.UnsafeListDictionaryTypeReference.MakeGeneric(typeof(string), typeof(object));
+                var variable = new VariableDeclarationStatement(dictionaryType, "body");
                 statements.Add(variable);
-                variable.InitExpression = new NewObjectExpression(typeof(Dictionary<string, object>));
+                var requiredArgumentCount = bodyArguments.Count(arg => arg.IsRequired);
+                variable.InitExpression = new NewObjectExpression(dictionaryType, requiredArgumentCount == 0 ? 0 : bodyArguments.Count);
                 foreach (var arg in bodyArguments)
                 {
                     Expression CreateArgumentReference() => requestArgument.CreateMemberReferenceExpression(ToPropertyName(arg.Name));

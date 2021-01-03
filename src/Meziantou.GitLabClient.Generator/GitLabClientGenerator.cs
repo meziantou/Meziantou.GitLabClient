@@ -27,6 +27,7 @@ namespace Meziantou.GitLabClient.Generator
             public static TypeReference MappedPropertyAttributeTypeReference { get; } = new(InternalsNamespace + ".MappedPropertyAttribute");
             public static TypeReference IGitLabObjectReferenceTypeReference { get; } = new(InternalsNamespace + ".IGitLabObjectReference");
             public static TypeReference JsonContentTypeReference { get; } = new(InternalsNamespace + ".JsonContent");
+            public static TypeReference UnsafeListDictionaryTypeReference { get; } = new(InternalsNamespace + ".UnsafeListDictionary");
             public static TypeReference JsonSerializationTypeReference { get; } = new(SerializationNamespace + ".JsonSerialization");
             public static TypeReference GitLabObjectInt64ReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectInt64ReferenceJsonConverter");
             public static TypeReference GitLabObjectStringReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectStringReferenceJsonConverter");
