@@ -153,7 +153,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(10);
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(10);
                 if ((request.SourceBranch != null))
                 {
                     body.Add("source_branch", request.SourceBranch);

@@ -67,7 +67,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(3);
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(3);
                 if ((request.Text != null))
                 {
                     body.Add("text", request.Text);
