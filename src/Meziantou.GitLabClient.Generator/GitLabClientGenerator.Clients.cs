@@ -588,7 +588,7 @@ namespace Meziantou.GitLabClient.Generator
             else
             {
                 // JsonContent
-                var dictionaryType = WellKnownTypes.UnsafeListDictionaryTypeReference.MakeGeneric(typeof(string), typeof(object));
+                var dictionaryType = WellKnownTypes.UnsafeListDictionaryTypeReference.MakeGeneric(typeof(string), new TypeReference(typeof(object)).MakeNullable());
                 var variable = new VariableDeclarationStatement(dictionaryType, "body");
                 statements.Add(variable);
                 var requiredArgumentCount = bodyArguments.Count(arg => arg.IsRequired);

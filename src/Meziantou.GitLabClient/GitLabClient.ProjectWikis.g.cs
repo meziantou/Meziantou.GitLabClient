@@ -159,7 +159,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(3);
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(3);
                 if ((request.Title != null))
                 {
                     body.Add("title", request.Title);
@@ -412,7 +412,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Put;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(0);
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(0);
                 if ((request.Title != null))
                 {
                     body.Add("title", request.Title);

@@ -155,7 +155,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(0);
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(0);
                 if ((request.Name != null))
                 {
                     body.Add("name", request.Name);
