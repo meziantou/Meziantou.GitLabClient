@@ -90,7 +90,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(6);
                 if ((request.Branch != null))
                 {
                     body.Add("branch", request.Branch);
@@ -184,7 +184,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Put;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object>(7);
                 if ((request.Branch != null))
                 {
                     body.Add("branch", request.Branch);
