@@ -49,6 +49,7 @@ namespace Meziantou.GitLab
             return System.HashCode.Combine(this.Version, this.Revision);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Design", "MA0075:Do not use implicit culture-sensitive ToString", Justification = "Valid in ToString")]
         public override string ToString()
         {
             return (((((("ServerVersion { " + "Version = ") + this.Version) + ", ") + "Revision = ") + this.Revision) + " }");

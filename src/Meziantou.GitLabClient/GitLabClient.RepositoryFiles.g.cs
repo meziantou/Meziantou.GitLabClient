@@ -83,8 +83,70 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<FileCreated> RepositoryFiles_CreateFileAsync(Meziantou.GitLab.CreateFileRepositoryFileRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.RepositoryFiles_CreateFileAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.Branch != null))
+                {
+                    body.Add("branch", request.Branch);
+                }
+
+                if ((request.Content != null))
+                {
+                    body.Add("content", request.Content);
+                }
+
+                if ((request.CommitMessage != null))
+                {
+                    body.Add("commit_message", request.CommitMessage);
+                }
+
+                if ((request.StartBranch != null))
+                {
+                    body.Add("start_branch", request.StartBranch);
+                }
+
+                if ((request.AuthorEmail != null))
+                {
+                    body.Add("author_email", request.AuthorEmail);
+                }
+
+                if ((request.AuthorName != null))
+                {
+                    body.Add("author_name", request.AuthorName);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    FileCreated? result = await response.ToObjectAsync<FileCreated>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'FileCreated' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<FileCreated> RepositoryFiles_CreateFileAsync(Meziantou.GitLab.CreateFileRepositoryFileRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string RepositoryFiles_CreateFileAsync_BuildUrl(Meziantou.GitLab.CreateFileRepositoryFileRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -104,43 +166,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            if ((request.Branch != null))
-            {
-                body.Add("branch", request.Branch);
-            }
-
-            if ((request.Content != null))
-            {
-                body.Add("content", request.Content);
-            }
-
-            if ((request.CommitMessage != null))
-            {
-                body.Add("commit_message", request.CommitMessage);
-            }
-
-            if ((request.StartBranch != null))
-            {
-                body.Add("start_branch", request.StartBranch);
-            }
-
-            if ((request.Encoding != null))
-            {
-                body.Add("encoding", request.Encoding);
-            }
-
-            if ((request.AuthorEmail != null))
-            {
-                body.Add("author_email", request.AuthorEmail);
-            }
-
-            if ((request.AuthorName != null))
-            {
-                body.Add("author_name", request.AuthorName);
-            }
-
-            return this.PostJsonAsync<FileCreated>(url, body, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -151,8 +177,75 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<FileUpdated> RepositoryFiles_UpdateFileAsync(Meziantou.GitLab.UpdateFileRepositoryFileRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.RepositoryFiles_UpdateFileAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Put;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.Branch != null))
+                {
+                    body.Add("branch", request.Branch);
+                }
+
+                if ((request.Content != null))
+                {
+                    body.Add("content", request.Content);
+                }
+
+                if ((request.CommitMessage != null))
+                {
+                    body.Add("commit_message", request.CommitMessage);
+                }
+
+                if ((request.StartBranch != null))
+                {
+                    body.Add("start_branch", request.StartBranch);
+                }
+
+                if ((request.AuthorEmail != null))
+                {
+                    body.Add("author_email", request.AuthorEmail);
+                }
+
+                if ((request.AuthorName != null))
+                {
+                    body.Add("author_name", request.AuthorName);
+                }
+
+                if ((request.LastCommitId != null))
+                {
+                    body.Add("last_commit_id", request.LastCommitId);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    FileUpdated? result = await response.ToObjectAsync<FileUpdated>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'FileUpdated' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<FileUpdated> RepositoryFiles_UpdateFileAsync(Meziantou.GitLab.UpdateFileRepositoryFileRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string RepositoryFiles_UpdateFileAsync_BuildUrl(Meziantou.GitLab.UpdateFileRepositoryFileRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -172,48 +265,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            if ((request.Branch != null))
-            {
-                body.Add("branch", request.Branch);
-            }
-
-            if ((request.Content != null))
-            {
-                body.Add("content", request.Content);
-            }
-
-            if ((request.CommitMessage != null))
-            {
-                body.Add("commit_message", request.CommitMessage);
-            }
-
-            if ((request.StartBranch != null))
-            {
-                body.Add("start_branch", request.StartBranch);
-            }
-
-            if ((request.Encoding != null))
-            {
-                body.Add("encoding", request.Encoding);
-            }
-
-            if ((request.AuthorEmail != null))
-            {
-                body.Add("author_email", request.AuthorEmail);
-            }
-
-            if ((request.AuthorName != null))
-            {
-                body.Add("author_name", request.AuthorName);
-            }
-
-            if ((request.LastCommitId != null))
-            {
-                body.Add("last_commit_id", request.LastCommitId);
-            }
-
-            return this.PutJsonAsync<FileUpdated>(url, body, requestOptions, cancellationToken);
+            return url;
         }
     }
 
@@ -227,11 +279,10 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<FileCreated> CreateFileAsync(this Meziantou.GitLab.IGitLabRepositoryFilesClient client, ProjectIdOrPathRef id, string filePath, string branch, string content, string commitMessage, string? startBranch = default(string?), string? encoding = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<FileCreated> CreateFileAsync(this Meziantou.GitLab.IGitLabRepositoryFilesClient client, ProjectIdOrPathRef id, string filePath, string branch, Meziantou.GitLab.TextOrBinaryData content, string commitMessage, string? startBranch = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreateFileRepositoryFileRequest request = new Meziantou.GitLab.CreateFileRepositoryFileRequest(id, filePath, branch, content, commitMessage);
             request.StartBranch = startBranch;
-            request.Encoding = encoding;
             request.AuthorEmail = authorEmail;
             request.AuthorName = authorName;
             return client.CreateFileAsync(request, requestOptions, cancellationToken);
@@ -245,11 +296,10 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this Meziantou.GitLab.IGitLabRepositoryFilesClient client, ProjectIdOrPathRef id, string filePath, string branch, string content, string commitMessage, string? startBranch = default(string?), string? encoding = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.GitObjectId? lastCommitId = default(Meziantou.GitLab.GitObjectId?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<FileUpdated> UpdateFileAsync(this Meziantou.GitLab.IGitLabRepositoryFilesClient client, ProjectIdOrPathRef id, string filePath, string branch, Meziantou.GitLab.TextOrBinaryData content, string commitMessage, string? startBranch = default(string?), string? authorEmail = default(string?), string? authorName = default(string?), Meziantou.GitLab.GitObjectId? lastCommitId = default(Meziantou.GitLab.GitObjectId?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UpdateFileRepositoryFileRequest request = new Meziantou.GitLab.UpdateFileRepositoryFileRequest(id, filePath, branch, content, commitMessage);
             request.StartBranch = startBranch;
-            request.Encoding = encoding;
             request.AuthorEmail = authorEmail;
             request.AuthorName = authorName;
             request.LastCommitId = lastCommitId;
@@ -267,9 +317,7 @@ namespace Meziantou.GitLab
 
         private string? _commitMessage;
 
-        private string? _content;
-
-        private string? _encoding;
+        private Meziantou.GitLab.TextOrBinaryData? _content;
 
         private string? _filePath;
 
@@ -277,7 +325,7 @@ namespace Meziantou.GitLab
 
         private string? _startBranch;
 
-        public CreateFileRepositoryFileRequest(ProjectIdOrPathRef? id, string? filePath, string? branch, string? content, string? commitMessage)
+        public CreateFileRepositoryFileRequest(ProjectIdOrPathRef? id, string? filePath, string? branch, Meziantou.GitLab.TextOrBinaryData? content, string? commitMessage)
         {
             this._id = id;
             this._filePath = filePath;
@@ -338,7 +386,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public string? Content
+        public Meziantou.GitLab.TextOrBinaryData? Content
         {
             get
             {
@@ -347,18 +395,6 @@ namespace Meziantou.GitLab
             set
             {
                 this._content = value;
-            }
-        }
-
-        public string? Encoding
-        {
-            get
-            {
-                return this._encoding;
-            }
-            set
-            {
-                this._encoding = value;
             }
         }
 
@@ -409,9 +445,7 @@ namespace Meziantou.GitLab
 
         private string? _commitMessage;
 
-        private string? _content;
-
-        private string? _encoding;
+        private Meziantou.GitLab.TextOrBinaryData? _content;
 
         private string? _filePath;
 
@@ -421,7 +455,7 @@ namespace Meziantou.GitLab
 
         private string? _startBranch;
 
-        public UpdateFileRepositoryFileRequest(ProjectIdOrPathRef? id, string? filePath, string? branch, string? content, string? commitMessage)
+        public UpdateFileRepositoryFileRequest(ProjectIdOrPathRef? id, string? filePath, string? branch, Meziantou.GitLab.TextOrBinaryData? content, string? commitMessage)
         {
             this._id = id;
             this._filePath = filePath;
@@ -482,7 +516,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        public string? Content
+        public Meziantou.GitLab.TextOrBinaryData? Content
         {
             get
             {
@@ -491,18 +525,6 @@ namespace Meziantou.GitLab
             set
             {
                 this._content = value;
-            }
-        }
-
-        public string? Encoding
-        {
-            get
-            {
-                return this._encoding;
-            }
-            set
-            {
-                this._encoding = value;
             }
         }
 

@@ -60,8 +60,55 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Issue> Issues_CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Issues_CreateAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.Title != null))
+                {
+                    body.Add("title", request.Title);
+                }
+
+                if ((request.Description != null))
+                {
+                    body.Add("description", request.Description);
+                }
+
+                if ((request.Confidential != null))
+                {
+                    body.Add("confidential", request.Confidential);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Issue? result = await response.ToObjectAsync<Issue>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Issue' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Issue> Issues_CreateAsync(Meziantou.GitLab.CreateIssueRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string Issues_CreateAsync_BuildUrl(Meziantou.GitLab.CreateIssueRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -76,23 +123,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            if ((request.Title != null))
-            {
-                body.Add("title", request.Title);
-            }
-
-            if ((request.Description != null))
-            {
-                body.Add("description", request.Description);
-            }
-
-            if ((request.Confidential != null))
-            {
-                body.Add("confidential", request.Confidential);
-            }
-
-            return this.PostJsonAsync<Issue>(url, body, requestOptions, cancellationToken);
+            return url;
         }
     }
 

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using Meziantou.GitLabClient.Generator.Internals;
 
 namespace Meziantou.GitLabClient.Generator
@@ -22,7 +20,7 @@ namespace Meziantou.GitLabClient.Generator
                     foreach (var parameter in method.Parameters)
                     {
                         var isParameterImplemented = GetMethodParameter(method, parameter, project) != null ? 'x' : ' ';
-                        sb.Append("    - [").Append(isParameterImplemented).Append("] `").Append(parameter.Name).Append('`').AppendLine();
+                        sb.Append("    - [").Append(isParameterImplemented).Append("] `").Append(parameter.Name).Append("`: ").Append(parameter.Description).AppendLine();
                     }
                 }
 

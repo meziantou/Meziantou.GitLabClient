@@ -29,8 +29,15 @@ namespace Meziantou.GitLab
         {
             get
             {
-                if (TryGetValue<string>("message", out var result))
-                    return result;
+                try
+                {
+                    if (TryGetValue<string>("message", out var result))
+                        return result;
+                }
+                catch (JsonException)
+                {
+                    // The 'message' properties could be a single string value or a dictionary...
+                }
 
                 return null;
             }
@@ -41,10 +48,52 @@ namespace Meziantou.GitLab
         {
             get
             {
-                if (TryGetValue<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message", out var result))
-                    return result;
+                try
+                {
+                    if (TryGetValue<IReadOnlyDictionary<string, IReadOnlyList<string>>>("message", out var result))
+                        return result;
+                }
+                catch (JsonException)
+                {
+                    // The 'message' properties could be a single string value or a dictionary...
+                }
 
                 return null;
+            }
+        }
+
+        public override string ToString()
+        {
+            var result = "";
+            if (!string.IsNullOrEmpty(Error))
+            {
+                result = AppendError(result, Error);
+            }
+
+            if (!string.IsNullOrEmpty(Message))
+            {
+                result = AppendError(result, Message);
+            }
+
+            if (Messages != null)
+            {
+                foreach (var item in Messages)
+                {
+                    foreach (var entry in item.Value)
+                    {
+                        result = AppendError(result, item.Key + ": " + Message);
+                    }
+                }
+            }
+
+            return result;
+
+            static string AppendError(string currentError, string error)
+            {
+                if (string.IsNullOrEmpty(currentError))
+                    return error;
+
+                return currentError + '\n' + error;
             }
         }
     }

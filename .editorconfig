@@ -219,6 +219,7 @@ dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 
 dotnet_diagnostic.CA1054.severity = none
 dotnet_diagnostic.CA1062.severity = none
+dotnet_diagnostic.CA1063.severity = none
 dotnet_diagnostic.CA1308.severity = none
 dotnet_diagnostic.CA1707.severity = none
 dotnet_diagnostic.CA2234.severity = none
@@ -229,6 +230,7 @@ dotnet_diagnostic.MA0051.severity = none
 [*.g.cs]
 generated_code = false
 dotnet_diagnostic.CA1033.severity = none
+dotnet_diagnostic.CA1801.severity = none
 dotnet_diagnostic.CA2225.severity = none
 dotnet_diagnostic.IDE0003.severity = none
 dotnet_diagnostic.IDE0007.severity = none
@@ -242,6 +244,9 @@ dotnet_diagnostic.IDE0032.severity = none
 dotnet_diagnostic.IDE0034.severity = none
 dotnet_diagnostic.IDE0038.severity = none
 dotnet_diagnostic.IDE0041.severity = none
+dotnet_diagnostic.IDE0060.severity = none
+dotnet_diagnostic.IDE0063.severity = none
+dotnet_diagnostic.IDE0079.severity = none
 dotnet_diagnostic.MA0002.severity = none
 dotnet_diagnostic.MA0003.severity = none
 dotnet_diagnostic.MA0007.severity = none

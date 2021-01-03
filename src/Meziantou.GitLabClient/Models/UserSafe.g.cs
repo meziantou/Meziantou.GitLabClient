@@ -68,6 +68,7 @@ namespace Meziantou.GitLab
             return System.HashCode.Combine(this.Id);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Design", "MA0075:Do not use implicit culture-sensitive ToString", Justification = "Valid in ToString")]
         public override string ToString()
         {
             return (((((("UserSafe { " + "Id = ") + this.Id) + ", ") + "Username = ") + this.Username) + " }");

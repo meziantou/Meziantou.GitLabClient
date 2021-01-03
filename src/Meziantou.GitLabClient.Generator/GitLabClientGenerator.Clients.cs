@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Humanizer;
@@ -106,13 +108,11 @@ namespace Meziantou.GitLabClient.Generator
             return m;
         }
 
-        private static MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method, TypeReference requestType)
+        private static MethodDeclaration GenerateBuildUrlMethod(ClassDeclaration clientClass, Method method, TypeReference requestType)
         {
-            // Generate method
-            var m = clientClass.AddMember(new MethodDeclaration(method.MethodGroup.Name + '_' + GetMethodName(method)));
-            m.SetData("Method", method);
-            GenerateMethodSignature(method, m, requestType, out var requestArgument, out var requestOptionsArgument, out var cancellationTokenArgument);
-            m.Modifiers = Modifiers.Private;
+            var m = clientClass.AddMember(new MethodDeclaration(method.MethodGroup.Name + '_' + GetMethodName(method) + "_BuildUrl"));
+            m.Modifiers = Modifiers.Private | Modifiers.Static;
+            m.ReturnType = typeof(string);
 
             // Method body
             m.Statements = new StatementCollection();
@@ -120,9 +120,12 @@ namespace Meziantou.GitLabClient.Generator
             var urlVariable = new VariableDeclarationStatement(typeof(string), "url");
             m.Statements.Add(urlVariable);
 
+            // 1. Create url from parameters
             var parameters = method.Parameters.Where(p => GetParameterLocation(method, p) == ParameterLocation.Url).ToList();
             if (parameters.Any())
             {
+                var requestArgument = m.AddArgument("request", requestType);
+
                 // [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
                 m.CustomAttributes.Add(new CustomAttribute(typeof(SuppressMessageAttribute))
                 {
@@ -134,18 +137,17 @@ namespace Meziantou.GitLabClient.Generator
                     },
                 });
 
-
                 var segments = GetSegments(method.UrlTemplate);
                 var urlBuilder = new VariableDeclarationStatement(
                     WellKnownTypes.UrlBuilderTypeReference, "urlBuilder",
                     new NewObjectExpression(WellKnownTypes.UrlBuilderTypeReference));
-                var usingStatement = new UsingStatement()
+                var urlUsingStatement = new UsingStatement()
                 {
                     Statement = urlBuilder,
                     Body = new StatementCollection(),
                 };
-                var statements = usingStatement.Body;
-                m.Statements.Add(usingStatement);
+                var usingStatements = urlUsingStatement.Body;
+                m.Statements.Add(urlUsingStatement);
 
                 foreach (var segment in segments)
                 {
@@ -169,14 +171,14 @@ namespace Meziantou.GitLabClient.Generator
                     }
                     else
                     {
-                        statements.Add(urlBuilder.CreateInvokeMethodExpression("Append", new LiteralExpression(segment)));
+                        usingStatements.Add(urlBuilder.CreateInvokeMethodExpression("Append", new LiteralExpression(segment)));
                     }
                 }
 
                 if (parameters.Any())
                 {
                     var separator = new VariableDeclarationStatement(typeof(char), "separator", new LiteralExpression('?'));
-                    statements.Add(separator);
+                    usingStatements.Add(separator);
 
                     foreach (var param in parameters)
                     {
@@ -184,7 +186,7 @@ namespace Meziantou.GitLabClient.Generator
                     }
                 }
 
-                statements.Add(new AssignStatement(urlVariable, urlBuilder.CreateInvokeMethodExpression("ToString")));
+                usingStatements.Add(new AssignStatement(urlVariable, urlBuilder.CreateInvokeMethodExpression("ToString")));
 
                 void AddParameter(MethodParameter param, VariableDeclarationStatement separator, bool encoded)
                 {
@@ -215,7 +217,7 @@ namespace Meziantou.GitLabClient.Generator
                                     appendParameterMethodName,
                                     CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault").CreateMemberReferenceExpression(propertyName)));
 
-                        statements.Add(hasValueCondition);
+                        urlUsingStatement.Body.Add(hasValueCondition);
                     }
                     else
                     {
@@ -239,7 +241,7 @@ namespace Meziantou.GitLabClient.Generator
                                 value);
 
                         hasValueCondition.TrueStatements.Add(appendMethod);
-                        statements.Add(hasValueCondition);
+                        urlUsingStatement.Body.Add(hasValueCondition);
                     }
 
                     MemberReferenceExpression CreatePropertyReference()
@@ -253,56 +255,147 @@ namespace Meziantou.GitLabClient.Generator
                 m.Statements.Add(new AssignStatement(urlVariable, new LiteralExpression(method.UrlTemplate)));
             }
 
-            var bodyArgument = CreateBodyArgument(method, m);
-            switch (method.MethodType)
+            m.Statements.Add(new ReturnStatement(urlVariable));
+            return m;
+        }
+
+        private static MethodDeclaration GenerateMethod(ClassDeclaration clientClass, Method method, TypeReference requestType)
+        {
+            var m = clientClass.AddMember(new MethodDeclaration(method.MethodGroup.Name + '_' + GetMethodName(method)));
+            m.SetData("Method", method);
+            var buildUrlMethod = GenerateBuildUrlMethod(clientClass, method, requestType);
+            GenerateMethodSignature(method, m, requestType, out var requestArgument, out var requestOptionsArgument, out var cancellationTokenArgument);
+            m.Modifiers = Modifiers.Private;
+            if (method.MethodType != MethodType.GetPaged)
             {
-                case MethodType.Get:
-                    if (method.ReturnType == ModelRef.Stream)
-                    {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetStreamAsync", urlVariable, requestOptionsArgument, cancellationTokenArgument)));
-                    }
-                    else
-                    {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, urlVariable, requestOptionsArgument, cancellationTokenArgument)));
-                    }
-                    break;
+                m.Modifiers |= Modifiers.Async;
+            }
 
-                case MethodType.GetCollection:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("GetCollectionAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, urlVariable, requestOptionsArgument, cancellationTokenArgument)));
-                    break;
+            // Method body
+            m.Statements = new StatementCollection();
 
-                case MethodType.GetPaged:
-                    m.Statements.Add(new ReturnStatement(new NewObjectExpression(m.ReturnType!.Clone(), new ThisExpression(), urlVariable, requestOptionsArgument)));
-                    break;
+            // 1. Create url from parameters
+            var buildUrlExpression = new MethodInvokeExpression(new MemberReferenceExpression(new TypeReference(clientClass), buildUrlMethod));
+            if (buildUrlMethod.Arguments.Count > 0)
+            {
+                buildUrlExpression.Arguments.Add(requestArgument);
+            }
 
-                case MethodType.Put:
-                case MethodType.Post:
-                    var postArgs = new List<Expression>
+            var urlVariable = new VariableDeclarationStatement(typeof(string), "url", buildUrlExpression);
+            m.Statements.Add(urlVariable);
+
+            if (method.MethodType == MethodType.GetPaged)
+            {
+                // return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+                m.Statements.Add(new ReturnStatement(new NewObjectExpression(m.ReturnType!.Clone(), new ThisExpression(), urlVariable, requestOptionsArgument)));
+            }
+            else
+            {
+                // 2. Create HttpRequestMessage object
+                var requestVariable = new VariableDeclarationStatement(typeof(HttpRequestMessage), "requestMessage", new NewObjectExpression(typeof(HttpRequestMessage)));
+                var usingStatement = new UsingStatement() { Statement = requestVariable, Body = new StatementCollection() };
+                m.Statements.Add(usingStatement);
+                var statements = usingStatement.Body;
+
+                statements.Add(new AssignStatement(new MemberReferenceExpression(requestVariable, nameof(HttpRequestMessage.Method)), GetHttpMethod(method.MethodType)));
+                statements.Add(new AssignStatement(new MemberReferenceExpression(requestVariable, nameof(HttpRequestMessage.RequestUri)), new NewObjectExpression(typeof(Uri), urlVariable, new MemberReferenceExpression(typeof(UriKind), nameof(UriKind.RelativeOrAbsolute)))));
+
+                CreateBodyArgument(method, statements, requestArgument, requestVariable);
+
+                // 3. Send request
+                // var response = await SendAsync(request, options, cancellationToken).ConfigureAwait(false);
+                var responseVariable = new VariableDeclarationStatement(WellKnownTypes.HttpResponseTypeReference.MakeNullable(), "response", LiteralExpression.Null());
+                statements.Add(responseVariable);
+                var responseTry = new TryCatchFinallyStatement() { Try = new StatementCollection() };
+                statements.Add(responseTry);
+                responseTry.Try.Add(new AssignStatement(responseVariable, new AwaitExpression(new MethodInvokeExpression(new MemberReferenceExpression(new ThisExpression(), "SendAsync"), requestVariable, requestOptionsArgument, cancellationTokenArgument)).ConfigureAwait(false)));
+
+                // Dispose reponse in catch if Stream or in finally if not stream
+                var disposeReponseStatements = new ConditionStatement()
+                {
+                    Condition = new BinaryExpression(BinaryOperator.NotEquals, responseVariable, LiteralExpression.Null()),
+                    TrueStatements = responseVariable.CreateInvokeMethodExpression("Dispose"),
+                };
+
+                if (method.ReturnType == ModelRef.File)
+                {
+                    responseTry.Catch = new CatchClauseCollection
                     {
-                        urlVariable,
-                        (Expression)bodyArgument ?? new LiteralExpression(value: null),
-                        requestOptionsArgument,
-                        cancellationTokenArgument!,
+                        new CatchClause()
+                        {
+                            Body = disposeReponseStatements,
+                        },
                     };
-                    if (method.ReturnType != null)
+
+                    responseTry.Catch[0].Body.Add(new ThrowStatement());
+                }
+                else
+                {
+                    responseTry.Finally = disposeReponseStatements;
+                }
+
+                // 4. Convert and return response object
+                //    if (response.StatusCode == HttpStatusCode.NotFound) return default;
+                if (method.MethodType == MethodType.Get)
+                {
+                    responseTry.Try.Add(new ConditionStatement()
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression(method.MethodType + "JsonAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, postArgs.ToArray())));
+                        Condition = new BinaryExpression(BinaryOperator.Equals, responseVariable.CreateMemberReferenceExpression("StatusCode"), new MemberReferenceExpression(typeof(HttpStatusCode), "NotFound")),
+                        TrueStatements = new ReturnStatement(new DefaultValueExpression()),
+                    });
+                }
+
+                // await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                responseTry.Try.Add(new AwaitExpression(new MethodInvokeExpression(new MemberReferenceExpression(responseVariable, "EnsureStatusCodeAsync"), cancellationTokenArgument)).ConfigureAwait(false));
+
+                if (method.ReturnType != null)
+                {
+                    // var result = await response.ToObjectAsync<T>(cancellationToken).ConfigureAwait(false);
+                    var resultVariable = new VariableDeclarationStatement(m.ReturnType.Parameters[0].MakeNullable(), "result");
+                    responseTry.Try.Add(resultVariable);
+                    if (method.MethodType == MethodType.Get && method.ReturnType == ModelRef.File)
+                    {
+                        resultVariable.InitExpression = new AwaitExpression(responseVariable.CreateInvokeMethodExpression("ToStreamAsync", cancellationTokenArgument)).ConfigureAwait(false);
+                    }
+                    else if (method.MethodType == MethodType.GetCollection)
+                    {
+                        resultVariable.InitExpression = new AwaitExpression(responseVariable.CreateInvokeMethodExpression("ToCollectionAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, cancellationTokenArgument)).ConfigureAwait(false);
                     }
                     else
                     {
-                        m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression(method.MethodType + "JsonAsync", postArgs.ToArray())));
+                        resultVariable.InitExpression = new AwaitExpression(responseVariable.CreateInvokeMethodExpression("ToObjectAsync", new TypeReference[] { method.ReturnType.ToPropertyTypeReference() }, cancellationTokenArgument)).ConfigureAwait(false);
                     }
-                    break;
 
-                case MethodType.Delete:
-                    m.Statements.Add(new ReturnStatement(new ThisExpression().CreateInvokeMethodExpression("DeleteAsync", urlVariable, requestOptionsArgument, cancellationTokenArgument)));
-                    break;
-
-                default:
-                    throw new NotSupportedException($"Method {method.MethodType} is not supported");
+                    // if (result is null)
+                    //   throw new GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, $"The response cannot be converted to '{typeof(T)}' because the body is null or empty");
+                    responseTry.Try.Add(new ConditionStatement()
+                    {
+                        Condition = new BinaryExpression(BinaryOperator.Equals, resultVariable, LiteralExpression.Null()),
+                        TrueStatements = new ThrowStatement(new NewObjectExpression(WellKnownTypes.GitLabExceptionTypeReference,
+                          responseVariable.CreateMemberReferenceExpression("RequestMethod"),
+                          responseVariable.CreateMemberReferenceExpression("RequestUri"),
+                          responseVariable.CreateMemberReferenceExpression("StatusCode"),
+                          new LiteralExpression($"The response cannot be converted to '{method.ReturnType.ToPropertyTypeReference().ClrFullTypeName}' because the body is null or empty"))),
+                    });
+                    responseTry.Try.Add(new ReturnStatement(resultVariable));
+                }
             }
 
             return m;
+
+            static Expression GetHttpMethod(MethodType methodType)
+            {
+                return methodType switch
+                {
+                    MethodType.Get => new MemberReferenceExpression(typeof(HttpMethod), nameof(HttpMethod.Get)),
+                    MethodType.GetCollection => new MemberReferenceExpression(typeof(HttpMethod), nameof(HttpMethod.Get)),
+                    MethodType.GetPaged => new MemberReferenceExpression(typeof(HttpMethod), nameof(HttpMethod.Get)),
+                    MethodType.Put => new MemberReferenceExpression(typeof(HttpMethod), nameof(HttpMethod.Put)),
+                    MethodType.Post => new MemberReferenceExpression(typeof(HttpMethod), nameof(HttpMethod.Post)),
+                    MethodType.Delete => new MemberReferenceExpression(typeof(HttpMethod), nameof(HttpMethod.Delete)),
+                    _ => throw new InvalidOperationException("Invalid method"),
+                };
+            }
         }
 
         private static IEnumerable<string> GetSegments(string url)
@@ -354,14 +447,7 @@ namespace Meziantou.GitLabClient.Generator
                     }
                     else if (method.MethodType == MethodType.Get)
                     {
-                        if (method.ReturnType == ModelRef.Stream)
-                        {
-                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(WellKnownTypes.HttpResponseStreamTypeReference.MakeNullable());
-                        }
-                        else
-                        {
-                            m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference().MakeNullable());
-                        }
+                        m.ReturnType = new TypeReference(typeof(Task<>)).MakeGeneric(method.ReturnType.ToPropertyTypeReference().MakeNullable());
                     }
                     else
                     {
@@ -405,9 +491,6 @@ namespace Meziantou.GitLabClient.Generator
 
         private static TypeReference CreateMethodArgumentType(NamespaceDeclaration namespaceDeclaration, Method method)
         {
-            if (method.Parameters.Count == 0)
-                return null;
-
             var groupName = method.MethodGroup.Name.Singularize();
             string name;
             if (method.RequestTypeName != null)
@@ -465,18 +548,18 @@ namespace Meziantou.GitLabClient.Generator
             return type;
         }
 
-        private static VariableReferenceExpression CreateBodyArgument(Method method, MethodDeclaration methodDeclaration)
+        private static void CreateBodyArgument(Method method, StatementCollection statements, MethodArgumentDeclaration requestArgument, VariableReferenceExpression httpRequestVariable)
         {
             var bodyArguments = method.Parameters.Where(p => GetParameterLocation(method, p) == ParameterLocation.Body).ToList();
             if (bodyArguments.Count == 0)
-                return null;
+                return;
 
             var variable = new VariableDeclarationStatement(typeof(Dictionary<string, object>), "body");
-            methodDeclaration.Statements.Add(variable);
+            statements.Add(variable);
             variable.InitExpression = new NewObjectExpression(typeof(Dictionary<string, object>));
             foreach (var arg in bodyArguments)
             {
-                Expression CreateArgumentReference() => new ArgumentReferenceExpression("request").CreateMemberReferenceExpression(ToPropertyName(arg.Name));
+                Expression CreateArgumentReference() => new ArgumentReferenceExpression(requestArgument).CreateMemberReferenceExpression(ToPropertyName(arg.Name));
 
                 var assign = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, CreateArgumentReference());
                 var condition = new ConditionStatement
@@ -484,10 +567,10 @@ namespace Meziantou.GitLabClient.Generator
                     Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
                     TrueStatements = assign,
                 };
-                methodDeclaration.Statements.Add(condition);
+                statements.Add(condition);
             }
 
-            return variable;
+            statements.Add(new AssignStatement(httpRequestVariable.CreateMemberReferenceExpression(nameof(HttpRequestMessage.Content)), new NewObjectExpression(WellKnownTypes.JsonContentTypeReference, variable, new MemberReferenceExpression(WellKnownTypes.JsonSerializationTypeReference, "Options"))));
         }
 
         private static void GenerateMandatoryParameterExtensions(ClassDeclaration extensionClass, Method method, TypeReference interfaceReference, TypeReference requestType)
@@ -496,8 +579,8 @@ namespace Meziantou.GitLabClient.Generator
                 return;
 
             // Generate all versions
-            var versions = method.Parameters.Select(p => p.Version).Distinct();
-            var lastVersion = method.Parameters.Max(p => p.Version);
+            var versions = method.Parameters.Select(p => p.Version).Distinct().DefaultIfEmpty();
+            var lastVersion = method.Parameters.Select(p => p.Version).DefaultIfEmpty().Max();
 
             foreach (var version in versions)
             {

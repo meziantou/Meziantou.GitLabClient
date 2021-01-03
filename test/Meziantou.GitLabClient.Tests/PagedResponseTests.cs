@@ -31,7 +31,7 @@ namespace Meziantou.GitLab.Tests
 
             using var context = GetContext(handler);
             // Act
-            var page = await context.AdminClient.GetPagedCollectionAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
+            var page = await ((TestGitLabClient)context.AdminClient).GetPagedCollectionAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
 
             // Assert
             Assert.AreEqual(2, page.PageIndex);
