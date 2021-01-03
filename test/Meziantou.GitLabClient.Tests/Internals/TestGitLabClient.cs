@@ -12,13 +12,14 @@ namespace Meziantou.GitLab.Tests
         public IList<object> Objects { get; } = new List<object>();
 
         public GitLabTestContext Context { get; set; }
-
+        public string Token { get; }
         public string ProfileToken { get; set; }
 
         public TestGitLabClient(GitLabTestContext context, HttpClient client, Uri serverUri, string token)
             : base(client, httpClientOwned: false, serverUri, new PersonalAccessTokenAuthenticator(token))
         {
             Context = context;
+            Token = token;
         }
 
         protected override async Task<HttpResponse> SendAsync(HttpRequestMessage message, RequestOptions options, CancellationToken cancellationToken)

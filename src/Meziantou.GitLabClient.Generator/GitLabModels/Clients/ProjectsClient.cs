@@ -75,7 +75,7 @@
             methodGroup.AddMethod("UploadFile", MethodType.Post, "/projects/:id/uploads", "https://docs.gitlab.com/ee/api/projects.html#upload-a-file")
                 .WithReturnType(Models.RepositoryFileUploaded)
                 .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
-                .AddRequiredParameter("file", ModelRef.BinaryData)
+                .AddRequiredParameter("file", ModelRef.FileUpload)
                 ;
         }
     }

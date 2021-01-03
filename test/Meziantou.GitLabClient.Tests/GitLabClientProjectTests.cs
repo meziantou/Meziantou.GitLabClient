@@ -54,13 +54,15 @@ namespace Meziantou.GitLab.Tests
         {
             using var context = GetContext();
             using var client = await context.CreateNewUserAsync();
-            var data = new byte[] { 1, 2 };
+            var data = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGP6DwABBQECz6AuzQAAAABJRU5ErkJggg==");
 
             var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test1" });
-            var result = await client.Projects.UploadFileAsync(project, BinaryData.FromBytes(data));
+            var result = await client.Projects.UploadFileAsync(project, FileUpload.FromBytes("test.png", data));
 
             Assert.IsNotNull(result.Url);
-            var actual = await context.HttpClient.GetByteArrayAsync(new Uri(GitLabTestContext.DockerContainer.GitLabUrl, result.Url));
+            Assert.IsNotNull(result.FullPath);
+            var actual = await context.AdminHttpClient.GetByteArrayAsync(result.FullPath);
+
             CollectionAssert.AreEqual(data, actual);
         }
     }

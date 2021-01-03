@@ -22,6 +22,7 @@ namespace Meziantou.GitLab.Tests
 
         private readonly LoggingHandler _loggingHandler;
         private readonly RetryHandler _retryHandler;
+        private readonly HttpClient _clientHttpClient;
         private readonly List<TestGitLabClient> _clients = new();
 
         public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
@@ -34,11 +35,26 @@ namespace Meziantou.GitLab.Tests
             };
 
             _retryHandler = new RetryHandler(_loggingHandler);
-            HttpClient = new HttpClient(_retryHandler, disposeHandler: true);
+            _clientHttpClient = new HttpClient(_retryHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.Credentials.AdminUserToken);
+
+            HttpClient = new HttpClient(_retryHandler, disposeHandler: true)
+            {
+                BaseAddress = DockerContainer.GitLabUrl,
+            };
+
+            AdminHttpClient = new HttpClient(_retryHandler, disposeHandler: true)
+            {
+                BaseAddress = DockerContainer.GitLabUrl,
+                DefaultRequestHeaders =
+                {
+                    { "Cookie", "_gitlab_session=" +  DockerContainer.Credentials.Cookies },
+                },
+            };
         }
 
         public HttpClient HttpClient { get; }
+        public HttpClient AdminHttpClient { get; }
         public IGitLabClient AdminClient { get; }
         public TestContext TestContext { get; }
 
@@ -82,7 +98,7 @@ namespace Meziantou.GitLab.Tests
 
         private TestGitLabClient CreateClient(string token)
         {
-            var client = new TestGitLabClient(this, HttpClient, DockerContainer.GitLabUrl, token)
+            var client = new TestGitLabClient(this, _clientHttpClient, DockerContainer.GitLabUrl, token)
             {
                 ProfileToken = DockerContainer.Credentials.ProfileToken,
             };
@@ -96,7 +112,7 @@ namespace Meziantou.GitLab.Tests
             TestContext.WriteLine(separator + string.Join(separator, _loggingHandler.Logs));
             var objects = _clients.SelectMany(c => c.Objects).ToList();
 
-            HttpClient?.Dispose();
+            _clientHttpClient?.Dispose();
             _loggingHandler?.Dispose();
             _retryHandler?.Dispose();
 

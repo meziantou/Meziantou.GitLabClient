@@ -554,23 +554,57 @@ namespace Meziantou.GitLabClient.Generator
             if (bodyArguments.Count == 0)
                 return;
 
-            var variable = new VariableDeclarationStatement(typeof(Dictionary<string, object>), "body");
-            statements.Add(variable);
-            variable.InitExpression = new NewObjectExpression(typeof(Dictionary<string, object>));
-            foreach (var arg in bodyArguments)
+            var binaryDataArg = bodyArguments.Where(arg => arg.Type == ModelRef.FileUpload).ToList();
+            if (binaryDataArg.Count > 0)
             {
-                Expression CreateArgumentReference() => new ArgumentReferenceExpression(requestArgument).CreateMemberReferenceExpression(ToPropertyName(arg.Name));
+                // FormData
+                var contentVariable = new VariableDeclarationStatement(typeof(MultipartFormDataContent), "content", new NewObjectExpression(typeof(MultipartFormDataContent)));
+                statements.Add(contentVariable);
 
-                var assign = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, CreateArgumentReference());
-                var condition = new ConditionStatement
+                foreach (var arg in bodyArguments)
                 {
-                    Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
-                    TrueStatements = assign,
-                };
-                statements.Add(condition);
-            }
+                    var condition = new ConditionStatement
+                    {
+                        Condition = new BinaryExpression(BinaryOperator.NotEquals, requestArgument.CreateMemberReferenceExpression(ToPropertyName(arg.Name)), new LiteralExpression(value: null)),
+                    };
 
-            statements.Add(new AssignStatement(httpRequestVariable.CreateMemberReferenceExpression(nameof(HttpRequestMessage.Content)), new NewObjectExpression(WellKnownTypes.JsonContentTypeReference, variable, new MemberReferenceExpression(WellKnownTypes.JsonSerializationTypeReference, "Options"))));
+                    if (arg.Type == ModelRef.FileUpload)
+                    {
+                        condition.TrueStatements = contentVariable.CreateInvokeMethodExpression(nameof(MultipartFormDataContent.Add),
+                            requestArgument.CreateMemberReferenceExpression(ToPropertyName(arg.Name)).CreateInvokeMethodExpression("ToHttpContent"),
+                            arg.Name,
+                            requestArgument.CreateMemberReferenceExpression(ToPropertyName(arg.Name)).CreateMemberReferenceExpression("FileName"));
+                    }
+                    else
+                    {
+                        // FormUrlEncodedContent, Convert value to string
+                        throw new NotSupportedException("This case is not yet implemented");
+                    }
+                    statements.Add(condition);
+                }
+
+                statements.Add(new AssignStatement(httpRequestVariable.CreateMemberReferenceExpression(nameof(HttpRequestMessage.Content)), contentVariable));
+            }
+            else
+            {
+                // JsonContent
+                var variable = new VariableDeclarationStatement(typeof(Dictionary<string, object>), "body");
+                statements.Add(variable);
+                variable.InitExpression = new NewObjectExpression(typeof(Dictionary<string, object>));
+                foreach (var arg in bodyArguments)
+                {
+                    Expression CreateArgumentReference() => requestArgument.CreateMemberReferenceExpression(ToPropertyName(arg.Name));
+
+                    var condition = new ConditionStatement
+                    {
+                        Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
+                        TrueStatements = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, CreateArgumentReference()),
+                    };
+                    statements.Add(condition);
+                }
+
+                statements.Add(new AssignStatement(httpRequestVariable.CreateMemberReferenceExpression(nameof(HttpRequestMessage.Content)), new NewObjectExpression(WellKnownTypes.JsonContentTypeReference, variable, new MemberReferenceExpression(WellKnownTypes.JsonSerializationTypeReference, "Options"))));
+            }
         }
 
         private static void GenerateMandatoryParameterExtensions(ClassDeclaration extensionClass, Method method, TypeReference interfaceReference, TypeReference requestType)

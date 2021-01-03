@@ -66,7 +66,7 @@ namespace Meziantou.GitLabClient.Generator
 
                     foreach (var modelParameter in modelMethod.Parameters)
                     {
-                        // TODO fix GitLab documentation to avoid this case
+                        // TODO-GitLab fix GitLab documentation to avoid this case
                         if (documentationMethod.Parameters.Count == 0)
                             continue; // GitLab is so inconsistent in the documentation that sometimes we cannot find the params...
 

@@ -651,13 +651,13 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                System.Net.Http.MultipartFormDataContent content = new System.Net.Http.MultipartFormDataContent();
                 if ((request.File != null))
                 {
-                    body.Add("file", request.File);
+                    content.Add(request.File.ToHttpContent(), "file", request.File.FileName);
                 }
 
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = content;
                 HttpResponse? response = null;
                 try
                 {
@@ -815,7 +815,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<RepositoryFileUploaded> UploadFileAsync(this Meziantou.GitLab.IGitLabProjectsClient client, ProjectIdOrPathRef id, Meziantou.GitLab.BinaryData file, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<RepositoryFileUploaded> UploadFileAsync(this Meziantou.GitLab.IGitLabProjectsClient client, ProjectIdOrPathRef id, Meziantou.GitLab.FileUpload file, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.UploadFileProjectRequest request = new Meziantou.GitLab.UploadFileProjectRequest(id, file);
             return client.UploadFileAsync(request, requestOptions, cancellationToken);
@@ -1748,13 +1748,13 @@ namespace Meziantou.GitLab
 
     public partial class UploadFileProjectRequest
     {
-        private Meziantou.GitLab.BinaryData? _file;
+        private Meziantou.GitLab.FileUpload? _file;
 
         private ProjectIdOrPathRef? _id;
 
         /// <param name="id">The ID or URL-encoded path of the project.</param>
         /// <param name="file">The file to be uploaded.</param>
-        public UploadFileProjectRequest(ProjectIdOrPathRef? id, Meziantou.GitLab.BinaryData? file)
+        public UploadFileProjectRequest(ProjectIdOrPathRef? id, Meziantou.GitLab.FileUpload? file)
         {
             this._id = id;
             this._file = file;
@@ -1767,7 +1767,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The file to be uploaded.</para>
         /// </summary>
-        public Meziantou.GitLab.BinaryData? File
+        public Meziantou.GitLab.FileUpload? File
         {
             get
             {
