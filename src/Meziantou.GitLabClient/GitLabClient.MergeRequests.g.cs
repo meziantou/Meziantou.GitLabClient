@@ -146,8 +146,90 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<MergeRequest> MergeRequests_CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.MergeRequests_CreateMergeRequestAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.SourceBranch != null))
+                {
+                    body.Add("source_branch", request.SourceBranch);
+                }
+
+                if ((request.TargetBranch != null))
+                {
+                    body.Add("target_branch", request.TargetBranch);
+                }
+
+                if ((request.Title != null))
+                {
+                    body.Add("title", request.Title);
+                }
+
+                if ((request.Description != null))
+                {
+                    body.Add("description", request.Description);
+                }
+
+                if ((request.AssigneeId != null))
+                {
+                    body.Add("assignee_id", request.AssigneeId);
+                }
+
+                if ((request.TargetProjectId != null))
+                {
+                    body.Add("target_project_id", request.TargetProjectId);
+                }
+
+                if ((request.RemoveSourceBranch != null))
+                {
+                    body.Add("remove_source_branch", request.RemoveSourceBranch);
+                }
+
+                if ((request.AllowCollaboration != null))
+                {
+                    body.Add("allow_collaboration", request.AllowCollaboration);
+                }
+
+                if ((request.AllowMaintainerToPush != null))
+                {
+                    body.Add("allow_maintainer_to_push", request.AllowMaintainerToPush);
+                }
+
+                if ((request.Squash != null))
+                {
+                    body.Add("squash", request.Squash);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    MergeRequest? result = await response.ToObjectAsync<MergeRequest>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'MergeRequest' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<MergeRequest> MergeRequests_CreateMergeRequestAsync(Meziantou.GitLab.CreateMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string MergeRequests_CreateMergeRequestAsync_BuildUrl(Meziantou.GitLab.CreateMergeRequestRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -162,58 +244,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            if ((request.SourceBranch != null))
-            {
-                body.Add("source_branch", request.SourceBranch);
-            }
-
-            if ((request.TargetBranch != null))
-            {
-                body.Add("target_branch", request.TargetBranch);
-            }
-
-            if ((request.Title != null))
-            {
-                body.Add("title", request.Title);
-            }
-
-            if ((request.Description != null))
-            {
-                body.Add("description", request.Description);
-            }
-
-            if ((request.AssigneeId != null))
-            {
-                body.Add("assignee_id", request.AssigneeId);
-            }
-
-            if ((request.TargetProjectId != null))
-            {
-                body.Add("target_project_id", request.TargetProjectId);
-            }
-
-            if ((request.RemoveSourceBranch != null))
-            {
-                body.Add("remove_source_branch", request.RemoveSourceBranch);
-            }
-
-            if ((request.AllowCollaboration != null))
-            {
-                body.Add("allow_collaboration", request.AllowCollaboration);
-            }
-
-            if ((request.AllowMaintainerToPush != null))
-            {
-                body.Add("allow_maintainer_to_push", request.AllowMaintainerToPush);
-            }
-
-            if ((request.Squash != null))
-            {
-                body.Add("squash", request.Squash);
-            }
-
-            return this.PostJsonAsync<MergeRequest>(url, body, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -223,8 +254,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetGroupMergeRequests(Meziantou.GitLab.GetGroupMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.MergeRequests_GetGroupMergeRequests_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string MergeRequests_GetGroupMergeRequests_BuildUrl(Meziantou.GitLab.GetGroupMergeRequestsRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -360,7 +397,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+            return url;
         }
 
         /// <summary>
@@ -371,8 +408,43 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<MergeRequest?> MergeRequests_GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.MergeRequests_GetMergeRequestAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    MergeRequest? result = await response.ToObjectAsync<MergeRequest>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'MergeRequest' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<MergeRequest?> MergeRequests_GetMergeRequestAsync(Meziantou.GitLab.GetMergeRequestRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string MergeRequests_GetMergeRequestAsync_BuildUrl(Meziantou.GitLab.GetMergeRequestRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -392,7 +464,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetAsync<MergeRequest>(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -402,8 +474,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetMergeRequests(Meziantou.GitLab.GetMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.MergeRequests_GetMergeRequests_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string MergeRequests_GetMergeRequests_BuildUrl(Meziantou.GitLab.GetMergeRequestsRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -533,7 +611,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+            return url;
         }
 
         /// <summary>
@@ -543,8 +621,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<MergeRequest> MergeRequests_GetProjectMergeRequests(Meziantou.GitLab.GetProjectMergeRequestsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.MergeRequests_GetProjectMergeRequests_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string MergeRequests_GetProjectMergeRequests_BuildUrl(Meziantou.GitLab.GetProjectMergeRequestsRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -688,7 +772,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return new Meziantou.GitLab.PagedResponse<MergeRequest>(this, url, requestOptions);
+            return url;
         }
     }
 

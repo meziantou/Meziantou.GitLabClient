@@ -65,7 +65,7 @@ namespace Meziantou.GitLab.Tests
             });
 
             var mergeRequest = await context.CreateMergeRequestAsync(client, project, hasConflict: true);
-            mergeRequest = await client.WaitForStatusReadyAsync(mergeRequest);
+            mergeRequest = await client.MergeRequests.WaitForStatusReadyAsync(mergeRequest);
 
             Assert.AreEqual(MergeRequestStatus.CannotBeMerged, mergeRequest.MergeStatus);
         }

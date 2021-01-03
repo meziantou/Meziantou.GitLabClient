@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<TemplateBasic> GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<TemplateBasic> GetDockerfiles(Meziantou.GitLab.GetDockerfilesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
@@ -54,7 +54,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitIgnores(Meziantou.GitLab.GetGitIgnoresTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
         ///   <para>URL: <c>GET /templates/gitlab_ci_ymls/:key</c></para>
@@ -73,7 +73,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitLabCiYmls(Meziantou.GitLab.GetGitLabCiYmlsTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
         ///   <para>URL: <c>GET /templates/licenses/:key</c></para>
@@ -117,9 +117,9 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetDockerfiles(Meziantou.GitLab.GetDockerfilesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
-            return this.Templates_GetDockerfiles(requestOptions);
+            return this.Templates_GetDockerfiles(request, requestOptions);
         }
 
         /// <summary>
@@ -142,9 +142,9 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetGitIgnores(Meziantou.GitLab.GetGitIgnoresTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
-            return this.Templates_GetGitIgnores(requestOptions);
+            return this.Templates_GetGitIgnores(request, requestOptions);
         }
 
         /// <summary>
@@ -167,9 +167,9 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<TemplateBasic> Meziantou.GitLab.IGitLabTemplatesClient.GetGitLabCiYmls(Meziantou.GitLab.GetGitLabCiYmlsTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
-            return this.Templates_GetGitLabCiYmls(requestOptions);
+            return this.Templates_GetGitLabCiYmls(request, requestOptions);
         }
 
         /// <summary>
@@ -213,8 +213,43 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Template?> Templates_GetDockerfileByKeyAsync(Meziantou.GitLab.GetDockerfileByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetDockerfileByKeyAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Template?> Templates_GetDockerfileByKeyAsync(Meziantou.GitLab.GetDockerfileByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string Templates_GetDockerfileByKeyAsync_BuildUrl(Meziantou.GitLab.GetDockerfileByKeyTemplateRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -228,7 +263,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetAsync<Template>(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -238,11 +273,17 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetDockerfiles(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetDockerfiles(Meziantou.GitLab.GetDockerfilesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetDockerfiles_BuildUrl();
+            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+        }
+
+        private static string Templates_GetDockerfiles_BuildUrl()
         {
             string url;
             url = "templates/dockerfiles";
-            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+            return url;
         }
 
         /// <summary>
@@ -253,8 +294,43 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Template?> Templates_GetGitIgnoreByKeyAsync(Meziantou.GitLab.GetGitIgnoreByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetGitIgnoreByKeyAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Template?> Templates_GetGitIgnoreByKeyAsync(Meziantou.GitLab.GetGitIgnoreByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string Templates_GetGitIgnoreByKeyAsync_BuildUrl(Meziantou.GitLab.GetGitIgnoreByKeyTemplateRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -268,7 +344,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetAsync<Template>(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -278,11 +354,17 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetGitIgnores(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetGitIgnores(Meziantou.GitLab.GetGitIgnoresTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetGitIgnores_BuildUrl();
+            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+        }
+
+        private static string Templates_GetGitIgnores_BuildUrl()
         {
             string url;
             url = "templates/gitignores";
-            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+            return url;
         }
 
         /// <summary>
@@ -293,8 +375,43 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Template?> Templates_GetGitLabCiYmlByKeyAsync(Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetGitLabCiYmlByKeyAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Template?> Templates_GetGitLabCiYmlByKeyAsync(Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string Templates_GetGitLabCiYmlByKeyAsync_BuildUrl(Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -308,7 +425,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetAsync<Template>(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -318,11 +435,17 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetGitLabCiYmls(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetGitLabCiYmls(Meziantou.GitLab.GetGitLabCiYmlsTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetGitLabCiYmls_BuildUrl();
+            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+        }
+
+        private static string Templates_GetGitLabCiYmls_BuildUrl()
         {
             string url;
             url = "templates/gitlab_ci_ymls";
-            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+            return url;
         }
 
         /// <summary>
@@ -333,8 +456,43 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Template?> Templates_GetLicenseByKeyAsync(Meziantou.GitLab.GetLicenseByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetLicenseByKeyAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Template?> Templates_GetLicenseByKeyAsync(Meziantou.GitLab.GetLicenseByKeyTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string Templates_GetLicenseByKeyAsync_BuildUrl(Meziantou.GitLab.GetLicenseByKeyTemplateRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -365,7 +523,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetAsync<Template>(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -375,8 +533,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<TemplateBasic> Templates_GetLicenses(Meziantou.GitLab.GetLicensesTemplateRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Templates_GetLicenses_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Templates_GetLicenses_BuildUrl(Meziantou.GitLab.GetLicensesTemplateRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -394,7 +558,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return new Meziantou.GitLab.PagedResponse<TemplateBasic>(this, url, requestOptions);
+            return url;
         }
     }
 
@@ -415,6 +579,19 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/dockerfiles</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/dockerfiles.html#list-dockerfile-templates" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        public static Meziantou.GitLab.PagedResponse<TemplateBasic> GetDockerfiles(this Meziantou.GitLab.IGitLabTemplatesClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            Meziantou.GitLab.GetDockerfilesTemplateRequest request = new Meziantou.GitLab.GetDockerfilesTemplateRequest();
+            return client.GetDockerfiles(request, requestOptions);
+        }
+
+        /// <summary>
         ///   <para>URL: <c>GET /templates/gitignores/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-a-single-gitignore-template" />
@@ -429,6 +606,19 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>URL: <c>GET /templates/gitignores</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitignores.html#get-all-gitignore-templates" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        public static Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitIgnores(this Meziantou.GitLab.IGitLabTemplatesClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            Meziantou.GitLab.GetGitIgnoresTemplateRequest request = new Meziantou.GitLab.GetGitIgnoresTemplateRequest();
+            return client.GetGitIgnores(request, requestOptions);
+        }
+
+        /// <summary>
         ///   <para>URL: <c>GET /templates/gitlab_ci_ymls/:key</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#single-gitlab-ci-yaml-template" />
@@ -440,6 +630,19 @@ namespace Meziantou.GitLab
         {
             Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest request = new Meziantou.GitLab.GetGitLabCiYmlByKeyTemplateRequest(key);
             return client.GetGitLabCiYmlByKeyAsync(request, requestOptions, cancellationToken);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /templates/gitlab_ci_ymls</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/templates/gitlab_ci_ymls.html#list-gitlab-ci-yaml-templates" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        public static Meziantou.GitLab.PagedResponse<TemplateBasic> GetGitLabCiYmls(this Meziantou.GitLab.IGitLabTemplatesClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            Meziantou.GitLab.GetGitLabCiYmlsTemplateRequest request = new Meziantou.GitLab.GetGitLabCiYmlsTemplateRequest();
+            return client.GetGitLabCiYmls(request, requestOptions);
         }
 
         /// <summary>
@@ -473,6 +676,13 @@ namespace Meziantou.GitLab
         }
     }
 
+    public partial class GetGitIgnoresTemplateRequest
+    {
+        public GetGitIgnoresTemplateRequest()
+        {
+        }
+    }
+
     public partial class GetGitIgnoreByKeyTemplateRequest
     {
         private string? _key;
@@ -503,6 +713,13 @@ namespace Meziantou.GitLab
         }
     }
 
+    public partial class GetGitLabCiYmlsTemplateRequest
+    {
+        public GetGitLabCiYmlsTemplateRequest()
+        {
+        }
+    }
+
     public partial class GetGitLabCiYmlByKeyTemplateRequest
     {
         private string? _key;
@@ -530,6 +747,13 @@ namespace Meziantou.GitLab
             {
                 this._key = value;
             }
+        }
+    }
+
+    public partial class GetDockerfilesTemplateRequest
+    {
+        public GetDockerfilesTemplateRequest()
+        {
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,6 +47,21 @@ namespace Meziantou.GitLab.Tests
             Assert.AreEqual(project2, projects[0]);
             Assert.AreEqual(project3, projects[1]);
             Assert.AreEqual(2, projects.Count);
+        }
+
+        [TestMethod]
+        public async Task UploadFile()
+        {
+            using var context = GetContext();
+            using var client = await context.CreateNewUserAsync();
+            var data = new byte[] { 1, 2 };
+
+            var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test1" });
+            var result = await client.Projects.UploadFileAsync(project, BinaryData.FromBytes(data));
+
+            Assert.IsNotNull(result.Url);
+            var actual = await context.HttpClient.GetByteArrayAsync(new Uri(GitLabTestContext.DockerContainer.GitLabUrl, result.Url));
+            CollectionAssert.AreEqual(data, actual);
         }
     }
 }

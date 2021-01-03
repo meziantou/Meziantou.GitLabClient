@@ -20,7 +20,6 @@ namespace Meziantou.GitLab.Tests
     {
         public static GitLabDockerContainer DockerContainer { get; set; }
 
-        private readonly HttpClient _httpClient;
         private readonly LoggingHandler _loggingHandler;
         private readonly RetryHandler _retryHandler;
         private readonly List<TestGitLabClient> _clients = new();
@@ -35,11 +34,12 @@ namespace Meziantou.GitLab.Tests
             };
 
             _retryHandler = new RetryHandler(_loggingHandler);
-            _httpClient = new HttpClient(_retryHandler, disposeHandler: true);
+            HttpClient = new HttpClient(_retryHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.Credentials.AdminUserToken);
         }
 
-        public TestGitLabClient AdminClient { get; }
+        public HttpClient HttpClient { get; }
+        public IGitLabClient AdminClient { get; }
         public TestContext TestContext { get; }
 
         public async Task<IGitLabClient> CreateNewUserAsync()
@@ -82,7 +82,7 @@ namespace Meziantou.GitLab.Tests
 
         private TestGitLabClient CreateClient(string token)
         {
-            var client = new TestGitLabClient(this, _httpClient, DockerContainer.GitLabUrl, token)
+            var client = new TestGitLabClient(this, HttpClient, DockerContainer.GitLabUrl, token)
             {
                 ProfileToken = DockerContainer.Credentials.ProfileToken,
             };
@@ -96,7 +96,7 @@ namespace Meziantou.GitLab.Tests
             TestContext.WriteLine(separator + string.Join(separator, _loggingHandler.Logs));
             var objects = _clients.SelectMany(c => c.Objects).ToList();
 
-            _httpClient?.Dispose();
+            HttpClient?.Dispose();
             _loggingHandler?.Dispose();
             _retryHandler?.Dispose();
 

@@ -60,27 +60,58 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<RenderMarkdownResult> Markdown_RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private async System.Threading.Tasks.Task<RenderMarkdownResult> Markdown_RenderMarkdownAsync(Meziantou.GitLab.RenderMarkdownRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Markdown_RenderMarkdownAsync_BuildUrl();
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.Text != null))
+                {
+                    body.Add("text", request.Text);
+                }
+
+                if ((request.Gfm != null))
+                {
+                    body.Add("gfm", request.Gfm);
+                }
+
+                if ((request.Project != null))
+                {
+                    body.Add("project", request.Project);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    RenderMarkdownResult? result = await response.ToObjectAsync<RenderMarkdownResult>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'RenderMarkdownResult' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
+        private static string Markdown_RenderMarkdownAsync_BuildUrl()
         {
             string url;
             url = "markdown";
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            if ((request.Text != null))
-            {
-                body.Add("text", request.Text);
-            }
-
-            if ((request.Gfm != null))
-            {
-                body.Add("gfm", request.Gfm);
-            }
-
-            if ((request.Project != null))
-            {
-                body.Add("project", request.Project);
-            }
-
-            return this.PostJsonAsync<RenderMarkdownResult>(url, body, requestOptions, cancellationToken);
+            return url;
         }
     }
 

@@ -160,12 +160,12 @@ namespace Meziantou.GitLab.Tests
             using var client = await context.CreateNewUserAsync();
             var user = await client.Users.GetCurrentUserAsync();
 
-            var token = await context.AdminClient.CreateImpersonationTokenAsync(user.Id, "new-token", expiresAt: null, scopes: new[] { "api" });
+            var token = await context.AdminClient.Users.CreateImpersonationTokenAsync(user.Id, "new-token", expiresAt: null, scopes: new[] { "api" });
             Assert.IsNotNull(token.Token);
             Assert.IsFalse(token.Revoked);
             Assert.IsTrue(token.Active);
 
-            var token2 = await context.AdminClient.CreateImpersonationTokenAsync(user, "new-token", expiresAt: null, scopes: new[] { "api" });
+            var token2 = await context.AdminClient.Users.CreateImpersonationTokenAsync(user, "new-token", expiresAt: null, scopes: new[] { "api" });
             Assert.IsNotNull(token2.Token);
             Assert.IsFalse(token2.Revoked);
             Assert.IsTrue(token2.Active);

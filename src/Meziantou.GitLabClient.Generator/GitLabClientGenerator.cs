@@ -21,10 +21,13 @@ namespace Meziantou.GitLabClient.Generator
             public static TypeReference UrlBuilderTypeReference { get; } = new(InternalsNamespace + ".UrlBuilder");
             public static TypeReference PageOptionsTypeReference { get; } = new(RootNamespace + ".PageOptions");
             public static TypeReference HttpResponseStreamTypeReference { get; } = new(RootNamespace + ".HttpResponseStream");
+            public static TypeReference HttpResponseTypeReference { get; } = new("HttpResponse");
             public static TypeReference SkipUtcDateValidationAttributeTypeReference { get; } = new(InternalsNamespace + ".SkipUtcDateValidationAttribute");
             public static TypeReference SkipAbsoluteUriValidationAttribute { get; } = new(InternalsNamespace + ".SkipAbsoluteUriValidationAttribute");
             public static TypeReference MappedPropertyAttributeTypeReference { get; } = new(InternalsNamespace + ".MappedPropertyAttribute");
             public static TypeReference IGitLabObjectReferenceTypeReference { get; } = new(InternalsNamespace + ".IGitLabObjectReference");
+            public static TypeReference JsonContentTypeReference { get; } = new(InternalsNamespace + ".JsonContent");
+            public static TypeReference JsonSerializationTypeReference { get; } = new(SerializationNamespace + ".JsonSerialization");
             public static TypeReference GitLabObjectInt64ReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectInt64ReferenceJsonConverter");
             public static TypeReference GitLabObjectStringReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectStringReferenceJsonConverter");
             public static TypeReference GitLabObjectObjectReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverter");
@@ -155,91 +158,6 @@ namespace Meziantou.GitLabClient.Generator
         {
             AddDocumentationComments(commentable, documentation, method: null);
         }
-
-        //private static void GenerateExtensionMethod(ClassDeclaration extensionClass, Method method, MethodParameter methodParameter)
-        //{
-        //    foreach (var parameterEntityRef in methodParameter.Type.ParameterEntity.Refs.Where(r => r.ModelRef.IsModel))
-        //    {
-        //        var m = GenerateMethod(extensionClass, method);
-        //        m.Modifiers |= Modifiers.Static;
-        //        var extensionArgument = new MethodArgumentDeclaration(parameterEntityRef.ModelRef, ToArgumentName(parameterEntityRef.ModelRef.Model.Name)) { IsExtension = true };
-
-        //        m.Statements.Clear();
-
-        //        var invoke = new MethodInvokeExpression(new CastExpression(extensionArgument, new TypeReference("IGitLabObject")).CreateMemberReferenceExpression("GitLabClient", m.Name));
-
-        //        foreach (var arg in m.Arguments.ToList())
-        //        {
-        //            if (arg.Data.TryGetValue("Parameter", out var parameter) && methodParameter == parameter)
-        //            {
-        //                m.Arguments.Remove(arg);
-        //                invoke.Arguments.Add(extensionArgument);
-        //            }
-        //            else
-        //            {
-        //                invoke.Arguments.Add(arg);
-        //            }
-        //        }
-
-        //        m.Statements.Add(new ReturnStatement(invoke));
-
-        //        m.Name = m.Name.Replace(extensionClass.Name, "", StringComparison.OrdinalIgnoreCase);
-        //        m.Arguments.Insert(0, extensionArgument);
-        //    }
-        //}
-
-        //private static void GenerateFileExtensionMethod(ClassDeclaration classDeclaration, ClassDeclaration extensionClass)
-        //{
-        //    var methods = classDeclaration.Members
-        //        .OfType<MethodDeclaration>()
-        //        .Where(ContainsFileArgument)
-        //        .ToList();
-
-        //    foreach (var methodDeclaration in methods)
-        //    {
-        //        if (methodDeclaration.Data["Method"] is not Method method)
-        //            continue;
-
-        //        var m = GenerateMethod(extensionClass, method);
-        //        m.Modifiers |= Modifiers.Static;
-
-        //        Debug.Assert(m.Statements != null);
-        //        m.Statements.Clear();
-
-        //        var extensionArgument = new MethodArgumentDeclaration(new TypeReference("IGitLabClient"), "client") { IsExtension = true };
-
-        //        var invoke = new MethodInvokeExpression(extensionArgument.CreateMemberReferenceExpression(methodDeclaration.Name!));
-
-        //        foreach (var arg in m.Arguments.ToList())
-        //        {
-        //            if (arg.Name == "encoding")
-        //            {
-        //                invoke.Arguments.Add(new LiteralExpression("base64"));
-        //                m.Arguments.Remove(arg);
-        //            }
-        //            else if (arg.Name == "content")
-        //            {
-        //                invoke.Arguments.Add(new TypeReferenceExpression(typeof(Convert)).CreateInvokeMethodExpression(nameof(Convert.ToBase64String), arg));
-        //                arg.Type = typeof(byte[]);
-        //            }
-        //            else
-        //            {
-        //                invoke.Arguments.Add(arg);
-        //            }
-        //        }
-
-        //        m.Statements.Add(new ReturnStatement(invoke));
-
-        //        m.Name = m.Name.Replace(extensionClass.Name, "", StringComparison.OrdinalIgnoreCase);
-        //        m.Arguments.Insert(0, extensionArgument);
-        //    }
-
-        //    static bool ContainsFileArgument(MethodDeclaration m)
-        //    {
-        //        return m.Arguments.Any(a => a.Name == "content" && a.Type.ClrFullTypeName == typeof(string).FullName) &&
-        //               m.Arguments.Any(a => a.Name == "encoding" && a.Type.ClrFullTypeName == typeof(string).FullName);
-        //    }
-        //}
 
         private static string ToFieldName(string value)
         {

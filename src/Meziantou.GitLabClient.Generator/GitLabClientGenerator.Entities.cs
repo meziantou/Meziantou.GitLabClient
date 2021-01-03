@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -178,6 +179,17 @@ namespace Meziantou.GitLabClient.Generator
             var toStringMethod = type.AddMember(new MethodDeclaration("ToString"));
             toStringMethod.ReturnType = typeof(string);
             toStringMethod.Modifiers = Modifiers.Public | Modifiers.Override;
+
+            //[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0075:Do not use implicit culture-sensitive ToString", Justification = "<Pending>")]
+            toStringMethod.CustomAttributes.Add(new CustomAttribute(typeof(SuppressMessageAttribute))
+            {
+                Arguments =
+                {
+                    new CustomAttributeArgument(new LiteralExpression("Design")),
+                    new CustomAttributeArgument(new LiteralExpression("MA0075:Do not use implicit culture-sensitive ToString")),
+                    new CustomAttributeArgument("Justification", new LiteralExpression("Valid in ToString")),
+                },
+            });
 
             Expression concatExpression = new LiteralExpression(type.Name + " { ");
             var first = true;

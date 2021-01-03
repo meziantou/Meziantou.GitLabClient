@@ -55,6 +55,16 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Project> GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/uploads</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#upload-a-file" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<RepositoryFileUploaded> UploadFileAsync(Meziantou.GitLab.UploadFileProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabProjectsClient
@@ -109,6 +119,19 @@ namespace Meziantou.GitLab
             return this.Projects_GetByUser(request, requestOptions);
         }
 
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/uploads</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#upload-a-file" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<RepositoryFileUploaded> Meziantou.GitLab.IGitLabProjectsClient.UploadFileAsync(Meziantou.GitLab.UploadFileProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        {
+            return this.Projects_UploadFileAsync(request, requestOptions, cancellationToken);
+        }
+
         public Meziantou.GitLab.IGitLabProjectsClient Projects
         {
             get
@@ -125,132 +148,163 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<Project> Projects_CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private async System.Threading.Tasks.Task<Project> Projects_CreateAsync(Meziantou.GitLab.CreateProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Projects_CreateAsync_BuildUrl();
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.Name != null))
+                {
+                    body.Add("name", request.Name);
+                }
+
+                if ((request.Path != null))
+                {
+                    body.Add("path", request.Path);
+                }
+
+                if ((request.NamespaceId != null))
+                {
+                    body.Add("namespace_id", request.NamespaceId);
+                }
+
+                if ((request.DefaultBranch != null))
+                {
+                    body.Add("default_branch", request.DefaultBranch);
+                }
+
+                if ((request.Description != null))
+                {
+                    body.Add("description", request.Description);
+                }
+
+                if ((request.IssuesEnabled != null))
+                {
+                    body.Add("issues_enabled", request.IssuesEnabled);
+                }
+
+                if ((request.MergeRequestsEnabled != null))
+                {
+                    body.Add("merge_requests_enabled", request.MergeRequestsEnabled);
+                }
+
+                if ((request.JobsEnabled != null))
+                {
+                    body.Add("jobs_enabled", request.JobsEnabled);
+                }
+
+                if ((request.WikiEnabled != null))
+                {
+                    body.Add("wiki_enabled", request.WikiEnabled);
+                }
+
+                if ((request.SnippetsEnabled != null))
+                {
+                    body.Add("snippets_enabled", request.SnippetsEnabled);
+                }
+
+                if ((request.ResolveOutdatedDiffDiscussions != null))
+                {
+                    body.Add("resolve_outdated_diff_discussions", request.ResolveOutdatedDiffDiscussions);
+                }
+
+                if ((request.ContainerRegistryEnabled != null))
+                {
+                    body.Add("container_registry_enabled", request.ContainerRegistryEnabled);
+                }
+
+                if ((request.SharedRunnersEnabled != null))
+                {
+                    body.Add("shared_runners_enabled", request.SharedRunnersEnabled);
+                }
+
+                if ((request.PublicBuilds != null))
+                {
+                    body.Add("public_builds", request.PublicBuilds);
+                }
+
+                if ((request.OnlyAllowMergeIfPipelineSucceeds != null))
+                {
+                    body.Add("only_allow_merge_if_pipeline_succeeds", request.OnlyAllowMergeIfPipelineSucceeds);
+                }
+
+                if ((request.OnlyAllowMergeIfAllDiscussionsAreResolved != null))
+                {
+                    body.Add("only_allow_merge_if_all_discussions_are_resolved", request.OnlyAllowMergeIfAllDiscussionsAreResolved);
+                }
+
+                if ((request.RequestAccessEnabled != null))
+                {
+                    body.Add("request_access_enabled", request.RequestAccessEnabled);
+                }
+
+                if ((request.LfsEnabled != null))
+                {
+                    body.Add("lfs_enabled", request.LfsEnabled);
+                }
+
+                if ((request.PrintingMergeRequestLinkEnabled != null))
+                {
+                    body.Add("printing_merge_request_link_enabled", request.PrintingMergeRequestLinkEnabled);
+                }
+
+                if ((request.MergeMethod != null))
+                {
+                    body.Add("merge_method", request.MergeMethod);
+                }
+
+                if ((request.Visibility != null))
+                {
+                    body.Add("visibility", request.Visibility);
+                }
+
+                if ((request.TagList != null))
+                {
+                    body.Add("tag_list", request.TagList);
+                }
+
+                if ((request.CiConfigPath != null))
+                {
+                    body.Add("ci_config_path", request.CiConfigPath);
+                }
+
+                if ((request.ApprovalsBeforeMerge != null))
+                {
+                    body.Add("approvals_before_merge", request.ApprovalsBeforeMerge);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Project? result = await response.ToObjectAsync<Project>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Project' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
+        private static string Projects_CreateAsync_BuildUrl()
         {
             string url;
             url = "projects";
-            System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
-            if ((request.Name != null))
-            {
-                body.Add("name", request.Name);
-            }
-
-            if ((request.Path != null))
-            {
-                body.Add("path", request.Path);
-            }
-
-            if ((request.NamespaceId != null))
-            {
-                body.Add("namespace_id", request.NamespaceId);
-            }
-
-            if ((request.DefaultBranch != null))
-            {
-                body.Add("default_branch", request.DefaultBranch);
-            }
-
-            if ((request.Description != null))
-            {
-                body.Add("description", request.Description);
-            }
-
-            if ((request.IssuesEnabled != null))
-            {
-                body.Add("issues_enabled", request.IssuesEnabled);
-            }
-
-            if ((request.MergeRequestsEnabled != null))
-            {
-                body.Add("merge_requests_enabled", request.MergeRequestsEnabled);
-            }
-
-            if ((request.JobsEnabled != null))
-            {
-                body.Add("jobs_enabled", request.JobsEnabled);
-            }
-
-            if ((request.WikiEnabled != null))
-            {
-                body.Add("wiki_enabled", request.WikiEnabled);
-            }
-
-            if ((request.SnippetsEnabled != null))
-            {
-                body.Add("snippets_enabled", request.SnippetsEnabled);
-            }
-
-            if ((request.ResolveOutdatedDiffDiscussions != null))
-            {
-                body.Add("resolve_outdated_diff_discussions", request.ResolveOutdatedDiffDiscussions);
-            }
-
-            if ((request.ContainerRegistryEnabled != null))
-            {
-                body.Add("container_registry_enabled", request.ContainerRegistryEnabled);
-            }
-
-            if ((request.SharedRunnersEnabled != null))
-            {
-                body.Add("shared_runners_enabled", request.SharedRunnersEnabled);
-            }
-
-            if ((request.PublicBuilds != null))
-            {
-                body.Add("public_builds", request.PublicBuilds);
-            }
-
-            if ((request.OnlyAllowMergeIfPipelineSucceeds != null))
-            {
-                body.Add("only_allow_merge_if_pipeline_succeeds", request.OnlyAllowMergeIfPipelineSucceeds);
-            }
-
-            if ((request.OnlyAllowMergeIfAllDiscussionsAreResolved != null))
-            {
-                body.Add("only_allow_merge_if_all_discussions_are_resolved", request.OnlyAllowMergeIfAllDiscussionsAreResolved);
-            }
-
-            if ((request.RequestAccessEnabled != null))
-            {
-                body.Add("request_access_enabled", request.RequestAccessEnabled);
-            }
-
-            if ((request.LfsEnabled != null))
-            {
-                body.Add("lfs_enabled", request.LfsEnabled);
-            }
-
-            if ((request.PrintingMergeRequestLinkEnabled != null))
-            {
-                body.Add("printing_merge_request_link_enabled", request.PrintingMergeRequestLinkEnabled);
-            }
-
-            if ((request.MergeMethod != null))
-            {
-                body.Add("merge_method", request.MergeMethod);
-            }
-
-            if ((request.Visibility != null))
-            {
-                body.Add("visibility", request.Visibility);
-            }
-
-            if ((request.TagList != null))
-            {
-                body.Add("tag_list", request.TagList);
-            }
-
-            if ((request.CiConfigPath != null))
-            {
-                body.Add("ci_config_path", request.CiConfigPath);
-            }
-
-            if ((request.ApprovalsBeforeMerge != null))
-            {
-                body.Add("approvals_before_merge", request.ApprovalsBeforeMerge);
-            }
-
-            return this.PostJsonAsync<Project>(url, body, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -260,8 +314,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Project> Projects_GetAll(Meziantou.GitLab.GetAllProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Projects_GetAll_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Projects_GetAll_BuildUrl(Meziantou.GitLab.GetAllProjectRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -375,7 +435,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
+            return url;
         }
 
         /// <summary>
@@ -386,8 +446,43 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Project?> Projects_GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Projects_GetByIdAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Project? result = await response.ToObjectAsync<Project>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Project' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Project?> Projects_GetByIdAsync(Meziantou.GitLab.GetByIdProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string Projects_GetByIdAsync_BuildUrl(Meziantou.GitLab.GetByIdProjectRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -401,7 +496,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetAsync<Project>(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -411,8 +506,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
         private Meziantou.GitLab.PagedResponse<Project> Projects_GetByUser(Meziantou.GitLab.GetByUserProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Projects_GetByUser_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Projects_GetByUser_BuildUrl(Meziantou.GitLab.GetByUserProjectRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -532,7 +633,71 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return new Meziantou.GitLab.PagedResponse<Project>(this, url, requestOptions);
+            return url;
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/uploads</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#upload-a-file" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<RepositoryFileUploaded> Projects_UploadFileAsync(Meziantou.GitLab.UploadFileProjectRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Projects_UploadFileAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                System.Collections.Generic.Dictionary<string, object> body = new System.Collections.Generic.Dictionary<string, object>();
+                if ((request.File != null))
+                {
+                    body.Add("file", request.File);
+                }
+
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    RepositoryFileUploaded? result = await response.ToObjectAsync<RepositoryFileUploaded>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'RepositoryFileUploaded' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Projects_UploadFileAsync_BuildUrl(Meziantou.GitLab.UploadFileProjectRequest request)
+        {
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
+            {
+                urlBuilder.Append("projects/");
+                if (request.Id.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/uploads");
+                url = urlBuilder.ToString();
+            }
+
+            return url;
         }
     }
 
@@ -640,6 +805,20 @@ namespace Meziantou.GitLab
             request.OrderBy = orderBy;
             request.Sort = sort;
             return client.GetByUser(request, requestOptions);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/uploads</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/projects.html#upload-a-file" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<RepositoryFileUploaded> UploadFileAsync(this Meziantou.GitLab.IGitLabProjectsClient client, ProjectIdOrPathRef id, Meziantou.GitLab.BinaryData file, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.UploadFileProjectRequest request = new Meziantou.GitLab.UploadFileProjectRequest(id, file);
+            return client.UploadFileAsync(request, requestOptions, cancellationToken);
         }
     }
 
@@ -1563,6 +1742,55 @@ namespace Meziantou.GitLab
             set
             {
                 this._wikiEnabled = value;
+            }
+        }
+    }
+
+    public partial class UploadFileProjectRequest
+    {
+        private Meziantou.GitLab.BinaryData? _file;
+
+        private ProjectIdOrPathRef? _id;
+
+        /// <param name="id">The ID or URL-encoded path of the project.</param>
+        /// <param name="file">The file to be uploaded.</param>
+        public UploadFileProjectRequest(ProjectIdOrPathRef? id, Meziantou.GitLab.BinaryData? file)
+        {
+            this._id = id;
+            this._file = file;
+        }
+
+        public UploadFileProjectRequest()
+        {
+        }
+
+        /// <summary>
+        ///   <para>The file to be uploaded.</para>
+        /// </summary>
+        public Meziantou.GitLab.BinaryData? File
+        {
+            get
+            {
+                return this._file;
+            }
+            set
+            {
+                this._file = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project.</para>
+        /// </summary>
+        public ProjectIdOrPathRef? Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
             }
         }
     }

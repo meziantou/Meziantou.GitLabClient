@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 
 namespace Meziantou.GitLab.Tests
 {
@@ -14,7 +15,7 @@ namespace Meziantou.GitLab.Tests
 
             await client.RepositoryFiles.CreateFileAsync(new CreateFileRepositoryFileRequest(project, filePath, "master", content: context.GetRandomString(), commitMessage: context.GetRandomString()));
 
-            await client.RepositoryFiles.UpdateFileAsync(new UpdateFileRepositoryFileRequest(project, filePath, branchName, content: context.GetRandomString(), commitMessage: context.GetRandomString())
+            await client.RepositoryFiles.UpdateFileAsync(new UpdateFileRepositoryFileRequest(project, filePath, branchName, content: TextOrBinaryData.FromString(context.GetRandomString(), Encoding.UTF8), commitMessage: context.GetRandomString())
             {
                 StartBranch = "master",
             });
@@ -33,11 +34,11 @@ namespace Meziantou.GitLab.Tests
             return mergeRequest;
         }
 
-        public static async Task<MergeRequest> WaitForStatusReadyAsync(this IGitLabClient client, MergeRequest mergeRequest)
+        public static async Task<MergeRequest> WaitForStatusReadyAsync(this IGitLabMergeRequestsClient client, MergeRequest mergeRequest)
         {
             while (mergeRequest.MergeStatus == MergeRequestStatus.Checking)
             {
-                mergeRequest = await client.MergeRequests.GetMergeRequestAsync(mergeRequest.ProjectId, mergeRequest.Iid);
+                mergeRequest = await client.GetMergeRequestAsync(mergeRequest.ProjectId, mergeRequest.Iid);
             }
 
             return mergeRequest;

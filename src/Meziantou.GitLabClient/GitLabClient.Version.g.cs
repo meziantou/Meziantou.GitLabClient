@@ -26,7 +26,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<ServerVersion?> GetAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ServerVersion?> GetAsync(Meziantou.GitLab.GetVersionRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabVersionClient
@@ -39,9 +39,9 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        System.Threading.Tasks.Task<ServerVersion?> Meziantou.GitLab.IGitLabVersionClient.GetAsync(Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        System.Threading.Tasks.Task<ServerVersion?> Meziantou.GitLab.IGitLabVersionClient.GetAsync(Meziantou.GitLab.GetVersionRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
-            return this.Version_GetAsync(requestOptions, cancellationToken);
+            return this.Version_GetAsync(request, requestOptions, cancellationToken);
         }
 
         public Meziantou.GitLab.IGitLabVersionClient Version
@@ -60,11 +60,70 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        private System.Threading.Tasks.Task<ServerVersion?> Version_GetAsync(Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private async System.Threading.Tasks.Task<ServerVersion?> Version_GetAsync(Meziantou.GitLab.GetVersionRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Version_GetAsync_BuildUrl();
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    ServerVersion? result = await response.ToObjectAsync<ServerVersion>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'ServerVersion' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
+        private static string Version_GetAsync_BuildUrl()
         {
             string url;
             url = "version";
-            return this.GetAsync<ServerVersion>(url, requestOptions, cancellationToken);
+            return url;
+        }
+    }
+
+    public static partial class GitLabClientExtensions
+    {
+        /// <summary>
+        ///   <para>URL: <c>GET /version</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/version.html#version-api" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<ServerVersion?> GetAsync(this Meziantou.GitLab.IGitLabVersionClient client, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.GetVersionRequest request = new Meziantou.GitLab.GetVersionRequest();
+            return client.GetAsync(request, requestOptions, cancellationToken);
+        }
+    }
+
+    public partial class GetVersionRequest
+    {
+        public GetVersionRequest()
+        {
         }
     }
 }

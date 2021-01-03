@@ -129,8 +129,45 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactArchiveByJobIdAsync(Meziantou.GitLab.DownloadArtifactArchiveByJobIdJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.JobArtifacts_DownloadArtifactArchiveByJobIdAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                catch
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+
+                    throw;
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactArchiveByJobIdAsync(Meziantou.GitLab.DownloadArtifactArchiveByJobIdJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string JobArtifacts_DownloadArtifactArchiveByJobIdAsync_BuildUrl(Meziantou.GitLab.DownloadArtifactArchiveByJobIdJobArtifactRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -160,7 +197,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetStreamAsync(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -171,8 +208,45 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactArchiveFromTagOrBranchAsync(Meziantou.GitLab.DownloadArtifactArchiveFromTagOrBranchJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.JobArtifacts_DownloadArtifactArchiveFromTagOrBranchAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                catch
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+
+                    throw;
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactArchiveFromTagOrBranchAsync(Meziantou.GitLab.DownloadArtifactArchiveFromTagOrBranchJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string JobArtifacts_DownloadArtifactArchiveFromTagOrBranchAsync_BuildUrl(Meziantou.GitLab.DownloadArtifactArchiveFromTagOrBranchJobArtifactRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -210,7 +284,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetStreamAsync(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -221,8 +295,45 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactFileByJobIdAsync(Meziantou.GitLab.DownloadArtifactFileByJobIdJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.JobArtifacts_DownloadArtifactFileByJobIdAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                catch
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+
+                    throw;
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactFileByJobIdAsync(Meziantou.GitLab.DownloadArtifactFileByJobIdJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string JobArtifacts_DownloadArtifactFileByJobIdAsync_BuildUrl(Meziantou.GitLab.DownloadArtifactFileByJobIdJobArtifactRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -252,7 +363,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetStreamAsync(url, requestOptions, cancellationToken);
+            return url;
         }
 
         /// <summary>
@@ -263,8 +374,45 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactFileFromTagOrBranchAsync(Meziantou.GitLab.DownloadArtifactFileFromTagOrBranchJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.JobArtifacts_DownloadArtifactFileFromTagOrBranchAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    if ((response.StatusCode == System.Net.HttpStatusCode.NotFound))
+                    {
+                        return default;
+                    }
+
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                catch
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+
+                    throw;
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
-        private System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> JobArtifacts_DownloadArtifactFileFromTagOrBranchAsync(Meziantou.GitLab.DownloadArtifactFileFromTagOrBranchJobArtifactRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        private static string JobArtifacts_DownloadArtifactFileFromTagOrBranchAsync_BuildUrl(Meziantou.GitLab.DownloadArtifactFileFromTagOrBranchJobArtifactRequest request)
         {
             string url;
             using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
@@ -302,7 +450,7 @@ namespace Meziantou.GitLab
                 url = urlBuilder.ToString();
             }
 
-            return this.GetStreamAsync(url, requestOptions, cancellationToken);
+            return url;
         }
     }
 
