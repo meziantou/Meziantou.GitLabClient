@@ -67,23 +67,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(3);
-                if ((request.Text != null))
-                {
-                    body.Add("text", request.Text);
-                }
-
-                if ((request.Gfm != null))
-                {
-                    body.Add("gfm", request.Gfm);
-                }
-
-                if ((request.Project != null))
-                {
-                    body.Add("project", request.Project);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -155,6 +139,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Render text using GitLab Flavored Markdown. Default is false</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("gfm")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? Gfm
         {
             get
@@ -170,6 +156,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Use project as a context when creating references using GitLab Flavored Markdown. Authentication is required if a project is not public.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("project")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public Meziantou.GitLab.PathWithNamespace? Project
         {
             get
@@ -185,6 +173,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The Markdown text to render</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("text")]
         public string? Text
         {
             get

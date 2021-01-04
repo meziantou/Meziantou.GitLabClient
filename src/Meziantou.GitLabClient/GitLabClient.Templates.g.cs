@@ -231,11 +231,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -312,11 +307,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -393,11 +383,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -474,11 +459,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Template? result = await response.ToObjectAsync<Template>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Template' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -700,6 +680,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The key of the .gitignore template</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Key
         {
             get
@@ -737,6 +718,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The key of the GitLab CI/CD YAML template</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Key
         {
             get
@@ -774,6 +756,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The key of the Dockerfile template</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Key
         {
             get
@@ -798,6 +781,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>If passed, returns only popular licenses</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Popular
         {
             get
@@ -832,6 +816,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The full-name of the copyright holder</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Fullname
         {
             get
@@ -847,6 +832,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The key of the license template</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Key
         {
             get
@@ -862,6 +848,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The copyrighted project name</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Project
         {
             get

@@ -17,6 +17,7 @@ namespace Meziantou.GitLabClient.Generator.Internals
     internal sealed class GitLabDocumentationResource
     {
         public string Name { get; set; }
+        public string DisplayName { get; set; }
         public string DocumentationUrl { get; set; }
         public IList<GitLabDocumentationMethod> Methods { get; } = new List<GitLabDocumentationMethod>();
 
@@ -37,16 +38,23 @@ namespace Meziantou.GitLabClient.Generator.Internals
                 var url = anchor.Href;
                 var d = await GetDocumentAsync(context, url, noCache);
 
-                var name = Trim(d.QuerySelector("h1.article-title").TextContent)[0..^4]; // Remove API suffix
+                var name = Trim(d.QuerySelector("h1.article-title").ChildNodes[0].TextContent); // Remove API suffix
+                if (name.EndsWith(" API", StringComparison.Ordinal))
+                {
+                    name = name[0..^4];
+                }
+
                 name = name switch
                 {
                     ".gitignore" => "Templates",
                     "Dockerfiles" => "Templates",
                     "Licenses" => "Templates",
                     "GitLab CI YMLs" => "Templates",
+                    "Group and project members" => "Members",
                     _ => name,
                 };
 
+                var displayName = name;
                 name = name.Dehumanize();
                 var group = result.FirstOrDefault(g => g.Name == name);
                 if (group == null)
@@ -54,6 +62,7 @@ namespace Meziantou.GitLabClient.Generator.Internals
                     group = new GitLabDocumentationResource
                     {
                         Name = name,
+                        DisplayName = displayName,
                         DocumentationUrl = url,
                     };
                     result.Add(group);

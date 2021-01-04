@@ -78,6 +78,7 @@
                 .AddRequiredParameter("title", ModelRef.String)
                 .AddOptionalParameter("description", ModelRef.String)
                 .AddOptionalParameter("assignee_id", Models.UserIdOrUserNameRef)
+                .AddOptionalParameter("assignee_ids", Models.UserIdOrUserNameRef.AsModelRef().MakeCollection())
                 .AddOptionalParameter("target_project_id", Models.ProjectIdRef)
                 .AddOptionalParameter("remove_source_branch", ModelRef.Boolean)
                 .AddOptionalParameter("allow_collaboration", ModelRef.Boolean)

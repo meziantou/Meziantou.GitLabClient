@@ -24,14 +24,14 @@
     - [ ] `id`: The ID of the application (not the application_id).
 - [ ] [List all applications](https://docs.gitlab.com/ee/api/applications.html#list-all-applications) `GET /applications`
 
-# [ApplicationSettings](https://docs.gitlab.com/ee/api/settings.html)
+# [Application settings](https://docs.gitlab.com/ee/api/settings.html)
 - [ ] [Change application settings](https://docs.gitlab.com/ee/api/settings.html#change-application-settings) `PUT /application/settings`
 - [ ] [Get current application settings](https://docs.gitlab.com/ee/api/settings.html#get-current-application-settings) `GET /application/settings`
 
-# [ApplicationStatistics](https://docs.gitlab.com/ee/api/statistics.html)
+# [Application statistics](https://docs.gitlab.com/ee/api/statistics.html)
 - [ ] [Get current application statistics](https://docs.gitlab.com/ee/api/statistics.html#get-current-application-statistics) `GET /application/statistics`
 
-# [AuditEvents](https://docs.gitlab.com/ee/api/audit_events.html)
+# [Audit Events](https://docs.gitlab.com/ee/api/audit_events.html)
 - [ ] [Retrieve a specific group audit event](https://docs.gitlab.com/ee/api/audit_events.html#retrieve-a-specific-group-audit-event) `GET /groups/:id/audit_events/:audit_event_id`
     - [ ] `id`: The ID or URL-encoded path of the group
     - [ ] `audit_event_id`: The ID of the audit event
@@ -59,7 +59,7 @@
     - [ ] `email`: Public email address of the user.
     - [ ] `size`: Single pixel dimension (since images are squares). Only used for avatar lookups at Gravatar or at the configured Libravatar server.
 
-# [AwardEmoji](https://docs.gitlab.com/ee/api/award_emoji.html)
+# [Award Emoji](https://docs.gitlab.com/ee/api/award_emoji.html)
 - [ ] [Award a new emoji](https://docs.gitlab.com/ee/api/award_emoji.html#award-a-new-emoji) `POST /projects/:id/issues/:issue_iid/award_emoji`
     - [ ] `id`: ID or URL-encoded path of the project.
     - [ ] `issue_iid/merge_request_iid/snippet_id`: ID (iid for merge requests/issues, id for snippets) of an awardable.
@@ -142,7 +142,7 @@
     - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `search`: Return list of branches containing the search string. You can use ^term and term$ to find branches that begin and end with term respectively.
 
-# [BroadcastMessages](https://docs.gitlab.com/ee/api/broadcast_messages.html)
+# [Broadcast Messages](https://docs.gitlab.com/ee/api/broadcast_messages.html)
 - [ ] [Create a broadcast message](https://docs.gitlab.com/ee/api/broadcast_messages.html#create-a-broadcast-message) `POST /broadcast_messages`
     - [ ] `message`: Message to display.
     - [ ] `starts_at`: Starting time (defaults to current time). Expected in ISO 8601 format (2019-03-15T08:00:00Z)
@@ -249,7 +249,7 @@
     - [ ] `branch`: Target branch name
     - [ ] `dry_run`: Does not commit any changes. Default is false. Introduced in GitLab 13.3
 
-# [ContainerRegistry](https://docs.gitlab.com/ee/api/container_registry.html)
+# [Container Registry](https://docs.gitlab.com/ee/api/container_registry.html)
 - [ ] [Delete a registry repository tag](https://docs.gitlab.com/ee/api/container_registry.html#delete-a-registry-repository-tag) `DELETE /projects/:id/registry/repositories/:repository_id/tags/:tag_name`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `repository_id`: The ID of registry repository.
@@ -285,7 +285,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project accessible by the authenticated user.
     - [ ] `repository_id`: The ID of registry repository.
 
-# [CustomAttributes](https://docs.gitlab.com/ee/api/custom_attributes.html)
+# [Custom Attributes](https://docs.gitlab.com/ee/api/custom_attributes.html)
 - [ ] [Delete custom attribute](https://docs.gitlab.com/ee/api/custom_attributes.html#delete-custom-attribute) `DELETE /users/:id/custom_attributes/:key`
     - [ ] `id`: The ID of a resource
     - [ ] `key`: The key of the custom attribute
@@ -323,7 +323,7 @@
     - [ ] `id`: The ID of a resource
     - [ ] `key`: The key of the custom attribute
 
-# [DashboardAnnotations](https://docs.gitlab.com/ee/api/metrics_dashboard_annotations.html)
+# [Dashboard annotations](https://docs.gitlab.com/ee/api/metrics_dashboard_annotations.html)
 - [ ] [Create a new annotation](https://docs.gitlab.com/ee/api/metrics_dashboard_annotations.html#create-a-new-annotation) `POST /environments/:id/metrics_dashboard/annotations/`
     - [ ] `dashboard_path`: ID of the dashboard which needs to be annotated. Treated as a CGI-escaped path, and automatically un-escaped.
     - [ ] `starting_at`: Date time string, ISO 8601 formatted, such as 2016-03-11T03:45:40Z. Timestamp marking start point of annotation.
@@ -340,11 +340,11 @@
     - [ ] `id`: The ID or URL-encoded path of the project.
     - [ ] `package_manager`: Returns dependencies belonging to specified package manager. Valid values: bundler, composer, maven, npm, pip or yarn.
 
-# [DependencyProxy](https://docs.gitlab.com/ee/api/dependency_proxy.html)
+# [Dependency Proxy](https://docs.gitlab.com/ee/api/dependency_proxy.html)
 - [ ] [Purge the dependency proxy for a group](https://docs.gitlab.com/ee/api/dependency_proxy.html#purge-the-dependency-proxy-for-a-group) `DELETE /groups/:id/dependency_proxy/cache`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
 
-# [DeployKeys](https://docs.gitlab.com/ee/api/deploy_keys.html)
+# [Deploy Keys](https://docs.gitlab.com/ee/api/deploy_keys.html)
 - [ ] [Add deploy key](https://docs.gitlab.com/ee/api/deploy_keys.html#add-deploy-key) `POST /projects/:id/deploy_keys`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `title`: New deploy key’s title
@@ -609,7 +609,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `environment_id`: The ID of the environment
 
-# [EpicIssues](https://docs.gitlab.com/ee/api/epic_issues.html)
+# [Epic Issues](https://docs.gitlab.com/ee/api/epic_issues.html)
 - [ ] [Assign an issue to the epic](https://docs.gitlab.com/ee/api/epic_issues.html#assign-an-issue-to-the-epic) `POST /groups/:id/epics/:epic_iid/issues/:issue_id`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `epic_iid`: The internal ID of the epic.
@@ -628,7 +628,7 @@
     - [ ] `move_before_id`: The ID of the issue - epic association that should be placed before the link in the question.
     - [ ] `move_after_id`: The ID of the issue - epic association that should be placed after the link in the question.
 
-# [EpicLinks](https://docs.gitlab.com/ee/api/epic_links.html)
+# [Epic Links](https://docs.gitlab.com/ee/api/epic_links.html)
 - [ ] [Assign a child epic](https://docs.gitlab.com/ee/api/epic_links.html#assign-a-child-epic) `POST /groups/:id/epics/:epic_iid/epics`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `epic_iid`: The internal ID of the epic.
@@ -701,14 +701,14 @@
     - [ ] `due_date_fixed`: The fixed due date of an epic (in GitLab 11.3 and later)
     - [ ] `state_event`: State event for an epic. Set close to close the epic and reopen to reopen it (in GitLab 11.4 and later)
 
-# [ErrorTrackingSettings](https://docs.gitlab.com/ee/api/error_tracking.html)
+# [Error Tracking settings](https://docs.gitlab.com/ee/api/error_tracking.html)
 - [ ] [Enable or disable the Error Tracking project settings](https://docs.gitlab.com/ee/api/error_tracking.html#enable-or-disable-the-error-tracking-project-settings) `PATCH /projects/:id/error_tracking/settings`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `active`: Pass true to enable the already configured error tracking settings or false to disable it.
 - [ ] [Get Error Tracking settings](https://docs.gitlab.com/ee/api/error_tracking.html#get-error-tracking-settings) `GET /projects/:id/error_tracking/settings`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
 
-# [Ev](https://docs.gitlab.com/ee/api/events.html)
+# [Events](https://docs.gitlab.com/ee/api/events.html)
 - [ ] [Get user contribution events](https://docs.gitlab.com/ee/api/events.html#get-user-contribution-events) `GET /users/:id/events`
     - [ ] `id`: The ID or Username of the user
     - [ ] `action`: Include only events of a particular action type
@@ -731,7 +731,7 @@
     - [ ] `scope`: Include all events across a user’s projects.
     - [ ] `sort`: Sort events in asc or desc order by created_at. Default is desc
 
-# [FeatureFlags](https://docs.gitlab.com/ee/api/feature_flags.html)
+# [Feature Flags](https://docs.gitlab.com/ee/api/feature_flags.html)
 - [ ] [Create a feature flag](https://docs.gitlab.com/ee/api/feature_flags.html#create-a-feature-flag) `POST /projects/:id/feature_flags`
     - [ ] `id`: The ID or URL-encoded path of the project.
     - [ ] `name`: The name of the feature flag.
@@ -766,7 +766,7 @@
     - [ ] `strategies:scopes:id`: The scopes ID.
     - [ ] `strategies:scopes:environment_scope`: The environment spec for the scope.
 
-# [FeatureFlagUserLists](https://docs.gitlab.com/ee/api/feature_flag_user_lists.html)
+# [Feature flag user lists](https://docs.gitlab.com/ee/api/feature_flag_user_lists.html)
 - [ ] [Create a feature flag user list](https://docs.gitlab.com/ee/api/feature_flag_user_lists.html#create-a-feature-flag-user-list) `POST /projects/:id/feature_flags_user_lists`
     - [ ] `id`: The ID or URL-encoded path of the project.
     - [ ] `name`: The name of the feature flag.
@@ -786,7 +786,7 @@
     - [ ] `name`: The name of the feature flag.
     - [ ] `user_xids`: A comma separated list of user IDs.
 
-# [FreezePeriods](https://docs.gitlab.com/ee/api/freeze_periods.html)
+# [Freeze Periods](https://docs.gitlab.com/ee/api/freeze_periods.html)
 - [ ] [Create a Freeze Period](https://docs.gitlab.com/ee/api/freeze_periods.html#create-a-freeze-period) `POST /projects/:id/freeze_periods`
     - [ ] `id`: The ID or URL-encoded path of the project.
     - [ ] `freeze_start`: Start of the Freeze Period in cron format.
@@ -807,7 +807,7 @@
     - [ ] `freeze_end`: End of the Freeze Period in cron format.
     - [ ] `cron_timezone`: The timezone for the cron fields.
 
-# [GeoNodes](https://docs.gitlab.com/ee/api/geo_nodes.html)
+# [Geo Nodes](https://docs.gitlab.com/ee/api/geo_nodes.html)
 - [ ] [Create a new Geo node](https://docs.gitlab.com/ee/api/geo_nodes.html#create-a-new-geo-node) `POST /geo_nodes`
     - [ ] `primary`: Specifying whether this node will be primary. Defaults to false.
     - [ ] `enabled`: Flag indicating if the Geo node is enabled. Defaults to true.
@@ -849,7 +849,7 @@
 - [ ] [Retrieve status about a specific Geo node](https://docs.gitlab.com/ee/api/geo_nodes.html#retrieve-status-about-a-specific-geo-node) `GET /geo_nodes/:id/status`
 - [ ] [Retrieve status about all Geo nodes](https://docs.gitlab.com/ee/api/geo_nodes.html#retrieve-status-about-all-geo-nodes) `GET /geo_nodes/status`
 
-# [GroupActivityAnalytics](https://docs.gitlab.com/ee/api/group_activity_analytics.html)
+# [Group Activity Analytics](https://docs.gitlab.com/ee/api/group_activity_analytics.html)
 - [ ] [Get count of members recently added to group](https://docs.gitlab.com/ee/api/group_activity_analytics.html#get-count-of-members-recently-added-to-group) `GET /analytics/group_activity/new_members_count`
     - [ ] `group_path`: Group path
 - [ ] [Get count of recently created issues for group](https://docs.gitlab.com/ee/api/group_activity_analytics.html#get-count-of-recently-created-issues-for-group) `GET /analytics/group_activity/issues_count`
@@ -857,7 +857,7 @@
 - [ ] [Get count of recently created merge requests for group](https://docs.gitlab.com/ee/api/group_activity_analytics.html#get-count-of-recently-created-merge-requests-for-group) `GET /analytics/group_activity/merge_requests_count`
     - [ ] `group_path`: Group path
 
-# [GroupAndProjectAccessRequests](https://docs.gitlab.com/ee/api/access_requests.html)
+# [Group and project access requests](https://docs.gitlab.com/ee/api/access_requests.html)
 - [ ] [Approve an access request](https://docs.gitlab.com/ee/api/access_requests.html#approve-an-access-request) `PUT /groups/:id/access_requests/:user_id/approve`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `user_id`: The user ID of the access requester
@@ -881,75 +881,7 @@
 - [ ] [Request access to a group or project](https://docs.gitlab.com/ee/api/access_requests.html#request-access-to-a-group-or-project) `POST /projects/:id/access_requests`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
 
-# [GroupAndProjectMembers](https://docs.gitlab.com/ee/api/members.html)
-- [ ] [Add a member to a group or project](https://docs.gitlab.com/ee/api/members.html#add-a-member-to-a-group-or-project) `POST /groups/:id/members`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the new member or multiple IDs separated by commas
-    - [ ] `access_level`: A valid access level
-    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
-- [ ] [Add a member to a group or project](https://docs.gitlab.com/ee/api/members.html#add-a-member-to-a-group-or-project) `POST /projects/:id/members`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the new member or multiple IDs separated by commas
-    - [ ] `access_level`: A valid access level
-    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
-- [ ] [Edit a member of a group or project](https://docs.gitlab.com/ee/api/members.html#edit-a-member-of-a-group-or-project) `PUT /groups/:id/members/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-    - [ ] `access_level`: A valid access level
-    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
-- [ ] [Edit a member of a group or project](https://docs.gitlab.com/ee/api/members.html#edit-a-member-of-a-group-or-project) `PUT /projects/:id/members/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-    - [ ] `access_level`: A valid access level
-    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
-- [ ] [Get a member of a group or project](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project) `GET /groups/:id/members/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-- [ ] [Get a member of a group or project](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project) `GET /projects/:id/members/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-- [ ] [Get a member of a group or project, including inherited members](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project-including-inherited-members) `GET /groups/:id/members/all/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-- [ ] [Get a member of a group or project, including inherited members](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project-including-inherited-members) `GET /projects/:id/members/all/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-- [ ] [List all billable members of a group](https://docs.gitlab.com/ee/api/members.html#list-all-billable-members-of-a-group) `GET /groups/:id/billable_members`
-    - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
-    - [ ] `search`: A query string to search for group members by name, username, or email.
-    - [ ] `sort`: A query string containing parameters that specify the sort attribute and order. See supported values below.
-- [ ] [List all members of a group or project](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project) `GET /groups/:id/members`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `query`: A query string to search for members
-    - [ ] `user_ids`: Filter the results on the given user IDs
-- [ ] [List all members of a group or project](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project) `GET /projects/:id/members`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `query`: A query string to search for members
-    - [ ] `user_ids`: Filter the results on the given user IDs
-- [ ] [List all members of a group or project including inherited members](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members) `GET /groups/:id/members/all`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `query`: A query string to search for members
-    - [ ] `user_ids`: Filter the results on the given user IDs
-- [ ] [List all members of a group or project including inherited members](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members) `GET /projects/:id/members/all`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `query`: A query string to search for members
-    - [ ] `user_ids`: Filter the results on the given user IDs
-- [ ] [Remove a member from a group or project](https://docs.gitlab.com/ee/api/members.html#remove-a-member-from-a-group-or-project) `DELETE /groups/:id/members/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-    - [ ] `unassign_issuables`: Flag indicating if the removed member should be unassigned from any issues or merge requests within given group or project
-- [ ] [Remove a member from a group or project](https://docs.gitlab.com/ee/api/members.html#remove-a-member-from-a-group-or-project) `DELETE /projects/:id/members/:user_id`
-    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-    - [ ] `unassign_issuables`: Flag indicating if the removed member should be unassigned from any issues or merge requests within given group or project
-- [ ] [Remove override for a member of a group](https://docs.gitlab.com/ee/api/members.html#remove-override-for-a-member-of-a-group) `DELETE /groups/:id/members/:user_id/override`
-    - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-- [ ] [Set override flag for a member of a group](https://docs.gitlab.com/ee/api/members.html#set-override-flag-for-a-member-of-a-group) `POST /groups/:id/members/:user_id/override`
-    - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
-    - [ ] `user_id`: The user ID of the member
-
-# [GroupBadges](https://docs.gitlab.com/ee/api/group_badges.html)
+# [Group badges](https://docs.gitlab.com/ee/api/group_badges.html)
 - [ ] [Add a badge to a group](https://docs.gitlab.com/ee/api/group_badges.html#add-a-badge-to-a-group) `POST /groups/:id/badges`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `link_url`: URL of the badge link
@@ -973,7 +905,7 @@
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `badge_id`: The badge ID
 
-# [GroupClusters](https://docs.gitlab.com/ee/api/group_clusters.html)
+# [Group clusters](https://docs.gitlab.com/ee/api/group_clusters.html)
 - [ ] [Add existing cluster to group](https://docs.gitlab.com/ee/api/group_clusters.html#add-existing-cluster-to-group) `POST /groups/:id/clusters/user`
     - [ ] `id`: The ID or URL-encoded path of the group
     - [ ] `name`: The name of the cluster
@@ -1007,7 +939,7 @@
 - [ ] [List group clusters](https://docs.gitlab.com/ee/api/group_clusters.html#list-group-clusters) `GET /groups/:id/clusters`
     - [ ] `id`: The ID or URL-encoded path of the group
 
-# [GroupIssueBoards](https://docs.gitlab.com/ee/api/group_boards.html)
+# [Group Issue Boards](https://docs.gitlab.com/ee/api/group_boards.html)
 - [ ] [Create a group issue board](https://docs.gitlab.com/ee/api/group_boards.html#create-a-group-issue-board) `POST /groups/:id/boards`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `name`: The name of the new board
@@ -1048,13 +980,13 @@
     - [ ] `labels`: Comma-separated list of label names which the board should be scoped to
     - [ ] `weight`: The weight range from 0 to 9, to which the board should be scoped to
 
-# [GroupIterations](https://docs.gitlab.com/ee/api/group_iterations.html)
+# [Group iterations](https://docs.gitlab.com/ee/api/group_iterations.html)
 - [ ] [List group iterations](https://docs.gitlab.com/ee/api/group_iterations.html#list-group-iterations) `GET /groups/:id/iterations`
     - [ ] `state`: Return only opened, upcoming, started, closed, or all iterations. Defaults to all.
     - [ ] `search`: Return only iterations with a title matching the provided string.
     - [ ] `include_ancestors`: Include iterations from parent group and its ancestors. Defaults to true.
 
-# [GroupLabels](https://docs.gitlab.com/ee/api/group_labels.html)
+# [Group Labels](https://docs.gitlab.com/ee/api/group_labels.html)
 - [ ] [Create a new group label](https://docs.gitlab.com/ee/api/group_labels.html#create-a-new-group-label) `POST /groups/:id/labels`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `name`: The name of the label
@@ -1089,7 +1021,7 @@
     - [ ] `color`: The color of the label given in 6-digit hex notation with leading ‘#’ sign (e.g. #FFAABB) or one of the CSS color names
     - [ ] `description`: The description of the label.
 
-# [GroupLevelVariables](https://docs.gitlab.com/ee/api/group_level_variables.html)
+# [Group-level Variables](https://docs.gitlab.com/ee/api/group_level_variables.html)
 - [ ] [Create variable](https://docs.gitlab.com/ee/api/group_level_variables.html#create-variable) `POST /groups/:id/variables`
     - [ ] `id`: The ID of a group or URL-encoded path of the group owned by the authenticated user
     - [ ] `key`: The key of a variable; must have no more than 255 characters; only A-Z, a-z, 0-9, and _ are allowed
@@ -1113,7 +1045,7 @@
     - [ ] `protected`: Whether the variable is protected
     - [ ] `masked`: Whether the variable is masked
 
-# [GroupMilestones](https://docs.gitlab.com/ee/api/group_milestones.html)
+# [Group milestones](https://docs.gitlab.com/ee/api/group_milestones.html)
 - [ ] [Create new milestone](https://docs.gitlab.com/ee/api/group_milestones.html#create-new-milestone) `POST /groups/:id/milestones`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `title`: The title of a milestone
@@ -1354,7 +1286,7 @@
     - [ ] `target_namespace`: Namespace to import repository into. Supports subgroups like /namespace/subgroup.
     - [ ] `github_hostname`: Custom GitHub enterprise hostname. Defaults to GitHub.com if github_hostname is not set.
 
-# [InstanceClusters](https://docs.gitlab.com/ee/api/instance_clusters.html)
+# [Instance clusters](https://docs.gitlab.com/ee/api/instance_clusters.html)
 - [ ] [Add existing instance cluster](https://docs.gitlab.com/ee/api/instance_clusters.html#add-existing-instance-cluster) `POST /admin/clusters/add`
     - [ ] `name`: The name of the cluster
     - [ ] `domain`: The base domain of the cluster
@@ -1384,7 +1316,7 @@
 - [ ] [Get a single instance cluster](https://docs.gitlab.com/ee/api/instance_clusters.html#get-a-single-instance-cluster) `GET /admin/clusters/:cluster_id`
 - [ ] [List instance clusters](https://docs.gitlab.com/ee/api/instance_clusters.html#list-instance-clusters) `GET /admin/clusters`
 
-# [IssueLinks](https://docs.gitlab.com/ee/api/issue_links.html)
+# [Issue links](https://docs.gitlab.com/ee/api/issue_links.html)
 - [ ] [Create an issue link](https://docs.gitlab.com/ee/api/issue_links.html#create-an-issue-link) `POST /projects/:id/issues/:issue_iid/links`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `issue_iid`: The internal ID of a project’s issue
@@ -1580,7 +1512,7 @@
     - [ ] `file`: The image file to be uploaded
     - [ ] `url`: The URL to view more metric information
 
-# [IssuesStatistics](https://docs.gitlab.com/ee/api/issues_statistics.html)
+# [Issues Statistics](https://docs.gitlab.com/ee/api/issues_statistics.html)
 - [ ] [Get group issues statistics](https://docs.gitlab.com/ee/api/issues_statistics.html#get-group-issues-statistics) `GET /groups/:id/issues_statistics`
     - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
     - [ ] `labels`: Comma-separated list of label names, issues must have all labels to be returned. None lists all issues with no labels. Any lists all issues with at least one label.
@@ -1633,7 +1565,7 @@
     - [ ] `updated_before`: Return issues updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)
     - [ ] `confidential`: Filter confidential or public issues.
 
-# [JobArtifacts](https://docs.gitlab.com/ee/api/job_artifacts.html)
+# [Job Artifacts](https://docs.gitlab.com/ee/api/job_artifacts.html)
 - [ ] [Delete artifacts](https://docs.gitlab.com/ee/api/job_artifacts.html#delete-artifacts) `DELETE /projects/:id/jobs/:job_id/artifacts`
     - [ ] `id`: ID or URL-encoded path of the project
     - [ ] `job_id`: ID of a job.
@@ -1732,15 +1664,15 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `label_id`: The ID or title of a project’s label
 
-# [Lic](https://docs.gitlab.com/ee/api/license.html)
-- [ ] [Add a new license](https://docs.gitlab.com/ee/api/license.html#add-a-new-license) `POST /license`
-    - [ ] `license`: The license string
-- [ ] [Delete a license](https://docs.gitlab.com/ee/api/license.html#delete-a-license) `DELETE /license/:id`
-    - [ ] `id`: ID of the GitLab license.
-- [ ] [Retrieve information about all licenses](https://docs.gitlab.com/ee/api/license.html#retrieve-information-about-all-licenses) `GET /licenses`
-- [ ] [Retrieve information about the current license](https://docs.gitlab.com/ee/api/license.html#retrieve-information-about-the-current-license) `GET /license`
+# [License](https://docs.gitlab.com/ee/api/license.html)
+- [x] [Add a new license](https://docs.gitlab.com/ee/api/license.html#add-a-new-license) `POST /license`
+    - [x] `license`: The license string
+- [x] [Delete a license](https://docs.gitlab.com/ee/api/license.html#delete-a-license) `DELETE /license/:id`
+    - [x] `id`: ID of the GitLab license.
+- [x] [Retrieve information about all licenses](https://docs.gitlab.com/ee/api/license.html#retrieve-information-about-all-licenses) `GET /licenses`
+- [x] [Retrieve information about the current license](https://docs.gitlab.com/ee/api/license.html#retrieve-information-about-the-current-license) `GET /license`
 
-# [ManagedLicenses](https://docs.gitlab.com/ee/api/managed_licenses.html)
+# [Managed Licenses](https://docs.gitlab.com/ee/api/managed_licenses.html)
 - [ ] [Create a new managed license](https://docs.gitlab.com/ee/api/managed_licenses.html#create-a-new-managed-license) `POST /projects/:id/managed_licenses`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `name`: The name of the managed license
@@ -1764,7 +1696,75 @@
     - [x] `gfm`: Render text using GitLab Flavored Markdown. Default is false
     - [x] `project`: Use project as a context when creating references using GitLab Flavored Markdown. Authentication is required if a project is not public.
 
-# [MergeRequestApprovals](https://docs.gitlab.com/ee/api/merge_request_approvals.html)
+# [Members](https://docs.gitlab.com/ee/api/members.html)
+- [ ] [Add a member to a group or project](https://docs.gitlab.com/ee/api/members.html#add-a-member-to-a-group-or-project) `POST /groups/:id/members`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the new member or multiple IDs separated by commas
+    - [ ] `access_level`: A valid access level
+    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
+- [x] [Add a member to a group or project](https://docs.gitlab.com/ee/api/members.html#add-a-member-to-a-group-or-project) `POST /projects/:id/members`
+    - [x] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [x] `user_id`: The user ID of the new member or multiple IDs separated by commas
+    - [x] `access_level`: A valid access level
+    - [x] `expires_at`: A date string in the format YEAR-MONTH-DAY
+- [ ] [Edit a member of a group or project](https://docs.gitlab.com/ee/api/members.html#edit-a-member-of-a-group-or-project) `PUT /groups/:id/members/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+    - [ ] `access_level`: A valid access level
+    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
+- [ ] [Edit a member of a group or project](https://docs.gitlab.com/ee/api/members.html#edit-a-member-of-a-group-or-project) `PUT /projects/:id/members/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+    - [ ] `access_level`: A valid access level
+    - [ ] `expires_at`: A date string in the format YEAR-MONTH-DAY
+- [ ] [Get a member of a group or project](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project) `GET /groups/:id/members/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+- [ ] [Get a member of a group or project](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project) `GET /projects/:id/members/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+- [ ] [Get a member of a group or project, including inherited members](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project-including-inherited-members) `GET /groups/:id/members/all/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+- [ ] [Get a member of a group or project, including inherited members](https://docs.gitlab.com/ee/api/members.html#get-a-member-of-a-group-or-project-including-inherited-members) `GET /projects/:id/members/all/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+- [ ] [List all billable members of a group](https://docs.gitlab.com/ee/api/members.html#list-all-billable-members-of-a-group) `GET /groups/:id/billable_members`
+    - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
+    - [ ] `search`: A query string to search for group members by name, username, or email.
+    - [ ] `sort`: A query string containing parameters that specify the sort attribute and order. See supported values below.
+- [ ] [List all members of a group or project](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project) `GET /groups/:id/members`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `query`: A query string to search for members
+    - [ ] `user_ids`: Filter the results on the given user IDs
+- [ ] [List all members of a group or project](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project) `GET /projects/:id/members`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `query`: A query string to search for members
+    - [ ] `user_ids`: Filter the results on the given user IDs
+- [ ] [List all members of a group or project including inherited members](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members) `GET /groups/:id/members/all`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `query`: A query string to search for members
+    - [ ] `user_ids`: Filter the results on the given user IDs
+- [ ] [List all members of a group or project including inherited members](https://docs.gitlab.com/ee/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members) `GET /projects/:id/members/all`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `query`: A query string to search for members
+    - [ ] `user_ids`: Filter the results on the given user IDs
+- [ ] [Remove a member from a group or project](https://docs.gitlab.com/ee/api/members.html#remove-a-member-from-a-group-or-project) `DELETE /groups/:id/members/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+    - [ ] `unassign_issuables`: Flag indicating if the removed member should be unassigned from any issues or merge requests within given group or project
+- [ ] [Remove a member from a group or project](https://docs.gitlab.com/ee/api/members.html#remove-a-member-from-a-group-or-project) `DELETE /projects/:id/members/:user_id`
+    - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+    - [ ] `unassign_issuables`: Flag indicating if the removed member should be unassigned from any issues or merge requests within given group or project
+- [ ] [Remove override for a member of a group](https://docs.gitlab.com/ee/api/members.html#remove-override-for-a-member-of-a-group) `DELETE /groups/:id/members/:user_id/override`
+    - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+- [ ] [Set override flag for a member of a group](https://docs.gitlab.com/ee/api/members.html#set-override-flag-for-a-member-of-a-group) `POST /groups/:id/members/:user_id/override`
+    - [ ] `id`: The ID or URL-encoded path of the group owned by the authenticated user
+    - [ ] `user_id`: The user ID of the member
+
+# [Merge request approvals](https://docs.gitlab.com/ee/api/merge_request_approvals.html)
 - [ ] [Approve Merge Request](https://docs.gitlab.com/ee/api/merge_request_approvals.html#approve-merge-request) `POST /projects/:id/merge_requests/:merge_request_iid/approve`
     - [ ] `id`: The ID of a project
     - [ ] `merge_request_iid`: The IID of MR
@@ -1849,7 +1849,7 @@
     - [ ] `group_ids`: The ids of groups as approvers
     - [ ] `protected_branch_ids`: The ids of protected branches to scope the rule by
 
-# [MergeRequests](https://docs.gitlab.com/ee/api/merge_requests.html)
+# [Merge requests](https://docs.gitlab.com/ee/api/merge_requests.html)
 - [ ] [Accept MR](https://docs.gitlab.com/ee/api/merge_requests.html#accept-mr) `PUT /projects/:id/merge_requests/:merge_request_iid/merge`
 - [ ] [Add spent time for a merge request](https://docs.gitlab.com/ee/api/merge_requests.html#add-spent-time-for-a-merge-request) `POST /projects/:id/merge_requests/:merge_request_iid/add_spent_time`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user.
@@ -1865,7 +1865,7 @@
     - [x] `target_branch`: The target branch.
     - [x] `title`: Title of MR.
     - [x] `assignee_id`: Assignee user ID.
-    - [ ] `assignee_ids`: The ID of the user(s) to assign the MR to. Set to 0 or provide an empty value to unassign all assignees.
+    - [x] `assignee_ids`: The ID of the user(s) to assign the MR to. Set to 0 or provide an empty value to unassign all assignees.
     - [x] `description`: Description of MR. Limited to 1,048,576 characters.
     - [x] `target_project_id`: The target project (numeric ID).
     - [ ] `labels`: Labels for MR as a comma-separated list.
@@ -2016,7 +2016,7 @@
     - [ ] `allow_collaboration`: Allow commits from members who can merge to the target branch.
     - [ ] `allow_maintainer_to_push`: Deprecated, see allow_collaboration.
 
-# [MergeTrains](https://docs.gitlab.com/ee/api/merge_trains.html)
+# [Merge Trains](https://docs.gitlab.com/ee/api/merge_trains.html)
 - [ ] [List Merge Trains for a project](https://docs.gitlab.com/ee/api/merge_trains.html#list-merge-trains-for-a-project) `GET /projects/1/merge_trains`
 
 # [Namespaces](https://docs.gitlab.com/ee/api/namespaces.html)
@@ -2084,7 +2084,7 @@
 - [ ] [Modify existing merge request note](https://docs.gitlab.com/ee/api/notes.html#modify-existing-merge-request-note) `PUT /projects/:id/merge_requests/:merge_request_iid/notes/:note_id`
 - [ ] [Modify existing snippet note](https://docs.gitlab.com/ee/api/notes.html#modify-existing-snippet-note) `PUT /projects/:id/snippets/:snippet_id/notes/:note_id`
 
-# [NotificationSettings](https://docs.gitlab.com/ee/api/notification_settings.html)
+# [Notification settings](https://docs.gitlab.com/ee/api/notification_settings.html)
 - [ ] [Global notification settings](https://docs.gitlab.com/ee/api/notification_settings.html#global-notification-settings) `GET /notification_settings`
 - [ ] [Group / project level notification settings](https://docs.gitlab.com/ee/api/notification_settings.html#group--project-level-notification-settings) `GET /groups/:id/notification_settings`
     - [ ] `id`: The group/project ID or path
@@ -2175,7 +2175,7 @@
     - [ ] `package_type`: Filter the returned packages by type. One of conan, maven, npm, pypi, composer, nuget, or golang. (Introduced in GitLab 12.9)
     - [ ] `package_name`: Filter the project packages with a fuzzy search by name. (Introduced in GitLab 12.9)
 
-# [PagesDomains](https://docs.gitlab.com/ee/api/pages_domains.html)
+# [Pages domains](https://docs.gitlab.com/ee/api/pages_domains.html)
 - [ ] [Create new Pages domain](https://docs.gitlab.com/ee/api/pages_domains.html#create-new-pages-domain) `POST /projects/:id/pages/domains`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `domain`: The custom domain indicated by the user
@@ -2198,7 +2198,7 @@
     - [ ] `certificate`: The certificate in PEM format with intermediates following in most specific to least specific order.
     - [ ] `key`: The certificate key in PEM format.
 
-# [PersonalAccessTokens](https://docs.gitlab.com/ee/api/personal_access_tokens.html)
+# [Personal access tokens](https://docs.gitlab.com/ee/api/personal_access_tokens.html)
 - [ ] [List personal access tokens](https://docs.gitlab.com/ee/api/personal_access_tokens.html#list-personal-access-tokens) `GET /personal_access_tokens`
     - [ ] `user_id`: The ID of the user to filter by
 - [ ] [Revoke a personal access token](https://docs.gitlab.com/ee/api/personal_access_tokens.html#revoke-a-personal-access-token) `DELETE /personal_access_tokens/:id`
@@ -2241,7 +2241,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `pipeline_id`: The ID of a pipeline
 
-# [PipelineSchedules](https://docs.gitlab.com/ee/api/pipeline_schedules.html)
+# [Pipeline schedules](https://docs.gitlab.com/ee/api/pipeline_schedules.html)
 - [ ] [Create a new pipeline schedule](https://docs.gitlab.com/ee/api/pipeline_schedules.html#create-a-new-pipeline-schedule) `POST /projects/:id/pipeline_schedules`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `description`: The description of the pipeline schedule.
@@ -2289,7 +2289,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `pipeline_schedule_id`: The pipeline schedule ID
 
-# [PipelineTriggers](https://docs.gitlab.com/ee/api/pipeline_triggers.html)
+# [Pipeline triggers](https://docs.gitlab.com/ee/api/pipeline_triggers.html)
 - [ ] [Create a project trigger](https://docs.gitlab.com/ee/api/pipeline_triggers.html#create-a-project-trigger) `POST /projects/:id/triggers`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `description`: The trigger name
@@ -2306,7 +2306,7 @@
     - [ ] `trigger_id`: The trigger ID
     - [ ] `description`: The trigger name
 
-# [ProjectAliases](https://docs.gitlab.com/ee/api/project_aliases.html)
+# [Project Aliases](https://docs.gitlab.com/ee/api/project_aliases.html)
 - [ ] [Create a project alias](https://docs.gitlab.com/ee/api/project_aliases.html#create-a-project-alias) `POST /project_aliases`
     - [ ] `project_id`: The ID or path of the project.
     - [ ] `name`: The name of the alias. Must be unique.
@@ -2316,11 +2316,11 @@
     - [ ] `name`: The name of the alias
 - [ ] [List all project aliases](https://docs.gitlab.com/ee/api/project_aliases.html#list-all-project-aliases) `GET /project_aliases`
 
-# [ProjectAnalytics](https://docs.gitlab.com/ee/api/project_analytics.html)
+# [Project Analytics](https://docs.gitlab.com/ee/api/project_analytics.html)
 - [ ] [List project deployment frequencies](https://docs.gitlab.com/ee/api/project_analytics.html#list-project-deployment-frequencies) `GET /projects/:id/analytics/deployment_frequency`
     - [ ] `id`: The ID of the project
 
-# [ProjectBadges](https://docs.gitlab.com/ee/api/project_badges.html)
+# [Project badges](https://docs.gitlab.com/ee/api/project_badges.html)
 - [ ] [Add a badge to a project](https://docs.gitlab.com/ee/api/project_badges.html#add-a-badge-to-a-project) `POST /projects/:id/badges`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `link_url`: URL of the badge link
@@ -2344,7 +2344,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `badge_id`: The badge ID
 
-# [ProjectClusters](https://docs.gitlab.com/ee/api/project_clusters.html)
+# [Project clusters](https://docs.gitlab.com/ee/api/project_clusters.html)
 - [ ] [Add existing cluster to project](https://docs.gitlab.com/ee/api/project_clusters.html#add-existing-cluster-to-project) `POST /projects/:id/clusters/user`
     - [ ] `id`: The ID of the project owned by the authenticated user
     - [ ] `name`: The name of the cluster
@@ -2380,7 +2380,7 @@
 - [ ] [List project clusters](https://docs.gitlab.com/ee/api/project_clusters.html#list-project-clusters) `GET /projects/:id/clusters`
     - [ ] `id`: The ID of the project owned by the authenticated user
 
-# [ProjectImportExport](https://docs.gitlab.com/ee/api/project_import_export.html)
+# [Project import/export](https://docs.gitlab.com/ee/api/project_import_export.html)
 - [ ] [Export download](https://docs.gitlab.com/ee/api/project_import_export.html#export-download) `GET /projects/:id/export/download`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
 - [ ] [Export status](https://docs.gitlab.com/ee/api/project_import_export.html#export-status) `GET /projects/:id/export`
@@ -2401,7 +2401,7 @@
     - [ ] `upload[url]`: The URL to upload the project
     - [ ] `upload[http_method]`: The HTTP method to upload the exported project. Only PUT and POST methods allowed. Default is PUT
 
-# [ProjectIssueBoards](https://docs.gitlab.com/ee/api/boards.html)
+# [Project Issue Boards](https://docs.gitlab.com/ee/api/boards.html)
 - [ ] [Create a board list](https://docs.gitlab.com/ee/api/boards.html#create-a-board-list) `POST /projects/:id/boards/:board_id/lists`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `board_id`: The ID of a board
@@ -2444,13 +2444,13 @@
     - [ ] `labels`: Comma-separated list of label names which the board should be scoped to
     - [ ] `weight`: The weight range from 0 to 9, to which the board should be scoped to
 
-# [ProjectIterations](https://docs.gitlab.com/ee/api/iterations.html)
+# [Project iterations](https://docs.gitlab.com/ee/api/iterations.html)
 - [ ] [List project iterations](https://docs.gitlab.com/ee/api/iterations.html#list-project-iterations) `GET /projects/:id/iterations`
     - [ ] `state`: Return only opened, upcoming, started, closed, or all iterations. Defaults to all.
     - [ ] `search`: Return only iterations with a title matching the provided string.
     - [ ] `include_ancestors`: Include iterations from parent group and its ancestors. Defaults to true.
 
-# [ProjectLevelVariables](https://docs.gitlab.com/ee/api/project_level_variables.html)
+# [Project-level Variables](https://docs.gitlab.com/ee/api/project_level_variables.html)
 - [ ] [Create variable](https://docs.gitlab.com/ee/api/project_level_variables.html#create-variable) `POST /projects/:id/variables`
     - [ ] `id`: The ID of a project or urlencoded NAMESPACE/PROJECT_NAME of the project owned by the authenticated user
     - [ ] `key`: The key of a variable; must have no more than 255 characters; only A-Z, a-z, 0-9, and _ are allowed
@@ -2479,7 +2479,7 @@
     - [ ] `environment_scope`: The environment_scope of the variable
     - [ ] `filter`: Available filters: [environment_scope]. See the filter parameter details.
 
-# [ProjectMilestones](https://docs.gitlab.com/ee/api/milestones.html)
+# [Project milestones](https://docs.gitlab.com/ee/api/milestones.html)
 - [ ] [Create new milestone](https://docs.gitlab.com/ee/api/milestones.html#create-new-milestone) `POST /projects/:id/milestones`
 - [ ] [Delete project milestone](https://docs.gitlab.com/ee/api/milestones.html#delete-project-milestone) `DELETE /projects/:id/milestones/:milestone_id`
 - [ ] [Edit milestone](https://docs.gitlab.com/ee/api/milestones.html#edit-milestone) `PUT /projects/:id/milestones/:milestone_id`
@@ -2496,7 +2496,7 @@
     - [ ] `include_parent_milestones`: Include group milestones from parent group and its ancestors. Introduced in GitLab 13.4
 - [ ] [Promote project milestone to a group milestone](https://docs.gitlab.com/ee/api/milestones.html#promote-project-milestone-to-a-group-milestone) `POST /projects/:id/milestones/:milestone_id/promote`
 
-# [ProjectRepositoryStorageMoves](https://docs.gitlab.com/ee/api/project_repository_storage_moves.html)
+# [Project repository storage moves](https://docs.gitlab.com/ee/api/project_repository_storage_moves.html)
 - [ ] [Get a single project repository storage move](https://docs.gitlab.com/ee/api/project_repository_storage_moves.html#get-a-single-project-repository-storage-move) `GET /project_repository_storage_moves/:repository_storage_id`
     - [ ] `repository_storage_id`: ID of the project repository storage move
 - [ ] [Get a single repository storage move for a project](https://docs.gitlab.com/ee/api/project_repository_storage_moves.html#get-a-single-repository-storage-move-for-a-project) `GET /projects/:project_id/repository_storage_moves/:repository_storage_id`
@@ -2902,7 +2902,7 @@
     - [x] `file`: The file to be uploaded.
     - [x] `id`: The ID or URL-encoded path of the project.
 
-# [ProjectSnip](https://docs.gitlab.com/ee/api/project_snippets.html)
+# [Project snippets](https://docs.gitlab.com/ee/api/project_snippets.html)
 - [ ] [Create new snippet](https://docs.gitlab.com/ee/api/project_snippets.html#create-new-snippet) `POST /projects/:id/snippets`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `title`: Title of a snippet
@@ -2935,11 +2935,11 @@
     - [ ] `files:previous_path`: Previous path of the snippet file
     - [ ] `files:content`: Content of the snippet file
 
-# [ProjectStatistics](https://docs.gitlab.com/ee/api/project_statistics.html)
+# [Project statistics](https://docs.gitlab.com/ee/api/project_statistics.html)
 - [ ] [Get the statistics of the last 30 days](https://docs.gitlab.com/ee/api/project_statistics.html#get-the-statistics-of-the-last-30-days) `GET /projects/:id/statistics`
     - [ ] `id`: The ID or URL-encoded path of the project
 
-# [ProjectTemplates](https://docs.gitlab.com/ee/api/project_templates.html)
+# [Project templates](https://docs.gitlab.com/ee/api/project_templates.html)
 - [ ] [Get all templates of a particular type](https://docs.gitlab.com/ee/api/project_templates.html#get-all-templates-of-a-particular-type) `GET /projects/:id/templates/:type`
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `type`: The type (dockerfiles|gitignores|gitlab_ci_ymls|licenses|issues|merge_requests) of the template
@@ -2950,7 +2950,7 @@
     - [ ] `project`: The project name to use when expanding placeholders in the template. Only affects licenses
     - [ ] `fullname`: The full name of the copyright holder to use when expanding placeholders in the template. Only affects licenses
 
-# [ProjectWikis](https://docs.gitlab.com/ee/api/wikis.html)
+# [Project wikis](https://docs.gitlab.com/ee/api/wikis.html)
 - [x] [Create a new wiki page](https://docs.gitlab.com/ee/api/wikis.html#create-a-new-wiki-page) `POST /projects/:id/wikis`
     - [x] `id`: The ID or URL-encoded path of the project
     - [x] `content`: The content of the wiki page
@@ -2976,7 +2976,7 @@
     - [ ] `file`: The attachment to be uploaded
     - [ ] `branch`: The name of the branch. Defaults to the wiki repository default branch
 
-# [ProtectedBranches](https://docs.gitlab.com/ee/api/protected_branches.html)
+# [Protected branches](https://docs.gitlab.com/ee/api/protected_branches.html)
 - [ ] [Example with allow to push and allow to merge access](https://docs.gitlab.com/ee/api/protected_branches.html#example-with-allow-to-push-and-allow-to-merge-access) `POST \`
 - [ ] [Example with user / group level access](https://docs.gitlab.com/ee/api/protected_branches.html#example-with-user--group-level-access) `POST /projects/5/protected_branches`
 - [ ] [Get a single protected branch or wildcard protected branch](https://docs.gitlab.com/ee/api/protected_branches.html#get-a-single-protected-branch-or-wildcard-protected-branch) `GET /projects/:id/protected_branches/:name`
@@ -3003,7 +3003,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `name`: The name of the branch
 
-# [ProtectedTags](https://docs.gitlab.com/ee/api/protected_tags.html)
+# [Protected tags](https://docs.gitlab.com/ee/api/protected_tags.html)
 - [ ] [Get a single protected tag or wildcard protected tag](https://docs.gitlab.com/ee/api/protected_tags.html#get-a-single-protected-tag-or-wildcard-protected-tag) `GET /projects/:id/protected_tags/:name`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `name`: The name of the tag or wildcard
@@ -3017,7 +3017,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `name`: The name of the tag
 
-# [ReleaseLinks](https://docs.gitlab.com/ee/api/releases/links.html)
+# [Release links](https://docs.gitlab.com/ee/api/releases/links.html)
 - [ ] [Create a link](https://docs.gitlab.com/ee/api/releases/links.html#create-a-link) `POST /projects/:id/releases/:tag_name/assets/links`
     - [ ] `id`: The ID or URL-encoded path of the project.
     - [ ] `tag_name`: The tag associated with the Release.
@@ -3091,7 +3091,7 @@
     - [ ] `refs`: The refs to find the common ancestor of, multiple refs can be passed
 - [ ] [Raw blob content](https://docs.gitlab.com/ee/api/repositories.html#raw-blob-content) `GET /projects/:id/repository/blobs/:sha/raw`
 
-# [RepositoryFiles](https://docs.gitlab.com/ee/api/repository_files.html)
+# [Repository files](https://docs.gitlab.com/ee/api/repository_files.html)
 - [x] [Create new file in repository](https://docs.gitlab.com/ee/api/repository_files.html#create-new-file-in-repository) `POST /projects/:id/repository/files/:file_path`
 - [ ] [Delete existing file in repository](https://docs.gitlab.com/ee/api/repository_files.html#delete-existing-file-in-repository) `DELETE /projects/:id/repository/files/:file_path`
 - [ ] [Get file blame from repository](https://docs.gitlab.com/ee/api/repository_files.html#get-file-blame-from-repository) `GET /projects/:id/repository/files/:file_path/blame`
@@ -3099,7 +3099,7 @@
 - [ ] [Get raw file from repository](https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository) `GET /projects/:id/repository/files/:file_path/raw`
 - [x] [Update existing file in repository](https://docs.gitlab.com/ee/api/repository_files.html#update-existing-file-in-repository) `PUT /projects/:id/repository/files/:file_path`
 
-# [RepositorySubmodules](https://docs.gitlab.com/ee/api/repository_submodules.html)
+# [Repository submodules](https://docs.gitlab.com/ee/api/repository_submodules.html)
 - [ ] [Update existing submodule reference in repository](https://docs.gitlab.com/ee/api/repository_submodules.html#update-existing-submodule-reference-in-repository) `PUT /projects/:id/repository/submodules/:submodule`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `submodule`: URL-encoded full path to the submodule. For example, lib%2Fclass%2Erb
@@ -3107,7 +3107,7 @@
     - [ ] `commit_sha`: Full commit SHA to update the submodule to
     - [ ] `commit_message`: Commit message. If no message is provided, a default one will be set
 
-# [ResourceIterationEvents](https://docs.gitlab.com/ee/api/resource_iteration_events.html)
+# [Resource iteration events](https://docs.gitlab.com/ee/api/resource_iteration_events.html)
 - [ ] [Get single issue iteration event](https://docs.gitlab.com/ee/api/resource_iteration_events.html#get-single-issue-iteration-event) `GET /projects/:id/issues/:issue_iid/resource_iteration_events/:resource_iteration_event_id`
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `issue_iid`: The IID of an issue
@@ -3116,7 +3116,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `issue_iid`: The IID of an issue
 
-# [ResourceLabelEvents](https://docs.gitlab.com/ee/api/resource_label_events.html)
+# [Resource label events](https://docs.gitlab.com/ee/api/resource_label_events.html)
 - [ ] [Get single epic label event](https://docs.gitlab.com/ee/api/resource_label_events.html#get-single-epic-label-event) `GET /groups/:id/epics/:epic_id/resource_label_events/:resource_label_event_id`
     - [ ] `id`: The ID or URL-encoded path of the group
     - [ ] `epic_id`: The ID of an epic
@@ -3139,7 +3139,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `merge_request_iid`: The IID of a merge request
 
-# [ResourceMilestoneEvents](https://docs.gitlab.com/ee/api/resource_milestone_events.html)
+# [Resource milestone events](https://docs.gitlab.com/ee/api/resource_milestone_events.html)
 - [ ] [Get single issue milestone event](https://docs.gitlab.com/ee/api/resource_milestone_events.html#get-single-issue-milestone-event) `GET /projects/:id/issues/:issue_iid/resource_milestone_events/:resource_milestone_event_id`
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `issue_iid`: The IID of an issue
@@ -3155,7 +3155,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `merge_request_iid`: The IID of a merge request
 
-# [ResourceStateEvents](https://docs.gitlab.com/ee/api/resource_state_events.html)
+# [Resource state events](https://docs.gitlab.com/ee/api/resource_state_events.html)
 - [ ] [Get single issue state event](https://docs.gitlab.com/ee/api/resource_state_events.html#get-single-issue-state-event) `GET /projects/:id/issues/:issue_iid/resource_state_events/:resource_state_event_id`
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `issue_iid`: The IID of an issue
@@ -3171,7 +3171,7 @@
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `merge_request_iid`: The IID of a merge request
 
-# [ResourceWeightEvents](https://docs.gitlab.com/ee/api/resource_weight_events.html)
+# [Resource weight events](https://docs.gitlab.com/ee/api/resource_weight_events.html)
 - [ ] [Get single issue weight event](https://docs.gitlab.com/ee/api/resource_weight_events.html#get-single-issue-weight-event) `GET /projects/:id/issues/:issue_iid/resource_weight_events/:resource_weight_event_id`
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `issue_iid`: The IID of an issue
@@ -3241,7 +3241,7 @@
 - [ ] [Verify authentication for a registered runner](https://docs.gitlab.com/ee/api/runners.html#verify-authentication-for-a-registered-runner) `POST /runners/verify`
     - [ ] `token`: Runner’s authentication token.
 
-# [SCIMAPISYSTEMO](https://docs.gitlab.com/ee/api/scim.html)
+# [SCIM API (SYSTEM ONLY)](https://docs.gitlab.com/ee/api/scim.html)
 - [ ] [Create a SCIM provisioned user](https://docs.gitlab.com/ee/api/scim.html#create-a-scim-provisioned-user) `POST /api/scim/v2/groups/:group_path/Users/`
     - [ ] `externalId`: External UID of the user.
     - [ ] `userName`: Username of the user.
@@ -3623,13 +3623,13 @@
 - [ ] [Get YouTrack Service Settings](https://docs.gitlab.com/ee/api/services.html#get-youtrack-service-settings) `GET /projects/:id/services/youtrack`
 - [ ] [List all active services](https://docs.gitlab.com/ee/api/services.html#list-all-active-services) `GET /projects/:id/services`
 
-# [SidekiqMetrics](https://docs.gitlab.com/ee/api/sidekiq_metrics.html)
+# [Sidekiq Metrics](https://docs.gitlab.com/ee/api/sidekiq_metrics.html)
 - [ ] [Get a compound response of all the previously mentioned metrics](https://docs.gitlab.com/ee/api/sidekiq_metrics.html#get-a-compound-response-of-all-the-previously-mentioned-metrics) `GET /sidekiq/compound_metrics`
 - [ ] [Get the current Job Statistics](https://docs.gitlab.com/ee/api/sidekiq_metrics.html#get-the-current-job-statistics) `GET /sidekiq/job_stats`
 - [ ] [Get the current Process Metrics](https://docs.gitlab.com/ee/api/sidekiq_metrics.html#get-the-current-process-metrics) `GET /sidekiq/process_metrics`
 - [ ] [Get the current Queue Metrics](https://docs.gitlab.com/ee/api/sidekiq_metrics.html#get-the-current-queue-metrics) `GET /sidekiq/queue_metrics`
 
-# [SidekiqQueuesAdministration](https://docs.gitlab.com/ee/api/admin_sidekiq_queues.html)
+# [Sidekiq queues administration](https://docs.gitlab.com/ee/api/admin_sidekiq_queues.html)
 - [ ] [Sidekiq queues administration API](https://docs.gitlab.com/ee/api/admin_sidekiq_queues.html#sidekiq-queues-administration-api) `DELETE /admin/sidekiq/queues/:queue_name`
     - [ ] `queue_name`: The name of the queue to delete jobs from
     - [ ] `user`: The username of the user who scheduled the jobs
@@ -3678,11 +3678,11 @@
     - [ ] `files:previous_path`: Previous path of the snippet file
     - [ ] `files:content`: Content of the snippet file
 
-# [SuggestChanges](https://docs.gitlab.com/ee/api/suggestions.html)
+# [Suggest Changes](https://docs.gitlab.com/ee/api/suggestions.html)
 - [ ] [Applying suggestions](https://docs.gitlab.com/ee/api/suggestions.html#applying-suggestions) `PUT /suggestions/:id/apply`
     - [ ] `id`: The ID of a suggestion
 
-# [SystemHooks](https://docs.gitlab.com/ee/api/system_hooks.html)
+# [System hooks](https://docs.gitlab.com/ee/api/system_hooks.html)
 - [ ] [Add new system hook](https://docs.gitlab.com/ee/api/system_hooks.html#add-new-system-hook) `POST /hooks`
     - [ ] `url`: The hook URL
     - [ ] `token`: Secret token to validate received payloads; this isn’t returned in the response
@@ -3739,7 +3739,7 @@
     - [x] `project`: The copyrighted project name
     - [x] `fullname`: The full-name of the copyright holder
 
-# [ToDos](https://docs.gitlab.com/ee/api/todos.html)
+# [To dos](https://docs.gitlab.com/ee/api/todos.html)
 - [x] [Get a list of to dos](https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos) `GET /todos`
     - [x] `action`: The action to be filtered. Can be assigned, mentioned, build_failed, marked, approval_required, unmergeable, directly_addressed or merge_train_removed.
     - [ ] `author_id`: The ID of an author
@@ -3829,7 +3829,7 @@
 - [ ] [User modification](https://docs.gitlab.com/ee/api/users.html#user-modification) `PUT /users/:id`
 - [x] [User status](https://docs.gitlab.com/ee/api/users.html#user-status) `GET /user/status`
 
-# [UserStarredMetricsDashboards](https://docs.gitlab.com/ee/api/metrics_user_starred_dashboards.html)
+# [User-starred metrics dashboards](https://docs.gitlab.com/ee/api/metrics_user_starred_dashboards.html)
 - [ ] [Add a star to a dashboard](https://docs.gitlab.com/ee/api/metrics_user_starred_dashboards.html#add-a-star-to-a-dashboard) `POST /projects/:id/metrics/user_starred_dashboards`
     - [ ] `id`: The ID or URL-encoded path of the project
     - [ ] `dashboard_path`: URL-encoded path to file defining the dashboard which should be marked as favorite.
@@ -3852,7 +3852,7 @@
 - [ ] [Single vulnerability](https://docs.gitlab.com/ee/api/vulnerabilities.html#single-vulnerability) `GET /vulnerabilities/:id`
     - [ ] `id`: The ID of a Vulnerability to get
 
-# [VulnerabilityFindings](https://docs.gitlab.com/ee/api/vulnerability_findings.html)
+# [Vulnerability Findings](https://docs.gitlab.com/ee/api/vulnerability_findings.html)
 - [ ] [List project vulnerability findings](https://docs.gitlab.com/ee/api/vulnerability_findings.html#list-project-vulnerability-findings) `GET /projects/:id/vulnerability_findings`
     - [ ] `id`: The ID or URL-encoded path of the project which the authenticated user is a member of.
     - [ ] `report_type`: Returns vulnerability findings belonging to specified report type. Valid values: sast, dast, dependency_scanning, or container_scanning. Defaults to all.

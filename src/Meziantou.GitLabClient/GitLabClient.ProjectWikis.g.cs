@@ -159,23 +159,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(3);
-                if ((request.Title != null))
-                {
-                    body.Add("title", request.Title);
-                }
-
-                if ((request.Content != null))
-                {
-                    body.Add("content", request.Content);
-                }
-
-                if ((request.Format != null))
-                {
-                    body.Add("format", request.Format);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -299,11 +283,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     WikiPage? result = await response.ToObjectAsync<WikiPage>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'WikiPage' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -412,23 +391,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Put;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(0);
-                if ((request.Title != null))
-                {
-                    body.Add("title", request.Title);
-                }
-
-                if ((request.Content != null))
-                {
-                    body.Add("content", request.Content);
-                }
-
-                if ((request.Format != null))
-                {
-                    body.Add("format", request.Format);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -571,6 +534,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -605,6 +569,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -620,6 +585,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The slug (a unique string) of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Slug
         {
             get
@@ -660,6 +626,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The content of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("content")]
         public string? Content
         {
             get
@@ -675,6 +642,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The format of the wiki page. Available formats are: markdown (default), rdoc, asciidoc and org</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("format")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public WikiPageFormat? Format
         {
             get
@@ -690,6 +659,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -705,6 +675,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The title of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("title")]
         public string? Title
         {
             get
@@ -745,6 +716,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The content of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("content")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Content
         {
             get
@@ -760,6 +733,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The format of the wiki page. Available formats are: markdown (default), rdoc, asciidoc and org</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("format")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public WikiPageFormat? Format
         {
             get
@@ -775,6 +750,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -790,6 +766,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The slug (a unique string) of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Slug
         {
             get
@@ -805,6 +782,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The title of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("title")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Title
         {
             get
@@ -839,6 +818,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -854,6 +834,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The slug (a unique string) of the wiki page</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Slug
         {
             get

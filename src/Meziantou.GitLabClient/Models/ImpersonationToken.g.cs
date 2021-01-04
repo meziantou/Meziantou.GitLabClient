@@ -34,6 +34,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("expires_at")]
         public System.DateTime? ExpiresAt
         {

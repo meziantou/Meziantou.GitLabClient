@@ -25,6 +25,15 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("assignees")]
+        public System.Collections.Generic.IReadOnlyList<UserBasic?> Assignees
+        {
+            get
+            {
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<UserBasic?>>("assignees");
+            }
+        }
+
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("author")]
         public UserBasic Author
         {

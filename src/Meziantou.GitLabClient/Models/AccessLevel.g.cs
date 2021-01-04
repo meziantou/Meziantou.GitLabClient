@@ -10,6 +10,8 @@ namespace Meziantou.GitLab
 {
     public enum AccessLevel
     {
+        NoAccess = 0,
+        MinimalAccess = 5,
         Guest = 10,
         Reporter = 20,
         Developer = 30,

@@ -12,7 +12,7 @@ namespace Meziantou.GitLabClient.Generator
             var sb = new StringBuilder();
             foreach (var resource in resources.OrderBy(r => r.Name))
             {
-                sb.Append("# [").Append(resource.Name).Append("](").Append(resource.DocumentationUrl).Append(')').AppendLine();
+                sb.Append("# [").Append(resource.DisplayName).Append("](").Append(resource.DocumentationUrl).Append(')').AppendLine();
                 foreach (var method in resource.Methods.OrderBy(m => m.Name))
                 {
                     var isImplemented = GetMethod(method, project) != null ? 'x' : ' ';

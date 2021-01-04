@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectInt64ReferenceJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectObjectReferenceJsonConverterFactory))]
     public readonly partial struct UserIdRef : Meziantou.GitLab.Internals.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.UserIdRef>
     {
         private readonly long _value;

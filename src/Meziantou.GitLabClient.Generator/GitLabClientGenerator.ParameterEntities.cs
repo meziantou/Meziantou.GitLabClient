@@ -25,15 +25,11 @@ namespace Meziantou.GitLabClient.Generator
             type.Modifiers = Modifiers.Public | Modifiers.ReadOnly | Modifiers.Partial;
 
             type.Implements.Add(WellKnownTypes.IGitLabObjectReferenceTypeReference.MakeGeneric(entity.FinalType.ToArgumentTypeReference()));
-            var converterType = entity.FinalType == ModelRef.NumberId ? WellKnownTypes.GitLabObjectInt64ReferenceJsonConverterTypeReference :
-                                entity.FinalType == ModelRef.String ? WellKnownTypes.GitLabObjectStringReferenceJsonConverterTypeReference :
-                                entity.FinalType == ModelRef.Object ? WellKnownTypes.GitLabObjectObjectReferenceJsonConverterTypeReference :
-                                throw new ArgumentException($"Type '{entity.FinalType}' is not supported", nameof(entity));
             type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
             {
                 Arguments =
                 {
-                    new CustomAttributeArgument(new TypeOfExpression(converterType)),
+                    new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.GitLabObjectObjectReferenceJsonConverterFactoryTypeReference)),
                 },
             });
 

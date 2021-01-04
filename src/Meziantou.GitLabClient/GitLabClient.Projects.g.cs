@@ -155,128 +155,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(0);
-                if ((request.Name != null))
-                {
-                    body.Add("name", request.Name);
-                }
-
-                if ((request.Path != null))
-                {
-                    body.Add("path", request.Path);
-                }
-
-                if ((request.NamespaceId != null))
-                {
-                    body.Add("namespace_id", request.NamespaceId);
-                }
-
-                if ((request.DefaultBranch != null))
-                {
-                    body.Add("default_branch", request.DefaultBranch);
-                }
-
-                if ((request.Description != null))
-                {
-                    body.Add("description", request.Description);
-                }
-
-                if ((request.IssuesEnabled != null))
-                {
-                    body.Add("issues_enabled", request.IssuesEnabled);
-                }
-
-                if ((request.MergeRequestsEnabled != null))
-                {
-                    body.Add("merge_requests_enabled", request.MergeRequestsEnabled);
-                }
-
-                if ((request.JobsEnabled != null))
-                {
-                    body.Add("jobs_enabled", request.JobsEnabled);
-                }
-
-                if ((request.WikiEnabled != null))
-                {
-                    body.Add("wiki_enabled", request.WikiEnabled);
-                }
-
-                if ((request.SnippetsEnabled != null))
-                {
-                    body.Add("snippets_enabled", request.SnippetsEnabled);
-                }
-
-                if ((request.ResolveOutdatedDiffDiscussions != null))
-                {
-                    body.Add("resolve_outdated_diff_discussions", request.ResolveOutdatedDiffDiscussions);
-                }
-
-                if ((request.ContainerRegistryEnabled != null))
-                {
-                    body.Add("container_registry_enabled", request.ContainerRegistryEnabled);
-                }
-
-                if ((request.SharedRunnersEnabled != null))
-                {
-                    body.Add("shared_runners_enabled", request.SharedRunnersEnabled);
-                }
-
-                if ((request.PublicBuilds != null))
-                {
-                    body.Add("public_builds", request.PublicBuilds);
-                }
-
-                if ((request.OnlyAllowMergeIfPipelineSucceeds != null))
-                {
-                    body.Add("only_allow_merge_if_pipeline_succeeds", request.OnlyAllowMergeIfPipelineSucceeds);
-                }
-
-                if ((request.OnlyAllowMergeIfAllDiscussionsAreResolved != null))
-                {
-                    body.Add("only_allow_merge_if_all_discussions_are_resolved", request.OnlyAllowMergeIfAllDiscussionsAreResolved);
-                }
-
-                if ((request.RequestAccessEnabled != null))
-                {
-                    body.Add("request_access_enabled", request.RequestAccessEnabled);
-                }
-
-                if ((request.LfsEnabled != null))
-                {
-                    body.Add("lfs_enabled", request.LfsEnabled);
-                }
-
-                if ((request.PrintingMergeRequestLinkEnabled != null))
-                {
-                    body.Add("printing_merge_request_link_enabled", request.PrintingMergeRequestLinkEnabled);
-                }
-
-                if ((request.MergeMethod != null))
-                {
-                    body.Add("merge_method", request.MergeMethod);
-                }
-
-                if ((request.Visibility != null))
-                {
-                    body.Add("visibility", request.Visibility);
-                }
-
-                if ((request.TagList != null))
-                {
-                    body.Add("tag_list", request.TagList);
-                }
-
-                if ((request.CiConfigPath != null))
-                {
-                    body.Add("ci_config_path", request.CiConfigPath);
-                }
-
-                if ((request.ApprovalsBeforeMerge != null))
-                {
-                    body.Add("approvals_before_merge", request.ApprovalsBeforeMerge);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -464,11 +343,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Project? result = await response.ToObjectAsync<Project>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Project' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -857,6 +731,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by archived status.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Archived
         {
             get
@@ -872,6 +747,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by projects that the current user is a member of.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Membership
         {
             get
@@ -887,6 +763,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by current user minimal access level.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public AccessLevel? MinAccessLevel
         {
             get
@@ -902,6 +779,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by projects explicitly owned by the current user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Owned
         {
             get
@@ -917,6 +795,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit projects where the repository checksum calculation has failed (Introduced in GitLab Premium 11.2).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? RepositoryChecksumFailed
         {
             get
@@ -932,6 +811,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return list of projects matching the search criteria.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Search
         {
             get
@@ -947,6 +827,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return only limited fields for each project. This is a no-op without authentication as then only simple fields are returned.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Simple
         {
             get
@@ -962,6 +843,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by projects starred by the current user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Starred
         {
             get
@@ -977,6 +859,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Include project statistics.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Statistics
         {
             get
@@ -992,6 +875,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by visibility public, internal, or private.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public Visibility? Visibility
         {
             get
@@ -1007,6 +891,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit projects where the wiki checksum calculation has failed (Introduced in GitLab Premium 11.2).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? WikiChecksumFailed
         {
             get
@@ -1022,6 +907,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by enabled issues feature.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? WithIssuesEnabled
         {
             get
@@ -1037,6 +923,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by enabled merge requests feature.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? WithMergeRequestsEnabled
         {
             get
@@ -1093,6 +980,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by archived status.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Archived
         {
             get
@@ -1108,6 +996,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by projects that the current user is a member of.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Membership
         {
             get
@@ -1123,6 +1012,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by current user minimal access level.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public AccessLevel? MinAccessLevel
         {
             get
@@ -1138,6 +1028,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return projects ordered by id, name, path, created_at, updated_at, or last_activity_at fields. Default is created_at.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? OrderBy
         {
             get
@@ -1153,6 +1044,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by projects explicitly owned by the current user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Owned
         {
             get
@@ -1168,6 +1060,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return list of projects matching the search criteria.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Search
         {
             get
@@ -1183,6 +1076,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return only limited fields for each project. This is a no-op without authentication as then only simple fields are returned.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Simple
         {
             get
@@ -1198,6 +1092,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return projects sorted in asc or desc order. Default is desc.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public OrderByDirection? Sort
         {
             get
@@ -1213,6 +1108,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by projects starred by the current user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Starred
         {
             get
@@ -1228,6 +1124,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Include project statistics.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Statistics
         {
             get
@@ -1243,6 +1140,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or username of the user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? UserId
         {
             get
@@ -1258,6 +1156,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by visibility public, internal, or private.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public Visibility? Visibility
         {
             get
@@ -1273,6 +1172,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by enabled issues feature.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? WithIssuesEnabled
         {
             get
@@ -1288,6 +1188,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Limit by enabled merge requests feature.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? WithMergeRequestsEnabled
         {
             get
@@ -1318,6 +1219,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -1388,6 +1290,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>How many approvers should approve merge requests by default.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("approvals_before_merge")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public int? ApprovalsBeforeMerge
         {
             get
@@ -1403,6 +1307,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The path to CI configuration file.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("ci_config_path")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? CiConfigPath
         {
             get
@@ -1418,6 +1324,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Enable container registry for this project.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("container_registry_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? ContainerRegistryEnabled
         {
             get
@@ -1433,6 +1341,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>master by default.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("default_branch")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? DefaultBranch
         {
             get
@@ -1448,6 +1358,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Short project description.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Description
         {
             get
@@ -1463,6 +1375,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>(Deprecated) Enable issues for this project. Use issues_access_level instead.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("issues_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? IssuesEnabled
         {
             get
@@ -1478,6 +1392,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>(Deprecated) Enable jobs for this project. Use builds_access_level instead.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("jobs_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? JobsEnabled
         {
             get
@@ -1493,6 +1409,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Enable LFS.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("lfs_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? LfsEnabled
         {
             get
@@ -1508,6 +1426,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Set the merge method used.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("merge_method")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public MergeMethod? MergeMethod
         {
             get
@@ -1523,6 +1443,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>(Deprecated) Enable merge requests for this project. Use merge_requests_access_level instead.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("merge_requests_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? MergeRequestsEnabled
         {
             get
@@ -1538,6 +1460,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The name of the new project. Equals path if not provided.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Name
         {
             get
@@ -1553,6 +1477,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Namespace for the new project (defaults to the current user’s namespace).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("namespace_id")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public long? NamespaceId
         {
             get
@@ -1568,6 +1494,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Set whether merge requests can only be merged when all the discussions are resolved.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("only_allow_merge_if_all_discussions_are_resolved")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? OnlyAllowMergeIfAllDiscussionsAreResolved
         {
             get
@@ -1583,6 +1511,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Set whether merge requests can only be merged with successful jobs.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("only_allow_merge_if_pipeline_succeeds")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? OnlyAllowMergeIfPipelineSucceeds
         {
             get
@@ -1598,6 +1528,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("path")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Path
         {
             get
@@ -1613,6 +1545,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Show link to create/view merge request when pushing from the command line.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("printing_merge_request_link_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? PrintingMergeRequestLinkEnabled
         {
             get
@@ -1628,6 +1562,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>If true, jobs can be viewed by non-project members.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("public_builds")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? PublicBuilds
         {
             get
@@ -1643,6 +1579,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Allow users to request member access.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("request_access_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? RequestAccessEnabled
         {
             get
@@ -1658,6 +1596,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Automatically resolve merge request diffs discussions on lines changed with a push.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("resolve_outdated_diff_discussions")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? ResolveOutdatedDiffDiscussions
         {
             get
@@ -1673,6 +1613,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Enable shared runners for this project.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("shared_runners_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? SharedRunnersEnabled
         {
             get
@@ -1688,6 +1630,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>(Deprecated) Enable snippets for this project. Use snippets_access_level instead.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("snippets_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? SnippetsEnabled
         {
             get
@@ -1703,6 +1647,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The list of tags for a project; put array of tags, that should be finally assigned to a project.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("tag_list")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public System.Collections.Generic.IEnumerable<string>? TagList
         {
             get
@@ -1718,6 +1664,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>See project visibility level.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("visibility")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public Visibility? Visibility
         {
             get
@@ -1733,6 +1681,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>(Deprecated) Enable wiki for this project. Use wiki_access_level instead.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("wiki_enabled")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? WikiEnabled
         {
             get
@@ -1767,6 +1717,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The file to be uploaded.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("file")]
         public Meziantou.GitLab.FileUpload? File
         {
             get
@@ -1782,6 +1733,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
