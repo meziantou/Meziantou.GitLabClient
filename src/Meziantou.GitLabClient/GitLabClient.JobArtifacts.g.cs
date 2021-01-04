@@ -147,11 +147,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 catch
@@ -226,11 +221,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 catch
@@ -313,11 +303,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 catch
@@ -392,11 +377,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     Meziantou.GitLab.HttpResponseStream? result = await response.ToStreamAsync(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Meziantou.GitLab.HttpResponseStream' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 catch
@@ -538,6 +518,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>ID or URL-encoded path of the project owned by the authenticated user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -553,6 +534,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>ID of a job.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? JobId
         {
             get
@@ -568,6 +550,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>To be used with triggers for multi-project pipelines. It should be invoked only inside .gitlab-ci.yml. Its value is always $CI_JOB_TOKEN.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? JobToken
         {
             get
@@ -608,6 +591,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>ID or URL-encoded path of the project owned by the authenticated user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -623,6 +607,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The name of the job.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Job
         {
             get
@@ -638,6 +623,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>To be used with triggers for multi-project pipelines. It should be invoked only inside .gitlab-ci.yml. Its value is always $CI_JOB_TOKEN.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? JobToken
         {
             get
@@ -653,6 +639,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Branch or tag name in repository. HEAD or SHA references are not supported.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? RefName
         {
             get
@@ -691,6 +678,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Path to a file inside the artifacts archive.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? ArtifactPath
         {
             get
@@ -706,6 +694,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>ID or URL-encoded path of the project owned by the authenticated user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -721,6 +710,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The unique job identifier.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public long? JobId
         {
             get
@@ -763,6 +753,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Path to a file inside the artifacts archive.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? ArtifactPath
         {
             get
@@ -778,6 +769,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>ID or URL-encoded path of the project owned by the authenticated user.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -793,6 +785,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The name of the job.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Job
         {
             get
@@ -808,6 +801,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Branch or tag name in repository. HEAD or SHA references are not supported.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? RefName
         {
             get

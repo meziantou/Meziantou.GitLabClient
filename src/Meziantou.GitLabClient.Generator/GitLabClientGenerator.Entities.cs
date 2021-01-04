@@ -100,6 +100,17 @@ namespace Meziantou.GitLabClient.Generator
 
                 AddDocumentationComments(propertyMember, prop.Documentation);
 
+                if (prop.Type == ModelRef.Date || prop.Type == ModelRef.NullableDate)
+                {
+                    propertyMember.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
+                    {
+                        Arguments =
+                        {
+                            new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.SkipUtcDateValidationAttributeTypeReference)),
+                        },
+                    });
+                }
+
                 if (prop.Options.HasFlag(PropertyOptions.IsNotUTCDate))
                 {
                     propertyMember.CustomAttributes.Add(new CustomAttribute(WellKnownTypes.SkipUtcDateValidationAttributeTypeReference));

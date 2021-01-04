@@ -153,58 +153,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(10);
-                if ((request.SourceBranch != null))
-                {
-                    body.Add("source_branch", request.SourceBranch);
-                }
-
-                if ((request.TargetBranch != null))
-                {
-                    body.Add("target_branch", request.TargetBranch);
-                }
-
-                if ((request.Title != null))
-                {
-                    body.Add("title", request.Title);
-                }
-
-                if ((request.Description != null))
-                {
-                    body.Add("description", request.Description);
-                }
-
-                if ((request.AssigneeId != null))
-                {
-                    body.Add("assignee_id", request.AssigneeId);
-                }
-
-                if ((request.TargetProjectId != null))
-                {
-                    body.Add("target_project_id", request.TargetProjectId);
-                }
-
-                if ((request.RemoveSourceBranch != null))
-                {
-                    body.Add("remove_source_branch", request.RemoveSourceBranch);
-                }
-
-                if ((request.AllowCollaboration != null))
-                {
-                    body.Add("allow_collaboration", request.AllowCollaboration);
-                }
-
-                if ((request.AllowMaintainerToPush != null))
-                {
-                    body.Add("allow_maintainer_to_push", request.AllowMaintainerToPush);
-                }
-
-                if ((request.Squash != null))
-                {
-                    body.Add("squash", request.Squash);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -426,11 +375,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     MergeRequest? result = await response.ToObjectAsync<MergeRequest>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'MergeRequest' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -786,11 +730,12 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserIdOrUserNameRef? assigneeId = default(UserIdOrUserNameRef?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<MergeRequest> CreateMergeRequestAsync(this Meziantou.GitLab.IGitLabMergeRequestsClient client, ProjectIdOrPathRef id, string sourceBranch, string targetBranch, string title, string? description = default(string?), UserIdOrUserNameRef? assigneeId = default(UserIdOrUserNameRef?), System.Collections.Generic.IEnumerable<UserIdOrUserNameRef>? assigneeIds = default(System.Collections.Generic.IEnumerable<UserIdOrUserNameRef>?), ProjectIdRef? targetProjectId = default(ProjectIdRef?), bool? removeSourceBranch = default(bool?), bool? allowCollaboration = default(bool?), bool? allowMaintainerToPush = default(bool?), bool? squash = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreateMergeRequestRequest request = new Meziantou.GitLab.CreateMergeRequestRequest(id, sourceBranch, targetBranch, title);
             request.Description = description;
             request.AssigneeId = assigneeId;
+            request.AssigneeIds = assigneeIds;
             request.TargetProjectId = targetProjectId;
             request.RemoveSourceBranch = removeSourceBranch;
             request.AllowCollaboration = allowCollaboration;
@@ -938,6 +883,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? AssigneeId
         {
             get
@@ -953,6 +899,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username. Combine with scope=all or scope=assigned_to_me.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? AuthorId
         {
             get
@@ -968,6 +915,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests created on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? CreatedAfter
         {
             get
@@ -983,6 +931,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests created on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? CreatedBefore
         {
             get
@@ -998,6 +947,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests matching a comma separated list of labels. None lists all merge requests with no labels. Any lists all merge requests with at least one label. No+Label (Deprecated) lists all merge requests with no labels. Predefined names are case-insensitive.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.Collections.Generic.IEnumerable<string>? Labels
         {
             get
@@ -1013,6 +963,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests for a specific milestone. None returns merge requests with no milestone. Any returns merge requests that have an assigned milestone.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Milestone
         {
             get
@@ -1028,6 +979,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests reacted by the authenticated user by the given emoji. None returns issues not given a reaction. Any returns issues given at least one reaction.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? MyReactionEmoji
         {
             get
@@ -1043,6 +995,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests for the given scope: created_by_me, assigned_to_me or all. Defaults to created_by_me For versions before 11.0, use the now deprecated created-by-me or assigned-to-me scopes instead.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestScopeFilter? Scope
         {
             get
@@ -1058,6 +1011,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Search merge requests against their title and description.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Search
         {
             get
@@ -1073,6 +1027,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests with the given source branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? SourceBranch
         {
             get
@@ -1088,6 +1043,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return all merge requests or just those that are opened, closed, locked, or merged.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestState? State
         {
             get
@@ -1103,6 +1059,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests with the given target branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? TargetBranch
         {
             get
@@ -1118,6 +1075,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests updated on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? UpdatedAfter
         {
             get
@@ -1133,6 +1091,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? UpdatedBefore
         {
             get
@@ -1148,6 +1107,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>If simple, returns the iid, URL, title, description, and basic state of merge request.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestView? View
         {
             get
@@ -1208,6 +1168,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee. (Introduced in GitLab 9.5).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? AssigneeId
         {
             get
@@ -1223,6 +1184,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username. (Introduced in GitLab 9.5).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? AuthorId
         {
             get
@@ -1238,6 +1200,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests created on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? CreatedAfter
         {
             get
@@ -1253,6 +1216,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests created on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? CreatedBefore
         {
             get
@@ -1268,6 +1232,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID of a group.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public GroupIdOrPathRef? Id
         {
             get
@@ -1283,6 +1248,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests matching a comma separated list of labels. None lists all merge requests with no labels. Any lists all merge requests with at least one label. No+Label (Deprecated) lists all merge requests with no labels. Predefined names are case-insensitive.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.Collections.Generic.IEnumerable<string>? Labels
         {
             get
@@ -1298,6 +1264,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests for a specific milestone. None returns merge requests with no milestone. Any returns merge requests that have an assigned milestone.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Milestone
         {
             get
@@ -1313,6 +1280,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests reacted by the authenticated user by the given emoji. None returns issues not given a reaction. Any returns issues given at least one reaction. (Introduced in GitLab 10.0).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? MyReactionEmoji
         {
             get
@@ -1328,6 +1296,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests for the given scope: created_by_me, assigned_to_me or all.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestScopeFilter? Scope
         {
             get
@@ -1343,6 +1312,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Search merge requests against their title and description.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Search
         {
             get
@@ -1358,6 +1328,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests with the given source branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? SourceBranch
         {
             get
@@ -1373,6 +1344,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return all merge requests or just those that are opened, closed, locked, or merged.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestState? State
         {
             get
@@ -1388,6 +1360,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests with the given target branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? TargetBranch
         {
             get
@@ -1403,6 +1376,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests updated on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? UpdatedAfter
         {
             get
@@ -1418,6 +1392,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? UpdatedBefore
         {
             get
@@ -1433,6 +1408,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>If simple, returns the iid, URL, title, description, and basic state of merge request.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestView? View
         {
             get
@@ -1495,6 +1471,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests assigned to the given user id. None returns unassigned merge requests. Any returns merge requests with an assignee.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? AssigneeId
         {
             get
@@ -1510,6 +1487,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Returns merge requests created by the given user id. Mutually exclusive with author_username.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? AuthorId
         {
             get
@@ -1525,6 +1503,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests created on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? CreatedAfter
         {
             get
@@ -1540,6 +1519,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests created on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? CreatedBefore
         {
             get
@@ -1555,6 +1535,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID of a project.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -1570,6 +1551,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return the request having the given iid.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.Collections.Generic.IEnumerable<long>? Iids
         {
             get
@@ -1585,6 +1567,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests matching a comma separated list of labels. None lists all merge requests with no labels. Any lists all merge requests with at least one label. No+Label (Deprecated) lists all merge requests with no labels. Predefined names are case-insensitive.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.Collections.Generic.IEnumerable<string>? Labels
         {
             get
@@ -1600,6 +1583,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests for a specific milestone. None returns merge requests with no milestone. Any returns merge requests that have an assigned milestone.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Milestone
         {
             get
@@ -1615,6 +1599,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests reacted by the authenticated user by the given emoji. None returns issues not given a reaction. Any returns issues given at least one reaction.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? MyReactionEmoji
         {
             get
@@ -1630,6 +1615,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests for the given scope: created_by_me, assigned_to_me, or all.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestScopeFilter? Scope
         {
             get
@@ -1645,6 +1631,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Search merge requests against their title and description.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Search
         {
             get
@@ -1660,6 +1647,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests with the given source branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? SourceBranch
         {
             get
@@ -1675,6 +1663,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return all merge requests or just those that are opened, closed, locked, or merged.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestState? State
         {
             get
@@ -1690,6 +1679,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests with the given target branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? TargetBranch
         {
             get
@@ -1705,6 +1695,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests updated on or after the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? UpdatedAfter
         {
             get
@@ -1720,6 +1711,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Return merge requests updated on or before the given time. Expected in ISO 8601 format (2019-03-15T08:00:00Z)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public System.DateTimeOffset? UpdatedBefore
         {
             get
@@ -1735,6 +1727,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>If simple, returns the iid, URL, title, description, and basic state of merge request.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestView? View
         {
             get
@@ -1764,6 +1757,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -1776,6 +1770,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestIidRef? MergeRequestIid
         {
             get
@@ -1796,6 +1791,8 @@ namespace Meziantou.GitLab
         private bool? _allowMaintainerToPush;
 
         private UserIdOrUserNameRef? _assigneeId;
+
+        private System.Collections.Generic.IEnumerable<UserIdOrUserNameRef>? _assigneeIds;
 
         private string? _description;
 
@@ -1832,6 +1829,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Allow commits from members who can merge to the target branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("allow_collaboration")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? AllowCollaboration
         {
             get
@@ -1847,6 +1846,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Deprecated, see allow_collaboration.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("allow_maintainer_to_push")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? AllowMaintainerToPush
         {
             get
@@ -1862,6 +1863,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Assignee user ID.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("assignee_id")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public UserIdOrUserNameRef? AssigneeId
         {
             get
@@ -1875,8 +1878,27 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>The ID of the user(s) to assign the MR to. Set to 0 or provide an empty value to unassign all assignees.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("assignee_ids")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+        public System.Collections.Generic.IEnumerable<UserIdOrUserNameRef>? AssigneeIds
+        {
+            get
+            {
+                return this._assigneeIds;
+            }
+            set
+            {
+                this._assigneeIds = value;
+            }
+        }
+
+        /// <summary>
         ///   <para>Description of MR. Limited to 1,048,576 characters.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Description
         {
             get
@@ -1892,6 +1914,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -1907,6 +1930,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Flag indicating if a merge request should remove the source branch when merging.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("remove_source_branch")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? RemoveSourceBranch
         {
             get
@@ -1922,6 +1947,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The source branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("source_branch")]
         public string? SourceBranch
         {
             get
@@ -1937,6 +1963,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Squash commits into a single commit when merging.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("squash")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? Squash
         {
             get
@@ -1952,6 +1980,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The target branch.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("target_branch")]
         public string? TargetBranch
         {
             get
@@ -1967,6 +1996,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The target project (numeric ID).</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("target_project_id")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public ProjectIdRef? TargetProjectId
         {
             get
@@ -1982,6 +2013,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Title of MR.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("title")]
         public string? Title
         {
             get

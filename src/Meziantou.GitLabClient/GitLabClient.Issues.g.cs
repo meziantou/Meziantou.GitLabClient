@@ -67,23 +67,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(3);
-                if ((request.Title != null))
-                {
-                    body.Add("title", request.Title);
-                }
-
-                if ((request.Description != null))
-                {
-                    body.Add("description", request.Description);
-                }
-
-                if ((request.Confidential != null))
-                {
-                    body.Add("confidential", request.Confidential);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -171,6 +155,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Set an issue to be confidential. Default is false.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("confidential")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? Confidential
         {
             get
@@ -186,6 +172,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The description of an issue. Limited to 1,048,576 characters.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Description
         {
             get
@@ -201,6 +189,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -216,6 +205,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The title of an issue</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("title")]
         public string? Title
         {
             get

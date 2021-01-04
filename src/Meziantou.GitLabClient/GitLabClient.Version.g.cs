@@ -78,11 +78,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     ServerVersion? result = await response.ToObjectAsync<ServerVersion>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'ServerVersion' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally

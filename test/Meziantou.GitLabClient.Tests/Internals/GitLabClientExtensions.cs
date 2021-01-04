@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Meziantou.GitLab.Tests
@@ -7,7 +8,8 @@ namespace Meziantou.GitLab.Tests
     {
         public static async Task<MergeRequest> CreateMergeRequestAsync(this GitLabTestContext context, IGitLabClient client, ProjectIdOrPathRef project,
             bool assignedToMe = false,
-            bool hasConflict = false)
+            bool hasConflict = false,
+            Action<CreateMergeRequestRequest> configure = null)
         {
             var filePath = context.GetRandomString();
             var branchName = context.GetRandomString();
@@ -26,10 +28,13 @@ namespace Meziantou.GitLab.Tests
             }
 
             // Create merge request
-            var mergeRequest = await client.MergeRequests.CreateMergeRequestAsync(new CreateMergeRequestRequest(project, branchName, "master", title: context.GetRandomString())
+            var request = new CreateMergeRequestRequest(project, branchName, "master", title: context.GetRandomString())
             {
                 AssigneeId = assignee,
-            });
+            };
+            configure?.Invoke(request);
+
+            var mergeRequest = await client.MergeRequests.CreateMergeRequestAsync(request);
 
             return mergeRequest;
         }

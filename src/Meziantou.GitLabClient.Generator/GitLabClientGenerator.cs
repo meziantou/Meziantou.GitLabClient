@@ -28,10 +28,10 @@ namespace Meziantou.GitLabClient.Generator
             public static TypeReference IGitLabObjectReferenceTypeReference { get; } = new(InternalsNamespace + ".IGitLabObjectReference");
             public static TypeReference JsonContentTypeReference { get; } = new(InternalsNamespace + ".JsonContent");
             public static TypeReference UnsafeListDictionaryTypeReference { get; } = new(InternalsNamespace + ".UnsafeListDictionary");
+
             public static TypeReference JsonSerializationTypeReference { get; } = new(SerializationNamespace + ".JsonSerialization");
-            public static TypeReference GitLabObjectInt64ReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectInt64ReferenceJsonConverter");
-            public static TypeReference GitLabObjectStringReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectStringReferenceJsonConverter");
-            public static TypeReference GitLabObjectObjectReferenceJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverter");
+            public static TypeReference GitLabDateJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabDateJsonConverter");
+            public static TypeReference GitLabObjectObjectReferenceJsonConverterFactoryTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverterFactory");
 
             public static TypeReference ArgumentCollectionTypeReference { get; } = new(typeof(IEnumerable<>));
             public static TypeReference PropertyCollectionTypeReference { get; } = new(typeof(IReadOnlyList<>));

@@ -116,6 +116,7 @@ namespace Meziantou.GitLab
         }
 
         /// <remarks>The value may not be an UTC DateTime</remarks>
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
         [Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime? LastActivityOn

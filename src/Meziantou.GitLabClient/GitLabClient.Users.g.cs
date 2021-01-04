@@ -387,18 +387,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(2);
-                if ((request.Title != null))
-                {
-                    body.Add("title", request.Title);
-                }
-
-                if ((request.Key != null))
-                {
-                    body.Add("key", request.Key);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -456,18 +445,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(2);
-                if ((request.Title != null))
-                {
-                    body.Add("title", request.Title);
-                }
-
-                if ((request.Key != null))
-                {
-                    body.Add("key", request.Key);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -513,23 +491,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(3);
-                if ((request.Name != null))
-                {
-                    body.Add("name", request.Name);
-                }
-
-                if ((request.ExpiresAt != null))
-                {
-                    body.Add("expires_at", request.ExpiresAt);
-                }
-
-                if ((request.Scopes != null))
-                {
-                    body.Add("scopes", request.Scopes);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -587,43 +549,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(7);
-                if ((request.Email != null))
-                {
-                    body.Add("email", request.Email);
-                }
-
-                if ((request.Username != null))
-                {
-                    body.Add("username", request.Username);
-                }
-
-                if ((request.Name != null))
-                {
-                    body.Add("name", request.Name);
-                }
-
-                if ((request.Password != null))
-                {
-                    body.Add("password", request.Password);
-                }
-
-                if ((request.Admin != null))
-                {
-                    body.Add("admin", request.Admin);
-                }
-
-                if ((request.CanCreateGroup != null))
-                {
-                    body.Add("can_create_group", request.CanCreateGroup);
-                }
-
-                if ((request.SkipConfirmation != null))
-                {
-                    body.Add("skip_confirmation", request.SkipConfirmation);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -835,11 +761,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     User? result = await response.ToObjectAsync<User>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'User' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -896,11 +817,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     User? result = await response.ToObjectAsync<User>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'User' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -946,11 +862,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     SshKey? result = await response.ToObjectAsync<SshKey>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'SshKey' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -1052,11 +963,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     UserStatus? result = await response.ToObjectAsync<UserStatus>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'UserStatus' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -1159,11 +1065,6 @@ namespace Meziantou.GitLab
 
                     await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
                     UserStatus? result = await response.ToObjectAsync<UserStatus>(cancellationToken).ConfigureAwait(false);
-                    if ((result == null))
-                    {
-                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'UserStatus' because the body is null or empty");
-                    }
-
                     return result;
                 }
                 finally
@@ -1210,18 +1111,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Put;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(0);
-                if ((request.Emoji != null))
-                {
-                    body.Add("emoji", request.Emoji);
-                }
-
-                if ((request.Message != null))
-                {
-                    body.Add("message", request.Message);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -1496,6 +1386,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public long? UserId
         {
             get
@@ -1521,6 +1412,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Active
         {
             get
@@ -1533,6 +1425,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public bool? Blocked
         {
             get
@@ -1545,6 +1438,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Username
         {
             get
@@ -1582,6 +1476,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or username of the user to get a status of</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? IdOrUsername
         {
             get
@@ -1608,6 +1503,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The name of the emoji to use as status. If omitted speech_balloon is used. Emoji name can be one of the specified names in the Gemojione index.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("emoji")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Emoji
         {
             get
@@ -1623,6 +1520,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The message to set as a status. It can also contain emoji codes.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("message")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Message
         {
             get
@@ -1660,6 +1559,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID or username of the user to get the SSH keys for.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? IdOrUsername
         {
             get
@@ -1686,6 +1586,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public SshKeyRef? KeyId
         {
             get
@@ -1715,6 +1616,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("key")]
         public string? Key
         {
             get
@@ -1727,6 +1629,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("title")]
         public string? Title
         {
             get
@@ -1759,6 +1662,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? IdOrUsername
         {
             get
@@ -1771,6 +1675,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("key")]
         public string? Key
         {
             get
@@ -1783,6 +1688,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("title")]
         public string? Title
         {
             get
@@ -1809,6 +1715,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public SshKeyRef? KeyId
         {
             get
@@ -1838,6 +1745,7 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdOrUserNameRef? IdOrUsername
         {
             get
@@ -1850,6 +1758,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public SshKeyRef? KeyId
         {
             get
@@ -1890,6 +1799,8 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("admin")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? Admin
         {
             get
@@ -1902,6 +1813,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("can_create_group")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? CanCreateGroup
         {
             get
@@ -1914,6 +1827,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("email")]
         public string? Email
         {
             get
@@ -1926,6 +1840,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
         public string? Name
         {
             get
@@ -1938,6 +1853,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("password")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? Password
         {
             get
@@ -1950,6 +1867,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("skip_confirmation")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public bool? SkipConfirmation
         {
             get
@@ -1962,6 +1881,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("username")]
         public string? Username
         {
             get
@@ -2000,6 +1920,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The expiration date of the impersonation token in ISO format (YYYY-MM-DD)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("expires_at")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public System.DateTime? ExpiresAt
         {
             get
@@ -2015,6 +1937,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The name of the impersonation token</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
         public string? Name
         {
             get
@@ -2030,6 +1953,8 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The array of scopes of the impersonation token (api, read_user)</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("scopes")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public System.Collections.Generic.IEnumerable<string>? Scopes
         {
             get
@@ -2045,6 +1970,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID of the user</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public UserIdRef? UserId
         {
             get

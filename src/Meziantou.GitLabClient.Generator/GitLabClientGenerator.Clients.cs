@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Humanizer;
@@ -215,7 +216,7 @@ namespace Meziantou.GitLabClient.Generator
                         hasValueCondition.TrueStatements.Add(urlBuilder
                                 .CreateInvokeMethodExpression(
                                     appendParameterMethodName,
-                                    CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault").CreateMemberReferenceExpression(propertyName)));
+                                    FormatValue(param.Type, CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault").CreateMemberReferenceExpression(propertyName))));
 
                         urlUsingStatement.Body.Add(hasValueCondition);
                     }
@@ -238,7 +239,7 @@ namespace Meziantou.GitLabClient.Generator
                         Expression value = isValueType ? CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault") : CreatePropertyReference();
                         var appendMethod = new MethodInvokeExpression(
                             new MemberReferenceExpression(urlBuilder, appendParameterMethodName),
-                                value);
+                                FormatValue(param.Type, value));
 
                         hasValueCondition.TrueStatements.Add(appendMethod);
                         urlUsingStatement.Body.Add(hasValueCondition);
@@ -368,15 +369,19 @@ namespace Meziantou.GitLabClient.Generator
 
                     // if (result is null)
                     //   throw new GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, $"The response cannot be converted to '{typeof(T)}' because the body is null or empty");
-                    responseTry.Try.Add(new ConditionStatement()
+                    if (method.MethodType != MethodType.Get)
                     {
-                        Condition = new BinaryExpression(BinaryOperator.Equals, resultVariable, LiteralExpression.Null()),
-                        TrueStatements = new ThrowStatement(new NewObjectExpression(WellKnownTypes.GitLabExceptionTypeReference,
-                          responseVariable.CreateMemberReferenceExpression("RequestMethod"),
-                          responseVariable.CreateMemberReferenceExpression("RequestUri"),
-                          responseVariable.CreateMemberReferenceExpression("StatusCode"),
-                          new LiteralExpression($"The response cannot be converted to '{method.ReturnType.ToPropertyTypeReference().ClrFullTypeName}' because the body is null or empty"))),
-                    });
+                        responseTry.Try.Add(new ConditionStatement()
+                        {
+                            Condition = new BinaryExpression(BinaryOperator.Equals, resultVariable, LiteralExpression.Null()),
+                            TrueStatements = new ThrowStatement(new NewObjectExpression(WellKnownTypes.GitLabExceptionTypeReference,
+                              responseVariable.CreateMemberReferenceExpression("RequestMethod"),
+                              responseVariable.CreateMemberReferenceExpression("RequestUri"),
+                              responseVariable.CreateMemberReferenceExpression("StatusCode"),
+                              new LiteralExpression($"The response cannot be converted to '{method.ReturnType.ToPropertyTypeReference().ClrFullTypeName}' because the body is null or empty"))),
+                        });
+                    }
+
                     responseTry.Try.Add(new ReturnStatement(resultVariable));
                 }
             }
@@ -528,6 +533,26 @@ namespace Meziantou.GitLabClient.Generator
                 property.Setter = new PropertyAccessorDeclaration(new AssignStatement(field, new ArgumentReferenceExpression("value")));
                 AddDocumentationComments(property, param.Documentation);
 
+                if (GetParameterLocation(method, param) != ParameterLocation.Body)
+                {
+                    property.CustomAttributes.Add(new CustomAttribute(typeof(JsonIgnoreAttribute)));
+                }
+                else
+                {
+                    property.CustomAttributes.Add(new CustomAttribute(typeof(JsonPropertyNameAttribute))
+                    {
+                        Arguments = { new CustomAttributeArgument(new LiteralExpression(param.Name)) },
+                    });
+
+                    if (!param.IsRequired)
+                    {
+                        property.CustomAttributes.Add(new CustomAttribute(typeof(JsonIgnoreAttribute))
+                        {
+                            Arguments = { new CustomAttributeArgument(nameof(JsonIgnoreAttribute.Condition), new MemberReferenceExpression(typeof(JsonIgnoreCondition), nameof(JsonIgnoreCondition.WhenWritingNull))) },
+                        });
+                    }
+                }
+
                 // ctor required properties
                 if (param.IsRequired)
                 {
@@ -588,24 +613,7 @@ namespace Meziantou.GitLabClient.Generator
             else
             {
                 // JsonContent
-                var dictionaryType = WellKnownTypes.UnsafeListDictionaryTypeReference.MakeGeneric(typeof(string), new TypeReference(typeof(object)).MakeNullable());
-                var variable = new VariableDeclarationStatement(dictionaryType, "body");
-                statements.Add(variable);
-                var requiredArgumentCount = bodyArguments.Count(arg => arg.IsRequired);
-                variable.InitExpression = new NewObjectExpression(dictionaryType, requiredArgumentCount == 0 ? 0 : bodyArguments.Count);
-                foreach (var arg in bodyArguments)
-                {
-                    Expression CreateArgumentReference() => requestArgument.CreateMemberReferenceExpression(ToPropertyName(arg.Name));
-
-                    var condition = new ConditionStatement
-                    {
-                        Condition = new BinaryExpression(BinaryOperator.NotEquals, CreateArgumentReference(), new LiteralExpression(value: null)),
-                        TrueStatements = variable.CreateInvokeMethodExpression(nameof(Dictionary<string, object>.Add), arg.Name, CreateArgumentReference()),
-                    };
-                    statements.Add(condition);
-                }
-
-                statements.Add(new AssignStatement(httpRequestVariable.CreateMemberReferenceExpression(nameof(HttpRequestMessage.Content)), new NewObjectExpression(WellKnownTypes.JsonContentTypeReference, variable, new MemberReferenceExpression(WellKnownTypes.JsonSerializationTypeReference, "Options"))));
+                statements.Add(new AssignStatement(httpRequestVariable.CreateMemberReferenceExpression(nameof(HttpRequestMessage.Content)), new NewObjectExpression(WellKnownTypes.JsonContentTypeReference, requestArgument, new MemberReferenceExpression(WellKnownTypes.JsonSerializationTypeReference, "Options"))));
             }
         }
 
@@ -672,6 +680,16 @@ namespace Meziantou.GitLabClient.Generator
                         new MemberReferenceExpression(clientArgument, m.Name),
                         invokeArguments.ToArray())));
             }
+        }
+
+        private static Expression FormatValue(ModelRef modelRef, Expression expression)
+        {
+            if (modelRef == ModelRef.Date || modelRef == ModelRef.NullableDate)
+            {
+                return new MethodInvokeExpression(new MemberReferenceExpression(WellKnownTypes.GitLabDateJsonConverterTypeReference, "FormatValue"), expression);
+            }
+
+            return expression;
         }
     }
 }

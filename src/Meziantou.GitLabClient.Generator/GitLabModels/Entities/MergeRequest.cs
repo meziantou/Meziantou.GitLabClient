@@ -8,6 +8,7 @@
                 .AddProperty("project_id", ModelRef.NumberId, PropertyOptions.IsKey)
                 .AddProperty("author", Models.UserBasic)
                 .AddProperty("assignee", Models.UserBasic.MakeNullable())
+                .AddProperty("assignees", Models.UserBasic.MakeCollection().MakeNullable())
                 .AddProperty("title", ModelRef.String, PropertyOptions.IsDisplayName)
                 .AddProperty("description", ModelRef.NullableString)
                 .AddProperty("state", Models.MergeRequestState)

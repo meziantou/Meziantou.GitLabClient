@@ -236,8 +236,21 @@ namespace Meziantou.GitLab
                 if (!IsJsonResponse(ResponseMessage))
                     throw new InvalidOperationException($"Content type must be application/json but is {ResponseMessage.Content.Headers.ContentType?.MediaType}");
 
-                using var s = await ResponseMessage.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                return await JsonSerialization.DeserializeAsync<T>(s, cancellationToken).ConfigureAwait(false);
+                var s = await ResponseMessage.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                try
+                {
+                    return await JsonSerialization.DeserializeAsync<T>(s, cancellationToken).ConfigureAwait(false);
+                }
+                finally
+                {
+#if NET5_0
+                    await s.DisposeAsync().ConfigureAwait(false);
+#elif NETSTANDARD2_0
+                    s.Dispose();
+#else
+#error Platform not supported
+#endif
+                }
             }
 
             private static bool IsJsonResponse(HttpResponseMessage message)

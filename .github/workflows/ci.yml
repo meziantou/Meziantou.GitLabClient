@@ -79,6 +79,8 @@ jobs:
       id: set-artifact-name
     - run: dotnet test --configuration ${{ matrix.configuration }} --logger trx --results-directory "${{ env.TestResultsDirectory }}" --collect:"XPlat Code Coverage" /p:UseSourceLink=false
       name: Run tests
+      env:
+        GITLAB_LICENSEFILE: ${{ secrets.GITLAB_LICENSEFILE }}
     - uses: actions/upload-artifact@v2
       if: always()
       with:

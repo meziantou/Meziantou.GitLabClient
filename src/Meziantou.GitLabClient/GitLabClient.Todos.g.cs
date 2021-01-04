@@ -283,6 +283,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The action to be filtered. Can be assigned, mentioned, build_failed, marked, approval_required, unmergeable, directly_addressed or merge_train_removed.</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public TodoAction? Action
         {
             get
@@ -313,6 +314,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>The ID of to-do item</para>
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public TodoRef? Id
         {
             get

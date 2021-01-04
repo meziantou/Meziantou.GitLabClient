@@ -4,20 +4,25 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 using AngleSharp.Io;
 using Docker.DotNet;
 using Docker.DotNet.Models;
 using Meziantou.Framework;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Meziantou.GitLab.Tests
 {
     public class GitLabDockerContainer
     {
+        private const string LicenseName = "GITLAB_LICENSEFILE";
+
         public const string ContainerName = "MeziantouGitLabClientTests";
         public const string ImageName = "gitlab/gitlab-ee";
         public const string ImageTag = "13.7.1-ee.0"; // Keep in sync with .github/workflows/ci.yml
@@ -25,6 +30,7 @@ namespace Meziantou.GitLab.Tests
         public int HttpPort { get; } = 48624;
         public string AdminUserName { get; } = "root";
         public string AdminPassword { get; } = "Pa$$w0rd";
+        public string LicenseFile { get; set; }
 
         public Uri GitLabUrl => new("http://localhost:" + HttpPort.ToStringInvariant());
 
@@ -32,6 +38,11 @@ namespace Meziantou.GitLab.Tests
 
         public async Task SetupAsync()
         {
+            if (string.IsNullOrWhiteSpace(LicenseFile))
+            {
+                LicenseFile = Environment.GetEnvironmentVariable(LicenseName);
+            }
+
             await SpawnDockerContainerAsync().ConfigureAwait(false);
             await LoadCredentialsAsync();
             if (Credentials == null)
@@ -39,12 +50,37 @@ namespace Meziantou.GitLab.Tests
                 await GenerateAdminTokenAsync().ConfigureAwait(false);
                 await PersistCredentialsAsync();
             }
+
+            // Check license (could we generate a new one automatically?)
+            using var client = GitLabClient.Create(GitLabUrl, Credentials.AdminUserToken);
+            var currentLicense = await client.License.GetCurrentLicenseAsync();
+            if (currentLicense == null)
+            {
+                if (string.IsNullOrEmpty(LicenseFile))
+                {
+                    await CreateTrialLicenseAsync();
+                }
+
+                if (!string.IsNullOrEmpty(LicenseFile))
+                {
+                    currentLicense = await client.License.AddLicenseAsync(LicenseFile);
+                    if (currentLicense.Expired)
+                    {
+                        Assert.Fail("The license is invalid");
+                    }
+                }
+            }
+        }
+
+        private static bool IsContinuousIntegration()
+        {
+            return Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
         }
 
         private async Task SpawnDockerContainerAsync()
         {
             // Check if the container is accessible?
-            var isContinuousIntegration = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
+            var isContinuousIntegration = IsContinuousIntegration();
             try
             {
                 using var httpClient = new HttpClient();
@@ -261,6 +297,56 @@ namespace Meziantou.GitLab.Tests
                 }
                 catch (GitLabException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
+                }
+            }
+        }
+
+        private async Task CreateTrialLicenseAsync()
+        {
+
+            var email = $"test_{Guid.NewGuid():N}@yopmail.com";
+            var id = Convert.ToBase64String(Encoding.UTF8.GetBytes(email));
+
+            // Generate key
+            using var handler = new HttpClientHandler() { AllowAutoRedirect = false, AutomaticDecompression = System.Net.DecompressionMethods.All, CheckCertificateRevocationList = false };
+#pragma warning disable CA5399 // HttpClients should enable certificate revocation list checks
+            using var httpClient = new HttpClient(handler);
+#pragma warning restore CA5399
+            var result = await httpClient.GetStringAsync($"https://customers.gitlab.com/trials/new?return_to={Uri.EscapeDataString(GitLabUrl.ToString())}&id={id}");
+            var document = await new HtmlParser().ParseDocumentAsync(result);
+
+            var token = ((IHtmlInputElement)document.Forms["new_trial_user"]["authenticity_token"]).Value;
+            using var requestContent = new FormUrlEncodedContent(new[]
+            {
+                KeyValuePair.Create("utf8", "✓"),
+                KeyValuePair.Create("trial_user[authenticity_token]", token),
+                KeyValuePair.Create("trial_user[requested_email]", email),
+                KeyValuePair.Create("trial_user[first_name]", "a"),
+                KeyValuePair.Create("trial_user[last_name]", "a"),
+                KeyValuePair.Create("trial_user[work_email]", email),
+                KeyValuePair.Create("trial_user[company_name]", "a"),
+                KeyValuePair.Create("trial_user[company_size]", "1-99"),
+                KeyValuePair.Create("trial_user[phone_number]", "000000000"),
+                KeyValuePair.Create("trial_user[number_of_users]", "1"),
+                KeyValuePair.Create("trial_user[country]", "AF"),
+                KeyValuePair.Create("trial_user[return_to]", GitLabUrl.ToString()),
+            });
+
+            using var request = new HttpRequestMessage(System.Net.Http.HttpMethod.Post, "https://customers.gitlab.com/trials")
+            {
+                Content = requestContent,
+            };
+
+            using var response = await httpClient.SendAsync(request);
+            var href = QueryHelpers.ParseNullableQuery(response.Headers.Location.Query);
+            if (href != null && href.TryGetValue("trial_key", out var value))
+            {
+                var key = value[0];
+                LicenseFile = key;
+
+                if (!IsContinuousIntegration())
+                {
+                    Environment.SetEnvironmentVariable(LicenseName, LicenseFile, EnvironmentVariableTarget.User);
                 }
             }
         }

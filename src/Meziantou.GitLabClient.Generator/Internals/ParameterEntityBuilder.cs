@@ -21,5 +21,7 @@ namespace Meziantou.GitLabClient.Generator
 
         public static implicit operator ModelRef(ParameterEntityBuilder builder) => builder.Value;
         public static implicit operator ParameterEntity(ParameterEntityBuilder builder) => builder.Value;
+
+        public ModelRef AsModelRef() => Value;
     }
 }

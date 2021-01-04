@@ -90,38 +90,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(6);
-                if ((request.Branch != null))
-                {
-                    body.Add("branch", request.Branch);
-                }
-
-                if ((request.Content != null))
-                {
-                    body.Add("content", request.Content);
-                }
-
-                if ((request.CommitMessage != null))
-                {
-                    body.Add("commit_message", request.CommitMessage);
-                }
-
-                if ((request.StartBranch != null))
-                {
-                    body.Add("start_branch", request.StartBranch);
-                }
-
-                if ((request.AuthorEmail != null))
-                {
-                    body.Add("author_email", request.AuthorEmail);
-                }
-
-                if ((request.AuthorName != null))
-                {
-                    body.Add("author_name", request.AuthorName);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -184,43 +153,7 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Put;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?> body = new Meziantou.GitLab.Internals.UnsafeListDictionary<string, object?>(7);
-                if ((request.Branch != null))
-                {
-                    body.Add("branch", request.Branch);
-                }
-
-                if ((request.Content != null))
-                {
-                    body.Add("content", request.Content);
-                }
-
-                if ((request.CommitMessage != null))
-                {
-                    body.Add("commit_message", request.CommitMessage);
-                }
-
-                if ((request.StartBranch != null))
-                {
-                    body.Add("start_branch", request.StartBranch);
-                }
-
-                if ((request.AuthorEmail != null))
-                {
-                    body.Add("author_email", request.AuthorEmail);
-                }
-
-                if ((request.AuthorName != null))
-                {
-                    body.Add("author_name", request.AuthorName);
-                }
-
-                if ((request.LastCommitId != null))
-                {
-                    body.Add("last_commit_id", request.LastCommitId);
-                }
-
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(body, Meziantou.GitLab.Serialization.JsonSerialization.Options);
+                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -338,6 +271,8 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("author_email")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? AuthorEmail
         {
             get
@@ -350,6 +285,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("author_name")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? AuthorName
         {
             get
@@ -362,6 +299,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("branch")]
         public string? Branch
         {
             get
@@ -374,6 +312,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("commit_message")]
         public string? CommitMessage
         {
             get
@@ -386,6 +325,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("content")]
         public Meziantou.GitLab.TextOrBinaryData? Content
         {
             get
@@ -398,6 +338,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? FilePath
         {
             get
@@ -410,6 +351,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -422,6 +364,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("start_branch")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? StartBranch
         {
             get
@@ -468,6 +412,8 @@ namespace Meziantou.GitLab
         {
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("author_email")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? AuthorEmail
         {
             get
@@ -480,6 +426,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("author_name")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? AuthorName
         {
             get
@@ -492,6 +440,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("branch")]
         public string? Branch
         {
             get
@@ -504,6 +453,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("commit_message")]
         public string? CommitMessage
         {
             get
@@ -516,6 +466,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("content")]
         public Meziantou.GitLab.TextOrBinaryData? Content
         {
             get
@@ -528,6 +479,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? FilePath
         {
             get
@@ -540,6 +492,7 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
             get
@@ -552,6 +505,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("last_commit_id")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public Meziantou.GitLab.GitObjectId? LastCommitId
         {
             get
@@ -564,6 +519,8 @@ namespace Meziantou.GitLab
             }
         }
 
+        [System.Text.Json.Serialization.JsonPropertyNameAttribute("start_branch")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public string? StartBranch
         {
             get
