@@ -201,7 +201,7 @@ namespace Meziantou.GitLabClient.Generator
             urlBuilder.Modifiers = Modifiers.Partial | Modifiers.Internal;
 
             // not nullable
-            foreach (var appendMethodName in new[] { "AppendParameter", "AppendRawParameter" })
+            foreach (var (appendMethodName, encode) in new[] { ("AppendParameter", encode: true), ("AppendRawParameter", encode: false) })
             {
                 var method = urlBuilder.AddMember(new MethodDeclaration(appendMethodName));
                 var valueArg = method.AddArgument("value", enumType);
@@ -216,7 +216,7 @@ namespace Meziantou.GitLabClient.Generator
 
                     // Could be Append (without escaping) if all names are valid in URL
                     var methodName = "AppendParameter";
-                    if (enumeration.Members.All(m => m.FinalSerializationName == Uri.EscapeDataString(m.FinalSerializationName)))
+                    if (!encode || enumeration.Members.All(m => m.FinalSerializationName == Uri.EscapeDataString(m.FinalSerializationName)))
                     {
                         methodName = "Append";
                     }

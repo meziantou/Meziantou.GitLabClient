@@ -569,6 +569,17 @@ namespace Meziantou.GitLabClient.Generator
                         Arguments = { new CustomAttributeArgument(new LiteralExpression(param.Name)) },
                     });
 
+                    if (param.Type == ModelRef.Date || param.Type == ModelRef.NullableDate)
+                    {
+                        property.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
+                        {
+                            Arguments =
+                            {
+                                new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.GitLabDateJsonConverterTypeReference)),
+                            },
+                        });
+                    }
+
                     if (!param.IsRequired)
                     {
                         property.CustomAttributes.Add(new CustomAttribute(typeof(JsonIgnoreAttribute))

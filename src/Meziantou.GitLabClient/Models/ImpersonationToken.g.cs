@@ -34,7 +34,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <remarks>The value may not be an UTC DateTime</remarks>
         [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
+        [Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("expires_at")]
         public System.DateTime? ExpiresAt
         {
@@ -81,11 +83,11 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("scopes")]
-        public System.Collections.Generic.IReadOnlyList<string> Scopes
+        public System.Collections.Generic.IReadOnlyList<ImpersonationTokenScope> Scopes
         {
             get
             {
-                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<string>>("scopes");
+                return this.GetRequiredNonNullValue<System.Collections.Generic.IReadOnlyList<ImpersonationTokenScope>>("scopes");
             }
         }
 

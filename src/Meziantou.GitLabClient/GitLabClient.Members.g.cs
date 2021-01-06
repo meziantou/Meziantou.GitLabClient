@@ -173,6 +173,7 @@ namespace Meziantou.GitLab
         ///   <para>A date string in the format YEAR-MONTH-DAY</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("expires_at")]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public System.DateTime? ExpiresAt
         {

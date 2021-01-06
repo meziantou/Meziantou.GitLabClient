@@ -1181,7 +1181,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdRef userId, string name, System.DateTime? expiresAt = default(System.DateTime?), System.Collections.Generic.IEnumerable<string>? scopes = default(System.Collections.Generic.IEnumerable<string>?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<ImpersonationToken> CreateImpersonationTokenAsync(this Meziantou.GitLab.IGitLabUsersClient client, UserIdRef userId, string name, System.DateTime? expiresAt = default(System.DateTime?), System.Collections.Generic.IEnumerable<ImpersonationTokenScope>? scopes = default(System.Collections.Generic.IEnumerable<ImpersonationTokenScope>?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreateImpersonationTokenUserRequest request = new Meziantou.GitLab.CreateImpersonationTokenUserRequest(userId, name);
             request.ExpiresAt = expiresAt;
@@ -1901,7 +1901,7 @@ namespace Meziantou.GitLab
 
         private string? _name;
 
-        private System.Collections.Generic.IEnumerable<string>? _scopes;
+        private System.Collections.Generic.IEnumerable<ImpersonationTokenScope>? _scopes;
 
         private UserIdRef? _userId;
 
@@ -1921,6 +1921,7 @@ namespace Meziantou.GitLab
         ///   <para>The expiration date of the impersonation token in ISO format (YYYY-MM-DD)</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("expires_at")]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
         public System.DateTime? ExpiresAt
         {
@@ -1955,7 +1956,7 @@ namespace Meziantou.GitLab
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("scopes")]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
-        public System.Collections.Generic.IEnumerable<string>? Scopes
+        public System.Collections.Generic.IEnumerable<ImpersonationTokenScope>? Scopes
         {
             get
             {

@@ -86,7 +86,7 @@
                 .AddRequiredParameter("user_id", Models.UserIdRef)
                 .AddRequiredParameter("name", ModelRef.String)
                 .AddOptionalParameter("expires_at", ModelRef.Date)
-                .AddOptionalParameter("scopes", ModelRef.StringCollection)
+                .AddOptionalParameter("scopes", Choice("ImpersonationTokenScope", new[] { "api", "read_user" }).MakeCollection())
                 ;
         }
     }

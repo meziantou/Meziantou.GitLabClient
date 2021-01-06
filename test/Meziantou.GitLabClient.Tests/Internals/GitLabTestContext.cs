@@ -85,7 +85,7 @@ namespace Meziantou.GitLab.Tests
 
             var token = await client.Users.CreateImpersonationTokenAsync(new CreateImpersonationTokenUserRequest(user, "UnitTest")
             {
-                Scopes = new[] { "api", "read_user" },
+                Scopes = new[] { ImpersonationTokenScope.Api, ImpersonationTokenScope.ReadUser },
             });
             return CreateClient(token.Token);
         }

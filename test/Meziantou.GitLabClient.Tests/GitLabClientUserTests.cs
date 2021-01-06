@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -160,15 +161,19 @@ namespace Meziantou.GitLab.Tests
             using var client = await context.CreateNewUserAsync();
             var user = await client.Users.GetCurrentUserAsync();
 
-            var token = await context.AdminClient.Users.CreateImpersonationTokenAsync(user.Id, "new-token", expiresAt: null, scopes: new[] { "api" });
+            var token = await context.AdminClient.Users.CreateImpersonationTokenAsync(user.Id, "new-token", expiresAt: null, scopes: new[] { ImpersonationTokenScope.ReadUser });
             Assert.IsNotNull(token.Token);
             Assert.IsFalse(token.Revoked);
             Assert.IsTrue(token.Active);
+            Assert.IsNull(token.ExpiresAt);
+            CollectionAssert.AreEquivalent(new[] { ImpersonationTokenScope.ReadUser }, token.Scopes.ToList());
 
-            var token2 = await context.AdminClient.Users.CreateImpersonationTokenAsync(user, "new-token", expiresAt: null, scopes: new[] { "api" });
+            var token2 = await context.AdminClient.Users.CreateImpersonationTokenAsync(user, "new-token", expiresAt: DateTime.Now.AddDays(2), scopes: new[] { ImpersonationTokenScope.ReadUser, ImpersonationTokenScope.Api });
             Assert.IsNotNull(token2.Token);
             Assert.IsFalse(token2.Revoked);
             Assert.IsTrue(token2.Active);
+            Assert.IsNotNull(token2.ExpiresAt);
+            CollectionAssert.AreEquivalent(new[] { ImpersonationTokenScope.ReadUser, ImpersonationTokenScope.Api }, token2.Scopes.ToList());
         }
     }
 }
