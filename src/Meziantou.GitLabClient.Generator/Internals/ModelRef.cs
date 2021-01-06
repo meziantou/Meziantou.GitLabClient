@@ -47,6 +47,7 @@ namespace Meziantou.GitLabClient.Generator
 
         public bool IsParameterEntity => ParameterEntity != null;
         public bool IsModel => Model != null;
+        public Enumeration Enumeration => Model as Enumeration;
 
         private string ClrFullTypeName => ToTypeReference(typeof(IEnumerable<>)).ClrFullTypeName;
 

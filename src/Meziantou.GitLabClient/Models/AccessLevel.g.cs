@@ -28,5 +28,10 @@ namespace Meziantou.GitLab.Internals
         {
             this.AppendParameter(((int)value));
         }
+
+        public void AppendRawParameter(Meziantou.GitLab.AccessLevel value)
+        {
+            this.AppendParameter(((int)value));
+        }
     }
 }

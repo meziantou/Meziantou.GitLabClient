@@ -29,6 +29,7 @@ namespace Meziantou.GitLabClient.Generator
             public static TypeReference JsonContentTypeReference { get; } = new(InternalsNamespace + ".JsonContent");
             public static TypeReference UnsafeListDictionaryTypeReference { get; } = new(InternalsNamespace + ".UnsafeListDictionary");
 
+            public static TypeReference EnumMemberTypeReference { get; } = new(SerializationNamespace + ".EnumMember");
             public static TypeReference JsonSerializationTypeReference { get; } = new(SerializationNamespace + ".JsonSerialization");
             public static TypeReference GitLabDateJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabDateJsonConverter");
             public static TypeReference GitLabObjectObjectReferenceJsonConverterFactoryTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverterFactory");
@@ -168,7 +169,7 @@ namespace Meziantou.GitLabClient.Generator
 
         private static string ToPropertyName(string value)
         {
-            return value.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries)
+            return value.Split(new[] { "_", "." }, StringSplitOptions.RemoveEmptyEntries)
              .Select(s => char.ToUpperInvariant(s[0]) + s[1..])
              .Aggregate(string.Empty, (s1, s2) => s1 + s2);
         }

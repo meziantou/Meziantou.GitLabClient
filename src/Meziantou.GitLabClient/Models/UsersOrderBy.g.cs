@@ -139,5 +139,10 @@ namespace Meziantou.GitLab.Internals
         {
             this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
+
+        public void AppendRawParameter(Meziantou.GitLab.UsersOrderBy value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
+        }
     }
 }

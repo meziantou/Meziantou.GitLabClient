@@ -115,5 +115,10 @@ namespace Meziantou.GitLab.Internals
         {
             this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
         }
+
+        public void AppendRawParameter(Meziantou.GitLab.TodoAction value)
+        {
+            this.Append(Meziantou.GitLab.Serialization.EnumMember.ToString(value));
+        }
     }
 }

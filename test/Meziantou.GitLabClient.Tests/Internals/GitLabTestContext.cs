@@ -20,7 +20,7 @@ namespace Meziantou.GitLab.Tests
     {
         public static GitLabDockerContainer DockerContainer { get; set; }
 
-        private static readonly HashSet<string> s_generatedValues = new HashSet<string>(StringComparer.Ordinal);
+        private static readonly HashSet<string> s_generatedValues = new(StringComparer.Ordinal);
 
         private readonly LoggingHandler _loggingHandler;
         private readonly RetryHandler _retryHandler;

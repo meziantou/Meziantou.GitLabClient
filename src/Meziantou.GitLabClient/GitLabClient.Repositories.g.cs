@@ -105,10 +105,10 @@ namespace Meziantou.GitLab
                 }
 
                 urlBuilder.Append("/repository/archive");
-                if ((!object.ReferenceEquals(request.Format, null)))
+                if (request.Format.HasValue)
                 {
                     urlBuilder.Append(".");
-                    urlBuilder.AppendRawParameter(request.Format);
+                    urlBuilder.AppendRawParameter(request.Format.GetValueOrDefault());
                 }
 
                 char separator = '?';
@@ -137,7 +137,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> DownloadFileArchiveAsync(this Meziantou.GitLab.IGitLabRepositoriesClient client, ProjectIdOrPathRef id, string? sha = default(string?), string? format = default(string?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Meziantou.GitLab.HttpResponseStream?> DownloadFileArchiveAsync(this Meziantou.GitLab.IGitLabRepositoriesClient client, ProjectIdOrPathRef id, string? sha = default(string?), RepositoryFileArchiveFormat? format = default(RepositoryFileArchiveFormat?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.DownloadFileArchiveRepositoryRequest request = new Meziantou.GitLab.DownloadFileArchiveRepositoryRequest(id);
             request.Sha = sha;
@@ -148,7 +148,7 @@ namespace Meziantou.GitLab
 
     public partial class DownloadFileArchiveRepositoryRequest
     {
-        private string? _format;
+        private RepositoryFileArchiveFormat? _format;
 
         private ProjectIdOrPathRef? _id;
 
@@ -164,7 +164,7 @@ namespace Meziantou.GitLab
         }
 
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public string? Format
+        public RepositoryFileArchiveFormat? Format
         {
             get
             {

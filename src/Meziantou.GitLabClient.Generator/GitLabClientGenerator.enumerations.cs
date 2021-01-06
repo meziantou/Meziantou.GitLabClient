@@ -96,7 +96,7 @@ namespace Meziantou.GitLabClient.Generator
             var enumMember = serializationNamespace.AddType(new ClassDeclaration("EnumMember"));
             enumMember.Modifiers = Modifiers.Partial | Modifiers.Internal;
 
-            var enumMemberType = new TypeReference("Meziantou.GitLab.Serialization.EnumMember").MakeGeneric(enumType);
+            var enumMemberType = WellKnownTypes.EnumMemberTypeReference.MakeGeneric(enumType);
             var arrayType = enumMemberType.Clone();
             arrayType.ArrayRank = 1;
 
@@ -201,8 +201,9 @@ namespace Meziantou.GitLabClient.Generator
             urlBuilder.Modifiers = Modifiers.Partial | Modifiers.Internal;
 
             // not nullable
+            foreach (var appendMethodName in new[] { "AppendParameter", "AppendRawParameter" })
             {
-                var method = urlBuilder.AddMember(new MethodDeclaration("AppendParameter"));
+                var method = urlBuilder.AddMember(new MethodDeclaration(appendMethodName));
                 var valueArg = method.AddArgument("value", enumType);
                 method.Modifiers = Modifiers.Public;
                 method.Statements = new StatementCollection();
