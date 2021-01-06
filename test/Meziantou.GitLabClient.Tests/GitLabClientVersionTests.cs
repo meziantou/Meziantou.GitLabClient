@@ -1,22 +1,27 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
-    public class GitLabClientVersionTests : GitLabTest
+    public class GitLabClientVersionTests : GitLabTestBase
     {
-        [TestMethod]
+        public GitLabClientVersionTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
+        {
+        }
+
+        [Fact]
         public async Task GetVersion()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             // Act
             var version = await client.Version.GetAsync();
 
             // Assert
-            Assert.IsNotNull(version.Version);
-            Assert.IsNotNull(version.Revision);
+            Assert.NotNull(version.Version);
+            Assert.NotNull(version.Revision);
         }
     }
 }

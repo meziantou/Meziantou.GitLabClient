@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Meziantou.GitLab.Tests.Models
 {
     public partial class EntityTests
     {
-        [TestMethod]
+        [Fact]
         public void User_ToString()
         {
             var user = new User(JsonDocument.Parse(@"
@@ -50,7 +50,7 @@ namespace Meziantou.GitLab.Tests.Models
 }
 ").RootElement);
 
-            Assert.AreEqual("User { Id = 121, Username = user_20210101-143307_65c9eb13c6384d04b9537f2652fe09f3 }", user.ToString());
+            Assert.Equal("User { Id = 121, Username = user_20210101-143307_65c9eb13c6384d04b9537f2652fe09f3 }", user.ToString());
         }
 
     }

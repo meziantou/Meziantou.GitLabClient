@@ -1,36 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Meziantou.GitLab.Tests.Models
 {
-    [TestClass]
     public partial class EntityTests
     {
-        [TestMethod]
+        [Fact]
         [SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Needed for the test")]
         public void User_Equals_Null()
         {
             User a = null;
             User b = null;
 
-            Assert.AreEqual(true, a == b);
-            Assert.AreEqual(false, a != b);
+            Assert.True(a == b);
+            Assert.False(a != b);
         }
 
-        [TestMethod]
-        [DynamicData(nameof(User_Equals_Value), DynamicDataSourceType.Method)]
+        [Theory]
+        [MemberData(nameof(User_Equals_Value))]
         public void User_Equals(User a, User b, bool areEquals)
         {
-            Assert.AreEqual(areEquals, a.Equals((object)b));
-            Assert.AreEqual(areEquals, a.Equals(b));
-            Assert.AreEqual(areEquals, a == b);
-            Assert.AreEqual(!areEquals, a != b);
+            Assert.Equal(areEquals, a.Equals((object)b));
+            Assert.Equal(areEquals, a.Equals(b));
+            Assert.Equal(areEquals, a == b);
+            Assert.Equal(!areEquals, a != b);
 
             if (areEquals)
             {
-                Assert.AreEqual(a.GetHashCode(), b.GetHashCode());
+                Assert.Equal(a.GetHashCode(), b.GetHashCode());
             }
         }
 

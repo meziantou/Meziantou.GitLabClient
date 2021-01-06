@@ -1,63 +1,47 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Meziantou.Framework;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
-    public class GitLabClientUserTests : GitLabTest
+    public class GitLabClientUserTests : GitLabTestBase
     {
-        [TestMethod]
+        public GitLabClientUserTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
+        {
+        }
+
+        [Fact]
         public async Task GetCurrentUser()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             // Act
             var user = await client.Users.GetCurrentUserAsync();
 
             // Assert
-            Assert.IsNotNull(user.Name);
+            Assert.NotNull(user.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetUserById()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             // Act
             var user = await client.Users.GetByIdAsync(1); // root
 
             // Assert
-            Assert.AreEqual("root", user.Username);
+            Assert.Equal("root", user.Username);
         }
 
-        [TestMethod]
-        [DoNotParallelize] // Getting a collection on GitLab is not thread safe... AllItemsAreUnique may be false because another test may add a new user
-        public async Task GetAllUsers()
-        {
-            using var context = GetContext();
-            using var client = await context.CreateNewUserAsync();
-            var currentUser = await client.Users.GetCurrentUserAsync();
-
-            // Act
-            var users = await client.Users.GetAll().ToListAsync();
-
-            // Assert
-            Assert.IsNotNull(users);
-
-            // There should be at least 2 users in GitLab (root and current user)
-            Assert.IsTrue(users.Count >= 2);
-            CollectionAssert.AllItemsAreNotNull(users.ToArray());
-            CollectionAssert.AllItemsAreUnique(users.ToArray());
-            CollectionAssert.Contains(users.Select(u => u.Username).ToList(), "root");
-            CollectionAssert.Contains(users.Select(u => u.Username).ToList(), currentUser.Username);
-        }
-
-        [TestMethod]
+        [Fact]
         public async Task SetCurrentUserStatus()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             // Act
             var emoji = Emoji.EmojiThumbsUpSign;
@@ -65,48 +49,48 @@ namespace Meziantou.GitLab.Tests
             var status = await client.Users.SetCurrentUserStatusAsync(new SetCurrentUserStatusRequest { Emoji = emoji, Message = message });
 
             // Assert
-            Assert.AreEqual(emoji, status.Emoji);
-            Assert.AreEqual(message, status.Message);
-            Assert.IsNotNull(status.MessageHtml);
+            Assert.Equal(emoji, status.Emoji);
+            Assert.Equal(message, status.Message);
+            Assert.NotNull(status.MessageHtml);
 
             // Get status
             var currentStatus = await client.Users.GetCurrentUserStatusAsync();
 
-            Assert.AreEqual(emoji, currentStatus.Emoji);
-            Assert.AreEqual(message, currentStatus.Message);
-            Assert.IsNotNull(currentStatus.MessageHtml);
+            Assert.Equal(emoji, currentStatus.Emoji);
+            Assert.Equal(message, currentStatus.Message);
+            Assert.NotNull(currentStatus.MessageHtml);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetUserStatus_WithUsername()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             // Act
             var currentStatus = await client.Users.GetStatusAsync("root");
 
             // Assert
-            Assert.IsNotNull(currentStatus);
+            Assert.NotNull(currentStatus);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetUserStatus_WithUserId()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             // Act
             var currentStatus = await client.Users.GetStatusAsync(1);
 
             // Assert
-            Assert.IsNotNull(currentStatus);
+            Assert.NotNull(currentStatus);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task AddSshKey()
         {
             var generatedKey = RsaSshKey.GenerateQuickest();
 
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             long keyId;
 
@@ -119,10 +103,10 @@ namespace Meziantou.GitLab.Tests
             {
                 var key = await client.Users.AddSSHKeyToCurrentUserAsync(model);
 
-                Assert.IsTrue(key.Id > 0);
-                StringAssert.StartsWith(key.Key, expectedKey);
-                Assert.AreEqual(model.Title, key.Title);
-                Assert.AreNotEqual(default, key.CreatedAt);
+                Assert.True(key.Id > 0);
+                Assert.StartsWith(expectedKey, key.Key, StringComparison.Ordinal);
+                Assert.Equal(model.Title, key.Title);
+                Assert.NotEqual(default, key.CreatedAt);
 
                 keyId = key.Id;
             }
@@ -130,16 +114,16 @@ namespace Meziantou.GitLab.Tests
             // Get key
             {
                 var key = await client.Users.GetCurrentUserSSHKeyAsync(keyId);
-                Assert.AreEqual(keyId, key.Id);
-                StringAssert.StartsWith(key.Key, expectedKey);
-                Assert.IsNotNull(key.Title);
-                Assert.AreNotEqual(default, key.CreatedAt);
+                Assert.Equal(keyId, key.Id);
+                Assert.StartsWith(expectedKey, key.Key, StringComparison.Ordinal);
+                Assert.NotNull(key.Title);
+                Assert.NotEqual(default, key.CreatedAt);
             }
 
             // List SSH keys
             {
                 var keys = await client.Users.GetCurrentUserSSHKeysAsync();
-                CollectionAssert.Contains(keys.Select(k => k.Id).ToList(), keyId);
+                Assert.Contains(keyId, keys.Select(k => k.Id).ToList());
             }
 
             // Delete key
@@ -150,30 +134,30 @@ namespace Meziantou.GitLab.Tests
             // Get key (new key must not be present)
             {
                 var key = await client.Users.GetCurrentUserSSHKeyAsync(keyId);
-                Assert.IsNull(key);
+                Assert.Null(key);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public async Task CreateImpersonationToken()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var user = await client.Users.GetCurrentUserAsync();
 
             var token = await context.AdminClient.Users.CreateImpersonationTokenAsync(user.Id, "new-token", expiresAt: null, scopes: new[] { ImpersonationTokenScope.ReadUser });
-            Assert.IsNotNull(token.Token);
-            Assert.IsFalse(token.Revoked);
-            Assert.IsTrue(token.Active);
-            Assert.IsNull(token.ExpiresAt);
-            CollectionAssert.AreEquivalent(new[] { ImpersonationTokenScope.ReadUser }, token.Scopes.ToList());
+            Assert.NotNull(token.Token);
+            Assert.False(token.Revoked);
+            Assert.True(token.Active);
+            Assert.Null(token.ExpiresAt);
+            Assert.Equal(new[] { ImpersonationTokenScope.ReadUser }, token.Scopes.ToList());
 
             var token2 = await context.AdminClient.Users.CreateImpersonationTokenAsync(user, "new-token", expiresAt: DateTime.Now.AddDays(2), scopes: new[] { ImpersonationTokenScope.ReadUser, ImpersonationTokenScope.Api });
-            Assert.IsNotNull(token2.Token);
-            Assert.IsFalse(token2.Revoked);
-            Assert.IsTrue(token2.Active);
-            Assert.IsNotNull(token2.ExpiresAt);
-            CollectionAssert.AreEquivalent(new[] { ImpersonationTokenScope.ReadUser, ImpersonationTokenScope.Api }, token2.Scopes.ToList());
+            Assert.NotNull(token2.Token);
+            Assert.False(token2.Revoked);
+            Assert.True(token2.Active);
+            Assert.NotNull(token2.ExpiresAt);
+            Assert.Equal(new[] { ImpersonationTokenScope.Api, ImpersonationTokenScope.ReadUser }, token2.Scopes.OrderBy(scope => scope).ToList());
         }
     }
 }

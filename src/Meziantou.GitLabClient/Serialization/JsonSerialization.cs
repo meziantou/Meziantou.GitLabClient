@@ -16,6 +16,9 @@ namespace Meziantou.GitLab.Serialization
             {
                 new GitLabObjectJsonConverter(),
             },
+#if DEBUG
+            WriteIndented = true,
+#endif
         };
 
         public static T? ToObject<T>(JsonElement element)

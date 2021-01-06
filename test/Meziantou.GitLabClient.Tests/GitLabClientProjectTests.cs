@@ -1,39 +1,44 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
-    public class GitLabClientProjectTests : GitLabTest
+    public class GitLabClientProjectTests : GitLabTestBase
     {
-        [TestMethod]
+        public GitLabClientProjectTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
+        {
+        }
+
+        [Fact]
         public async Task GetProjects()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
 
             var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test" });
-            Assert.IsNotNull(project.WebUrl);
-            Assert.IsNotNull(project.SshUrlToRepo);
-            Assert.IsNotNull(project.HttpUrlToRepo);
+            Assert.NotNull(project.WebUrl);
+            Assert.NotNull(project.SshUrlToRepo);
+            Assert.NotNull(project.HttpUrlToRepo);
 
             var projects = await client.Projects.GetAll().ToListAsync();
-            CollectionAssert.Contains(projects.ToList(), project);
+            Assert.Contains(project, projects.ToList());
 
             var projectById_project = await client.Projects.GetByIdAsync(project);
             var projectById_pathWithNamespace = await client.Projects.GetByIdAsync(project.PathWithNamespace);
 
-            Assert.AreEqual("test", project.Name);
-            Assert.AreEqual(project, projectById_project);
-            Assert.AreEqual(project, projectById_pathWithNamespace);
+            Assert.Equal("test", project.Name);
+            Assert.Equal(project, projectById_project);
+            Assert.Equal(project, projectById_pathWithNamespace);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetProjects_Pagination()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var user = await client.Users.GetCurrentUserAsync();
             var project1 = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test1" });
@@ -44,26 +49,26 @@ namespace Meziantou.GitLab.Tests
                 .ConfigurePageOptions(pageSize: 1, startPageIndex: 2)
                 .ToListAsync();
 
-            Assert.AreEqual(project2, projects[0]);
-            Assert.AreEqual(project3, projects[1]);
-            Assert.AreEqual(2, projects.Count);
+            Assert.Equal(project2, projects[0]);
+            Assert.Equal(project3, projects[1]);
+            Assert.Equal(2, projects.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task UploadFile()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var data = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGP6DwABBQECz6AuzQAAAABJRU5ErkJggg==");
 
             var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test1" });
             var result = await client.Projects.UploadFileAsync(project, FileUpload.FromBytes("test.png", data));
 
-            Assert.IsNotNull(result.Url);
-            Assert.IsNotNull(result.FullPath);
+            Assert.NotNull(result.Url);
+            Assert.NotNull(result.FullPath);
             var actual = await context.AdminHttpClient.GetByteArrayAsync(result.FullPath);
 
-            CollectionAssert.AreEqual(data, actual);
+            Assert.Equal(data, actual);
         }
     }
 }

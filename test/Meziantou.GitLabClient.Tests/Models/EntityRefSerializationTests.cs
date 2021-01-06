@@ -1,20 +1,19 @@
 ﻿using System.Text.Json;
 using Meziantou.GitLab.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Meziantou.GitLab.Tests.Models
 {
-    [TestClass]
     public class EntityRefSerializationTests
     {
-        [TestMethod]
+        [Fact]
         public void SerializeSingleValue()
         {
             var item = UserIdOrUserNameRef.FromUserName("test");
             _ = JsonSerializer.Serialize(item, JsonSerialization.Options);
         }
 
-        [TestMethod]
+        [Fact]
         public void SerializeCollection()
         {
             var item = UserIdOrUserNameRef.FromUserName("test");

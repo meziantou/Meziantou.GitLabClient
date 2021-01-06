@@ -1,21 +1,26 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
-    public class GitLabClientTodoTests : GitLabTest
+    public class GitLabClientTodoTests : GitLabTestBase
     {
-        [TestMethod]
+        public GitLabClientTodoTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
+        {
+        }
+
+        [Fact]
         public async Task GetTodo_MentionedInIssue()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var currentUser = await client.Users.GetCurrentUserAsync();
 
             var todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(0, todos.Count);
+            Assert.Equal(0, todos.Count);
 
             // Create a project
             var project = await client.Projects.CreateAsync(new CreateProjectRequest
@@ -30,19 +35,19 @@ namespace Meziantou.GitLab.Tests
             // Should have 1 todo
             todos = await client.ToDos.GetTodos().ToListAsync();
             var todo = todos.Single();
-            Assert.IsInstanceOfType(todo.Target, typeof(Issue));
-            Assert.AreEqual(issue.Id, ((Issue)todo.Target).Id);
+            Assert.IsType<Issue>(todo.Target);
+            Assert.Equal(issue.Id, ((Issue)todo.Target).Id);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetTodo_MergeRequestAssigned()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var currentUser = await client.Users.GetCurrentUserAsync();
 
             var todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(0, todos.Count);
+            Assert.Equal(0, todos.Count);
 
             // Create a project
             var project = await client.Projects.CreateAsync(new CreateProjectRequest
@@ -58,22 +63,22 @@ namespace Meziantou.GitLab.Tests
             // Should have 1 todo
             todos = await client.ToDos.GetTodos().ToListAsync();
             var todo = todos.Single();
-            Assert.AreEqual(TodoAction.Assigned, todo.ActionName);
-            Assert.AreEqual(TodoState.Pending, todo.State);
-            Assert.AreEqual(TodoTargetType.MergeRequest, todo.TargetType);
-            Assert.IsInstanceOfType(todo.Target, typeof(MergeRequest));
-            Assert.AreEqual(mergeRequest.Id, ((MergeRequest)todo.Target).Id);
+            Assert.Equal(TodoAction.Assigned, todo.ActionName);
+            Assert.Equal(TodoState.Pending, todo.State);
+            Assert.Equal(TodoTargetType.MergeRequest, todo.TargetType);
+            Assert.IsType<MergeRequest>(todo.Target);
+            Assert.Equal(mergeRequest.Id, ((MergeRequest)todo.Target).Id);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Todo_MarkAsDone()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var currentUser = await client.Users.GetCurrentUserAsync();
 
             var todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(0, todos.Count);
+            Assert.Equal(0, todos.Count);
 
             // Create a project
             var project = await client.Projects.CreateAsync(new CreateProjectRequest
@@ -90,18 +95,18 @@ namespace Meziantou.GitLab.Tests
             var todo = todos.Single();
             await client.ToDos.MarkTodoAsDoneAsync(new MarkTodoAsDoneToDoRequest(todo));
             todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(0, todos.Count);
+            Assert.Equal(0, todos.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Todo_MarkAllAsDone()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
             var currentUser = await client.Users.GetCurrentUserAsync();
 
             var todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(0, todos.Count);
+            Assert.Equal(0, todos.Count);
 
             // Create a project
             var project = await client.Projects.CreateAsync(new CreateProjectRequest
@@ -118,10 +123,10 @@ namespace Meziantou.GitLab.Tests
 
             // Mark all as done
             todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(3, todos.Count);
+            Assert.Equal(3, todos.Count);
             await client.ToDos.MarkAllTodosAsDoneAsync();
             todos = await client.ToDos.GetTodos().ToListAsync();
-            Assert.AreEqual(0, todos.Count);
+            Assert.Equal(0, todos.Count);
         }
     }
 }

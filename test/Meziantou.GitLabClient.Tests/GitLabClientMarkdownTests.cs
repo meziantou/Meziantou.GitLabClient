@@ -3,17 +3,22 @@ using System.Threading.Tasks;
 using AngleSharp.Diffing;
 using AngleSharp.Html.Parser;
 using Meziantou.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
-    public class GitLabClientMarkdownTests : GitLabTest
+    public class GitLabClientMarkdownTests : GitLabTestBase
     {
-        [TestMethod]
+        public GitLabClientMarkdownTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
+        {
+        }
+
+        [Fact]
         public async Task RenderMarkdown()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
 
             // Act
@@ -23,10 +28,10 @@ namespace Meziantou.GitLab.Tests
             AssertHtml("<h1>title</h1><p>Issue #1</p>", result.Html);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task RenderMarkdown_ProjectSpecific()
         {
-            using var context = GetContext();
+            using var context = await CreateContextAsync();
             using var client = await context.CreateNewUserAsync();
 
             var project = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test" });
@@ -40,8 +45,8 @@ namespace Meziantou.GitLab.Tests
             });
 
             // Assert
-            StringAssert.Contains(issue.WebUrl.ToString(), "test/-/issues/1");
-            StringAssert.Contains(result.Html, issue.WebUrl.ToString());
+            Assert.Contains("test/-/issues/1", issue.WebUrl.ToString(), System.StringComparison.Ordinal);
+            Assert.Contains(issue.WebUrl.ToString(), result.Html, System.StringComparison.Ordinal);
         }
 
         private static void AssertHtml(string expected, string actual)
@@ -61,7 +66,7 @@ namespace Meziantou.GitLab.Tests
 
             if (result.Any())
             {
-                Assert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
         }
     }

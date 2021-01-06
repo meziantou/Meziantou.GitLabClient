@@ -15,22 +15,12 @@ namespace Meziantou.GitLab
         Id,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "name")]
         Name,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "path")]
-        Path,
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "username")]
+        Username,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "created_at")]
         CreatedAt,
         [System.Runtime.Serialization.EnumMemberAttribute(Value = "updated_at")]
-        UpdatedAt,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "last_activity_at")]
-        LastActivityAt,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "repository_size")]
-        RepositorySize,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "storage_size")]
-        StorageSize,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "packages_size")]
-        PackagesSize,
-        [System.Runtime.Serialization.EnumMemberAttribute(Value = "wiki_size")]
-        WikiSize
+        UpdatedAt
     }
 }
 
@@ -52,9 +42,9 @@ namespace Meziantou.GitLab.Serialization
                 return "name";
             }
 
-            if ((value == Meziantou.GitLab.UsersOrderBy.Path))
+            if ((value == Meziantou.GitLab.UsersOrderBy.Username))
             {
-                return "path";
+                return "username";
             }
 
             if ((value == Meziantou.GitLab.UsersOrderBy.CreatedAt))
@@ -67,31 +57,6 @@ namespace Meziantou.GitLab.Serialization
                 return "updated_at";
             }
 
-            if ((value == Meziantou.GitLab.UsersOrderBy.LastActivityAt))
-            {
-                return "last_activity_at";
-            }
-
-            if ((value == Meziantou.GitLab.UsersOrderBy.RepositorySize))
-            {
-                return "repository_size";
-            }
-
-            if ((value == Meziantou.GitLab.UsersOrderBy.StorageSize))
-            {
-                return "storage_size";
-            }
-
-            if ((value == Meziantou.GitLab.UsersOrderBy.PackagesSize))
-            {
-                return "packages_size";
-            }
-
-            if ((value == Meziantou.GitLab.UsersOrderBy.WikiSize))
-            {
-                return "wiki_size";
-            }
-
             throw new System.ArgumentOutOfRangeException(nameof(value), string.Concat("Value '", value.ToString(), "' is not valid"));
         }
 
@@ -102,17 +67,12 @@ namespace Meziantou.GitLab.Serialization
 
         private static Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>[] CreateUsersOrderByMembers()
         {
-            Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>[] result = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>[10];
+            Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>[] result = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>[5];
             result[0] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.Id, "id");
             result[1] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.Name, "name");
-            result[2] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.Path, "path");
+            result[2] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.Username, "username");
             result[3] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.CreatedAt, "created_at");
             result[4] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.UpdatedAt, "updated_at");
-            result[5] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.LastActivityAt, "last_activity_at");
-            result[6] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.RepositorySize, "repository_size");
-            result[7] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.StorageSize, "storage_size");
-            result[8] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.PackagesSize, "packages_size");
-            result[9] = new Meziantou.GitLab.Serialization.EnumMember<Meziantou.GitLab.UsersOrderBy>(Meziantou.GitLab.UsersOrderBy.WikiSize, "wiki_size");
             return result;
         }
     }

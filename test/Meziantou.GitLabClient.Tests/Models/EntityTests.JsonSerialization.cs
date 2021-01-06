@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Meziantou.GitLab.Tests.Models
 {
     public partial class EntityTests
     {
-        [TestMethod]
+        [Fact]
         public void User_ToJson()
         {
             var source = @"
@@ -55,7 +55,7 @@ namespace Meziantou.GitLab.Tests.Models
 
             var serializedJsonElement = JsonSerializer.Serialize(element);
             var serializedEntity = JsonSerializer.Serialize(user);
-            Assert.AreEqual(serializedJsonElement, serializedEntity);
+            Assert.Equal(serializedJsonElement, serializedEntity);
         }
 
     }

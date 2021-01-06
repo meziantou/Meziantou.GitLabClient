@@ -4,6 +4,8 @@
     {
         protected override void Create(MethodGroup methodGroup)
         {
+            var usersOrderBy = Choice("UsersOrderBy", new[] { "id", "name", "username", "created_at", "updated_at" });
+
             methodGroup.AddMethod("GetCurrentUser", MethodType.Get, "/user", "https://docs.gitlab.com/ee/api/users.html#list-current-user-for-normal-users")
                 .WithReturnType(Models.User);
 
@@ -17,6 +19,8 @@
                 .AddOptionalParameter("username", ModelRef.String)
                 .AddOptionalParameter("active", ModelRef.Boolean)
                 .AddOptionalParameter("blocked", ModelRef.Boolean)
+                .AddOptionalParameter("order_by", usersOrderBy)
+                .AddOptionalParameter("sort", Models.OrderByDirection)
                 ;
 
             methodGroup.AddMethod("GetCurrentUserStatus", MethodType.Get, "/user/status", "https://docs.gitlab.com/ee/api/users.html#user-status")

@@ -729,6 +729,22 @@ namespace Meziantou.GitLab
                     urlBuilder.AppendParameter(request.Blocked.GetValueOrDefault());
                 }
 
+                if (request.OrderBy.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("order_by=");
+                    urlBuilder.AppendParameter(request.OrderBy.GetValueOrDefault());
+                }
+
+                if (request.Sort.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("sort=");
+                    urlBuilder.AppendParameter(request.Sort.GetValueOrDefault());
+                }
+
                 url = urlBuilder.ToString();
             }
 
@@ -1242,12 +1258,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<UserBasic> GetAll(this Meziantou.GitLab.IGitLabUsersClient client, string? username = default(string?), bool? active = default(bool?), bool? blocked = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<UserBasic> GetAll(this Meziantou.GitLab.IGitLabUsersClient client, string? username = default(string?), bool? active = default(bool?), bool? blocked = default(bool?), UsersOrderBy? orderBy = default(UsersOrderBy?), OrderByDirection? sort = default(OrderByDirection?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetAllUserRequest request = new Meziantou.GitLab.GetAllUserRequest();
             request.Username = username;
             request.Active = active;
             request.Blocked = blocked;
+            request.OrderBy = orderBy;
+            request.Sort = sort;
             return client.GetAll(request, requestOptions);
         }
 
@@ -1406,6 +1424,10 @@ namespace Meziantou.GitLab
 
         private bool? _blocked;
 
+        private UsersOrderBy? _orderBy;
+
+        private OrderByDirection? _sort;
+
         private string? _username;
 
         public GetAllUserRequest()
@@ -1435,6 +1457,32 @@ namespace Meziantou.GitLab
             set
             {
                 this._blocked = value;
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public UsersOrderBy? OrderBy
+        {
+            get
+            {
+                return this._orderBy;
+            }
+            set
+            {
+                this._orderBy = value;
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public OrderByDirection? Sort
+        {
+            get
+            {
+                return this._sort;
+            }
+            set
+            {
+                this._sort = value;
             }
         }
 

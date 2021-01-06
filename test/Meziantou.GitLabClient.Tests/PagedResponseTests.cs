@@ -5,14 +5,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.GitLab.Core;
 using Meziantou.GitLab.Internals;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
-    public class PagedResponseTests : GitLabTest
+    public class PagedResponseTests : GitLabTestBase
     {
-        [TestMethod]
+        public PagedResponseTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
+        {
+        }
+
+        [Fact]
         public async Task FillPropertiesAsync()
         {
             using var handler = new MockHandler();
@@ -29,17 +34,18 @@ namespace Meziantou.GitLab.Tests
                 Content = new JsonContent(new[] { new object(), new object() }, settings: null),
             });
 
-            using var context = GetContext(handler);
+            using var context = await CreateContextAsync(parallelizable: true, handler);
+
             // Act
             var page = await ((TestGitLabClient)context.AdminClient).GetPagedCollectionAsync<GitLabObject>("http://localhost:3000", default, CancellationToken.None);
 
             // Assert
-            Assert.AreEqual(2, page.PageIndex);
-            Assert.AreEqual(5, page.PageSize);
-            Assert.AreEqual(10, page.TotalPages);
-            Assert.AreEqual(50, page.TotalItems);
-            Assert.IsFalse(page.IsFirstPage);
-            Assert.IsFalse(page.IsLastPage);
+            Assert.Equal(2, page.PageIndex);
+            Assert.Equal(5, page.PageSize);
+            Assert.Equal(10, page.TotalPages);
+            Assert.Equal(50, page.TotalItems);
+            Assert.False(page.IsFirstPage);
+            Assert.False(page.IsLastPage);
         }
 
         private sealed class MockHandler : HttpClientHandler
@@ -55,7 +61,7 @@ namespace Meziantou.GitLab.Tests
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
                 var (expectedRequest, response) = _mocks[_index++];
-                Assert.AreEqual(expectedRequest, $"{request.Method} {request.RequestUri}");
+                Assert.Equal(expectedRequest, $"{request.Method} {request.RequestUri}");
                 return Task.FromResult(response);
             }
         }

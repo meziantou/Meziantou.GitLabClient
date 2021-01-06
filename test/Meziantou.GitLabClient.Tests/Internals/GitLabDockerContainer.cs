@@ -14,13 +14,17 @@ using AngleSharp.Io;
 using Docker.DotNet;
 using Docker.DotNet.Models;
 using Meziantou.Framework;
+using Meziantou.Framework.Threading;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Meziantou.GitLab.Tests
 {
     public class GitLabDockerContainer
     {
+        private static readonly AsyncLock s_lock = new();
+        private static GitLabDockerContainer s_instance;
+
         private const string LicenseName = "GITLAB_LICENSEFILE";
 
         public const string ContainerName = "MeziantouGitLabClientTests";
@@ -36,7 +40,22 @@ namespace Meziantou.GitLab.Tests
 
         public GitLabCredential Credentials { get; set; }
 
-        public async Task SetupAsync()
+        public static async Task<GitLabDockerContainer> GetOrCreateInstance()
+        {
+            using (await s_lock.LockAsync())
+            {
+                if (s_instance == null)
+                {
+                    var instance = new GitLabDockerContainer();
+                    await instance.SetupAsync();
+                    s_instance = instance;
+                }
+
+                return s_instance;
+            }
+        }
+
+        private async Task SetupAsync()
         {
             if (string.IsNullOrWhiteSpace(LicenseFile))
             {
@@ -66,7 +85,7 @@ namespace Meziantou.GitLab.Tests
                     currentLicense = await client.License.AddLicenseAsync(LicenseFile);
                     if (currentLicense.Expired)
                     {
-                        Assert.Fail("The license is invalid");
+                        Assert.True(false, "The GitLab license is expired");
                     }
                 }
             }
@@ -152,7 +171,7 @@ namespace Meziantou.GitLab.Tests
                 var started = await client.Containers.StartContainerAsync(container.ID, new ContainerStartParameters());
                 if (!started)
                 {
-                    Assert.Fail("Cannot start the docker container");
+                    Assert.True(false, "Cannot start the docker container");
                 }
             }
 

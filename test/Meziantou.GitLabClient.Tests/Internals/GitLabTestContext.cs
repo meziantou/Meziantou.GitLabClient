@@ -11,32 +11,37 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.Framework;
 using Meziantou.Framework.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Meziantou.Framework.Threading;
 using Newtonsoft.Json;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Meziantou.GitLab.Tests
 {
     public sealed class GitLabTestContext : IDisposable
     {
-        public static GitLabDockerContainer DockerContainer { get; set; }
-
         private static readonly HashSet<string> s_generatedValues = new(StringComparer.Ordinal);
+        private static readonly AsyncReaderWriterLock s_gitLabLock = new();
 
         private readonly LoggingHandler _loggingHandler;
-        private readonly RetryHandler _retryHandler;
+        private readonly ConcurrencyLimiterAndRetryHandler _retryHandler;
         private readonly HttpClient _clientHttpClient;
         private readonly List<TestGitLabClient> _clients = new();
+        private readonly AsyncReaderWriterLock.Releaser _lockReleaser;
 
-        public GitLabTestContext(TestContext testOutput, HttpClientHandler handler = null)
+        public GitLabDockerContainer DockerContainer { get; set; }
+
+        private GitLabTestContext(ITestOutputHelper testOutputHelper, GitLabDockerContainer container, HttpClientHandler handler, AsyncReaderWriterLock.Releaser lockReleaser)
         {
-            TestContext = testOutput;
-
+            TestOutputHelper = testOutputHelper;
+            DockerContainer = container;
+            _lockReleaser = lockReleaser;
             _loggingHandler = new LoggingHandler()
             {
                 InnerHandler = handler ?? new HttpClientHandler(),
             };
 
-            _retryHandler = new RetryHandler(_loggingHandler);
+            _retryHandler = new ConcurrencyLimiterAndRetryHandler(_loggingHandler);
             _clientHttpClient = new HttpClient(_retryHandler, disposeHandler: true);
             AdminClient = CreateClient(DockerContainer.Credentials.AdminUserToken);
 
@@ -55,10 +60,17 @@ namespace Meziantou.GitLab.Tests
             };
         }
 
+        public static async Task<GitLabTestContext> CreateAsync(ITestOutputHelper testOutputHelper, bool parallelizable, HttpClientHandler handler)
+        {
+            var container = await GitLabDockerContainer.GetOrCreateInstance();
+            var releaser = await (parallelizable ? s_gitLabLock.ReaderLockAsync() : s_gitLabLock.WriterLockAsync());
+            return new GitLabTestContext(testOutputHelper, container, handler, releaser);
+        }
+
         public HttpClient HttpClient { get; }
         public HttpClient AdminHttpClient { get; }
         public IGitLabClient AdminClient { get; }
-        public TestContext TestContext { get; }
+        public ITestOutputHelper TestOutputHelper { get; }
 
         private static bool IsUnique(string str)
         {
@@ -125,8 +137,10 @@ namespace Meziantou.GitLab.Tests
 
         public void Dispose()
         {
+            _lockReleaser.Dispose();
+
             var separator = "\n" + new string('=', 120) + "\n";
-            TestContext.WriteLine(separator + string.Join(separator, _loggingHandler.Logs));
+            TestOutputHelper.WriteLine(separator + string.Join(separator, _loggingHandler.Logs));
             var objects = _clients.SelectMany(c => c.Objects).ToList();
 
             _clientHttpClient?.Dispose();
@@ -143,7 +157,7 @@ namespace Meziantou.GitLab.Tests
 
             if (errorMessages.Count > 0)
             {
-                Assert.Fail(string.Join("\n", errorMessages));
+                Assert.True(false, string.Join("\n", errorMessages));
             }
         }
 
@@ -234,13 +248,15 @@ namespace Meziantou.GitLab.Tests
         /// <summary>
         /// GitLab sometimes returns 502 after initializing the Docker container. Retrying may help reducing flaky tests.
         /// </summary>
-        private sealed class RetryHandler : DelegatingHandler
+        private sealed class ConcurrencyLimiterAndRetryHandler : DelegatingHandler
         {
-            public RetryHandler()
+            private static readonly AsyncReaderWriterLock s_concurrencyLimiter = new();
+
+            public ConcurrencyLimiterAndRetryHandler()
             {
             }
 
-            public RetryHandler(HttpMessageHandler innerHandler)
+            public ConcurrencyLimiterAndRetryHandler(HttpMessageHandler innerHandler)
                 : base(innerHandler)
             {
             }
@@ -252,21 +268,25 @@ namespace Meziantou.GitLab.Tests
 
             protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                var retries = 10;
-                while (true)
+                // Multiple concurrent GET should be ok
+                using (await (request.Method == HttpMethod.Get ? s_concurrencyLimiter.ReaderLockAsync() : s_concurrencyLimiter.WriterLockAsync()).ConfigureAwait(false))
                 {
-                    try
+                    var retries = 10;
+                    while (true)
                     {
-                        var response = await base.SendAsync(request, cancellationToken);
-                        if (retries == 0 || (int)response.StatusCode < 500)
-                            return response;
-                    }
-                    catch (HttpRequestException) when (retries > 0)
-                    {
-                    }
+                        try
+                        {
+                            var response = await base.SendAsync(request, cancellationToken);
+                            if (retries == 0 || (int)response.StatusCode < 500)
+                                return response;
+                        }
+                        catch (HttpRequestException) when (retries > 0)
+                        {
+                        }
 
-                    await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken).ConfigureAwait(false);
-                    retries--;
+                        await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken).ConfigureAwait(false);
+                        retries--;
+                    }
                 }
             }
         }

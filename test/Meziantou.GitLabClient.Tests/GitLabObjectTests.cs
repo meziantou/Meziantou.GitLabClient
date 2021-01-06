@@ -5,11 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.GitLab.Core;
 using Meziantou.GitLab.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Meziantou.GitLab.Tests
 {
-    [TestClass]
     public class GitLabObjectTests
     {
         private static async Task<T> Deserialize<T>(string json)
@@ -20,72 +19,72 @@ namespace Meziantou.GitLab.Tests
             return await JsonSerialization.DeserializeAsync<T>(ms, CancellationToken.None);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TryGetValue_Boolean()
         {
             var obj = await Deserialize<GitLabObject>("{ \"Prop1\": true }");
 
             var result = obj.TryGetValue("Prop1", out bool value);
-            Assert.IsTrue(result);
-            Assert.AreEqual(true, value);
-            Assert.IsInstanceOfType(value, typeof(bool));
+            Assert.True(result);
+            Assert.True(value);
+            Assert.IsType<bool>(value);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TryGetValue_Double()
         {
             var obj = await Deserialize<GitLabObject>("{ \"Prop1\": 1.3 }");
 
             var result = obj.TryGetValue("Prop1", out double value);
-            Assert.IsTrue(result);
-            Assert.AreEqual(1.3d, value);
-            Assert.IsInstanceOfType(value, typeof(double));
+            Assert.True(result);
+            Assert.Equal(1.3d, value);
+            Assert.IsType<double>(value);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TryGetValue_Long()
         {
             var obj = await Deserialize<GitLabObject>("{ \"Prop1\": 2 }");
 
             var result = obj.TryGetValue("Prop1", out long value);
-            Assert.IsTrue(result);
-            Assert.AreEqual(2L, value);
-            Assert.IsInstanceOfType(value, typeof(long));
+            Assert.True(result);
+            Assert.Equal(2L, value);
+            Assert.IsType<long>(value);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TryGetValue_String()
         {
             var obj = await Deserialize<GitLabObject>("{ \"Prop1\": \"test\" }");
 
             var result = obj.TryGetValue("Prop1", out string value);
-            Assert.IsTrue(result);
-            Assert.AreEqual("test", value);
-            Assert.IsInstanceOfType(value, typeof(string));
+            Assert.True(result);
+            Assert.Equal("test", value);
+            Assert.IsType<string>(value);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TryGetValue_Null()
         {
             var obj = await Deserialize<GitLabObject>("{ \"Prop1\": null }");
 
             var result = obj.TryGetValue("Prop1", out object value);
-            Assert.IsTrue(result);
-            Assert.AreEqual(null, value);
+            Assert.True(result);
+            Assert.Null(value);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TryGetValue_Array()
         {
             var obj = await Deserialize<GitLabObject>("{ \"Prop1\": [1, 2] }");
 
             var result = obj.TryGetValue("Prop1", out int[] value);
-            Assert.IsTrue(result);
-            Assert.IsInstanceOfType(value, typeof(int[]));
+            Assert.True(result);
+            Assert.IsType<int[]>(value);
 
             var array = value;
-            Assert.IsInstanceOfType(array[0], typeof(int));
-            Assert.IsInstanceOfType(array[1], typeof(int));
+            Assert.IsType<int>(array[0]);
+            Assert.IsType<int>(array[1]);
         }
     }
 }
