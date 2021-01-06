@@ -311,6 +311,22 @@ namespace Meziantou.GitLab
                     urlBuilder.AppendParameter(request.MinAccessLevel.GetValueOrDefault());
                 }
 
+                if (request.OrderBy.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("order_by=");
+                    urlBuilder.AppendParameter(request.OrderBy.GetValueOrDefault());
+                }
+
+                if (request.Sort.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("sort=");
+                    urlBuilder.AppendParameter(request.Sort.GetValueOrDefault());
+                }
+
                 url = urlBuilder.ToString();
             }
 
@@ -488,12 +504,12 @@ namespace Meziantou.GitLab
                     urlBuilder.AppendParameter(request.MinAccessLevel.GetValueOrDefault());
                 }
 
-                if ((!object.ReferenceEquals(request.OrderBy, null)))
+                if (request.OrderBy.HasValue)
                 {
                     urlBuilder.Append(separator);
                     separator = '&';
                     urlBuilder.Append("order_by=");
-                    urlBuilder.AppendParameter(request.OrderBy);
+                    urlBuilder.AppendParameter(request.OrderBy.GetValueOrDefault());
                 }
 
                 if (request.Sort.HasValue)
@@ -622,7 +638,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetAll(this Meziantou.GitLab.IGitLabProjectsClient client, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetAll(this Meziantou.GitLab.IGitLabProjectsClient client, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), bool? wikiChecksumFailed = default(bool?), bool? repositoryChecksumFailed = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), UsersOrderBy? orderBy = default(UsersOrderBy?), OrderByDirection? sort = default(OrderByDirection?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetAllProjectRequest request = new Meziantou.GitLab.GetAllProjectRequest();
             request.Archived = archived;
@@ -638,6 +654,8 @@ namespace Meziantou.GitLab
             request.WikiChecksumFailed = wikiChecksumFailed;
             request.RepositoryChecksumFailed = repositoryChecksumFailed;
             request.MinAccessLevel = minAccessLevel;
+            request.OrderBy = orderBy;
+            request.Sort = sort;
             return client.GetAll(request, requestOptions);
         }
 
@@ -662,7 +680,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserIdOrUserNameRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), string? orderBy = default(string?), OrderByDirection? sort = default(OrderByDirection?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Project> GetByUser(this Meziantou.GitLab.IGitLabProjectsClient client, UserIdOrUserNameRef userId, bool? archived = default(bool?), Visibility? visibility = default(Visibility?), string? search = default(string?), bool? simple = default(bool?), bool? owned = default(bool?), bool? membership = default(bool?), bool? starred = default(bool?), bool? statistics = default(bool?), bool? withIssuesEnabled = default(bool?), bool? withMergeRequestsEnabled = default(bool?), AccessLevel? minAccessLevel = default(AccessLevel?), UsersOrderBy? orderBy = default(UsersOrderBy?), OrderByDirection? sort = default(OrderByDirection?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetByUserProjectRequest request = new Meziantou.GitLab.GetByUserProjectRequest(userId);
             request.Archived = archived;
@@ -704,6 +722,8 @@ namespace Meziantou.GitLab
 
         private AccessLevel? _minAccessLevel;
 
+        private UsersOrderBy? _orderBy;
+
         private bool? _owned;
 
         private bool? _repositoryChecksumFailed;
@@ -711,6 +731,8 @@ namespace Meziantou.GitLab
         private string? _search;
 
         private bool? _simple;
+
+        private OrderByDirection? _sort;
 
         private bool? _starred;
 
@@ -777,6 +799,22 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
+        ///   <para>Return projects ordered by id, name, path, created_at, updated_at, or last_activity_at fields. repository_size, storage_size, packages_size or wiki_size fields are only allowed for admins. Default is created_at.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public UsersOrderBy? OrderBy
+        {
+            get
+            {
+                return this._orderBy;
+            }
+            set
+            {
+                this._orderBy = value;
+            }
+        }
+
+        /// <summary>
         ///   <para>Limit by projects explicitly owned by the current user.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
@@ -837,6 +875,22 @@ namespace Meziantou.GitLab
             set
             {
                 this._simple = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>Return projects sorted in asc or desc order. Default is desc.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public OrderByDirection? Sort
+        {
+            get
+            {
+                return this._sort;
+            }
+            set
+            {
+                this._sort = value;
             }
         }
 
@@ -945,7 +999,7 @@ namespace Meziantou.GitLab
 
         private AccessLevel? _minAccessLevel;
 
-        private string? _orderBy;
+        private UsersOrderBy? _orderBy;
 
         private bool? _owned;
 
@@ -1029,7 +1083,7 @@ namespace Meziantou.GitLab
         ///   <para>Return projects ordered by id, name, path, created_at, updated_at, or last_activity_at fields. Default is created_at.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public string? OrderBy
+        public UsersOrderBy? OrderBy
         {
             get
             {

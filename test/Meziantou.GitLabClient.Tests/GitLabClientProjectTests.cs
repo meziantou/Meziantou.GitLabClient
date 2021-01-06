@@ -40,7 +40,7 @@ namespace Meziantou.GitLab.Tests
             var project2 = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test2" });
             var project3 = await client.Projects.CreateAsync(new CreateProjectRequest { Name = "test3" });
 
-            var projects = await client.Projects.GetByUser(user, orderBy: "id", sort: OrderByDirection.Ascending)
+            var projects = await client.Projects.GetByUser(user, orderBy: UsersOrderBy.Id, sort: OrderByDirection.Ascending)
                 .ConfigurePageOptions(pageSize: 1, startPageIndex: 2)
                 .ToListAsync();
 

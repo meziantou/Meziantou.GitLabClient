@@ -4,6 +4,8 @@
     {
         protected override void Create(MethodGroup methodGroup)
         {
+            var userSort = Choice("UsersOrderBy", new[] { "id", "name", "path", "created_at", "updated_at", "last_activity_at", "repository_size", "storage_size", "packages_size", "wiki_size" });
+
             methodGroup.AddMethod("GetAll", MethodType.GetPaged, "/projects", "https://docs.gitlab.com/ee/api/projects.html#list-all-projects")
                 .WithReturnType(Models.Project)
                 .AddOptionalParameter("archived", ModelRef.Boolean)
@@ -19,6 +21,8 @@
                 .AddOptionalParameter("wiki_checksum_failed", ModelRef.Boolean)
                 .AddOptionalParameter("repository_checksum_failed", ModelRef.Boolean)
                 .AddOptionalParameter("min_access_level", Models.AccessLevel)
+                .AddOptionalParameter("order_by", userSort)
+                .AddOptionalParameter("sort", Models.OrderByDirection)
                 ;
 
             methodGroup.AddMethod("GetByUser", MethodType.GetPaged, "/users/:user_id/projects", "https://docs.gitlab.com/ee/api/projects.html#list-user-projects")
@@ -35,7 +39,7 @@
                 .AddOptionalParameter("with_issues_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("with_merge_requests_enabled", ModelRef.Boolean)
                 .AddOptionalParameter("min_access_level", Models.AccessLevel)
-                .AddOptionalParameter("order_by", ModelRef.String)
+                .AddOptionalParameter("order_by", userSort)
                 .AddOptionalParameter("sort", Models.OrderByDirection)
                 ;
 

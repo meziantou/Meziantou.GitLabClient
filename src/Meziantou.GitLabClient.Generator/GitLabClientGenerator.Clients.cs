@@ -440,7 +440,7 @@ namespace Meziantou.GitLabClient.Generator
                     if (span.EndsWith("[.format]", StringComparison.Ordinal))
                     {
                         list.Add(span.Slice(0, span.Length - "[.format]".Length).ToString());
-                        list.Add(span.Slice(span.Length - "[.format]".Length).ToString());
+                        list.Add(span[^"[.format]".Length..].ToString());
                     }
                     else
                     {

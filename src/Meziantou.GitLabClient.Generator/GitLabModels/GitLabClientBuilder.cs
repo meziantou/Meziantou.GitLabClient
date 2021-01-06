@@ -15,5 +15,10 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
         }
 
         protected abstract void Create(MethodGroup methodGroup);
+
+        protected static Enumeration Choice(string name, string[] values)
+        {
+            return new Enumeration(name).AddMembers(values);
+        }
     }
 }

@@ -2806,14 +2806,14 @@
     - [ ] `last_activity_before`: Limit results to projects with last_activity before specified time. Format: ISO 8601 YYYY-MM-DDTHH:MM:SSZ
     - [x] `membership`: Limit by projects that the current user is a member of.
     - [x] `min_access_level`: Limit by current user minimal access level.
-    - [ ] `order_by`: Return projects ordered by id, name, path, created_at, updated_at, or last_activity_at fields. repository_size, storage_size, packages_size or wiki_size fields are only allowed for admins. Default is created_at.
+    - [x] `order_by`: Return projects ordered by id, name, path, created_at, updated_at, or last_activity_at fields. repository_size, storage_size, packages_size or wiki_size fields are only allowed for admins. Default is created_at.
     - [x] `owned`: Limit by projects explicitly owned by the current user.
     - [x] `repository_checksum_failed`: Limit projects where the repository checksum calculation has failed (Introduced in GitLab Premium 11.2).
     - [ ] `repository_storage`: Limit results to projects stored on repository_storage. (admins only)
     - [ ] `search_namespaces`: Include ancestor namespaces when matching search criteria. Default is false.
     - [x] `search`: Return list of projects matching the search criteria.
     - [x] `simple`: Return only limited fields for each project. This is a no-op without authentication as then only simple fields are returned.
-    - [ ] `sort`: Return projects sorted in asc or desc order. Default is desc.
+    - [x] `sort`: Return projects sorted in asc or desc order. Default is desc.
     - [x] `starred`: Limit by projects starred by the current user.
     - [x] `statistics`: Include project statistics.
     - [x] `visibility`: Limit by visibility public, internal, or private.

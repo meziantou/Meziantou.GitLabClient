@@ -57,6 +57,24 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 instance.Create(project);
             }
 
+            // Add argument types
+            foreach (var group in project.MethodGroups)
+            {
+                foreach (var method in group.Methods)
+                {
+                    foreach (var parameter in method.Parameters)
+                    {
+                        if (parameter.Type.Model is Model model)
+                        {
+                            if (!project.Models.Contains(model))
+                            {
+                                project.Models.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+
             Validate(project);
             return project;
         }
