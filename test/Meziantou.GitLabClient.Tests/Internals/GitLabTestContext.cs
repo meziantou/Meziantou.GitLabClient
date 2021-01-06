@@ -20,6 +20,8 @@ namespace Meziantou.GitLab.Tests
     {
         public static GitLabDockerContainer DockerContainer { get; set; }
 
+        private static readonly HashSet<string> s_generatedValues = new HashSet<string>(StringComparer.Ordinal);
+
         private readonly LoggingHandler _loggingHandler;
         private readonly RetryHandler _retryHandler;
         private readonly HttpClient _clientHttpClient;
@@ -58,6 +60,14 @@ namespace Meziantou.GitLab.Tests
         public IGitLabClient AdminClient { get; }
         public TestContext TestContext { get; }
 
+        private static bool IsUnique(string str)
+        {
+            lock (s_generatedValues)
+            {
+                return s_generatedValues.Add(str);
+            }
+        }
+
         public async Task<IGitLabClient> CreateNewUserAsync()
         {
             var username = "user_" + DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture) + "_" + Guid.NewGuid().ToString("N");
@@ -92,8 +102,15 @@ namespace Meziantou.GitLab.Tests
         public string GetRandomString()
         {
             Span<byte> buffer = stackalloc byte[16];
-            RandomNumberGenerator.Fill(buffer);
-            return "GitLabClientTests_" + Convert.ToHexString(buffer);
+            for (var i = 0; i < 1000; i++)
+            {
+                RandomNumberGenerator.Fill(buffer);
+                var result = "GitLabClientTests_" + Convert.ToHexString(buffer);
+                if (IsUnique(result))
+                    return result;
+            }
+
+            throw new InvalidOperationException("Cannot generate a new random unique string");
         }
 
         private TestGitLabClient CreateClient(string token)
