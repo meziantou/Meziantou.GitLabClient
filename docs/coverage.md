@@ -3084,7 +3084,7 @@
 - [ ] [Compare branches, tags or commits](https://docs.gitlab.com/ee/api/repositories.html#compare-branches-tags-or-commits) `GET /projects/:id/repository/compare`
 - [ ] [Contributors](https://docs.gitlab.com/ee/api/repositories.html#contributors) `GET /projects/:id/repository/contributors`
 - [ ] [Get a blob from repository](https://docs.gitlab.com/ee/api/repositories.html#get-a-blob-from-repository) `GET /projects/:id/repository/blobs/:sha`
-- [ ] [Get file archive](https://docs.gitlab.com/ee/api/repositories.html#get-file-archive) `GET /projects/:id/repository/archive[.format]`
+- [x] [Get file archive](https://docs.gitlab.com/ee/api/repositories.html#get-file-archive) `GET /projects/:id/repository/archive[.format]`
 - [ ] [List repository tree](https://docs.gitlab.com/ee/api/repositories.html#list-repository-tree) `GET /projects/:id/repository/tree`
 - [ ] [Merge Base](https://docs.gitlab.com/ee/api/repositories.html#merge-base) `GET /projects/:id/repository/merge_base`
     - [ ] `id`: The ID or URL-encoded path of the project

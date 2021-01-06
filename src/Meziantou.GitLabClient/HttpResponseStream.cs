@@ -19,8 +19,20 @@ namespace Meziantou.GitLab
             _message = httpResponseMessage;
         }
 
-        public string? FileName => _message.Content.Headers.ContentDisposition?.FileName;
+        public string? FileName => RemoveQuote(_message.Content.Headers.ContentDisposition?.FileName);
         public MediaTypeHeaderValue? ContentType => _message.Content.Headers.ContentType;
+
+        [return: NotNullIfNotNull("fileName")]
+        private static string? RemoveQuote(string? fileName)
+        {
+            if (fileName == null || fileName.Length < 2)
+                return fileName;
+
+            if (fileName[0] == '"' && fileName[^1] == '"')
+                return fileName[1..^1];
+
+            return fileName;
+        }
 
         public override bool CanRead => _stream.CanRead;
 

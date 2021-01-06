@@ -170,6 +170,15 @@ namespace Meziantou.GitLabClient.Generator
                         AddParameter(param, separator: null, encoded: false);
                         parameters.Remove(param);
                     }
+                    else if (segment.StartsWith("[.", StringComparison.Ordinal))
+                    {
+                        var param = parameters.SingleOrDefault(p => p.Name == segment[2..^1]);
+                        if (param == null)
+                            throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
+
+                        AddParameter(param, separator: null, encoded: false, prefix: ".");
+                        parameters.Remove(param);
+                    }
                     else
                     {
                         usingStatements.Add(urlBuilder.CreateInvokeMethodExpression("Append", new LiteralExpression(segment)));
@@ -189,7 +198,7 @@ namespace Meziantou.GitLabClient.Generator
 
                 usingStatements.Add(new AssignStatement(urlVariable, urlBuilder.CreateInvokeMethodExpression("ToString")));
 
-                void AddParameter(MethodParameter param, VariableDeclarationStatement separator, bool encoded)
+                void AddParameter(MethodParameter param, VariableDeclarationStatement separator, bool encoded, string prefix = null)
                 {
                     var appendParameterMethodName = encoded ? "AppendParameter" : "AppendRawParameter";
 
@@ -203,6 +212,14 @@ namespace Meziantou.GitLabClient.Generator
                         }
                     }
 
+                    void AppendPrefix(StatementCollection statements)
+                    {
+                        if (!string.IsNullOrEmpty(prefix))
+                        {
+                            statements.Add(urlBuilder.CreateInvokeMethodExpression("Append", prefix));
+                        }
+                    }
+
                     if (param.Type.IsParameterEntity)
                     {
                         var propertyName = param.Type.ParameterEntity.FinalType == ModelRef.Object ? "ValueAsString" : "Value";
@@ -213,6 +230,7 @@ namespace Meziantou.GitLabClient.Generator
                         };
 
                         AddSeparator(hasValueCondition.TrueStatements);
+                        AppendPrefix(hasValueCondition.TrueStatements);
                         hasValueCondition.TrueStatements.Add(urlBuilder
                                 .CreateInvokeMethodExpression(
                                     appendParameterMethodName,
@@ -235,6 +253,7 @@ namespace Meziantou.GitLabClient.Generator
                         };
 
                         AddSeparator(hasValueCondition.TrueStatements);
+                        AppendPrefix(hasValueCondition.TrueStatements);
 
                         Expression value = isValueType ? CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault") : CreatePropertyReference();
                         var appendMethod = new MethodInvokeExpression(
@@ -412,16 +431,22 @@ namespace Meziantou.GitLabClient.Generator
             while (!span.IsEmpty)
             {
                 var index = span.IndexOf(nextSeparator);
-                if (index == 0)
-                {
-                }
                 if (index > 0)
                 {
                     list.Add(span[..index].ToString());
                 }
                 else
                 {
-                    list.Add(span.ToString());
+                    if (span.EndsWith("[.format]", StringComparison.Ordinal))
+                    {
+                        list.Add(span.Slice(0, span.Length - "[.format]".Length).ToString());
+                        list.Add(span.Slice(span.Length - "[.format]".Length).ToString());
+                    }
+                    else
+                    {
+                        list.Add(span.ToString());
+                    }
+
                     break;
                 }
 
