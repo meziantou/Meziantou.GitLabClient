@@ -34,13 +34,18 @@ namespace Meziantou.GitLab.Serialization
 
         public static object? ToObject(JsonElement element, Type type)
         {
+            return ToObject(element, type, Options);
+        }
+
+        public static object? ToObject(JsonElement element, Type type, JsonSerializerOptions? options)
+        {
             var bufferWriter = new ArrayBufferWriter<byte>();
             using (var writer = new Utf8JsonWriter(bufferWriter))
             {
                 element.WriteTo(writer);
             }
 
-            return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, Options);
+            return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, options);
         }
 
         public static T? ToObject<T>(JsonDocument document)

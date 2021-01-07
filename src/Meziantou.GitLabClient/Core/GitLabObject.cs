@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Meziantou.GitLab.Serialization;
@@ -7,7 +6,7 @@ using Meziantou.GitLab.Serialization;
 namespace Meziantou.GitLab.Core
 {
     [JsonConverter(typeof(GitLabObjectJsonConverter))]
-    public class GitLabObject
+    public partial class GitLabObject
     {
         internal readonly JsonElement _jsonObject;
 

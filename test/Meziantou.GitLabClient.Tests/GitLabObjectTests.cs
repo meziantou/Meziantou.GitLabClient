@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Meziantou.GitLab.Core;
@@ -17,6 +18,145 @@ namespace Meziantou.GitLab.Tests
             ms.Write(Encoding.UTF8.GetBytes(json));
             ms.Seek(0, SeekOrigin.Begin);
             return await JsonSerialization.DeserializeAsync<T>(ms, CancellationToken.None);
+        }
+
+        [Fact]
+        public async Task Dynamic_Null()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": null }");
+            object result = obj.Prop1;
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Dynamic_Boolean_True()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": true }");
+            bool result = obj.Prop1;
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task Dynamic_Boolean_False()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": false }");
+            bool result = obj.Prop1;
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task Dynamic_NullableBoolean_Null()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": null }");
+            bool? result = obj.Prop1;
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Dynamic_NullableBoolean_True()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": true }");
+            bool? result = obj.Prop1;
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task Dynamic_String()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": \"test\" }");
+            string result = obj.Prop1;
+            Assert.Equal("test", result);
+        }
+
+        [Fact]
+        public async Task Dynamic_Int16()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": 42 }");
+            short result = obj.Prop1;
+            Assert.Equal((short)42, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_Int32()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": 42 }");
+            int result = obj.Prop1;
+            Assert.Equal(42, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_Int64()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": 42 }");
+            long result = obj.Prop1;
+            Assert.Equal(42, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_NullableInt64()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": 42 }");
+            long? result = obj.Prop1;
+            Assert.Equal(42, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_NullableInt64_Null()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": null }");
+            long? result = obj.Prop1;
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Dynamic_ComplexProperty()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": { \"Prop2\": [ { \"Prop3\": 42 } ] } }");
+            int result = obj.Prop1.Prop2[0].Prop3;
+            Assert.Equal(42, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_ArrayLength()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": { \"Prop2\": [ { \"Prop3\": 42 }, { \"Prop3\": 42 } ] } }");
+            int result = obj.Prop1.Prop2.Length;
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_ArrayCount()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": { \"Prop2\": [ { \"Prop3\": 42 }, { \"Prop3\": 42 } ] } }");
+            int result = obj.Prop1.Prop2.Count();
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public async Task Dynamic_JsonElement()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": { \"Prop2\": [ { \"Prop3\": 42 }, { \"Prop3\": 42 } ] } }");
+            JsonElement result = obj.Prop1.Prop2;
+            Assert.Equal(JsonValueKind.Array, result.ValueKind);
+        }
+
+        [Fact]
+        public async Task Dynamic_GitLabObject_User()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": { \"id\": 21 } }");
+            User result = obj.Prop1;
+            Assert.Equal(21, result.Id);
+        }
+
+        [Fact]
+        public async Task Dynamic_IEnumerableGitLabObject_User()
+        {
+            dynamic obj = await Deserialize<GitLabObject>("{ \"Prop1\": [ { \"id\": 21 }, { \"id\": 22 }, null ] }");
+            IEnumerable<User> result = obj.Prop1;
+            Assert.Collection(result,
+                item => Assert.Equal(21, item.Id),
+                item => Assert.Equal(22, item.Id),
+                item => Assert.Null(item));
         }
 
         [Fact]
