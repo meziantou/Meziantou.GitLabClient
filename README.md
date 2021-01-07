@@ -14,18 +14,18 @@ Install the NuGet package [`Meziantou.GitLabCLient`](https://www.nuget.org/packa
 Lots of methods are included in the client and accessible through `GitLabClient`:
 
 ````csharp
-using(var client = new GitLabClient("https://gitlab.com", personalAccessToken))
+using(var client = GitLabClient.Create("https://gitlab.com", personalAccessToken))
 {
-    var projects = await client.GetProjectsAsync();
+    var projects = await client.Projects.GetAllAsync().ToListAsync();
 }
 ````
 
-Even if the method is not directly exposed, you can use it:
+Even if a property is not directly exposed, you can access it using the `dynamic` type:
 
 ````csharp
-using(var client = new GitLabClient("https://gitlab.com", personalAccessToken))
+using(var client = GitLabClient.Create("https://gitlab.com", personalAccessToken))
 {
-    var result = await client.Get<GitLabObject>("repository/new-method");
-    var id = result.GetValueOrdefault("id", 0);
+    dynamic result = await client.Get<GitLabObject>("repository/new-method");
+    string value = result.json_property_name;
 }
 ````
