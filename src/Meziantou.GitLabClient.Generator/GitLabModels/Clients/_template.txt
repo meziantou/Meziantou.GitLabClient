@@ -2744,12 +2744,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("job_id", Models.)
             ;
 
-            methodGroup.AddMethod("Get a single job", MethodType.Get, "/projects/:id/jobs/:job_id", "https://docs.gitlab.com/ee/api/jobs.html#get-a-single-job")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("job_id", Models.)
-            ;
-
             methodGroup.AddMethod("List pipeline bridges", MethodType.Get, "/projects/:id/pipelines/:pipeline_id/bridges", "https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-bridges")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
@@ -2761,12 +2755,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("pipeline_id", Models.)
-                .AddOptionalParameter("scope", Models.)
-            ;
-
-            methodGroup.AddMethod("List project jobs", MethodType.Get, "/projects/:id/jobs", "https://docs.gitlab.com/ee/api/jobs.html#list-project-jobs")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
                 .AddOptionalParameter("scope", Models.)
             ;
 
@@ -5313,19 +5301,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("status", Models.)
                 .AddOptionalParameter("order_by", Models.)
                 .AddOptionalParameter("sort", Models.)
-            ;
-
-            methodGroup.AddMethod("Register a new runner", MethodType.Post, "/runners", "https://docs.gitlab.com/ee/api/runners.html#register-a-new-runner")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("token", Models.)
-                .AddOptionalParameter("description", Models.)
-                .AddOptionalParameter("info", Models.)
-                .AddOptionalParameter("active", Models.)
-                .AddOptionalParameter("locked", Models.)
-                .AddOptionalParameter("run_untagged", Models.)
-                .AddOptionalParameter("tag_list", Models.)
-                .AddOptionalParameter("access_level", Models.)
-                .AddOptionalParameter("maximum_timeout", Models.)
             ;
 
             methodGroup.AddMethod("Update runner’s details", MethodType.Put, "/runners/:id", "https://docs.gitlab.com/ee/api/runners.html#update-runners-details")

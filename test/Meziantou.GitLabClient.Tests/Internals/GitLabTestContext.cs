@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -22,6 +25,7 @@ namespace Meziantou.GitLab.Tests
     {
         private static readonly HashSet<string> s_generatedValues = new(StringComparer.Ordinal);
         private static readonly AsyncReaderWriterLock s_gitLabLock = new();
+        private static readonly AsyncLock s_downloadRunnerLock = new();
 
         private readonly LoggingHandler _loggingHandler;
         private readonly ConcurrencyLimiterAndRetryHandler _retryHandler;
@@ -135,6 +139,66 @@ namespace Meziantou.GitLab.Tests
             return client;
         }
 
+        public async Task<IDisposable> StartRunnerAsync(ProjectIdOrPathRef projectIdRef)
+        {
+            // Download runner (windows / linux, GitLab version)
+            var path = FullPath.GetTempPath() / "Meziantou.GitLabClient" / "Runners" / "gitlab-runner.exe";
+            if (!File.Exists(path))
+            {
+                using (await s_downloadRunnerLock.LockAsync())
+                {
+                    if (!File.Exists(path))
+                    {
+                        string url;
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            url = $"https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-windows-amd64.exe";
+                        }
+                        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                        {
+                            url = $"https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64";
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException($"OS '{RuntimeInformation.OSDescription}' is not supported");
+                        }
+
+                        await using var stream = await HttpClient.GetStreamAsync(url);
+                        IOUtilities.PathCreateDirectory(path);
+                        await using var fs = File.OpenWrite(path);
+                        await stream.CopyToAsync(fs);
+                    }
+                }
+            }
+
+            var project = await AdminClient.Projects.GetByIdAsync(projectIdRef);
+            if (project.RunnersToken == null)
+                throw new InvalidOperationException("Runner token is null");
+
+            var runner = await AdminClient.Runners.RegisterAsync(project.RunnersToken, description: "test");
+
+            // Use run-single, so we don't need to manage the configuration file.
+            // Also, I don't think there is a need to run multiple jobs in a test
+            var psi = new ProcessStartInfo
+            {
+                FileName = path,
+                ArgumentList =
+                {
+                    "run-single",
+                    "--url", DockerContainer.GitLabUrl.ToString(),
+                    "--executor", "shell",
+                    "--builds-dir", FullPath.GetTempPath() / "Meziantou.GitLabClient" / "Runners" / "build",
+                    "--wait-timeout", "240", // in seconds
+                    "--token", runner.Token,
+                },
+                CreateNoWindow = false,
+                ErrorDialog = false,
+                UseShellExecute = false,
+            };
+            var process = Process.Start(psi);
+            return new ProcessKill(process);
+        }
+
         public void Dispose()
         {
             _lockReleaser.Dispose();
@@ -158,6 +222,21 @@ namespace Meziantou.GitLab.Tests
             if (errorMessages.Count > 0)
             {
                 Assert.True(false, string.Join("\n", errorMessages));
+            }
+        }
+
+        private sealed class ProcessKill : IDisposable
+        {
+            private readonly Process _process;
+
+            public ProcessKill(Process process)
+            {
+                _process = process;
+            }
+
+            public void Dispose()
+            {
+                _process.Kill(entireProcessTree: true);
             }
         }
 

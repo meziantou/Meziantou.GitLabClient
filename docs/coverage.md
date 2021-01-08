@@ -1601,9 +1601,9 @@
 - [ ] [Get a log file](https://docs.gitlab.com/ee/api/jobs.html#get-a-log-file) `GET /projects/:id/jobs/:job_id/trace`
     - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `job_id`: ID of a job.
-- [ ] [Get a single job](https://docs.gitlab.com/ee/api/jobs.html#get-a-single-job) `GET /projects/:id/jobs/:job_id`
-    - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
-    - [ ] `job_id`: ID of a job.
+- [x] [Get a single job](https://docs.gitlab.com/ee/api/jobs.html#get-a-single-job) `GET /projects/:id/jobs/:job_id`
+    - [x] `id`: ID or URL-encoded path of the project owned by the authenticated user.
+    - [x] `job_id`: ID of a job.
 - [ ] [List pipeline bridges](https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-bridges) `GET /projects/:id/pipelines/:pipeline_id/bridges`
     - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `pipeline_id`: ID of a pipeline.
@@ -1612,8 +1612,8 @@
     - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `pipeline_id`: ID of a pipeline.
     - [ ] `scope`: Scope of jobs to show. Either one of or an array of the following: created, pending, running, failed, success, canceled, skipped, or manual. All jobs are returned if scope is not provided.
-- [ ] [List project jobs](https://docs.gitlab.com/ee/api/jobs.html#list-project-jobs) `GET /projects/:id/jobs`
-    - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
+- [x] [List project jobs](https://docs.gitlab.com/ee/api/jobs.html#list-project-jobs) `GET /projects/:id/jobs`
+    - [x] `id`: ID or URL-encoded path of the project owned by the authenticated user.
     - [ ] `scope`: Scope of jobs to show. Either one of or an array of the following: created, pending, running, failed, success, canceled, skipped, or manual. All jobs are returned if scope is not provided.
 - [ ] [Play a job](https://docs.gitlab.com/ee/api/jobs.html#play-a-job) `POST /projects/:id/jobs/:job_id/play`
     - [ ] `id`: ID or URL-encoded path of the project owned by the authenticated user.
@@ -3219,16 +3219,16 @@
     - [ ] `status`: Status of the job; one of: running, success, failed, canceled
     - [ ] `order_by`: Order jobs by id.
     - [ ] `sort`: Sort jobs in asc or desc order (default: desc)
-- [ ] [Register a new runner](https://docs.gitlab.com/ee/api/runners.html#register-a-new-runner) `POST /runners`
-    - [ ] `token`: Registration token.
-    - [ ] `description`: Runner’s description
+- [x] [Register a new runner](https://docs.gitlab.com/ee/api/runners.html#register-a-new-runner) `POST /runners`
+    - [x] `token`: Registration token.
+    - [x] `description`: Runner’s description
     - [ ] `info`: Runner’s metadata. You can include name, version, revision, platform, and architecture, but only version is displayed in the Admin area of the UI.
-    - [ ] `active`: Whether the runner is active
-    - [ ] `locked`: Whether the runner should be locked for current project
-    - [ ] `run_untagged`: Whether the runner should handle untagged jobs
-    - [ ] `tag_list`: List of runner’s tags
-    - [ ] `access_level`: The access_level of the runner; not_protected or ref_protected
-    - [ ] `maximum_timeout`: Maximum timeout set when this runner handles the job
+    - [x] `active`: Whether the runner is active
+    - [x] `locked`: Whether the runner should be locked for current project
+    - [x] `run_untagged`: Whether the runner should handle untagged jobs
+    - [x] `tag_list`: List of runner’s tags
+    - [x] `access_level`: The access_level of the runner; not_protected or ref_protected
+    - [x] `maximum_timeout`: Maximum timeout set when this runner handles the job
 - [ ] [Update runner’s details](https://docs.gitlab.com/ee/api/runners.html#update-runners-details) `PUT /runners/:id`
     - [ ] `id`: The ID of a runner
     - [ ] `description`: The description of a runner
