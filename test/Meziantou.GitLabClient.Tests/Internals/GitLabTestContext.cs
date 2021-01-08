@@ -171,6 +171,12 @@ namespace Meziantou.GitLab.Tests
                 }
             }
 
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                using var p = Process.Start("chmod", new[] { "+x", path });
+                p.WaitForExit();
+            }
+
             var project = await AdminClient.Projects.GetByIdAsync(projectIdRef);
             if (project.RunnersToken == null)
                 throw new InvalidOperationException("Runner token is null");
@@ -191,7 +197,7 @@ namespace Meziantou.GitLab.Tests
                     "--wait-timeout", "240", // in seconds
                     "--token", runner.Token,
                 },
-                CreateNoWindow = false,
+                CreateNoWindow = true,
                 ErrorDialog = false,
                 UseShellExecute = false,
             };
