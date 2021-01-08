@@ -55,9 +55,9 @@
     - [ ] `id`: The ID of the audit event
 
 # [Avatar](https://docs.gitlab.com/ee/api/avatar.html)
-- [ ] [Get a single avatar URL](https://docs.gitlab.com/ee/api/avatar.html#get-a-single-avatar-url) `GET /avatar`
-    - [ ] `email`: Public email address of the user.
-    - [ ] `size`: Single pixel dimension (since images are squares). Only used for avatar lookups at Gravatar or at the configured Libravatar server.
+- [x] [Get a single avatar URL](https://docs.gitlab.com/ee/api/avatar.html#get-a-single-avatar-url) `GET /avatar`
+    - [x] `email`: Public email address of the user.
+    - [x] `size`: Single pixel dimension (since images are squares). Only used for avatar lookups at Gravatar or at the configured Libravatar server.
 
 # [Award Emoji](https://docs.gitlab.com/ee/api/award_emoji.html)
 - [ ] [Award a new emoji](https://docs.gitlab.com/ee/api/award_emoji.html#award-a-new-emoji) `POST /projects/:id/issues/:issue_iid/award_emoji`

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Meziantou.GitLabClient.Generator.Internals;
@@ -30,6 +31,45 @@ namespace Meziantou.GitLabClient.Generator
             return sb.ToString();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "MA0028:Optimize StringBuilder usage", Justification = "No need for performance")]
+        public static string GetNotImplementedTemplate(Project project, IReadOnlyCollection<GitLabDocumentationResource> resources)
+        {
+            var sb = new StringBuilder();
+            foreach (var resource in resources.OrderBy(r => r.Name))
+            {
+                var unimplementedMethods = resource.Methods.Where(m => GetMethod(m, project) == null).OrderBy(m => m.Name).ToList();
+                if (unimplementedMethods.Count == 0)
+                    continue;
+
+                sb.AppendLine("namespace Meziantou.GitLabClient.Generator.GitLabModels");
+                sb.AppendLine("{");
+                sb.AppendLine("    internal sealed class " + resource.Name + "Client : GitLabClientBuilder");
+                sb.AppendLine("    {");
+                sb.AppendLine("        protected override void Create(MethodGroup methodGroup)");
+                sb.AppendLine("        {");
+
+                foreach (var method in unimplementedMethods)
+                {
+                    sb.AppendLine("            methodGroup.AddMethod(\"" + method.Name + "\", MethodType." + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(method.HttpMethod.ToLowerInvariant()) + ", \"" + method.UrlTemplate + "\", \"" + method.DocumentationUrl + "\")");
+                    sb.AppendLine("                .WithReturnType(Models.)");
+
+                    foreach (var parameter in method.Parameters)
+                    {
+                        var addParameterName = parameter.Required == "yes" ? "AddRequiredParameter" : "AddOptionalParameter";
+                        sb.AppendLine("                ." + addParameterName + "(\"" + parameter.Name + "\", Models.)");
+                    }
+
+                    sb.AppendLine("            ;");
+                    sb.AppendLine();
+                }
+
+                sb.AppendLine("        }");
+                sb.AppendLine("    }");
+                sb.AppendLine("}");
+            }
+
+            return sb.ToString();
+        }
         private static Method GetMethod(GitLabDocumentationMethod method, Project project)
         {
             foreach (var modelMethodGroup in project.MethodGroups)

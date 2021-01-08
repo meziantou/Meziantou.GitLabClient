@@ -15,6 +15,7 @@ namespace Meziantou.GitLabClient.Generator
             var noCache = args.ContainsIgnoreCase("/nocache");
             var directory = FullPath.FromPath("../../../../Meziantou.GitLabClient");
             var coverageOutputFile = FullPath.FromPath("../../../../../docs/coverage.md");
+            var clientTemplateOutputFile = FullPath.FromPath("../../../GitLabModels/Clients/_template.txt");
             Console.WriteLine("Generating files to " + directory);
             Console.WriteLine("Generating overage file to " + coverageOutputFile);
 
@@ -34,6 +35,9 @@ namespace Meziantou.GitLabClient.Generator
                 var markdown = ApiCoverage.GetMarkdown(model, documentation);
                 IOUtilities.PathCreateDirectory(coverageOutputFile);
                 await File.WriteAllTextAsync(coverageOutputFile, markdown);
+
+                var template = ApiCoverage.GetNotImplementedTemplate(model, documentation);
+                await File.WriteAllTextAsync(clientTemplateOutputFile, template);
             }
         }
     }
