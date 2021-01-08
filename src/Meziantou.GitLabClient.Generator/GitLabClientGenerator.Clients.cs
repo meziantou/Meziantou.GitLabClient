@@ -545,6 +545,7 @@ namespace Meziantou.GitLabClient.Generator
             // properties
             foreach (var param in method.Parameters)
             {
+                // Make all parameters nullable, even required ones, so, we can generate parameterless constructor
                 var paramType = GetArgumentTypeRef(param).MakeNullable();
 
                 // field
