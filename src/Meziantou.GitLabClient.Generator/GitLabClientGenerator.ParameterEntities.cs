@@ -57,7 +57,7 @@ namespace Meziantou.GitLabClient.Generator
                     Modifiers = Modifiers.Private,
                     Arguments =
                     {
-                        new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef), entityRef.Name),
+                        new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef), ToArgumentName(entityRef.Name)),
                     },
                     Statements =
                     {
@@ -78,9 +78,9 @@ namespace Meziantou.GitLabClient.Generator
                     ReturnType = type,
                     Arguments =
                     {
-                         new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef), entityRef.Name),
+                         new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef), ToArgumentName(entityRef.Name)),
                     },
-                    Statements = new ReturnStatement(new NewObjectExpression(type, new ArgumentReferenceExpression(entityRef.Name))),
+                    Statements = new ReturnStatement(new NewObjectExpression(type, new ArgumentReferenceExpression(ToArgumentName(entityRef.Name)))),
                 });
 
                 if (addNullCheck)
@@ -95,11 +95,11 @@ namespace Meziantou.GitLabClient.Generator
                     ReturnType = type,
                     Arguments =
                     {
-                         new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef), entityRef.Name),
+                         new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef), ToArgumentName(entityRef.Name)),
                     },
                     Statements =
                     {
-                        new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(type, fromMethod.Name), new ArgumentReferenceExpression(entityRef.Name))),
+                        new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(type, fromMethod.Name), new ArgumentReferenceExpression(ToArgumentName(entityRef.Name)))),
                     },
                 });
 
@@ -110,7 +110,7 @@ namespace Meziantou.GitLabClient.Generator
                     ReturnType = new TypeReference(type).MakeNullable(),
                     Arguments =
                     {
-                        new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef).MakeNullable(), entityRef.Name),
+                        new MethodArgumentDeclaration(GetPropertyTypeRef(entityRef.ModelRef).MakeNullable(), ToArgumentName(entityRef.Name)),
                     },
                 });
 
@@ -119,11 +119,11 @@ namespace Meziantou.GitLabClient.Generator
                     nullableImplicitConverter.Statements.Add(
                         new ConditionStatement
                         {
-                            Condition = new MemberReferenceExpression(new ArgumentReferenceExpression(entityRef.Name), "HasValue"),
+                            Condition = new MemberReferenceExpression(new ArgumentReferenceExpression(ToArgumentName(entityRef.Name)), "HasValue"),
                             TrueStatements = new ReturnStatement(
                                 new MethodInvokeExpression(
                                     new MemberReferenceExpression(type, fromMethod.Name),
-                                    new MemberReferenceExpression(new ArgumentReferenceExpression(entityRef.Name), "Value"))),
+                                    new MemberReferenceExpression(new ArgumentReferenceExpression(ToArgumentName(entityRef.Name)), "Value"))),
                             FalseStatements = new ReturnStatement(LiteralExpression.Null()),
                         });
                 }
@@ -134,16 +134,16 @@ namespace Meziantou.GitLabClient.Generator
                         {
                             Condition = new MethodInvokeExpression(
                                 new MemberReferenceExpression(typeof(object), nameof(object.ReferenceEquals)),
-                                new ArgumentReferenceExpression(entityRef.Name),
+                                new ArgumentReferenceExpression(ToArgumentName(entityRef.Name)),
                                 LiteralExpression.Null()),
                             TrueStatements = new ReturnStatement(LiteralExpression.Null()),
-                            FalseStatements = new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(type, fromMethod.Name), new ArgumentReferenceExpression(entityRef.Name))),
+                            FalseStatements = new ReturnStatement(new MethodInvokeExpression(new MemberReferenceExpression(type, fromMethod.Name), new ArgumentReferenceExpression(ToArgumentName(entityRef.Name)))),
                         });
                 }
 
                 Expression GetAssignExpression()
                 {
-                    Expression value = new ArgumentReferenceExpression(entityRef.Name);
+                    Expression value = new ArgumentReferenceExpression(ToArgumentName(entityRef.Name));
                     foreach (var member in entityRef.PropertyPath)
                     {
                         value = value.CreateMemberReferenceExpression(ToPropertyName(member));

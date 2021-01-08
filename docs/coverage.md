@@ -3683,17 +3683,17 @@
     - [ ] `id`: The ID of a suggestion
 
 # [System hooks](https://docs.gitlab.com/ee/api/system_hooks.html)
-- [ ] [Add new system hook](https://docs.gitlab.com/ee/api/system_hooks.html#add-new-system-hook) `POST /hooks`
-    - [ ] `url`: The hook URL
-    - [ ] `token`: Secret token to validate received payloads; this isn’t returned in the response
-    - [ ] `push_events`: When true, the hook fires on push events
-    - [ ] `tag_push_events`: When true, the hook fires on new tags being pushed
-    - [ ] `merge_requests_events`: Trigger hook on merge requests events
-    - [ ] `repository_update_events`: Trigger hook on repository update events
-    - [ ] `enable_ssl_verification`: Do SSL verification when triggering the hook
-- [ ] [Delete system hook](https://docs.gitlab.com/ee/api/system_hooks.html#delete-system-hook) `DELETE /hooks/:id`
-    - [ ] `id`: The ID of the hook
-- [ ] [List system hooks](https://docs.gitlab.com/ee/api/system_hooks.html#list-system-hooks) `GET /hooks`
+- [x] [Add new system hook](https://docs.gitlab.com/ee/api/system_hooks.html#add-new-system-hook) `POST /hooks`
+    - [x] `url`: The hook URL
+    - [x] `token`: Secret token to validate received payloads; this isn’t returned in the response
+    - [x] `push_events`: When true, the hook fires on push events
+    - [x] `tag_push_events`: When true, the hook fires on new tags being pushed
+    - [x] `merge_requests_events`: Trigger hook on merge requests events
+    - [x] `repository_update_events`: Trigger hook on repository update events
+    - [x] `enable_ssl_verification`: Do SSL verification when triggering the hook
+- [x] [Delete system hook](https://docs.gitlab.com/ee/api/system_hooks.html#delete-system-hook) `DELETE /hooks/:id`
+    - [x] `id`: The ID of the hook
+- [x] [List system hooks](https://docs.gitlab.com/ee/api/system_hooks.html#list-system-hooks) `GET /hooks`
 - [ ] [Test system hook](https://docs.gitlab.com/ee/api/system_hooks.html#test-system-hook) `GET /hooks/:id`
     - [ ] `id`: The ID of the hook
 

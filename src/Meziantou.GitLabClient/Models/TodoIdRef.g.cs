@@ -9,16 +9,16 @@
 namespace Meziantou.GitLab
 {
     [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectReferenceJsonConverterFactory))]
-    public readonly partial struct TodoRef : Meziantou.GitLab.Internals.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.TodoRef>
+    public readonly partial struct TodoIdRef : Meziantou.GitLab.Internals.IGitLabObjectReference<long>, System.IEquatable<Meziantou.GitLab.TodoIdRef>
     {
         private readonly long _value;
 
-        private TodoRef(long todoId)
+        private TodoIdRef(long todoId)
         {
             this._value = todoId;
         }
 
-        private TodoRef(Todo todo)
+        private TodoIdRef(Todo todo)
         {
             if ((todo == null))
             {
@@ -38,9 +38,9 @@ namespace Meziantou.GitLab
 
         public override bool Equals(object? obj)
         {
-            if ((obj is Meziantou.GitLab.TodoRef))
+            if ((obj is Meziantou.GitLab.TodoIdRef))
             {
-                return this.Equals(((Meziantou.GitLab.TodoRef)obj));
+                return this.Equals(((Meziantou.GitLab.TodoIdRef)obj));
             }
             else
             {
@@ -48,24 +48,24 @@ namespace Meziantou.GitLab
             }
         }
 
-        public bool Equals(Meziantou.GitLab.TodoRef other)
+        public bool Equals(Meziantou.GitLab.TodoIdRef other)
         {
             return object.Equals(this.Value, other.Value);
         }
 
-        public static Meziantou.GitLab.TodoRef FromTodo(Todo todo)
+        public static Meziantou.GitLab.TodoIdRef FromTodo(Todo todo)
         {
             if ((todo == null))
             {
                 throw new System.ArgumentNullException(nameof(todo));
             }
 
-            return new Meziantou.GitLab.TodoRef(todo);
+            return new Meziantou.GitLab.TodoIdRef(todo);
         }
 
-        public static Meziantou.GitLab.TodoRef FromTodoId(long todoId)
+        public static Meziantou.GitLab.TodoIdRef FromTodoId(long todoId)
         {
-            return new Meziantou.GitLab.TodoRef(todoId);
+            return new Meziantou.GitLab.TodoIdRef(todoId);
         }
 
         public override int GetHashCode()
@@ -78,16 +78,16 @@ namespace Meziantou.GitLab
             return this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
-        public static implicit operator Meziantou.GitLab.TodoRef(long todoId)
+        public static implicit operator Meziantou.GitLab.TodoIdRef(long todoId)
         {
-            return Meziantou.GitLab.TodoRef.FromTodoId(todoId);
+            return Meziantou.GitLab.TodoIdRef.FromTodoId(todoId);
         }
 
-        public static implicit operator Meziantou.GitLab.TodoRef?(long? todoId)
+        public static implicit operator Meziantou.GitLab.TodoIdRef?(long? todoId)
         {
             if (todoId.HasValue)
             {
-                return Meziantou.GitLab.TodoRef.FromTodoId(todoId.Value);
+                return Meziantou.GitLab.TodoIdRef.FromTodoId(todoId.Value);
             }
             else
             {
@@ -95,12 +95,12 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static implicit operator Meziantou.GitLab.TodoRef(Todo todo)
+        public static implicit operator Meziantou.GitLab.TodoIdRef(Todo todo)
         {
-            return Meziantou.GitLab.TodoRef.FromTodo(todo);
+            return Meziantou.GitLab.TodoIdRef.FromTodo(todo);
         }
 
-        public static implicit operator Meziantou.GitLab.TodoRef?(Todo? todo)
+        public static implicit operator Meziantou.GitLab.TodoIdRef?(Todo? todo)
         {
             if (object.ReferenceEquals(todo, null))
             {
@@ -108,18 +108,18 @@ namespace Meziantou.GitLab
             }
             else
             {
-                return Meziantou.GitLab.TodoRef.FromTodo(todo);
+                return Meziantou.GitLab.TodoIdRef.FromTodo(todo);
             }
         }
 
-        public static bool operator !=(Meziantou.GitLab.TodoRef a, Meziantou.GitLab.TodoRef b)
+        public static bool operator !=(Meziantou.GitLab.TodoIdRef a, Meziantou.GitLab.TodoIdRef b)
         {
             return (!(a == b));
         }
 
-        public static bool operator ==(Meziantou.GitLab.TodoRef a, Meziantou.GitLab.TodoRef b)
+        public static bool operator ==(Meziantou.GitLab.TodoIdRef a, Meziantou.GitLab.TodoIdRef b)
         {
-            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.TodoRef>.Default.Equals(a, b);
+            return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.TodoIdRef>.Default.Equals(a, b);
         }
     }
 }

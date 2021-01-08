@@ -301,7 +301,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(this Meziantou.GitLab.IGitLabToDosClient client, TodoRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Todo> MarkTodoAsDoneAsync(this Meziantou.GitLab.IGitLabToDosClient client, TodoIdRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.MarkTodoAsDoneToDoRequest request = new Meziantou.GitLab.MarkTodoAsDoneToDoRequest(id);
             return client.MarkTodoAsDoneAsync(request, requestOptions, cancellationToken);
@@ -407,10 +407,10 @@ namespace Meziantou.GitLab
 
     public partial class MarkTodoAsDoneToDoRequest
     {
-        private TodoRef? _id;
+        private TodoIdRef? _id;
 
         /// <param name="id">The ID of to-do item</param>
-        public MarkTodoAsDoneToDoRequest(TodoRef? id)
+        public MarkTodoAsDoneToDoRequest(TodoIdRef? id)
         {
             this._id = id;
         }
@@ -423,7 +423,7 @@ namespace Meziantou.GitLab
         ///   <para>The ID of to-do item</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public TodoRef? Id
+        public TodoIdRef? Id
         {
             get
             {

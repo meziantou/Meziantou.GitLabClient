@@ -168,7 +168,7 @@ namespace Meziantou.GitLabClient.Generator
             return "_" + char.ToLowerInvariant(pascalCase[0]) + pascalCase[1..];
         }
 
-        private static string ToPropertyName(string value)
+        internal static string ToPropertyName(string value)
         {
             return value.Split(new[] { "_", "." }, StringSplitOptions.RemoveEmptyEntries)
              .Select(s => char.ToUpperInvariant(s[0]) + s[1..])

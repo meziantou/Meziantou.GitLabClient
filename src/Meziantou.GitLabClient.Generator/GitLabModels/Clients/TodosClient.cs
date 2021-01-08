@@ -15,7 +15,7 @@
 
             methodGroup.AddMethod("MarkTodoAsDone", MethodType.Post, "/todos/:id/mark_as_done", "https://docs.gitlab.com/ee/api/todos.html#mark-a-to-do-item-as-done")
                 .WithReturnType(Models.Todo)
-                .AddRequiredParameter("id", Models.TodoRef)
+                .AddRequiredParameter("id", Models.TodoIdRef)
                 ;
 
             methodGroup.AddMethod("MarkAllTodosAsDone", MethodType.Post, "/todos/mark_as_done", "https://docs.gitlab.com/ee/api/todos.html#mark-all-to-dos-as-done")

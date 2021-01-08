@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Meziantou.GitLabClient.Generator
@@ -41,6 +43,30 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Refs.Add(entityRef);
             }
+        }
+
+        public void SetModel(ModelRef modelRef)
+        {
+            if (modelRef.Model is not Entity entity)
+                throw new InvalidOperationException("ModelRef must be an entity");
+
+            var keyProperty = entity.AllProperties.Single(p => p.IsKey);
+
+            FinalType = keyProperty.Type;
+            Refs.Add(ParameterEntityRef.Create(entity.Name + GitLabClientGenerator.ToPropertyName(keyProperty.Name), keyProperty.Type));
+            Refs.Add(ParameterEntityRef.Create(entity.Name, modelRef, keyProperty.Name));
+        }
+
+        public static ParameterEntity CreateFromModel(ModelRef modelRef)
+        {
+            if (modelRef.Model is not Entity entity)
+                throw new InvalidOperationException("ModelRef must be an entity");
+
+            var keyProperty = entity.AllProperties.Single(p => p.IsKey);
+
+            var result = new ParameterEntity(entity.Name + keyProperty.Name + "Ref");
+            result.SetModel(modelRef);
+            return result;
         }
     }
 }

@@ -11,7 +11,7 @@
 
             methodGroup.AddMethod("GetById", MethodType.Get, "/users/:user_id", "https://docs.gitlab.com/ee/api/users.html#for-user")
                 .WithReturnType(Models.User)
-                .AddRequiredParameter("user_id", ModelRef.NumberId)
+                .AddRequiredParameter("user_id", Models.UserIdRef)
                 ;
 
             methodGroup.AddMethod("GetAll", MethodType.GetPaged, "/users", "https://docs.gitlab.com/ee/api/users.html#for-normal-users")
@@ -49,7 +49,7 @@
 
             methodGroup.AddMethod("GetCurrentUserSSHKey", MethodType.Get, "/user/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#single-ssh-key")
                 .WithReturnType(Models.SshKey)
-                .AddRequiredParameter("key_id", Models.SshKeyRef)
+                .AddRequiredParameter("key_id", Models.SshKeyIdRef)
                 ;
 
             methodGroup.AddMethod("AddSSHKeyToCurrentUser", MethodType.Post, "/user/keys", "https://docs.gitlab.com/ee/api/users.html#add-ssh-key")
@@ -66,12 +66,12 @@
                 ;
 
             methodGroup.AddMethod("DeleteSSHKeyFromCurrentUser", MethodType.Delete, "/user/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user")
-                .AddRequiredParameter("key_id", Models.SshKeyRef)
+                .AddRequiredParameter("key_id", Models.SshKeyIdRef)
                 ;
 
             methodGroup.AddMethod("DeleteSSHKey", MethodType.Delete, "/users/:id_or_username/keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-given-user")
                 .AddRequiredParameter("id_or_username", Models.UserIdOrUserNameRef)
-                .AddRequiredParameter("key_id", Models.SshKeyRef)
+                .AddRequiredParameter("key_id", Models.SshKeyIdRef)
                 ;
 
             methodGroup.AddMethod("CreateUser", MethodType.Post, "/users", "https://docs.gitlab.com/ee/api/users.html#user-creation")
