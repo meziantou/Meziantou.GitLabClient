@@ -259,6 +259,15 @@ namespace Meziantou.GitLab
             }
         }
 
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("runners_token")]
+        public string? RunnersToken
+        {
+            get
+            {
+                return this.GetValueOrDefault<string?>("runners_token", default(string?));
+            }
+        }
+
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("shared_runners_enabled")]
         public bool SharedRunnersEnabled
         {

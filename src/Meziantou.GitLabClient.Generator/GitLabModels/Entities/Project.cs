@@ -36,6 +36,7 @@
                 .AddProperty("snippets_enabled", ModelRef.Boolean)
                 .AddProperty("visibility", Models.Visibility)
                 .AddProperty("wiki_enabled", ModelRef.Boolean)
+                .AddProperty("runners_token", ModelRef.NullableString)
         );
     }
 }
