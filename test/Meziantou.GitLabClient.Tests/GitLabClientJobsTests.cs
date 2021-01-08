@@ -51,7 +51,7 @@ build1:
             Assert.Single(jobs);
             Assert.Null(jobs[0].StartedAt);
 
-            using (await context.StartRunnerAsync(project))
+            using (await context.StartRunnerForOneJobAsync(project))
             {
                 var job = await RetryUntilAsync(() => client.Jobs.GetJobAsync(project, jobs[0]), job => job.Status.IsCompleted(), TimeSpan.FromSeconds(60));
                 Assert.NotNull(job);

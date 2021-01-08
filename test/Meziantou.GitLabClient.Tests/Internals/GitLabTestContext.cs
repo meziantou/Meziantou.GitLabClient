@@ -139,7 +139,7 @@ namespace Meziantou.GitLab.Tests
             return client;
         }
 
-        public async Task<IDisposable> StartRunnerAsync(ProjectIdOrPathRef projectIdRef)
+        public async Task<IDisposable> StartRunnerForOneJobAsync(ProjectIdOrPathRef projectIdRef)
         {
             // Download runner (windows / linux, GitLab version)
             var path = FullPath.GetTempPath() / "Meziantou.GitLabClient" / "Runners" / "gitlab-runner.exe";
