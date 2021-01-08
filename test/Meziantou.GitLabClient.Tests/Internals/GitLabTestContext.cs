@@ -282,14 +282,22 @@ namespace Meziantou.GitLab.Tests
                     if (response.Content != null)
                     {
                         LogHeaders(response.Content.Headers, sb);
-                        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                        if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
+
+                        if (response.Content.Headers.ContentType.MediaType != "application/octet-stream")
                         {
-                            sb.AppendLine().AppendLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented));
+                            var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                            if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
+                            {
+                                sb.AppendLine().AppendLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(responseContent), Formatting.Indented));
+                            }
+                            else
+                            {
+                                sb.AppendLine().AppendLine(responseContent);
+                            }
                         }
                         else
                         {
-                            sb.AppendLine().AppendLine(responseContent);
+                            sb.AppendLine().AppendLine("**Content omited for 'application/octet-stream'**");
                         }
                     }
 
