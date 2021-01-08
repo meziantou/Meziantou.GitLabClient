@@ -125,6 +125,38 @@ namespace Meziantou.GitLab
                     urlBuilder.AppendParameter(request.Action.GetValueOrDefault());
                 }
 
+                if (request.AuthorId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("author_id=");
+                    urlBuilder.AppendParameter(request.AuthorId.GetValueOrDefault().Value);
+                }
+
+                if (request.ProjectId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("project_id=");
+                    urlBuilder.AppendParameter(request.ProjectId.GetValueOrDefault().Value);
+                }
+
+                if (request.GroupId.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("group_id=");
+                    urlBuilder.AppendParameter(request.GroupId.GetValueOrDefault().Value);
+                }
+
+                if (request.State.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("state=");
+                    urlBuilder.AppendParameter(request.State.GetValueOrDefault());
+                }
+
                 url = urlBuilder.ToString();
             }
 
@@ -236,10 +268,14 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Todo> GetTodos(this Meziantou.GitLab.IGitLabToDosClient client, TodoAction? action = default(TodoAction?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<Todo> GetTodos(this Meziantou.GitLab.IGitLabToDosClient client, TodoAction? action = default(TodoAction?), UserIdRef? authorId = default(UserIdRef?), ProjectIdRef? projectId = default(ProjectIdRef?), GroupIdRef? groupId = default(GroupIdRef?), TodoState? state = default(TodoState?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetTodosToDoRequest request = new Meziantou.GitLab.GetTodosToDoRequest();
             request.Action = action;
+            request.AuthorId = authorId;
+            request.ProjectId = projectId;
+            request.GroupId = groupId;
+            request.State = state;
             return client.GetTodos(request, requestOptions);
         }
 
@@ -276,6 +312,14 @@ namespace Meziantou.GitLab
     {
         private TodoAction? _action;
 
+        private UserIdRef? _authorId;
+
+        private GroupIdRef? _groupId;
+
+        private ProjectIdRef? _projectId;
+
+        private TodoState? _state;
+
         public GetTodosToDoRequest()
         {
         }
@@ -293,6 +337,70 @@ namespace Meziantou.GitLab
             set
             {
                 this._action = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>The ID of an author</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public UserIdRef? AuthorId
+        {
+            get
+            {
+                return this._authorId;
+            }
+            set
+            {
+                this._authorId = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>The ID of a group</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public GroupIdRef? GroupId
+        {
+            get
+            {
+                return this._groupId;
+            }
+            set
+            {
+                this._groupId = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>The ID of a project</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public ProjectIdRef? ProjectId
+        {
+            get
+            {
+                return this._projectId;
+            }
+            set
+            {
+                this._projectId = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>The state of the to do. Can be either pending or done</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public TodoState? State
+        {
+            get
+            {
+                return this._state;
+            }
+            set
+            {
+                this._state = value;
             }
         }
     }

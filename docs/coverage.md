@@ -3742,10 +3742,10 @@
 # [To dos](https://docs.gitlab.com/ee/api/todos.html)
 - [x] [Get a list of to dos](https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos) `GET /todos`
     - [x] `action`: The action to be filtered. Can be assigned, mentioned, build_failed, marked, approval_required, unmergeable, directly_addressed or merge_train_removed.
-    - [ ] `author_id`: The ID of an author
-    - [ ] `project_id`: The ID of a project
-    - [ ] `group_id`: The ID of a group
-    - [ ] `state`: The state of the to do. Can be either pending or done
+    - [x] `author_id`: The ID of an author
+    - [x] `project_id`: The ID of a project
+    - [x] `group_id`: The ID of a group
+    - [x] `state`: The state of the to do. Can be either pending or done
     - [ ] `type`: The type of to-do item. Can be either Issue, MergeRequest, DesignManagement::Design or AlertManagement::Alert
 - [x] [Mark a to-do item as done](https://docs.gitlab.com/ee/api/todos.html#mark-a-to-do-item-as-done) `POST /todos/:id/mark_as_done`
     - [x] `id`: The ID of to-do item

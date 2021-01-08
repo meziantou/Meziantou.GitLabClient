@@ -143,13 +143,11 @@ namespace Meziantou.GitLab
             }
 
             public Task<T?> ToObjectAsync<T>(CancellationToken cancellationToken)
-                where T : GitLabObject
             {
                 return DeserializeAsync<T>(cancellationToken);
             }
 
             public Task<IReadOnlyList<T>?> ToCollectionAsync<T>(CancellationToken cancellationToken)
-                where T : GitLabObject
             {
                 return DeserializeAsync<IReadOnlyList<T>>(cancellationToken);
             }
