@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.ProjectLinksJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class ProjectLinks : Meziantou.GitLab.Core.GitLabObject
     {
         internal ProjectLinks(System.Text.Json.JsonElement obj)
@@ -77,17 +77,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<string>("self");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class ProjectLinksJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.ProjectLinks>
-    {
-        protected override Meziantou.GitLab.ProjectLinks CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.ProjectLinks(jsonElement);
         }
     }
 }

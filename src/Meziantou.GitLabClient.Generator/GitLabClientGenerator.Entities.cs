@@ -43,7 +43,7 @@ namespace Meziantou.GitLabClient.Generator
             type.Modifiers = Modifiers.Public | Modifiers.Partial;
             type.BaseType = (entity.BaseType ?? ModelRef.GitLabObject).ToPropertyTypeReference();
 
-            GenerateEntityJsonConverter(entity, unit, type);
+            GenerateEntityJsonConverter(type);
 
             // Add default constructor
             var ctor = type.AddMember(new ConstructorDeclaration()
@@ -106,7 +106,7 @@ namespace Meziantou.GitLabClient.Generator
                     {
                         Arguments =
                         {
-                            new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.SkipUtcDateValidationAttributeTypeReference)),
+                            new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.GitLabDateJsonConverterTypeReference)),
                         },
                     });
                 }
@@ -160,25 +160,11 @@ namespace Meziantou.GitLabClient.Generator
             GenerateEntityAsMethods(type, children);
         }
 
-        private static void GenerateEntityJsonConverter(Entity entity, CompilationUnit unit, ClassDeclaration type)
+        private static void GenerateEntityJsonConverter(ClassDeclaration type)
         {
-            var ns = unit.AddNamespace(SerializationNamespace);
-            var converterType = ns.AddType(new ClassDeclaration(entity.Name + "JsonConverter"));
-            converterType.BaseType = new TypeReference("Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter").MakeGeneric(type);
-            converterType.Modifiers = Modifiers.Partial | Modifiers.Sealed | Modifiers.Internal;
-
-            var createInstanceMethod = converterType.AddMember(new MethodDeclaration("CreateInstance"));
-            createInstanceMethod.Modifiers = Modifiers.Protected | Modifiers.Override;
-            createInstanceMethod.ReturnType = type;
-            var objArg = createInstanceMethod.AddArgument("jsonElement", typeof(JsonElement));
-            createInstanceMethod.Statements = new StatementCollection
-            {
-                new ReturnStatement(new NewObjectExpression(type, objArg)),
-            };
-
             type.CustomAttributes.Add(new CustomAttribute(typeof(JsonConverterAttribute))
             {
-                Arguments = { new CustomAttributeArgument(new TypeOfExpression(converterType)) },
+                Arguments = { new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.GitLabObjectJsonConverterFactoryTypeReference)) },
             });
         }
 

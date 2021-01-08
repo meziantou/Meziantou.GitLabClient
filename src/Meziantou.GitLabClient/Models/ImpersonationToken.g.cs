@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.ImpersonationTokenJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class ImpersonationToken : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.ImpersonationToken>
     {
         internal ImpersonationToken(System.Text.Json.JsonElement obj)
@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
         }
 
         /// <remarks>The value may not be an UTC DateTime</remarks>
-        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("expires_at")]
         public System.DateTime? ExpiresAt
@@ -129,17 +129,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.ImpersonationToken? a, Meziantou.GitLab.ImpersonationToken? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ImpersonationToken>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class ImpersonationTokenJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.ImpersonationToken>
-    {
-        protected override Meziantou.GitLab.ImpersonationToken CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.ImpersonationToken(jsonElement);
         }
     }
 }

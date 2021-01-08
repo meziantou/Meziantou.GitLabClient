@@ -5,7 +5,7 @@ using Meziantou.GitLab.Serialization;
 
 namespace Meziantou.GitLab.Core
 {
-    [JsonConverter(typeof(GitLabObjectJsonConverter))]
+    [JsonConverter(typeof(GitLabObjectJsonConverterFactory))]
     public partial class GitLabObject
     {
         internal readonly JsonElement _jsonObject;

@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.ServerVersionJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class ServerVersion : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.ServerVersion>
     {
         internal ServerVersion(System.Text.Json.JsonElement obj)
@@ -63,17 +63,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.ServerVersion? a, Meziantou.GitLab.ServerVersion? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.ServerVersion>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class ServerVersionJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.ServerVersion>
-    {
-        protected override Meziantou.GitLab.ServerVersion CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.ServerVersion(jsonElement);
         }
     }
 }

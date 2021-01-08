@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.UserActivityJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class UserActivity : Meziantou.GitLab.Core.GitLabObject
     {
         internal UserActivity(System.Text.Json.JsonElement obj)
@@ -16,7 +16,7 @@ namespace Meziantou.GitLab
         {
         }
 
-        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime LastActivityOn
         {
@@ -33,17 +33,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<string>("username");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class UserActivityJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.UserActivity>
-    {
-        protected override Meziantou.GitLab.UserActivity CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.UserActivity(jsonElement);
         }
     }
 }

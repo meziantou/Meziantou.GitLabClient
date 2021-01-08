@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.BasicProjectDetailsJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class BasicProjectDetails : ProjectIdentity
     {
         internal BasicProjectDetails(System.Text.Json.JsonElement obj)
@@ -125,17 +125,6 @@ namespace Meziantou.GitLab
         public override string ToString()
         {
             return (((((("BasicProjectDetails { " + "Id = ") + this.Id) + ", ") + "PathWithNamespace = ") + this.PathWithNamespace) + " }");
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class BasicProjectDetailsJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.BasicProjectDetails>
-    {
-        protected override Meziantou.GitLab.BasicProjectDetails CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.BasicProjectDetails(jsonElement);
         }
     }
 }

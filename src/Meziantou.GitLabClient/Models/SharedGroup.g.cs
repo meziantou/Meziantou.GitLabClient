@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.SharedGroupJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class SharedGroup : Meziantou.GitLab.Core.GitLabObject
     {
         internal SharedGroup(System.Text.Json.JsonElement obj)
@@ -41,17 +41,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<string>("group_name");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class SharedGroupJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.SharedGroup>
-    {
-        protected override Meziantou.GitLab.SharedGroup CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.SharedGroup(jsonElement);
         }
     }
 }

@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.TodoJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class Todo : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.Todo>
     {
         internal Todo(System.Text.Json.JsonElement obj)
@@ -127,17 +127,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.Todo? a, Meziantou.GitLab.Todo? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Todo>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class TodoJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.Todo>
-    {
-        protected override Meziantou.GitLab.Todo CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.Todo(jsonElement);
         }
     }
 }

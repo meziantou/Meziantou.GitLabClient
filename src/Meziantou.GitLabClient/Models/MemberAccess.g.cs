@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.MemberAccessJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class MemberAccess : Meziantou.GitLab.Core.GitLabObject
     {
         internal MemberAccess(System.Text.Json.JsonElement obj)
@@ -42,17 +42,6 @@ namespace Meziantou.GitLab
         public ProjectAccess AsProjectAccess()
         {
             return new ProjectAccess(this.JsonObject);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class MemberAccessJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.MemberAccess>
-    {
-        protected override Meziantou.GitLab.MemberAccess CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.MemberAccess(jsonElement);
         }
     }
 }

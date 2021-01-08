@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.TemplateJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class Template : Meziantou.GitLab.Core.GitLabObject
     {
         internal Template(System.Text.Json.JsonElement obj)
@@ -38,17 +38,6 @@ namespace Meziantou.GitLab
         public override string ToString()
         {
             return ((("Template { " + "Name = ") + this.Name) + " }");
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class TemplateJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.Template>
-    {
-        protected override Meziantou.GitLab.Template CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.Template(jsonElement);
         }
     }
 }

@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.UserBasicJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class UserBasic : UserSafe
     {
         internal UserBasic(System.Text.Json.JsonElement obj)
@@ -58,17 +58,6 @@ namespace Meziantou.GitLab
         public override string ToString()
         {
             return (((((("UserBasic { " + "Id = ") + this.Id) + ", ") + "Username = ") + this.Username) + " }");
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class UserBasicJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.UserBasic>
-    {
-        protected override Meziantou.GitLab.UserBasic CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.UserBasic(jsonElement);
         }
     }
 }

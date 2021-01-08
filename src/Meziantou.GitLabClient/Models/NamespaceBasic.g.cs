@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.NamespaceBasicJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class NamespaceBasic : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.NamespaceBasic>
     {
         internal NamespaceBasic(System.Text.Json.JsonElement obj)
@@ -99,17 +99,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.NamespaceBasic? a, Meziantou.GitLab.NamespaceBasic? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.NamespaceBasic>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class NamespaceBasicJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.NamespaceBasic>
-    {
-        protected override Meziantou.GitLab.NamespaceBasic CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.NamespaceBasic(jsonElement);
         }
     }
 }

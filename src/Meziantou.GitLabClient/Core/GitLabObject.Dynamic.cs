@@ -35,13 +35,13 @@ namespace Meziantou.GitLab.Core
         {
             private readonly DynamicMetaObject _innerMetaObject;
 
-            public DelegatingDynamicMetaObject(Expression expr, BindingRestrictions restrictions, object value, FieldInfo fieldInfo)
-                : base(expr, restrictions, value)
+            public DelegatingDynamicMetaObject(Expression expr, BindingRestrictions restrictions, object ownerObject, FieldInfo delegatingToField)
+                : base(expr, restrictions, ownerObject)
             {
-                var innerObject = fieldInfo.GetValue(value);
+                var innerObject = delegatingToField.GetValue(ownerObject);
                 var innerDynamicProvider = (IDynamicMetaObjectProvider?)innerObject;
                 Debug.Assert(innerDynamicProvider != null);
-                _innerMetaObject = innerDynamicProvider.GetMetaObject(Expression.Field(Expression.Convert(Expression, LimitType), fieldInfo));
+                _innerMetaObject = innerDynamicProvider.GetMetaObject(Expression.Field(Expression.Convert(Expression, LimitType), delegatingToField));
             }
 
             public override DynamicMetaObject BindBinaryOperation(BinaryOperationBinder binder, DynamicMetaObject arg) => _innerMetaObject.BindBinaryOperation(binder, arg);

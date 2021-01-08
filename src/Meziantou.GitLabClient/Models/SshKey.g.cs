@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.SshKeyJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class SshKey : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.SshKey>
     {
         internal SshKey(System.Text.Json.JsonElement obj)
@@ -81,17 +81,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.SshKey? a, Meziantou.GitLab.SshKey? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.SshKey>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class SshKeyJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.SshKey>
-    {
-        protected override Meziantou.GitLab.SshKey CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.SshKey(jsonElement);
         }
     }
 }

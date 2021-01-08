@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.UserStatusJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class UserStatus : Meziantou.GitLab.Core.GitLabObject
     {
         internal UserStatus(System.Text.Json.JsonElement obj)
@@ -41,17 +41,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<string>("message_html");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class UserStatusJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.UserStatus>
-    {
-        protected override Meziantou.GitLab.UserStatus CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.UserStatus(jsonElement);
         }
     }
 }

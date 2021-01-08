@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.LicenseTemplateJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class LicenseTemplate : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.LicenseTemplate>
     {
         internal LicenseTemplate(System.Text.Json.JsonElement obj)
@@ -146,17 +146,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.LicenseTemplate? a, Meziantou.GitLab.LicenseTemplate? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.LicenseTemplate>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class LicenseTemplateJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.LicenseTemplate>
-    {
-        protected override Meziantou.GitLab.LicenseTemplate CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.LicenseTemplate(jsonElement);
         }
     }
 }

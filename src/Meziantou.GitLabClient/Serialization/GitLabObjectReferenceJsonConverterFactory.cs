@@ -7,7 +7,7 @@ using Meziantou.GitLab.Internals;
 
 namespace Meziantou.GitLab.Serialization
 {
-    internal sealed class GitLabObjectObjectReferenceJsonConverterFactory : JsonConverterFactory
+    internal sealed class GitLabObjectReferenceJsonConverterFactory : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
         {
@@ -20,7 +20,7 @@ namespace Meziantou.GitLab.Serialization
             Debug.Assert(keyType != null);
 
             var converter = (JsonConverter?)Activator.CreateInstance(
-               typeof(GitLabObjectObjectReferenceJsonConverter<,>).MakeGenericType(new Type[] { typeToConvert, keyType }),
+               typeof(GitLabObjectReferenceJsonConverter<,>).MakeGenericType(new Type[] { typeToConvert, keyType }),
                BindingFlags.Instance | BindingFlags.Public,
                binder: null,
                args: null,
@@ -46,7 +46,7 @@ namespace Meziantou.GitLab.Serialization
             return null;
         }
 
-        private sealed class GitLabObjectObjectReferenceJsonConverter<T, TValue> : JsonConverter<T>
+        private sealed class GitLabObjectReferenceJsonConverter<T, TValue> : JsonConverter<T>
             where T : IGitLabObjectReference<TValue>
         {
             public override bool CanConvert(Type typeToConvert)

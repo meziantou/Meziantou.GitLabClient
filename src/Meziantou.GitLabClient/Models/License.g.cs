@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.LicenseJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class License : Meziantou.GitLab.Core.GitLabObject
     {
         internal License(System.Text.Json.JsonElement obj)
@@ -43,7 +43,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("expires_at")]
         public System.DateTime ExpiresAt
         {
@@ -98,7 +98,7 @@ namespace Meziantou.GitLab
             }
         }
 
-        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("starts_at")]
         public System.DateTime StartsAt
         {
@@ -115,17 +115,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<int>("user_limit");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class LicenseJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.License>
-    {
-        protected override Meziantou.GitLab.License CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.License(jsonElement);
         }
     }
 }

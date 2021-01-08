@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.RepositoryFileUploadedJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class RepositoryFileUploaded : Meziantou.GitLab.Core.GitLabObject
     {
         internal RepositoryFileUploaded(System.Text.Json.JsonElement obj)
@@ -54,17 +54,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<System.Uri>("url");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class RepositoryFileUploadedJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.RepositoryFileUploaded>
-    {
-        protected override Meziantou.GitLab.RepositoryFileUploaded CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.RepositoryFileUploaded(jsonElement);
         }
     }
 }

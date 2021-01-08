@@ -14,7 +14,7 @@ namespace Meziantou.GitLab.Serialization
             PropertyNameCaseInsensitive = false,
             Converters =
             {
-                new GitLabObjectJsonConverter(),
+                new GitLabObjectJsonConverterFactory(),
             },
 #if DEBUG
             WriteIndented = true,

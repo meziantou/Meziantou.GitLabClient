@@ -32,7 +32,8 @@ namespace Meziantou.GitLabClient.Generator
             public static TypeReference EnumMemberTypeReference { get; } = new(SerializationNamespace + ".EnumMember");
             public static TypeReference JsonSerializationTypeReference { get; } = new(SerializationNamespace + ".JsonSerialization");
             public static TypeReference GitLabDateJsonConverterTypeReference { get; } = new(SerializationNamespace + ".GitLabDateJsonConverter");
-            public static TypeReference GitLabObjectObjectReferenceJsonConverterFactoryTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectObjectReferenceJsonConverterFactory");
+            public static TypeReference GitLabObjectJsonConverterFactoryTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectJsonConverterFactory");
+            public static TypeReference GitLabObjectReferenceJsonConverterFactoryTypeReference { get; } = new(SerializationNamespace + ".GitLabObjectReferenceJsonConverterFactory");
 
             public static TypeReference ArgumentCollectionTypeReference { get; } = new(typeof(IEnumerable<>));
             public static TypeReference PropertyCollectionTypeReference { get; } = new(typeof(IReadOnlyList<>));

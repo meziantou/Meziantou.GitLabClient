@@ -7,7 +7,7 @@ using Meziantou.GitLab.Serialization;
 
 namespace Meziantou.GitLab
 {
-    [JsonConverter(typeof(GitLabErrorJsonConverter))]
+    [JsonConverter(typeof(GitLabObjectJsonConverterFactory))]
     public sealed class GitLabError : GitLabObject
     {
         internal GitLabError(JsonElement obj)

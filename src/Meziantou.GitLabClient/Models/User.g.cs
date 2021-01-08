@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.UserJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class User : UserBasic
     {
         internal User(System.Text.Json.JsonElement obj)
@@ -116,7 +116,7 @@ namespace Meziantou.GitLab
         }
 
         /// <remarks>The value may not be an UTC DateTime</remarks>
-        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute))]
+        [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabDateJsonConverter))]
         [Meziantou.GitLab.Internals.SkipUtcDateValidationAttribute]
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("last_activity_on")]
         public System.DateTime? LastActivityOn
@@ -241,17 +241,6 @@ namespace Meziantou.GitLab
         public override string ToString()
         {
             return (((((("User { " + "Id = ") + this.Id) + ", ") + "Username = ") + this.Username) + " }");
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class UserJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.User>
-    {
-        protected override Meziantou.GitLab.User CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.User(jsonElement);
         }
     }
 }

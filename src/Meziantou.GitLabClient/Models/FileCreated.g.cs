@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.FileCreatedJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class FileCreated : Meziantou.GitLab.Core.GitLabObject
     {
         internal FileCreated(System.Text.Json.JsonElement obj)
@@ -32,17 +32,6 @@ namespace Meziantou.GitLab
             {
                 return this.GetRequiredNonNullValue<string>("file_path");
             }
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class FileCreatedJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.FileCreated>
-    {
-        protected override Meziantou.GitLab.FileCreated CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.FileCreated(jsonElement);
         }
     }
 }

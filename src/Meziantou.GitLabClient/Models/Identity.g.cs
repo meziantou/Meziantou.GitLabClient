@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.IdentityJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class Identity : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.Identity>
     {
         internal Identity(System.Text.Json.JsonElement obj)
@@ -63,17 +63,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.Identity? a, Meziantou.GitLab.Identity? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.Identity>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class IdentityJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.Identity>
-    {
-        protected override Meziantou.GitLab.Identity CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.Identity(jsonElement);
         }
     }
 }

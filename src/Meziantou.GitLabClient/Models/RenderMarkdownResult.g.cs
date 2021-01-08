@@ -8,7 +8,7 @@
 #nullable enable
 namespace Meziantou.GitLab
 {
-    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.RenderMarkdownResultJsonConverter))]
+    [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Meziantou.GitLab.Serialization.GitLabObjectJsonConverterFactory))]
     public partial class RenderMarkdownResult : Meziantou.GitLab.Core.GitLabObject, System.IEquatable<Meziantou.GitLab.RenderMarkdownResult>
     {
         internal RenderMarkdownResult(System.Text.Json.JsonElement obj)
@@ -54,17 +54,6 @@ namespace Meziantou.GitLab
         public static bool operator ==(Meziantou.GitLab.RenderMarkdownResult? a, Meziantou.GitLab.RenderMarkdownResult? b)
         {
             return System.Collections.Generic.EqualityComparer<Meziantou.GitLab.RenderMarkdownResult>.Default.Equals(a, b);
-        }
-    }
-}
-
-namespace Meziantou.GitLab.Serialization
-{
-    internal sealed partial class RenderMarkdownResultJsonConverter : Meziantou.GitLab.Serialization.GitLabObjectBaseJsonConverter<Meziantou.GitLab.RenderMarkdownResult>
-    {
-        protected override Meziantou.GitLab.RenderMarkdownResult CreateInstance(System.Text.Json.JsonElement jsonElement)
-        {
-            return new Meziantou.GitLab.RenderMarkdownResult(jsonElement);
         }
     }
 }

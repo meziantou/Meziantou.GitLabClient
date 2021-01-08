@@ -1,10 +1,35 @@
-﻿using System.Text.Json;
+﻿using System.Linq;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Meziantou.GitLab.Core;
 using Xunit;
 
 namespace Meziantou.GitLab.Tests.Models
 {
     public partial class EntityTests
     {
+        [Fact]
+        public void ValidateJsonConverter()
+        {
+            var types = typeof(GitLabObject).Assembly.GetTypes()
+                .Where(type => type.IsAssignableTo(typeof(GitLabObject)))
+                .ToList();
+
+            Assert.All(types, type => Assert.True(type.GetCustomAttribute<JsonConverterAttribute>(inherit: false) != null, $"Type '{type.FullName}' has not [JsonConverter] attribute"));
+        }
+
+        [Fact]
+        public void Serialize_Deserialize()
+        {
+            var userJson = JsonSerializer.Serialize(new { id = 42, username = "test", dummy = "this property is not mapped" });
+
+            var user = JsonSerializer.Deserialize<User>(userJson);
+            var serialized = JsonSerializer.Serialize(user);
+
+            Assert.Equal(userJson, serialized);
+        }
+
         [Fact]
         public void User_ToJson()
         {

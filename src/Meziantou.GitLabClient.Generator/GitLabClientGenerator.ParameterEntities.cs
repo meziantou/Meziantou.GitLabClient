@@ -29,7 +29,7 @@ namespace Meziantou.GitLabClient.Generator
             {
                 Arguments =
                 {
-                    new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.GitLabObjectObjectReferenceJsonConverterFactoryTypeReference)),
+                    new CustomAttributeArgument(new TypeOfExpression(WellKnownTypes.GitLabObjectReferenceJsonConverterFactoryTypeReference)),
                 },
             });
 
