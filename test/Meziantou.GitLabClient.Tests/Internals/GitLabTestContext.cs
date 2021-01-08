@@ -282,8 +282,8 @@ namespace Meziantou.GitLab.Tests
                     if (response.Content != null)
                     {
                         LogHeaders(response.Content.Headers, sb);
-
-                        if (response.Content.Headers.ContentType.MediaType != "application/octet-stream")
+                        var contentType = response.Content.Headers.ContentType?.MediaType;
+                        if (contentType != "application/octet-stream")
                         {
                             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                             if (string.Equals(response.Content.Headers.ContentType?.MediaType, "application/json", StringComparison.OrdinalIgnoreCase))
