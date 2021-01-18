@@ -1,0 +1,21 @@
+- Easy to use implementation
+    - Based on HttpClient
+    - No breaking change when adding a new parameter for an API resource
+        - Use a class for the query parameters
+        - Extension methods for usage simplicity
+    - Use Nullable Reference Types
+    - Support multiple parameter types (such as int or string for project id)
+    - Allow accessing all properties using dynamic
+    - Serialize to json without losing information
+    - XML docs are set from the GitLab doc when possible
+
+- Testable
+    - Use GitLab docker image to validate the client (can be tested against multiple version)
+    - Response mapping should be validated (good type / required properties / missing properties)
+    - What about the license? (we can generate a trial on the fly but I think we can do better)
+    - We can test as admin if needed
+
+- The client cannot be generated from the documentation
+    - No swagger file
+    - Documentation format is inconsistent
+    - Responses are examples (sometimes wrong) and sometimes are invalid JSON
