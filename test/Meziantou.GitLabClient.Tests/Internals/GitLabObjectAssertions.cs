@@ -90,27 +90,59 @@ namespace Meziantou.GitLab.Tests
 
         private static IEnumerable<GitLabObject> GetObjects(object o)
         {
+            var results = new HashSet<GitLabObject>();
             switch (o)
             {
                 case null:
-                    return Enumerable.Empty<GitLabObject>();
+                    break;
 
                 case GitLabObject value:
-                    return new[] { value };
+                    Process(value);
+                    break;
 
                 case IEnumerable<GitLabObject> value:
-                    return value;
+                    ProcessCollection(value);
+                    break;
 
                 case object value:
                     var type = value.GetType();
                     if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(PagedResponse<>))
                     {
-                        return ((dynamic)value).Data;
+                        ProcessCollection(((dynamic)value).Data);
                     }
                     break;
             }
 
-            return Enumerable.Empty<GitLabObject>();
+            return results;
+
+            void ProcessCollection(IEnumerable<GitLabObject> objs)
+            {
+                foreach (var obj in objs)
+                {
+                    Process(obj);
+                }
+            }
+
+            void Process(GitLabObject obj)
+            {
+                if (results.Add(obj))
+                {
+                    var properties = TypeDescriptor.GetProperties(obj);
+                    foreach (PropertyDescriptor property in properties)
+                    {
+                        try
+                        {
+                            if (property.GetValue(o) is GitLabObject propValue)
+                            {
+                                Process(propValue);
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
         }
     }
 }
