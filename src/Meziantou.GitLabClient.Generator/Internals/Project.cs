@@ -72,7 +72,14 @@ namespace Meziantou.GitLabClient.Generator
 
                         var documentationParameter = documentationMethod.Parameters.FirstOrDefault(p => p.Name == modelParameter.Name);
                         if (documentationParameter == null)
-                            throw new InvalidOperationException($"Cannot find parameter '{modelParameter.Name}' for the method '{modelMethod.MethodGroup.Name}/{modelMethod.Name}'. Available parameters: {string.Join(", ", documentationMethod.Parameters.Select(p => p.Name))}");
+                        {
+                            if (!modelParameter.Options.HasFlag(MethodParameterOptions.DoNotValidate))
+                            {
+                                throw new InvalidOperationException($"Cannot find parameter '{modelParameter.Name}' for the method '{modelMethod.MethodGroup.Name}/{modelMethod.Name}'. Available parameters: {string.Join(", ", documentationMethod.Parameters.Select(p => p.Name))}");
+                            }
+
+                            continue;
+                        }
 
                         if (documentationParameter.Type.Contains('/', StringComparison.Ordinal) && !modelParameter.Type.IsParameterEntity)
                             throw new InvalidOperationException($"Parameter '{modelParameter.Name}' for the method '{modelMethod.MethodGroup.Name}/{modelMethod.Name}' should be a parameter entity because the expected type can be of any of the following data types '{documentationParameter.Type}'");

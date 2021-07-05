@@ -21,7 +21,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-do-items" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -30,7 +30,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-dos-as-done" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-do-items-as-done" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -53,7 +53,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-do-items" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -65,7 +65,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-dos-as-done" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-do-items-as-done" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -99,7 +99,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-do-items" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -166,7 +166,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-dos-as-done" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-do-items-as-done" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -264,7 +264,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>GET /todos</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-do-items" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -282,7 +282,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>URL: <c>POST /todos/mark_as_done</c></para>
         ///   <para>
-        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-dos-as-done" />
+        ///     <seealso href="https://docs.gitlab.com/ee/api/todos.html#mark-all-to-do-items-as-done" />
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
@@ -389,7 +389,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The state of the to do. Can be either pending or done</para>
+        ///   <para>The state of the to-do item. Can be either pending or done</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public TodoState? State

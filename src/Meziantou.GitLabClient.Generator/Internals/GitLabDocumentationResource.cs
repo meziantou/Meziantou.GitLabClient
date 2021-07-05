@@ -38,7 +38,7 @@ namespace Meziantou.GitLabClient.Generator.Internals
                 var url = anchor.Href;
                 var d = await GetDocumentAsync(context, url, noCache);
 
-                var name = Trim(d.QuerySelector("h1.article-title").ChildNodes[0].TextContent); // Remove API suffix
+                var name = Trim(d.QuerySelector("main h1").ChildNodes[0].TextContent); // Remove API suffix
                 if (name.EndsWith(" API", StringComparison.Ordinal))
                 {
                     name = name[0..^4];
@@ -51,6 +51,7 @@ namespace Meziantou.GitLabClient.Generator.Internals
                     "Licenses" => "Templates",
                     "GitLab CI YMLs" => "Templates",
                     "Group and project members" => "Members",
+                    "GitLab To-Do List" => "ToDos",
                     _ => name,
                 };
 
@@ -126,9 +127,9 @@ namespace Meziantou.GitLabClient.Generator.Internals
                         void LoadParameters()
                         {
                             var parametersTable = FindParameters();
-                            if (parametersTable != null)
+                            foreach (var table in parametersTable)
                             {
-                                foreach (var row in parametersTable.Bodies[0].Rows)
+                                foreach (var row in table.Bodies[0].Rows)
                                 {
                                     var parameter = new GitLabDocumentationMethodParameter
                                     {
@@ -143,21 +144,38 @@ namespace Meziantou.GitLabClient.Generator.Internals
                             }
                         }
 
-                        IHtmlTableElement FindParameters()
+                        IEnumerable<IHtmlTableElement> FindParameters()
                         {
+                            var previousWasTable = false;
                             var currentElement = element.NextElementSibling;
                             while (currentElement != null)
                             {
-                                if (currentElement is IHtmlHeadingElement)
-                                    return null;
+                                // Sometimes, there are 2 consecutives tables because of an error in the markdown source...
+                                if (previousWasTable)
+                                {
+                                    if (currentElement is IHtmlTableElement table && table.Head is null)
+                                    {
+                                        yield return table;
+                                    }
+                                    else
+                                    {
+                                        yield break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (currentElement is IHtmlHeadingElement)
+                                        yield break;
 
-                                if (currentElement is IHtmlTableElement table && table.Head.Rows[0].ChildElementCount >= 4) // Some has empty additionnal columns...
-                                    return table;
+                                    if (currentElement is IHtmlTableElement table && table.Head.Rows[0].ChildElementCount >= 4) // Some has empty additionnal columns...
+                                    {
+                                        yield return table;
+                                        previousWasTable = true;
+                                    }
+                                }
 
                                 currentElement = currentElement.NextElementSibling;
                             }
-
-                            return null;
                         }
                     }
 

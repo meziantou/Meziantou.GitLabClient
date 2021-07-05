@@ -322,7 +322,20 @@ namespace Meziantou.GitLab.Tests
 
         private async Task CreateTrialLicenseAsync()
         {
+            var key = await CreateTrialLicenseAsync(GitLabUrl.AbsoluteUri);
+            if (key is not null)
+            {
+                LicenseFile = key;
 
+                if (!IsContinuousIntegration())
+                {
+                    Environment.SetEnvironmentVariable(LicenseName, LicenseFile, EnvironmentVariableTarget.User);
+                }
+            }
+        }
+
+        public async static Task<string> CreateTrialLicenseAsync(string url)
+        {
             var email = $"test_{Guid.NewGuid():N}@yopmail.com";
             var id = Convert.ToBase64String(Encoding.UTF8.GetBytes(email));
 
@@ -331,7 +344,7 @@ namespace Meziantou.GitLab.Tests
 #pragma warning disable CA5399 // HttpClients should enable certificate revocation list checks
             using var httpClient = new HttpClient(handler);
 #pragma warning restore CA5399
-            var result = await httpClient.GetStringAsync($"https://customers.gitlab.com/trials/new?return_to={Uri.EscapeDataString(GitLabUrl.ToString())}&id={id}");
+            var result = await httpClient.GetStringAsync($"https://customers.gitlab.com/trials/new?return_to={Uri.EscapeDataString(url)}&id={id}");
             var document = await new HtmlParser().ParseDocumentAsync(result);
 
             var token = ((IHtmlInputElement)document.Forms["new_trial_user"]["authenticity_token"]).Value;
@@ -348,7 +361,7 @@ namespace Meziantou.GitLab.Tests
                 KeyValuePair.Create("trial_user[phone_number]", "000000000"),
                 KeyValuePair.Create("trial_user[number_of_users]", "1"),
                 KeyValuePair.Create("trial_user[country]", "AF"),
-                KeyValuePair.Create("trial_user[return_to]", GitLabUrl.ToString()),
+                KeyValuePair.Create("trial_user[return_to]", url),
             });
 
             using var request = new HttpRequestMessage(System.Net.Http.HttpMethod.Post, "https://customers.gitlab.com/trials")
@@ -359,15 +372,9 @@ namespace Meziantou.GitLab.Tests
             using var response = await httpClient.SendAsync(request);
             var href = QueryHelpers.ParseNullableQuery(response.Headers.Location.Query);
             if (href != null && href.TryGetValue("trial_key", out var value))
-            {
-                var key = value[0];
-                LicenseFile = key;
+                return value[0];
 
-                if (!IsContinuousIntegration())
-                {
-                    Environment.SetEnvironmentVariable(LicenseName, LicenseFile, EnvironmentVariableTarget.User);
-                }
-            }
+            return null;
         }
 
         private static FullPath GetCredentialsFilePath()

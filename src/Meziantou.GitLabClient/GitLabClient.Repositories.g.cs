@@ -154,6 +154,7 @@ namespace Meziantou.GitLab
 
         private string? _sha;
 
+        /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user.</param>
         public DownloadFileArchiveRepositoryRequest(ProjectIdOrPathRef? id)
         {
             this._id = id;
@@ -176,6 +177,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project owned by the authenticated user.</para>
+        /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
@@ -189,6 +193,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The commit SHA to download. A tag, branch reference, or SHA can be used. This defaults to the tip of the default branch if not specified.</para>
+        /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Sha
         {

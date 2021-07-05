@@ -1155,7 +1155,7 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        /// <param name="id">The ID of a group.</param>
+        /// <param name="id">The ID or URL-encoded path of the group owned by the authenticated user.</param>
         public GetGroupMergeRequestsRequest(GroupIdOrPathRef? id)
         {
             this._id = id;
@@ -1230,7 +1230,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The ID of a group.</para>
+        ///   <para>The ID or URL-encoded path of the group owned by the authenticated user.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public GroupIdOrPathRef? Id
@@ -1458,7 +1458,7 @@ namespace Meziantou.GitLab
 
         private MergeRequestView? _view;
 
-        /// <param name="id">The ID of a project.</param>
+        /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user.</param>
         public GetProjectMergeRequestsRequest(ProjectIdOrPathRef? id)
         {
             this._id = id;
@@ -1533,7 +1533,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The ID of a project.</para>
+        ///   <para>The ID or URL-encoded path of the project owned by the authenticated user.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
@@ -1747,6 +1747,8 @@ namespace Meziantou.GitLab
 
         private MergeRequestIidRef? _mergeRequestIid;
 
+        /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user.</param>
+        /// <param name="mergeRequestIid">The internal ID of the merge request.</param>
         public GetMergeRequestRequest(ProjectIdOrPathRef? id, MergeRequestIidRef? mergeRequestIid)
         {
             this._id = id;
@@ -1757,6 +1759,9 @@ namespace Meziantou.GitLab
         {
         }
 
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project owned by the authenticated user.</para>
+        /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public ProjectIdOrPathRef? Id
         {
@@ -1770,6 +1775,9 @@ namespace Meziantou.GitLab
             }
         }
 
+        /// <summary>
+        ///   <para>The internal ID of the merge request.</para>
+        /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public MergeRequestIidRef? MergeRequestIid
         {

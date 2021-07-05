@@ -172,7 +172,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>Single pixel dimension (since images are squares). Only used for avatar lookups at Gravatar or at the configured Libravatar server.</para>
+        ///   <para>Single pixel dimension (because images are squares). Only used for avatar lookups at Gravatar or at the configured Libravatar server.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public int? Size

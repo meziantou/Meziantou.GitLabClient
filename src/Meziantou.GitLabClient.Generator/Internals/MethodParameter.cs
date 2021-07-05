@@ -14,8 +14,9 @@ namespace Meziantou.GitLabClient.Generator
         public ModelRef Type { get; }
         public string MethodParameterName { get; set; }
         public ParameterLocation Location { get; set; }
-        public bool IsRequired { get; set; }
+        public bool IsRequired => Options.HasFlag(MethodParameterOptions.IsRequired);
         public Documentation Documentation { get; set; }
+        public MethodParameterOptions Options { get; set; }
 
         /// <summary>
         /// Used to avoid breaking change when adding new parameters (create overloads instead of changing existing methods)

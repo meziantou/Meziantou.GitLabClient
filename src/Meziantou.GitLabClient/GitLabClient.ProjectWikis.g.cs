@@ -555,7 +555,7 @@ namespace Meziantou.GitLab
         private string? _slug;
 
         /// <param name="id">The ID or URL-encoded path of the project</param>
-        /// <param name="slug">The slug (a unique string) of the wiki page</param>
+        /// <param name="slug">URLencoded slug (a unique string) of the wiki page, such as dir%2Fpage_name</param>
         public GetWikiPageProjectWikiRequest(ProjectIdOrPathRef? id, string? slug)
         {
             this._id = id;
@@ -583,7 +583,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The slug (a unique string) of the wiki page</para>
+        ///   <para>URLencoded slug (a unique string) of the wiki page, such as dir%2Fpage_name</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Slug
@@ -702,7 +702,7 @@ namespace Meziantou.GitLab
         private string? _title;
 
         /// <param name="id">The ID or URL-encoded path of the project</param>
-        /// <param name="slug">The slug (a unique string) of the wiki page</param>
+        /// <param name="slug">URL-encoded slug (a unique string) of the wiki page, such as dir%2Fpage_name</param>
         public UpdateWikiPageProjectWikiRequest(ProjectIdOrPathRef? id, string? slug)
         {
             this._id = id;
@@ -764,7 +764,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The slug (a unique string) of the wiki page</para>
+        ///   <para>URL-encoded slug (a unique string) of the wiki page, such as dir%2Fpage_name</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Slug
@@ -804,7 +804,7 @@ namespace Meziantou.GitLab
         private string? _slug;
 
         /// <param name="id">The ID or URL-encoded path of the project</param>
-        /// <param name="slug">The slug (a unique string) of the wiki page</param>
+        /// <param name="slug">URL-encoded slug (a unique string) of the wiki page, such as dir%2Fpage_name</param>
         public DeleteWikiPageProjectWikiRequest(ProjectIdOrPathRef? id, string? slug)
         {
             this._id = id;
@@ -832,7 +832,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The slug (a unique string) of the wiki page</para>
+        ///   <para>URL-encoded slug (a unique string) of the wiki page, such as dir%2Fpage_name</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Slug

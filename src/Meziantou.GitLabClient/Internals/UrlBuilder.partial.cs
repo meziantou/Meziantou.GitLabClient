@@ -47,6 +47,11 @@ namespace Meziantou.GitLab.Internals
             AppendParameter(value.FullPath);
         }
 
+        public void AppendParameter(GitObjectId value)
+        {
+            AppendParameter(value.ToString());
+        }
+
         public void AppendParameter(IEnumerable<string> values)
         {
             var first = true;

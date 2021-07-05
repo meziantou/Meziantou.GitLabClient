@@ -1342,7 +1342,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>How many approvers should approve merge requests by default.</para>
+        ///   <para>How many approvers should approve merge requests by default. To configure approval rules, see Merge request approvals API.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("approvals_before_merge")]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
@@ -1393,7 +1393,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>master by default.</para>
+        ///   <para>The default branch name. Requires initialize_with_readme to be true.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("default_branch")]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
@@ -1563,7 +1563,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>Set whether merge requests can only be merged with successful jobs.</para>
+        ///   <para>Set whether merge requests can only be merged with successful pipelines. This setting is named Pipelines must succeed in the project settings.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("only_allow_merge_if_pipeline_succeeds")]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
@@ -1699,7 +1699,7 @@ namespace Meziantou.GitLab
         }
 
         /// <summary>
-        ///   <para>The list of tags for a project; put array of tags, that should be finally assigned to a project.</para>
+        ///   <para>(Deprecated in GitLab 14.0) The list of tags for a project; put array of tags, that should be finally assigned to a project. Use topics instead.</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("tag_list")]
         [System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]

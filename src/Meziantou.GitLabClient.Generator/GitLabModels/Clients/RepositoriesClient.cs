@@ -8,7 +8,7 @@
                 .WithReturnType(ModelRef.File)
                 .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
                 .AddOptionalParameter("sha", ModelRef.String)
-                .AddOptionalParameter("format", Choice("RepositoryFileArchiveFormat", new[] { "tar.gz", "tar.bz2", "tbz", "tbz2", "tb2", "bz2", "tar", "zip" }))
+                .AddOptionalParameter("format", Choice("RepositoryFileArchiveFormat", new[] { "tar.gz", "tar.bz2", "tbz", "tbz2", "tb2", "bz2", "tar", "zip" }), options: MethodParameterOptions.DoNotValidate)
                 ;
         }
     }

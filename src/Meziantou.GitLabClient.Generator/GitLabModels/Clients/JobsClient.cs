@@ -14,6 +14,19 @@
                 .WithReturnType(Models.Job)
                 .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
             ;
+
+            methodGroup.AddMethod("GetPipelineJobs", MethodType.GetPaged, "/projects/:id/pipelines/:pipeline_id/jobs", "https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs")
+                .WithReturnType(Models.Job)
+                .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
+                .AddRequiredParameter("pipeline_id", Models.PipelineIdRef)
+                .AddOptionalParameter("include_retried", ModelRef.Boolean)
+            ;
+
+            methodGroup.AddMethod("RetryJob", MethodType.Post, "/projects/:id/jobs/:job_id/retry", "https://docs.gitlab.com/ee/api/jobs.html#retry-a-job")
+                .WithReturnType(Models.Job)
+                .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
+                .AddRequiredParameter("job_id", Models.JobIdRef)
+            ;
         }
     }
 }

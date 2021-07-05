@@ -4,7 +4,7 @@
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("GetTodos", MethodType.GetPaged, "/todos", "https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-dos")
+            methodGroup.AddMethod("GetTodos", MethodType.GetPaged, "/todos", "https://docs.gitlab.com/ee/api/todos.html#get-a-list-of-to-do-items")
                 .WithReturnType(Models.Todo)
                 .AddOptionalParameter("action", Models.TodoAction)
                 .AddOptionalParameter("author_id", Models.UserIdRef)
@@ -18,7 +18,7 @@
                 .AddRequiredParameter("id", Models.TodoIdRef)
                 ;
 
-            methodGroup.AddMethod("MarkAllTodosAsDone", MethodType.Post, "/todos/mark_as_done", "https://docs.gitlab.com/ee/api/todos.html#mark-all-to-dos-as-done")
+            methodGroup.AddMethod("MarkAllTodosAsDone", MethodType.Post, "/todos/mark_as_done", "https://docs.gitlab.com/ee/api/todos.html#mark-all-to-do-items-as-done")
                 ;
         }
     }

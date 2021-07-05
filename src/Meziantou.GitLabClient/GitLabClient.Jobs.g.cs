@@ -36,6 +36,25 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         Meziantou.GitLab.PagedResponse<Job> GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/jobs</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        Meziantou.GitLab.PagedResponse<Job> GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/jobs/:job_id/retry</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#retry-a-job" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Job> RetryJobAsync(Meziantou.GitLab.RetryJobRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 
     public partial class GitLabClient : Meziantou.GitLab.IGitLabJobsClient
@@ -63,6 +82,31 @@ namespace Meziantou.GitLab
         Meziantou.GitLab.PagedResponse<Job> Meziantou.GitLab.IGitLabJobsClient.GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Jobs_GetJobs(request, requestOptions);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/jobs</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        Meziantou.GitLab.PagedResponse<Job> Meziantou.GitLab.IGitLabJobsClient.GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        {
+            return this.Jobs_GetPipelineJobs(request, requestOptions);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/jobs/:job_id/retry</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#retry-a-job" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<Job> Meziantou.GitLab.IGitLabJobsClient.RetryJobAsync(Meziantou.GitLab.RetryJobRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        {
+            return this.Jobs_RetryJobAsync(request, requestOptions, cancellationToken);
         }
 
         public Meziantou.GitLab.IGitLabJobsClient Jobs
@@ -166,6 +210,116 @@ namespace Meziantou.GitLab
 
             return url;
         }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/jobs</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        private Meziantou.GitLab.PagedResponse<Job> Jobs_GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Jobs_GetPipelineJobs_BuildUrl(request);
+            return new Meziantou.GitLab.PagedResponse<Job>(this, url, requestOptions);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Jobs_GetPipelineJobs_BuildUrl(Meziantou.GitLab.GetPipelineJobsRequest request)
+        {
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
+            {
+                urlBuilder.Append("projects/");
+                if (request.Id.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/pipelines/");
+                if (request.PipelineId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.PipelineId.GetValueOrDefault().Value);
+                }
+
+                urlBuilder.Append("/jobs");
+                char separator = '?';
+                if (request.IncludeRetried.HasValue)
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("include_retried=");
+                    urlBuilder.AppendParameter(request.IncludeRetried.GetValueOrDefault());
+                }
+
+                url = urlBuilder.ToString();
+            }
+
+            return url;
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/jobs/:job_id/retry</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#retry-a-job" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<Job> Jobs_RetryJobAsync(Meziantou.GitLab.RetryJobRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Jobs_RetryJobAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Post;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    Job? result = await response.ToObjectAsync<Job>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'Job' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Jobs_RetryJobAsync_BuildUrl(Meziantou.GitLab.RetryJobRequest request)
+        {
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
+            {
+                urlBuilder.Append("projects/");
+                if (request.Id.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/jobs/");
+                if (request.JobId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.JobId.GetValueOrDefault().Value);
+                }
+
+                urlBuilder.Append("/retry");
+                url = urlBuilder.ToString();
+            }
+
+            return url;
+        }
     }
 
     public static partial class GitLabClientExtensions
@@ -195,6 +349,34 @@ namespace Meziantou.GitLab
         {
             Meziantou.GitLab.GetJobsRequest request = new Meziantou.GitLab.GetJobsRequest(id);
             return client.GetJobs(request, requestOptions);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/jobs</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        public static Meziantou.GitLab.PagedResponse<Job> GetPipelineJobs(this Meziantou.GitLab.IGitLabJobsClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, bool? includeRetried = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        {
+            Meziantou.GitLab.GetPipelineJobsRequest request = new Meziantou.GitLab.GetPipelineJobsRequest(id, pipelineId);
+            request.IncludeRetried = includeRetried;
+            return client.GetPipelineJobs(request, requestOptions);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>POST /projects/:id/jobs/:job_id/retry</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/jobs.html#retry-a-job" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<Job> RetryJobAsync(this Meziantou.GitLab.IGitLabJobsClient client, ProjectIdOrPathRef id, JobIdRef jobId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.RetryJobRequest request = new Meziantou.GitLab.RetryJobRequest(id, jobId);
+            return client.RetryJobAsync(request, requestOptions, cancellationToken);
         }
     }
 
@@ -276,6 +458,126 @@ namespace Meziantou.GitLab
             set
             {
                 this._id = value;
+            }
+        }
+    }
+
+    public partial class GetPipelineJobsRequest
+    {
+        private ProjectIdOrPathRef? _id;
+
+        private bool? _includeRetried;
+
+        private PipelineIdRef? _pipelineId;
+
+        /// <param name="id">ID or URL-encoded path of the project owned by the authenticated user.</param>
+        /// <param name="pipelineId">ID of a pipeline. Can also be obtained in CI jobs via the predefined CI variable CI_PIPELINE_ID.</param>
+        public GetPipelineJobsRequest(ProjectIdOrPathRef? id, PipelineIdRef? pipelineId)
+        {
+            this._id = id;
+            this._pipelineId = pipelineId;
+        }
+
+        public GetPipelineJobsRequest()
+        {
+        }
+
+        /// <summary>
+        ///   <para>ID or URL-encoded path of the project owned by the authenticated user.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public ProjectIdOrPathRef? Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>Include retried jobs in the response. Defaults to false. Introduced in GitLab 13.9.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public bool? IncludeRetried
+        {
+            get
+            {
+                return this._includeRetried;
+            }
+            set
+            {
+                this._includeRetried = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>ID of a pipeline. Can also be obtained in CI jobs via the predefined CI variable CI_PIPELINE_ID.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public PipelineIdRef? PipelineId
+        {
+            get
+            {
+                return this._pipelineId;
+            }
+            set
+            {
+                this._pipelineId = value;
+            }
+        }
+    }
+
+    public partial class RetryJobRequest
+    {
+        private ProjectIdOrPathRef? _id;
+
+        private JobIdRef? _jobId;
+
+        /// <param name="id">ID or URL-encoded path of the project owned by the authenticated user.</param>
+        /// <param name="jobId">ID of a job.</param>
+        public RetryJobRequest(ProjectIdOrPathRef? id, JobIdRef? jobId)
+        {
+            this._id = id;
+            this._jobId = jobId;
+        }
+
+        public RetryJobRequest()
+        {
+        }
+
+        /// <summary>
+        ///   <para>ID or URL-encoded path of the project owned by the authenticated user.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public ProjectIdOrPathRef? Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>ID of a job.</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public JobIdRef? JobId
+        {
+            get
+            {
+                return this._jobId;
+            }
+            set
+            {
+                this._jobId = value;
             }
         }
     }

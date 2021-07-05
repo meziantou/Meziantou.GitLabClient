@@ -351,6 +351,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("sha", Models.)
                 .AddRequiredParameter("branch", Models.)
                 .AddOptionalParameter("dry_run", Models.)
+                .AddOptionalParameter("message", Models.)
             ;
 
             methodGroup.AddMethod("Create a commit with multiple files and actions", MethodType.Post, "/projects/:id/repository/commits", "https://docs.gitlab.com/ee/api/commits.html#create-a-commit-with-multiple-files-and-actions")
@@ -423,6 +424,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("with_stats", Models.)
                 .AddOptionalParameter("first_parent", Models.)
                 .AddOptionalParameter("order", Models.)
+                .AddOptionalParameter("trailers", Models.)
             ;
 
             methodGroup.AddMethod("List the statuses of a commit", MethodType.Get, "/projects/:id/repository/commits/:sha/statuses", "https://docs.gitlab.com/ee/api/commits.html#list-the-statuses-of-a-commit")
@@ -464,6 +466,173 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("sha", Models.)
                 .AddRequiredParameter("branch", Models.)
                 .AddOptionalParameter("dry_run", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ComposerClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Base repository request", MethodType.Get, "group/:id/-/packages/composer/packages", "https://docs.gitlab.com/ee/api/packages/composer.html#base-repository-request")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Create a package", MethodType.Post, "projects/:id/packages/composer", "https://docs.gitlab.com/ee/api/packages/composer.html#create-a-package")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("tag", Models.)
+                .AddOptionalParameter("branch", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a package archive", MethodType.Get, "projects/:id/packages/composer/archives/:package_name", "https://docs.gitlab.com/ee/api/packages/composer.html#download-a-package-archive")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("sha", Models.)
+            ;
+
+            methodGroup.AddMethod("V1 Package Metadata", MethodType.Get, "group/:id/-/packages/composer/:package_name$:sha", "https://docs.gitlab.com/ee/api/packages/composer.html#v1-package-metadata")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("sha", Models.)
+            ;
+
+            methodGroup.AddMethod("V1 packages list", MethodType.Get, "group/:id/-/packages/composer/p/:sha", "https://docs.gitlab.com/ee/api/packages/composer.html#v1-packages-list")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("sha", Models.)
+            ;
+
+            methodGroup.AddMethod("V2 Package Metadata", MethodType.Get, "group/:id/-/packages/composer/p2/:package_name", "https://docs.gitlab.com/ee/api/packages/composer.html#v2-package-metadata")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ConanClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Check Credentials", MethodType.Get, "<route-prefix>/users/check_credentials", "https://docs.gitlab.com/ee/api/packages/conan.html#check-credentials")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Delete a Package (delete a Conan recipe)", MethodType.Delete, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel", "https://docs.gitlab.com/ee/api/packages/conan.html#delete-a-package-delete-a-conan-recipe")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a Package file", MethodType.Get, "packages/conan/v1/files/:package_name/:package_version/:package_username/:package_channel/:recipe_revision/package/:conan_package_reference/:package_revision/:file_name", "https://docs.gitlab.com/ee/api/packages/conan.html#download-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+                .AddRequiredParameter("recipe_revision", Models.)
+                .AddRequiredParameter("conan_package_reference", Models.)
+                .AddRequiredParameter("package_revision", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a Recipe file", MethodType.Get, "packages/conan/v1/files/:package_name/:package_version/:package_username/:package_channel/:recipe_revision/export/:file_name", "https://docs.gitlab.com/ee/api/packages/conan.html#download-a-recipe-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+                .AddRequiredParameter("recipe_revision", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Package Download URLs", MethodType.Get, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/packages/:conan_package_reference/download_urls", "https://docs.gitlab.com/ee/api/packages/conan.html#package-download-urls")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+                .AddRequiredParameter("conan_package_reference", Models.)
+            ;
+
+            methodGroup.AddMethod("Package Manifest", MethodType.Get, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/packages/:conan_package_reference/digest", "https://docs.gitlab.com/ee/api/packages/conan.html#package-manifest")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+                .AddRequiredParameter("conan_package_reference", Models.)
+            ;
+
+            methodGroup.AddMethod("Package Snapshot", MethodType.Get, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/packages/:conan_package_reference", "https://docs.gitlab.com/ee/api/packages/conan.html#package-snapshot")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+                .AddRequiredParameter("conan_package_reference", Models.)
+            ;
+
+            methodGroup.AddMethod("Package Upload URLs", MethodType.Post, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/packages/:conan_package_reference/upload_urls", "https://docs.gitlab.com/ee/api/packages/conan.html#package-upload-urls")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+                .AddRequiredParameter("conan_package_reference", Models.)
+            ;
+
+            methodGroup.AddMethod("Ping", MethodType.Get, "<route-prefix>/ping", "https://docs.gitlab.com/ee/api/packages/conan.html#ping")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Recipe Download URLs", MethodType.Get, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/download_urls", "https://docs.gitlab.com/ee/api/packages/conan.html#recipe-download-urls")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+            ;
+
+            methodGroup.AddMethod("Recipe Manifest", MethodType.Get, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/digest", "https://docs.gitlab.com/ee/api/packages/conan.html#recipe-manifest")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+            ;
+
+            methodGroup.AddMethod("Recipe Snapshot", MethodType.Get, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel", "https://docs.gitlab.com/ee/api/packages/conan.html#recipe-snapshot")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+            ;
+
+            methodGroup.AddMethod("Recipe Upload URLs", MethodType.Post, "<route-prefix>/conans/:package_name/:package_version/:package_username/:package_channel/upload_urls", "https://docs.gitlab.com/ee/api/packages/conan.html#recipe-upload-urls")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_username", Models.)
+                .AddRequiredParameter("package_channel", Models.)
+            ;
+
+            methodGroup.AddMethod("Search", MethodType.Get, "<route-prefix>/conans/search", "https://docs.gitlab.com/ee/api/packages/conan.html#search")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("q", Models.)
             ;
 
         }
@@ -644,6 +813,143 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class DebianClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Download a distribution Release file", MethodType.Get, "<route-prefix>/dists/*distribution/Release", "https://docs.gitlab.com/ee/api/packages/debian.html#download-a-distribution-release-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("distribution", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a signed distribution Release file", MethodType.Get, "<route-prefix>/dists/*distribution/InRelease", "https://docs.gitlab.com/ee/api/packages/debian.html#download-a-signed-distribution-release-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("distribution", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a package file", MethodType.Put, "projects/:id/packages/debian/:file_name", "https://docs.gitlab.com/ee/api/packages/debian.html#upload-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class DebianGroupDistributionsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create a Debian group distribution", MethodType.Post, "/groups/:id/debian_distributions", "https://docs.gitlab.com/ee/api/packages/debian_group_distributions.html#create-a-debian-group-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+                .AddOptionalParameter("suite", Models.)
+                .AddOptionalParameter("origin", Models.)
+                .AddOptionalParameter("label", Models.)
+                .AddOptionalParameter("version", Models.)
+                .AddOptionalParameter("description", Models.)
+                .AddOptionalParameter("valid_time_duration_seconds", Models.)
+                .AddOptionalParameter("components", Models.)
+                .AddOptionalParameter("architectures", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete a Debian group distribution", MethodType.Delete, "/groups/:id/debian_distributions/:codename", "https://docs.gitlab.com/ee/api/packages/debian_group_distributions.html#delete-a-debian-group-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+            ;
+
+            methodGroup.AddMethod("List all Debian distributions in a group", MethodType.Get, "/groups/:id/debian_distributions", "https://docs.gitlab.com/ee/api/packages/debian_group_distributions.html#list-all-debian-distributions-in-a-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("codename", Models.)
+                .AddOptionalParameter("suite", Models.)
+            ;
+
+            methodGroup.AddMethod("Single Debian group distribution", MethodType.Get, "/groups/:id/debian_distributions/:codename", "https://docs.gitlab.com/ee/api/packages/debian_group_distributions.html#single-debian-group-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+            ;
+
+            methodGroup.AddMethod("Update a Debian group distribution", MethodType.Put, "/groups/:id/debian_distributions/:codename", "https://docs.gitlab.com/ee/api/packages/debian_group_distributions.html#update-a-debian-group-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+                .AddOptionalParameter("suite", Models.)
+                .AddOptionalParameter("origin", Models.)
+                .AddOptionalParameter("label", Models.)
+                .AddOptionalParameter("version", Models.)
+                .AddOptionalParameter("description", Models.)
+                .AddOptionalParameter("valid_time_duration_seconds", Models.)
+                .AddOptionalParameter("components", Models.)
+                .AddOptionalParameter("architectures", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class DebianProjectDistributionsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create a Debian project distribution", MethodType.Post, "/projects/:id/debian_distributions", "https://docs.gitlab.com/ee/api/packages/debian_project_distributions.html#create-a-debian-project-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+                .AddOptionalParameter("suite", Models.)
+                .AddOptionalParameter("origin", Models.)
+                .AddOptionalParameter("label", Models.)
+                .AddOptionalParameter("version", Models.)
+                .AddOptionalParameter("description", Models.)
+                .AddOptionalParameter("valid_time_duration_seconds", Models.)
+                .AddOptionalParameter("components", Models.)
+                .AddOptionalParameter("architectures", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete a Debian project distribution", MethodType.Delete, "/projects/:id/debian_distributions/:codename", "https://docs.gitlab.com/ee/api/packages/debian_project_distributions.html#delete-a-debian-project-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+            ;
+
+            methodGroup.AddMethod("List all Debian distributions in a project", MethodType.Get, "/projects/:id/debian_distributions", "https://docs.gitlab.com/ee/api/packages/debian_project_distributions.html#list-all-debian-distributions-in-a-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("codename", Models.)
+                .AddOptionalParameter("suite", Models.)
+            ;
+
+            methodGroup.AddMethod("Single Debian project distribution", MethodType.Get, "/projects/:id/debian_distributions/:codename", "https://docs.gitlab.com/ee/api/packages/debian_project_distributions.html#single-debian-project-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+            ;
+
+            methodGroup.AddMethod("Update a Debian project distribution", MethodType.Put, "/projects/:id/debian_distributions/:codename", "https://docs.gitlab.com/ee/api/packages/debian_project_distributions.html#update-a-debian-project-distribution")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("codename", Models.)
+                .AddOptionalParameter("suite", Models.)
+                .AddOptionalParameter("origin", Models.)
+                .AddOptionalParameter("label", Models.)
+                .AddOptionalParameter("version", Models.)
+                .AddOptionalParameter("description", Models.)
+                .AddOptionalParameter("valid_time_duration_seconds", Models.)
+                .AddOptionalParameter("components", Models.)
+                .AddOptionalParameter("architectures", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class DependenciesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -735,7 +1041,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("sha", Models.)
                 .AddRequiredParameter("ref", Models.)
                 .AddRequiredParameter("tag", Models.)
-                .AddRequiredParameter("status", Models.)
+                .AddOptionalParameter("status", Models.)
             ;
 
             methodGroup.AddMethod("Get a specific deployment", MethodType.Get, "/projects/:id/deployments/:deployment_id", "https://docs.gitlab.com/ee/api/deployments.html#get-a-specific-deployment")
@@ -759,11 +1065,96 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("status", Models.)
             ;
 
-            methodGroup.AddMethod("Updating a deployment", MethodType.Put, "/projects/:id/deployments/:deployment_id", "https://docs.gitlab.com/ee/api/deployments.html#updating-a-deployment")
+            methodGroup.AddMethod("Update a deployment", MethodType.Put, "/projects/:id/deployments/:deployment_id", "https://docs.gitlab.com/ee/api/deployments.html#update-a-deployment")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("deployment_id", Models.)
-                .AddRequiredParameter("status", Models.)
+                .AddOptionalParameter("status", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class DeployTokensClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create a group deploy token", MethodType.Post, "/groups/:id/deploy_tokens", "https://docs.gitlab.com/ee/api/deploy_tokens.html#create-a-group-deploy-token")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("name", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+                .AddOptionalParameter("username", Models.)
+                .AddOptionalParameter("scopes", Models.)
+            ;
+
+            methodGroup.AddMethod("Create a project deploy token", MethodType.Post, "/projects/:id/deploy_tokens", "https://docs.gitlab.com/ee/api/deploy_tokens.html#create-a-project-deploy-token")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("name", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+                .AddOptionalParameter("username", Models.)
+                .AddOptionalParameter("scopes", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete a group deploy token", MethodType.Delete, "/groups/:id/deploy_tokens/:token_id", "https://docs.gitlab.com/ee/api/deploy_tokens.html#delete-a-group-deploy-token")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("token_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete a project deploy token", MethodType.Delete, "/projects/:id/deploy_tokens/:token_id", "https://docs.gitlab.com/ee/api/deploy_tokens.html#delete-a-project-deploy-token")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("token_id", Models.)
+            ;
+
+            methodGroup.AddMethod("List all deploy tokens", MethodType.Get, "/deploy_tokens", "https://docs.gitlab.com/ee/api/deploy_tokens.html#list-all-deploy-tokens")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("active", Models.)
+            ;
+
+            methodGroup.AddMethod("List group deploy tokens", MethodType.Get, "/groups/:id/deploy_tokens", "https://docs.gitlab.com/ee/api/deploy_tokens.html#list-group-deploy-tokens")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("active", Models.)
+            ;
+
+            methodGroup.AddMethod("List project deploy tokens", MethodType.Get, "/projects/:id/deploy_tokens", "https://docs.gitlab.com/ee/api/deploy_tokens.html#list-project-deploy-tokens")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("active", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class DevOpsResearchAndAssessmentDORAKeyMetricsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Get group-level DORA metrics", MethodType.Get, "/groups/:id/dora/metrics", "https://docs.gitlab.com/ee/api/dora/metrics.html#get-group-level-dora-metrics")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("metric", Models.)
+                .AddOptionalParameter("start_date", Models.)
+                .AddOptionalParameter("end_date", Models.)
+                .AddOptionalParameter("interval", Models.)
+                .AddOptionalParameter("environment_tier", Models.)
+            ;
+
+            methodGroup.AddMethod("Get project-level DORA metrics", MethodType.Get, "/projects/:id/dora/metrics", "https://docs.gitlab.com/ee/api/dora/metrics.html#get-project-level-dora-metrics")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("metric", Models.)
+                .AddOptionalParameter("start_date", Models.)
+                .AddOptionalParameter("end_date", Models.)
+                .AddOptionalParameter("interval", Models.)
+                .AddOptionalParameter("environment_tier", Models.)
             ;
 
         }
@@ -879,12 +1270,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("position[old_path]", Models.)
                 .AddOptionalParameter("position[old_line]", Models.)
                 .AddOptionalParameter("position[line_range]", Models.)
-                .AddOptionalParameter("position[line_range][start]", Models.)
-                .AddRequiredParameter("position[line_range][start][line_code]", Models.)
-                .AddRequiredParameter("position[line_range][start][type]", Models.)
-                .AddOptionalParameter("position[line_range][end]", Models.)
-                .AddRequiredParameter("position[line_range][end][line_code]", Models.)
-                .AddRequiredParameter("position[line_range][end][type]", Models.)
                 .AddOptionalParameter("position[width]", Models.)
                 .AddOptionalParameter("position[height]", Models.)
                 .AddOptionalParameter("position[x]", Models.)
@@ -1063,6 +1448,20 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class DORA4AnalyticsProjectClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("List project deployment frequencies", MethodType.Get, "/projects/:id/analytics/deployment_frequency", "https://docs.gitlab.com/ee/api/dora4_project_analytics.html#list-project-deployment-frequencies")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class EnvironmentsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -1155,11 +1554,19 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("Assign a child epic", MethodType.Post, "/groups/:id/epics/:epic_iid/epics", "https://docs.gitlab.com/ee/api/epic_links.html#assign-a-child-epic")
+            methodGroup.AddMethod("Assign a child epic", MethodType.Post, "/groups/:id/epics/:epic_iid/epics/:child_epic_id", "https://docs.gitlab.com/ee/api/epic_links.html#assign-a-child-epic")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("epic_iid", Models.)
                 .AddRequiredParameter("child_epic_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Create and assign a child epic", MethodType.Post, "/groups/:id/epics/:epic_iid/epics", "https://docs.gitlab.com/ee/api/epic_links.html#create-and-assign-a-child-epic")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("epic_iid", Models.)
+                .AddRequiredParameter("title", Models.)
+                .AddOptionalParameter("confidential", Models.)
             ;
 
             methodGroup.AddMethod("List epics related to a given epic", MethodType.Get, "/groups/:id/epics/:epic_iid/epics", "https://docs.gitlab.com/ee/api/epic_links.html#list-epics-related-to-a-given-epic")
@@ -1300,6 +1707,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("before", Models.)
                 .AddOptionalParameter("after", Models.)
                 .AddOptionalParameter("sort", Models.)
+                .AddOptionalParameter("page", Models.)
+                .AddOptionalParameter("per_page", Models.)
             ;
 
             methodGroup.AddMethod("List a Project’s visible events", MethodType.Get, "/projects/:project_id/events", "https://docs.gitlab.com/ee/api/events.html#list-a-projects-visible-events")
@@ -1320,6 +1729,70 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("after", Models.)
                 .AddOptionalParameter("scope", Models.)
                 .AddOptionalParameter("sort", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ExperimentsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("List all experiments", MethodType.Get, "/experiments", "https://docs.gitlab.com/ee/api/experiments.html#list-all-experiments")
+                .WithReturnType(Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ExternalStatusChecksClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create external status check", MethodType.Post, "/projects/:id/external_status_checks", "https://docs.gitlab.com/ee/api/status_checks.html#create-external-status-check")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+                .AddRequiredParameter("external_url", Models.)
+                .AddOptionalParameter("protected_branch_ids", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete external status check", MethodType.Delete, "/projects/:id/external_status_checks/:check_id", "https://docs.gitlab.com/ee/api/status_checks.html#delete-external-status-check")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("rule_id", Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Get project external status checks", MethodType.Get, "/projects/:id/external_status_checks", "https://docs.gitlab.com/ee/api/status_checks.html#get-project-external-status-checks")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("List status checks for a merge request", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/status_checks", "https://docs.gitlab.com/ee/api/status_checks.html#list-status-checks-for-a-merge-request")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
+            ;
+
+            methodGroup.AddMethod("Set approval status of an external status check", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/status_check_responses", "https://docs.gitlab.com/ee/api/status_checks.html#set-approval-status-of-an-external-status-check")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
+                .AddRequiredParameter("sha", Models.)
+                .AddRequiredParameter("external_status_check_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Update external status check", MethodType.Put, "/projects/:id/external_status_checks/:check_id", "https://docs.gitlab.com/ee/api/status_checks.html#update-external-status-check")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("rule_id", Models.)
+                .AddOptionalParameter("name", Models.)
+                .AddOptionalParameter("external_url", Models.)
+                .AddOptionalParameter("protected_branch_ids", Models.)
             ;
 
         }
@@ -1545,6 +2018,42 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class GoProxyClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Download module file", MethodType.Get, "projects/:id/packages/go/:module_name/@v/:module_version.mod", "https://docs.gitlab.com/ee/api/packages/go_proxy.html#download-module-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("module_name", Models.)
+                .AddRequiredParameter("module_version", Models.)
+            ;
+
+            methodGroup.AddMethod("Download module source", MethodType.Get, "projects/:id/packages/go/:module_name/@v/:module_version.zip", "https://docs.gitlab.com/ee/api/packages/go_proxy.html#download-module-source")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("module_name", Models.)
+                .AddRequiredParameter("module_version", Models.)
+            ;
+
+            methodGroup.AddMethod("List", MethodType.Get, "projects/:id/packages/go/:module_name/@v/list", "https://docs.gitlab.com/ee/api/packages/go_proxy.html#list")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("module_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Version metadata", MethodType.Get, "projects/:id/packages/go/:module_name/@v/:module_version.info", "https://docs.gitlab.com/ee/api/packages/go_proxy.html#version-metadata")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("module_name", Models.)
+                .AddRequiredParameter("module_version", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class GroupActivityAnalyticsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -1729,6 +2238,33 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class GroupImportExportClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Export download", MethodType.Get, "/groups/:id/export/download", "https://docs.gitlab.com/ee/api/group_import_export.html#export-download")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Import a file", MethodType.Post, "/groups/import", "https://docs.gitlab.com/ee/api/group_import_export.html#import-a-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("name", Models.)
+                .AddRequiredParameter("path", Models.)
+                .AddRequiredParameter("file", Models.)
+                .AddOptionalParameter("parent_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Schedule new export", MethodType.Post, "/groups/:id/export", "https://docs.gitlab.com/ee/api/group_import_export.html#schedule-new-export")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class GroupIssueBoardsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -1796,6 +2332,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("board_id", Models.)
                 .AddOptionalParameter("name", Models.)
+                .AddOptionalParameter("hide_backlog_list", Models.)
+                .AddOptionalParameter("hide_closed_list", Models.)
                 .AddOptionalParameter("assignee_id", Models.)
                 .AddOptionalParameter("milestone_id", Models.)
                 .AddOptionalParameter("labels", Models.)
@@ -1886,6 +2424,39 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class GroupLevelProtectedEnvironmentsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Get a single protected environment", MethodType.Get, "/groups/:id/protected_environments/:name", "https://docs.gitlab.com/ee/api/group_protected_environments.html#get-a-single-protected-environment")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+            ;
+
+            methodGroup.AddMethod("List group-level protected environments", MethodType.Get, "/groups/:id/protected_environments", "https://docs.gitlab.com/ee/api/group_protected_environments.html#list-group-level-protected-environments")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Protect an environment", MethodType.Post, "/groups/:id/protected_environments", "https://docs.gitlab.com/ee/api/group_protected_environments.html#protect-an-environment")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+                .AddRequiredParameter("deploy_access_levels", Models.)
+            ;
+
+            methodGroup.AddMethod("Unprotect environment", MethodType.Delete, "/groups/:id/protected_environments/:name", "https://docs.gitlab.com/ee/api/group_protected_environments.html#unprotect-environment")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class GroupLevelVariablesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -1898,6 +2469,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("variable_type", Models.)
                 .AddOptionalParameter("protected", Models.)
                 .AddOptionalParameter("masked", Models.)
+                .AddOptionalParameter("environment_scope", Models.)
             ;
 
             methodGroup.AddMethod("List group variables", MethodType.Get, "/groups/:id/variables", "https://docs.gitlab.com/ee/api/group_level_variables.html#list-group-variables")
@@ -1925,6 +2497,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("variable_type", Models.)
                 .AddOptionalParameter("protected", Models.)
                 .AddOptionalParameter("masked", Models.)
+                .AddOptionalParameter("environment_scope", Models.)
             ;
 
         }
@@ -2001,6 +2574,72 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class GroupRelationsExportClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Export download", MethodType.Get, "/groups/:id/export_relations/download", "https://docs.gitlab.com/ee/api/group_relations_export.html#export-download")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("relation", Models.)
+            ;
+
+            methodGroup.AddMethod("Export status", MethodType.Get, "/groups/:id/export_relations/status", "https://docs.gitlab.com/ee/api/group_relations_export.html#export-status")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Schedule new export", MethodType.Post, "/groups/:id/export_relations", "https://docs.gitlab.com/ee/api/group_relations_export.html#schedule-new-export")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class GroupRepositoryStorageMovesClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Get a single group repository storage move", MethodType.Get, "/group_repository_storage_moves/:repository_storage_id", "https://docs.gitlab.com/ee/api/group_repository_storage_moves.html#get-a-single-group-repository-storage-move")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("repository_storage_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Get a single repository storage move for a group", MethodType.Get, "/groups/:group_id/repository_storage_moves/:repository_storage_id", "https://docs.gitlab.com/ee/api/group_repository_storage_moves.html#get-a-single-repository-storage-move-for-a-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("group_id", Models.)
+                .AddRequiredParameter("repository_storage_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Retrieve all group repository storage moves", MethodType.Get, "/group_repository_storage_moves", "https://docs.gitlab.com/ee/api/group_repository_storage_moves.html#retrieve-all-group-repository-storage-moves")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Retrieve all repository storage moves for a single group", MethodType.Get, "/groups/:group_id/repository_storage_moves", "https://docs.gitlab.com/ee/api/group_repository_storage_moves.html#retrieve-all-repository-storage-moves-for-a-single-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("group_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Schedule a repository storage move for a group", MethodType.Post, "/groups/:group_id/repository_storage_moves", "https://docs.gitlab.com/ee/api/group_repository_storage_moves.html#schedule-a-repository-storage-move-for-a-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("group_id", Models.)
+                .AddOptionalParameter("destination_storage_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Schedule repository storage moves for all groups on a storage shard", MethodType.Post, "/group_repository_storage_moves", "https://docs.gitlab.com/ee/api/group_repository_storage_moves.html#schedule-repository-storage-moves-for-all-groups-on-a-storage-shard")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("source_storage_name", Models.)
+                .AddOptionalParameter("destination_storage_name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class GroupsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -2021,6 +2660,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("wiki_page_events", Models.)
                 .AddOptionalParameter("deployment_events", Models.)
                 .AddOptionalParameter("releases_events", Models.)
+                .AddOptionalParameter("subgroup_events", Models.)
                 .AddOptionalParameter("enable_ssl_verification", Models.)
                 .AddOptionalParameter("token", Models.)
             ;
@@ -2096,6 +2736,11 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("with_projects", Models.)
             ;
 
+            methodGroup.AddMethod("Download a Group avatar", MethodType.Get, "/groups/:id/avatar", "https://docs.gitlab.com/ee/api/groups.html#download-a-group-avatar")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
             methodGroup.AddMethod("Edit group hook", MethodType.Put, "/groups/:id/hooks/:hook_id", "https://docs.gitlab.com/ee/api/groups.html#edit-group-hook")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
@@ -2110,9 +2755,10 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("confidential_note_events", Models.)
                 .AddOptionalParameter("job_events", Models.)
                 .AddOptionalParameter("pipeline_events", Models.)
-                .AddOptionalParameter("wiki_events", Models.)
+                .AddOptionalParameter("wiki_page_events", Models.)
                 .AddOptionalParameter("deployment_events", Models.)
                 .AddOptionalParameter("releases_events", Models.)
+                .AddOptionalParameter("subgroup_events", Models.)
                 .AddOptionalParameter("enable_ssl_verification", Models.)
                 .AddOptionalParameter("token", Models.)
             ;
@@ -2222,7 +2868,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("default_branch_protection", Models.)
                 .AddOptionalParameter("shared_runners_minutes_limit", Models.)
                 .AddOptionalParameter("extra_shared_runners_minutes_limit", Models.)
-                .AddOptionalParameter("shared_runners_setting", Models.)
             ;
 
             methodGroup.AddMethod("Remove group", MethodType.Delete, "/groups/:id", "https://docs.gitlab.com/ee/api/groups.html#remove-group")
@@ -2269,6 +2914,55 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("shared_runners_minutes_limit", Models.)
                 .AddOptionalParameter("extra_shared_runners_minutes_limit", Models.)
                 .AddOptionalParameter("prevent_forking_outside_group", Models.)
+                .AddOptionalParameter("shared_runners_setting", Models.)
+                .AddOptionalParameter("prevent_sharing_groups_outside_hierarchy", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a group avatar", MethodType.Put, "\", "https://docs.gitlab.com/ee/api/groups.html#upload-a-group-avatar")
+                .WithReturnType(Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class GroupWikisClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Delete a wiki page", MethodType.Delete, "/groups/:id/wikis/:slug", "https://docs.gitlab.com/ee/api/group_wikis.html#delete-a-wiki-page")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("slug", Models.)
+            ;
+
+            methodGroup.AddMethod("Edit an existing wiki page", MethodType.Put, "/groups/:id/wikis/:slug", "https://docs.gitlab.com/ee/api/group_wikis.html#edit-an-existing-wiki-page")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("content", Models.)
+                .AddOptionalParameter("title", Models.)
+                .AddOptionalParameter("format", Models.)
+                .AddRequiredParameter("slug", Models.)
+            ;
+
+            methodGroup.AddMethod("Get a wiki page", MethodType.Get, "/groups/:id/wikis/:slug", "https://docs.gitlab.com/ee/api/group_wikis.html#get-a-wiki-page")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("slug", Models.)
+            ;
+
+            methodGroup.AddMethod("List wiki pages", MethodType.Get, "/groups/:id/wikis", "https://docs.gitlab.com/ee/api/group_wikis.html#list-wiki-pages")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("with_content", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload an attachment to the wiki repository", MethodType.Post, "/groups/:id/wikis/attachments", "https://docs.gitlab.com/ee/api/group_wikis.html#upload-an-attachment-to-the-wiki-repository")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("file", Models.)
+                .AddOptionalParameter("branch", Models.)
             ;
 
         }
@@ -2357,6 +3051,118 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class InstanceLevelCICDVariablesClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create instance variable", MethodType.Post, "/admin/ci/variables", "https://docs.gitlab.com/ee/api/instance_level_ci_variables.html#create-instance-variable")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("key", Models.)
+                .AddRequiredParameter("value", Models.)
+                .AddOptionalParameter("variable_type", Models.)
+                .AddOptionalParameter("protected", Models.)
+                .AddOptionalParameter("masked", Models.)
+            ;
+
+            methodGroup.AddMethod("List all instance variables", MethodType.Get, "/admin/ci/variables", "https://docs.gitlab.com/ee/api/instance_level_ci_variables.html#list-all-instance-variables")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Remove instance variable", MethodType.Delete, "/admin/ci/variables/:key", "https://docs.gitlab.com/ee/api/instance_level_ci_variables.html#remove-instance-variable")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("key", Models.)
+            ;
+
+            methodGroup.AddMethod("Show instance variable details", MethodType.Get, "/admin/ci/variables/:key", "https://docs.gitlab.com/ee/api/instance_level_ci_variables.html#show-instance-variable-details")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("key", Models.)
+            ;
+
+            methodGroup.AddMethod("Update instance variable", MethodType.Put, "/admin/ci/variables/:key", "https://docs.gitlab.com/ee/api/instance_level_ci_variables.html#update-instance-variable")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("key", Models.)
+                .AddRequiredParameter("value", Models.)
+                .AddOptionalParameter("variable_type", Models.)
+                .AddOptionalParameter("protected", Models.)
+                .AddOptionalParameter("masked", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class InvitationsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Delete an invitation to a group or project", MethodType.Delete, "/groups/:id/invitations/:email", "https://docs.gitlab.com/ee/api/invitations.html#delete-an-invitation-to-a-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("email", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete an invitation to a group or project", MethodType.Delete, "/projects/:id/invitations/:email", "https://docs.gitlab.com/ee/api/invitations.html#delete-an-invitation-to-a-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("email", Models.)
+            ;
+
+            methodGroup.AddMethod("Invite by email to group or project", MethodType.Post, "/groups/:id/invitations", "https://docs.gitlab.com/ee/api/invitations.html#invite-by-email-to-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("email", Models.)
+                .AddRequiredParameter("access_level", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+                .AddOptionalParameter("invite_source", Models.)
+            ;
+
+            methodGroup.AddMethod("Invite by email to group or project", MethodType.Post, "/projects/:id/invitations", "https://docs.gitlab.com/ee/api/invitations.html#invite-by-email-to-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("email", Models.)
+                .AddRequiredParameter("access_level", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+                .AddOptionalParameter("invite_source", Models.)
+            ;
+
+            methodGroup.AddMethod("List all invitations pending for a group or project", MethodType.Get, "/groups/:id/invitations", "https://docs.gitlab.com/ee/api/invitations.html#list-all-invitations-pending-for-a-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("page", Models.)
+                .AddOptionalParameter("per_page", Models.)
+                .AddOptionalParameter("query", Models.)
+            ;
+
+            methodGroup.AddMethod("List all invitations pending for a group or project", MethodType.Get, "/projects/:id/invitations", "https://docs.gitlab.com/ee/api/invitations.html#list-all-invitations-pending-for-a-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("page", Models.)
+                .AddOptionalParameter("per_page", Models.)
+                .AddOptionalParameter("query", Models.)
+            ;
+
+            methodGroup.AddMethod("Update an invitation to a group or project", MethodType.Put, "/groups/:id/invitations/:email", "https://docs.gitlab.com/ee/api/invitations.html#update-an-invitation-to-a-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("email", Models.)
+                .AddOptionalParameter("access_level", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+            ;
+
+            methodGroup.AddMethod("Update an invitation to a group or project", MethodType.Put, "/projects/:id/invitations/:email", "https://docs.gitlab.com/ee/api/invitations.html#update-an-invitation-to-a-group-or-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("email", Models.)
+                .AddOptionalParameter("access_level", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class IssueLinksClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -2412,6 +3218,13 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("issue_iid", Models.)
             ;
 
+            methodGroup.AddMethod("Delete metric image", MethodType.Delete, "/projects/:id/issues/:issue_iid/metric_images/:image_id", "https://docs.gitlab.com/ee/api/issues.html#delete-metric-image")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("issue_iid", Models.)
+                .AddRequiredParameter("image_id", Models.)
+            ;
+
             methodGroup.AddMethod("Edit issue", MethodType.Put, "/projects/:id/issues/:issue_iid", "https://docs.gitlab.com/ee/api/issues.html#edit-issue")
                 .WithReturnType(Models.)
                 .AddOptionalParameter("add_labels", Models.)
@@ -2424,6 +3237,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("epic_iid", Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("issue_iid", Models.)
+                .AddOptionalParameter("issue_type", Models.)
                 .AddOptionalParameter("labels", Models.)
                 .AddOptionalParameter("milestone_id", Models.)
                 .AddOptionalParameter("remove_labels", Models.)
@@ -2457,6 +3271,9 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("due_date", Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddOptionalParameter("iids", Models.)
+                .AddOptionalParameter("issue_type", Models.)
+                .AddOptionalParameter("iteration_id", Models.)
+                .AddOptionalParameter("iteration_title", Models.)
                 .AddOptionalParameter("labels", Models.)
                 .AddOptionalParameter("milestone", Models.)
                 .AddOptionalParameter("my_reaction_emoji", Models.)
@@ -2485,9 +3302,9 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("due_date", Models.)
                 .AddOptionalParameter("iids", Models.)
                 .AddOptionalParameter("in", Models.)
+                .AddOptionalParameter("issue_type", Models.)
                 .AddOptionalParameter("iteration_id", Models.)
                 .AddOptionalParameter("iteration_title", Models.)
-                .AddOptionalParameter("milestone", Models.)
                 .AddOptionalParameter("labels", Models.)
                 .AddOptionalParameter("milestone", Models.)
                 .AddOptionalParameter("my_reaction_emoji", Models.)
@@ -2504,7 +3321,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("with_labels_details", Models.)
             ;
 
-            methodGroup.AddMethod("List merge requests related to issue", MethodType.Get, "/projects/:id/issues/:issue_id/related_merge_requests", "https://docs.gitlab.com/ee/api/issues.html#list-merge-requests-related-to-issue")
+            methodGroup.AddMethod("List merge requests related to issue", MethodType.Get, "/projects/:id/issues/:issue_iid/related_merge_requests", "https://docs.gitlab.com/ee/api/issues.html#list-merge-requests-related-to-issue")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("issue_iid", Models.)
@@ -2534,6 +3351,9 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("due_date", Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddOptionalParameter("iids", Models.)
+                .AddOptionalParameter("issue_type", Models.)
+                .AddOptionalParameter("iteration_id", Models.)
+                .AddOptionalParameter("iteration_title", Models.)
                 .AddOptionalParameter("labels", Models.)
                 .AddOptionalParameter("milestone", Models.)
                 .AddOptionalParameter("my_reaction_emoji", Models.)
@@ -2744,6 +3564,15 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("job_id", Models.)
             ;
 
+            methodGroup.AddMethod("Get job token’s job", MethodType.Get, "/job", "https://docs.gitlab.com/ee/api/jobs.html#get-job-tokens-job")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Get Kubernetes Agents by CI_JOB_TOKEN", MethodType.Get, "/job/allowed_agents", "https://docs.gitlab.com/ee/api/jobs.html#get-kubernetes-agents-by-ci_job_token")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("CI_JOB_TOKEN", Models.)
+            ;
+
             methodGroup.AddMethod("List pipeline bridges", MethodType.Get, "/projects/:id/pipelines/:pipeline_id/bridges", "https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-bridges")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
@@ -2751,20 +3580,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("scope", Models.)
             ;
 
-            methodGroup.AddMethod("List pipeline jobs", MethodType.Get, "/projects/:id/pipelines/:pipeline_id/jobs", "https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("pipeline_id", Models.)
-                .AddOptionalParameter("scope", Models.)
-            ;
-
             methodGroup.AddMethod("Play a job", MethodType.Post, "/projects/:id/jobs/:job_id/play", "https://docs.gitlab.com/ee/api/jobs.html#play-a-job")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("job_id", Models.)
-            ;
-
-            methodGroup.AddMethod("Retry a job", MethodType.Post, "/projects/:id/jobs/:job_id/retry", "https://docs.gitlab.com/ee/api/jobs.html#retry-a-job")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("job_id", Models.)
@@ -2901,6 +3717,39 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class MavenClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Download a package file at the group-level", MethodType.Get, "groups/:id/-/packages/maven/*path/:file_name", "https://docs.gitlab.com/ee/api/packages/maven.html#download-a-package-file-at-the-group-level")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("path", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a package file at the instance-level", MethodType.Get, "packages/maven/*path/:file_name", "https://docs.gitlab.com/ee/api/packages/maven.html#download-a-package-file-at-the-instance-level")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("path", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a package file at the project-level", MethodType.Get, "projects/:id/packages/maven/*path/:file_name", "https://docs.gitlab.com/ee/api/packages/maven.html#download-a-package-file-at-the-project-level")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("path", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a package file", MethodType.Put, "projects/:id/packages/maven/*path/:file_name", "https://docs.gitlab.com/ee/api/packages/maven.html#upload-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("path", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class MembersClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -2911,6 +3760,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("user_id", Models.)
                 .AddRequiredParameter("access_level", Models.)
                 .AddOptionalParameter("expires_at", Models.)
+                .AddOptionalParameter("invite_source", Models.)
             ;
 
             methodGroup.AddMethod("Edit a member of a group or project", MethodType.Put, "/groups/:id/members/:user_id", "https://docs.gitlab.com/ee/api/members.html#edit-a-member-of-a-group-or-project")
@@ -2988,10 +3838,23 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("user_ids", Models.)
             ;
 
+            methodGroup.AddMethod("List memberships for a billable member of a group", MethodType.Get, "/groups/:id/billable_members/:user_id/memberships", "https://docs.gitlab.com/ee/api/members.html#list-memberships-for-a-billable-member-of-a-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("user_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Remove a billable member from a group", MethodType.Delete, "/groups/:id/billable_members/:user_id", "https://docs.gitlab.com/ee/api/members.html#remove-a-billable-member-from-a-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("user_id", Models.)
+            ;
+
             methodGroup.AddMethod("Remove a member from a group or project", MethodType.Delete, "/groups/:id/members/:user_id", "https://docs.gitlab.com/ee/api/members.html#remove-a-member-from-a-group-or-project")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("user_id", Models.)
+                .AddOptionalParameter("skip_subresources", Models.)
                 .AddOptionalParameter("unassign_issuables", Models.)
             ;
 
@@ -2999,6 +3862,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("user_id", Models.)
+                .AddOptionalParameter("skip_subresources", Models.)
                 .AddOptionalParameter("unassign_issuables", Models.)
             ;
 
@@ -3029,21 +3893,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("merge_request_iid", Models.)
                 .AddOptionalParameter("sha", Models.)
                 .AddOptionalParameter("approval_password", Models.)
-            ;
-
-            methodGroup.AddMethod("Change allowed approvers", MethodType.Put, "/projects/:id/approvers", "https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-allowed-approvers")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("approver_ids", Models.)
-                .AddRequiredParameter("approver_group_ids", Models.)
-            ;
-
-            methodGroup.AddMethod("Change allowed approvers for Merge Request", MethodType.Put, "/projects/:id/merge_requests/:merge_request_iid/approvers", "https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-allowed-approvers-for-merge-request")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("merge_request_iid", Models.)
-                .AddRequiredParameter("approver_ids", Models.)
-                .AddRequiredParameter("approver_group_ids", Models.)
             ;
 
             methodGroup.AddMethod("Change approval configuration", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/approvals", "https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-approval-configuration")
@@ -3165,12 +4014,43 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class MergeRequestContextCommitsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create MR context commits", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/context_commits", "https://docs.gitlab.com/ee/api/merge_request_context_commits.html#create-mr-context-commits")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("commits", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete MR context commits", MethodType.Delete, "/projects/:id/merge_requests/:merge_request_iid/context_commits", "https://docs.gitlab.com/ee/api/merge_request_context_commits.html#delete-mr-context-commits")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("commits", Models.)
+            ;
+
+            methodGroup.AddMethod("List MR context commits", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/context_commits", "https://docs.gitlab.com/ee/api/merge_request_context_commits.html#list-mr-context-commits")
+                .WithReturnType(Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class MergeRequestsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
         {
             methodGroup.AddMethod("Accept MR", MethodType.Put, "/projects/:id/merge_requests/:merge_request_iid/merge", "https://docs.gitlab.com/ee/api/merge_requests.html#accept-mr")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
+                .AddOptionalParameter("merge_commit_message", Models.)
+                .AddOptionalParameter("squash_commit_message", Models.)
+                .AddOptionalParameter("squash", Models.)
+                .AddOptionalParameter("should_remove_source_branch", Models.)
+                .AddOptionalParameter("merge_when_pipeline_succeeds", Models.)
+                .AddOptionalParameter("sha", Models.)
             ;
 
             methodGroup.AddMethod("Add spent time for a merge request", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/add_spent_time", "https://docs.gitlab.com/ee/api/merge_requests.html#add-spent-time-for-a-merge-request")
@@ -3182,6 +4062,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("Cancel Merge When Pipeline Succeeds", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/cancel_merge_when_pipeline_succeeds", "https://docs.gitlab.com/ee/api/merge_requests.html#cancel-merge-when-pipeline-succeeds")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
             ;
 
             methodGroup.AddMethod("Create a to-do item", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/todo", "https://docs.gitlab.com/ee/api/merge_requests.html#create-a-to-do-item")
@@ -3192,6 +4074,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("Create MR Pipeline", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/pipelines", "https://docs.gitlab.com/ee/api/merge_requests.html#create-mr-pipeline")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
             ;
 
             methodGroup.AddMethod("Delete a merge request", MethodType.Delete, "/projects/:id/merge_requests/:merge_request_iid", "https://docs.gitlab.com/ee/api/merge_requests.html#delete-a-merge-request")
@@ -3215,14 +4099,21 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("Get single MR changes", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/changes", "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr-changes")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
+                .AddOptionalParameter("access_raw_diffs", Models.)
             ;
 
             methodGroup.AddMethod("Get single MR commits", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/commits", "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr-commits")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
             ;
 
             methodGroup.AddMethod("Get single MR participants", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/participants", "https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr-participants")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
             ;
 
             methodGroup.AddMethod("Get time tracking stats", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/time_stats", "https://docs.gitlab.com/ee/api/merge_requests.html#get-time-tracking-stats")
@@ -3239,10 +4130,14 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("List MR pipelines", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/pipelines", "https://docs.gitlab.com/ee/api/merge_requests.html#list-mr-pipelines")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
             ;
 
             methodGroup.AddMethod("Merge to default merge ref path", MethodType.Get, "/projects/:id/merge_requests/:merge_request_iid/merge_ref", "https://docs.gitlab.com/ee/api/merge_requests.html#merge-to-default-merge-ref-path")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
             ;
 
             methodGroup.AddMethod("Rebase a merge request", MethodType.Put, "/projects/:id/merge_requests/:merge_request_iid/rebase", "https://docs.gitlab.com/ee/api/merge_requests.html#rebase-a-merge-request")
@@ -3291,6 +4186,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("title", Models.)
                 .AddOptionalParameter("assignee_id", Models.)
                 .AddOptionalParameter("assignee_ids", Models.)
+                .AddOptionalParameter("reviewer_ids", Models.)
                 .AddOptionalParameter("milestone_id", Models.)
                 .AddOptionalParameter("labels", Models.)
                 .AddOptionalParameter("add_labels", Models.)
@@ -3313,8 +4209,11 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("List Merge Trains for a project", MethodType.Get, "/projects/1/merge_trains", "https://docs.gitlab.com/ee/api/merge_trains.html#list-merge-trains-for-a-project")
+            methodGroup.AddMethod("List Merge Trains for a project", MethodType.Get, "/projects/:id/merge_trains", "https://docs.gitlab.com/ee/api/merge_trains.html#list-merge-trains-for-a-project")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("scope", Models.)
+                .AddOptionalParameter("sort", Models.)
             ;
 
         }
@@ -3326,6 +4225,12 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
+            methodGroup.AddMethod("Get existence of a namespace", MethodType.Get, "/namespaces/:namespace/exists", "https://docs.gitlab.com/ee/api/namespaces.html#get-existence-of-a-namespace")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("namespace", Models.)
+                .AddOptionalParameter("parent_id", Models.)
+            ;
+
             methodGroup.AddMethod("Get namespace by ID", MethodType.Get, "/namespaces/:id", "https://docs.gitlab.com/ee/api/namespaces.html#get-namespace-by-id")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
@@ -3505,6 +4410,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("fixed_pipeline", Models.)
                 .AddOptionalParameter("success_pipeline", Models.)
                 .AddOptionalParameter("moved_project", Models.)
+                .AddOptionalParameter("merge_when_pipeline_succeeds", Models.)
                 .AddOptionalParameter("new_epic", Models.)
             ;
 
@@ -3528,6 +4434,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("fixed_pipeline", Models.)
                 .AddOptionalParameter("success_pipeline", Models.)
                 .AddOptionalParameter("moved_project", Models.)
+                .AddOptionalParameter("merge_when_pipeline_succeeds", Models.)
                 .AddOptionalParameter("new_epic", Models.)
             ;
 
@@ -3551,7 +4458,110 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("fixed_pipeline", Models.)
                 .AddOptionalParameter("success_pipeline", Models.)
                 .AddOptionalParameter("moved_project", Models.)
+                .AddOptionalParameter("merge_when_pipeline_succeeds", Models.)
                 .AddOptionalParameter("new_epic", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class NpmClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create or update a tag", MethodType.Put, "<route-prefix>/-/package/:package_name/dist-tags/:tag", "https://docs.gitlab.com/ee/api/packages/npm.html#create-or-update-a-tag")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("tag", Models.)
+                .AddRequiredParameter("version", Models.)
+            ;
+
+            methodGroup.AddMethod("Delete a tag", MethodType.Delete, "<route-prefix>/-/package/:package_name/dist-tags/:tag", "https://docs.gitlab.com/ee/api/packages/npm.html#delete-a-tag")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("tag", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a package", MethodType.Get, "projects/:id/packages/npm/:package_name/-/:file_name", "https://docs.gitlab.com/ee/api/packages/npm.html#download-a-package")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("List tags", MethodType.Get, "<route-prefix>/-/package/:package_name/dist-tags", "https://docs.gitlab.com/ee/api/packages/npm.html#list-tags")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Metadata", MethodType.Get, "<route-prefix>/:package_name", "https://docs.gitlab.com/ee/api/packages/npm.html#metadata")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a package file", MethodType.Put, "projects/:id/packages/npm/:package_name", "https://docs.gitlab.com/ee/api/packages/npm.html#upload-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("versions", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class NuGetClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Download a package file", MethodType.Get, "projects/:id/packages/nuget/download/:package_name/:package_version/:package_filename", "https://docs.gitlab.com/ee/api/packages/nuget.html#download-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_filename", Models.)
+            ;
+
+            methodGroup.AddMethod("Metadata Service", MethodType.Get, "<route-prefix>/metadata/:package_name/index", "https://docs.gitlab.com/ee/api/packages/nuget.html#metadata-service")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Package index", MethodType.Get, "projects/:id/packages/nuget/download/:package_name/index", "https://docs.gitlab.com/ee/api/packages/nuget.html#package-index")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Search Service", MethodType.Get, "<route-prefix>/query", "https://docs.gitlab.com/ee/api/packages/nuget.html#search-service")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("q", Models.)
+                .AddOptionalParameter("skip", Models.)
+                .AddOptionalParameter("take", Models.)
+                .AddOptionalParameter("prerelease", Models.)
+            ;
+
+            methodGroup.AddMethod("Service Index", MethodType.Get, "<route-prefix>/index", "https://docs.gitlab.com/ee/api/packages/nuget.html#service-index")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a package file", MethodType.Put, "projects/:id/packages/nuget", "https://docs.gitlab.com/ee/api/packages/nuget.html#upload-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_filename", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a symbol package file", MethodType.Put, "projects/:id/packages/nuget/symbolpackage", "https://docs.gitlab.com/ee/api/packages/nuget.html#upload-a-symbol-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+                .AddRequiredParameter("package_version", Models.)
+                .AddRequiredParameter("package_filename", Models.)
             ;
 
         }
@@ -3563,6 +4573,13 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
+            methodGroup.AddMethod("Delete a package file", MethodType.Delete, "/projects/:id/packages/:package_id/package_files/:package_file_id", "https://docs.gitlab.com/ee/api/packages.html#delete-a-package-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_id", Models.)
+                .AddRequiredParameter("package_file_id", Models.)
+            ;
+
             methodGroup.AddMethod("Delete a project package", MethodType.Delete, "/projects/:id/packages/:package_id", "https://docs.gitlab.com/ee/api/packages.html#delete-a-project-package")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
@@ -3589,6 +4606,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("sort", Models.)
                 .AddOptionalParameter("package_type", Models.)
                 .AddOptionalParameter("package_name", Models.)
+                .AddOptionalParameter("include_versionless", Models.)
+                .AddOptionalParameter("status", Models.)
             ;
 
             methodGroup.AddMethod("Within a project", MethodType.Get, "/projects/:id/packages", "https://docs.gitlab.com/ee/api/packages.html#within-a-project")
@@ -3598,6 +4617,22 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("sort", Models.)
                 .AddOptionalParameter("package_type", Models.)
                 .AddOptionalParameter("package_name", Models.)
+                .AddOptionalParameter("include_versionless", Models.)
+                .AddOptionalParameter("status", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class PagesClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Unpublish pages", MethodType.Delete, "/projects/:id/pages", "https://docs.gitlab.com/ee/api/pages.html#unpublish-pages")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
             ;
 
         }
@@ -3676,60 +4711,13 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("Cancel a pipeline’s jobs", MethodType.Post, "/projects/:id/pipelines/:pipeline_id/cancel", "https://docs.gitlab.com/ee/api/pipelines.html#cancel-a-pipelines-jobs")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("pipeline_id", Models.)
-            ;
-
-            methodGroup.AddMethod("Create a new pipeline", MethodType.Post, "/projects/:id/pipeline", "https://docs.gitlab.com/ee/api/pipelines.html#create-a-new-pipeline")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("ref", Models.)
-                .AddOptionalParameter("variables", Models.)
-            ;
-
-            methodGroup.AddMethod("Delete a pipeline", MethodType.Delete, "/projects/:id/pipelines/:pipeline_id", "https://docs.gitlab.com/ee/api/pipelines.html#delete-a-pipeline")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("pipeline_id", Models.)
-            ;
-
             methodGroup.AddMethod("Get a pipeline’s test report", MethodType.Get, "/projects/:id/pipelines/:pipeline_id/test_report", "https://docs.gitlab.com/ee/api/pipelines.html#get-a-pipelines-test-report")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("pipeline_id", Models.)
             ;
 
-            methodGroup.AddMethod("Get a single pipeline", MethodType.Get, "/projects/:id/pipelines/:pipeline_id", "https://docs.gitlab.com/ee/api/pipelines.html#get-a-single-pipeline")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("pipeline_id", Models.)
-            ;
-
             methodGroup.AddMethod("Get variables of a pipeline", MethodType.Get, "/projects/:id/pipelines/:pipeline_id/variables", "https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("pipeline_id", Models.)
-            ;
-
-            methodGroup.AddMethod("List project pipelines", MethodType.Get, "/projects/:id/pipelines", "https://docs.gitlab.com/ee/api/pipelines.html#list-project-pipelines")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddOptionalParameter("scope", Models.)
-                .AddOptionalParameter("status", Models.)
-                .AddOptionalParameter("ref", Models.)
-                .AddOptionalParameter("sha", Models.)
-                .AddOptionalParameter("yaml_errors", Models.)
-                .AddOptionalParameter("name", Models.)
-                .AddOptionalParameter("username", Models.)
-                .AddOptionalParameter("updated_after", Models.)
-                .AddOptionalParameter("updated_before", Models.)
-                .AddOptionalParameter("order_by", Models.)
-                .AddOptionalParameter("sort", Models.)
-            ;
-
-            methodGroup.AddMethod("Retry jobs in a pipeline", MethodType.Post, "/projects/:id/pipelines/:pipeline_id/retry", "https://docs.gitlab.com/ee/api/pipelines.html#retry-jobs-in-a-pipeline")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("pipeline_id", Models.)
@@ -3864,6 +4852,60 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class PlanLimitsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Change plan limits", MethodType.Put, "/application/plan_limits", "https://docs.gitlab.com/ee/api/plan_limits.html#change-plan-limits")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("plan_name", Models.)
+                .AddOptionalParameter("conan_max_file_size", Models.)
+                .AddOptionalParameter("generic_packages_max_file_size", Models.)
+                .AddOptionalParameter("maven_max_file_size", Models.)
+                .AddOptionalParameter("npm_max_file_size", Models.)
+                .AddOptionalParameter("nuget_max_file_size", Models.)
+                .AddOptionalParameter("pypi_max_file_size", Models.)
+            ;
+
+            methodGroup.AddMethod("Get current plan limits", MethodType.Get, "/application/plan_limits", "https://docs.gitlab.com/ee/api/plan_limits.html#get-current-plan-limits")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("plan_name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ProjectAccessTokensClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create a project access token", MethodType.Post, "projects/:id/access_tokens", "https://docs.gitlab.com/ee/api/resource_access_tokens.html#create-a-project-access-token")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+                .AddRequiredParameter("scopes", Models.)
+                .AddOptionalParameter("access_level", Models.)
+                .AddOptionalParameter("expires_at", Models.)
+            ;
+
+            methodGroup.AddMethod("List project access tokens", MethodType.Get, "projects/:id/access_tokens", "https://docs.gitlab.com/ee/api/resource_access_tokens.html#list-project-access-tokens")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Revoke a project access token", MethodType.Delete, "projects/:id/access_tokens/:token_id", "https://docs.gitlab.com/ee/api/resource_access_tokens.html#revoke-a-project-access-token")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("token_id", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class ProjectAliasesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -3893,20 +4935,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
-    internal sealed class ProjectAnalyticsClient : GitLabClientBuilder
-    {
-        protected override void Create(MethodGroup methodGroup)
-        {
-            methodGroup.AddMethod("List project deployment frequencies", MethodType.Get, "/projects/:id/analytics/deployment_frequency", "https://docs.gitlab.com/ee/api/project_analytics.html#list-project-deployment-frequencies")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-            ;
-
-        }
-    }
-}
-namespace Meziantou.GitLabClient.Generator.GitLabModels
-{
     internal sealed class ProjectBadgesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -3916,6 +4944,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("link_url", Models.)
                 .AddRequiredParameter("image_url", Models.)
+                .AddOptionalParameter("name", Models.)
             ;
 
             methodGroup.AddMethod("Edit a badge of a project", MethodType.Put, "/projects/:id/badges/:badge_id", "https://docs.gitlab.com/ee/api/project_badges.html#edit-a-badge-of-a-project")
@@ -3924,6 +4953,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("badge_id", Models.)
                 .AddOptionalParameter("link_url", Models.)
                 .AddOptionalParameter("image_url", Models.)
+                .AddOptionalParameter("name", Models.)
             ;
 
             methodGroup.AddMethod("Get a badge of a project", MethodType.Get, "/projects/:id/badges/:badge_id", "https://docs.gitlab.com/ee/api/project_badges.html#get-a-badge-of-a-project")
@@ -4255,6 +5285,35 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class ProjectRemoteMirrorsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create a remote mirror", MethodType.Post, "/projects/:id/remote_mirrors", "https://docs.gitlab.com/ee/api/remote_mirrors.html#create-a-remote-mirror")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("url", Models.)
+                .AddOptionalParameter("enabled", Models.)
+                .AddOptionalParameter("only_protected_branches", Models.)
+                .AddOptionalParameter("keep_divergent_refs", Models.)
+            ;
+
+            methodGroup.AddMethod("List a project’s remote mirrors", MethodType.Get, "/projects/:id/remote_mirrors", "https://docs.gitlab.com/ee/api/remote_mirrors.html#list-a-projects-remote-mirrors")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Update a remote mirror’s attributes", MethodType.Put, "/projects/:id/remote_mirrors/:mirror_id", "https://docs.gitlab.com/ee/api/remote_mirrors.html#update-a-remote-mirrors-attributes")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("mirror_id", Models.)
+                .AddOptionalParameter("enabled", Models.)
+                .AddOptionalParameter("only_protected_branches", Models.)
+                .AddOptionalParameter("keep_divergent_refs", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class ProjectRepositoryStorageMovesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -4349,6 +5408,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("Create project for user", MethodType.Post, "/projects/user/:user_id", "https://docs.gitlab.com/ee/api/projects.html#create-project-for-user")
                 .WithReturnType(Models.)
+                .AddOptionalParameter("user_id", Models.)
+                .AddOptionalParameter("name", Models.)
                 .AddOptionalParameter("allow_merge_on_skipped_pipeline", Models.)
                 .AddOptionalParameter("analytics_access_level", Models.)
                 .AddOptionalParameter("approvals_before_merge", Models.)
@@ -4364,6 +5425,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("ci_config_path", Models.)
                 .AddOptionalParameter("container_registry_enabled", Models.)
                 .AddOptionalParameter("description", Models.)
+                .AddOptionalParameter("default_branch", Models.)
                 .AddOptionalParameter("emails_disabled", Models.)
                 .AddOptionalParameter("external_authorization_classification_label", Models.)
                 .AddOptionalParameter("forking_access_level", Models.)
@@ -4379,7 +5441,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("merge_requests_enabled", Models.)
                 .AddOptionalParameter("mirror_trigger_builds", Models.)
                 .AddOptionalParameter("mirror", Models.)
-                .AddOptionalParameter("name", Models.)
                 .AddOptionalParameter("namespace_id", Models.)
                 .AddOptionalParameter("operations_access_level", Models.)
                 .AddOptionalParameter("only_allow_merge_if_all_discussions_are_resolved", Models.)
@@ -4402,8 +5463,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("suggestion_commit_message", Models.)
                 .AddOptionalParameter("tag_list", Models.)
                 .AddOptionalParameter("template_name", Models.)
+                .AddOptionalParameter("topics", Models.)
                 .AddOptionalParameter("use_custom_template", Models.)
-                .AddOptionalParameter("user_id", Models.)
                 .AddOptionalParameter("visibility", Models.)
                 .AddOptionalParameter("wiki_access_level", Models.)
                 .AddOptionalParameter("wiki_enabled", Models.)
@@ -4487,6 +5548,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("packages_enabled", Models.)
                 .AddOptionalParameter("pages_access_level", Models.)
                 .AddOptionalParameter("requirements_access_level", Models.)
+                .AddOptionalParameter("restrict_user_defined_variables", Models.)
                 .AddOptionalParameter("path", Models.)
                 .AddOptionalParameter("public_builds", Models.)
                 .AddOptionalParameter("remove_source_branch_after_merge", Models.)
@@ -4501,9 +5563,13 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("snippets_enabled", Models.)
                 .AddOptionalParameter("suggestion_commit_message", Models.)
                 .AddOptionalParameter("tag_list", Models.)
+                .AddOptionalParameter("topics", Models.)
                 .AddOptionalParameter("visibility", Models.)
                 .AddOptionalParameter("wiki_access_level", Models.)
                 .AddOptionalParameter("wiki_enabled", Models.)
+                .AddOptionalParameter("issues_template", Models.)
+                .AddOptionalParameter("merge_requests_template", Models.)
+                .AddOptionalParameter("keep_latest_artifact", Models.)
             ;
 
             methodGroup.AddMethod("Edit project hook", MethodType.Put, "/projects/:id/hooks/:hook_id", "https://docs.gitlab.com/ee/api/projects.html#edit-project-hook")
@@ -4524,7 +5590,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("tag_push_events", Models.)
                 .AddOptionalParameter("token", Models.)
                 .AddOptionalParameter("url", Models.)
-                .AddOptionalParameter("wiki_events", Models.)
+                .AddOptionalParameter("wiki_page_events", Models.)
                 .AddOptionalParameter("releases_events", Models.)
             ;
 
@@ -4552,6 +5618,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("namespace_path", Models.)
                 .AddOptionalParameter("namespace", Models.)
                 .AddOptionalParameter("path", Models.)
+                .AddOptionalParameter("description", Models.)
+                .AddOptionalParameter("visibility", Models.)
             ;
 
             methodGroup.AddMethod("Get project hook", MethodType.Get, "/projects/:id/hooks/:hook_id", "https://docs.gitlab.com/ee/api/projects.html#get-project-hook")
@@ -4572,9 +5640,24 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("skip_users", Models.)
             ;
 
+            methodGroup.AddMethod("Get the path to repository storage", MethodType.Get, "/projects/:id/storage", "https://docs.gitlab.com/ee/api/projects.html#get-the-path-to-repository-storage")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+            ;
+
             methodGroup.AddMethod("Languages", MethodType.Get, "/projects/:id/languages", "https://docs.gitlab.com/ee/api/projects.html#languages")
                 .WithReturnType(Models.)
                 .AddOptionalParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("List a project’s groups", MethodType.Get, "/projects/:id/groups", "https://docs.gitlab.com/ee/api/projects.html#list-a-projects-groups")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddOptionalParameter("search", Models.)
+                .AddOptionalParameter("skip_groups", Models.)
+                .AddOptionalParameter("with_shared", Models.)
+                .AddOptionalParameter("shared_min_access_level", Models.)
+                .AddOptionalParameter("shared_visible_only", Models.)
             ;
 
             methodGroup.AddMethod("List Forks of a project", MethodType.Get, "/projects/:id/forks", "https://docs.gitlab.com/ee/api/projects.html#list-forks-of-a-project")
@@ -4763,13 +5846,34 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("type", Models.)
             ;
 
-            methodGroup.AddMethod("Get one template of a particular type", MethodType.Get, "/projects/:id/templates/:type/:key", "https://docs.gitlab.com/ee/api/project_templates.html#get-one-template-of-a-particular-type")
+            methodGroup.AddMethod("Get one template of a particular type", MethodType.Get, "/projects/:id/templates/:type/:name", "https://docs.gitlab.com/ee/api/project_templates.html#get-one-template-of-a-particular-type")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("type", Models.)
-                .AddRequiredParameter("key", Models.)
+                .AddRequiredParameter("name", Models.)
+                .AddOptionalParameter("source_template_project_id", Models.)
                 .AddOptionalParameter("project", Models.)
                 .AddOptionalParameter("fullname", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ProjectVulnerabilitiesClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("List project vulnerabilities", MethodType.Get, "/projects/:id/vulnerabilities", "https://docs.gitlab.com/ee/api/project_vulnerabilities.html#list-project-vulnerabilities")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("New vulnerability", MethodType.Post, "/projects/:id/vulnerabilities", "https://docs.gitlab.com/ee/api/project_vulnerabilities.html#new-vulnerability")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("finding_id", Models.)
             ;
 
         }
@@ -4824,6 +5928,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("push_access_level", Models.)
                 .AddOptionalParameter("merge_access_level", Models.)
                 .AddOptionalParameter("unprotect_access_level", Models.)
+                .AddOptionalParameter("allow_force_push", Models.)
                 .AddOptionalParameter("allowed_to_push", Models.)
                 .AddOptionalParameter("allowed_to_merge", Models.)
                 .AddOptionalParameter("allowed_to_unprotect", Models.)
@@ -4838,6 +5943,39 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             ;
 
             methodGroup.AddMethod("Unprotect repository branches", MethodType.Delete, "/projects/:id/protected_branches/:name", "https://docs.gitlab.com/ee/api/protected_branches.html#unprotect-repository-branches")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class ProtectedEnvironmentsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Get a single protected environment", MethodType.Get, "/projects/:id/protected_environments/:name", "https://docs.gitlab.com/ee/api/protected_environments.html#get-a-single-protected-environment")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+            ;
+
+            methodGroup.AddMethod("List protected environments", MethodType.Get, "/projects/:id/protected_environments", "https://docs.gitlab.com/ee/api/protected_environments.html#list-protected-environments")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Protect repository environments", MethodType.Post, "/projects/:id/protected_environments", "https://docs.gitlab.com/ee/api/protected_environments.html#protect-repository-environments")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("name", Models.)
+                .AddRequiredParameter("deploy_access_levels", Models.)
+            ;
+
+            methodGroup.AddMethod("Unprotect environment", MethodType.Delete, "/projects/:id/protected_environments/:name", "https://docs.gitlab.com/ee/api/protected_environments.html#unprotect-environment")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("name", Models.)
@@ -4874,6 +6012,46 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class PyPIClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Download a package file from a group", MethodType.Get, "groups/:id/packages/pypi/files/:sha256/:file_identifier", "https://docs.gitlab.com/ee/api/packages/pypi.html#download-a-package-file-from-a-group")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("sha256", Models.)
+                .AddRequiredParameter("file_identifier", Models.)
+            ;
+
+            methodGroup.AddMethod("Download a package file from a project", MethodType.Get, "projects/:id/packages/pypi/files/:sha256/:file_identifier", "https://docs.gitlab.com/ee/api/packages/pypi.html#download-a-package-file-from-a-project")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("sha256", Models.)
+                .AddRequiredParameter("file_identifier", Models.)
+            ;
+
+            methodGroup.AddMethod("Group level simple API entry point", MethodType.Get, "groups/:id/packages/pypi/simple/:package_name", "https://docs.gitlab.com/ee/api/packages/pypi.html#group-level-simple-api-entry-point")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Project-level simple API entry point", MethodType.Get, "projects/:id/packages/pypi/simple/:package_name", "https://docs.gitlab.com/ee/api/packages/pypi.html#project-level-simple-api-entry-point")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("package_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a package", MethodType.Put, "projects/:id/packages/pypi", "https://docs.gitlab.com/ee/api/packages/pypi.html#upload-a-package")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
             ;
 
         }
@@ -4967,6 +6145,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("tag_name", Models.)
+                .AddOptionalParameter("include_html_description", Models.)
             ;
 
             methodGroup.AddMethod("List Releases", MethodType.Get, "/projects/:id/releases", "https://docs.gitlab.com/ee/api/releases/#list-releases")
@@ -4974,6 +6153,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("id", Models.)
                 .AddOptionalParameter("order_by", Models.)
                 .AddOptionalParameter("sort", Models.)
+                .AddOptionalParameter("include_html_description", Models.)
             ;
 
             methodGroup.AddMethod("Update a release", MethodType.Put, "/projects/:id/releases/:tag_name", "https://docs.gitlab.com/ee/api/releases/#update-a-release")
@@ -4997,18 +6177,49 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
         {
             methodGroup.AddMethod("Compare branches, tags or commits", MethodType.Get, "/projects/:id/repository/compare", "https://docs.gitlab.com/ee/api/repositories.html#compare-branches-tags-or-commits")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("from", Models.)
+                .AddRequiredParameter("to", Models.)
+                .AddOptionalParameter("from_project_id", Models.)
+                .AddOptionalParameter("straight", Models.)
             ;
 
             methodGroup.AddMethod("Contributors", MethodType.Get, "/projects/:id/repository/contributors", "https://docs.gitlab.com/ee/api/repositories.html#contributors")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("order_by", Models.)
+                .AddOptionalParameter("sort", Models.)
+            ;
+
+            methodGroup.AddMethod("Examples", MethodType.Get, "https://gitlab.com/api/v4/projects/42/repository/changelog", "https://docs.gitlab.com/ee/api/repositories.html#examples")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Generate changelog data", MethodType.Post, "/projects/:id/repository/changelog", "https://docs.gitlab.com/ee/api/repositories.html#generate-changelog-data")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("version", Models.)
+                .AddOptionalParameter("from", Models.)
+                .AddOptionalParameter("to", Models.)
+                .AddOptionalParameter("date", Models.)
+                .AddOptionalParameter("branch", Models.)
+                .AddOptionalParameter("trailer", Models.)
+                .AddOptionalParameter("file", Models.)
+                .AddOptionalParameter("message", Models.)
             ;
 
             methodGroup.AddMethod("Get a blob from repository", MethodType.Get, "/projects/:id/repository/blobs/:sha", "https://docs.gitlab.com/ee/api/repositories.html#get-a-blob-from-repository")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("sha", Models.)
             ;
 
             methodGroup.AddMethod("List repository tree", MethodType.Get, "/projects/:id/repository/tree", "https://docs.gitlab.com/ee/api/repositories.html#list-repository-tree")
                 .WithReturnType(Models.)
+                .AddOptionalParameter("id", Models.)
+                .AddRequiredParameter("path", Models.)
+                .AddRequiredParameter("ref", Models.)
+                .AddRequiredParameter("recursive", Models.)
+                .AddRequiredParameter("per_page", Models.)
             ;
 
             methodGroup.AddMethod("Merge Base", MethodType.Get, "/projects/:id/repository/merge_base", "https://docs.gitlab.com/ee/api/repositories.html#merge-base")
@@ -5019,6 +6230,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("Raw blob content", MethodType.Get, "/projects/:id/repository/blobs/:sha/raw", "https://docs.gitlab.com/ee/api/repositories.html#raw-blob-content")
                 .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("sha", Models.)
             ;
 
         }
@@ -5231,6 +6444,32 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class RubyGemsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Download a gem file", MethodType.Get, "projects/:id/packages/rubygems/gems/:file_name", "https://docs.gitlab.com/ee/api/packages/rubygems.html#download-a-gem-file")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("file_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Fetch a list of dependencies", MethodType.Get, "projects/:id/packages/rubygems/api/v1/dependencies", "https://docs.gitlab.com/ee/api/packages/rubygems.html#fetch-a-list-of-dependencies")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("gems", Models.)
+            ;
+
+            methodGroup.AddMethod("Upload a gem", MethodType.Post, "projects/:id/packages/rubygems/api/v1/gems", "https://docs.gitlab.com/ee/api/packages/rubygems.html#upload-a-gem")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class RunnersClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -5284,6 +6523,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("type", Models.)
                 .AddOptionalParameter("status", Models.)
                 .AddOptionalParameter("tag_list", Models.)
+                .AddOptionalParameter("search", Models.)
             ;
 
             methodGroup.AddMethod("List project’s runners", MethodType.Get, "/projects/:id/runners", "https://docs.gitlab.com/ee/api/runners.html#list-projects-runners")
@@ -5374,7 +6614,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("Global Search API", MethodType.Get, "/search", "https://docs.gitlab.com/ee/api/search.html#global-search-api")
+            methodGroup.AddMethod("Advanced Search API", MethodType.Get, "/search", "https://docs.gitlab.com/ee/api/search.html#advanced-search-api")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("scope", Models.)
                 .AddRequiredParameter("search", Models.)
@@ -5407,11 +6647,11 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("sort", Models.)
             ;
 
-            methodGroup.AddMethod("Scope: notes", MethodType.Get, "/projects/6/search", "https://docs.gitlab.com/ee/api/search.html#scope-notes-1")
+            methodGroup.AddMethod("Scope: notes", MethodType.Get, "/projects/6/search", "https://docs.gitlab.com/ee/api/search.html#scope-notes-premium-1")
                 .WithReturnType(Models.)
             ;
 
-            methodGroup.AddMethod("Scope: wiki_blobs", MethodType.Get, "/groups/6/search", "https://docs.gitlab.com/ee/api/search.html#scope-wiki_blobs-1")
+            methodGroup.AddMethod("Scope: wiki_blobs", MethodType.Get, "/groups/6/search", "https://docs.gitlab.com/ee/api/search.html#scope-wiki_blobs-premium-1")
                 .WithReturnType(Models.)
             ;
 
@@ -5508,7 +6748,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("branches_to_be_notified", Models.)
             ;
 
-            methodGroup.AddMethod("Create/Edit External Wiki service", MethodType.Put, "/projects/:id/services/external-wiki", "https://docs.gitlab.com/ee/api/services.html#createedit-external-wiki-service")
+            methodGroup.AddMethod("Create/Edit External wiki service", MethodType.Put, "/projects/:id/services/external-wiki", "https://docs.gitlab.com/ee/api/services.html#createedit-external-wiki-service")
                 .WithReturnType(Models.)
                 .AddOptionalParameter("external_wiki_url", Models.)
             ;
@@ -5543,24 +6783,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("wiki_page_events", Models.)
             ;
 
-            methodGroup.AddMethod("Create/Edit HipChat service", MethodType.Put, "/projects/:id/services/hipchat", "https://docs.gitlab.com/ee/api/services.html#createedit-hipchat-service")
-                .WithReturnType(Models.)
-                .AddOptionalParameter("token", Models.)
-                .AddOptionalParameter("color", Models.)
-                .AddOptionalParameter("notify", Models.)
-                .AddOptionalParameter("room", Models.)
-                .AddOptionalParameter("api_version", Models.)
-                .AddOptionalParameter("server", Models.)
-                .AddOptionalParameter("push_events", Models.)
-                .AddOptionalParameter("issues_events", Models.)
-                .AddOptionalParameter("confidential_issues_events", Models.)
-                .AddOptionalParameter("merge_requests_events", Models.)
-                .AddOptionalParameter("tag_push_events", Models.)
-                .AddOptionalParameter("note_events", Models.)
-                .AddOptionalParameter("confidential_note_events", Models.)
-                .AddOptionalParameter("pipeline_events", Models.)
-            ;
-
             methodGroup.AddMethod("Create/Edit Irker (IRC gateway) service", MethodType.Put, "/projects/:id/services/irker", "https://docs.gitlab.com/ee/api/services.html#createedit-irker-irc-gateway-service")
                 .WithReturnType(Models.)
                 .AddOptionalParameter("recipients", Models.)
@@ -5577,6 +6799,13 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 
             methodGroup.AddMethod("Create/Edit Jenkins CI service", MethodType.Put, "/projects/:id/services/jenkins", "https://docs.gitlab.com/ee/api/services.html#createedit-jenkins-ci-service")
                 .WithReturnType(Models.)
+                .AddOptionalParameter("jenkins_url", Models.)
+                .AddOptionalParameter("project_name", Models.)
+                .AddOptionalParameter("username", Models.)
+                .AddOptionalParameter("password", Models.)
+                .AddOptionalParameter("push_events", Models.)
+                .AddOptionalParameter("merge_requests_events", Models.)
+                .AddOptionalParameter("tag_push_events", Models.)
             ;
 
             methodGroup.AddMethod("Create/Edit JetBrains TeamCity CI service", MethodType.Put, "/projects/:id/services/teamcity", "https://docs.gitlab.com/ee/api/services.html#createedit-jetbrains-teamcity-ci-service")
@@ -5595,6 +6824,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("username", Models.)
                 .AddRequiredParameter("password", Models.)
                 .AddOptionalParameter("active", Models.)
+                .AddOptionalParameter("jira_issue_transition_automatic", Models.)
                 .AddOptionalParameter("jira_issue_transition_id", Models.)
                 .AddOptionalParameter("commit_events", Models.)
                 .AddOptionalParameter("merge_requests_events", Models.)
@@ -5677,7 +6907,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("pipeline_events", Models.)
             ;
 
-            methodGroup.AddMethod("Create/Edit PivotalTracker service", MethodType.Put, "/projects/:id/services/pivotaltracker", "https://docs.gitlab.com/ee/api/services.html#createedit-pivotaltracker-service")
+            methodGroup.AddMethod("Create/Edit Pivotal Tracker service", MethodType.Put, "/projects/:id/services/pivotaltracker", "https://docs.gitlab.com/ee/api/services.html#createedit-pivotal-tracker-service")
                 .WithReturnType(Models.)
                 .AddOptionalParameter("token", Models.)
                 .AddOptionalParameter("restrict_to_branch", Models.)
@@ -5827,7 +7057,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
             ;
 
-            methodGroup.AddMethod("Delete External Wiki service", MethodType.Delete, "/projects/:id/services/external-wiki", "https://docs.gitlab.com/ee/api/services.html#delete-external-wiki-service")
+            methodGroup.AddMethod("Delete External wiki service", MethodType.Delete, "/projects/:id/services/external-wiki", "https://docs.gitlab.com/ee/api/services.html#delete-external-wiki-service")
                 .WithReturnType(Models.)
             ;
 
@@ -5840,10 +7070,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             ;
 
             methodGroup.AddMethod("Delete Hangouts Chat service", MethodType.Delete, "/projects/:id/services/hangouts-chat", "https://docs.gitlab.com/ee/api/services.html#delete-hangouts-chat-service")
-                .WithReturnType(Models.)
-            ;
-
-            methodGroup.AddMethod("Delete HipChat service", MethodType.Delete, "/projects/:id/services/hipchat", "https://docs.gitlab.com/ee/api/services.html#delete-hipchat-service")
                 .WithReturnType(Models.)
             ;
 
@@ -5891,7 +7117,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
             ;
 
-            methodGroup.AddMethod("Delete PivotalTracker service", MethodType.Delete, "/projects/:id/services/pivotaltracker", "https://docs.gitlab.com/ee/api/services.html#delete-pivotaltracker-service")
+            methodGroup.AddMethod("Delete Pivotal Tracker service", MethodType.Delete, "/projects/:id/services/pivotaltracker", "https://docs.gitlab.com/ee/api/services.html#delete-pivotal-tracker-service")
                 .WithReturnType(Models.)
             ;
 
@@ -5967,7 +7193,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
             ;
 
-            methodGroup.AddMethod("Get External Wiki service settings", MethodType.Get, "/projects/:id/services/external-wiki", "https://docs.gitlab.com/ee/api/services.html#get-external-wiki-service-settings")
+            methodGroup.AddMethod("Get External wiki service settings", MethodType.Get, "/projects/:id/services/external-wiki", "https://docs.gitlab.com/ee/api/services.html#get-external-wiki-service-settings")
                 .WithReturnType(Models.)
             ;
 
@@ -5980,10 +7206,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             ;
 
             methodGroup.AddMethod("Get Hangouts Chat service settings", MethodType.Get, "/projects/:id/services/hangouts-chat", "https://docs.gitlab.com/ee/api/services.html#get-hangouts-chat-service-settings")
-                .WithReturnType(Models.)
-            ;
-
-            methodGroup.AddMethod("Get HipChat service settings", MethodType.Get, "/projects/:id/services/hipchat", "https://docs.gitlab.com/ee/api/services.html#get-hipchat-service-settings")
                 .WithReturnType(Models.)
             ;
 
@@ -6031,7 +7253,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
             ;
 
-            methodGroup.AddMethod("Get PivotalTracker service settings", MethodType.Get, "/projects/:id/services/pivotaltracker", "https://docs.gitlab.com/ee/api/services.html#get-pivotaltracker-service-settings")
+            methodGroup.AddMethod("Get Pivotal Tracker service settings", MethodType.Get, "/projects/:id/services/pivotaltracker", "https://docs.gitlab.com/ee/api/services.html#get-pivotal-tracker-service-settings")
                 .WithReturnType(Models.)
             ;
 
@@ -6121,6 +7343,47 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class SnippetRepositoryStorageMovesClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Get a single repository storage move for a snippet", MethodType.Get, "/snippets/:snippet_id/repository_storage_moves/:repository_storage_id", "https://docs.gitlab.com/ee/api/snippet_repository_storage_moves.html#get-a-single-repository-storage-move-for-a-snippet")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("snippet_id", Models.)
+                .AddRequiredParameter("repository_storage_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Get a single snippet repository storage move", MethodType.Get, "/snippet_repository_storage_moves/:repository_storage_id", "https://docs.gitlab.com/ee/api/snippet_repository_storage_moves.html#get-a-single-snippet-repository-storage-move")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("repository_storage_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Retrieve all repository storage moves for a snippet", MethodType.Get, "/snippets/:snippet_id/repository_storage_moves", "https://docs.gitlab.com/ee/api/snippet_repository_storage_moves.html#retrieve-all-repository-storage-moves-for-a-snippet")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("snippet_id", Models.)
+            ;
+
+            methodGroup.AddMethod("Retrieve all snippet repository storage moves", MethodType.Get, "/snippet_repository_storage_moves", "https://docs.gitlab.com/ee/api/snippet_repository_storage_moves.html#retrieve-all-snippet-repository-storage-moves")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Schedule a repository storage move for a snippet", MethodType.Post, "/snippets/:snippet_id/repository_storage_moves", "https://docs.gitlab.com/ee/api/snippet_repository_storage_moves.html#schedule-a-repository-storage-move-for-a-snippet")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("snippet_id", Models.)
+                .AddOptionalParameter("destination_storage_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Schedule repository storage moves for all snippets on a storage shard", MethodType.Post, "/snippet_repository_storage_moves", "https://docs.gitlab.com/ee/api/snippet_repository_storage_moves.html#schedule-repository-storage-moves-for-all-snippets-on-a-storage-shard")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("source_storage_name", Models.)
+                .AddOptionalParameter("destination_storage_name", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class SnippetsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -6201,6 +7464,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             methodGroup.AddMethod("Applying suggestions", MethodType.Put, "/suggestions/:id/apply", "https://docs.gitlab.com/ee/api/suggestions.html#applying-suggestions")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
+                .AddOptionalParameter("commit_message", Models.)
             ;
 
         }
@@ -6212,7 +7476,7 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("Test system hook", MethodType.Get, "/hooks/:id", "https://docs.gitlab.com/ee/api/system_hooks.html#test-system-hook")
+            methodGroup.AddMethod("Test system hook", MethodType.Post, "/hooks/:id", "https://docs.gitlab.com/ee/api/system_hooks.html#test-system-hook")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
             ;
@@ -6226,19 +7490,12 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         protected override void Create(MethodGroup methodGroup)
         {
-            methodGroup.AddMethod("Create a new release", MethodType.Post, "/projects/:id/repository/tags/:tag_name/release", "https://docs.gitlab.com/ee/api/tags.html#create-a-new-release")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("tag_name", Models.)
-            ;
-
             methodGroup.AddMethod("Create a new tag", MethodType.Post, "/projects/:id/repository/tags", "https://docs.gitlab.com/ee/api/tags.html#create-a-new-tag")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddRequiredParameter("tag_name", Models.)
                 .AddRequiredParameter("ref", Models.)
                 .AddOptionalParameter("message", Models.)
-                .AddOptionalParameter("release_description", Models.)
             ;
 
             methodGroup.AddMethod("Delete a tag", MethodType.Delete, "/projects/:id/repository/tags/:tag_name", "https://docs.gitlab.com/ee/api/tags.html#delete-a-tag")
@@ -6261,10 +7518,25 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("search", Models.)
             ;
 
-            methodGroup.AddMethod("Update a release", MethodType.Put, "/projects/:id/repository/tags/:tag_name/release", "https://docs.gitlab.com/ee/api/tags.html#update-a-release")
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class UsageDataClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Export metric definitions as a single YAML file", MethodType.Get, "/usage_data/metric_definitions", "https://docs.gitlab.com/ee/api/usage_data.html#export-metric-definitions-as-a-single-yaml-file")
                 .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("tag_name", Models.)
+            ;
+
+            methodGroup.AddMethod("Export Usage Ping SQL queries", MethodType.Get, "/usage_data/queries", "https://docs.gitlab.com/ee/api/usage_data.html#export-usage-ping-sql-queries")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("UsageDataNonSqlMetrics API", MethodType.Get, "/usage_data/non_sql_metrics", "https://docs.gitlab.com/ee/api/usage_data.html#usagedatanonsqlmetrics-api")
+                .WithReturnType(Models.)
             ;
 
         }
@@ -6342,6 +7614,16 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
             ;
 
+            methodGroup.AddMethod("Follow and unfollow users", MethodType.Post, "/users/:id/follow", "https://docs.gitlab.com/ee/api/users.html#follow-and-unfollow-users")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Followers and following", MethodType.Get, "/users/:id/followers", "https://docs.gitlab.com/ee/api/users.html#followers-and-following")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
             methodGroup.AddMethod("Get a specific GPG key", MethodType.Get, "/user/gpg_keys/:key_id", "https://docs.gitlab.com/ee/api/users.html#get-a-specific-gpg-key")
                 .WithReturnType(Models.)
                 .AddRequiredParameter("key_id", Models.)
@@ -6368,6 +7650,10 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
             methodGroup.AddMethod("Get user activities (admin only)", MethodType.Get, "/user/activities", "https://docs.gitlab.com/ee/api/users.html#get-user-activities-admin-only")
                 .WithReturnType(Models.)
                 .AddOptionalParameter("from", Models.)
+            ;
+
+            methodGroup.AddMethod("Get user preferences", MethodType.Get, "/user/preferences", "https://docs.gitlab.com/ee/api/users.html#get-user-preferences")
+                .WithReturnType(Models.)
             ;
 
             methodGroup.AddMethod("List all GPG keys", MethodType.Get, "/user/gpg_keys", "https://docs.gitlab.com/ee/api/users.html#list-all-gpg-keys")
@@ -6419,6 +7705,10 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
             ;
 
+            methodGroup.AddMethod("User preference modification", MethodType.Put, "/user/preferences", "https://docs.gitlab.com/ee/api/users.html#user-preference-modification")
+                .WithReturnType(Models.)
+            ;
+
         }
     }
 }
@@ -6438,6 +7728,35 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .WithReturnType(Models.)
                 .AddRequiredParameter("id", Models.)
                 .AddOptionalParameter("dashboard_path", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
+    internal sealed class VisualReviewDiscussionsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create new merge request thread", MethodType.Post, "/projects/:id/merge_requests/:merge_request_iid/visual_review_discussions", "https://docs.gitlab.com/ee/api/visual_review_discussions.html#create-new-merge-request-thread")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+                .AddRequiredParameter("merge_request_iid", Models.)
+                .AddRequiredParameter("body", Models.)
+                .AddOptionalParameter("position", Models.)
+                .AddRequiredParameter("position[base_sha]", Models.)
+                .AddRequiredParameter("position[start_sha]", Models.)
+                .AddRequiredParameter("position[head_sha]", Models.)
+                .AddRequiredParameter("position[position_type]", Models.)
+                .AddOptionalParameter("position[new_path]", Models.)
+                .AddOptionalParameter("position[new_line]", Models.)
+                .AddOptionalParameter("position[old_path]", Models.)
+                .AddOptionalParameter("position[old_line]", Models.)
+                .AddOptionalParameter("position[width]", Models.)
+                .AddOptionalParameter("position[height]", Models.)
+                .AddOptionalParameter("position[x]", Models.)
+                .AddOptionalParameter("position[y]", Models.)
             ;
 
         }
@@ -6479,6 +7798,39 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class VulnerabilityExportClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Create a group-level vulnerability export", MethodType.Post, "/security/groups/:id/vulnerability_exports", "https://docs.gitlab.com/ee/api/vulnerability_exports.html#create-a-group-level-vulnerability-export")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Create a project-level vulnerability export", MethodType.Post, "/security/projects/:id/vulnerability_exports", "https://docs.gitlab.com/ee/api/vulnerability_exports.html#create-a-project-level-vulnerability-export")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Create an instance-level vulnerability export", MethodType.Post, "/security/vulnerability_exports", "https://docs.gitlab.com/ee/api/vulnerability_exports.html#create-an-instance-level-vulnerability-export")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Download vulnerability export", MethodType.Get, "/security/vulnerability_exports/:id/download", "https://docs.gitlab.com/ee/api/vulnerability_exports.html#download-vulnerability-export")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+            methodGroup.AddMethod("Get single vulnerability export", MethodType.Get, "/security/vulnerability_exports/:id", "https://docs.gitlab.com/ee/api/vulnerability_exports.html#get-single-vulnerability-export")
+                .WithReturnType(Models.)
+                .AddRequiredParameter("id", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class VulnerabilityFindingsClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -6490,7 +7842,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("scope", Models.)
                 .AddOptionalParameter("severity", Models.)
                 .AddOptionalParameter("confidence", Models.)
-                .AddOptionalParameter("scanner", Models.)
                 .AddOptionalParameter("pipeline_id", Models.)
             ;
 

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\test\Meziantou.GitLabClient.Tests\Meziantou.GitLabClient.Tests.csproj" />
+    <ProjectReference Include="..\Meziantou.GitLabClient.Generator\Meziantou.GitLabClient.Generator.csproj" />
+  </ItemGroup>
+
+</Project>
