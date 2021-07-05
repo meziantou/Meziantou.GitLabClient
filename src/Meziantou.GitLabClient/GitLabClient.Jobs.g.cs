@@ -35,7 +35,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Job> GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<JobBase> GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
         ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/jobs</c></para>
@@ -44,7 +44,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Job> GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
+        Meziantou.GitLab.PagedResponse<JobBase> GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions));
 
         /// <summary>
         ///   <para>URL: <c>POST /projects/:id/jobs/:job_id/retry</c></para>
@@ -79,7 +79,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Job> Meziantou.GitLab.IGitLabJobsClient.GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<JobBase> Meziantou.GitLab.IGitLabJobsClient.GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Jobs_GetJobs(request, requestOptions);
         }
@@ -91,7 +91,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        Meziantou.GitLab.PagedResponse<Job> Meziantou.GitLab.IGitLabJobsClient.GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
+        Meziantou.GitLab.PagedResponse<JobBase> Meziantou.GitLab.IGitLabJobsClient.GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions)
         {
             return this.Jobs_GetPipelineJobs(request, requestOptions);
         }
@@ -186,10 +186,10 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<Job> Jobs_GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<JobBase> Jobs_GetJobs(Meziantou.GitLab.GetJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             string url = Meziantou.GitLab.GitLabClient.Jobs_GetJobs_BuildUrl(request);
-            return new Meziantou.GitLab.PagedResponse<Job>(this, url, requestOptions);
+            return new Meziantou.GitLab.PagedResponse<JobBase>(this, url, requestOptions);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -218,10 +218,10 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        private Meziantou.GitLab.PagedResponse<Job> Jobs_GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        private Meziantou.GitLab.PagedResponse<JobBase> Jobs_GetPipelineJobs(Meziantou.GitLab.GetPipelineJobsRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             string url = Meziantou.GitLab.GitLabClient.Jobs_GetPipelineJobs_BuildUrl(request);
-            return new Meziantou.GitLab.PagedResponse<Job>(this, url, requestOptions);
+            return new Meziantou.GitLab.PagedResponse<JobBase>(this, url, requestOptions);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
@@ -345,7 +345,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Job> GetJobs(this Meziantou.GitLab.IGitLabJobsClient client, ProjectIdOrPathRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<JobBase> GetJobs(this Meziantou.GitLab.IGitLabJobsClient client, ProjectIdOrPathRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetJobsRequest request = new Meziantou.GitLab.GetJobsRequest(id);
             return client.GetJobs(request, requestOptions);
@@ -358,7 +358,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<Job> GetPipelineJobs(this Meziantou.GitLab.IGitLabJobsClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, bool? includeRetried = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<JobBase> GetPipelineJobs(this Meziantou.GitLab.IGitLabJobsClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, bool? includeRetried = default(bool?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetPipelineJobsRequest request = new Meziantou.GitLab.GetPipelineJobsRequest(id, pipelineId);
             request.IncludeRetried = includeRetried;

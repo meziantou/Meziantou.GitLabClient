@@ -11,12 +11,12 @@
             ;
 
             methodGroup.AddMethod("GetJobs", MethodType.GetPaged, "/projects/:id/jobs", "https://docs.gitlab.com/ee/api/jobs.html#list-project-jobs")
-                .WithReturnType(Models.Job)
+                .WithReturnType(Models.JobBase)
                 .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
             ;
 
             methodGroup.AddMethod("GetPipelineJobs", MethodType.GetPaged, "/projects/:id/pipelines/:pipeline_id/jobs", "https://docs.gitlab.com/ee/api/jobs.html#list-pipeline-jobs")
-                .WithReturnType(Models.Job)
+                .WithReturnType(Models.JobBase)
                 .AddRequiredParameter("id", Models.ProjectIdOrPathRef)
                 .AddRequiredParameter("pipeline_id", Models.PipelineIdRef)
                 .AddOptionalParameter("include_retried", ModelRef.Boolean)

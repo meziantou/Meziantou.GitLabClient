@@ -3,7 +3,7 @@
     partial class Models
     {
         public static ParameterEntityBuilder JobIdRef { get; } = CreateParameterEntity(entity =>
-            entity.SetModel(Models.Job)
+            entity.SetModel(Models.JobBase)
         );
     }
 }

@@ -13,19 +13,19 @@ namespace Meziantou.GitLab
     {
         private readonly long _value;
 
-        private JobIdRef(long jobId)
+        private JobIdRef(long jobBaseId)
         {
-            this._value = jobId;
+            this._value = jobBaseId;
         }
 
-        private JobIdRef(Job job)
+        private JobIdRef(JobBase jobBase)
         {
-            if ((job == null))
+            if ((jobBase == null))
             {
-                throw new System.ArgumentNullException(nameof(job));
+                throw new System.ArgumentNullException(nameof(jobBase));
             }
 
-            this._value = job.Id;
+            this._value = jobBase.Id;
         }
 
         public long Value
@@ -53,19 +53,19 @@ namespace Meziantou.GitLab
             return object.Equals(this.Value, other.Value);
         }
 
-        public static Meziantou.GitLab.JobIdRef FromJob(Job job)
+        public static Meziantou.GitLab.JobIdRef FromJobBase(JobBase jobBase)
         {
-            if ((job == null))
+            if ((jobBase == null))
             {
-                throw new System.ArgumentNullException(nameof(job));
+                throw new System.ArgumentNullException(nameof(jobBase));
             }
 
-            return new Meziantou.GitLab.JobIdRef(job);
+            return new Meziantou.GitLab.JobIdRef(jobBase);
         }
 
-        public static Meziantou.GitLab.JobIdRef FromJobId(long jobId)
+        public static Meziantou.GitLab.JobIdRef FromJobBaseId(long jobBaseId)
         {
-            return new Meziantou.GitLab.JobIdRef(jobId);
+            return new Meziantou.GitLab.JobIdRef(jobBaseId);
         }
 
         public override int GetHashCode()
@@ -78,16 +78,16 @@ namespace Meziantou.GitLab
             return this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
-        public static implicit operator Meziantou.GitLab.JobIdRef(long jobId)
+        public static implicit operator Meziantou.GitLab.JobIdRef(long jobBaseId)
         {
-            return Meziantou.GitLab.JobIdRef.FromJobId(jobId);
+            return Meziantou.GitLab.JobIdRef.FromJobBaseId(jobBaseId);
         }
 
-        public static implicit operator Meziantou.GitLab.JobIdRef?(long? jobId)
+        public static implicit operator Meziantou.GitLab.JobIdRef?(long? jobBaseId)
         {
-            if (jobId.HasValue)
+            if (jobBaseId.HasValue)
             {
-                return Meziantou.GitLab.JobIdRef.FromJobId(jobId.Value);
+                return Meziantou.GitLab.JobIdRef.FromJobBaseId(jobBaseId.Value);
             }
             else
             {
@@ -95,20 +95,20 @@ namespace Meziantou.GitLab
             }
         }
 
-        public static implicit operator Meziantou.GitLab.JobIdRef(Job job)
+        public static implicit operator Meziantou.GitLab.JobIdRef(JobBase jobBase)
         {
-            return Meziantou.GitLab.JobIdRef.FromJob(job);
+            return Meziantou.GitLab.JobIdRef.FromJobBase(jobBase);
         }
 
-        public static implicit operator Meziantou.GitLab.JobIdRef?(Job? job)
+        public static implicit operator Meziantou.GitLab.JobIdRef?(JobBase? jobBase)
         {
-            if (object.ReferenceEquals(job, null))
+            if (object.ReferenceEquals(jobBase, null))
             {
                 return null;
             }
             else
             {
-                return Meziantou.GitLab.JobIdRef.FromJob(job);
+                return Meziantou.GitLab.JobIdRef.FromJobBase(jobBase);
             }
         }
 
