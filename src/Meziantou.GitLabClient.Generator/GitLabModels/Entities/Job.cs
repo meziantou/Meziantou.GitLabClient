@@ -4,7 +4,7 @@
     {
         public static EntityBuilder Job { get; } = CreateEntity(entity => entity
                 .WithBaseType(JobBase)
-                .AddProperty("web_url", ModelRef.String)
+                .AddProperty("web_url", ModelRef.Uri)
         );
     }
 }
