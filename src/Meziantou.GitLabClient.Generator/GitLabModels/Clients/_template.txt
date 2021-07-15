@@ -2018,6 +2018,44 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class GitLabMigrationsBulkImportsClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Get GitLab migration details", MethodType.Get, "/bulk_imports/:id", "https://docs.gitlab.com/ee/api/bulk_imports.html#get-gitlab-migration-details")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Get GitLab migration entity details", MethodType.Get, "/bulk_imports/:id/entities/:entity_id", "https://docs.gitlab.com/ee/api/bulk_imports.html#get-gitlab-migration-entity-details")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("List all GitLab migrations", MethodType.Get, "/bulk_imports", "https://docs.gitlab.com/ee/api/bulk_imports.html#list-all-gitlab-migrations")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("per_page", Models.)
+                .AddOptionalParameter("page", Models.)
+                .AddOptionalParameter("status", Models.)
+            ;
+
+            methodGroup.AddMethod("List all GitLab migrations’ entities", MethodType.Get, "/bulk_imports/entities", "https://docs.gitlab.com/ee/api/bulk_imports.html#list-all-gitlab-migrations-entities")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("per_page", Models.)
+                .AddOptionalParameter("page", Models.)
+                .AddOptionalParameter("status", Models.)
+            ;
+
+            methodGroup.AddMethod("List GitLab migration entities", MethodType.Get, "/bulk_imports/:id/entities", "https://docs.gitlab.com/ee/api/bulk_imports.html#list-gitlab-migration-entities")
+                .WithReturnType(Models.)
+                .AddOptionalParameter("per_page", Models.)
+                .AddOptionalParameter("page", Models.)
+                .AddOptionalParameter("status", Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class GoProxyClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -4717,12 +4755,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("pipeline_id", Models.)
             ;
 
-            methodGroup.AddMethod("Get variables of a pipeline", MethodType.Get, "/projects/:id/pipelines/:pipeline_id/variables", "https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline")
-                .WithReturnType(Models.)
-                .AddRequiredParameter("id", Models.)
-                .AddRequiredParameter("pipeline_id", Models.)
-            ;
-
         }
     }
 }
@@ -4861,10 +4893,12 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddRequiredParameter("plan_name", Models.)
                 .AddOptionalParameter("conan_max_file_size", Models.)
                 .AddOptionalParameter("generic_packages_max_file_size", Models.)
+                .AddOptionalParameter("helm_max_file_size", Models.)
                 .AddOptionalParameter("maven_max_file_size", Models.)
                 .AddOptionalParameter("npm_max_file_size", Models.)
                 .AddOptionalParameter("nuget_max_file_size", Models.)
                 .AddOptionalParameter("pypi_max_file_size", Models.)
+                .AddOptionalParameter("terraform_module_max_file_size", Models.)
             ;
 
             methodGroup.AddMethod("Get current plan limits", MethodType.Get, "/application/plan_limits", "https://docs.gitlab.com/ee/api/plan_limits.html#get-current-plan-limits")
@@ -6660,6 +6694,27 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
 }
 namespace Meziantou.GitLabClient.Generator.GitLabModels
 {
+    internal sealed class ServiceDataClient : GitLabClientBuilder
+    {
+        protected override void Create(MethodGroup methodGroup)
+        {
+            methodGroup.AddMethod("Export metric definitions as a single YAML file", MethodType.Get, "/usage_data/metric_definitions", "https://docs.gitlab.com/ee/api/usage_data.html#export-metric-definitions-as-a-single-yaml-file")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("Export Service Ping SQL queries", MethodType.Get, "/usage_data/queries", "https://docs.gitlab.com/ee/api/usage_data.html#export-service-ping-sql-queries")
+                .WithReturnType(Models.)
+            ;
+
+            methodGroup.AddMethod("UsageDataNonSqlMetrics API", MethodType.Get, "/usage_data/non_sql_metrics", "https://docs.gitlab.com/ee/api/usage_data.html#usagedatanonsqlmetrics-api")
+                .WithReturnType(Models.)
+            ;
+
+        }
+    }
+}
+namespace Meziantou.GitLabClient.Generator.GitLabModels
+{
     internal sealed class ServicesClient : GitLabClientBuilder
     {
         protected override void Create(MethodGroup methodGroup)
@@ -7516,27 +7571,6 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
                 .AddOptionalParameter("order_by", Models.)
                 .AddOptionalParameter("sort", Models.)
                 .AddOptionalParameter("search", Models.)
-            ;
-
-        }
-    }
-}
-namespace Meziantou.GitLabClient.Generator.GitLabModels
-{
-    internal sealed class UsageDataClient : GitLabClientBuilder
-    {
-        protected override void Create(MethodGroup methodGroup)
-        {
-            methodGroup.AddMethod("Export metric definitions as a single YAML file", MethodType.Get, "/usage_data/metric_definitions", "https://docs.gitlab.com/ee/api/usage_data.html#export-metric-definitions-as-a-single-yaml-file")
-                .WithReturnType(Models.)
-            ;
-
-            methodGroup.AddMethod("Export Usage Ping SQL queries", MethodType.Get, "/usage_data/queries", "https://docs.gitlab.com/ee/api/usage_data.html#export-usage-ping-sql-queries")
-                .WithReturnType(Models.)
-            ;
-
-            methodGroup.AddMethod("UsageDataNonSqlMetrics API", MethodType.Get, "/usage_data/non_sql_metrics", "https://docs.gitlab.com/ee/api/usage_data.html#usagedatanonsqlmetrics-api")
-                .WithReturnType(Models.)
             ;
 
         }

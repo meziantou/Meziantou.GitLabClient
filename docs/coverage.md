@@ -1099,6 +1099,22 @@
 - [ ] [Retrieve status about a specific Geo node](https://docs.gitlab.com/ee/api/geo_nodes.html#retrieve-status-about-a-specific-geo-node) `GET /geo_nodes/:id/status`
 - [ ] [Retrieve status about all Geo nodes](https://docs.gitlab.com/ee/api/geo_nodes.html#retrieve-status-about-all-geo-nodes) `GET /geo_nodes/status`
 
+# [GitLab Migrations (Bulk Imports)](https://docs.gitlab.com/ee/api/bulk_imports.html)
+- [ ] [Get GitLab migration details](https://docs.gitlab.com/ee/api/bulk_imports.html#get-gitlab-migration-details) `GET /bulk_imports/:id`
+- [ ] [Get GitLab migration entity details](https://docs.gitlab.com/ee/api/bulk_imports.html#get-gitlab-migration-entity-details) `GET /bulk_imports/:id/entities/:entity_id`
+- [ ] [List all GitLab migrations](https://docs.gitlab.com/ee/api/bulk_imports.html#list-all-gitlab-migrations) `GET /bulk_imports`
+    - [ ] `per_page`: Number of records to return per page.
+    - [ ] `page`: Page to retrieve.
+    - [ ] `status`: Import status.
+- [ ] [List all GitLab migrations’ entities](https://docs.gitlab.com/ee/api/bulk_imports.html#list-all-gitlab-migrations-entities) `GET /bulk_imports/entities`
+    - [ ] `per_page`: Number of records to return per page.
+    - [ ] `page`: Page to retrieve.
+    - [ ] `status`: Import status.
+- [ ] [List GitLab migration entities](https://docs.gitlab.com/ee/api/bulk_imports.html#list-gitlab-migration-entities) `GET /bulk_imports/:id/entities`
+    - [ ] `per_page`: Number of records to return per page.
+    - [ ] `page`: Page to retrieve.
+    - [ ] `status`: Import status.
+
 # [Go Proxy](https://docs.gitlab.com/ee/api/packages/go_proxy.html)
 - [ ] [Download module file](https://docs.gitlab.com/ee/api/packages/go_proxy.html#download-module-file) `GET projects/:id/packages/go/:module_name/@v/:module_version.mod`
     - [ ] `id`: The project ID or full path of a project.
@@ -1128,11 +1144,11 @@
 - [ ] [Approve an access request](https://docs.gitlab.com/ee/api/access_requests.html#approve-an-access-request) `PUT /groups/:id/access_requests/:user_id/approve`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `user_id`: The user ID of the access requester
-    - [ ] `access_level`: A valid access level (defaults: 30, developer access level)
+    - [ ] `access_level`: A valid access level (defaults: 30, the Developer role)
 - [ ] [Approve an access request](https://docs.gitlab.com/ee/api/access_requests.html#approve-an-access-request) `PUT /projects/:id/access_requests/:user_id/approve`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `user_id`: The user ID of the access requester
-    - [ ] `access_level`: A valid access level (defaults: 30, developer access level)
+    - [ ] `access_level`: A valid access level (defaults: 30, the Developer role)
 - [ ] [Deny an access request](https://docs.gitlab.com/ee/api/access_requests.html#deny-an-access-request) `DELETE /groups/:id/access_requests/:user_id`
     - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `user_id`: The user ID of the access requester
@@ -1720,12 +1736,12 @@
 - [ ] [Update an invitation to a group or project](https://docs.gitlab.com/ee/api/invitations.html#update-an-invitation-to-a-group-or-project) `PUT /groups/:id/invitations/:email`
     - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user.
     - [ ] `email`: The email address to which the invitation was previously sent.
-    - [ ] `access_level`: A valid access level (defaults: 30, developer access level).
+    - [ ] `access_level`: A valid access level (defaults: 30, the Developer role).
     - [ ] `expires_at`: A date string in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ).
 - [ ] [Update an invitation to a group or project](https://docs.gitlab.com/ee/api/invitations.html#update-an-invitation-to-a-group-or-project) `PUT /projects/:id/invitations/:email`
     - [ ] `id`: The ID or URL-encoded path of the project or group owned by the authenticated user.
     - [ ] `email`: The email address to which the invitation was previously sent.
-    - [ ] `access_level`: A valid access level (defaults: 30, developer access level).
+    - [ ] `access_level`: A valid access level (defaults: 30, the Developer role).
     - [ ] `expires_at`: A date string in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ).
 
 # [Issue links](https://docs.gitlab.com/ee/api/issue_links.html)
@@ -2719,7 +2735,7 @@
     - [ ] `exclude_subgroups`: If the parameter is included as true, packages from projects from subgroups are not listed. Default is false.
     - [ ] `order_by`: The field to use as order. One of created_at (default), name, version, type, or project_path.
     - [ ] `sort`: The direction of the order, either asc (default) for ascending order or desc for descending order.
-    - [ ] `package_type`: Filter the returned packages by type. One of conan, maven, npm, pypi, composer, nuget, or golang. (Introduced in GitLab 12.9)
+    - [ ] `package_type`: Filter the returned packages by type. One of conan, maven, npm, pypi, composer, nuget, helm, or golang. (Introduced in GitLab 12.9)
     - [ ] `package_name`: Filter the project packages with a fuzzy search by name. (Introduced in GitLab 13.0)
     - [ ] `include_versionless`: When set to true, versionless packages are included in the response. (Introduced in GitLab 13.8)
     - [ ] `status`: Filter the returned packages by status. One of default (default), hidden, or processing. (Introduced in GitLab 13.9)
@@ -2727,7 +2743,7 @@
     - [ ] `id`: ID or URL-encoded path of the project
     - [ ] `order_by`: The field to use as order. One of created_at (default), name, version, or type.
     - [ ] `sort`: The direction of the order, either asc (default) for ascending order or desc for descending order.
-    - [ ] `package_type`: Filter the returned packages by type. One of conan, maven, npm, pypi, composer, nuget, or golang. (Introduced in GitLab 12.9)
+    - [ ] `package_type`: Filter the returned packages by type. One of conan, maven, npm, pypi, composer, nuget, helm, or golang. (Introduced in GitLab 12.9)
     - [ ] `package_name`: Filter the project packages with a fuzzy search by name. (Introduced in GitLab 12.9)
     - [ ] `include_versionless`: When set to true, versionless packages are included in the response. (Introduced in GitLab 13.8)
     - [ ] `status`: Filter the returned packages by status. One of default (default), hidden, or processing. (Introduced in GitLab 13.9)
@@ -2772,7 +2788,7 @@
 - [x] [Create a new pipeline](https://docs.gitlab.com/ee/api/pipelines.html#create-a-new-pipeline) `POST /projects/:id/pipeline`
     - [x] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [x] `ref`: Reference to commit
-    - [ ] `variables`: An array containing the variables available in the pipeline, matching the structure [{ 'key': 'UPLOAD_TO_S3', 'variable_type': 'file', 'value': 'true' }]
+    - [x] `variables`: An array containing the variables available in the pipeline, matching the structure [{ 'key': 'UPLOAD_TO_S3', 'variable_type': 'file', 'value': 'true' }]
 - [x] [Delete a pipeline](https://docs.gitlab.com/ee/api/pipelines.html#delete-a-pipeline) `DELETE /projects/:id/pipelines/:pipeline_id`
     - [x] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [x] `pipeline_id`: The ID of a pipeline
@@ -2782,9 +2798,9 @@
 - [x] [Get a single pipeline](https://docs.gitlab.com/ee/api/pipelines.html#get-a-single-pipeline) `GET /projects/:id/pipelines/:pipeline_id`
     - [x] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [x] `pipeline_id`: The ID of a pipeline
-- [ ] [Get variables of a pipeline](https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline) `GET /projects/:id/pipelines/:pipeline_id/variables`
-    - [ ] `id`: The ID or URL-encoded path of the project owned by the authenticated user
-    - [ ] `pipeline_id`: The ID of a pipeline
+- [x] [Get variables of a pipeline](https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline) `GET /projects/:id/pipelines/:pipeline_id/variables`
+    - [x] `id`: The ID or URL-encoded path of the project owned by the authenticated user
+    - [x] `pipeline_id`: The ID of a pipeline
 - [x] [List project pipelines](https://docs.gitlab.com/ee/api/pipelines.html#list-project-pipelines) `GET /projects/:id/pipelines`
     - [x] `id`: The ID or URL-encoded path of the project owned by the authenticated user
     - [ ] `scope`: The scope of pipelines, one of: running, pending, finished, branches, tags
@@ -2872,10 +2888,12 @@
     - [ ] `plan_name`: Name of the plan to update.
     - [ ] `conan_max_file_size`: Maximum Conan package file size in bytes.
     - [ ] `generic_packages_max_file_size`: Maximum generic package file size in bytes.
+    - [ ] `helm_max_file_size`: Maximum Helm chart file size in bytes.
     - [ ] `maven_max_file_size`: Maximum Maven package file size in bytes.
     - [ ] `npm_max_file_size`: Maximum NPM package file size in bytes.
     - [ ] `nuget_max_file_size`: Maximum NuGet package file size in bytes.
     - [ ] `pypi_max_file_size`: Maximum PyPI package file size in bytes.
+    - [ ] `terraform_module_max_file_size`: Maximum Terraform Module package file size in bytes.
 - [ ] [Get current plan limits](https://docs.gitlab.com/ee/api/plan_limits.html#get-current-plan-limits) `GET /application/plan_limits`
     - [ ] `plan_name`: Name of the plan to get the limits from. Default: default.
 
@@ -3992,6 +4010,11 @@
 - [ ] [Scope: notes](https://docs.gitlab.com/ee/api/search.html#scope-notes-premium-1) `GET /projects/6/search`
 - [ ] [Scope: wiki_blobs](https://docs.gitlab.com/ee/api/search.html#scope-wiki_blobs-premium-1) `GET /groups/6/search`
 
+# [Service Data](https://docs.gitlab.com/ee/api/usage_data.html)
+- [ ] [Export metric definitions as a single YAML file](https://docs.gitlab.com/ee/api/usage_data.html#export-metric-definitions-as-a-single-yaml-file) `GET /usage_data/metric_definitions`
+- [ ] [Export Service Ping SQL queries](https://docs.gitlab.com/ee/api/usage_data.html#export-service-ping-sql-queries) `GET /usage_data/queries`
+- [ ] [UsageDataNonSqlMetrics API](https://docs.gitlab.com/ee/api/usage_data.html#usagedatanonsqlmetrics-api) `GET /usage_data/non_sql_metrics`
+
 # [Services](https://docs.gitlab.com/ee/api/services.html)
 - [ ] [Create/Edit Asana service](https://docs.gitlab.com/ee/api/services.html#createedit-asana-service) `PUT /projects/:id/services/asana`
     - [ ] `api_key`: User API token. User must have access to task. All comments are attributed to this user.
@@ -4020,10 +4043,10 @@
     - [ ] `enable_ssl_verification`: DEPRECATED: This parameter has no effect since SSL verification is always enabled
     - [ ] `push_events`: Enable notifications for push events
 - [ ] [Create/Edit Campfire service](https://docs.gitlab.com/ee/api/services.html#createedit-campfire-service) `PUT /projects/:id/services/campfire`
-    - [ ] `token`: Campfire token
-    - [ ] `subdomain`: Campfire subdomain
-    - [ ] `room`: Campfire room
-    - [ ] `push_events`: Enable notifications for push events
+    - [ ] `token`: Campfire API token. To find it, log into Campfire and select My info.
+    - [ ] `subdomain`: Campfire subdomain. Text between https:// and .campfirenow.com when you’re logged in.
+    - [ ] `room`: Campfire room. The last part of the URL when you’re in a room.
+    - [ ] `push_events`: Enable notifications for push events.
 - [ ] [Create/Edit Confluence service](https://docs.gitlab.com/ee/api/services.html#createedit-confluence-service) `PUT /projects/:id/services/confluence`
     - [ ] `confluence_url`: The URL of the Confluence Cloud Workspace hosted on atlassian.net.
 - [ ] [Create/Edit Custom Issue Tracker service](https://docs.gitlab.com/ee/api/services.html#createedit-custom-issue-tracker-service) `PUT /projects/:id/services/custom-issue-tracker`
@@ -4451,11 +4474,6 @@
 - [x] [Mark a to-do item as done](https://docs.gitlab.com/ee/api/todos.html#mark-a-to-do-item-as-done) `POST /todos/:id/mark_as_done`
     - [x] `id`: The ID of to-do item
 - [x] [Mark all to-do items as done](https://docs.gitlab.com/ee/api/todos.html#mark-all-to-do-items-as-done) `POST /todos/mark_as_done`
-
-# [Usage Data](https://docs.gitlab.com/ee/api/usage_data.html)
-- [ ] [Export metric definitions as a single YAML file](https://docs.gitlab.com/ee/api/usage_data.html#export-metric-definitions-as-a-single-yaml-file) `GET /usage_data/metric_definitions`
-- [ ] [Export Usage Ping SQL queries](https://docs.gitlab.com/ee/api/usage_data.html#export-usage-ping-sql-queries) `GET /usage_data/queries`
-- [ ] [UsageDataNonSqlMetrics API](https://docs.gitlab.com/ee/api/usage_data.html#usagedatanonsqlmetrics-api) `GET /usage_data/non_sql_metrics`
 
 # [Users](https://docs.gitlab.com/ee/api/users.html)
 - [ ] [Activate user](https://docs.gitlab.com/ee/api/users.html#activate-user) `POST /users/:id/activate`

@@ -8,5 +8,6 @@ namespace Meziantou.GitLabClient.Generator
         None = 0x0,
         IsRequired = 0x1,
         DoNotValidate = 0x2,
+        CustomMapping = 0x4,
     }
 }

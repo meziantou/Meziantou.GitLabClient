@@ -17,20 +17,20 @@ namespace Meziantou.GitLab
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("duration")]
-        public System.TimeSpan Duration
+        public System.TimeSpan? Duration
         {
             get
             {
-                return this.GetRequiredNonNullValue<System.TimeSpan>("duration");
+                return this.GetValueOrDefault<System.TimeSpan?>("duration", default(System.TimeSpan?));
             }
         }
 
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("queue_duration")]
-        public System.TimeSpan QueueDuration
+        public System.TimeSpan? QueueDuration
         {
             get
             {
-                return this.GetRequiredNonNullValue<System.TimeSpan>("queue_duration");
+                return this.GetValueOrDefault<System.TimeSpan?>("queue_duration", default(System.TimeSpan?));
             }
         }
 

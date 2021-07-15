@@ -33,6 +33,8 @@ namespace Meziantou.GitLabClient.Generator
         public static ModelRef File { get; } = new ModelRef("Meziantou.GitLab.HttpResponseStream");
         public static ModelRef Duration { get; } = new ModelRef(typeof(TimeSpan));
 
+        public static ModelRef PipelineVariableCreate { get; } = new ModelRef("Meziantou.GitLab.PipelineVariableCreate");
+
         public ModelRef MakeNullable() => new(this) { IsNullable = true };
         public ModelRef MakeCollection() => new(this) { IsCollection = true };
         public ModelRef MakeCollectionNullable() => new(this) { IsCollection = true, IsCollectionNullable = true };

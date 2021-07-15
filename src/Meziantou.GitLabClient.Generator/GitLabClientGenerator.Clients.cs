@@ -158,7 +158,7 @@ namespace Meziantou.GitLabClient.Generator
                         if (param == null)
                             throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
 
-                        AddParameter(param, separator: null, encoded: true);
+                        AddParameter(param, parameterDelimiterVariable: null, encoded: true);
                         parameters.Remove(param);
                     }
                     else if (segment[0] == '*')
@@ -167,7 +167,7 @@ namespace Meziantou.GitLabClient.Generator
                         if (param == null)
                             throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
 
-                        AddParameter(param, separator: null, encoded: false);
+                        AddParameter(param, parameterDelimiterVariable: null, encoded: false);
                         parameters.Remove(param);
                     }
                     else if (segment.StartsWith("[.", StringComparison.Ordinal))
@@ -176,7 +176,7 @@ namespace Meziantou.GitLabClient.Generator
                         if (param == null)
                             throw new InvalidOperationException($"Parameter '{segment}' is not mapped for method '{method.UrlTemplate}'");
 
-                        AddParameter(param, separator: null, encoded: false, prefix: ".");
+                        AddParameter(param, parameterDelimiterVariable: null, encoded: false, prefix: ".");
                         parameters.Remove(param);
                     }
                     else
@@ -198,17 +198,21 @@ namespace Meziantou.GitLabClient.Generator
 
                 usingStatements.Add(new AssignStatement(urlVariable, urlBuilder.CreateInvokeMethodExpression("ToString")));
 
-                void AddParameter(MethodParameter param, VariableDeclarationStatement separator, bool encoded, string prefix = null)
+                void AddParameter(MethodParameter param, VariableDeclarationStatement parameterDelimiterVariable, bool encoded, string prefix = null)
                 {
                     var appendParameterMethodName = encoded ? "AppendParameter" : "AppendRawParameter";
 
                     void AddSeparator(StatementCollection statements)
                     {
-                        if (separator != null)
+                        if (parameterDelimiterVariable != null)
                         {
-                            statements.Add(urlBuilder.CreateInvokeMethodExpression("Append", separator));
-                            statements.Add(new AssignStatement(separator, new LiteralExpression('&')));
-                            statements.Add(urlBuilder.CreateInvokeMethodExpression("Append", new LiteralExpression(param.Name + '=')));
+                            statements.Add(urlBuilder.CreateInvokeMethodExpression("Append", parameterDelimiterVariable));
+                            statements.Add(new AssignStatement(parameterDelimiterVariable, new LiteralExpression('&')));
+
+                            if (!param.Options.HasFlag(MethodParameterOptions.CustomMapping))
+                            {
+                                statements.Add(urlBuilder.CreateInvokeMethodExpression("Append", new LiteralExpression(param.Name + '=')));
+                            }
                         }
                     }
 
@@ -231,10 +235,23 @@ namespace Meziantou.GitLabClient.Generator
 
                         AddSeparator(hasValueCondition.TrueStatements);
                         AppendPrefix(hasValueCondition.TrueStatements);
-                        hasValueCondition.TrueStatements.Add(urlBuilder
+                        var parameterValue = FormatValue(param.Type, CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault").CreateMemberReferenceExpression(propertyName));
+
+                        if (param.Options.HasFlag(MethodParameterOptions.CustomMapping))
+                        {
+                            hasValueCondition.TrueStatements.Add(urlBuilder
                                 .CreateInvokeMethodExpression(
-                                    appendParameterMethodName,
-                                    FormatValue(param.Type, CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault").CreateMemberReferenceExpression(propertyName))));
+                                    "AppendParameter",
+                                    param.Name,
+                                    parameterValue));
+                        }
+                        else
+                        {
+                            hasValueCondition.TrueStatements.Add(urlBuilder
+                                    .CreateInvokeMethodExpression(
+                                        appendParameterMethodName,
+                                        parameterValue));
+                        }
 
                         urlUsingStatement.Body.Add(hasValueCondition);
                     }
@@ -255,12 +272,25 @@ namespace Meziantou.GitLabClient.Generator
                         AddSeparator(hasValueCondition.TrueStatements);
                         AppendPrefix(hasValueCondition.TrueStatements);
 
-                        Expression value = isValueType ? CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault") : CreatePropertyReference();
-                        var appendMethod = new MethodInvokeExpression(
-                            new MemberReferenceExpression(urlBuilder, appendParameterMethodName),
-                                FormatValue(param.Type, value));
+                        Expression parameterValue = isValueType ? CreatePropertyReference().CreateInvokeMethodExpression("GetValueOrDefault") : CreatePropertyReference();
 
-                        hasValueCondition.TrueStatements.Add(appendMethod);
+                        if (param.Options.HasFlag(MethodParameterOptions.CustomMapping))
+                        {
+                            hasValueCondition.TrueStatements.Add(urlBuilder
+                                .CreateInvokeMethodExpression(
+                                    "AppendParameter",
+                                    param.Name,
+                                    parameterValue));
+                        }
+                        else
+                        {
+                            var appendMethod = new MethodInvokeExpression(
+                                new MemberReferenceExpression(urlBuilder, appendParameterMethodName),
+                                    FormatValue(param.Type, parameterValue));
+
+                            hasValueCondition.TrueStatements.Add(appendMethod);
+                        }
+
                         urlUsingStatement.Body.Add(hasValueCondition);
                     }
 

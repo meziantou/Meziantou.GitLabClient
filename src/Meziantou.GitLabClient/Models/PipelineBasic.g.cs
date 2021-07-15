@@ -34,15 +34,6 @@ namespace Meziantou.GitLab
             }
         }
 
-        [Meziantou.GitLab.Internals.MappedPropertyAttribute("project_id")]
-        public ProjectIdRef ProjectId
-        {
-            get
-            {
-                return this.GetRequiredNonNullValue<ProjectIdRef>("project_id");
-            }
-        }
-
         [Meziantou.GitLab.Internals.MappedPropertyAttribute("status")]
         public PipelineStatus Status
         {
@@ -58,6 +49,16 @@ namespace Meziantou.GitLab
             get
             {
                 return this.GetValueOrDefault<System.DateTimeOffset?>("updated_at", default(System.DateTimeOffset?));
+            }
+        }
+
+        /// <remarks>The value is an absolute URI</remarks>
+        [Meziantou.GitLab.Internals.MappedPropertyAttribute("web_url")]
+        public System.Uri WebUrl
+        {
+            get
+            {
+                return this.GetRequiredNonNullValue<System.Uri>("web_url");
             }
         }
 

@@ -6,8 +6,8 @@ namespace Meziantou.GitLabClient.Generator.GitLabModels
     {
         public static EntityBuilder Pipeline { get; } = CreateEntity(entity => entity
                 .WithBaseType(PipelineBasic)
-                .AddProperty("duration", ModelRef.Duration)
-                .AddProperty("queue_duration", ModelRef.Duration)
+                .AddProperty("duration", ModelRef.Duration.MakeNullable())
+                .AddProperty("queue_duration", ModelRef.Duration.MakeNullable())
         );
     }
 }

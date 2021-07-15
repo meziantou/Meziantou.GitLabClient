@@ -59,6 +59,16 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Pipeline?> GetPipelineAsync(Meziantou.GitLab.GetPipelineRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/variables</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<PipelineVariable>> GetPipelineVariablesAsync(Meziantou.GitLab.GetPipelineVariablesRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
         ///   <para>URL: <c>GET /projects/:id/pipelines</c></para>
         ///   <para>
         ///     <seealso href="https://docs.gitlab.com/ee/api/pipelines.html#list-project-pipelines" />
@@ -130,6 +140,19 @@ namespace Meziantou.GitLab
         System.Threading.Tasks.Task<Pipeline?> Meziantou.GitLab.IGitLabPipelinesClient.GetPipelineAsync(Meziantou.GitLab.GetPipelineRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
         {
             return this.Pipelines_GetPipelineAsync(request, requestOptions, cancellationToken);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/variables</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<PipelineVariable>> Meziantou.GitLab.IGitLabPipelinesClient.GetPipelineVariablesAsync(Meziantou.GitLab.GetPipelineVariablesRequest request, Meziantou.GitLab.RequestOptions? requestOptions, System.Threading.CancellationToken cancellationToken)
+        {
+            return this.Pipelines_GetPipelineVariablesAsync(request, requestOptions, cancellationToken);
         }
 
         /// <summary>
@@ -212,7 +235,7 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("projects/");
                 if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().Value);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/pipelines/");
@@ -243,7 +266,6 @@ namespace Meziantou.GitLab
             {
                 requestMessage.Method = System.Net.Http.HttpMethod.Post;
                 requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
-                requestMessage.Content = new Meziantou.GitLab.Internals.JsonContent(request, Meziantou.GitLab.Serialization.JsonSerialization.Options);
                 HttpResponse? response = null;
                 try
                 {
@@ -276,10 +298,26 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("projects/");
                 if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().Value);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/pipeline");
+                char separator = '?';
+                if ((!object.ReferenceEquals(request.Ref, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.Append("ref=");
+                    urlBuilder.AppendParameter(request.Ref);
+                }
+
+                if ((!object.ReferenceEquals(request.Variables, null)))
+                {
+                    urlBuilder.Append(separator);
+                    separator = '&';
+                    urlBuilder.AppendParameter("variables", request.Variables);
+                }
+
                 url = urlBuilder.ToString();
             }
 
@@ -333,7 +371,7 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("projects/");
                 if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().Value);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/pipelines/");
@@ -395,7 +433,7 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("projects/");
                 if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().Value);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/pipelines/");
@@ -404,6 +442,69 @@ namespace Meziantou.GitLab
                     urlBuilder.AppendParameter(request.PipelineId.GetValueOrDefault().Value);
                 }
 
+                url = urlBuilder.ToString();
+            }
+
+            return url;
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/variables</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        private async System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<PipelineVariable>> Pipelines_GetPipelineVariablesAsync(Meziantou.GitLab.GetPipelineVariablesRequest request, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            string url = Meziantou.GitLab.GitLabClient.Pipelines_GetPipelineVariablesAsync_BuildUrl(request);
+            using (System.Net.Http.HttpRequestMessage requestMessage = new System.Net.Http.HttpRequestMessage())
+            {
+                requestMessage.Method = System.Net.Http.HttpMethod.Get;
+                requestMessage.RequestUri = new System.Uri(url, System.UriKind.RelativeOrAbsolute);
+                HttpResponse? response = null;
+                try
+                {
+                    response = await this.SendAsync(requestMessage, requestOptions, cancellationToken).ConfigureAwait(false);
+                    await response.EnsureStatusCodeAsync(cancellationToken).ConfigureAwait(false);
+                    System.Collections.Generic.IReadOnlyList<PipelineVariable>? result = await response.ToCollectionAsync<PipelineVariable>(cancellationToken).ConfigureAwait(false);
+                    if ((result == null))
+                    {
+                        throw new Meziantou.GitLab.GitLabException(response.RequestMethod, response.RequestUri, response.StatusCode, "The response cannot be converted to 'PipelineVariable' because the body is null or empty");
+                    }
+
+                    return result;
+                }
+                finally
+                {
+                    if ((response != null))
+                    {
+                        response.Dispose();
+                    }
+                }
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The rule doesn't understand ref struct")]
+        private static string Pipelines_GetPipelineVariablesAsync_BuildUrl(Meziantou.GitLab.GetPipelineVariablesRequest request)
+        {
+            string url;
+            using (Meziantou.GitLab.Internals.UrlBuilder urlBuilder = new Meziantou.GitLab.Internals.UrlBuilder())
+            {
+                urlBuilder.Append("projects/");
+                if (request.Id.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
+                }
+
+                urlBuilder.Append("/pipelines/");
+                if (request.PipelineId.HasValue)
+                {
+                    urlBuilder.AppendParameter(request.PipelineId.GetValueOrDefault().Value);
+                }
+
+                urlBuilder.Append("/variables");
                 url = urlBuilder.ToString();
             }
 
@@ -432,7 +533,7 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("projects/");
                 if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().Value);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/pipelines");
@@ -489,7 +590,7 @@ namespace Meziantou.GitLab
                 urlBuilder.Append("projects/");
                 if (request.Id.HasValue)
                 {
-                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().Value);
+                    urlBuilder.AppendParameter(request.Id.GetValueOrDefault().ValueAsString);
                 }
 
                 urlBuilder.Append("/pipelines/");
@@ -516,7 +617,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Pipeline> CancelPipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Pipeline> CancelPipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CancelPipelineRequest request = new Meziantou.GitLab.CancelPipelineRequest(id, pipelineId);
             return client.CancelPipelineAsync(request, requestOptions, cancellationToken);
@@ -530,9 +631,10 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Pipeline> CreatePipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdRef id, string @ref, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Pipeline> CreatePipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, string @ref, System.Collections.Generic.IEnumerable<Meziantou.GitLab.PipelineVariableCreate>? variables = default(System.Collections.Generic.IEnumerable<Meziantou.GitLab.PipelineVariableCreate>?), Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.CreatePipelineRequest request = new Meziantou.GitLab.CreatePipelineRequest(id, @ref);
+            request.Variables = variables;
             return client.CreatePipelineAsync(request, requestOptions, cancellationToken);
         }
 
@@ -544,7 +646,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Pipeline> DeletePipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Pipeline> DeletePipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.DeletePipelineRequest request = new Meziantou.GitLab.DeletePipelineRequest(id, pipelineId);
             return client.DeletePipelineAsync(request, requestOptions, cancellationToken);
@@ -558,10 +660,24 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Pipeline?> GetPipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Pipeline?> GetPipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.GetPipelineRequest request = new Meziantou.GitLab.GetPipelineRequest(id, pipelineId);
             return client.GetPipelineAsync(request, requestOptions, cancellationToken);
+        }
+
+        /// <summary>
+        ///   <para>URL: <c>GET /projects/:id/pipelines/:pipeline_id/variables</c></para>
+        ///   <para>
+        ///     <seealso href="https://docs.gitlab.com/ee/api/pipelines.html#get-variables-of-a-pipeline" />
+        ///   </para>
+        /// </summary>
+        /// <param name="requestOptions">Options of the request</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        public static System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<PipelineVariable>> GetPipelineVariablesAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            Meziantou.GitLab.GetPipelineVariablesRequest request = new Meziantou.GitLab.GetPipelineVariablesRequest(id, pipelineId);
+            return client.GetPipelineVariablesAsync(request, requestOptions, cancellationToken);
         }
 
         /// <summary>
@@ -571,7 +687,7 @@ namespace Meziantou.GitLab
         ///   </para>
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
-        public static Meziantou.GitLab.PagedResponse<PipelineBasic> GetPipelines(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
+        public static Meziantou.GitLab.PagedResponse<PipelineBasic> GetPipelines(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions))
         {
             Meziantou.GitLab.GetPipelinesRequest request = new Meziantou.GitLab.GetPipelinesRequest(id);
             return client.GetPipelines(request, requestOptions);
@@ -585,7 +701,7 @@ namespace Meziantou.GitLab
         /// </summary>
         /// <param name="requestOptions">Options of the request</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
-        public static System.Threading.Tasks.Task<Pipeline> RetryPipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public static System.Threading.Tasks.Task<Pipeline> RetryPipelineAsync(this Meziantou.GitLab.IGitLabPipelinesClient client, ProjectIdOrPathRef id, PipelineIdRef pipelineId, Meziantou.GitLab.RequestOptions? requestOptions = default(Meziantou.GitLab.RequestOptions), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             Meziantou.GitLab.RetryPipelineRequest request = new Meziantou.GitLab.RetryPipelineRequest(id, pipelineId);
             return client.RetryPipelineAsync(request, requestOptions, cancellationToken);
@@ -594,13 +710,13 @@ namespace Meziantou.GitLab
 
     public partial class CancelPipelineRequest
     {
-        private ProjectIdRef? _id;
+        private ProjectIdOrPathRef? _id;
 
         private PipelineIdRef? _pipelineId;
 
         /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
         /// <param name="pipelineId">The ID of a pipeline</param>
-        public CancelPipelineRequest(ProjectIdRef? id, PipelineIdRef? pipelineId)
+        public CancelPipelineRequest(ProjectIdOrPathRef? id, PipelineIdRef? pipelineId)
         {
             this._id = id;
             this._pipelineId = pipelineId;
@@ -614,7 +730,7 @@ namespace Meziantou.GitLab
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public ProjectIdRef? Id
+        public ProjectIdOrPathRef? Id
         {
             get
             {
@@ -645,13 +761,15 @@ namespace Meziantou.GitLab
 
     public partial class CreatePipelineRequest
     {
-        private ProjectIdRef? _id;
+        private ProjectIdOrPathRef? _id;
 
         private string? _ref;
 
+        private System.Collections.Generic.IEnumerable<Meziantou.GitLab.PipelineVariableCreate>? _variables;
+
         /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
         /// <param name="ref">Reference to commit</param>
-        public CreatePipelineRequest(ProjectIdRef? id, string? @ref)
+        public CreatePipelineRequest(ProjectIdOrPathRef? id, string? @ref)
         {
             this._id = id;
             this._ref = @ref;
@@ -665,7 +783,7 @@ namespace Meziantou.GitLab
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public ProjectIdRef? Id
+        public ProjectIdOrPathRef? Id
         {
             get
             {
@@ -680,7 +798,7 @@ namespace Meziantou.GitLab
         /// <summary>
         ///   <para>Reference to commit</para>
         /// </summary>
-        [System.Text.Json.Serialization.JsonPropertyNameAttribute("ref")]
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
         public string? Ref
         {
             get
@@ -692,17 +810,33 @@ namespace Meziantou.GitLab
                 this._ref = value;
             }
         }
+
+        /// <summary>
+        ///   <para>An array containing the variables available in the pipeline, matching the structure [{ 'key': 'UPLOAD_TO_S3', 'variable_type': 'file', 'value': 'true' }]</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public System.Collections.Generic.IEnumerable<Meziantou.GitLab.PipelineVariableCreate>? Variables
+        {
+            get
+            {
+                return this._variables;
+            }
+            set
+            {
+                this._variables = value;
+            }
+        }
     }
 
     public partial class DeletePipelineRequest
     {
-        private ProjectIdRef? _id;
+        private ProjectIdOrPathRef? _id;
 
         private PipelineIdRef? _pipelineId;
 
         /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
         /// <param name="pipelineId">The ID of a pipeline</param>
-        public DeletePipelineRequest(ProjectIdRef? id, PipelineIdRef? pipelineId)
+        public DeletePipelineRequest(ProjectIdOrPathRef? id, PipelineIdRef? pipelineId)
         {
             this._id = id;
             this._pipelineId = pipelineId;
@@ -716,7 +850,7 @@ namespace Meziantou.GitLab
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public ProjectIdRef? Id
+        public ProjectIdOrPathRef? Id
         {
             get
             {
@@ -747,13 +881,13 @@ namespace Meziantou.GitLab
 
     public partial class GetPipelineRequest
     {
-        private ProjectIdRef? _id;
+        private ProjectIdOrPathRef? _id;
 
         private PipelineIdRef? _pipelineId;
 
         /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
         /// <param name="pipelineId">The ID of a pipeline</param>
-        public GetPipelineRequest(ProjectIdRef? id, PipelineIdRef? pipelineId)
+        public GetPipelineRequest(ProjectIdOrPathRef? id, PipelineIdRef? pipelineId)
         {
             this._id = id;
             this._pipelineId = pipelineId;
@@ -767,7 +901,7 @@ namespace Meziantou.GitLab
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public ProjectIdRef? Id
+        public ProjectIdOrPathRef? Id
         {
             get
             {
@@ -798,10 +932,10 @@ namespace Meziantou.GitLab
 
     public partial class GetPipelinesRequest
     {
-        private ProjectIdRef? _id;
+        private ProjectIdOrPathRef? _id;
 
         /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
-        public GetPipelinesRequest(ProjectIdRef? id)
+        public GetPipelinesRequest(ProjectIdOrPathRef? id)
         {
             this._id = id;
         }
@@ -814,7 +948,7 @@ namespace Meziantou.GitLab
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public ProjectIdRef? Id
+        public ProjectIdOrPathRef? Id
         {
             get
             {
@@ -829,13 +963,13 @@ namespace Meziantou.GitLab
 
     public partial class RetryPipelineRequest
     {
-        private ProjectIdRef? _id;
+        private ProjectIdOrPathRef? _id;
 
         private PipelineIdRef? _pipelineId;
 
         /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
         /// <param name="pipelineId">The ID of a pipeline</param>
-        public RetryPipelineRequest(ProjectIdRef? id, PipelineIdRef? pipelineId)
+        public RetryPipelineRequest(ProjectIdOrPathRef? id, PipelineIdRef? pipelineId)
         {
             this._id = id;
             this._pipelineId = pipelineId;
@@ -849,7 +983,58 @@ namespace Meziantou.GitLab
         ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnoreAttribute]
-        public ProjectIdRef? Id
+        public ProjectIdOrPathRef? Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                this._id = value;
+            }
+        }
+
+        /// <summary>
+        ///   <para>The ID of a pipeline</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public PipelineIdRef? PipelineId
+        {
+            get
+            {
+                return this._pipelineId;
+            }
+            set
+            {
+                this._pipelineId = value;
+            }
+        }
+    }
+
+    public partial class GetPipelineVariablesRequest
+    {
+        private ProjectIdOrPathRef? _id;
+
+        private PipelineIdRef? _pipelineId;
+
+        /// <param name="id">The ID or URL-encoded path of the project owned by the authenticated user</param>
+        /// <param name="pipelineId">The ID of a pipeline</param>
+        public GetPipelineVariablesRequest(ProjectIdOrPathRef? id, PipelineIdRef? pipelineId)
+        {
+            this._id = id;
+            this._pipelineId = pipelineId;
+        }
+
+        public GetPipelineVariablesRequest()
+        {
+        }
+
+        /// <summary>
+        ///   <para>The ID or URL-encoded path of the project owned by the authenticated user</para>
+        /// </summary>
+        [System.Text.Json.Serialization.JsonIgnoreAttribute]
+        public ProjectIdOrPathRef? Id
         {
             get
             {

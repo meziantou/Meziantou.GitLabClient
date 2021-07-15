@@ -81,5 +81,27 @@ namespace Meziantou.GitLab.Internals
                 first = false;
             }
         }
+
+        public void AppendParameter(string parameterName, IEnumerable<PipelineVariableCreate> values)
+        {
+            var first = true;
+            foreach (var variable in values)
+            {
+                if (!first)
+                {
+                    Append('&');
+                    first = false;
+                }
+
+                Append(parameterName);
+                Append("[][key]=");
+                AppendParameter(variable.Name);
+
+                Append('&');
+                Append(parameterName);
+                Append("[][value]=");
+                AppendParameter(variable.Value);
+            }
+        }
     }
 }
