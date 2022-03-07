@@ -20,7 +20,7 @@ jobs:
   lint_csharp:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -37,7 +37,7 @@ jobs:
   create_nuget:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
     - run: dotnet pack Meziantou.GitLabClient.sln --configuration Release --output ${{ env.NuGetDirectory }} /bl
@@ -69,7 +69,7 @@ jobs:
         env:
           GITLAB_OMNIBUS_CONFIG: "external_url 'http://localhost:48624/'"
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
     - run: |
