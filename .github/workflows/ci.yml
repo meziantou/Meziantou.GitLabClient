@@ -41,7 +41,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
     - run: dotnet pack Meziantou.GitLabClient.sln --configuration Release --output ${{ env.NuGetDirectory }} /bl
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: nuget
         if-no-files-found: error
@@ -81,7 +81,7 @@ jobs:
       name: Run tests
       env:
         GITLAB_LICENSEFILE: ${{ secrets.GITLAB_LICENSEFILE }}
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: always()
       with:
         name: ${{ steps.set-artifact-name.outputs.artifact_name }}
