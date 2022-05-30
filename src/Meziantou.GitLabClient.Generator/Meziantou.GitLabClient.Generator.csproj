@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
     <PackageReference Include="Humanizer.Core" Version="2.8.26" />
-    <PackageReference Include="Meziantou.Framework" Version="3.0.6" />
+    <PackageReference Include="Meziantou.Framework" Version="3.0.25" />
     <PackageReference Include="Meziantou.Framework.CodeDom" Version="4.0.0" />
     <PackageReference Include="Meziantou.Framework.FullPath" Version="1.0.2" />
   </ItemGroup>
